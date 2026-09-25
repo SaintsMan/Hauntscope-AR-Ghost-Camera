@@ -8,6 +8,10 @@ namespace Hauntscope.Gameplay.Config
     public sealed class GhostConfig
     {
         [SerializeField] private GhostData[] _ghosts = Array.Empty<GhostData>();
+        [SerializeField] private string _firstGhostId = "wisp";
+        [SerializeField, Min(0f)] private float _commonWeight = 75f;
+        [SerializeField, Min(0f)] private float _rareWeight = 25f;
+        [SerializeField, Min(0f)] private float _legendaryWeight;
         [SerializeField, Min(0f)] private float _wanderIntervalMin = 3f;
         [SerializeField, Min(0f)] private float _wanderIntervalMax = 6f;
         [SerializeField, Min(0.01f)] private float _moveSmoothTime = 0.8f;
@@ -26,6 +30,20 @@ namespace Hauntscope.Gameplay.Config
 
         public GhostConfig()
         {
+        }
+
+        public GhostConfig(
+            GhostData[] ghosts,
+            string firstGhostId,
+            float commonWeight,
+            float rareWeight,
+            float legendaryWeight)
+        {
+            _ghosts = ghosts;
+            _firstGhostId = firstGhostId;
+            _commonWeight = commonWeight;
+            _rareWeight = rareWeight;
+            _legendaryWeight = legendaryWeight;
         }
 
         public GhostConfig(
@@ -63,6 +81,18 @@ namespace Hauntscope.Gameplay.Config
         }
 
         public IReadOnlyList<GhostData> Ghosts => _ghosts;
+
+        public string FirstGhostId => _firstGhostId;
+
+        public float GetRarityWeight(GhostRarity rarity)
+        {
+            return rarity switch
+            {
+                GhostRarity.Common => _commonWeight,
+                GhostRarity.Rare => _rareWeight,
+                _ => _legendaryWeight
+            };
+        }
 
         public float WanderIntervalMin => _wanderIntervalMin;
 

@@ -38,7 +38,7 @@ namespace Hauntscope.Gameplay.Hunt.States
             if (_session.Ghost.Value != null)
                 return;
 
-            var data = _selector.Select();
+            var data = _selector.Select(isFirstSession: false);
             _session.Begin(_factory.Create(data), data);
         }
 
