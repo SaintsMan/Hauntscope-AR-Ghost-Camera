@@ -1,6 +1,7 @@
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
+using Hauntscope.Gameplay.Ghosts.Abilities;
 using UnityEngine;
 
 namespace Hauntscope.Gameplay.Ghosts
@@ -37,11 +38,21 @@ namespace Hauntscope.Gameplay.Ghosts
 
             var view = Object.Instantiate(data.Prefab, position, Quaternion.identity);
             view.name = data.Id;
+            view.SetRimColor(data.RimColor);
 
             var context = new GhostContext(data.Motion, data.Detection, data.Capture, _config, mover, _random, _planes, _camera);
-            var ghost = new Ghost(context, view);
+            var ghost = new Ghost(context, view, CreateAbilities(data));
             ghost.Start();
             return ghost;
+        }
+
+        private static IGhostAbility[] CreateAbilities(GhostData data)
+        {
+            var abilities = new IGhostAbility[data.Abilities.Count];
+            for (var i = 0; i < abilities.Length; i++)
+                abilities[i] = data.Abilities[i].CreateAbility();
+
+            return abilities;
         }
     }
 }

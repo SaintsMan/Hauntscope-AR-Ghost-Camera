@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using Hauntscope.Core.StateMachines;
+using Hauntscope.Gameplay.Ghosts.Abilities;
 using Hauntscope.Gameplay.Ghosts.States;
 using UnityEngine;
 
@@ -8,8 +11,8 @@ namespace Hauntscope.Gameplay.Ghosts
     {
         private const float NormalSpeed = 1f;
 
-        private readonly GhostContext _context;
         private readonly IGhostView _view;
+        private readonly IReadOnlyList<IGhostAbility> _abilities;
         private readonly StateMachine _stateMachine = new StateMachine();
         private readonly GhostWanderState _wanderState;
         private readonly GhostAlertedState _alertedState;
@@ -22,9 +25,15 @@ namespace Hauntscope.Gameplay.Ghosts
         private float _revealBeforeEscape;
 
         public Ghost(GhostContext context, IGhostView view)
+            : this(context, view, Array.Empty<IGhostAbility>())
         {
-            _context = context;
+        }
+
+        public Ghost(GhostContext context, IGhostView view, IReadOnlyList<IGhostAbility> abilities)
+        {
+            Context = context;
             _view = view;
+            _abilities = abilities;
             _wanderState = new GhostWanderState(context, NormalSpeed);
             _alertedState = new GhostAlertedState(context);
             _fleeState = new GhostFleeState(context, () => IsBeamed);
@@ -38,15 +47,24 @@ namespace Hauntscope.Gameplay.Ghosts
             _stateMachine.AddTransition(_fleeState, _alertedState, () => _fleeState.IsCalm);
         }
 
-        public Vector3 Position => _context.Mover.Position;
+        public GhostContext Context { get; }
 
-        public float EmfRange => _context.Detection.EmfRange;
+        public Vector3 Position => Context.Mover.Position;
 
-        public float RevealRange => _context.Detection.RevealRange;
+        public float EmfRange => Context.Detection.EmfRange;
 
-        public float Resistance => _context.Capture.Resistance;
+        public float RevealRange => Context.Detection.RevealRange;
+
+        public float Resistance => Context.Capture.Resistance;
 
         public float Reveal { get; private set; }
+
+        // Blink hides the ghost without touching Reveal, so the lens keeps its progress between flashes.
+        public bool IsVisible { get; private set; } = true;
+
+        public float VisibleReveal => IsVisible ? Reveal : 0f;
+
+        public float CaptureProgress { get; private set; }
 
         public bool IsBeamed { get; private set; }
 
@@ -81,6 +99,22 @@ namespace Hauntscope.Gameplay.Ghosts
             IsBeamed = beamed && !IsLeaving;
         }
 
+        public void SetCaptureProgress(float progress)
+        {
+            CaptureProgress = progress;
+        }
+
+        public void SetVisible(bool visible)
+        {
+            IsVisible = visible || IsLeaving;
+        }
+
+        public void TeleportTo(Vector3 position)
+        {
+            if (!IsLeaving)
+                Context.Mover.Teleport(position);
+        }
+
         public void Capture()
         {
             if (IsLeaving)
@@ -88,6 +122,7 @@ namespace Hauntscope.Gameplay.Ghosts
 
             _captureRequested = true;
             IsBeamed = false;
+            IsVisible = true;
             Reveal = 1f;
         }
 
@@ -98,14 +133,24 @@ namespace Hauntscope.Gameplay.Ghosts
 
             _escapeRequested = true;
             IsBeamed = false;
-            _revealBeforeEscape = Reveal;
+            _revealBeforeEscape = VisibleReveal;
+            IsVisible = true;
         }
 
         public void Tick(float deltaTime)
         {
             _stateMachine.Tick(deltaTime);
-            if (IsEscaped)
-                Reveal = _revealBeforeEscape * (1f - _escapedState.Progress);
+
+            if (IsLeaving)
+            {
+                if (IsEscaped)
+                    Reveal = _revealBeforeEscape * (1f - _escapedState.Progress);
+            }
+            else
+            {
+                for (var i = 0; i < _abilities.Count; i++)
+                    _abilities[i].Tick(this, deltaTime);
+            }
 
             SyncView();
         }
@@ -117,9 +162,9 @@ namespace Hauntscope.Gameplay.Ghosts
 
         private void SyncView()
         {
-            var mover = _context.Mover;
+            var mover = Context.Mover;
             _view.SetPose(mover.VisualPosition, Quaternion.LookRotation(mover.Facing));
-            _view.SetReveal(Reveal);
+            _view.SetReveal(VisibleReveal);
             _view.SetDissolve(IsCaptured ? _capturedState.Progress : 0f);
         }
     }

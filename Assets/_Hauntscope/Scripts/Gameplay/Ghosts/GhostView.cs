@@ -6,10 +6,14 @@ namespace Hauntscope.Gameplay.Ghosts
     {
         private static readonly int RevealId = Shader.PropertyToID("_Reveal");
         private static readonly int DissolveId = Shader.PropertyToID("_Dissolve");
+        private static readonly int RimColorId = Shader.PropertyToID("_RimColor");
+        private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
 
         [SerializeField] private Renderer[] _renderers;
+        [SerializeField] private Renderer _body;
 
         private Material[] _materials;
+        private Material _bodyMaterial;
 
         public void SetPose(Vector3 position, Quaternion rotation)
         {
@@ -32,6 +36,13 @@ namespace Hauntscope.Gameplay.Ghosts
                 material.SetFloat(DissolveId, dissolve);
         }
 
+        public void SetRimColor(Color color)
+        {
+            _bodyMaterial.SetColor(RimColorId, color);
+            var baseColor = _bodyMaterial.GetColor(BaseColorId);
+            _bodyMaterial.SetColor(BaseColorId, new Color(color.r, color.g, color.b, baseColor.a));
+        }
+
         public void Despawn()
         {
             Destroy(gameObject);
@@ -42,7 +53,11 @@ namespace Hauntscope.Gameplay.Ghosts
             // Each ghost owns its material instance so _Reveal and _Dissolve don't leak into other ghosts.
             _materials = new Material[_renderers.Length];
             for (var i = 0; i < _renderers.Length; i++)
+            {
                 _materials[i] = _renderers[i].material;
+                if (_renderers[i] == _body)
+                    _bodyMaterial = _materials[i];
+            }
         }
 
         private void OnDestroy()
@@ -58,6 +73,9 @@ namespace Hauntscope.Gameplay.Ghosts
         private void Reset()
         {
             _renderers = GetComponentsInChildren<Renderer>(true);
+            var body = transform.Find("Body");
+            if (body != null)
+                _body = body.GetComponent<Renderer>();
         }
 #endif
     }

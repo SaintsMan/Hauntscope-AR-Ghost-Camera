@@ -50,13 +50,14 @@ namespace Hauntscope.Gameplay.Tools
             if (ghost == null || ghost.IsCaptured)
                 return;
 
-            var hitting = _isActive.Value && ghost.Reveal > _config.BeamRevealThreshold;
+            var hitting = _isActive.Value && ghost.VisibleReveal > _config.BeamRevealThreshold;
             ghost.SetBeamed(hitting);
 
             var delta = hitting && IsInReticle(ghost.Position)
                 ? _config.CaptureRate / ghost.Resistance * deltaTime
                 : -_config.DecayRate * deltaTime;
             _progress.Value = Mathf.Clamp01(_progress.Value + delta);
+            ghost.SetCaptureProgress(_progress.Value);
 
             if (_progress.Value >= 1f)
                 ghost.Capture();
