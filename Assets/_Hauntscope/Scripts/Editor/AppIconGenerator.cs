@@ -251,10 +251,12 @@ namespace Hauntscope.Editor
                 foreach (var icon in icons)
                 {
                     // Android adaptive icons take their layers in order: background first, foreground second.
+                    // Unity deprecates the per-density legacy and round slots, so they stay empty and fall back
+                    // to the default icon below.
                     if (kind == AndroidPlatformIconKind.Adaptive)
                         icon.SetTextures(background, foreground);
                     else
-                        icon.SetTexture(legacy);
+                        icon.SetTexture(null);
                 }
 
                 PlayerSettings.SetPlatformIcons(target, kind, icons);
