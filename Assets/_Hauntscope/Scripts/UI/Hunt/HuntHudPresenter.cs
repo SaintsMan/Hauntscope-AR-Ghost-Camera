@@ -3,11 +3,12 @@ using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Tools;
+using UnityEngine;
 using VContainer.Unity;
 
 namespace Hauntscope.UI.Hunt
 {
-    public sealed class HuntHudPresenter : IStartable, IDisposable
+    public sealed class HuntHudPresenter : IStartable, ITickable, IDisposable
     {
         private const string EmfLevelKey = "hud.emf.level";
 
@@ -18,6 +19,9 @@ namespace Hauntscope.UI.Hunt
         private readonly ILocalizationService _localization;
         private readonly ToolsConfig _toolsConfig;
         private readonly HuntSession _session;
+        private readonly ScareConfig _scareConfig;
+
+        private float _scareFlash;
 
         public HuntHudPresenter(
             HuntHudView view,
@@ -26,7 +30,8 @@ namespace Hauntscope.UI.Hunt
             RoomCalibration calibration,
             ILocalizationService localization,
             ToolsConfig toolsConfig,
-            HuntSession session)
+            HuntSession session,
+            ScareConfig scareConfig)
         {
             _view = view;
             _radar = radar;
@@ -35,6 +40,7 @@ namespace Hauntscope.UI.Hunt
             _localization = localization;
             _toolsConfig = toolsConfig;
             _session = session;
+            _scareConfig = scareConfig;
         }
 
         public void Start()
@@ -45,6 +51,7 @@ namespace Hauntscope.UI.Hunt
             _toolbelt.Beam.Progress.Changed += OnCaptureProgressChanged;
             _calibration.Progress.Changed += OnCalibrationChanged;
             _session.Result.Changed += OnResultChanged;
+            _session.Scared += OnScared;
             _localization.Changed += OnLanguageChanged;
             _view.LensClicked += OnLensClicked;
             _view.BeamPressed += OnBeamPressed;
@@ -52,10 +59,20 @@ namespace Hauntscope.UI.Hunt
 
             _view.SetReticleRadius(_toolsConfig.ReticleRadius);
             UpdateVisibility();
+            _view.SetScareFlash(0f);
             _view.SetLensActive(_toolbelt.Lens.IsActive.Value);
             _view.SetBeamActive(_toolbelt.Beam.IsActive.Value);
             _view.SetCaptureProgress(_toolbelt.Beam.Progress.Value);
             RenderEmf(_radar.Level.Value);
+        }
+
+        public void Tick()
+        {
+            if (_scareFlash <= 0f)
+                return;
+
+            _scareFlash = Mathf.Max(0f, _scareFlash - Time.deltaTime / _scareConfig.Duration);
+            _view.SetScareFlash(_scareFlash);
         }
 
         public void Dispose()
@@ -66,10 +83,17 @@ namespace Hauntscope.UI.Hunt
             _toolbelt.Beam.Progress.Changed -= OnCaptureProgressChanged;
             _calibration.Progress.Changed -= OnCalibrationChanged;
             _session.Result.Changed -= OnResultChanged;
+            _session.Scared -= OnScared;
             _localization.Changed -= OnLanguageChanged;
             _view.LensClicked -= OnLensClicked;
             _view.BeamPressed -= OnBeamPressed;
             _view.BeamReleased -= OnBeamReleased;
+        }
+
+        private void OnScared()
+        {
+            _scareFlash = 1f;
+            _view.SetScareFlash(_scareFlash);
         }
 
         private void OnLensClicked()

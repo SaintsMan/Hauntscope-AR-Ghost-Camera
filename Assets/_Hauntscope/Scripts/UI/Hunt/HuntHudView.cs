@@ -20,6 +20,7 @@ namespace Hauntscope.UI.Hunt
         [SerializeField] private Image _captureProgress;
         [SerializeField] private Color _reticleIdleColor;
         [SerializeField] private Color _reticleBeamColor;
+        [SerializeField] private Image _scareFlash;
 
         public event Action LensClicked
         {
@@ -70,6 +71,14 @@ namespace Hauntscope.UI.Hunt
         public void SetBeamActive(bool active)
         {
             _reticleRing.color = active ? _reticleBeamColor : _reticleIdleColor;
+        }
+
+        public void SetScareFlash(float alpha)
+        {
+            var color = _scareFlash.color;
+            color.a = alpha;
+            _scareFlash.color = color;
+            _scareFlash.enabled = alpha > 0f;
         }
 
         public void SetCaptureProgress(float progress)

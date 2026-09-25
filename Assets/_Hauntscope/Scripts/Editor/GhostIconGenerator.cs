@@ -49,7 +49,7 @@ namespace Hauntscope.Editor
         private static Bounds PrepareMaterials(GameObject ghost, Color rimColor)
         {
             var bounds = new Bounds(ghost.transform.position, Vector3.zero);
-            foreach (var renderer in ghost.GetComponentsInChildren<Renderer>())
+            foreach (var renderer in ghost.GetComponentsInChildren<MeshRenderer>())
             {
                 var material = new Material(renderer.sharedMaterial);
                 material.SetFloat(RevealId, 1f);

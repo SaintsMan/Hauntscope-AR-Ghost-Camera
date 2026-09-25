@@ -12,6 +12,9 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private HapticsConfig _haptics = new HapticsConfig();
         [SerializeField] private ToolsConfig _tools = new ToolsConfig();
         [SerializeField] private HudConfig _hud = new HudConfig();
+        [SerializeField] private ScareConfig _scare = new ScareConfig();
+        [SerializeField] private AudioConfig _audio = new AudioConfig();
+        [SerializeField] private VfxConfig _vfx = new VfxConfig();
 
         public int TargetFrameRate => _targetFrameRate;
 
@@ -26,5 +29,11 @@ namespace Hauntscope.Gameplay.Config
         public ToolsConfig Tools => _tools;
 
         public HudConfig Hud => _hud;
+
+        public ScareConfig Scare => _scare;
+
+        public AudioConfig Audio => _audio;
+
+        public VfxConfig Vfx => _vfx;
     }
 }

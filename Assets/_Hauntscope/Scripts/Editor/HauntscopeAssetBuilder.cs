@@ -14,6 +14,8 @@ namespace Hauntscope.Editor
         private const string GhostMaterialPath = Root + "/Art/Materials/Ghost.mat";
         private const string EyesMaterialPath = Root + "/Art/Materials/GhostEyes.mat";
         private const string GameConfigPath = Root + "/Data/Config/GameConfig.asset";
+        private const string SfxFolder = Root + "/Audio/SFX";
+        private const string AmbientFolder = Root + "/Audio/Ambient";
 
         private static readonly GhostRecipe[] Recipes =
         {
@@ -37,7 +39,10 @@ namespace Hauntscope.Editor
             SfxGenerator.BuildAll();
             FontAssetGenerator.BuildAll();
             CreditsExporter.Export();
+            var config = AssetDatabase.LoadAssetAtPath<GameConfig>(GameConfigPath);
+            VfxGenerator.BuildAll(config.Ghost.CaptureDuration);
             BuildGhosts();
+            WireConfig(config);
         }
 
         private static void BuildGhosts()
@@ -108,6 +113,7 @@ namespace Hauntscope.Editor
                 eyes.SetParent(root.transform, false);
                 var left = CreateEye("EyeLeft", eyes, recipe.EyeCenter + Vector3.left * recipe.EyeSpacing, recipe.EyeScale, eyesMaterial);
                 var right = CreateEye("EyeRight", eyes, recipe.EyeCenter + Vector3.right * recipe.EyeSpacing, recipe.EyeScale, eyesMaterial);
+                var trail = VfxGenerator.AddGhostTrail(root, mesh);
 
                 var view = root.AddComponent<GhostView>();
                 var serialized = new SerializedObject(view);
@@ -117,6 +123,7 @@ namespace Hauntscope.Editor
                 renderers.GetArrayElementAtIndex(1).objectReferenceValue = left;
                 renderers.GetArrayElementAtIndex(2).objectReferenceValue = right;
                 serialized.FindProperty("_body").objectReferenceValue = bodyRenderer;
+                serialized.FindProperty("_trail").objectReferenceValue = trail;
                 serialized.ApplyModifiedPropertiesWithoutUndo();
 
                 var prefab = PrefabUtility.SaveAsPrefabAsset(root, $"{Root}/Prefabs/Ghosts/{recipe.AssetName}.prefab");
@@ -190,6 +197,7 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_rarity").enumValueIndex = (int)recipe.Rarity;
             serialized.FindProperty("_prefab").objectReferenceValue = prefab;
             serialized.FindProperty("_rimColor").colorValue = recipe.RimColor;
+            serialized.FindProperty("_whisperClip").objectReferenceValue = LoadClip(SfxFolder, "Whisper" + recipe.AssetName);
             serialized.FindProperty("_motion._moveSpeed").floatValue = recipe.MoveSpeed;
             serialized.FindProperty("_motion._fleeSpeed").floatValue = recipe.FleeSpeed;
             serialized.FindProperty("_capture._resistance").floatValue = recipe.Resistance;
@@ -216,6 +224,43 @@ namespace Hauntscope.Editor
 
             serialized.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(config);
+        }
+
+        private static void WireConfig(GameConfig config)
+        {
+            var serialized = new SerializedObject(config);
+            SetClip(serialized, "_emf._beepClip", SfxFolder, "EmfBeep");
+            SetClip(serialized, "_hud._lowBatteryClip", SfxFolder, "BatteryLow");
+            SetClip(serialized, "_audio._ambientDrone", AmbientFolder, "AmbientDrone");
+            SetClip(serialized, "_audio._ambientStatic", AmbientFolder, "AmbientStatic");
+            SetClip(serialized, "_audio._lensOn", SfxFolder, "LensOn");
+            SetClip(serialized, "_audio._lensOff", SfxFolder, "LensOff");
+            SetClip(serialized, "_audio._beamLoop", SfxFolder, "BeamLoop");
+            SetClip(serialized, "_audio._captureSuccess", SfxFolder, "CaptureSuccess");
+            SetClip(serialized, "_audio._ghostEscape", SfxFolder, "GhostEscape");
+            SetClip(serialized, "_audio._scareSting", SfxFolder, "ScareSting");
+            SetClip(serialized, "_audio._teleportWhoosh", SfxFolder, "TeleportWhoosh");
+            SetClip(serialized, "_audio._scanComplete", SfxFolder, "ScanComplete");
+            SetClip(serialized, "_audio._uiClick", SfxFolder, "UiClick");
+            SetClip(serialized, "_audio._uiBack", SfxFolder, "UiBack");
+            serialized.FindProperty("_vfx._captureSpiral").objectReferenceValue = VfxGenerator.CaptureSpiral;
+            serialized.FindProperty("_vfx._teleportFlash").objectReferenceValue = VfxGenerator.TeleportFlash;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(config);
+            AssetDatabase.SaveAssets();
+        }
+
+        private static void SetClip(SerializedObject serialized, string property, string folder, string name)
+        {
+            serialized.FindProperty(property).objectReferenceValue = LoadClip(folder, name);
+        }
+
+        private static AudioClip LoadClip(string folder, string name)
+        {
+            var clip = AssetDatabase.LoadAssetAtPath<AudioClip>($"{folder}/{name}.wav");
+            if (clip == null)
+                Debug.LogError($"Hauntscope: missing audio clip {folder}/{name}.wav");
+            return clip;
         }
 
         private sealed class GhostRecipe

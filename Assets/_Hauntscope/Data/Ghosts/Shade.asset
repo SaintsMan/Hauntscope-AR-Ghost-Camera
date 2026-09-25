@@ -19,6 +19,7 @@ MonoBehaviour:
   _rarity: 1
   _prefab: {fileID: 4999927530735615912, guid: 5525ceb71cfc239408b8a352962b9a5d, type: 3}
   _rimColor: {r: 0.60784316, g: 0.36078432, b: 1, a: 1}
+  _whisperClip: {fileID: 8300000, guid: e2201c929f61f714cad51cdb8b6914d0, type: 3}
   _motion:
     _moveSpeed: 0.5
     _fleeSpeed: 1.2

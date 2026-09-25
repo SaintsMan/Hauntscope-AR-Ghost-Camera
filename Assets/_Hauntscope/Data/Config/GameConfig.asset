@@ -81,3 +81,40 @@ MonoBehaviour:
     _grainFrameRate: 24
     _lowBatteryClip: {fileID: 8300000, guid: 53330886e20696845bb2818a680507ab, type: 3}
     _lowBatteryVolume: 0.7
+  _scare:
+    _minTime: 45
+    _distance: 1.5
+    _angle: 45
+    _duration: 1.2
+    _rushTime: 0.3
+    _faceDistance: 0.45
+  _audio:
+    _ambientDrone: {fileID: 8300000, guid: 13a51e486246dbf498627a43fc02d96b, type: 3}
+    _ambientDroneVolume: 0.35
+    _ambientStatic: {fileID: 8300000, guid: b010410340cd22e478eb22728169d7a7, type: 3}
+    _ambientStaticVolume: 0.18
+    _lensOn: {fileID: 8300000, guid: a57b411f4d3134741b4bfda8379e9edb, type: 3}
+    _lensOff: {fileID: 8300000, guid: 830b1bd91e28aa540b2be2e36a92d831, type: 3}
+    _lensVolume: 0.6
+    _beamLoop: {fileID: 8300000, guid: 274a8bf58b166a14aa11f09d79064290, type: 3}
+    _beamVolume: 0.45
+    _beamPitchMin: 0.9
+    _beamPitchMax: 1.35
+    _beamHapticInterval: 0.15
+    _captureSuccess: {fileID: 8300000, guid: d3f98a22f2dd0f746820eddb1f9120d3, type: 3}
+    _captureVolume: 0.9
+    _ghostEscape: {fileID: 8300000, guid: e45442146044f1544a1496f01fd6492b, type: 3}
+    _escapeVolume: 0.8
+    _scareSting: {fileID: 8300000, guid: ebb5ec63917585147a56bf82c5523681, type: 3}
+    _scareVolume: 1
+    _teleportWhoosh: {fileID: 8300000, guid: 8005730adc56db8498b2e534610c136d, type: 3}
+    _teleportVolume: 0.8
+    _scanComplete: {fileID: 8300000, guid: 567a78c50a2e18945ae75aa1a6a0481d, type: 3}
+    _scanVolume: 0.7
+    _uiClick: {fileID: 8300000, guid: cfe944b3d76ae294888bbe041c11b1fb, type: 3}
+    _uiBack: {fileID: 8300000, guid: 3ef3e83745c3e9a47a07cb6987c9149d, type: 3}
+    _uiVolume: 0.5
+    _whisperVolume: 0.55
+  _vfx:
+    _captureSpiral: {fileID: 3482571195191366530, guid: 6cc077c0fffe26544bbff774130ad3fc, type: 3}
+    _teleportFlash: {fileID: 9163850681629320366, guid: d281b30d52bb11d4fae5ccc1d73b5dcf, type: 3}

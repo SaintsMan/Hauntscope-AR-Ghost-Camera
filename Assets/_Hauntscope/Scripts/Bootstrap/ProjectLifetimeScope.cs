@@ -1,5 +1,6 @@
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
+using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Infrastructure.Audio;
 using Hauntscope.Infrastructure.Haptics;
@@ -36,6 +37,8 @@ namespace Hauntscope.Bootstrap
 
             builder.RegisterEntryPoint<FrameRateInitializer>();
             builder.RegisterEntryPoint<LanguageSync>();
+            builder.RegisterEntryPoint<AudioSettingsSync>();
+            builder.Register<UiFeedback>(Lifetime.Singleton);
         }
 
         private void RegisterConfig(IContainerBuilder builder)
@@ -47,6 +50,9 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Haptics);
             builder.RegisterInstance(_gameConfig.Tools);
             builder.RegisterInstance(_gameConfig.Hud);
+            builder.RegisterInstance(_gameConfig.Scare);
+            builder.RegisterInstance(_gameConfig.Audio);
+            builder.RegisterInstance(_gameConfig.Vfx);
         }
 
         private static void RegisterProgress(IContainerBuilder builder)
@@ -60,9 +66,11 @@ namespace Hauntscope.Bootstrap
         private static void RegisterHaptics(IContainerBuilder builder)
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
-            builder.Register<AndroidHaptics>(Lifetime.Singleton).As<IHaptics>();
+            builder.Register<AndroidHaptics>(Lifetime.Singleton);
+            builder.Register<IHaptics>(resolver => new SettingsAwareHaptics(resolver.Resolve<AndroidHaptics>(), resolver.Resolve<GameSettings>()), Lifetime.Singleton);
 #else
-            builder.Register<NullHaptics>(Lifetime.Singleton).As<IHaptics>();
+            builder.Register<NullHaptics>(Lifetime.Singleton);
+            builder.Register<IHaptics>(resolver => new SettingsAwareHaptics(resolver.Resolve<NullHaptics>(), resolver.Resolve<GameSettings>()), Lifetime.Singleton);
 #endif
         }
     }

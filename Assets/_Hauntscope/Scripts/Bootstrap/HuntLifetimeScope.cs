@@ -5,6 +5,7 @@ using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Hunt.States;
 using Hauntscope.Gameplay.Tools;
+using Hauntscope.Infrastructure.Vfx;
 using Hauntscope.UI.Hunt;
 using Unity.XR.CoreUtils;
 using UnityEngine.XR.ARFoundation;
@@ -23,6 +24,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<SpawnPointSelector>(Lifetime.Singleton);
             builder.Register<GhostSelector>(Lifetime.Singleton);
             builder.Register<GhostFactory>(Lifetime.Singleton);
+            builder.Register<ScarePolicy>(Lifetime.Singleton);
 
             builder.Register<HuntSession>(Lifetime.Singleton);
             builder.Register<GhostLens>(Lifetime.Singleton);
@@ -31,6 +33,9 @@ namespace Hauntscope.Bootstrap
             builder.Register<Battery>(Lifetime.Singleton);
             builder.Register<EmfRadar>(Lifetime.Singleton);
             builder.RegisterEntryPoint<EmfFeedback>();
+            builder.RegisterEntryPoint<HuntFeedback>();
+            builder.RegisterEntryPoint<HuntAmbience>();
+            builder.RegisterEntryPoint<PooledVfxPlayer>();
 
             builder.Register<ScanState>(Lifetime.Singleton);
             builder.Register<HuntingState>(Lifetime.Singleton);
