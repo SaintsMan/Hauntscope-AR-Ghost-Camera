@@ -42,6 +42,7 @@ namespace Hauntscope.Editor
             Save(SfxFolder, "SplashBoot", SplashBoot(), -3f, false);
             Save(SfxFolder, "SplashOff", SplashOff(), -5f, false);
             Save(SfxFolder, "BootTick", BootTick(), -12f, false);
+            Save(SfxFolder, "ScreenOn", ScreenOn(), -5f, false);
             Save(SfxFolder, "WhisperWisp", Whisper(11, 1.25f, 0.12f, 0.25f, 0.08f, 0.3f, 0.35f, 1f, 0.3f, 1.2f), -6f, true);
             Save(SfxFolder, "WhisperPoltergeist", Whisper(23, 1f, 0.08f, 0.18f, 0.05f, 0.15f, 0.2f, 2.2f, 0.25f, 1f), -6f, true);
             Save(SfxFolder, "WhisperShade", Whisper(37, 0.8f, 0.35f, 0.8f, 0.3f, 0.8f, 0.08f, 1f, 0.5f, 1.35f), -6f, true);
@@ -546,6 +547,31 @@ namespace Hauntscope.Editor
 
             Add(samples, Click(0.003f, 1500f, 99), 0, 0.6f);
             return TrimTo(Echo(samples, 0.05f, 0.2f, 3000f, 2), samples.Length);
+        }
+
+        // Scene cut power-on, a shorter cousin of SplashBoot: relay clunk, sub thump, a quick rising whine and a puff
+        // of static as the line opens into the picture. No chime, so it stays out of the way of the next scene.
+        private static float[] ScreenOn()
+        {
+            var samples = Buffer(0.5f);
+            var staticBurst = Filter(Noise(samples.Length, 103), FilterType.BandPass, 3400f, 0.6f);
+            float thumpPhase = 0f, sweepPhase = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                thumpPhase += TwoPi * (75f - 35f * Mathf.Clamp01(t / 0.1f)) / SampleRate;
+                var thump = Mathf.Sin(thumpPhase) * Envelope(t, 0.002f, 0.08f);
+
+                var sweep = 220f * Mathf.Pow(2400f / 220f, Mathf.Clamp01(t / 0.14f));
+                sweepPhase += TwoPi * sweep / SampleRate;
+                var whine = Mathf.Sin(sweepPhase) * Adsr(t, 0.16f, 0.01f, 0.1f);
+
+                var hiss = staticBurst[i] * Adsr(t - 0.06f, 0.14f, 0.005f, 0.12f) * (0.6f + 0.4f * Mathf.Sin(TwoPi * 29f * t));
+                samples[i] = thump * 0.9f + whine * 0.14f + hiss * 0.4f;
+            }
+
+            Add(samples, Click(0.004f, 1300f, 105), 0, 0.7f);
+            return TrimTo(Reverb(Saturate(samples, 1.2f), 0.18f, 0.6f), samples.Length);
         }
 
         // A relay tick with a tiny confirmation beep for each line of the boot log.

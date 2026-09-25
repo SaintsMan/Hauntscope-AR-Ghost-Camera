@@ -24,6 +24,7 @@ namespace Hauntscope.UI.Splash
         private readonly AudioConfig _audio;
         private readonly HudConfig _hud;
         private readonly IRandom _random;
+        private readonly IScreenTransition _transition;
 
         private int _activeLine = -1;
         private int _shownPercent = -1;
@@ -40,8 +41,10 @@ namespace Hauntscope.UI.Splash
             ISfxPlayer sfx,
             AudioConfig audio,
             HudConfig hud,
-            IRandom random)
+            IRandom random,
+            IScreenTransition transition)
         {
+            _transition = transition;
             _view = view;
             _sequence = sequence;
             _localization = localization;
@@ -133,11 +136,17 @@ namespace Hauntscope.UI.Splash
 
         private void OnPhaseChanged(BootPhase phase)
         {
-            if (phase != BootPhase.Outro)
-                return;
-
-            _view.PlayOutro();
-            _sfx.Play2D(_audio.SplashOff, _audio.SplashVolume, 1f);
+            switch (phase)
+            {
+                case BootPhase.Outro:
+                    _view.PlayOutro();
+                    _sfx.Play2D(_audio.SplashOff, _audio.SplashVolume, 1f);
+                    break;
+                // The outro has already switched the picture off, so the menu only needs the power-on half of the cut.
+                case BootPhase.Done:
+                    _transition.CoverImmediately();
+                    break;
+            }
         }
 
         private void RenderTimecode()

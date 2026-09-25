@@ -15,6 +15,7 @@ using Hauntscope.Infrastructure.PlayStore;
 using Hauntscope.Infrastructure.Random;
 using Hauntscope.Infrastructure.Save;
 using Hauntscope.Infrastructure.Scenes;
+using Hauntscope.UI.Common;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -24,6 +25,7 @@ namespace Hauntscope.Bootstrap
     public sealed class ProjectLifetimeScope : LifetimeScope
     {
         [SerializeField] private GameConfig _gameConfig;
+        [SerializeField] private ScreenTransitionView _screenTransition;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -32,7 +34,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<JsonSaveService>(Lifetime.Singleton).As<ISaveService>()
                 .WithParameter(Application.persistentDataPath);
             builder.Register<UnityRandom>(Lifetime.Singleton).As<IRandom>();
-            builder.Register<SceneLoader>(Lifetime.Singleton).As<ISceneLoader>();
+            RegisterScenes(builder);
             builder.Register<UnityLocalizationService>(Lifetime.Singleton).As<ILocalizationService>();
             builder.RegisterEntryPoint<PooledSfxPlayer>();
             builder.RegisterComponentOnNewGameObject<UnityApplicationLifecycle>(Lifetime.Singleton, nameof(UnityApplicationLifecycle))
@@ -69,6 +71,15 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Tutorial);
             builder.RegisterInstance(_gameConfig.Boot);
             builder.RegisterInstance(_gameConfig.Review);
+        }
+
+        // Scene loads are decorated with the CRT transition; the overlay outlives every scene it covers.
+        private void RegisterScenes(IContainerBuilder builder)
+        {
+            builder.RegisterComponentInNewPrefab(_screenTransition, Lifetime.Singleton).DontDestroyOnLoad();
+            builder.Register<CrtScreenTransition>(Lifetime.Singleton).As<IScreenTransition>();
+            builder.Register<SceneLoader>(Lifetime.Singleton);
+            builder.Register<ISceneLoader>(resolver => new TransitionSceneLoader(resolver.Resolve<SceneLoader>(), resolver.Resolve<IScreenTransition>()), Lifetime.Singleton);
         }
 
         private static void RegisterProgress(IContainerBuilder builder)

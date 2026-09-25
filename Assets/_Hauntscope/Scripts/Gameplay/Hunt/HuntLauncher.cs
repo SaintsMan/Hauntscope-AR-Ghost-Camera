@@ -199,11 +199,19 @@ namespace Hauntscope.Gameplay.Hunt
             return LoadAsync(HuntEnvironment.Virtual, cancellationToken);
         }
 
-        private UniTask LoadAsync(HuntEnvironment environment, CancellationToken cancellationToken)
+        // The prompt stays on screen until the Hunt scene is up, so the screen transition switches off the popup the
+        // player just tapped instead of an empty menu.
+        private async UniTask LoadAsync(HuntEnvironment environment, CancellationToken cancellationToken)
         {
             _options.Select(environment);
-            _prompt.Value = LaunchPrompt.None;
-            return _sceneLoader.LoadAsync(SceneId.Hunt, cancellationToken);
+            try
+            {
+                await _sceneLoader.LoadAsync(SceneId.Hunt, cancellationToken);
+            }
+            finally
+            {
+                _prompt.Value = LaunchPrompt.None;
+            }
         }
 
         private void OnResumed()

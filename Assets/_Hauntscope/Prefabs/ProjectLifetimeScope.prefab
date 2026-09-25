@@ -49,3 +49,4 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   _gameConfig: {fileID: 11400000, guid: e5f948b24d8d6d44f9b7ba676d4081a0, type: 2}
+  _screenTransition: {fileID: 1150920604449640837, guid: 8584c89b769fd494c8fe84c46d2c1f9b, type: 3}

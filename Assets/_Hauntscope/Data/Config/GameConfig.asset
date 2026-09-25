@@ -131,6 +131,8 @@ MonoBehaviour:
     _splashOff: {fileID: 8300000, guid: 497cd58db555f3c4592213a1dd590ca4, type: 3}
     _bootTick: {fileID: 8300000, guid: d7ac9b9fe038725499d6735f9adb2d5e, type: 3}
     _splashVolume: 0.7
+    _screenOn: {fileID: 8300000, guid: 631836927b2997f469e741d827a2d487, type: 3}
+    _transitionVolume: 0.55
   _vfx:
     _captureSpiral: {fileID: 3482571195191366530, guid: 6cc077c0fffe26544bbff774130ad3fc, type: 3}
     _teleportFlash: {fileID: 9163850681629320366, guid: d281b30d52bb11d4fae5ccc1d73b5dcf, type: 3}
