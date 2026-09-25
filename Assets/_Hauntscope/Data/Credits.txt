@@ -15,6 +15,10 @@ Press Start 2P
 CodeMan38 (The Press Start 2P Project Authors)
 SIL Open Font License 1.1
 
+Furniture Kit 2.0 (Virtual Room walls, floor and furniture)
+Kenney
+CC0 1.0
+
 VContainer
 hadashiA
 MIT License
