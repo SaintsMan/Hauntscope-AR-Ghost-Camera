@@ -1,5 +1,6 @@
 using System;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Tools;
 using VContainer.Unity;
@@ -15,31 +16,41 @@ namespace Hauntscope.UI.Hunt
         private readonly Toolbelt _toolbelt;
         private readonly RoomCalibration _calibration;
         private readonly ILocalizationService _localization;
+        private readonly ToolsConfig _toolsConfig;
 
         public HuntHudPresenter(
             HuntHudView view,
             EmfRadar radar,
             Toolbelt toolbelt,
             RoomCalibration calibration,
-            ILocalizationService localization)
+            ILocalizationService localization,
+            ToolsConfig toolsConfig)
         {
             _view = view;
             _radar = radar;
             _toolbelt = toolbelt;
             _calibration = calibration;
             _localization = localization;
+            _toolsConfig = toolsConfig;
         }
 
         public void Start()
         {
             _radar.Level.Changed += OnEmfLevelChanged;
             _toolbelt.Lens.IsActive.Changed += OnLensActiveChanged;
+            _toolbelt.Beam.IsActive.Changed += OnBeamActiveChanged;
+            _toolbelt.Beam.Progress.Changed += OnCaptureProgressChanged;
             _calibration.Progress.Changed += OnCalibrationChanged;
             _localization.Changed += OnLanguageChanged;
             _view.LensClicked += OnLensClicked;
+            _view.BeamPressed += OnBeamPressed;
+            _view.BeamReleased += OnBeamReleased;
 
+            _view.SetReticleRadius(_toolsConfig.ReticleRadius);
             _view.SetVisible(_calibration.IsComplete);
             _view.SetLensActive(_toolbelt.Lens.IsActive.Value);
+            _view.SetBeamActive(_toolbelt.Beam.IsActive.Value);
+            _view.SetCaptureProgress(_toolbelt.Beam.Progress.Value);
             RenderEmf(_radar.Level.Value);
         }
 
@@ -47,9 +58,13 @@ namespace Hauntscope.UI.Hunt
         {
             _radar.Level.Changed -= OnEmfLevelChanged;
             _toolbelt.Lens.IsActive.Changed -= OnLensActiveChanged;
+            _toolbelt.Beam.IsActive.Changed -= OnBeamActiveChanged;
+            _toolbelt.Beam.Progress.Changed -= OnCaptureProgressChanged;
             _calibration.Progress.Changed -= OnCalibrationChanged;
             _localization.Changed -= OnLanguageChanged;
             _view.LensClicked -= OnLensClicked;
+            _view.BeamPressed -= OnBeamPressed;
+            _view.BeamReleased -= OnBeamReleased;
         }
 
         private void OnLensClicked()
@@ -57,9 +72,29 @@ namespace Hauntscope.UI.Hunt
             _toolbelt.ToggleLens();
         }
 
+        private void OnBeamPressed()
+        {
+            _toolbelt.StartBeam();
+        }
+
+        private void OnBeamReleased()
+        {
+            _toolbelt.StopBeam();
+        }
+
         private void OnLensActiveChanged(bool active)
         {
             _view.SetLensActive(active);
+        }
+
+        private void OnBeamActiveChanged(bool active)
+        {
+            _view.SetBeamActive(active);
+        }
+
+        private void OnCaptureProgressChanged(float progress)
+        {
+            _view.SetCaptureProgress(progress);
         }
 
         private void OnEmfLevelChanged(int level)

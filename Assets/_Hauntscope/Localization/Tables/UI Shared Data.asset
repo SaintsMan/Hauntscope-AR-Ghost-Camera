@@ -43,6 +43,10 @@ MonoBehaviour:
     m_Key: hud.button.lens
     m_Metadata:
       m_Items: []
+  - m_Id: 32511440060416
+    m_Key: hud.button.beam
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

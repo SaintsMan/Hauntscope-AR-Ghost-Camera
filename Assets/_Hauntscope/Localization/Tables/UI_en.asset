@@ -46,6 +46,10 @@ MonoBehaviour:
     m_Localized: LENS
     m_Metadata:
       m_Items: []
+  - m_Id: 32511440060416
+    m_Localized: BEAM
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
