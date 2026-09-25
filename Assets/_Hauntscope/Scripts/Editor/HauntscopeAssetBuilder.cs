@@ -50,6 +50,7 @@ namespace Hauntscope.Editor
         public static void Build()
         {
             UiSpriteGenerator.BuildAll();
+            TutorialCueGenerator.BuildAll();
             SfxGenerator.BuildAll();
             FontAssetGenerator.BuildAll();
             CreditsExporter.Export();

@@ -41,6 +41,10 @@ namespace Hauntscope.UI.Hunt
         {
             var key = HintKey(step);
             _view.SetVisible(key != null);
+            _view.SetWalkCue(step == TutorialStep.Walk);
+            _view.SetEmfCue(step == TutorialStep.FollowEmf);
+            _view.SetLensCue(step == TutorialStep.UseLens);
+            _view.SetBeamCue(step == TutorialStep.HoldBeam);
             if (key == null)
                 return;
 

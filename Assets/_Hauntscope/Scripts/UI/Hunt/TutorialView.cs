@@ -8,6 +8,12 @@ namespace Hauntscope.UI.Hunt
         [SerializeField] private TMP_Text _counterLabel;
         [SerializeField] private TMP_Text _hintLabel;
 
+        // The gesture cues live next to the controls they point at (the buttons, the EMF meter), not in this card.
+        [SerializeField] private GameObject _walkCue;
+        [SerializeField] private GameObject _emfCue;
+        [SerializeField] private GameObject _lensCue;
+        [SerializeField] private GameObject _beamCue;
+
         public void SetVisible(bool visible)
         {
             gameObject.SetActive(visible);
@@ -21,6 +27,26 @@ namespace Hauntscope.UI.Hunt
         public void SetHint(string text)
         {
             _hintLabel.text = text;
+        }
+
+        public void SetWalkCue(bool visible)
+        {
+            _walkCue.SetActive(visible);
+        }
+
+        public void SetEmfCue(bool visible)
+        {
+            _emfCue.SetActive(visible);
+        }
+
+        public void SetLensCue(bool visible)
+        {
+            _lensCue.SetActive(visible);
+        }
+
+        public void SetBeamCue(bool visible)
+        {
+            _beamCue.SetActive(visible);
         }
 
 #if UNITY_EDITOR
