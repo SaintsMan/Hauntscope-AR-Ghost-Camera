@@ -26,3 +26,7 @@ MIT License
 UniTask
 Cysharp, Inc.
 MIT License
+
+DOTween 1.3.030 (free, unmodified; `Assets/Plugins/Demigiant/DOTween`)
+Daniele Giardini - Demigiant
+DOTween license, verbatim redistribution with `readme.txt`

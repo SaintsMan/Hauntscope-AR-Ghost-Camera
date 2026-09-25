@@ -9,3 +9,4 @@ Third-party assets used in Hauntscope. Asset Store assets are not committed (see
 | Furniture Kit 2.0 (Virtual Room walls, floor and furniture) | Kenney | https://kenney.nl/assets/furniture-kit | CC0 1.0 (`Assets/_Hauntscope/Art/Models/VirtualRoom/KenneyFurnitureKit/License.txt`) |
 | VContainer | hadashiA | https://github.com/hadashiA/VContainer | MIT License |
 | UniTask | Cysharp, Inc. | https://github.com/Cysharp/UniTask | MIT License |
+| DOTween 1.3.030 (free, unmodified; `Assets/Plugins/Demigiant/DOTween`) | Daniele Giardini - Demigiant | https://dotween.demigiant.com | DOTween license, verbatim redistribution with `readme.txt` (https://dotween.demigiant.com/license.php) |
