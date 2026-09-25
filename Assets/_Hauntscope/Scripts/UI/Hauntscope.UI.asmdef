@@ -1,0 +1,14 @@
+{
+    "name": "Hauntscope.UI",
+    "rootNamespace": "Hauntscope.UI",
+    "references": ["Hauntscope.Core", "Hauntscope.Gameplay", "VContainer", "UnityEngine.UI", "Unity.TextMeshPro", "Unity.Localization"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

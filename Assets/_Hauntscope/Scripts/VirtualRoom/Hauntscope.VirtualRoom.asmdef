@@ -1,0 +1,14 @@
+{
+    "name": "Hauntscope.VirtualRoom",
+    "rootNamespace": "Hauntscope.VirtualRoom",
+    "references": ["Hauntscope.Core", "Hauntscope.Gameplay", "Unity.InputSystem"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

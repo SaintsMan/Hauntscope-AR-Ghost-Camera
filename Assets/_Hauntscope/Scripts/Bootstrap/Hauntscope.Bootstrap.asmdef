@@ -1,0 +1,14 @@
+{
+    "name": "Hauntscope.Bootstrap",
+    "rootNamespace": "Hauntscope.Bootstrap",
+    "references": ["Hauntscope.Core", "Hauntscope.Gameplay", "Hauntscope.AR", "Hauntscope.VirtualRoom", "Hauntscope.UI", "Hauntscope.Infrastructure", "VContainer", "UniTask", "Unity.XR.ARFoundation", "Unity.XR.ARSubsystems", "Unity.XR.CoreUtils", "Unity.InputSystem", "UnityEngine.UI", "Unity.TextMeshPro", "Unity.Localization"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
