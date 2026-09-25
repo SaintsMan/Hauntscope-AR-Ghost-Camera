@@ -82,6 +82,122 @@ MonoBehaviour:
     m_Localized: '{0:00}:{1:00}:{2:00}'
     m_Metadata:
       m_Items: []
+  - m_Id: 55671858266112
+    m_Localized: HAUNTSCOPE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671900209152
+    m_Localized: paranormal camera
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597760
+    m_Localized: START HUNT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597761
+    m_Localized: BESTIARY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597762
+    m_Localized: SETTINGS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597763
+    m_Localized: v{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597764
+    m_Localized: BACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597765
+    m_Localized: CLOSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597766
+    m_Localized: ON
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597767
+    m_Localized: OFF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597768
+    m_Localized: BESTIARY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597769
+    m_Localized: '{0} / {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597770
+    m_Localized: x{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597771
+    m_Localized: CAPTURED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597772
+    m_Localized: UNKNOWN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597773
+    m_Localized: ???
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597774
+    m_Localized: SETTINGS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597775
+    m_Localized: Sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597776
+    m_Localized: Vibration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597777
+    m_Localized: Jump scares
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597778
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597779
+    m_Localized: CREDITS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597780
+    m_Localized: CREDITS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597781
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597782
+    m_Localized: "\u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597783
+    m_Localized: "Espa\xF1ol"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597784
+    m_Localized: "Portugu\xEAs"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597785
+    m_Localized: Deutsch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597786
+    m_Localized: Bahasa Indonesia
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

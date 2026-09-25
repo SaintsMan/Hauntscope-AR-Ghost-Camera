@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Config.GhostData
   _id: poltergeist
   _nameKey: ghost.poltergeist.name
+  _descriptionKey: ghost.poltergeist.description
+  _icon: {fileID: 21300000, guid: 356be93796a6e8148b410c87d51f31da, type: 3}
   _rarity: 0
   _prefab: {fileID: 7980731002722968053, guid: 85e8986df51ee0046b16aac079ed4609, type: 3}
   _rimColor: {r: 0.23921569, g: 1, b: 0.43137255, a: 1}

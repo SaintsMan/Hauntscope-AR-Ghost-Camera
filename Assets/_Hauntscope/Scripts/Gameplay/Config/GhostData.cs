@@ -11,6 +11,8 @@ namespace Hauntscope.Gameplay.Config
     {
         [SerializeField] private string _id;
         [SerializeField] private string _nameKey;
+        [SerializeField] private string _descriptionKey;
+        [SerializeField] private Sprite _icon;
         [SerializeField] private GhostRarity _rarity;
         [SerializeField] private GhostView _prefab;
         [SerializeField] private Color _rimColor = Color.cyan;
@@ -22,6 +24,10 @@ namespace Hauntscope.Gameplay.Config
         public string Id => _id;
 
         public string NameKey => _nameKey;
+
+        public string DescriptionKey => _descriptionKey;
+
+        public Sprite Icon => _icon;
 
         public GhostRarity Rarity => _rarity;
 

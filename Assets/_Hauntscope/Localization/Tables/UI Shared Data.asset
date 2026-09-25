@@ -79,6 +79,122 @@ MonoBehaviour:
     m_Key: hud.timecode
     m_Metadata:
       m_Items: []
+  - m_Id: 55671858266112
+    m_Key: menu.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671900209152
+    m_Key: menu.subtitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597760
+    m_Key: menu.start_hunt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597761
+    m_Key: menu.bestiary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597762
+    m_Key: menu.settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597763
+    m_Key: menu.version
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597764
+    m_Key: common.back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597765
+    m_Key: common.close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597766
+    m_Key: common.on
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597767
+    m_Key: common.off
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597768
+    m_Key: bestiary.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597769
+    m_Key: bestiary.count
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597770
+    m_Key: bestiary.times
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597771
+    m_Key: bestiary.captured
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597772
+    m_Key: bestiary.unknown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597773
+    m_Key: bestiary.unknown_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597774
+    m_Key: settings.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597775
+    m_Key: settings.sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597776
+    m_Key: settings.vibration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597777
+    m_Key: settings.jump_scares
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597778
+    m_Key: settings.language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597779
+    m_Key: settings.credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597780
+    m_Key: credits.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597781
+    m_Key: settings.language_name.en
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597782
+    m_Key: settings.language_name.uk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597783
+    m_Key: settings.language_name.es-419
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597784
+    m_Key: settings.language_name.pt-BR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597785
+    m_Key: settings.language_name.de
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597786
+    m_Key: settings.language_name.id
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

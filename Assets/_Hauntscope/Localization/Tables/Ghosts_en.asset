@@ -30,6 +30,21 @@ MonoBehaviour:
     m_Localized: SHADE
     m_Metadata:
       m_Items: []
+  - m_Id: 55670524477440
+    m_Localized: A lost flicker of someone who forgot the way home. Harmless, curious
+      and easily startled. Every agent's first catch.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55670549643264
+    m_Localized: "Noisy, restless and impatient. When cornered, it vanishes \u2014
+      only to reappear a few steps away. Keep your beam steady."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55670549643265
+    m_Localized: It lives between frames. Your lens catches it only in flashes. Patience
+      is the only tool that works.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

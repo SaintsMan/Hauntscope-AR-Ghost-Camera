@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Config.GhostData
   _id: wisp
   _nameKey: ghost.wisp.name
+  _descriptionKey: ghost.wisp.description
+  _icon: {fileID: 21300000, guid: 46c5c6a92b5a4354cad6877eda45f45a, type: 3}
   _rarity: 0
   _prefab: {fileID: 5507391301681114844, guid: a750329d837344149ba29304915b9ba5, type: 3}
   _rimColor: {r: 0.30980393, g: 0.9607843, b: 0.9019608, a: 1}

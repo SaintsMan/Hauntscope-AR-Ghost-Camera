@@ -33,6 +33,7 @@ namespace Hauntscope.Editor
             BuildCameraVignette();
             BuildLensVignette();
             BuildGrain();
+            BuildEctoplasm();
         }
 
         private static void BuildFrame()
@@ -181,6 +182,15 @@ namespace Hauntscope.Editor
             importer.SaveAndReimport();
         }
 
+        // A droplet: exact round-cone SDF from a wide bottom to a narrow tip.
+        private static void BuildEctoplasm()
+        {
+            const int size = 64;
+            var bottom = new Vector2(32f, 22f);
+            var pixels = Shape(size, size, p => RoundCone(p - bottom, 13f, 1.5f, 28f), false, 0f, 7f);
+            SaveSprite("Ectoplasm", size, size, pixels, Vector4.zero);
+        }
+
         private static Color32[] Radial(int size, float start, float end, float power, float strength)
         {
             var pixels = new Color32[size * size];
@@ -248,6 +258,19 @@ namespace Hauntscope.Editor
             var q = new Vector2(Mathf.Abs(p.x - center.x), Mathf.Abs(p.y - center.y)) - half + new Vector2(radius, radius);
             var outside = new Vector2(Mathf.Max(q.x, 0f), Mathf.Max(q.y, 0f)).magnitude;
             return outside + Mathf.Min(Mathf.Max(q.x, q.y), 0f) - radius;
+        }
+
+        private static float RoundCone(Vector2 p, float bottomRadius, float topRadius, float height)
+        {
+            p.x = Mathf.Abs(p.x);
+            var b = (bottomRadius - topRadius) / height;
+            var a = Mathf.Sqrt(1f - b * b);
+            var k = Vector2.Dot(p, new Vector2(-b, a));
+            if (k < 0f)
+                return p.magnitude - bottomRadius;
+            if (k > a * height)
+                return (p - new Vector2(0f, height)).magnitude - topRadius;
+            return Vector2.Dot(p, new Vector2(a, b)) - bottomRadius;
         }
 
         private static float Circle(Vector2 p, Vector2 center, float radius)

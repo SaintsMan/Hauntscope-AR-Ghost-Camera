@@ -1,0 +1,24 @@
+HAUNTSCOPE
+
+Game, code, art and sound: Pavko
+Code: MIT License
+Art and audio: © 2026 Pavko, all rights reserved
+Ghosts, UI sprites and sound effects are generated in code.
+
+THIRD-PARTY
+
+IBM Plex Mono (Regular, Medium, Bold)
+IBM Corp.
+SIL Open Font License 1.1
+
+Press Start 2P
+CodeMan38 (The Press Start 2P Project Authors)
+SIL Open Font License 1.1
+
+VContainer
+hadashiA
+MIT License
+
+UniTask
+Cysharp, Inc.
+MIT License

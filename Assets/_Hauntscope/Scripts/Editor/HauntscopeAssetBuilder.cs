@@ -36,6 +36,7 @@ namespace Hauntscope.Editor
             UiSpriteGenerator.BuildAll();
             SfxGenerator.BuildAll();
             FontAssetGenerator.BuildAll();
+            CreditsExporter.Export();
             BuildGhosts();
         }
 
@@ -51,7 +52,8 @@ namespace Hauntscope.Editor
                 var mesh = BuildMesh(recipe);
                 var prefab = BuildPrefab(recipe, mesh, bodyMaterial, eyesMaterial);
                 var ability = BuildAbility(recipe);
-                ghosts[i] = BuildGhostData(recipe, prefab, ability);
+                var icon = GhostIconGenerator.Render(prefab.gameObject, recipe.RimColor, $"{Root}/Art/Sprites/Ghosts/{recipe.AssetName}Icon.png");
+                ghosts[i] = BuildGhostData(recipe, prefab, ability, icon);
             }
 
             RegisterGhosts(ghosts);
@@ -170,7 +172,7 @@ namespace Hauntscope.Editor
             return ability;
         }
 
-        private static GhostData BuildGhostData(GhostRecipe recipe, GhostView prefab, GhostAbilityConfig ability)
+        private static GhostData BuildGhostData(GhostRecipe recipe, GhostView prefab, GhostAbilityConfig ability, Sprite icon)
         {
             var path = $"{Root}/Data/Ghosts/{recipe.AssetName}.asset";
             var data = AssetDatabase.LoadAssetAtPath<GhostData>(path);
@@ -183,6 +185,8 @@ namespace Hauntscope.Editor
             var serialized = new SerializedObject(data);
             serialized.FindProperty("_id").stringValue = recipe.Id;
             serialized.FindProperty("_nameKey").stringValue = $"ghost.{recipe.Id}.name";
+            serialized.FindProperty("_descriptionKey").stringValue = $"ghost.{recipe.Id}.description";
+            serialized.FindProperty("_icon").objectReferenceValue = icon;
             serialized.FindProperty("_rarity").enumValueIndex = (int)recipe.Rarity;
             serialized.FindProperty("_prefab").objectReferenceValue = prefab;
             serialized.FindProperty("_rimColor").colorValue = recipe.RimColor;
