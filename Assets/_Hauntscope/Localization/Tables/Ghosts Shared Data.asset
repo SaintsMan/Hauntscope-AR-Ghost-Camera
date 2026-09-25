@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
   m_TableCollectionName: Ghosts
   m_TableCollectionNameGuidString: 59adea3bb3554c548b847491dbd6bc64
-  m_Entries: []
+  m_Entries:
+  - m_Id: 34469605408768
+    m_Key: ghost.wisp.name
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

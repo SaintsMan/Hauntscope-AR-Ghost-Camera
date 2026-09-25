@@ -47,6 +47,30 @@ MonoBehaviour:
     m_Key: hud.button.beam
     m_Metadata:
       m_Items: []
+  - m_Id: 34470955974656
+    m_Key: result.captured
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529088
+    m_Key: result.escaped
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529089
+    m_Key: result.reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529090
+    m_Key: result.time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529091
+    m_Key: result.hunt_again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529092
+    m_Key: result.menu
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

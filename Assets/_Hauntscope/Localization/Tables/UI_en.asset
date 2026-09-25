@@ -50,6 +50,30 @@ MonoBehaviour:
     m_Localized: BEAM
     m_Metadata:
       m_Items: []
+  - m_Id: 34470955974656
+    m_Localized: CAPTURED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529088
+    m_Localized: ESCAPED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529089
+    m_Localized: +{0} ECTOPLASM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529090
+    m_Localized: TIME {0:00}:{1:00}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529091
+    m_Localized: HUNT AGAIN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529092
+    m_Localized: MENU
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

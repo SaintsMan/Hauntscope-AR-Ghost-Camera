@@ -28,17 +28,21 @@ namespace Hauntscope.Bootstrap
             builder.Register<GhostLens>(Lifetime.Singleton);
             builder.Register<CaptureBeam>(Lifetime.Singleton);
             builder.Register<Toolbelt>(Lifetime.Singleton);
+            builder.Register<Battery>(Lifetime.Singleton);
             builder.Register<EmfRadar>(Lifetime.Singleton);
             builder.RegisterEntryPoint<EmfFeedback>();
 
             builder.Register<ScanState>(Lifetime.Singleton);
             builder.Register<HuntingState>(Lifetime.Singleton);
+            builder.Register<ResultState>(Lifetime.Singleton);
             builder.RegisterEntryPoint<HuntFlow>();
 
             builder.RegisterComponentInHierarchy<ScanHudView>();
             builder.RegisterEntryPoint<ScanHudPresenter>();
             builder.RegisterComponentInHierarchy<HuntHudView>();
             builder.RegisterEntryPoint<HuntHudPresenter>();
+            builder.RegisterComponentInHierarchy<ResultView>();
+            builder.RegisterEntryPoint<ResultPresenter>();
         }
 
         private static void RegisterArEnvironment(IContainerBuilder builder)

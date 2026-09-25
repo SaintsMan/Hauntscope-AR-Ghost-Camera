@@ -20,6 +20,10 @@ namespace Hauntscope.UI.Hunt
         [SerializeField] private Image _captureProgress;
         [SerializeField] private Color _reticleIdleColor;
         [SerializeField] private Color _reticleBeamColor;
+        [SerializeField] private Image[] _batterySegments;
+        [SerializeField] private Color _batteryColor;
+        [SerializeField] private Color _batteryLowColor;
+        [SerializeField] private Color _batteryEmptyColor;
 
         public event Action LensClicked
         {
@@ -66,6 +70,14 @@ namespace Hauntscope.UI.Hunt
             _reticleRing.color = active ? _reticleBeamColor : _reticleIdleColor;
         }
 
+        public void SetBattery(float normalized, bool low)
+        {
+            var lit = Mathf.CeilToInt(normalized * _batterySegments.Length);
+            var color = low ? _batteryLowColor : _batteryColor;
+            for (var i = 0; i < _batterySegments.Length; i++)
+                _batterySegments[i].color = i < lit ? color : _batteryEmptyColor;
+        }
+
         public void SetCaptureProgress(float progress)
         {
             _captureProgress.fillAmount = progress;
@@ -93,6 +105,10 @@ namespace Hauntscope.UI.Hunt
             _reticle = Find<RectTransform>("Reticle");
             _reticleRing = Find<Image>("Reticle/Ring");
             _captureProgress = Find<Image>("Reticle/Progress");
+
+            var battery = transform.Find("Battery");
+            if (battery != null)
+                _batterySegments = battery.GetComponentsInChildren<Image>(true);
 
             var vignette = transform.Find("LensVignette");
             if (vignette != null)
