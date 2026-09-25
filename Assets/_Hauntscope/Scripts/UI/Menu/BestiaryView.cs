@@ -1,4 +1,5 @@
 using System;
+using Hauntscope.UI.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +18,7 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private TMP_Text _detailsName;
         [SerializeField] private TMP_Text _detailsLore;
         [SerializeField] private Button _detailsCloseButton;
+        [SerializeField] private Typewriter _detailsLoreTypewriter;
 
         public event Action BackClicked;
 
@@ -45,6 +47,7 @@ namespace Hauntscope.UI.Menu
             _detailsName.color = accent;
             _detailsLore.text = lore;
             _details.SetActive(true);
+            _detailsLoreTypewriter.Play();
         }
 
         public void HideDetails()

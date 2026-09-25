@@ -1,4 +1,5 @@
 using System;
+using Hauntscope.UI.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ namespace Hauntscope.UI.Menu
     public sealed class CameraPermissionView : MonoBehaviour
     {
         [SerializeField] private TMP_Text _bodyLabel;
+        [SerializeField] private Typewriter _bodyTypewriter;
         [SerializeField] private Button _allowButton;
         [SerializeField] private TMP_Text _allowLabel;
         [SerializeField] private Button _virtualButton;
@@ -24,6 +26,7 @@ namespace Hauntscope.UI.Menu
         public void SetBody(string text)
         {
             _bodyLabel.text = text;
+            _bodyTypewriter.Play();
         }
 
         public void SetAllowLabel(string text)

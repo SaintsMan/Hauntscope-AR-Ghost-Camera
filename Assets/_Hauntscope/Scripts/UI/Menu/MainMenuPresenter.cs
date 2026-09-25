@@ -10,9 +10,10 @@ using VContainer.Unity;
 
 namespace Hauntscope.UI.Menu
 {
-    public sealed class MainMenuPresenter : IStartable, IDisposable
+    public sealed class MainMenuPresenter : IStartable, ITickable, IDisposable
     {
         private const string VersionKey = "menu.version";
+        private const string TimestampKey = "menu.timestamp";
 
         private readonly MainMenuView _view;
         private readonly MenuNavigation _navigation;
@@ -21,6 +22,8 @@ namespace Hauntscope.UI.Menu
         private readonly ILocalizationService _localization;
         private readonly UiFeedback _ui;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
+
+        private int _shownSecond = -1;
 
         public MainMenuPresenter(
             MainMenuView view,
@@ -51,6 +54,17 @@ namespace Hauntscope.UI.Menu
             RefreshVisibility();
             OnEctoplasmChanged(_progress.Ectoplasm.Value);
             OnLanguageChanged();
+        }
+
+        // A camcorder date stamp in the corner of the menu, ticking with the real clock.
+        public void Tick()
+        {
+            var now = DateTime.Now;
+            if (now.Second == _shownSecond)
+                return;
+
+            _shownSecond = now.Second;
+            _view.SetTimestamp(_localization.Get(LocalizationTable.Ui, TimestampKey, now));
         }
 
         public void Dispose()
@@ -84,11 +98,12 @@ namespace Hauntscope.UI.Menu
 
         private void OnEctoplasmChanged(int amount)
         {
-            _view.SetEctoplasm(amount.ToString());
+            _view.SetEctoplasm(amount);
         }
 
         private void OnLanguageChanged()
         {
+            _shownSecond = -1;
             _view.SetVersion(_localization.Get(LocalizationTable.Ui, VersionKey, Application.version));
         }
 

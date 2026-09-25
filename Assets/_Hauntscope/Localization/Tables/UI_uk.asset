@@ -385,6 +385,10 @@ MonoBehaviour:
     m_Localized: "\u041F\u041E\u041C\u0418\u041B\u041A\u0410"
     m_Metadata:
       m_Items: []
+  - m_Id: 159025523458048
+    m_Localized: '{0:dd.MM.yyyy}  {0:HH:mm:ss}'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 1957567286715648101}
   - component: {fileID: 9003342363506757638}
   - component: {fileID: 5046202162462380324}
+  - component: {fileID: 1384637807934376951}
+  - component: {fileID: 4135376918480220721}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -75,6 +77,39 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1384637807934376951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199373730806023723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 572eb2947cd82a54880053ae8fa65598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Hauntscope.UI::Hauntscope.UI.Common.FloatMotion
+  _amplitude: 9
+  _period: 2.8
+  _swayDegrees: 4
+  _swayPeriod: 3.7
+--- !u!114 &4135376918480220721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199373730806023723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e48a26392ec5f954b8f8241f1e1519d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Hauntscope.UI::Hauntscope.UI.Common.Flicker
+  _graphic: {fileID: 5046202162462380324}
+  _blink: 0
+  _blinkInterval: 0.5
+  _interval: {x: 3, y: 9}
+  _step: 0.04
 --- !u!1 &1161200695198617604
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,6 +472,7 @@ GameObject:
   - component: {fileID: 2029651201055166306}
   - component: {fileID: 4169098901663575735}
   - component: {fileID: 8207852159458941645}
+  - component: {fileID: 3297499765234455162}
   m_Layer: 5
   m_Name: BestiaryCard
   m_TagString: Untagged
@@ -574,6 +610,25 @@ MonoBehaviour:
   _unknownColor: {r: 0.49019608, g: 0.54509807, b: 0.6, a: 0.7}
   _unknownStampColor: {r: 0.49019608, g: 0.54509807, b: 0.6, a: 1}
   _capturedStampColor: {r: 1, g: 0.23137255, b: 0.23137255, a: 1}
+--- !u!114 &3297499765234455162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3775364491059797082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29f3a553bb46fea48942f90c8209db30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Hauntscope.UI::Hauntscope.UI.Common.ButtonJuice
+  _frame: {fileID: 8137791261002168260}
+  _fill: {fileID: 1668869749823276725}
+  _breathe: 0
+  _pressedScale: 0.92
+  _flareToWhite: 0.6
+  _breathPeriod: 1.6
+  _breathDim: 0.45
 --- !u!1 &4823796572140892727
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,6 +640,8 @@ GameObject:
   - component: {fileID: 3144516425523826962}
   - component: {fileID: 1985542318542257332}
   - component: {fileID: 3507177093946989562}
+  - component: {fileID: 290251287127999430}
+  - component: {fileID: 2838037835412807672}
   m_Layer: 5
   m_Name: Stamp
   m_TagString: Untagged
@@ -650,6 +707,35 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2.5
+--- !u!225 &290251287127999430
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4823796572140892727}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &2838037835412807672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4823796572140892727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a15b4cdd58c58946a35a7aa07f28247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Hauntscope.UI::Hauntscope.UI.Common.PopIn
+  _group: {fileID: 290251287127999430}
+  _delay: 0.35
+  _fromScale: 2.2
+  _duration: 0.35
+  _tiltDegrees: 12
 --- !u!1 &6520088773862229782
 GameObject:
   m_ObjectHideFlags: 0

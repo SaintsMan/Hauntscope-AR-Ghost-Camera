@@ -343,6 +343,10 @@ MonoBehaviour:
     m_Key: splash.status.failed
     m_Metadata:
       m_Items: []
+  - m_Id: 159025523458048
+    m_Key: menu.timestamp
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

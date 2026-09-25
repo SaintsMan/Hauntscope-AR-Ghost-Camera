@@ -1,3 +1,4 @@
+using Hauntscope.UI.Common;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace Hauntscope.UI.Hunt
     {
         [SerializeField] private TMP_Text _counterLabel;
         [SerializeField] private TMP_Text _hintLabel;
+        [SerializeField] private Typewriter _hintTypewriter;
 
         // The gesture cues live next to the controls they point at (the buttons, the EMF meter), not in this card.
         [SerializeField] private GameObject _walkCue;
@@ -27,6 +29,7 @@ namespace Hauntscope.UI.Hunt
         public void SetHint(string text)
         {
             _hintLabel.text = text;
+            _hintTypewriter.Play();
         }
 
         public void SetWalkCue(bool visible)

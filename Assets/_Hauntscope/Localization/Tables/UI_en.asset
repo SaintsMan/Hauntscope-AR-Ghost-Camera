@@ -352,6 +352,10 @@ MonoBehaviour:
     m_Localized: ERROR
     m_Metadata:
       m_Items: []
+  - m_Id: 159025523458048
+    m_Localized: '{0:MM.dd.yyyy}  {0:HH:mm:ss}'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

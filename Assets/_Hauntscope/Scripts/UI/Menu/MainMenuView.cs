@@ -1,4 +1,6 @@
 using System;
+using DG.Tweening;
+using Hauntscope.UI.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +14,11 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private Button _settingsButton;
         [SerializeField] private TMP_Text _ectoplasmLabel;
         [SerializeField] private TMP_Text _versionLabel;
+        [SerializeField] private TMP_Text _timestampLabel;
+        [SerializeField] private RectTransform _ectoplasmIcon;
+        [SerializeField, Min(0.05f)] private float _countDuration = 0.9f;
+
+        private int _shownEctoplasm = -1;
 
         public event Action StartClicked;
 
@@ -24,9 +31,22 @@ namespace Hauntscope.UI.Menu
             gameObject.SetActive(visible);
         }
 
-        public void SetEctoplasm(string text)
+        // The balance counts up to a new value, so ectoplasm earned in a hunt is noticed on the way back.
+        public void SetEctoplasm(int amount)
         {
-            _ectoplasmLabel.text = text;
+            if (_shownEctoplasm < 0 || !isActiveAndEnabled)
+            {
+                ShowEctoplasm(amount);
+                return;
+            }
+
+            DOTween.To(() => _shownEctoplasm, ShowEctoplasm, amount, _countDuration).SetEase(Ease.OutCubic).Ui(gameObject);
+            _ectoplasmIcon.DOPunchScale(Vector3.one * 0.35f, _countDuration, 6).Ui(gameObject);
+        }
+
+        public void SetTimestamp(string text)
+        {
+            _timestampLabel.text = text;
         }
 
         public void SetVersion(string text)
@@ -63,6 +83,12 @@ namespace Hauntscope.UI.Menu
             SettingsClicked?.Invoke();
         }
 
+        private void ShowEctoplasm(int amount)
+        {
+            _shownEctoplasm = amount;
+            _ectoplasmLabel.text = amount.ToString();
+        }
+
 #if UNITY_EDITOR
         private void Reset()
         {
@@ -71,6 +97,8 @@ namespace Hauntscope.UI.Menu
             _settingsButton = Find<Button>("Buttons/SettingsButton");
             _ectoplasmLabel = Find<TMP_Text>("Ectoplasm/Amount");
             _versionLabel = Find<TMP_Text>("Version");
+            _timestampLabel = Find<TMP_Text>("Timestamp");
+            _ectoplasmIcon = Find<RectTransform>("Ectoplasm/Icon");
         }
 
         private T Find<T>(string path) where T : Component
