@@ -7,7 +7,9 @@ using Hauntscope.Gameplay.Hunt.States;
 using Hauntscope.Gameplay.Tools;
 using Hauntscope.Infrastructure.Vfx;
 using Hauntscope.UI.Hunt;
+using Hauntscope.VirtualRoom;
 using Unity.XR.CoreUtils;
+using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using VContainer;
 using VContainer.Unity;
@@ -16,9 +18,25 @@ namespace Hauntscope.Bootstrap
 {
     public sealed class HuntLifetimeScope : LifetimeScope
     {
+        [SerializeField] private GameObject _arRig;
+        [SerializeField] private GameObject _virtualRig;
+        [SerializeField] private Camera _virtualCamera;
+        [SerializeField] private Collider _virtualFloor;
+        [SerializeField] private VirtualPointerInput _virtualInput;
+        [SerializeField] private VirtualJoystick _virtualJoystick;
+
         protected override void Configure(IContainerBuilder builder)
         {
-            RegisterArEnvironment(builder);
+            // The only place that knows which environment is live: everything below talks to the same interfaces.
+            var environment = Parent.Container.Resolve<HuntLaunchOptions>().Environment;
+            _arRig.SetActive(environment == HuntEnvironment.Ar);
+            _virtualRig.SetActive(environment == HuntEnvironment.Virtual);
+            _virtualJoystick.gameObject.SetActive(environment == HuntEnvironment.Virtual);
+            if (environment == HuntEnvironment.Ar)
+                RegisterArEnvironment(builder);
+            else
+                RegisterVirtualEnvironment(builder);
+            builder.RegisterEntryPoint<OcclusionSync>();
 
             builder.Register<RoomCalibration>(Lifetime.Singleton);
             builder.Register<SpawnPointSelector>(Lifetime.Singleton);
@@ -66,7 +84,17 @@ namespace Hauntscope.Bootstrap
             builder.Register<ArTrackingStatus>(Lifetime.Singleton).As<ITrackingStatus>();
             builder.RegisterComponentInHierarchy<AROcclusionManager>();
             builder.Register<ArOcclusionService>(Lifetime.Singleton).As<IOcclusionService>();
-            builder.RegisterEntryPoint<OcclusionSync>();
+        }
+
+        private void RegisterVirtualEnvironment(IContainerBuilder builder)
+        {
+            builder.RegisterComponent(_virtualInput);
+            builder.RegisterComponent(_virtualJoystick);
+            builder.Register<VirtualPlaneProvider>(Lifetime.Singleton).As<IPlaneProvider>().WithParameter(_virtualFloor);
+            builder.Register<VirtualCameraPose>(Lifetime.Singleton).As<ICameraPose>().WithParameter(_virtualCamera);
+            builder.Register<VirtualTrackingStatus>(Lifetime.Singleton).As<ITrackingStatus>();
+            builder.Register<NullOcclusionService>(Lifetime.Singleton).As<IOcclusionService>();
+            builder.RegisterEntryPoint<VirtualCameraController>().WithParameter(_virtualCamera);
         }
     }
 }
