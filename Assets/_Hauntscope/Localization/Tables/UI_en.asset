@@ -42,6 +42,10 @@ MonoBehaviour:
     m_Localized: LVL {0}
     m_Metadata:
       m_Items: []
+  - m_Id: 27153795514368
+    m_Localized: LENS
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

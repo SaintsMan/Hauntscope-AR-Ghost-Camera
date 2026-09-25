@@ -1,3 +1,5 @@
+using System;
+using Hauntscope.UI.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +12,14 @@ namespace Hauntscope.UI.Hunt
         [SerializeField] private Color[] _emfLitColors;
         [SerializeField] private Color _emfUnlitColor;
         [SerializeField] private TMP_Text _emfLevelLabel;
+        [SerializeField] private ToggleButton _lensButton;
+        [SerializeField] private GameObject _lensVignette;
+
+        public event Action LensClicked
+        {
+            add => _lensButton.Clicked += value;
+            remove => _lensButton.Clicked -= value;
+        }
 
         public void SetVisible(bool visible)
         {
@@ -27,6 +37,12 @@ namespace Hauntscope.UI.Hunt
             _emfLevelLabel.text = text;
         }
 
+        public void SetLensActive(bool active)
+        {
+            _lensButton.SetOn(active);
+            _lensVignette.SetActive(active);
+        }
+
 #if UNITY_EDITOR
         private void Reset()
         {
@@ -37,6 +53,14 @@ namespace Hauntscope.UI.Hunt
             var level = transform.Find("Emf/Level");
             if (level != null)
                 _emfLevelLabel = level.GetComponent<TMP_Text>();
+
+            var lens = transform.Find("LensButton");
+            if (lens != null)
+                _lensButton = lens.GetComponent<ToggleButton>();
+
+            var vignette = transform.Find("LensVignette");
+            if (vignette != null)
+                _lensVignette = vignette.gameObject;
         }
 #endif
     }

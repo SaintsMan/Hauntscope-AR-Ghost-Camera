@@ -39,6 +39,10 @@ MonoBehaviour:
     m_Key: hud.emf.level
     m_Metadata:
       m_Items: []
+  - m_Id: 27153795514368
+    m_Key: hud.button.lens
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
