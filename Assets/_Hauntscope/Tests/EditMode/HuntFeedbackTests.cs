@@ -34,7 +34,7 @@ namespace Hauntscope.Tests.EditMode
             _haptics = new FakeHaptics();
             _vfx = new FakeVfxPlayer();
             _pause = new HuntPause(new FakeTrackingStatus(), new FakeApplicationLifecycle(), new TrackingConfig(0.5f));
-            _feedback = new HuntFeedback(_session, _toolbelt, calibration, _sfx, _haptics, _vfx, new AudioConfig(), _pause);
+            _feedback = new HuntFeedback(_session, _toolbelt, calibration, _sfx, _haptics, _vfx, new AudioConfig(), new VfxConfig(), _pause);
             _feedback.Start();
         }
 
@@ -188,6 +188,45 @@ namespace Hauntscope.Tests.EditMode
             _toolbelt.StopBeam();
 
             Assert.IsTrue(loop.IsStopped);
+        }
+
+        [Test]
+        public void Tick_GhostRevealedPastThreshold_PlaysRevealPulseOnce()
+        {
+            _session.Begin(_fixture.Ghost, null);
+            _fixture.Ghost.SetReveal(1f);
+            _fixture.Ghost.Tick(0.01f);
+
+            _feedback.Tick(0.01f);
+            _feedback.Tick(0.01f);
+
+            Assert.AreEqual(new[] { VfxId.RevealPulse }, _vfx.Played.ToArray());
+        }
+
+        [Test]
+        public void Tick_GhostBarelyRevealed_PlaysNoPulse()
+        {
+            _session.Begin(_fixture.Ghost, null);
+            _fixture.Ghost.SetReveal(0.1f);
+            _fixture.Ghost.Tick(0.01f);
+
+            _feedback.Tick(0.01f);
+
+            Assert.IsEmpty(_vfx.Played);
+        }
+
+        [Test]
+        public void BeamLocked_OnGhost_PlaysLockSoundAndMediumHaptic()
+        {
+            _session.Begin(_fixture.Ghost, null);
+            _fixture.Ghost.SetReveal(1f);
+            _toolbelt.StartBeam();
+            var played = _sfx.PlayCount;
+
+            _toolbelt.Beam.Tick(0.01f);
+
+            Assert.AreEqual(played + 1, _sfx.PlayCount);
+            CollectionAssert.Contains(_haptics.Played, HapticStrength.Medium);
         }
 
         [Test]

@@ -13,6 +13,8 @@ namespace Hauntscope.Tests.EditMode.Fakes
 
         public float Dissolve { get; private set; }
 
+        public float Struggle { get; private set; }
+
         public int SetPoseCount { get; private set; }
 
         public bool IsDespawned { get; private set; }
@@ -32,6 +34,11 @@ namespace Hauntscope.Tests.EditMode.Fakes
         public void SetDissolve(float dissolve)
         {
             Dissolve = dissolve;
+        }
+
+        public void SetStruggle(float struggle)
+        {
+            Struggle = struggle;
         }
 
         public void Despawn()

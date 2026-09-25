@@ -37,6 +37,8 @@ namespace Hauntscope.Editor
             Save(SfxFolder, "ScanComplete", ScanComplete(), -5f, false);
             Save(SfxFolder, "UiClick", UiClick(), -8f, false);
             Save(SfxFolder, "UiBack", UiBack(), -9f, false);
+            Save(SfxFolder, "GhostReveal", GhostReveal(), -4f, false);
+            Save(SfxFolder, "BeamLock", BeamLock(), -4f, false);
             Save(SfxFolder, "SplashBoot", SplashBoot(), -3f, false);
             Save(SfxFolder, "SplashOff", SplashOff(), -5f, false);
             Save(SfxFolder, "BootTick", BootTick(), -12f, false);
@@ -447,6 +449,49 @@ namespace Hauntscope.Editor
             }
 
             return MakeLoop(samples, 1f);
+        }
+
+        // A ghost pulled out of hiding: an airy swell rushes up into a cold, detuned chime with a sub drop under it.
+        private static float[] GhostReveal()
+        {
+            var samples = Buffer(1.6f);
+            var noise = Noise(samples.Length, 131);
+            var swell = Filter(noise, FilterType.BandPass, i => 600f * Mathf.Pow(4200f / 600f, Mathf.Clamp01(Time(i) / 0.32f)), 3f);
+            var phase = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                phase += TwoPi * (90f - 45f * Mathf.Clamp01((t - 0.3f) / 0.4f)) / SampleRate;
+                var drop = Mathf.Sin(phase) * Adsr(t - 0.3f, 0.6f, 0.01f, 0.45f);
+                samples[i] = swell[i] * Adsr(t, 0.36f, 0.3f, 0.04f) * 0.9f + drop * 0.5f;
+            }
+
+            var chime = (int)(0.32f * SampleRate);
+            Add(samples, Bell(1318.5f, 1.2f, 2.76f, 1.6f, 0.45f), chime, 0.3f);
+            Add(samples, Bell(1325f, 1.2f, 3.01f, 1.2f, 0.4f), chime, 0.22f);
+            Add(samples, Bell(1975.5f, 1f, 2.01f, 1f, 0.3f), chime + (int)(0.06f * SampleRate), 0.14f);
+            return TrimTo(Reverb(samples, 0.35f, 1.15f), samples.Length);
+        }
+
+        // Beam grabs the ghost: a relay snap, a fast charge-up chirp and a bright electrical crackle.
+        private static float[] BeamLock()
+        {
+            var samples = Buffer(0.45f);
+            var crackle = Filter(Noise(samples.Length, 137), FilterType.HighPass, 2200f, 0.7f);
+            var phase = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var frequency = 320f * Mathf.Pow(1600f / 320f, Mathf.Clamp01(t / 0.09f));
+                phase += TwoPi * frequency / SampleRate;
+                var chirp = (Mathf.Sin(phase) + Mathf.Sin(3f * phase) / 3f + Mathf.Sin(5f * phase) / 5f) * Adsr(t, 0.16f, 0.004f, 0.07f);
+                var buzz = crackle[i] * Adsr(t - 0.05f, 0.25f, 0.005f, 0.2f) * (0.6f + 0.4f * Mathf.Sin(TwoPi * 60f * t));
+                samples[i] = chirp * 0.6f + buzz * 0.35f;
+            }
+
+            Add(samples, Click(0.003f, 1800f, 139), 0, 0.8f);
+            Add(samples, Bell(1760f, 0.3f, 2.01f, 1f, 0.12f), (int)(0.08f * SampleRate), 0.25f);
+            return Saturate(samples, 1.3f);
         }
 
         // Camcorder power-on: relay clunk and sub thump, CRT degauss wobble, a burst of static and a ghostly

@@ -262,11 +262,14 @@ namespace Hauntscope.Editor
             SetClip(serialized, "_audio._scanComplete", SfxFolder, "ScanComplete");
             SetClip(serialized, "_audio._uiClick", SfxFolder, "UiClick");
             SetClip(serialized, "_audio._uiBack", SfxFolder, "UiBack");
+            SetClip(serialized, "_audio._ghostReveal", SfxFolder, "GhostReveal");
+            SetClip(serialized, "_audio._beamLock", SfxFolder, "BeamLock");
             SetClip(serialized, "_audio._splashBoot", SfxFolder, "SplashBoot");
             SetClip(serialized, "_audio._splashOff", SfxFolder, "SplashOff");
             SetClip(serialized, "_audio._bootTick", SfxFolder, "BootTick");
             serialized.FindProperty("_vfx._captureSpiral").objectReferenceValue = VfxGenerator.CaptureSpiral;
             serialized.FindProperty("_vfx._teleportFlash").objectReferenceValue = VfxGenerator.TeleportFlash;
+            serialized.FindProperty("_vfx._revealPulse").objectReferenceValue = VfxGenerator.RevealPulse;
             serialized.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(config);
             AssetDatabase.SaveAssets();

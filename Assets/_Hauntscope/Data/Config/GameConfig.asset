@@ -84,6 +84,7 @@ MonoBehaviour:
     _grainFrameRate: 24
     _lowBatteryClip: {fileID: 8300000, guid: 53330886e20696845bb2818a680507ab, type: 3}
     _lowBatteryVolume: 0.7
+    _reticleShake: 7
   _scare:
     _minTime: 30
     _distance: 1.5
@@ -122,6 +123,10 @@ MonoBehaviour:
     _uiBack: {fileID: 8300000, guid: 3ef3e83745c3e9a47a07cb6987c9149d, type: 3}
     _uiVolume: 0.5
     _whisperVolume: 0.55
+    _ghostReveal: {fileID: 8300000, guid: d92702fb554e1884a93ea53a41bd4b65, type: 3}
+    _revealVolume: 0.7
+    _beamLock: {fileID: 8300000, guid: 633f7531ad9591643b6dec1106fa6f1d, type: 3}
+    _beamLockVolume: 0.6
     _splashBoot: {fileID: 8300000, guid: e546ef2789b5d17449cfabbec3fd0b35, type: 3}
     _splashOff: {fileID: 8300000, guid: 497cd58db555f3c4592213a1dd590ca4, type: 3}
     _bootTick: {fileID: 8300000, guid: d7ac9b9fe038725499d6735f9adb2d5e, type: 3}
@@ -129,6 +134,13 @@ MonoBehaviour:
   _vfx:
     _captureSpiral: {fileID: 3482571195191366530, guid: 6cc077c0fffe26544bbff774130ad3fc, type: 3}
     _teleportFlash: {fileID: 9163850681629320366, guid: d281b30d52bb11d4fae5ccc1d73b5dcf, type: 3}
+    _revealPulse: {fileID: 7298845405034352830, guid: 100f08603d74b874a92e27dd76cbbfbb, type: 3}
+    _beamOriginForward: 0.3
+    _beamOriginDrop: 0.2
+    _beamRange: 4
+    _beamIdleIntensity: 0.45
+    _beamLockedIntensity: 0.75
+    _revealPulseThreshold: 0.6
   _tracking:
     _lostGrace: 0.5
   _launch:

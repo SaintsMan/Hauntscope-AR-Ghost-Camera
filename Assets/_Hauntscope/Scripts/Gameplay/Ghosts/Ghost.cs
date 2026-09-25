@@ -231,6 +231,7 @@ namespace Hauntscope.Gameplay.Ghosts
             _view.SetPose(mover.VisualPosition, Quaternion.LookRotation(mover.Facing));
             _view.SetReveal(VisibleReveal);
             _view.SetDissolve(IsCaptured ? _capturedState.Progress : 0f);
+            _view.SetStruggle(IsBeamed ? CaptureProgress : 0f);
         }
     }
 }

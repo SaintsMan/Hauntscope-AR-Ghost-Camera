@@ -93,6 +93,41 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Tick_ActiveRevealedInReticle_IsLocked()
+        {
+            _fixture.Ghost.SetReveal(1f);
+            _beam.Activate();
+
+            _beam.Tick(0.1f);
+
+            Assert.IsTrue(_beam.IsLocked.Value);
+        }
+
+        [Test]
+        public void Tick_GhostOutsideReticle_IsNotLocked()
+        {
+            _fixture.Ghost.SetReveal(1f);
+            _fixture.Camera.ViewportPoint = new Vector3(0.5f + ReticleRadius + 0.05f, 0.5f, 1f);
+            _beam.Activate();
+
+            _beam.Tick(0.1f);
+
+            Assert.IsFalse(_beam.IsLocked.Value);
+        }
+
+        [Test]
+        public void Deactivate_WhileLocked_ReleasesLock()
+        {
+            _fixture.Ghost.SetReveal(1f);
+            _beam.Activate();
+            _beam.Tick(0.1f);
+
+            _beam.Deactivate();
+
+            Assert.IsFalse(_beam.IsLocked.Value);
+        }
+
+        [Test]
         public void Tick_Inactive_NeverDropsBelowZero()
         {
             _beam.Tick(5f);

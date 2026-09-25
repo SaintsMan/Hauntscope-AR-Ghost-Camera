@@ -81,5 +81,29 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.AreEqual(0.3f, _fixture.View.Reveal, 1e-5f);
         }
+
+        [Test]
+        public void Tick_BeamedWhileCharging_StrugglesWithCaptureProgress()
+        {
+            _fixture.Ghost.Start();
+            _fixture.Ghost.SetReveal(1f);
+            _fixture.Ghost.SetBeamed(true);
+            _fixture.Ghost.SetCaptureProgress(0.6f);
+
+            _fixture.Ghost.Tick(0.01f);
+
+            Assert.AreEqual(0.6f, _fixture.View.Struggle, 1e-5f);
+        }
+
+        [Test]
+        public void Tick_NotBeamed_DoesNotStruggle()
+        {
+            _fixture.Ghost.Start();
+            _fixture.Ghost.SetCaptureProgress(0.6f);
+
+            _fixture.Ghost.Tick(0.01f);
+
+            Assert.AreEqual(0f, _fixture.View.Struggle);
+        }
     }
 }

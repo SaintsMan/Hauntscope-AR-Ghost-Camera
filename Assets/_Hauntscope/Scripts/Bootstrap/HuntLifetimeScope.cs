@@ -53,6 +53,8 @@ namespace Hauntscope.Bootstrap
             builder.Register<EmfRadar>(Lifetime.Singleton);
             builder.RegisterEntryPoint<EmfFeedback>();
             builder.RegisterEntryPoint<HuntFeedback>();
+            builder.RegisterComponentInHierarchy<CaptureBeamView>().As<IBeamView>();
+            builder.RegisterEntryPoint<BeamFeedback>();
             builder.RegisterEntryPoint<HuntAmbience>();
             builder.RegisterEntryPoint<PooledVfxPlayer>();
 

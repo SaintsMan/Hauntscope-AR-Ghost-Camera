@@ -20,8 +20,12 @@ namespace Hauntscope.UI.Hunt
         private readonly ToolsConfig _toolsConfig;
         private readonly HuntSession _session;
         private readonly ScareConfig _scareConfig;
+        private readonly HudConfig _hudConfig;
+        private readonly HuntPause _pause;
 
         private float _scareFlash;
+        private float _shownProgress;
+        private bool _isShaking;
 
         public HuntHudPresenter(
             HuntHudView view,
@@ -31,8 +35,12 @@ namespace Hauntscope.UI.Hunt
             ILocalizationService localization,
             ToolsConfig toolsConfig,
             HuntSession session,
-            ScareConfig scareConfig)
+            ScareConfig scareConfig,
+            HudConfig hudConfig,
+            HuntPause pause)
         {
+            _hudConfig = hudConfig;
+            _pause = pause;
             _view = view;
             _radar = radar;
             _toolbelt = toolbelt;
@@ -49,6 +57,7 @@ namespace Hauntscope.UI.Hunt
             _toolbelt.Lens.IsActive.Changed += OnLensActiveChanged;
             _toolbelt.Beam.IsActive.Changed += OnBeamActiveChanged;
             _toolbelt.Beam.Progress.Changed += OnCaptureProgressChanged;
+            _toolbelt.Beam.IsLocked.Changed += OnBeamLockChanged;
             _calibration.Progress.Changed += OnCalibrationChanged;
             _session.Result.Changed += OnResultChanged;
             _session.Scared += OnScared;
@@ -68,6 +77,11 @@ namespace Hauntscope.UI.Hunt
 
         public void Tick()
         {
+            var shaking = _toolbelt.Beam.IsLocked.Value && !_pause.IsPaused;
+            if (shaking || _isShaking)
+                _view.SetReticleShake(shaking ? _toolbelt.Beam.Progress.Value * _hudConfig.ReticleShake : 0f);
+            _isShaking = shaking;
+
             if (_scareFlash <= 0f)
                 return;
 
@@ -81,6 +95,7 @@ namespace Hauntscope.UI.Hunt
             _toolbelt.Lens.IsActive.Changed -= OnLensActiveChanged;
             _toolbelt.Beam.IsActive.Changed -= OnBeamActiveChanged;
             _toolbelt.Beam.Progress.Changed -= OnCaptureProgressChanged;
+            _toolbelt.Beam.IsLocked.Changed -= OnBeamLockChanged;
             _calibration.Progress.Changed -= OnCalibrationChanged;
             _session.Result.Changed -= OnResultChanged;
             _session.Scared -= OnScared;
@@ -124,6 +139,14 @@ namespace Hauntscope.UI.Hunt
         private void OnCaptureProgressChanged(float progress)
         {
             _view.SetCaptureProgress(progress);
+            if (progress >= 1f && _shownProgress < 1f)
+                _view.PlayCaptureFlash();
+            _shownProgress = progress;
+        }
+
+        private void OnBeamLockChanged(bool locked)
+        {
+            _view.SetBeamLocked(locked);
         }
 
         private void OnEmfLevelChanged(int level)

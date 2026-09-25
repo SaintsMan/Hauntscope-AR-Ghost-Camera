@@ -15,6 +15,7 @@ namespace Hauntscope.Gameplay.Tools
         private readonly ToolsConfig _config;
         private readonly ObservableValue<bool> _isActive = new ObservableValue<bool>();
         private readonly ObservableValue<float> _progress = new ObservableValue<float>();
+        private readonly ObservableValue<bool> _isLocked = new ObservableValue<bool>();
 
         public CaptureBeam(HuntSession session, ICameraPose camera, ToolsConfig config)
         {
@@ -27,6 +28,9 @@ namespace Hauntscope.Gameplay.Tools
 
         public IReadOnlyObservableValue<float> Progress => _progress;
 
+        // The beam holds a revealed ghost inside the reticle, i.e. the capture is actually charging.
+        public IReadOnlyObservableValue<bool> IsLocked => _isLocked;
+
         public float DrainPerSecond => _config.BeamDrain;
 
         public void Activate()
@@ -37,6 +41,7 @@ namespace Hauntscope.Gameplay.Tools
         public void Deactivate()
         {
             _isActive.Value = false;
+            _isLocked.Value = false;
         }
 
         public void ResetProgress()
@@ -48,12 +53,16 @@ namespace Hauntscope.Gameplay.Tools
         {
             var ghost = _session.Ghost.Value;
             if (ghost == null || ghost.IsCaptured)
+            {
+                _isLocked.Value = false;
                 return;
+            }
 
             var hitting = _isActive.Value && ghost.VisibleReveal > _config.BeamRevealThreshold;
             ghost.SetBeamed(hitting);
+            _isLocked.Value = hitting && IsInReticle(ghost.Position);
 
-            var delta = hitting && IsInReticle(ghost.Position)
+            var delta = _isLocked.Value
                 ? _config.CaptureRate / ghost.Resistance * deltaTime
                 : -_config.DecayRate * deltaTime;
             _progress.Value = Mathf.Clamp01(_progress.Value + delta);

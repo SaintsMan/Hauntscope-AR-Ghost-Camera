@@ -24,6 +24,7 @@ namespace Hauntscope.Infrastructure.Vfx
             _root = new GameObject("VfxPool");
             Register(VfxId.CaptureSpiral, config.CaptureSpiral);
             Register(VfxId.TeleportFlash, config.TeleportFlash);
+            Register(VfxId.RevealPulse, config.RevealPulse);
         }
 
         public void Play(VfxId id, Vector3 position, Color color)

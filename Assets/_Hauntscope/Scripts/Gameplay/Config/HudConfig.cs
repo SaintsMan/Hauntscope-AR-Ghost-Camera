@@ -11,6 +11,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Min(1f)] private float _grainFrameRate = 24f;
         [SerializeField] private AudioClip _lowBatteryClip;
         [SerializeField, Range(0f, 1f)] private float _lowBatteryVolume = 0.7f;
+        [SerializeField, Min(0f)] private float _reticleShake = 7f;
 
         public float RecBlinkInterval => _recBlinkInterval;
 
@@ -21,5 +22,8 @@ namespace Hauntscope.Gameplay.Config
         public AudioClip LowBatteryClip => _lowBatteryClip;
 
         public float LowBatteryVolume => _lowBatteryVolume;
+
+        // Reticle tremble in canvas pixels at full capture progress.
+        public float ReticleShake => _reticleShake;
     }
 }

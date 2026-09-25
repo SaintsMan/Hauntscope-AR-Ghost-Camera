@@ -19,6 +19,7 @@ namespace Hauntscope.Gameplay.Feedback
         private readonly IHaptics _haptics;
         private readonly IVfxPlayer _vfx;
         private readonly AudioConfig _audio;
+        private readonly VfxConfig _vfxConfig;
         private readonly HuntPause _pause;
 
         private Ghost _ghost;
@@ -27,6 +28,7 @@ namespace Hauntscope.Gameplay.Feedback
         private bool _wasCaptured;
         private bool _wasEscaped;
         private bool _wasCalibrated;
+        private bool _wasRevealed;
         private float _timeUntilBeamPulse;
 
         public HuntFeedback(
@@ -37,8 +39,10 @@ namespace Hauntscope.Gameplay.Feedback
             IHaptics haptics,
             IVfxPlayer vfx,
             AudioConfig audio,
+            VfxConfig vfxConfig,
             HuntPause pause)
         {
+            _vfxConfig = vfxConfig;
             _pause = pause;
             _session = session;
             _toolbelt = toolbelt;
@@ -57,6 +61,7 @@ namespace Hauntscope.Gameplay.Feedback
             _session.Scared += OnScared;
             _toolbelt.Lens.IsActive.Changed += OnLensChanged;
             _toolbelt.Beam.IsActive.Changed += OnBeamChanged;
+            _toolbelt.Beam.IsLocked.Changed += OnBeamLockChanged;
             _calibration.Progress.Changed += OnCalibrationChanged;
             _pause.Reasons.Changed += OnPauseChanged;
             _wasCalibrated = _calibration.IsComplete;
@@ -85,6 +90,16 @@ namespace Hauntscope.Gameplay.Feedback
                 }
             }
 
+            // The moment the lens first pulls the ghost out of hiding gets its own flash, so a reveal is never missed.
+            var revealed = _ghost.VisibleReveal >= _vfxConfig.RevealPulseThreshold;
+            if (revealed && !_wasRevealed && !_ghost.IsCaptured && !_ghost.IsEscaped)
+            {
+                _vfx.Play(VfxId.RevealPulse, _ghost.Position, RimColor);
+                _sfx.Play3D(_audio.GhostReveal, _ghost.Position, _audio.RevealVolume);
+            }
+
+            _wasRevealed = revealed;
+
             if (_ghost.IsCaptured && !_wasCaptured)
                 OnCaptureStarted();
             if (_ghost.IsEscaped && !_wasEscaped)
@@ -100,6 +115,7 @@ namespace Hauntscope.Gameplay.Feedback
             _session.Scared -= OnScared;
             _toolbelt.Lens.IsActive.Changed -= OnLensChanged;
             _toolbelt.Beam.IsActive.Changed -= OnBeamChanged;
+            _toolbelt.Beam.IsLocked.Changed -= OnBeamLockChanged;
             _calibration.Progress.Changed -= OnCalibrationChanged;
             _pause.Reasons.Changed -= OnPauseChanged;
             DetachGhost();
@@ -112,6 +128,7 @@ namespace Hauntscope.Gameplay.Feedback
             _ghost = ghost;
             _wasCaptured = false;
             _wasEscaped = false;
+            _wasRevealed = false;
             if (_ghost == null)
                 return;
 
@@ -189,6 +206,15 @@ namespace Hauntscope.Gameplay.Feedback
                 _beam = _sfx.PlayLoop(_audio.BeamLoop, _audio.BeamVolume, false);
             else if (!active)
                 StopBeam();
+        }
+
+        private void OnBeamLockChanged(bool locked)
+        {
+            if (!locked)
+                return;
+
+            _sfx.Play2D(_audio.BeamLock, _audio.BeamLockVolume, 1f);
+            _haptics.Play(HapticStrength.Medium);
         }
 
         private void StopBeam()

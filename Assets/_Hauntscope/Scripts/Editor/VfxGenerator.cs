@@ -1,4 +1,5 @@
 using System.IO;
+using Hauntscope.Gameplay.Tools;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -12,6 +13,10 @@ namespace Hauntscope.Editor
         private const string MaterialFolder = "Assets/_Hauntscope/Art/Materials";
         private const string PrefabFolder = "Assets/_Hauntscope/Prefabs/VFX";
         private const string ShaderName = "Hauntscope/ParticleAdditive";
+        private const string BeamShaderName = "Hauntscope/Beam";
+        private const int BeamNoiseWidth = 256;
+        private const int BeamNoiseHeight = 64;
+        private static readonly Color Amber = new Color(1f, 0.71f, 0.28f, 1f);
         private const int TextureSize = 128;
 
         private static Material _dot;
@@ -23,6 +28,10 @@ namespace Hauntscope.Editor
 
         public static ParticleSystem TeleportFlash { get; private set; }
 
+        public static ParticleSystem RevealPulse { get; private set; }
+
+        public static GameObject CaptureBeamRig { get; private set; }
+
         public static void BuildAll(float captureDuration)
         {
             BuildTextures();
@@ -32,6 +41,9 @@ namespace Hauntscope.Editor
             _streak = BuildMaterial("VfxStreak", "ParticleStreak", 2.2f, 0.55f);
             CaptureSpiral = BuildCaptureSpiral(captureDuration);
             TeleportFlash = BuildTeleportFlash();
+            RevealPulse = BuildRevealPulse();
+            BuildBeamNoise();
+            CaptureBeamRig = BuildCaptureBeam();
             AssetDatabase.SaveAssets();
         }
 
@@ -80,7 +92,273 @@ namespace Hauntscope.Editor
             Noise(motes, 0.1f, 2f);
             AlphaOverLifetime(motes, 0f, 0.15f, 1f, 0.6f, 0f);
 
+            AddAura(trail.transform);
             return trail;
+        }
+
+        // Under the trail, so it appears and fades with the reveal: sparks circling the ghost and a soft halo that
+        // makes it glow against the camera feed.
+        private static void AddAura(Transform parent)
+        {
+            var orbit = CreateSystem("Aura", parent, _dot, 32);
+            var main = orbit.main;
+            main.loop = true;
+            main.playOnAwake = true;
+            main.duration = 1f;
+            main.simulationSpace = ParticleSystemSimulationSpace.Local;
+            main.startLifetime = new ParticleSystem.MinMaxCurve(1.6f, 2.6f);
+            main.startSpeed = 0f;
+            main.startSize = new ParticleSystem.MinMaxCurve(0.012f, 0.028f);
+            var emission = orbit.emission;
+            emission.rateOverTime = 10f;
+            var shape = orbit.shape;
+            shape.shapeType = ParticleSystemShapeType.Circle;
+            shape.radius = 0.32f;
+            shape.radiusThickness = 0.2f;
+            shape.rotation = new Vector3(90f, 0f, 0f);
+            shape.position = new Vector3(0f, 0.35f, 0f);
+            var velocity = orbit.velocityOverLifetime;
+            velocity.enabled = true;
+            velocity.space = ParticleSystemSimulationSpace.Local;
+            velocity.orbitalX = 0f;
+            velocity.orbitalY = 1.4f;
+            velocity.orbitalZ = 0f;
+            velocity.radial = 0f;
+            velocity.x = 0f;
+            velocity.y = 0.04f;
+            velocity.z = 0f;
+            Noise(orbit, 0.05f, 1.2f);
+            AlphaOverLifetime(orbit, 0f, 0.2f, 1f, 1f, 0f);
+            SizeOverLifetime(orbit, Curve(0f, 0.4f, 0.3f, 1f, 1f, 0.2f));
+
+            var halo = CreateSystem("Halo", parent, _dot, 3);
+            var haloMain = halo.main;
+            haloMain.loop = true;
+            haloMain.playOnAwake = true;
+            haloMain.duration = 1f;
+            haloMain.simulationSpace = ParticleSystemSimulationSpace.Local;
+            haloMain.startLifetime = 2.4f;
+            haloMain.startSpeed = 0f;
+            haloMain.startSize = new ParticleSystem.MinMaxCurve(0.9f, 1.15f);
+            var haloEmission = halo.emission;
+            haloEmission.rateOverTime = 1f;
+            var haloShape = halo.shape;
+            haloShape.shapeType = ParticleSystemShapeType.Sphere;
+            haloShape.radius = 0.01f;
+            haloShape.position = new Vector3(0f, 0.35f, 0f);
+            AlphaOverLifetime(halo, 0f, 0.5f, 0.14f, 1f, 0f);
+        }
+
+        // The lens pulls the ghost out of hiding: a ring snaps outwards and motes scatter.
+        private static ParticleSystem BuildRevealPulse()
+        {
+            var root = CreateRoot("RevealPulse");
+            try
+            {
+                var core = root.GetComponent<ParticleSystem>();
+                var coreRenderer = core.GetComponent<ParticleSystemRenderer>();
+                coreRenderer.sharedMaterial = _ring;
+                ConfigureOneShot(core, 0.1f, 0.55f, 0f, 1.3f);
+                Burst(core, 0f, 1);
+                SizeOverLifetime(core, Curve(0f, 0.15f, 0.4f, 0.9f, 1f, 1f));
+                AlphaOverLifetime(core, 1f, 0.3f, 0.8f, 1f, 0f);
+
+                var inner = CreateSystem("Inner", root.transform, _ring, 2);
+                ConfigureOneShot(inner, 0.1f, 0.4f, 0f, 0.7f);
+                Burst(inner, 0.06f, 1);
+                SizeOverLifetime(inner, Curve(0f, 0.1f, 1f, 1f));
+                AlphaOverLifetime(inner, 1f, 0.4f, 0.6f, 1f, 0f);
+
+                var glow = CreateSystem("Glow", root.transform, _dot, 2);
+                ConfigureOneShot(glow, 0.1f, 0.5f, 0f, 1f);
+                Burst(glow, 0f, 1);
+                SizeOverLifetime(glow, Curve(0f, 0.5f, 0.2f, 1f, 1f, 0.8f));
+                AlphaOverLifetime(glow, 0.8f, 0.2f, 0.5f, 1f, 0f);
+
+                var motes = CreateSystem("Motes", root.transform, _dot, 32);
+                ConfigureOneShot(motes, 0.1f, new ParticleSystem.MinMaxCurve(0.7f, 1.3f), new ParticleSystem.MinMaxCurve(0.3f, 0.9f),
+                    new ParticleSystem.MinMaxCurve(0.015f, 0.035f));
+                Burst(motes, 0f, 28);
+                Sphere(motes, 0.2f, 0.4f);
+                Drag(motes, 0.1f);
+                Drift(motes, 0.15f);
+                Noise(motes, 0.08f, 2f);
+                AlphaOverLifetime(motes, 1f, 0.4f, 1f, 1f, 0f);
+
+                return SavePrefab(root);
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+
+        // The beam rig lives once per Hunt scene: two line renderers and an impact that sprays sparks while locked.
+        private static GameObject BuildCaptureBeam()
+        {
+            var core = BuildBeamMaterial("BeamCore", 2.6f, 5f, 6.5f, 0.3f, 0.9f);
+            var glow = BuildBeamMaterial("BeamGlow", 1.8f, 2.5f, 4f, 0.55f, 0.3f);
+
+            var root = new GameObject("CaptureBeam");
+            try
+            {
+                var coreLine = CreateLine("Core", root.transform, core, 1.2f);
+                var glowLine = CreateLine("Glow", root.transform, glow, 1f);
+
+                var impact = new GameObject("Impact").AddComponent<ParticleSystem>();
+                impact.transform.SetParent(root.transform, false);
+                impact.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                ConfigureDefaults(impact, _dot, 16);
+                var flare = impact.main;
+                flare.loop = true;
+                flare.duration = 1f;
+                flare.startLifetime = new ParticleSystem.MinMaxCurve(0.08f, 0.18f);
+                flare.startSpeed = 0f;
+                flare.startSize = new ParticleSystem.MinMaxCurve(0.14f, 0.26f);
+                flare.startColor = Amber;
+                var flareEmission = impact.emission;
+                flareEmission.rateOverTime = 26f;
+                AlphaOverLifetime(impact, 1f, 0.3f, 0.8f, 1f, 0f);
+
+                var sparks = CreateSystem("Sparks", impact.transform, _streak, 64);
+                var sparksMain = sparks.main;
+                sparksMain.loop = true;
+                sparksMain.duration = 1f;
+                sparksMain.startLifetime = new ParticleSystem.MinMaxCurve(0.15f, 0.35f);
+                sparksMain.startSpeed = new ParticleSystem.MinMaxCurve(1.2f, 3.2f);
+                sparksMain.startSize = new ParticleSystem.MinMaxCurve(0.008f, 0.016f);
+                sparksMain.startColor = new ParticleSystem.MinMaxGradient(Color.white, Amber);
+                sparksMain.gravityModifier = 0.5f;
+                var sparksEmission = sparks.emission;
+                sparksEmission.rateOverTime = 70f;
+                Sphere(sparks, 0.03f, 1f);
+                Drag(sparks, 0.12f);
+                Stretch(sparks, 0.05f, 1.4f);
+                AlphaOverLifetime(sparks, 1f, 0.6f, 1f, 1f, 0f);
+
+                var ring = CreateSystem("Ring", impact.transform, _ring, 8);
+                var ringMain = ring.main;
+                ringMain.loop = true;
+                ringMain.duration = 1f;
+                ringMain.startLifetime = 0.3f;
+                ringMain.startSpeed = 0f;
+                ringMain.startSize = 0.35f;
+                ringMain.startColor = Amber;
+                var ringEmission = ring.emission;
+                ringEmission.rateOverTime = 5f;
+                SizeOverLifetime(ring, Curve(0f, 0.2f, 1f, 1f));
+                AlphaOverLifetime(ring, 0.9f, 0.3f, 0.6f, 1f, 0f);
+
+                var view = root.AddComponent<CaptureBeamView>();
+                var so = new SerializedObject(view);
+                so.FindProperty("_core").objectReferenceValue = coreLine;
+                so.FindProperty("_glow").objectReferenceValue = glowLine;
+                so.FindProperty("_impact").objectReferenceValue = impact;
+                so.ApplyModifiedPropertiesWithoutUndo();
+
+                Directory.CreateDirectory(Path.GetFullPath(PrefabFolder));
+                return PrefabUtility.SaveAsPrefabAsset(root, $"{PrefabFolder}/CaptureBeam.prefab");
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+
+        private static LineRenderer CreateLine(string name, Transform parent, Material material, float endWidth)
+        {
+            var go = new GameObject(name);
+            go.transform.SetParent(parent, false);
+            var line = go.AddComponent<LineRenderer>();
+            line.sharedMaterial = material;
+            line.useWorldSpace = true;
+            line.alignment = LineAlignment.View;
+            line.textureMode = LineTextureMode.Stretch;
+            line.numCapVertices = 4;
+            line.numCornerVertices = 2;
+            line.shadowCastingMode = ShadowCastingMode.Off;
+            line.receiveShadows = false;
+            line.lightProbeUsage = LightProbeUsage.Off;
+            line.reflectionProbeUsage = ReflectionProbeUsage.Off;
+            line.widthCurve = Curve(0f, 0.35f, 0.2f, 1f, 1f, endWidth);
+            line.enabled = false;
+            return line;
+        }
+
+        private static Material BuildBeamMaterial(string name, float intensity, float tiling, float scroll, float softness, float coreWhiten)
+        {
+            var path = $"{MaterialFolder}/{name}.mat";
+            var material = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (material == null)
+            {
+                material = new Material(Shader.Find(BeamShaderName));
+                AssetDatabase.CreateAsset(material, path);
+            }
+
+            material.shader = Shader.Find(BeamShaderName);
+            material.SetTexture("_MainTex", AssetDatabase.LoadAssetAtPath<Texture2D>($"{TextureFolder}/BeamNoise.png"));
+            material.SetFloat("_Intensity", intensity);
+            material.SetFloat("_Tiling", tiling);
+            material.SetFloat("_ScrollSpeed", scroll);
+            material.SetFloat("_Softness", softness);
+            material.SetFloat("_CoreWhiten", coreWhiten);
+            EditorUtility.SetDirty(material);
+            return material;
+        }
+
+        // Streaky noise that tiles along U (integer sine frequencies), so the scrolling beam has no visible seam.
+        private static void BuildBeamNoise()
+        {
+            var random = new System.Random(2113);
+            var phases = new float[BeamNoiseHeight, 6];
+            for (var y = 0; y < BeamNoiseHeight; y++)
+                for (var k = 0; k < 6; k++)
+                    phases[y, k] = (float)random.NextDouble() * Mathf.PI * 2f;
+
+            var pixels = new Color32[BeamNoiseWidth * BeamNoiseHeight];
+            for (var y = 0; y < BeamNoiseHeight; y++)
+            {
+                for (var x = 0; x < BeamNoiseWidth; x++)
+                {
+                    var u = (float)x / BeamNoiseWidth;
+                    var value = 0f;
+                    var weight = 0f;
+                    for (var k = 0; k < 6; k++)
+                    {
+                        var frequency = k + 1;
+                        var amplitude = 1f / frequency;
+                        value += amplitude * Mathf.Sin(u * Mathf.PI * 2f * frequency * 2f + phases[y, k]);
+                        weight += amplitude;
+                    }
+
+                    var v = Mathf.Clamp01(0.5f + 0.5f * value / weight);
+                    var bright = (byte)(Mathf.Pow(v, 1.6f) * 255f);
+                    pixels[y * BeamNoiseWidth + x] = new Color32(bright, bright, bright, 255);
+                }
+            }
+
+            Directory.CreateDirectory(Path.GetFullPath(TextureFolder));
+            var path = $"{TextureFolder}/BeamNoise.png";
+            var texture = new Texture2D(BeamNoiseWidth, BeamNoiseHeight, TextureFormat.RGBA32, false);
+            try
+            {
+                texture.SetPixels32(pixels);
+                texture.Apply();
+                File.WriteAllBytes(Path.GetFullPath(path), texture.EncodeToPNG());
+            }
+            finally
+            {
+                Object.DestroyImmediate(texture);
+            }
+
+            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+            var importer = (TextureImporter)AssetImporter.GetAtPath(path);
+            importer.textureType = TextureImporterType.Default;
+            importer.sRGBTexture = false;
+            importer.mipmapEnabled = false;
+            importer.wrapMode = TextureWrapMode.Repeat;
+            importer.textureCompression = TextureImporterCompression.CompressedHQ;
+            importer.SaveAndReimport();
         }
 
         private static ParticleSystem BuildCaptureSpiral(float captureDuration)

@@ -8,16 +8,24 @@ namespace Hauntscope.Gameplay.Ghosts
         private static readonly int DissolveId = Shader.PropertyToID("_Dissolve");
         private static readonly int RimColorId = Shader.PropertyToID("_RimColor");
         private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
+        private static readonly int RimIntensityId = Shader.PropertyToID("_RimIntensity");
+        private static readonly int WobbleAmplitudeId = Shader.PropertyToID("_WobbleAmplitude");
 
         [SerializeField] private Renderer[] _renderers;
         [SerializeField] private Renderer _body;
         [SerializeField] private ParticleSystem _trail;
         [SerializeField, Range(0f, 1f)] private float _trailRevealThreshold = 0.25f;
+        [SerializeField, Min(0f)] private float _struggleJitter = 0.025f;
+        [SerializeField, Min(0f)] private float _struggleWobble = 5f;
+        [SerializeField, Min(0f)] private float _struggleRim = 1.2f;
 
         private Material[] _materials;
         private Material _bodyMaterial;
         private ParticleSystem[] _trailSystems;
         private bool _isTrailing;
+        private float _baseRimIntensity;
+        private float _baseWobble;
+        private float _struggle;
 
         public void SetPose(Vector3 position, Quaternion rotation)
         {
@@ -40,6 +48,19 @@ namespace Hauntscope.Gameplay.Ghosts
         {
             foreach (var material in _materials)
                 material.SetFloat(DissolveId, dissolve);
+        }
+
+        // Called after SetPose every tick, so the shake is a fresh offset each frame and never accumulates.
+        public void SetStruggle(float struggle)
+        {
+            if (struggle <= 0f && _struggle <= 0f)
+                return;
+
+            _struggle = struggle;
+            _bodyMaterial.SetFloat(RimIntensityId, _baseRimIntensity * (1f + struggle * _struggleRim));
+            _bodyMaterial.SetFloat(WobbleAmplitudeId, _baseWobble * (1f + struggle * _struggleWobble));
+            if (struggle > 0f)
+                transform.position += Random.insideUnitSphere * (struggle * _struggleJitter);
         }
 
         public void SetRimColor(Color color)
@@ -71,6 +92,8 @@ namespace Hauntscope.Gameplay.Ghosts
                     _bodyMaterial = _materials[i];
             }
 
+            _baseRimIntensity = _bodyMaterial.GetFloat(RimIntensityId);
+            _baseWobble = _bodyMaterial.GetFloat(WobbleAmplitudeId);
             _trailSystems = _trail != null ? _trail.GetComponentsInChildren<ParticleSystem>(true) : System.Array.Empty<ParticleSystem>();
             _isTrailing = true;
             SetTrailing(false);
