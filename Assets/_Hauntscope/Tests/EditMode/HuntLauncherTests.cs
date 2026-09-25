@@ -285,6 +285,62 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void CancelPrompt_CameraPrompt_ClearsPromptWithoutRequest()
+        {
+            Launch();
+
+            var handled = _launcher.CancelPrompt();
+
+            Assert.IsTrue(handled);
+            Assert.AreEqual(LaunchPrompt.None, _launcher.Prompt.Value);
+            Assert.AreEqual(0, _camera.RequestCount);
+            Assert.AreEqual(0, _sceneLoader.LoadCount);
+        }
+
+        [Test]
+        public void CancelPrompt_VirtualRoomNotice_LeavesNoticeUnseen()
+        {
+            _ar.Availability = ArAvailabilityResult.Unsupported;
+            Launch();
+
+            _launcher.CancelPrompt();
+
+            Assert.IsFalse(_progress.VirtualRoomNoticeShown);
+            Assert.AreEqual(0, _sceneLoader.LoadCount);
+        }
+
+        [Test]
+        public void CancelPrompt_NoPrompt_ReturnsFalse()
+        {
+            Assert.IsFalse(_launcher.CancelPrompt());
+        }
+
+        [Test]
+        public void CancelPrompt_WhileRequestPending_KeepsPrompt()
+        {
+            Launch();
+            _camera.HoldRequests = true;
+            Allow();
+
+            var handled = _launcher.CancelPrompt();
+
+            Assert.IsFalse(handled);
+            Assert.AreEqual(LaunchPrompt.CameraPermission, _launcher.Prompt.Value);
+        }
+
+        [Test]
+        public void Resumed_AfterCancelledSettingsPrompt_DoesNotLoad()
+        {
+            ReachSettingsPrompt();
+            _launcher.CancelPrompt();
+            _camera.IsGranted = true;
+
+            _lifecycle.Resume();
+
+            Assert.AreEqual(0, _sceneLoader.LoadCount);
+        }
+
+        [Test]
         public void Dispose_ThenResumed_IsIgnored()
         {
             ReachSettingsPrompt();

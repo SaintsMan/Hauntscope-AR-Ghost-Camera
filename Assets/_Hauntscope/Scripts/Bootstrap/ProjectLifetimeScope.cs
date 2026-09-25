@@ -39,6 +39,7 @@ namespace Hauntscope.Bootstrap
                 .DontDestroyOnLoad()
                 .As<IApplicationLifecycle>();
             builder.RegisterEntryPoint<InputSystemBackButton>();
+            RegisterSystemNavigation(builder);
             RegisterHaptics(builder);
             RegisterProgress(builder);
             RegisterLaunch(builder);
@@ -88,6 +89,15 @@ namespace Hauntscope.Bootstrap
             builder.Register<ArAvailability>(Lifetime.Singleton).As<IArAvailability>();
             builder.Register<HuntLaunchOptions>(Lifetime.Singleton);
             builder.RegisterEntryPoint<HuntLauncher>().AsSelf();
+        }
+
+        private static void RegisterSystemNavigation(IContainerBuilder builder)
+        {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            builder.Register<AndroidSystemNavigation>(Lifetime.Singleton).As<ISystemNavigation>();
+#else
+            builder.Register<NullSystemNavigation>(Lifetime.Singleton).As<ISystemNavigation>();
+#endif
         }
 
         private static void RegisterPlayStore(IContainerBuilder builder)

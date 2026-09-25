@@ -4,6 +4,7 @@ namespace Hauntscope.UI.Menu
     {
         Main,
         Bestiary,
+        BestiaryCard,
         Settings,
         Credits
     }

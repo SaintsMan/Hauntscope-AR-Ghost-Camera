@@ -93,6 +93,17 @@ namespace Hauntscope.Gameplay.Hunt
             return RunExclusiveAsync(LoadVirtualAsync, cancellationToken);
         }
 
+        // Back on a launch prompt returns to the menu without choosing: no request, no Virtual Room, and the notice
+        // stays unseen. Ignored while a step is in flight, when the system dialog or ARCore install is on top anyway.
+        public bool CancelPrompt()
+        {
+            if (_isBusy || _prompt.Value == LaunchPrompt.None)
+                return false;
+
+            _prompt.Value = LaunchPrompt.None;
+            return true;
+        }
+
         private async UniTask RunExclusiveAsync(Func<CancellationToken, UniTask> step, CancellationToken cancellationToken)
         {
             // The permission dialog and ARCore install pause the app, so taps and Resumed can race an in-flight step.

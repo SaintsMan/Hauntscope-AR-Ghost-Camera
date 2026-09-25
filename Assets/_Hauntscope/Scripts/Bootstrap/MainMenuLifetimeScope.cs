@@ -10,6 +10,7 @@ namespace Hauntscope.Bootstrap
         protected override void Configure(IContainerBuilder builder)
         {
             builder.Register<MenuNavigation>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<MenuBackHandler>();
 
             builder.RegisterComponentInHierarchy<MainMenuView>();
             builder.RegisterEntryPoint<MainMenuPresenter>();

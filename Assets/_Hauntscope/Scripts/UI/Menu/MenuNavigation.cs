@@ -15,7 +15,18 @@ namespace Hauntscope.UI.Menu
 
         public void Back()
         {
-            _current.Value = _current.Value == MenuScreen.Credits ? MenuScreen.Settings : MenuScreen.Main;
+            switch (_current.Value)
+            {
+                case MenuScreen.Credits:
+                    _current.Value = MenuScreen.Settings;
+                    break;
+                case MenuScreen.BestiaryCard:
+                    _current.Value = MenuScreen.Bestiary;
+                    break;
+                default:
+                    _current.Value = MenuScreen.Main;
+                    break;
+            }
         }
     }
 }

@@ -78,8 +78,9 @@ namespace Hauntscope.UI.Menu
 
         private void OnScreenChanged(MenuScreen screen)
         {
-            _view.SetVisible(screen == MenuScreen.Bestiary);
-            _view.HideDetails();
+            _view.SetVisible(screen == MenuScreen.Bestiary || screen == MenuScreen.BestiaryCard);
+            if (screen != MenuScreen.BestiaryCard)
+                _view.HideDetails();
         }
 
         private void Render()
@@ -117,6 +118,7 @@ namespace Hauntscope.UI.Menu
             _view.ShowDetails(ghost.Icon, ghost.RimColor,
                 _localization.Get(LocalizationTable.Ghosts, ghost.NameKey),
                 _localization.Get(LocalizationTable.Ghosts, ghost.DescriptionKey));
+            _navigation.Show(MenuScreen.BestiaryCard);
         }
 
         private void OnBackClicked()
@@ -128,7 +130,7 @@ namespace Hauntscope.UI.Menu
         private void OnDetailsCloseClicked()
         {
             _ui.PlayBack();
-            _view.HideDetails();
+            _navigation.Back();
         }
     }
 }
