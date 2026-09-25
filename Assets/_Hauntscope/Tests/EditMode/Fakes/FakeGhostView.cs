@@ -11,6 +11,8 @@ namespace Hauntscope.Tests.EditMode.Fakes
 
         public float Reveal { get; private set; }
 
+        public float Dissolve { get; private set; }
+
         public int SetPoseCount { get; private set; }
 
         public void SetPose(Vector3 position, Quaternion rotation)
@@ -23,6 +25,11 @@ namespace Hauntscope.Tests.EditMode.Fakes
         public void SetReveal(float reveal)
         {
             Reveal = reveal;
+        }
+
+        public void SetDissolve(float dissolve)
+        {
+            Dissolve = dissolve;
         }
     }
 }

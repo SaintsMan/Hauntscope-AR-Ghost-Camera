@@ -19,6 +19,8 @@ namespace Hauntscope.AR
 
         public Vector3 Forward => _transform.forward;
 
+        public float Aspect => _camera.aspect;
+
         public Vector3 WorldToViewport(Vector3 worldPosition)
         {
             return _camera.WorldToViewportPoint(worldPosition);

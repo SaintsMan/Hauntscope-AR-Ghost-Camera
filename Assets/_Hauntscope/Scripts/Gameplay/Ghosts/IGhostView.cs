@@ -7,5 +7,7 @@ namespace Hauntscope.Gameplay.Ghosts
         void SetPose(Vector3 position, Quaternion rotation);
 
         void SetReveal(float reveal);
+
+        void SetDissolve(float dissolve);
     }
 }

@@ -9,6 +9,7 @@ namespace Hauntscope.Gameplay.Ghosts
         public GhostContext(
             GhostMotion motion,
             GhostDetection detection,
+            GhostCapture capture,
             GhostConfig config,
             GhostMover mover,
             IRandom random,
@@ -17,6 +18,7 @@ namespace Hauntscope.Gameplay.Ghosts
         {
             Motion = motion;
             Detection = detection;
+            Capture = capture;
             Config = config;
             Mover = mover;
             Random = random;
@@ -27,6 +29,8 @@ namespace Hauntscope.Gameplay.Ghosts
         public GhostMotion Motion { get; }
 
         public GhostDetection Detection { get; }
+
+        public GhostCapture Capture { get; }
 
         public GhostConfig Config { get; }
 

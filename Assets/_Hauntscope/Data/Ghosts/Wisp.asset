@@ -16,5 +16,11 @@ MonoBehaviour:
   _prefab: {fileID: 5507391301681114844, guid: a750329d837344149ba29304915b9ba5, type: 3}
   _motion:
     _moveSpeed: 0.5
+    _fleeSpeed: 1.2
     _hoverHeightMin: 0.8
     _hoverHeightMax: 1.8
+  _detection:
+    _emfRange: 6
+    _revealRange: 3
+  _capture:
+    _resistance: 0.8

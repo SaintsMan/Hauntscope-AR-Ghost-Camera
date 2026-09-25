@@ -16,6 +16,12 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Range(0f, 1f)] private float _alertRevealThreshold = 0.5f;
         [SerializeField, Min(0f)] private float _alertedPauseDuration = 0.5f;
         [SerializeField, Min(1f)] private float _alertedSpeedMultiplier = 1.5f;
+        [SerializeField, Min(0f)] private float _fleeCalmDownTime = 2f;
+        [SerializeField, Min(0.1f)] private float _fleeDistance = 2f;
+        [SerializeField, Min(0.05f)] private float _fleeRetargetInterval = 0.6f;
+        [SerializeField, Min(0.1f)] private float _captureDuration = 1.2f;
+        [SerializeField, Min(0f)] private float _captureSpiralTurns = 2f;
+        [SerializeField, Min(0f)] private float _captureSpiralRadius = 0.3f;
 
         public GhostConfig()
         {
@@ -29,7 +35,13 @@ namespace Hauntscope.Gameplay.Config
             float bobFrequency,
             float alertRevealThreshold,
             float alertedPauseDuration,
-            float alertedSpeedMultiplier)
+            float alertedSpeedMultiplier,
+            float fleeCalmDownTime,
+            float fleeDistance,
+            float fleeRetargetInterval,
+            float captureDuration,
+            float captureSpiralTurns,
+            float captureSpiralRadius)
         {
             _wanderIntervalMin = wanderIntervalMin;
             _wanderIntervalMax = wanderIntervalMax;
@@ -39,6 +51,12 @@ namespace Hauntscope.Gameplay.Config
             _alertRevealThreshold = alertRevealThreshold;
             _alertedPauseDuration = alertedPauseDuration;
             _alertedSpeedMultiplier = alertedSpeedMultiplier;
+            _fleeCalmDownTime = fleeCalmDownTime;
+            _fleeDistance = fleeDistance;
+            _fleeRetargetInterval = fleeRetargetInterval;
+            _captureDuration = captureDuration;
+            _captureSpiralTurns = captureSpiralTurns;
+            _captureSpiralRadius = captureSpiralRadius;
         }
 
         public IReadOnlyList<GhostData> Ghosts => _ghosts;
@@ -58,5 +76,17 @@ namespace Hauntscope.Gameplay.Config
         public float AlertedPauseDuration => _alertedPauseDuration;
 
         public float AlertedSpeedMultiplier => _alertedSpeedMultiplier;
+
+        public float FleeCalmDownTime => _fleeCalmDownTime;
+
+        public float FleeDistance => _fleeDistance;
+
+        public float FleeRetargetInterval => _fleeRetargetInterval;
+
+        public float CaptureDuration => _captureDuration;
+
+        public float CaptureSpiralTurns => _captureSpiralTurns;
+
+        public float CaptureSpiralRadius => _captureSpiralRadius;
     }
 }

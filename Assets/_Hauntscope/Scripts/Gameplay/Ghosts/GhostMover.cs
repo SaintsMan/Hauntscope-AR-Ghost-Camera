@@ -41,6 +41,14 @@ namespace Hauntscope.Gameplay.Ghosts
             Target = ClampToRoom(target);
         }
 
+        // Scripted motion (capture spiral) may leave the room bounds, so it bypasses clamping.
+        public void MoveTo(Vector3 position)
+        {
+            Position = position;
+            Target = position;
+            _velocity = Vector3.zero;
+        }
+
         public void Stop()
         {
             Target = Position;

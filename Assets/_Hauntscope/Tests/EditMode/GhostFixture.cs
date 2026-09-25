@@ -8,6 +8,7 @@ namespace Hauntscope.Tests.EditMode
     public sealed class GhostFixture
     {
         public const float MoveSpeed = 1f;
+        public const float FleeSpeed = 2f;
         public const float HoverMin = 1f;
         public const float HoverMax = 2f;
         public const float EmfRange = 6f;
@@ -15,6 +16,11 @@ namespace Hauntscope.Tests.EditMode
         public const float AlertThreshold = 0.5f;
         public const float AlertedPause = 0.5f;
         public const float AlertedSpeedMultiplier = 1.5f;
+        public const float Resistance = 1f;
+        public const float FleeCalmDownTime = 2f;
+        public const float FleeDistance = 2f;
+        public const float FleeRetargetInterval = 0.6f;
+        public const float CaptureDuration = 1.2f;
 
         public GhostFixture(float wanderInterval = 4f, float floorHeight = 0f)
         {
@@ -28,8 +34,9 @@ namespace Hauntscope.Tests.EditMode
             Config = CreateConfig(wanderInterval);
             Mover = new GhostMover(Planes, Config);
             Context = new GhostContext(
-                new GhostMotion(MoveSpeed, HoverMin, HoverMax),
+                new GhostMotion(MoveSpeed, FleeSpeed, HoverMin, HoverMax),
                 new GhostDetection(EmfRange, RevealRange),
+                new GhostCapture(Resistance),
                 Config,
                 Mover,
                 Random,
@@ -58,7 +65,8 @@ namespace Hauntscope.Tests.EditMode
         public static GhostConfig CreateConfig(float wanderInterval = 4f)
         {
             return new GhostConfig(wanderInterval, wanderInterval, 0.5f, 0.05f, 0.5f,
-                AlertThreshold, AlertedPause, AlertedSpeedMultiplier);
+                AlertThreshold, AlertedPause, AlertedSpeedMultiplier,
+                FleeCalmDownTime, FleeDistance, FleeRetargetInterval, CaptureDuration, 2f, 0.3f);
         }
     }
 }

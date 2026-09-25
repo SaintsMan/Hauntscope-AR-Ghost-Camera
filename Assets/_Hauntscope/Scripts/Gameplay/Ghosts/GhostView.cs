@@ -5,6 +5,7 @@ namespace Hauntscope.Gameplay.Ghosts
     public sealed class GhostView : MonoBehaviour, IGhostView
     {
         private static readonly int RevealId = Shader.PropertyToID("_Reveal");
+        private static readonly int DissolveId = Shader.PropertyToID("_Dissolve");
 
         [SerializeField] private Renderer[] _renderers;
 
@@ -23,6 +24,12 @@ namespace Hauntscope.Gameplay.Ghosts
                 _renderers[i].enabled = visible;
                 _materials[i].SetFloat(RevealId, reveal);
             }
+        }
+
+        public void SetDissolve(float dissolve)
+        {
+            foreach (var material in _materials)
+                material.SetFloat(DissolveId, dissolve);
         }
 
         private void Awake()

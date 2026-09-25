@@ -9,9 +9,13 @@ namespace Hauntscope.Tests.EditMode.Fakes
 
         public Vector3 Forward { get; set; } = Vector3.forward;
 
+        public float Aspect { get; set; } = 9f / 16f;
+
+        public Vector3 ViewportPoint { get; set; } = new Vector3(0.5f, 0.5f, 1f);
+
         public Vector3 WorldToViewport(Vector3 worldPosition)
         {
-            return worldPosition;
+            return ViewportPoint;
         }
     }
 }

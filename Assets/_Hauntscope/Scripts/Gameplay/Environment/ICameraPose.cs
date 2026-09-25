@@ -8,6 +8,8 @@ namespace Hauntscope.Gameplay.Environment
 
         Vector3 Forward { get; }
 
+        float Aspect { get; }
+
         Vector3 WorldToViewport(Vector3 worldPosition);
     }
 }

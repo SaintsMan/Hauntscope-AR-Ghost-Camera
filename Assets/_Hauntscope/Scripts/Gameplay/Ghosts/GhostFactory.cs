@@ -38,7 +38,7 @@ namespace Hauntscope.Gameplay.Ghosts
             var view = Object.Instantiate(data.Prefab, position, Quaternion.identity);
             view.name = data.Id;
 
-            var context = new GhostContext(data.Motion, data.Detection, _config, mover, _random, _planes, _camera);
+            var context = new GhostContext(data.Motion, data.Detection, data.Capture, _config, mover, _random, _planes, _camera);
             var ghost = new Ghost(context, view);
             ghost.Start();
             return ghost;
