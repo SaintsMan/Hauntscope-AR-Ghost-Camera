@@ -147,6 +147,28 @@ Shaders are hand-written URP HLSL: `Ghost` (Fresnel rim, scrolling smoke, reveal
 3. Press Play. In the Editor, AR runs on XR Simulation; the camera permission answer is set in `GameConfig → Launch` to try the denial flows.
 4. To build: switch to Android, keep IL2CPP / ARM64, and build. ARCore is optional, so devices without it land in the Virtual Room.
 
+### Release builds
+
+**Hauntscope → Build Release AAB** builds a signed Android App Bundle into `Build/`. Signing comes from a local file that is git-ignored together with the keystore:
+
+```json
+// Assets/_Hauntscope/Secrets/android-signing.json
+{
+    "_keystore": "Assets/_Hauntscope/Secrets/hauntscope-upload.keystore",
+    "_keystorePassword": "…",
+    "_alias": "…",
+    "_aliasPassword": "…"
+}
+```
+
+An upload key can be created with the JDK bundled with Unity:
+
+```bash
+keytool -genkeypair -keystore Assets/_Hauntscope/Secrets/hauntscope-upload.keystore -storetype PKCS12         -alias <alias> -keyalg RSA -keysize 2048 -validity 10000
+```
+
+The signing is applied only for the build and cleared afterwards, so `ProjectSettings` never stores it. **Hauntscope → Bump Version Code** before every Google Play upload.
+
 ## Credits and license
 
 - Code: [MIT](LICENSE) © 2026 Pavko.
