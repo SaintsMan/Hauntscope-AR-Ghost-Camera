@@ -19,6 +19,11 @@ namespace Hauntscope.UI.Hunt
             _hintLabel.text = text;
         }
 
+        public void SetVisible(bool visible)
+        {
+            gameObject.SetActive(visible);
+        }
+
         public void SetProgress(float normalized)
         {
             var anchorMax = _progressFill.anchorMax;

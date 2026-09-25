@@ -15,3 +15,15 @@ MonoBehaviour:
   _targetFrameRate: 60
   _room:
     _calibrationArea: 1.5
+    _calibratedMessageDuration: 1.5
+    _roomBoundsPadding: 0.3
+    _spawnMinDistance: 2
+    _spawnMaxDistance: 5
+  _ghost:
+    _ghosts:
+    - {fileID: 11400000, guid: 3ef98d6c258acb94891fc0449bc6a268, type: 2}
+    _wanderIntervalMin: 3
+    _wanderIntervalMax: 6
+    _moveSmoothTime: 0.8
+    _bobAmplitude: 0.05
+    _bobFrequency: 0.5

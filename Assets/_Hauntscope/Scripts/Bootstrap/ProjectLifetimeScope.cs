@@ -20,6 +20,7 @@ namespace Hauntscope.Bootstrap
         {
             builder.RegisterInstance(_gameConfig);
             builder.RegisterInstance(_gameConfig.Room);
+            builder.RegisterInstance(_gameConfig.Ghost);
 
             builder.Register<JsonSaveService>(Lifetime.Singleton).As<ISaveService>()
                 .WithParameter(Application.persistentDataPath);

@@ -1,8 +1,10 @@
 using Hauntscope.AR;
 using Hauntscope.Gameplay.Environment;
+using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Hunt.States;
 using Hauntscope.UI.Hunt;
+using Unity.XR.CoreUtils;
 using UnityEngine.XR.ARFoundation;
 using VContainer;
 using VContainer.Unity;
@@ -13,15 +15,28 @@ namespace Hauntscope.Bootstrap
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterComponentInHierarchy<ARPlaneManager>();
-            builder.Register<ArPlaneProvider>(Lifetime.Singleton).As<IPlaneProvider>();
+            RegisterArEnvironment(builder);
 
             builder.Register<RoomCalibration>(Lifetime.Singleton);
+            builder.Register<SpawnPointSelector>(Lifetime.Singleton);
+            builder.Register<GhostSelector>(Lifetime.Singleton);
+            builder.Register<GhostFactory>(Lifetime.Singleton);
+
             builder.Register<ScanState>(Lifetime.Singleton);
+            builder.Register<HuntingState>(Lifetime.Singleton);
             builder.RegisterEntryPoint<HuntFlow>();
 
             builder.RegisterComponentInHierarchy<ScanHudView>();
             builder.RegisterEntryPoint<ScanHudPresenter>();
+        }
+
+        private static void RegisterArEnvironment(IContainerBuilder builder)
+        {
+            builder.RegisterComponentInHierarchy<ARPlaneManager>();
+            builder.RegisterComponentInHierarchy<XROrigin>();
+            builder.Register<ArPlaneProvider>(Lifetime.Singleton).As<IPlaneProvider>();
+            builder.Register<ArCameraPose>(Lifetime.Singleton).As<ICameraPose>();
+            builder.Register<ArTrackingStatus>(Lifetime.Singleton).As<ITrackingStatus>();
         }
     }
 }

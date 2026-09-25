@@ -1,12 +1,13 @@
 using System;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Hunt;
 using UnityEngine;
 using VContainer.Unity;
 
 namespace Hauntscope.UI.Hunt
 {
-    public sealed class ScanHudPresenter : IStartable, IDisposable
+    public sealed class ScanHudPresenter : IStartable, ITickable, IDisposable
     {
         private const string ProgressKey = "hud.scan.progress";
         private const string CalibratedKey = "hud.scan.calibrated";
@@ -17,15 +18,23 @@ namespace Hauntscope.UI.Hunt
         private readonly ScanHudView _view;
         private readonly RoomCalibration _calibration;
         private readonly ILocalizationService _localization;
+        private readonly RoomConfig _config;
 
         private int _shownPercent = -1;
         private string _shownHintKey;
+        private float _hideCountdown;
+        private bool _isHiding;
 
-        public ScanHudPresenter(ScanHudView view, RoomCalibration calibration, ILocalizationService localization)
+        public ScanHudPresenter(
+            ScanHudView view,
+            RoomCalibration calibration,
+            ILocalizationService localization,
+            RoomConfig config)
         {
             _view = view;
             _calibration = calibration;
             _localization = localization;
+            _config = config;
         }
 
         public void Start()
@@ -33,6 +42,19 @@ namespace Hauntscope.UI.Hunt
             _calibration.Progress.Changed += OnProgressChanged;
             _localization.Changed += OnLanguageChanged;
             Render(true);
+        }
+
+        public void Tick()
+        {
+            if (!_isHiding)
+                return;
+
+            _hideCountdown -= Time.deltaTime;
+            if (_hideCountdown > 0f)
+                return;
+
+            _isHiding = false;
+            _view.SetVisible(false);
         }
 
         public void Dispose()
@@ -55,6 +77,7 @@ namespace Hauntscope.UI.Hunt
         {
             var progress = _calibration.Progress.Value;
             _view.SetProgress(progress);
+            UpdateVisibility();
 
             var percent = Mathf.FloorToInt(progress * PercentMultiplier);
             var hintKey = _calibration.IsComplete ? null : progress > 0f ? MoveSlowlyKey : PointAtFloorKey;
@@ -67,6 +90,22 @@ namespace Hauntscope.UI.Hunt
                 ? _localization.Get(LocalizationTable.Ui, CalibratedKey)
                 : _localization.Get(LocalizationTable.Ui, ProgressKey, percent));
             _view.SetHint(hintKey != null ? _localization.Get(LocalizationTable.Ui, hintKey) : string.Empty);
+        }
+
+        private void UpdateVisibility()
+        {
+            if (!_calibration.IsComplete)
+            {
+                _isHiding = false;
+                _view.SetVisible(true);
+                return;
+            }
+
+            if (_isHiding)
+                return;
+
+            _isHiding = true;
+            _hideCountdown = _config.CalibratedMessageDuration;
         }
     }
 }

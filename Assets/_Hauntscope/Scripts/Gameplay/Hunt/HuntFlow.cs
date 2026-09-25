@@ -10,9 +10,10 @@ namespace Hauntscope.Gameplay.Hunt
         private readonly StateMachine _stateMachine = new StateMachine();
         private readonly ScanState _scanState;
 
-        public HuntFlow(ScanState scanState)
+        public HuntFlow(RoomCalibration calibration, ScanState scanState, HuntingState huntingState)
         {
             _scanState = scanState;
+            _stateMachine.AddTransition(scanState, huntingState, () => calibration.IsComplete);
         }
 
         public void Start()
