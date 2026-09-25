@@ -1,3 +1,4 @@
+using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Tests.EditMode.Fakes;
 using NUnit.Framework;
@@ -65,6 +66,28 @@ namespace Hauntscope.Tests.EditMode
             var settings = _repository.Load();
 
             Assert.IsTrue(settings.Sound.Value);
+        }
+
+        [Test]
+        public void Load_AfterVirtualChosen_RestoresVirtualMode()
+        {
+            var settings = new GameSettings();
+            settings.SetEnvironment(HuntEnvironment.Virtual);
+            _repository.Save(settings);
+
+            var loaded = _repository.Load();
+
+            Assert.AreEqual(HuntEnvironment.Virtual, loaded.Environment.Value);
+        }
+
+        [Test]
+        public void Load_SaveWithoutMode_DefaultsToCamera()
+        {
+            _save.SetRaw("settings", "{\"_version\":1,\"_sound\":true}");
+
+            var loaded = _repository.Load();
+
+            Assert.AreEqual(HuntEnvironment.Ar, loaded.Environment.Value);
         }
 
         [Test]

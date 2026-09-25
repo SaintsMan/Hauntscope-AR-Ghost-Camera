@@ -16,6 +16,8 @@ namespace Hauntscope.Gameplay.Hunt
         private readonly IApplicationLifecycle _lifecycle;
         private readonly PlayerProgress _progress;
         private readonly PlayerProgressRepository _progressRepository;
+        private readonly GameSettings _settings;
+        private readonly SettingsRepository _settingsRepository;
         private readonly HuntLaunchOptions _options;
         private readonly ISceneLoader _sceneLoader;
         private readonly ObservableValue<LaunchPrompt> _prompt = new ObservableValue<LaunchPrompt>(LaunchPrompt.None);
@@ -29,9 +31,13 @@ namespace Hauntscope.Gameplay.Hunt
             IApplicationLifecycle lifecycle,
             PlayerProgress progress,
             PlayerProgressRepository progressRepository,
+            GameSettings settings,
+            SettingsRepository settingsRepository,
             HuntLaunchOptions options,
             ISceneLoader sceneLoader)
         {
+            _settings = settings;
+            _settingsRepository = settingsRepository;
             _arAvailability = arAvailability;
             _cameraPermission = cameraPermission;
             _lifecycle = lifecycle;
@@ -123,6 +129,13 @@ namespace Hauntscope.Gameplay.Hunt
 
         private async UniTask ResolveEnvironmentAsync(CancellationToken cancellationToken)
         {
+            // A player who picked the Virtual Room needs no AR check, camera or explanation.
+            if (_settings.Environment.Value == HuntEnvironment.Virtual)
+            {
+                await LoadAsync(HuntEnvironment.Virtual, cancellationToken);
+                return;
+            }
+
             var availability = await _arAvailability.CheckAsync(cancellationToken);
             if (availability == ArAvailabilityResult.NeedsInstall)
             {
@@ -173,8 +186,16 @@ namespace Hauntscope.Gameplay.Hunt
             return UniTask.CompletedTask;
         }
 
+        // Choosing the Virtual Room from a prompt (no camera, or no AR) becomes the menu's mode, so the next
+        // START HUNT goes straight there instead of asking again; the menu switch turns the camera back on.
         private UniTask LoadVirtualAsync(CancellationToken cancellationToken)
         {
+            if (_settings.Environment.Value != HuntEnvironment.Virtual)
+            {
+                _settings.SetEnvironment(HuntEnvironment.Virtual);
+                _settingsRepository.Save(_settings);
+            }
+
             return LoadAsync(HuntEnvironment.Virtual, cancellationToken);
         }
 

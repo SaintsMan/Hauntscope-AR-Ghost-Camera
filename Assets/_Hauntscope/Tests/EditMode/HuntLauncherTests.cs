@@ -20,6 +20,8 @@ namespace Hauntscope.Tests.EditMode
         private HuntLaunchOptions _options;
         private FakeSceneLoader _sceneLoader;
         private PlayerProgress _progress;
+        private GameSettings _settings;
+        private SettingsRepository _settingsRepository;
         private HuntLauncher _launcher;
         private bool _isDisposed;
 
@@ -33,6 +35,8 @@ namespace Hauntscope.Tests.EditMode
             _repository = new PlayerProgressRepository(_save);
             _options = new HuntLaunchOptions();
             _sceneLoader = new FakeSceneLoader();
+            _settings = new GameSettings();
+            _settingsRepository = new SettingsRepository(_save);
             CreateLauncher(new PlayerProgress());
         }
 
@@ -341,6 +345,63 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Launch_VirtualChosen_LoadsVirtualWithoutArOrCamera()
+        {
+            _settings.SetEnvironment(HuntEnvironment.Virtual);
+
+            Launch();
+
+            AssertLoaded(HuntEnvironment.Virtual);
+            Assert.AreEqual(0, _ar.CheckCount);
+            Assert.AreEqual(0, _camera.RequestCount);
+        }
+
+        [Test]
+        public void Launch_VirtualChosenOnArlessDevice_SkipsNotice()
+        {
+            _settings.SetEnvironment(HuntEnvironment.Virtual);
+            _ar.Availability = ArAvailabilityResult.Unsupported;
+
+            Launch();
+
+            AssertLoaded(HuntEnvironment.Virtual);
+            Assert.AreEqual(LaunchPrompt.None, _launcher.Prompt.Value);
+        }
+
+        [Test]
+        public void PlayVirtual_FromCameraPrompt_RemembersVirtualMode()
+        {
+            Launch();
+
+            _launcher.PlayVirtualAsync(CancellationToken.None).Forget();
+
+            Assert.AreEqual(HuntEnvironment.Virtual, _settings.Environment.Value);
+            Assert.AreEqual(HuntEnvironment.Virtual, _settingsRepository.Load().Environment.Value);
+        }
+
+        [Test]
+        public void AcknowledgeNotice_ArUnsupported_RemembersVirtualMode()
+        {
+            _ar.Availability = ArAvailabilityResult.Unsupported;
+            Launch();
+
+            _launcher.AcknowledgeVirtualRoomNoticeAsync(CancellationToken.None).Forget();
+
+            Assert.AreEqual(HuntEnvironment.Virtual, _settings.Environment.Value);
+        }
+
+        [Test]
+        public void Launch_CameraChosenAndGranted_KeepsCameraMode()
+        {
+            _camera.IsGranted = true;
+
+            Launch();
+
+            AssertLoaded(HuntEnvironment.Ar);
+            Assert.AreEqual(HuntEnvironment.Ar, _settings.Environment.Value);
+        }
+
+        [Test]
         public void Dispose_ThenResumed_IsIgnored()
         {
             ReachSettingsPrompt();
@@ -355,7 +416,8 @@ namespace Hauntscope.Tests.EditMode
         private void CreateLauncher(PlayerProgress progress)
         {
             _progress = progress;
-            _launcher = new HuntLauncher(_ar, _camera, _lifecycle, _progress, _repository, _options, _sceneLoader);
+            _launcher = new HuntLauncher(_ar, _camera, _lifecycle, _progress, _repository, _settings, _settingsRepository,
+                _options, _sceneLoader);
             _launcher.Initialize();
             _isDisposed = false;
         }

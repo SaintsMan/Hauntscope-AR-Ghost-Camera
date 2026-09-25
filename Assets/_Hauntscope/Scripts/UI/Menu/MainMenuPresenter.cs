@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Progress;
@@ -14,6 +15,9 @@ namespace Hauntscope.UI.Menu
     {
         private const string VersionKey = "menu.version";
         private const string TimestampKey = "menu.timestamp";
+        private const string ArHintKey = "menu.mode.ar_hint";
+        private const string VirtualHintKey = "menu.mode.virtual_hint";
+        private const string ArUnavailableKey = "menu.mode.ar_unavailable";
 
         private readonly MainMenuView _view;
         private readonly MenuNavigation _navigation;
@@ -21,9 +25,13 @@ namespace Hauntscope.UI.Menu
         private readonly HuntLauncher _launcher;
         private readonly ILocalizationService _localization;
         private readonly UiFeedback _ui;
+        private readonly GameSettings _settings;
+        private readonly SettingsRepository _settingsRepository;
+        private readonly IArAvailability _arAvailability;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         private int _shownSecond = -1;
+        private bool _arAvailable = true;
 
         public MainMenuPresenter(
             MainMenuView view,
@@ -31,8 +39,14 @@ namespace Hauntscope.UI.Menu
             PlayerProgress progress,
             HuntLauncher launcher,
             ILocalizationService localization,
-            UiFeedback ui)
+            UiFeedback ui,
+            GameSettings settings,
+            SettingsRepository settingsRepository,
+            IArAvailability arAvailability)
         {
+            _settings = settings;
+            _settingsRepository = settingsRepository;
+            _arAvailability = arAvailability;
             _view = view;
             _navigation = navigation;
             _progress = progress;
@@ -50,8 +64,13 @@ namespace Hauntscope.UI.Menu
             _view.StartClicked += OnStartClicked;
             _view.BestiaryClicked += OnBestiaryClicked;
             _view.SettingsClicked += OnSettingsClicked;
+            _view.ArModeClicked += OnArModeClicked;
+            _view.VirtualModeClicked += OnVirtualModeClicked;
+            _settings.Environment.Changed += OnEnvironmentChanged;
 
             RefreshVisibility();
+            RenderMode();
+            CheckArAsync(_lifetime.Token).Forget();
             OnEctoplasmChanged(_progress.Ectoplasm.Value);
             OnLanguageChanged();
         }
@@ -76,6 +95,9 @@ namespace Hauntscope.UI.Menu
             _view.StartClicked -= OnStartClicked;
             _view.BestiaryClicked -= OnBestiaryClicked;
             _view.SettingsClicked -= OnSettingsClicked;
+            _view.ArModeClicked -= OnArModeClicked;
+            _view.VirtualModeClicked -= OnVirtualModeClicked;
+            _settings.Environment.Changed -= OnEnvironmentChanged;
             _lifetime.Cancel();
             _lifetime.Dispose();
         }
@@ -105,6 +127,50 @@ namespace Hauntscope.UI.Menu
         {
             _shownSecond = -1;
             _view.SetVersion(_localization.Get(LocalizationTable.Ui, VersionKey, Application.version));
+            RenderMode();
+        }
+
+        // A device without ARCore support can only hunt in the Virtual Room; the camera half stays visible but disabled,
+        // so the player learns why instead of wondering where the option went.
+        private async UniTaskVoid CheckArAsync(CancellationToken cancellationToken)
+        {
+            var availability = await _arAvailability.CheckAsync(cancellationToken);
+            _arAvailable = availability != ArAvailabilityResult.Unsupported;
+            _view.SetArAvailable(_arAvailable);
+            RenderMode();
+        }
+
+        private void OnArModeClicked()
+        {
+            SelectEnvironment(HuntEnvironment.Ar);
+        }
+
+        private void OnVirtualModeClicked()
+        {
+            SelectEnvironment(HuntEnvironment.Virtual);
+        }
+
+        private void SelectEnvironment(HuntEnvironment environment)
+        {
+            if (!_arAvailable || _settings.Environment.Value == environment)
+                return;
+
+            _ui.PlayClick();
+            _settings.SetEnvironment(environment);
+            _settingsRepository.Save(_settings);
+        }
+
+        private void OnEnvironmentChanged(HuntEnvironment environment)
+        {
+            RenderMode();
+        }
+
+        private void RenderMode()
+        {
+            var isVirtual = !_arAvailable || _settings.Environment.Value == HuntEnvironment.Virtual;
+            _view.SetMode(isVirtual);
+            var key = !_arAvailable ? ArUnavailableKey : isVirtual ? VirtualHintKey : ArHintKey;
+            _view.SetModeCaption(_localization.Get(LocalizationTable.Ui, key));
         }
 
         private void OnStartClicked()

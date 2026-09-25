@@ -347,6 +347,34 @@ MonoBehaviour:
     m_Key: menu.timestamp
     m_Metadata:
       m_Items: []
+  - m_Id: 166529468858368
+    m_Key: menu.mode.ar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412800
+    m_Key: menu.mode.virtual
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412801
+    m_Key: menu.mode.ar_hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412802
+    m_Key: menu.mode.virtual_hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412803
+    m_Key: menu.mode.ar_unavailable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412804
+    m_Key: result.reason.battery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412805
+    m_Key: result.new_entry
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

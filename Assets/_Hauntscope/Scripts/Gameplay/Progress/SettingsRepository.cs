@@ -1,4 +1,5 @@
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Environment;
 
 namespace Hauntscope.Gameplay.Progress
 {
@@ -20,13 +21,16 @@ namespace Hauntscope.Gameplay.Progress
             if (!_save.TryLoad<GameSettingsDto>(Key, out var dto) || dto.Version < 1 || dto.Version > CurrentVersion)
                 return new GameSettings();
 
-            return new GameSettings(dto.Sound, dto.Vibration, dto.JumpScares, dto.Occlusion, dto.Language);
+            var environment = System.Enum.IsDefined(typeof(HuntEnvironment), dto.Environment)
+                ? (HuntEnvironment)dto.Environment
+                : HuntEnvironment.Ar;
+            return new GameSettings(dto.Sound, dto.Vibration, dto.JumpScares, dto.Occlusion, dto.Language, environment);
         }
 
         public void Save(GameSettings settings)
         {
             _save.Save(Key, new GameSettingsDto(CurrentVersion, settings.Sound.Value, settings.Vibration.Value,
-                settings.JumpScares.Value, settings.Occlusion.Value, settings.Language.Value));
+                settings.JumpScares.Value, settings.Occlusion.Value, settings.Language.Value, (int)settings.Environment.Value));
         }
     }
 }
