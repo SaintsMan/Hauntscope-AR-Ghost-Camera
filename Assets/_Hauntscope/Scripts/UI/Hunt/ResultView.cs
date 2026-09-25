@@ -15,6 +15,8 @@ namespace Hauntscope.UI.Hunt
         [SerializeField] private Button _menuButton;
         [SerializeField] private Color _capturedColor;
         [SerializeField] private Color _escapedColor;
+        [SerializeField] private Material _capturedTitleMaterial;
+        [SerializeField] private Material _escapedTitleMaterial;
 
         public event Action HuntAgainClicked;
 
@@ -29,6 +31,7 @@ namespace Hauntscope.UI.Hunt
         {
             _titleLabel.text = text;
             _titleLabel.color = captured ? _capturedColor : _escapedColor;
+            _titleLabel.fontSharedMaterial = captured ? _capturedTitleMaterial : _escapedTitleMaterial;
         }
 
         public void SetGhostName(string text)

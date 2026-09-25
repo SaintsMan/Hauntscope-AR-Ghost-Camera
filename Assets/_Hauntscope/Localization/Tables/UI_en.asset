@@ -74,6 +74,14 @@ MonoBehaviour:
     m_Localized: MENU
     m_Metadata:
       m_Items: []
+  - m_Id: 50212896112640
+    m_Localized: REC
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50212933861376
+    m_Localized: '{0:00}:{1:00}:{2:00}'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

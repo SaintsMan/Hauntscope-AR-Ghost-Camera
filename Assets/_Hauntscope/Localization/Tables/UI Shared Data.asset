@@ -71,6 +71,14 @@ MonoBehaviour:
     m_Key: result.menu
     m_Metadata:
       m_Items: []
+  - m_Id: 50212896112640
+    m_Key: hud.rec
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50212933861376
+    m_Key: hud.timecode
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
