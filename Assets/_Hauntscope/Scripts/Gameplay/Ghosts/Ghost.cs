@@ -15,8 +15,11 @@ namespace Hauntscope.Gameplay.Ghosts
         private readonly GhostAlertedState _alertedState;
         private readonly GhostFleeState _fleeState;
         private readonly GhostCapturedState _capturedState;
+        private readonly GhostEscapedState _escapedState;
 
         private bool _captureRequested;
+        private bool _escapeRequested;
+        private float _revealBeforeEscape;
 
         public Ghost(GhostContext context, IGhostView view)
         {
@@ -26,8 +29,10 @@ namespace Hauntscope.Gameplay.Ghosts
             _alertedState = new GhostAlertedState(context);
             _fleeState = new GhostFleeState(context, () => IsBeamed);
             _capturedState = new GhostCapturedState(context);
+            _escapedState = new GhostEscapedState(context);
 
             _stateMachine.AddAnyTransition(_capturedState, () => _captureRequested);
+            _stateMachine.AddAnyTransition(_escapedState, () => _escapeRequested);
             _stateMachine.AddTransition(_wanderState, _alertedState, () => Reveal >= context.Config.AlertRevealThreshold);
             _stateMachine.AddTransition(_alertedState, _fleeState, () => IsBeamed);
             _stateMachine.AddTransition(_fleeState, _alertedState, () => _fleeState.IsCalm);
@@ -53,6 +58,12 @@ namespace Hauntscope.Gameplay.Ghosts
 
         public bool IsCaptureFinished => IsCaptured && _capturedState.IsFinished;
 
+        public bool IsEscaped => _stateMachine.CurrentState == _escapedState;
+
+        public bool IsEscapeFinished => IsEscaped && _escapedState.IsFinished;
+
+        private bool IsLeaving => _captureRequested || _escapeRequested;
+
         public void Start()
         {
             _stateMachine.Start(_wanderState);
@@ -61,26 +72,47 @@ namespace Hauntscope.Gameplay.Ghosts
 
         public void SetReveal(float reveal)
         {
-            if (!_captureRequested)
+            if (!IsLeaving)
                 Reveal = Mathf.Clamp01(reveal);
         }
 
         public void SetBeamed(bool beamed)
         {
-            IsBeamed = beamed && !_captureRequested;
+            IsBeamed = beamed && !IsLeaving;
         }
 
         public void Capture()
         {
+            if (IsLeaving)
+                return;
+
             _captureRequested = true;
             IsBeamed = false;
             Reveal = 1f;
         }
 
+        public void Escape()
+        {
+            if (IsLeaving)
+                return;
+
+            _escapeRequested = true;
+            IsBeamed = false;
+            _revealBeforeEscape = Reveal;
+        }
+
         public void Tick(float deltaTime)
         {
             _stateMachine.Tick(deltaTime);
+            if (IsEscaped)
+                Reveal = _revealBeforeEscape * (1f - _escapedState.Progress);
+
             SyncView();
+        }
+
+        public void Despawn()
+        {
+            _view.Despawn();
         }
 
         private void SyncView()

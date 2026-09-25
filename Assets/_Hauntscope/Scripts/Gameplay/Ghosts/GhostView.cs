@@ -32,6 +32,11 @@ namespace Hauntscope.Gameplay.Ghosts
                 material.SetFloat(DissolveId, dissolve);
         }
 
+        public void Despawn()
+        {
+            Destroy(gameObject);
+        }
+
         private void Awake()
         {
             // Each ghost owns its material instance so _Reveal and _Dissolve don't leak into other ghosts.

@@ -9,5 +9,7 @@ namespace Hauntscope.Gameplay.Ghosts
         void SetReveal(float reveal);
 
         void SetDissolve(float dissolve);
+
+        void Despawn();
     }
 }

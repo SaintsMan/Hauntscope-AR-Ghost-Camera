@@ -115,6 +115,52 @@ namespace Hauntscope.Tests.EditMode
             Assert.Less(Vector3.Distance(_fixture.Mover.Position, _fixture.Camera.Position), before);
         }
 
+        [Test]
+        public void Fleeing_Escape_GoesToEscaped()
+        {
+            MakeFleeing();
+            _fixture.Ghost.Escape();
+
+            _fixture.Ghost.Tick(0.01f);
+
+            Assert.IsTrue(_fixture.Ghost.IsEscaped);
+        }
+
+        [Test]
+        public void Escaped_AfterEscapeDuration_FadesOutCompletely()
+        {
+            _fixture.Ghost.SetReveal(1f);
+            _fixture.Ghost.Escape();
+            _fixture.Ghost.Tick(0.01f);
+
+            _fixture.Ghost.Tick(GhostFixture.EscapeDuration);
+
+            Assert.IsTrue(_fixture.Ghost.IsEscapeFinished);
+            Assert.AreEqual(0f, _fixture.View.Reveal, 1e-5f);
+        }
+
+        [Test]
+        public void Captured_ThenEscapeRequested_StaysCaptured()
+        {
+            _fixture.Ghost.Capture();
+            _fixture.Ghost.Escape();
+
+            _fixture.Ghost.Tick(0.01f);
+
+            Assert.IsTrue(_fixture.Ghost.IsCaptured);
+        }
+
+        [Test]
+        public void Escaped_ThenCaptureRequested_StaysEscaped()
+        {
+            _fixture.Ghost.Escape();
+            _fixture.Ghost.Capture();
+
+            _fixture.Ghost.Tick(0.01f);
+
+            Assert.IsTrue(_fixture.Ghost.IsEscaped);
+        }
+
         private void MakeAlerted()
         {
             _fixture.Ghost.SetReveal(1f);

@@ -22,6 +22,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Min(0.1f)] private float _captureDuration = 1.2f;
         [SerializeField, Min(0f)] private float _captureSpiralTurns = 2f;
         [SerializeField, Min(0f)] private float _captureSpiralRadius = 0.3f;
+        [SerializeField, Min(0.1f)] private float _escapeDuration = 1f;
 
         public GhostConfig()
         {
@@ -41,7 +42,8 @@ namespace Hauntscope.Gameplay.Config
             float fleeRetargetInterval,
             float captureDuration,
             float captureSpiralTurns,
-            float captureSpiralRadius)
+            float captureSpiralRadius,
+            float escapeDuration)
         {
             _wanderIntervalMin = wanderIntervalMin;
             _wanderIntervalMax = wanderIntervalMax;
@@ -57,6 +59,7 @@ namespace Hauntscope.Gameplay.Config
             _captureDuration = captureDuration;
             _captureSpiralTurns = captureSpiralTurns;
             _captureSpiralRadius = captureSpiralRadius;
+            _escapeDuration = escapeDuration;
         }
 
         public IReadOnlyList<GhostData> Ghosts => _ghosts;
@@ -88,5 +91,7 @@ namespace Hauntscope.Gameplay.Config
         public float CaptureSpiralTurns => _captureSpiralTurns;
 
         public float CaptureSpiralRadius => _captureSpiralRadius;
+
+        public float EscapeDuration => _escapeDuration;
     }
 }

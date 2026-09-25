@@ -7,12 +7,15 @@ namespace Hauntscope.Gameplay.Config
     public sealed class GhostData : ScriptableObject
     {
         [SerializeField] private string _id;
+        [SerializeField] private string _nameKey;
         [SerializeField] private GhostView _prefab;
         [SerializeField] private GhostMotion _motion = new GhostMotion();
         [SerializeField] private GhostDetection _detection = new GhostDetection();
         [SerializeField] private GhostCapture _capture = new GhostCapture();
 
         public string Id => _id;
+
+        public string NameKey => _nameKey;
 
         public GhostView Prefab => _prefab;
 

@@ -15,6 +15,8 @@ namespace Hauntscope.Tests.EditMode.Fakes
 
         public int SetPoseCount { get; private set; }
 
+        public bool IsDespawned { get; private set; }
+
         public void SetPose(Vector3 position, Quaternion rotation)
         {
             Position = position;
@@ -30,6 +32,11 @@ namespace Hauntscope.Tests.EditMode.Fakes
         public void SetDissolve(float dissolve)
         {
             Dissolve = dissolve;
+        }
+
+        public void Despawn()
+        {
+            IsDespawned = true;
         }
     }
 }

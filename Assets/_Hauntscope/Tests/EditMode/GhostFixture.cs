@@ -21,6 +21,8 @@ namespace Hauntscope.Tests.EditMode
         public const float FleeDistance = 2f;
         public const float FleeRetargetInterval = 0.6f;
         public const float CaptureDuration = 1.2f;
+        public const float EscapeDuration = 1f;
+        public const int Reward = 10;
 
         public GhostFixture(float wanderInterval = 4f, float floorHeight = 0f)
         {
@@ -36,7 +38,7 @@ namespace Hauntscope.Tests.EditMode
             Context = new GhostContext(
                 new GhostMotion(MoveSpeed, FleeSpeed, HoverMin, HoverMax),
                 new GhostDetection(EmfRange, RevealRange),
-                new GhostCapture(Resistance),
+                new GhostCapture(Resistance, Reward),
                 Config,
                 Mover,
                 Random,
@@ -66,7 +68,7 @@ namespace Hauntscope.Tests.EditMode
         {
             return new GhostConfig(wanderInterval, wanderInterval, 0.5f, 0.05f, 0.5f,
                 AlertThreshold, AlertedPause, AlertedSpeedMultiplier,
-                FleeCalmDownTime, FleeDistance, FleeRetargetInterval, CaptureDuration, 2f, 0.3f);
+                FleeCalmDownTime, FleeDistance, FleeRetargetInterval, CaptureDuration, 2f, 0.3f, EscapeDuration);
         }
     }
 }
