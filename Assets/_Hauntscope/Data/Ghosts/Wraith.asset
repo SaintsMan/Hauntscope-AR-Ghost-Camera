@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6498942b478c1142b53ff236e671a09, type: 3}
-  m_Name: Poltergeist
+  m_Name: Wraith
   m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Config.GhostData
-  _id: poltergeist
-  _nameKey: ghost.poltergeist.name
-  _descriptionKey: ghost.poltergeist.description
-  _icon: {fileID: 21300000, guid: 356be93796a6e8148b410c87d51f31da, type: 3}
+  _id: wraith
+  _nameKey: ghost.wraith.name
+  _descriptionKey: ghost.wraith.description
+  _icon: {fileID: 21300000, guid: a94bd50129a368c44b2377d56b06ca70, type: 3}
   _rarity: 0
-  _prefab: {fileID: 7980731002722968053, guid: 85e8986df51ee0046b16aac079ed4609, type: 3}
-  _rimColor: {r: 0.23921569, g: 1, b: 0.43137255, a: 1}
-  _whisperClip: {fileID: 8300000, guid: b2aadfb5fa08630498b8ef958d406331, type: 3}
+  _prefab: {fileID: 1262748537365191153, guid: 6c514130afd0f74489e775d4af02b5ea, type: 3}
+  _rimColor: {r: 0.9019608, g: 0.92941177, b: 0.9529412, a: 1}
+  _whisperClip: {fileID: 8300000, guid: 7764d4b0cb8aad2478c60167ef2f2d99, type: 3}
   _motion:
-    _moveSpeed: 0.8
-    _fleeSpeed: 1.9
+    _moveSpeed: 1.1
+    _fleeSpeed: 2.4
     _hoverHeightMin: 0.8
     _hoverHeightMax: 1.8
   _detection:
     _emfRange: 6
     _revealRange: 3
   _capture:
-    _resistance: 1
-    _reward: 15
+    _resistance: 0.9
+    _reward: 20
   _abilities:
-  - {fileID: 11400000, guid: d29d346510b967a49bb4a78ff264916d, type: 2}
+  - {fileID: 11400000, guid: 559f4d8b2f6ca0148813ff350ff98c01, type: 2}

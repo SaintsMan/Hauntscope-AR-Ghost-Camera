@@ -45,6 +45,33 @@ MonoBehaviour:
       is the only tool that works.
     m_Metadata:
       m_Items: []
+  - m_Id: 123991227760640
+    m_Localized: WRAITH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991269703680
+    m_Localized: It never stops running. The moment your beam touches it, it tears
+      sideways out of the ring. Aim where it is going, not where it was.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991273897984
+    m_Localized: BANSHEE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991273897985
+    m_Localized: Her cry shatters the lens. Come too close while she is visible and
+      she shrieks, and you lose her. Keep your distance.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991273897986
+    m_Localized: MIMIC
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991273897987
+    m_Localized: It lies to your instruments. The EMF points one way while its whisper
+      comes from another. Trust your ears until the lens catches it.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

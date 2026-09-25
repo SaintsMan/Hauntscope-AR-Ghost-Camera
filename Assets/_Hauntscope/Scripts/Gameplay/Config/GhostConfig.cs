@@ -9,9 +9,9 @@ namespace Hauntscope.Gameplay.Config
     {
         [SerializeField] private GhostData[] _ghosts = Array.Empty<GhostData>();
         [SerializeField] private string _firstGhostId = "wisp";
-        [SerializeField, Min(0f)] private float _commonWeight = 75f;
-        [SerializeField, Min(0f)] private float _rareWeight = 25f;
-        [SerializeField, Min(0f)] private float _legendaryWeight;
+        [SerializeField, Min(0f)] private float _commonWeight = 60f;
+        [SerializeField, Min(0f)] private float _rareWeight = 30f;
+        [SerializeField, Min(0f)] private float _legendaryWeight = 10f;
         [SerializeField, Min(0f)] private float _wanderIntervalMin = 3f;
         [SerializeField, Min(0f)] private float _wanderIntervalMax = 6f;
         [SerializeField, Min(0.01f)] private float _moveSmoothTime = 0.8f;
@@ -21,7 +21,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Min(0f)] private float _alertedPauseDuration = 0.5f;
         [SerializeField, Min(1f)] private float _alertedSpeedMultiplier = 1.5f;
         [SerializeField, Min(0f)] private float _fleeCalmDownTime = 2f;
-        [SerializeField, Min(0.1f)] private float _fleeDistance = 2f;
+        [SerializeField, Min(0.1f)] private float _fleeDistance = 2.5f;
         [SerializeField, Min(0.05f)] private float _fleeRetargetInterval = 0.6f;
         [SerializeField, Min(0.1f)] private float _captureDuration = 1.2f;
         [SerializeField, Min(0f)] private float _captureSpiralTurns = 2f;

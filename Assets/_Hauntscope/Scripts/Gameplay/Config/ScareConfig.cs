@@ -6,7 +6,7 @@ namespace Hauntscope.Gameplay.Config
     [Serializable]
     public sealed class ScareConfig
     {
-        [SerializeField, Min(0f)] private float _minTime = 45f;
+        [SerializeField, Min(0f)] private float _minTime = 30f;
         [SerializeField, Min(0f)] private float _distance = 1.5f;
         [SerializeField, Range(1f, 180f)] private float _angle = 45f;
         [SerializeField, Min(0.1f)] private float _duration = 1.2f;

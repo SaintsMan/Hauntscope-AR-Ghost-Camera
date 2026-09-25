@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6498942b478c1142b53ff236e671a09, type: 3}
-  m_Name: Shade
+  m_Name: Mimic
   m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Config.GhostData
-  _id: shade
-  _nameKey: ghost.shade.name
-  _descriptionKey: ghost.shade.description
-  _icon: {fileID: 21300000, guid: cbd491afeb7745a4f9915d8043aa8715, type: 3}
-  _rarity: 1
-  _prefab: {fileID: 4999927530735615912, guid: 5525ceb71cfc239408b8a352962b9a5d, type: 3}
-  _rimColor: {r: 0.60784316, g: 0.36078432, b: 1, a: 1}
-  _whisperClip: {fileID: 8300000, guid: e2201c929f61f714cad51cdb8b6914d0, type: 3}
+  _id: mimic
+  _nameKey: ghost.mimic.name
+  _descriptionKey: ghost.mimic.description
+  _icon: {fileID: 21300000, guid: 0960b08bf880691448eac613fc2a9c8a, type: 3}
+  _rarity: 2
+  _prefab: {fileID: 4642989566787932298, guid: 8f2fde728bb60e043973d03612579191, type: 3}
+  _rimColor: {r: 1, g: 0.81960785, b: 0.4, a: 1}
+  _whisperClip: {fileID: 8300000, guid: b81fcccc568912845958452e69562f02, type: 3}
   _motion:
-    _moveSpeed: 0.55
-    _fleeSpeed: 1.6
+    _moveSpeed: 0.7
+    _fleeSpeed: 1.8
     _hoverHeightMin: 0.8
     _hoverHeightMax: 1.8
   _detection:
     _emfRange: 6
     _revealRange: 3
   _capture:
-    _resistance: 1
-    _reward: 30
+    _resistance: 1.4
+    _reward: 60
   _abilities:
-  - {fileID: 11400000, guid: 09e689a5ad1633a46b9d226fe2732f9e, type: 2}
+  - {fileID: 11400000, guid: 2641c20cf7982ec4b9ba04db55da7657, type: 2}

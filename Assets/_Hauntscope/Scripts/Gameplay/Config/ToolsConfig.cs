@@ -7,17 +7,17 @@ namespace Hauntscope.Gameplay.Config
     public sealed class ToolsConfig
     {
         [SerializeField, Min(1f)] private float _batteryMax = 100f;
-        [SerializeField, Min(0f)] private float _passiveDrain = 0.3f;
+        [SerializeField, Min(0f)] private float _passiveDrain = 0.5f;
         [SerializeField, Range(0f, 1f)] private float _lowBatteryThreshold = 0.2f;
-        [SerializeField, Min(0f)] private float _lensDrain = 2f;
-        [SerializeField, Min(0f)] private float _beamDrain = 3f;
-        [SerializeField, Range(1f, 90f)] private float _revealAngle = 35f;
+        [SerializeField, Min(0f)] private float _lensDrain = 3f;
+        [SerializeField, Min(0f)] private float _beamDrain = 4f;
+        [SerializeField, Range(1f, 90f)] private float _revealAngle = 30f;
         [SerializeField, Min(0.01f)] private float _revealInTime = 0.4f;
         [SerializeField, Min(0.01f)] private float _revealOutTime = 0.8f;
         [SerializeField, Range(0f, 1f)] private float _beamRevealThreshold = 0.5f;
-        [SerializeField, Range(0.01f, 0.5f)] private float _reticleRadius = 0.18f;
-        [SerializeField, Min(0f)] private float _captureRate = 0.2f;
-        [SerializeField, Min(0f)] private float _decayRate = 0.1f;
+        [SerializeField, Range(0.01f, 0.5f)] private float _reticleRadius = 0.14f;
+        [SerializeField, Min(0f)] private float _captureRate = 0.16f;
+        [SerializeField, Min(0f)] private float _decayRate = 0.15f;
 
         public ToolsConfig()
         {

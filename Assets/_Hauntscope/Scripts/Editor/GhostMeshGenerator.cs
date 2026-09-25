@@ -6,6 +6,7 @@ namespace Hauntscope.Editor
     public static class GhostMeshGenerator
     {
         private const float FullCircle = Mathf.PI * 2f;
+        private const float Forward = Mathf.PI * 0.5f;
         private const int Rings = 28;
         private const int Segments = 36;
 
@@ -94,6 +95,104 @@ namespace Hauntscope.Editor
                 position.z -= 0.06f * Mathf.Max(0f, v - 0.8f) / 0.2f;
                 return position;
             });
+        }
+
+        public static void BuildWraith(Mesh mesh)
+        {
+            const float height = 1.75f;
+            var profile = new[]
+            {
+                new Vector2(0f, 0.36f),
+                new Vector2(0.3f, 0.25f),
+                new Vector2(0.6f, 0.2f),
+                new Vector2(0.72f, 0.27f),
+                new Vector2(0.82f, 0.13f),
+                new Vector2(0.9f, 0.16f),
+                new Vector2(1f, 0f)
+            };
+
+            Lathe(mesh, height, (v, angle) =>
+            {
+                var radius = SampleProfile(profile, v);
+                // Clawed arms reach out ahead and to the sides: the silhouette of something grabbing at the camera.
+                radius += Reach(v, angle, Forward - 1.05f) + Reach(v, angle, Forward + 1.05f);
+
+                // Long shredded strands hang below the hem instead of a clean edge.
+                var shred = Mathf.Pow(1f - v, 7f);
+                var strands = Mathf.Pow(0.5f + 0.5f * Mathf.Sin(9f * angle + 0.7f * Mathf.Sin(4f * angle)), 3f);
+                var position = OnRing(radius, angle, v * height - shred * 0.35f * strands);
+                // The upper body leans into the chase.
+                position.z += 0.14f * v * v;
+                return position;
+            });
+        }
+
+        public static void BuildBanshee(Mesh mesh)
+        {
+            const float height = 1.55f;
+            var profile = new[]
+            {
+                new Vector2(0f, 0.34f),
+                new Vector2(0.25f, 0.24f),
+                new Vector2(0.5f, 0.14f),
+                new Vector2(0.66f, 0.19f),
+                new Vector2(0.78f, 0.075f),
+                new Vector2(0.84f, 0.11f),
+                new Vector2(0.93f, 0.12f),
+                new Vector2(1f, 0f)
+            };
+
+            Lathe(mesh, height, (v, angle) =>
+            {
+                var radius = SampleProfile(profile, v);
+
+                // Long hair streams down her back and spills over both shoulders; the face stays clear.
+                var back = Mathf.Max(0f, -Mathf.Sin(angle));
+                var sides = Mathf.Pow(Mathf.Abs(Mathf.Cos(angle)), 2f);
+                var hair = SmoothStep(0.45f, 0.6f, v) * (1f - SmoothStep(0.92f, 1f, v));
+                var strands = 0.025f * Mathf.Sin(18f * angle + v * 9f);
+                radius += hair * (back * (0.12f * Mathf.Pow(back, 0.5f) + strands) + sides * (0.07f + strands));
+
+                var y = v * height + Mathf.Pow(1f - v, 5f) * 0.1f * Mathf.Sin(5f * angle + 1f);
+                return OnRing(radius, angle, y);
+            });
+        }
+
+        public static void BuildMimic(Mesh mesh)
+        {
+            const float height = 1f;
+            const float shoulder = 0.6f;
+
+            Lathe(mesh, height, (v, angle) =>
+            {
+                // A squat, too-wide sheet ghost: it copies the friendly shape and gets it slightly wrong.
+                var radius = v <= shoulder
+                    ? 0.44f - 0.1f * v / shoulder
+                    : 0.34f * Mathf.Sqrt(Mathf.Max(0f, 1f - Mathf.Pow((v - shoulder) / (1f - shoulder), 2f)));
+
+                // A crown of horns breaks the dome.
+                var horns = Mathf.Pow(Mathf.Max(0f, Mathf.Sin(5f * angle)), 10f);
+                var crown = SmoothStep(0.72f, 1f, v);
+                radius += 0.05f * horns * crown;
+                radius *= 1f + 0.05f * Mathf.Sin(4f * angle + v * 6f);
+
+                var y = v * height + 0.22f * horns * crown;
+                y += Mathf.Pow(1f - v, 6f) * 0.08f * (Mathf.Sin(7f * angle) + 0.6f * Mathf.Sin(3f * angle + 2f));
+                return OnRing(radius, angle, y);
+            });
+        }
+
+        private static float Reach(float v, float angle, float direction)
+        {
+            var along = Mathf.Max(0f, Mathf.Cos(angle - direction));
+            var band = Mathf.Exp(-Mathf.Pow((v - 0.64f) / 0.09f, 2f));
+            return 0.3f * band * Mathf.Pow(along, 10f);
+        }
+
+        private static float SmoothStep(float from, float to, float value)
+        {
+            var t = Mathf.Clamp01((value - from) / (to - from));
+            return t * t * (3f - 2f * t);
         }
 
         private static float Arm(float v, float angle, float direction)

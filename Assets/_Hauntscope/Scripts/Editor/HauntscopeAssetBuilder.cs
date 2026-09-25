@@ -17,19 +17,33 @@ namespace Hauntscope.Editor
         private const string SfxFolder = Root + "/Audio/SFX";
         private const string AmbientFolder = Root + "/Audio/Ambient";
 
+        // Balance: capture takes Resistance / ToolsConfig.CaptureRate seconds of steady beaming while the lens and the
+        // beam drain the battery together, so resistance decides how much of one charge a ghost costs.
         private static readonly GhostRecipe[] Recipes =
         {
             new GhostRecipe("wisp", "Wisp", GhostRarity.Common, "#4FF5E6", GhostMeshGenerator.BuildWisp,
-                moveSpeed: 0.4f, fleeSpeed: 1f, resistance: 0.8f, reward: 10,
+                moveSpeed: 0.45f, fleeSpeed: 1.3f, resistance: 0.8f, reward: 10,
                 eyeCenter: new Vector3(0f, -0.07f, 0.17f), eyeSpacing: 0.06f, eyeScale: new Vector3(0.04f, 0.05f, 0.02f)),
             new GhostRecipe("poltergeist", "Poltergeist", GhostRarity.Common, "#3DFF6E", GhostMeshGenerator.BuildPoltergeist,
-                moveSpeed: 0.7f, fleeSpeed: 1.5f, resistance: 1f, reward: 15,
+                moveSpeed: 0.8f, fleeSpeed: 1.9f, resistance: 1f, reward: 15,
                 eyeCenter: new Vector3(0f, 0.34f, 0.3f), eyeSpacing: 0.1f, eyeScale: new Vector3(0.06f, 0.08f, 0.03f),
                 abilityPath: Root + "/Data/Abilities/PoltergeistTeleport.asset", abilityType: typeof(TeleportAbilityConfig)),
+            new GhostRecipe("wraith", "Wraith", GhostRarity.Common, "#E6EDF3", GhostMeshGenerator.BuildWraith,
+                moveSpeed: 1.1f, fleeSpeed: 2.4f, resistance: 0.9f, reward: 20,
+                eyeCenter: new Vector3(0f, 0.69f, 0.23f), eyeSpacing: 0.045f, eyeScale: new Vector3(0.035f, 0.012f, 0.02f),
+                abilityPath: Root + "/Data/Abilities/WraithDash.asset", abilityType: typeof(DashAbilityConfig)),
             new GhostRecipe("shade", "Shade", GhostRarity.Rare, "#9B5CFF", GhostMeshGenerator.BuildShade,
-                moveSpeed: 0.5f, fleeSpeed: 1.2f, resistance: 1.3f, reward: 30,
+                moveSpeed: 0.55f, fleeSpeed: 1.6f, resistance: 1f, reward: 30,
                 eyeCenter: new Vector3(0f, 0.6f, 0.17f), eyeSpacing: 0.06f, eyeScale: new Vector3(0.045f, 0.025f, 0.02f),
-                abilityPath: Root + "/Data/Abilities/ShadeBlink.asset", abilityType: typeof(BlinkAbilityConfig))
+                abilityPath: Root + "/Data/Abilities/ShadeBlink.asset", abilityType: typeof(BlinkAbilityConfig)),
+            new GhostRecipe("banshee", "Banshee", GhostRarity.Rare, "#FF3B3B", GhostMeshGenerator.BuildBanshee,
+                moveSpeed: 0.6f, fleeSpeed: 1.5f, resistance: 1.1f, reward: 35,
+                eyeCenter: new Vector3(0f, 0.6f, 0.11f), eyeSpacing: 0.042f, eyeScale: new Vector3(0.022f, 0.034f, 0.015f),
+                abilityPath: Root + "/Data/Abilities/BansheeShriek.asset", abilityType: typeof(ShriekAbilityConfig)),
+            new GhostRecipe("mimic", "Mimic", GhostRarity.Legendary, "#FFD166", GhostMeshGenerator.BuildMimic,
+                moveSpeed: 0.7f, fleeSpeed: 1.8f, resistance: 1.4f, reward: 60,
+                eyeCenter: new Vector3(0f, 0.06f, 0.33f), eyeSpacing: 0.13f, eyeScale: new Vector3(0.075f, 0.1f, 0.03f),
+                abilityPath: Root + "/Data/Abilities/MimicDecoy.asset", abilityType: typeof(DecoyAbilityConfig))
         };
 
         [MenuItem("Hauntscope/Build Assets")]
@@ -241,6 +255,8 @@ namespace Hauntscope.Editor
             SetClip(serialized, "_audio._ghostEscape", SfxFolder, "GhostEscape");
             SetClip(serialized, "_audio._scareSting", SfxFolder, "ScareSting");
             SetClip(serialized, "_audio._teleportWhoosh", SfxFolder, "TeleportWhoosh");
+            SetClip(serialized, "_audio._dashWhoosh", SfxFolder, "DashWhoosh");
+            SetClip(serialized, "_audio._shriek", SfxFolder, "BansheeShriek");
             SetClip(serialized, "_audio._scanComplete", SfxFolder, "ScanComplete");
             SetClip(serialized, "_audio._uiClick", SfxFolder, "UiClick");
             SetClip(serialized, "_audio._uiBack", SfxFolder, "UiBack");

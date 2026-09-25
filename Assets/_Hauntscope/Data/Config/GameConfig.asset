@@ -23,11 +23,14 @@ MonoBehaviour:
     _ghosts:
     - {fileID: 11400000, guid: 3ef98d6c258acb94891fc0449bc6a268, type: 2}
     - {fileID: 11400000, guid: ec4e9649e10448d4198f37e2c69bb44b, type: 2}
+    - {fileID: 11400000, guid: 03504df5ef7017745932cf405c348f7f, type: 2}
     - {fileID: 11400000, guid: 5bbccbe20b9d0e7418dfac95af446161, type: 2}
+    - {fileID: 11400000, guid: 85829def68b4a0c499a5d6d6b40caceb, type: 2}
+    - {fileID: 11400000, guid: 914c3025178e5be4d9f965eb5557e386, type: 2}
     _firstGhostId: wisp
-    _commonWeight: 75
-    _rareWeight: 25
-    _legendaryWeight: 0
+    _commonWeight: 60
+    _rareWeight: 30
+    _legendaryWeight: 10
     _wanderIntervalMin: 3
     _wanderIntervalMax: 6
     _moveSmoothTime: 0.8
@@ -37,7 +40,7 @@ MonoBehaviour:
     _alertedPauseDuration: 0.5
     _alertedSpeedMultiplier: 1.5
     _fleeCalmDownTime: 2
-    _fleeDistance: 2
+    _fleeDistance: 2.5
     _fleeRetargetInterval: 0.6
     _captureDuration: 1.2
     _captureSpiralTurns: 2
@@ -64,17 +67,17 @@ MonoBehaviour:
     _heavyAmplitude: 255
   _tools:
     _batteryMax: 100
-    _passiveDrain: 0.3
+    _passiveDrain: 0.5
     _lowBatteryThreshold: 0.2
-    _lensDrain: 2
-    _beamDrain: 3
-    _revealAngle: 35
+    _lensDrain: 3
+    _beamDrain: 4
+    _revealAngle: 30
     _revealInTime: 0.4
     _revealOutTime: 0.8
     _beamRevealThreshold: 0.5
-    _reticleRadius: 0.18
-    _captureRate: 0.2
-    _decayRate: 0.1
+    _reticleRadius: 0.14
+    _captureRate: 0.16
+    _decayRate: 0.15
   _hud:
     _recBlinkInterval: 0.6
     _lowBatteryBlinkInterval: 0.3
@@ -82,7 +85,7 @@ MonoBehaviour:
     _lowBatteryClip: {fileID: 8300000, guid: 53330886e20696845bb2818a680507ab, type: 3}
     _lowBatteryVolume: 0.7
   _scare:
-    _minTime: 45
+    _minTime: 30
     _distance: 1.5
     _angle: 45
     _duration: 1.2
@@ -109,6 +112,10 @@ MonoBehaviour:
     _scareVolume: 1
     _teleportWhoosh: {fileID: 8300000, guid: 8005730adc56db8498b2e534610c136d, type: 3}
     _teleportVolume: 0.8
+    _dashWhoosh: {fileID: 8300000, guid: ae9dbe53cdc8764449f4cb822735c636, type: 3}
+    _dashVolume: 0.7
+    _shriek: {fileID: 8300000, guid: 734bf74bf89a78b49ad948491cbfc0a4, type: 3}
+    _shriekVolume: 0.95
     _scanComplete: {fileID: 8300000, guid: 567a78c50a2e18945ae75aa1a6a0481d, type: 3}
     _scanVolume: 0.7
     _uiClick: {fileID: 8300000, guid: cfe944b3d76ae294888bbe041c11b1fb, type: 3}
@@ -134,3 +141,8 @@ MonoBehaviour:
     _bobFrequency: 1.8
     _swayAngle: 0.7
     _swayFrequency: 0.3
+  _tutorial:
+    _walkDistance: 1
+    _emfLevel: 3
+    _revealThreshold: 0.5
+    _beamProgress: 0.25

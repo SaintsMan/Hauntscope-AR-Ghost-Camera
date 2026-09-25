@@ -32,12 +32,18 @@ namespace Hauntscope.Editor
             Save(SfxFolder, "GhostEscape", GhostEscape(), -4f, false);
             Save(SfxFolder, "ScareSting", ScareSting(), -1f, false);
             Save(SfxFolder, "TeleportWhoosh", TeleportWhoosh(), -4f, false);
+            Save(SfxFolder, "DashWhoosh", DashWhoosh(), -5f, false);
+            Save(SfxFolder, "BansheeShriek", BansheeShriek(), -1f, false);
             Save(SfxFolder, "ScanComplete", ScanComplete(), -5f, false);
             Save(SfxFolder, "UiClick", UiClick(), -8f, false);
             Save(SfxFolder, "UiBack", UiBack(), -9f, false);
             Save(SfxFolder, "WhisperWisp", Whisper(11, 1.25f, 0.12f, 0.25f, 0.08f, 0.3f, 0.35f, 1f, 0.3f, 1.2f), -6f, true);
             Save(SfxFolder, "WhisperPoltergeist", Whisper(23, 1f, 0.08f, 0.18f, 0.05f, 0.15f, 0.2f, 2.2f, 0.25f, 1f), -6f, true);
             Save(SfxFolder, "WhisperShade", Whisper(37, 0.8f, 0.35f, 0.8f, 0.3f, 0.8f, 0.08f, 1f, 0.5f, 1.35f), -6f, true);
+            // Wraith: clipped, breathless rasps; banshee: long high moans; mimic: an ordinary murmur that sounds almost human.
+            Save(SfxFolder, "WhisperWraith", Whisper(53, 0.9f, 0.05f, 0.12f, 0.03f, 0.12f, 0.45f, 2.6f, 0.2f, 1.1f), -6f, true);
+            Save(SfxFolder, "WhisperBanshee", Whisper(67, 1.45f, 0.45f, 1f, 0.25f, 0.7f, 0.1f, 1.4f, 0.6f, 1.4f), -6f, true);
+            Save(SfxFolder, "WhisperMimic", Whisper(79, 1.05f, 0.1f, 0.3f, 0.1f, 0.4f, 0.25f, 1.2f, 0.3f, 1.05f), -6f, true);
             Save(AmbientFolder, "AmbientDrone", AmbientDrone(), -8f, true);
             Save(AmbientFolder, "AmbientStatic", AmbientStatic(), -10f, true);
         }
@@ -251,6 +257,54 @@ namespace Hauntscope.Editor
         }
 
         // Two ascending chimes like a camera saying "ready", with a warm pad underneath.
+        // Wraith dash: a short, tight air rip rising in pitch, much quicker than the teleport's swell.
+        private static float[] DashWhoosh()
+        {
+            const float length = 0.32f;
+            var samples = Buffer(length);
+            var swept = Filter(Noise(samples.Length, 47), FilterType.BandPass, i => 900f * Mathf.Pow(7000f / 900f, Mathf.Clamp01(Time(i) / length)), 3f);
+            var body = Filter(Noise(samples.Length, 48), FilterType.LowPass, 700f, 0.7f);
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                samples[i] = swept[i] * Adsr(t, length, 0.05f, 0.18f) + body[i] * 0.5f * Envelope(t, 0.005f, 0.08f);
+            }
+
+            return TrimTo(Reverb(samples, 0.15f, 0.6f), (int)((length + 0.25f) * SampleRate));
+        }
+
+        // Banshee shriek: a cry that leaps up and collapses, wide vibrato, a ghostly fifth above, over a breathy band.
+        private static float[] BansheeShriek()
+        {
+            const float length = 1.5f;
+            var samples = Buffer(length);
+            var phase = 0f;
+            var upperPhase = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var contour = t < 0.3f
+                    ? Mathf.Lerp(650f, 1550f, Smooth(t / 0.3f))
+                    : Mathf.Lerp(1550f, 780f, Mathf.Clamp01((t - 0.3f) / 1.1f));
+                var frequency = contour * (1f + 0.04f * Mathf.Sin(TwoPi * 7.5f * t) * Mathf.Clamp01(t / 0.25f));
+                phase += TwoPi * frequency / SampleRate;
+                upperPhase += TwoPi * frequency * 1.498f / SampleRate;
+
+                var voice = 0f;
+                for (var h = 1; h <= 7; h++)
+                    voice += Mathf.Sin(phase * h) / h;
+
+                var upper = Mathf.Sin(upperPhase) + 0.35f * Mathf.Sin(2f * upperPhase);
+                samples[i] = (voice * 0.55f + upper * 0.3f) * Adsr(t, length, 0.03f, 0.7f);
+            }
+
+            var breath = Filter(Noise(samples.Length, 91), FilterType.BandPass, i => 1800f + 1200f * Mathf.Sin(TwoPi * 0.9f * Time(i)), 1.4f);
+            for (var i = 0; i < samples.Length; i++)
+                samples[i] += breath[i] * 0.4f * Adsr(Time(i), length, 0.08f, 0.6f);
+
+            return TrimTo(Reverb(Saturate(samples, 1.8f), 0.45f, 1.3f), (int)((length + 0.5f) * SampleRate));
+        }
+
         private static float[] ScanComplete()
         {
             var samples = Buffer(0.8f);
