@@ -122,3 +122,10 @@ MonoBehaviour:
     _lostGrace: 0.5
   _launch:
     _editorCameraPermission: 0
+  _virtual:
+    _walkSpeed: 1.3
+    _lookSensitivity: 160
+    _eyeHeight: 1.55
+    _pitchLimit: 70
+    _bodyRadius: 0.25
+    _stepHeight: 0.35
