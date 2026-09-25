@@ -34,6 +34,7 @@ namespace Hauntscope.Editor
             BuildLensVignette();
             BuildGrain();
             BuildEctoplasm();
+            BuildPauseIcon();
         }
 
         private static void BuildFrame()
@@ -189,6 +190,19 @@ namespace Hauntscope.Editor
             var bottom = new Vector2(32f, 22f);
             var pixels = Shape(size, size, p => RoundCone(p - bottom, 13f, 1.5f, 28f), false, 0f, 7f);
             SaveSprite("Ectoplasm", size, size, pixels, Vector4.zero);
+        }
+
+        private static void BuildPauseIcon()
+        {
+            const int size = 64;
+            var center = Center(size, size);
+            var half = new Vector2(4.5f, 15f);
+            var offset = new Vector2(8.5f, 0f);
+            Sdf sdf = p => Mathf.Min(
+                RoundBox(p, center - offset, half, 2.5f),
+                RoundBox(p, center + offset, half, 2.5f));
+            var pixels = Shape(size, size, sdf, false, 0f, 6f);
+            SaveSprite("PauseIcon", size, size, pixels, Vector4.zero);
         }
 
         private static Color32[] Radial(int size, float start, float end, float power, float strength)

@@ -202,6 +202,35 @@ MonoBehaviour:
     m_Localized: Bahasa Indonesia
     m_Metadata:
       m_Items: []
+  - m_Id: 70994196037632
+    m_Localized: "\u041F\u0410\u0423\u0417\u0410"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174976
+    m_Localized: "\u041F\u0420\u041E\u0414\u041E\u0412\u0416\u0418\u0422\u0418"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174977
+    m_Localized: "\u041D\u0410\u041B\u0410\u0428\u0422\u0423\u0412\u0410\u041D\u041D\u042F"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174978
+    m_Localized: "\u0412\u0418\u0419\u0422\u0418 \u0412 \u041C\u0415\u041D\u042E"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174979
+    m_Localized: "\u0422\u0420\u0415\u041A\u0406\u041D\u0413 \u0412\u0422\u0420\u0410\u0427\u0415\u041D\u041E"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174980
+    m_Localized: "\u0420\u0443\u0445\u0430\u0439\u0441\u044F \u043F\u043E\u0432\u0456\u043B\u044C\u043D\u043E
+      \u0439 \u0434\u043E\u0434\u0430\u0439 \u0441\u0432\u0456\u0442\u043B\u0430."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174981
+    m_Localized: "\u041E\u043A\u043B\u044E\u0437\u0456\u044F"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

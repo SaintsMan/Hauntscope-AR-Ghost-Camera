@@ -1,6 +1,8 @@
 using System;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
+using Hauntscope.Gameplay.Feedback;
+using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Tools;
 using UnityEngine;
 using VContainer.Unity;
@@ -19,6 +21,9 @@ namespace Hauntscope.UI.Hunt
         private readonly ISfxPlayer _sfx;
         private readonly ILocalizationService _localization;
         private readonly IRandom _random;
+        private readonly HuntPause _pause;
+        private readonly HuntSession _session;
+        private readonly UiFeedback _ui;
 
         private float _recordedTime;
         private int _shownSecond = -1;
@@ -34,8 +39,14 @@ namespace Hauntscope.UI.Hunt
             HudConfig config,
             ISfxPlayer sfx,
             ILocalizationService localization,
-            IRandom random)
+            IRandom random,
+            HuntPause pause,
+            HuntSession session,
+            UiFeedback ui)
         {
+            _pause = pause;
+            _session = session;
+            _ui = ui;
             _view = view;
             _battery = battery;
             _config = config;
@@ -49,7 +60,10 @@ namespace Hauntscope.UI.Hunt
             _battery.Charge.Changed += OnBatteryChanged;
             _battery.IsLow.Changed += OnBatteryLowChanged;
             _localization.Changed += OnLanguageChanged;
+            _session.Result.Changed += OnResultChanged;
+            _view.PauseClicked += OnPauseClicked;
             RenderTimecode(true);
+            OnResultChanged(_session.Result.Value);
             RenderBattery();
             _view.SetRecDotVisible(true);
         }
@@ -57,6 +71,10 @@ namespace Hauntscope.UI.Hunt
         public void Tick()
         {
             var deltaTime = Time.deltaTime;
+            TickGrain(deltaTime);
+            if (_pause.IsPaused)
+                return;
+
             _recordedTime += deltaTime;
             RenderTimecode(false);
 
@@ -78,13 +96,6 @@ namespace Hauntscope.UI.Hunt
                     RenderBattery();
                 }
             }
-
-            _grainTime += deltaTime;
-            if (_grainTime >= 1f / _config.GrainFrameRate)
-            {
-                _grainTime = 0f;
-                _view.SetGrainOffset(new Vector2(_random.Value, _random.Value));
-            }
         }
 
         public void Dispose()
@@ -92,6 +103,29 @@ namespace Hauntscope.UI.Hunt
             _battery.Charge.Changed -= OnBatteryChanged;
             _battery.IsLow.Changed -= OnBatteryLowChanged;
             _localization.Changed -= OnLanguageChanged;
+            _session.Result.Changed -= OnResultChanged;
+            _view.PauseClicked -= OnPauseClicked;
+        }
+
+        private void TickGrain(float deltaTime)
+        {
+            _grainTime += deltaTime;
+            if (_grainTime < 1f / _config.GrainFrameRate)
+                return;
+
+            _grainTime = 0f;
+            _view.SetGrainOffset(new Vector2(_random.Value, _random.Value));
+        }
+
+        private void OnResultChanged(HuntResult result)
+        {
+            _view.SetPauseAvailable(result == null);
+        }
+
+        private void OnPauseClicked()
+        {
+            _ui.PlayClick();
+            _pause.PauseManually();
         }
 
         private void OnBatteryChanged(float charge)

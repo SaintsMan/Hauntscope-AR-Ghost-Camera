@@ -198,6 +198,34 @@ MonoBehaviour:
     m_Localized: Bahasa Indonesia
     m_Metadata:
       m_Items: []
+  - m_Id: 70994196037632
+    m_Localized: PAUSED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174976
+    m_Localized: RESUME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174977
+    m_Localized: SETTINGS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174978
+    m_Localized: QUIT TO MENU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174979
+    m_Localized: TRACKING LOST
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174980
+    m_Localized: Move slowly and add some light.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174981
+    m_Localized: Occlusion
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

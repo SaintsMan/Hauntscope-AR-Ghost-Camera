@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,9 @@ namespace Hauntscope.UI.Hunt
         [SerializeField] private Color _batteryLowColor;
         [SerializeField] private Color _batteryEmptyColor;
         [SerializeField] private RawImage _grain;
+        [SerializeField] private Button _pauseButton;
+
+        public event Action PauseClicked;
 
         public void SetRecDotVisible(bool visible)
         {
@@ -34,6 +38,11 @@ namespace Hauntscope.UI.Hunt
                 _batteryCells[i].color = i < lit ? color : _batteryEmptyColor;
         }
 
+        public void SetPauseAvailable(bool available)
+        {
+            _pauseButton.gameObject.SetActive(available);
+        }
+
         public void SetGrainOffset(Vector2 offset)
         {
             var rect = _grain.uvRect;
@@ -41,9 +50,25 @@ namespace Hauntscope.UI.Hunt
             _grain.uvRect = rect;
         }
 
+        private void Awake()
+        {
+            _pauseButton.onClick.AddListener(OnPauseClicked);
+        }
+
+        private void OnDestroy()
+        {
+            _pauseButton.onClick.RemoveListener(OnPauseClicked);
+        }
+
+        private void OnPauseClicked()
+        {
+            PauseClicked?.Invoke();
+        }
+
 #if UNITY_EDITOR
         private void Reset()
         {
+            _pauseButton = Find<Button>("Frame/PauseButton");
             _recDot = Find<Graphic>("Frame/Rec/Dot");
             _timecode = Find<TMP_Text>("Frame/Rec/Timecode");
             _batteryShell = Find<Graphic>("Frame/Battery");

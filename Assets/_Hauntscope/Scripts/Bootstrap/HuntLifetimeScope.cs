@@ -27,6 +27,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<ScarePolicy>(Lifetime.Singleton);
 
             builder.Register<HuntSession>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<HuntPause>().AsSelf();
             builder.Register<GhostLens>(Lifetime.Singleton);
             builder.Register<CaptureBeam>(Lifetime.Singleton);
             builder.Register<Toolbelt>(Lifetime.Singleton);
@@ -50,6 +51,10 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<HuntHudPresenter>();
             builder.RegisterComponentInHierarchy<ResultView>();
             builder.RegisterEntryPoint<ResultPresenter>();
+            builder.RegisterComponentInHierarchy<TrackingLostView>();
+            builder.RegisterEntryPoint<TrackingLostPresenter>();
+            builder.RegisterComponentInHierarchy<PauseView>();
+            builder.RegisterEntryPoint<PausePresenter>();
         }
 
         private static void RegisterArEnvironment(IContainerBuilder builder)
@@ -59,6 +64,9 @@ namespace Hauntscope.Bootstrap
             builder.Register<ArPlaneProvider>(Lifetime.Singleton).As<IPlaneProvider>();
             builder.Register<ArCameraPose>(Lifetime.Singleton).As<ICameraPose>();
             builder.Register<ArTrackingStatus>(Lifetime.Singleton).As<ITrackingStatus>();
+            builder.RegisterComponentInHierarchy<AROcclusionManager>();
+            builder.Register<ArOcclusionService>(Lifetime.Singleton).As<IOcclusionService>();
+            builder.RegisterEntryPoint<OcclusionSync>();
         }
     }
 }
