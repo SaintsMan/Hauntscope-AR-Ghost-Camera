@@ -264,6 +264,15 @@ MonoBehaviour:
     m_Localized: OK
     m_Metadata:
       m_Items: []
+  - m_Id: 111728735420416
+    m_Localized: Hauntscope is a game for entertainment purposes only. It does not
+      detect real paranormal activity.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 111728768974848
+    m_Localized: Hauntscope
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

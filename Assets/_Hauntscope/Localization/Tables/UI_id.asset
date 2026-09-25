@@ -17,7 +17,11 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: b332633b0f2f4a04a85cc1e8a7fe4e3b, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 111728768974848
+    m_Localized: Hauntscope
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
