@@ -121,6 +121,51 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Tick_AnyTransitionConditionMet_LeavesAnyState()
+        {
+            var goToThird = false;
+            _machine.AddAnyTransition(_third, () => goToThird);
+            _machine.AddTransition(_first, _second, () => true);
+            _machine.Start(_first);
+            _machine.Tick(0.1f);
+            goToThird = true;
+
+            _machine.Tick(0.1f);
+
+            Assert.AreSame(_third, _machine.CurrentState);
+        }
+
+        [Test]
+        public void Tick_AnyAndRegularTransitionMet_AnyTransitionWins()
+        {
+            _machine.AddTransition(_first, _second, () => true);
+            _machine.AddAnyTransition(_third, () => true);
+            _machine.Start(_first);
+
+            _machine.Tick(0.1f);
+
+            Assert.AreSame(_third, _machine.CurrentState);
+        }
+
+        [Test]
+        public void Tick_AnyTransitionToCurrentState_DoesNotReenter()
+        {
+            _machine.AddAnyTransition(_first, () => true);
+            _machine.Start(_first);
+
+            _machine.Tick(0.1f);
+            _machine.Tick(0.1f);
+
+            Assert.AreEqual(1, _first.EnterCount);
+        }
+
+        [Test]
+        public void AddAnyTransition_NullCondition_Throws()
+        {
+            Assert.Throws<ArgumentNullException>(() => _machine.AddAnyTransition(_first, null));
+        }
+
+        [Test]
         public void AddTransition_NullFrom_Throws()
         {
             Assert.Throws<ArgumentNullException>(() => _machine.AddTransition(null, _second, () => true));
