@@ -7,9 +7,12 @@ namespace Hauntscope.Gameplay.Config
     {
         [SerializeField, Min(1)] private int _targetFrameRate = 60;
         [SerializeField] private RoomConfig _room = new RoomConfig();
+        [SerializeField] private GhostConfig _ghost = new GhostConfig();
 
         public int TargetFrameRate => _targetFrameRate;
 
         public RoomConfig Room => _room;
+
+        public GhostConfig Ghost => _ghost;
     }
 }
