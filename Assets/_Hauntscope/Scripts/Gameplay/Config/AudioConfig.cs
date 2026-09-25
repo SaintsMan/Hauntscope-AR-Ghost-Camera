@@ -36,6 +36,10 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private AudioClip _uiBack;
         [SerializeField, Range(0f, 1f)] private float _uiVolume = 0.5f;
         [SerializeField, Range(0f, 1f)] private float _whisperVolume = 0.55f;
+        [SerializeField] private AudioClip _splashBoot;
+        [SerializeField] private AudioClip _splashOff;
+        [SerializeField] private AudioClip _bootTick;
+        [SerializeField, Range(0f, 1f)] private float _splashVolume = 0.7f;
 
         public AudioClip AmbientDrone => _ambientDrone;
 
@@ -96,5 +100,13 @@ namespace Hauntscope.Gameplay.Config
         public float UiVolume => _uiVolume;
 
         public float WhisperVolume => _whisperVolume;
+
+        public AudioClip SplashBoot => _splashBoot;
+
+        public AudioClip SplashOff => _splashOff;
+
+        public AudioClip BootTick => _bootTick;
+
+        public float SplashVolume => _splashVolume;
     }
 }

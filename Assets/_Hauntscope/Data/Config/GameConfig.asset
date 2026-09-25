@@ -122,6 +122,10 @@ MonoBehaviour:
     _uiBack: {fileID: 8300000, guid: 3ef3e83745c3e9a47a07cb6987c9149d, type: 3}
     _uiVolume: 0.5
     _whisperVolume: 0.55
+    _splashBoot: {fileID: 8300000, guid: e546ef2789b5d17449cfabbec3fd0b35, type: 3}
+    _splashOff: {fileID: 8300000, guid: 497cd58db555f3c4592213a1dd590ca4, type: 3}
+    _bootTick: {fileID: 8300000, guid: d7ac9b9fe038725499d6735f9adb2d5e, type: 3}
+    _splashVolume: 0.7
   _vfx:
     _captureSpiral: {fileID: 3482571195191366530, guid: 6cc077c0fffe26544bbff774130ad3fc, type: 3}
     _teleportFlash: {fileID: 9163850681629320366, guid: d281b30d52bb11d4fae5ccc1d73b5dcf, type: 3}
@@ -146,3 +150,12 @@ MonoBehaviour:
     _emfLevel: 3
     _revealThreshold: 0.5
     _beamProgress: 0.25
+  _boot:
+    _introDuration: 2.2
+    _stepMinDuration: 1
+    _stepTimeout: 5
+    _outroDuration: 0.8
+  _review:
+    _minCaptures: 3
+    _repeatEveryCaptures: 20
+    _menuDelay: 1.5

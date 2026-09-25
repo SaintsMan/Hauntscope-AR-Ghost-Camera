@@ -73,5 +73,28 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.AreEqual(0, progress.Ectoplasm.Value);
         }
+
+        [Test]
+        public void Load_AfterReviewPrompt_RestoresPromptedCaptureCount()
+        {
+            var progress = new PlayerProgress();
+            progress.AddCapture("wisp", 10);
+            progress.MarkReviewPrompted();
+            _repository.Save(progress);
+
+            var loaded = _repository.Load();
+
+            Assert.AreEqual(1, loaded.ReviewPromptedAtCaptures);
+        }
+
+        [Test]
+        public void Load_SaveWithoutReviewField_ReadsNeverPrompted()
+        {
+            _save.SetRaw("player_progress", "{\"_version\":1,\"_ectoplasm\":40}");
+
+            var progress = _repository.Load();
+
+            Assert.AreEqual(0, progress.ReviewPromptedAtCaptures);
+        }
     }
 }

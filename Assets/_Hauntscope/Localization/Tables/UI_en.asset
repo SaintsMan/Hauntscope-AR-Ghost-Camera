@@ -296,6 +296,62 @@ MonoBehaviour:
       Don't let the battery die!
     m_Metadata:
       m_Items: []
+  - m_Id: 149880640503808
+    m_Localized: STANDBY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880674058240
+    m_Localized: LOADING {0}%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880674058241
+    m_Localized: CASE FILES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880674058242
+    m_Localized: AR SENSORS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252544
+    m_Localized: FIRMWARE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252545
+    m_Localized: OK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252546
+    m_Localized: NEW AGENT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252547
+    m_Localized: AR READY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252548
+    m_Localized: NEEDS ARCORE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252549
+    m_Localized: VIRTUAL ROOM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252550
+    m_Localized: UP TO DATE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252551
+    m_Localized: UPDATING
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252552
+    m_Localized: SKIPPED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252553
+    m_Localized: ERROR
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

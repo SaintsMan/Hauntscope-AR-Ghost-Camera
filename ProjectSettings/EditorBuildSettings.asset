@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_Hauntscope/Scenes/Splash.unity
+    guid: 4dc1ea78868a0664898c5687546d0fd9
+  - enabled: 1
     path: Assets/_Hauntscope/Scenes/MainMenu.unity
     guid: 8952916f85e41304b9d60c924644fc56
   - enabled: 1

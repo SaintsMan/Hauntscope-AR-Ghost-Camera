@@ -13,8 +13,9 @@ namespace Hauntscope.Gameplay.Progress
         [SerializeField] private List<CaptureCountDto> _captures = new List<CaptureCountDto>();
         [SerializeField] private int _totalSessions;
         [SerializeField] private bool _virtualRoomNoticeShown;
-        // Added without a version bump: saves written before it simply read false.
+        // Added without a version bump: saves written before these fields simply read the default.
         [SerializeField] private bool _tutorialCompleted;
+        [SerializeField] private int _reviewPromptedAtCaptures;
 
         // Required by JsonUtility, which creates DTOs through the parameterless constructor.
         public PlayerProgressDto()
@@ -27,7 +28,8 @@ namespace Hauntscope.Gameplay.Progress
             List<CaptureCountDto> captures,
             int totalSessions,
             bool virtualRoomNoticeShown,
-            bool tutorialCompleted)
+            bool tutorialCompleted,
+            int reviewPromptedAtCaptures)
         {
             _version = version;
             _ectoplasm = ectoplasm;
@@ -35,6 +37,7 @@ namespace Hauntscope.Gameplay.Progress
             _totalSessions = totalSessions;
             _virtualRoomNoticeShown = virtualRoomNoticeShown;
             _tutorialCompleted = tutorialCompleted;
+            _reviewPromptedAtCaptures = reviewPromptedAtCaptures;
         }
 
         public int Version => _version;
@@ -48,5 +51,7 @@ namespace Hauntscope.Gameplay.Progress
         public bool VirtualRoomNoticeShown => _virtualRoomNoticeShown;
 
         public bool TutorialCompleted => _tutorialCompleted;
+
+        public int ReviewPromptedAtCaptures => _reviewPromptedAtCaptures;
     }
 }

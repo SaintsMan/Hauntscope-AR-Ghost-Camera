@@ -13,7 +13,7 @@ namespace Hauntscope.Editor
         private const string Root = "Assets/_Hauntscope";
         private const string GhostMaterialPath = Root + "/Art/Materials/Ghost.mat";
         private const string EyesMaterialPath = Root + "/Art/Materials/GhostEyes.mat";
-        private const string GameConfigPath = Root + "/Data/Config/GameConfig.asset";
+        internal const string GameConfigPath = Root + "/Data/Config/GameConfig.asset";
         private const string SfxFolder = Root + "/Audio/SFX";
         private const string AmbientFolder = Root + "/Audio/Ambient";
 
@@ -56,6 +56,7 @@ namespace Hauntscope.Editor
             CreditsExporter.Export();
             var config = AssetDatabase.LoadAssetAtPath<GameConfig>(GameConfigPath);
             VfxGenerator.BuildAll(config.Ghost.CaptureDuration);
+            SplashAnimationGenerator.Build(config.Boot);
             BuildGhosts();
             AppIconGenerator.Build();
             WireConfig(config);
@@ -261,6 +262,9 @@ namespace Hauntscope.Editor
             SetClip(serialized, "_audio._scanComplete", SfxFolder, "ScanComplete");
             SetClip(serialized, "_audio._uiClick", SfxFolder, "UiClick");
             SetClip(serialized, "_audio._uiBack", SfxFolder, "UiBack");
+            SetClip(serialized, "_audio._splashBoot", SfxFolder, "SplashBoot");
+            SetClip(serialized, "_audio._splashOff", SfxFolder, "SplashOff");
+            SetClip(serialized, "_audio._bootTick", SfxFolder, "BootTick");
             serialized.FindProperty("_vfx._captureSpiral").objectReferenceValue = VfxGenerator.CaptureSpiral;
             serialized.FindProperty("_vfx._teleportFlash").objectReferenceValue = VfxGenerator.TeleportFlash;
             serialized.ApplyModifiedPropertiesWithoutUndo();

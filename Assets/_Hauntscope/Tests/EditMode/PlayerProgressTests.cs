@@ -62,5 +62,26 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.IsTrue(_progress.VirtualRoomNoticeShown);
         }
+
+        [Test]
+        public void TotalCaptures_SeveralGhosts_SumsAllCounts()
+        {
+            _progress.AddCapture("wisp", 10);
+            _progress.AddCapture("wisp", 10);
+            _progress.AddCapture("shade", 30);
+
+            Assert.AreEqual(3, _progress.TotalCaptures);
+        }
+
+        [Test]
+        public void MarkReviewPrompted_AfterCaptures_RemembersCaptureCount()
+        {
+            _progress.AddCapture("wisp", 10);
+            _progress.AddCapture("shade", 30);
+
+            _progress.MarkReviewPrompted();
+
+            Assert.AreEqual(2, _progress.ReviewPromptedAtCaptures);
+        }
     }
 }

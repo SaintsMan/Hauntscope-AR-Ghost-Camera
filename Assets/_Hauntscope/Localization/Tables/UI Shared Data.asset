@@ -287,6 +287,62 @@ MonoBehaviour:
     m_Key: tutorial.beam
     m_Metadata:
       m_Items: []
+  - m_Id: 149880640503808
+    m_Key: splash.standby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880674058240
+    m_Key: splash.loading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880674058241
+    m_Key: splash.step.archive
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880674058242
+    m_Key: splash.step.sensors
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252544
+    m_Key: splash.step.firmware
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252545
+    m_Key: splash.status.ok
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252546
+    m_Key: splash.status.new
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252547
+    m_Key: splash.status.ar_ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252548
+    m_Key: splash.status.ar_install
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252549
+    m_Key: splash.status.virtual
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252550
+    m_Key: splash.status.latest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252551
+    m_Key: splash.status.update
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252552
+    m_Key: splash.status.timeout
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252553
+    m_Key: splash.status.failed
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

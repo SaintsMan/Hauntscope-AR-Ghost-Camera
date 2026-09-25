@@ -1,3 +1,4 @@
+using Hauntscope.Gameplay.Engagement;
 using Hauntscope.UI.Menu;
 using VContainer;
 using VContainer.Unity;
@@ -22,6 +23,9 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<CameraPermissionPresenter>();
             builder.RegisterComponentInHierarchy<VirtualRoomNoticeView>();
             builder.RegisterEntryPoint<VirtualRoomNoticePresenter>();
+
+            builder.Register<ReviewPolicy>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<ReviewPrompter>();
         }
     }
 }

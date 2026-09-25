@@ -11,6 +11,7 @@ using Hauntscope.Infrastructure.Input;
 using Hauntscope.Infrastructure.Lifecycle;
 using Hauntscope.Infrastructure.Localization;
 using Hauntscope.Infrastructure.Permissions;
+using Hauntscope.Infrastructure.PlayStore;
 using Hauntscope.Infrastructure.Random;
 using Hauntscope.Infrastructure.Save;
 using Hauntscope.Infrastructure.Scenes;
@@ -41,6 +42,7 @@ namespace Hauntscope.Bootstrap
             RegisterHaptics(builder);
             RegisterProgress(builder);
             RegisterLaunch(builder);
+            RegisterPlayStore(builder);
 
             builder.RegisterEntryPoint<FrameRateInitializer>();
             builder.RegisterEntryPoint<LanguageSync>();
@@ -64,6 +66,8 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Launch);
             builder.RegisterInstance(_gameConfig.Virtual);
             builder.RegisterInstance(_gameConfig.Tutorial);
+            builder.RegisterInstance(_gameConfig.Boot);
+            builder.RegisterInstance(_gameConfig.Review);
         }
 
         private static void RegisterProgress(IContainerBuilder builder)
@@ -84,6 +88,17 @@ namespace Hauntscope.Bootstrap
             builder.Register<ArAvailability>(Lifetime.Singleton).As<IArAvailability>();
             builder.Register<HuntLaunchOptions>(Lifetime.Singleton);
             builder.RegisterEntryPoint<HuntLauncher>().AsSelf();
+        }
+
+        private static void RegisterPlayStore(IContainerBuilder builder)
+        {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            builder.Register<PlayInAppReview>(Lifetime.Singleton).As<IInAppReview>();
+            builder.Register<PlayAppUpdates>(Lifetime.Singleton).As<IAppUpdates>();
+#else
+            builder.Register<NullInAppReview>(Lifetime.Singleton).As<IInAppReview>();
+            builder.Register<NullAppUpdates>(Lifetime.Singleton).As<IAppUpdates>();
+#endif
         }
 
         private static void RegisterHaptics(IContainerBuilder builder)

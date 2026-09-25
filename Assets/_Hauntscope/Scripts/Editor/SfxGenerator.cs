@@ -37,6 +37,9 @@ namespace Hauntscope.Editor
             Save(SfxFolder, "ScanComplete", ScanComplete(), -5f, false);
             Save(SfxFolder, "UiClick", UiClick(), -8f, false);
             Save(SfxFolder, "UiBack", UiBack(), -9f, false);
+            Save(SfxFolder, "SplashBoot", SplashBoot(), -3f, false);
+            Save(SfxFolder, "SplashOff", SplashOff(), -5f, false);
+            Save(SfxFolder, "BootTick", BootTick(), -12f, false);
             Save(SfxFolder, "WhisperWisp", Whisper(11, 1.25f, 0.12f, 0.25f, 0.08f, 0.3f, 0.35f, 1f, 0.3f, 1.2f), -6f, true);
             Save(SfxFolder, "WhisperPoltergeist", Whisper(23, 1f, 0.08f, 0.18f, 0.05f, 0.15f, 0.2f, 2.2f, 0.25f, 1f), -6f, true);
             Save(SfxFolder, "WhisperShade", Whisper(37, 0.8f, 0.35f, 0.8f, 0.3f, 0.8f, 0.08f, 1f, 0.5f, 1.35f), -6f, true);
@@ -444,6 +447,74 @@ namespace Hauntscope.Editor
             }
 
             return MakeLoop(samples, 1f);
+        }
+
+        // Camcorder power-on: relay clunk and sub thump, CRT degauss wobble, a burst of static and a ghostly
+        // detuned chime as the logo tears in, over a tape motor spinning up.
+        private static float[] SplashBoot()
+        {
+            var samples = Buffer(1.9f);
+            var staticBurst = Filter(Noise(samples.Length, 91), FilterType.BandPass, 3200f, 0.6f);
+            var motor = Filter(Noise(samples.Length, 93), FilterType.BandPass, 420f, 4f);
+            float thumpPhase = 0f, sweepPhase = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                thumpPhase += TwoPi * (70f - 30f * Mathf.Clamp01(t / 0.12f)) / SampleRate;
+                var thump = Mathf.Sin(thumpPhase) * Envelope(t, 0.002f, 0.09f);
+
+                var degauss = Mathf.Sin(TwoPi * 60f * t) * (0.5f + 0.5f * Mathf.Sin(TwoPi * 7f * t)) * Adsr(t, 0.75f, 0.03f, 0.5f);
+
+                var sweep = 180f * Mathf.Pow(2600f / 180f, Mathf.Clamp01((t - 0.05f) / 0.22f));
+                sweepPhase += TwoPi * sweep / SampleRate;
+                var whine = Mathf.Sin(sweepPhase) * Adsr(t - 0.05f, 0.3f, 0.02f, 0.12f);
+
+                var hiss = staticBurst[i] * Adsr(t - 0.08f, 0.45f, 0.01f, 0.3f) * (0.6f + 0.4f * Mathf.Sin(TwoPi * 31f * t));
+                var whir = motor[i] * Adsr(t - 0.3f, 1.4f, 0.4f, 0.6f) * 0.6f;
+
+                samples[i] = thump * 0.9f + degauss * 0.18f + whine * 0.16f + hiss * 0.45f + whir;
+            }
+
+            Add(samples, Click(0.004f, 1200f, 95), 0, 0.8f);
+            var chimeStart = (int)(0.34f * SampleRate);
+            Add(samples, Bell(659.3f, 1.4f, 2.01f, 1.4f, 0.5f), chimeStart, 0.3f);
+            Add(samples, Bell(662.1f, 1.4f, 3.01f, 1.1f, 0.45f), chimeStart, 0.2f);
+            Add(samples, Bell(987.8f, 1.2f, 2.01f, 1.2f, 0.35f), chimeStart + (int)(0.09f * SampleRate), 0.16f);
+            return TrimTo(Reverb(Saturate(samples, 1.2f), 0.28f, 1.1f), samples.Length);
+        }
+
+        // CRT power-off: a falling zap as the picture collapses, a crackle and a thin ping as the dot fades.
+        private static float[] SplashOff()
+        {
+            var samples = Buffer(0.8f);
+            var crackle = Filter(Noise(samples.Length, 97), FilterType.HighPass, 2500f, 0.7f);
+            var phase = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var frequency = 1900f * Mathf.Pow(70f / 1900f, Mathf.Clamp01(t / 0.28f));
+                phase += TwoPi * frequency / SampleRate;
+                var zap = (Mathf.Sin(phase) + 0.3f * Mathf.Sin(2f * phase)) * Adsr(t, 0.3f, 0.004f, 0.12f);
+                var ping = Mathf.Sin(TwoPi * 3100f * t) * Adsr(t - 0.3f, 0.5f, 0.005f, 0.45f);
+                samples[i] = zap * 0.8f + crackle[i] * Envelope(t, 0.001f, 0.05f) * 0.5f + ping * 0.12f;
+            }
+
+            Add(samples, Click(0.003f, 1500f, 99), 0, 0.6f);
+            return TrimTo(Echo(samples, 0.05f, 0.2f, 3000f, 2), samples.Length);
+        }
+
+        // A relay tick with a tiny confirmation beep for each line of the boot log.
+        private static float[] BootTick()
+        {
+            var samples = Buffer(0.12f);
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                samples[i] = Mathf.Sin(TwoPi * 2350f * t) * Adsr(t - 0.012f, 0.035f, 0.002f, 0.02f) * 0.5f;
+            }
+
+            Add(samples, Click(0.002f, 2800f, 101), 0, 1f);
+            return samples;
         }
 
         private static float[] Bell(float frequency, float duration, float ratio, float index, float decay)

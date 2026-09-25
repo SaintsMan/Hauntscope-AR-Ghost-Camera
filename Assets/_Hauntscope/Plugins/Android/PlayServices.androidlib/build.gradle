@@ -1,0 +1,26 @@
+// Google Play In-App Review and In-App Updates, called from C# through JNI (Infrastructure/PlayStore).
+apply plugin: 'com.android.library'
+
+dependencies {
+    implementation 'com.google.android.play:review:2.0.2'
+    implementation 'com.google.android.play:app-update:2.1.0'
+}
+
+android {
+    namespace "com.pavko.hauntscope.playservices"
+    // SDK levels and build tools follow what Unity writes to gradle.properties (and ships in its SDK),
+    // so an Editor upgrade needs no edit here.
+    compileSdk((project.findProperty('unity.compileSdkVersion') ?: '36').toString().toInteger())
+    buildToolsVersion = (project.findProperty('unity.buildToolsVersion') ?: '36.0.0').toString()
+
+    defaultConfig {
+        minSdk((project.findProperty('unity.minSdkVersion') ?: '25').toString().toInteger())
+        consumerProguardFiles 'proguard-rules.txt'
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+        }
+    }
+}

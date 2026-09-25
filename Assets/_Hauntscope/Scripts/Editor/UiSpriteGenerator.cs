@@ -37,6 +37,8 @@ namespace Hauntscope.Editor
             BuildPauseIcon();
             BuildCameraIcon();
             BuildRoomIcon();
+            BuildTrackingBand();
+            BuildSoftGlow();
         }
 
         private static void BuildFrame()
@@ -244,6 +246,56 @@ namespace Hauntscope.Editor
             };
             var pixels = Shape(size, size, sdf, true, Line, Glow);
             SaveSprite("RoomIcon", size, size, pixels, Vector4.zero);
+        }
+
+        // VHS tracking error: a soft band of torn horizontal streaks that rolls down the splash screen.
+        private static void BuildTrackingBand()
+        {
+            const int width = 512;
+            const int height = 128;
+            var random = new System.Random(4077);
+            var rowStrength = new float[height];
+            var rowShift = new float[height];
+            for (var y = 0; y < height; y++)
+            {
+                rowStrength[y] = random.NextDouble() < 0.18 ? 0.6f + 0.4f * (float)random.NextDouble() : 0.15f * (float)random.NextDouble();
+                rowShift[y] = (float)random.NextDouble() * width;
+            }
+
+            var pixels = new Color32[width * height];
+            for (var y = 0; y < height; y++)
+            {
+                var v = (y + 0.5f) / height * 2f - 1f;
+                var envelope = Mathf.Exp(-v * v * 4f);
+                for (var x = 0; x < width; x++)
+                {
+                    var u = (x + 0.5f) / width;
+                    var edge = Mathf.Clamp01(Mathf.Min(u, 1f - u) * 12f);
+                    var streak = 0.5f + 0.5f * Mathf.Sin((x + rowShift[y]) * 0.045f) * Mathf.Sin((x - rowShift[y]) * 0.011f);
+                    var alpha = envelope * edge * (0.25f + 0.75f * rowStrength[y] * streak);
+                    pixels[y * width + x] = new Color32(255, 255, 255, (byte)(Mathf.Clamp01(alpha) * 255f));
+                }
+            }
+
+            SaveSprite("TrackingBand", width, height, pixels, Vector4.zero);
+        }
+
+        private static void BuildSoftGlow()
+        {
+            const int size = 256;
+            var pixels = new Color32[size * size];
+            for (var y = 0; y < size; y++)
+            {
+                for (var x = 0; x < size; x++)
+                {
+                    var u = (x + 0.5f) / size * 2f - 1f;
+                    var v = (y + 0.5f) / size * 2f - 1f;
+                    var t = 1f - Mathf.Clamp01(Mathf.Sqrt(u * u + v * v));
+                    pixels[y * size + x] = new Color32(255, 255, 255, (byte)(t * t * t * 255f));
+                }
+            }
+
+            SaveSprite("SoftGlow", size, size, pixels, Vector4.zero);
         }
 
         private static Color32[] Radial(int size, float start, float end, float power, float strength)
