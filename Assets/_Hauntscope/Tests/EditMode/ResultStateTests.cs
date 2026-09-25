@@ -1,7 +1,12 @@
+using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Hunt.States;
+using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Tools;
+using Hauntscope.Tests.EditMode.Fakes;
 using NUnit.Framework;
+using UnityEditor;
+using UnityEngine;
 
 namespace Hauntscope.Tests.EditMode
 {
@@ -12,6 +17,8 @@ namespace Hauntscope.Tests.EditMode
         private Battery _battery;
         private Toolbelt _toolbelt;
         private ResultState _state;
+        private PlayerProgress _progress;
+        private FakeSaveService _save;
 
         [SetUp]
         public void SetUp()
@@ -23,7 +30,9 @@ namespace Hauntscope.Tests.EditMode
             var config = TestConfigs.Tools();
             _battery = new Battery(config);
             _toolbelt = new Toolbelt(new GhostLens(_session, _fixture.Camera, config), new CaptureBeam(_session, _fixture.Camera, config));
-            _state = new ResultState(_session, _battery, _toolbelt);
+            _progress = new PlayerProgress();
+            _save = new FakeSaveService();
+            _state = new ResultState(_session, _battery, _toolbelt, _progress, new PlayerProgressRepository(_save));
         }
 
         [Test]
@@ -66,6 +75,44 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.IsNull(_session.Ghost.Value);
             Assert.IsTrue(_fixture.View.IsDespawned);
+        }
+
+        [Test]
+        public void Enter_Captured_AddsRewardAndCaptureAndSaves()
+        {
+            var data = CreateGhost("wisp");
+            _session.Begin(_fixture.Ghost, data);
+            _session.Finish(HuntOutcome.Captured);
+
+            _state.Enter();
+
+            Assert.AreEqual(data.Capture.Reward, _progress.Ectoplasm.Value);
+            Assert.AreEqual(1, _progress.GetCaptureCount(data.Id));
+            Assert.AreEqual(1, _save.SaveCount);
+            Object.DestroyImmediate(data);
+        }
+
+        [Test]
+        public void Enter_Escaped_SavesWithoutReward()
+        {
+            var data = CreateGhost("wisp");
+            _session.Begin(_fixture.Ghost, data);
+            _session.Finish(HuntOutcome.Escaped);
+
+            _state.Enter();
+
+            Assert.AreEqual(0, _progress.Ectoplasm.Value);
+            Assert.AreEqual(1, _save.SaveCount);
+            Object.DestroyImmediate(data);
+        }
+
+        private static GhostData CreateGhost(string id)
+        {
+            var data = ScriptableObject.CreateInstance<GhostData>();
+            var serialized = new SerializedObject(data);
+            serialized.FindProperty("_id").stringValue = id;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+            return data;
         }
     }
 }

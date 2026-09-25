@@ -1,6 +1,7 @@
 using Hauntscope.Core.StateMachines;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Ghosts;
+using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Tools;
 
 namespace Hauntscope.Gameplay.Hunt.States
@@ -14,6 +15,7 @@ namespace Hauntscope.Gameplay.Hunt.States
         private readonly Toolbelt _toolbelt;
         private readonly Battery _battery;
         private readonly ToolsConfig _config;
+        private readonly PlayerProgress _progress;
 
         public HuntingState(
             HuntSession session,
@@ -22,7 +24,8 @@ namespace Hauntscope.Gameplay.Hunt.States
             EmfRadar radar,
             Toolbelt toolbelt,
             Battery battery,
-            ToolsConfig config)
+            ToolsConfig config,
+            PlayerProgress progress)
         {
             _session = session;
             _selector = selector;
@@ -31,6 +34,7 @@ namespace Hauntscope.Gameplay.Hunt.States
             _toolbelt = toolbelt;
             _battery = battery;
             _config = config;
+            _progress = progress;
         }
 
         public void Enter()
@@ -38,7 +42,8 @@ namespace Hauntscope.Gameplay.Hunt.States
             if (_session.Ghost.Value != null)
                 return;
 
-            var data = _selector.Select(isFirstSession: false);
+            var data = _selector.Select(_progress.IsFirstSession);
+            _progress.RegisterSession();
             _session.Begin(_factory.Create(data), data);
         }
 
