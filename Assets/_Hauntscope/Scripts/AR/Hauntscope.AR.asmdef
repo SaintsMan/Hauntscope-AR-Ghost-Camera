@@ -1,7 +1,7 @@
 {
     "name": "Hauntscope.AR",
     "rootNamespace": "Hauntscope.AR",
-    "references": ["Hauntscope.Core", "Hauntscope.Gameplay", "Unity.XR.ARFoundation", "Unity.XR.ARSubsystems", "Unity.XR.CoreUtils"],
+    "references": ["Hauntscope.Core", "Hauntscope.Gameplay", "UniTask", "Unity.XR.ARFoundation", "Unity.XR.ARSubsystems", "Unity.XR.CoreUtils"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

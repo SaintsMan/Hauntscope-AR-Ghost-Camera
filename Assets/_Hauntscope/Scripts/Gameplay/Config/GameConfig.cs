@@ -16,6 +16,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private AudioConfig _audio = new AudioConfig();
         [SerializeField] private VfxConfig _vfx = new VfxConfig();
         [SerializeField] private TrackingConfig _tracking = new TrackingConfig();
+        [SerializeField] private LaunchConfig _launch = new LaunchConfig();
 
         public int TargetFrameRate => _targetFrameRate;
 
@@ -38,5 +39,7 @@ namespace Hauntscope.Gameplay.Config
         public VfxConfig Vfx => _vfx;
 
         public TrackingConfig Tracking => _tracking;
+
+        public LaunchConfig Launch => _launch;
     }
 }

@@ -118,3 +118,7 @@ MonoBehaviour:
   _vfx:
     _captureSpiral: {fileID: 3482571195191366530, guid: 6cc077c0fffe26544bbff774130ad3fc, type: 3}
     _teleportFlash: {fileID: 9163850681629320366, guid: d281b30d52bb11d4fae5ccc1d73b5dcf, type: 3}
+  _tracking:
+    _lostGrace: 0.5
+  _launch:
+    _editorCameraPermission: 0
