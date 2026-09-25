@@ -1,11 +1,15 @@
+using Hauntscope.AR;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
+using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Feedback;
+using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Infrastructure.Audio;
 using Hauntscope.Infrastructure.Haptics;
 using Hauntscope.Infrastructure.Lifecycle;
 using Hauntscope.Infrastructure.Localization;
+using Hauntscope.Infrastructure.Permissions;
 using Hauntscope.Infrastructure.Random;
 using Hauntscope.Infrastructure.Save;
 using Hauntscope.Infrastructure.Scenes;
@@ -34,6 +38,7 @@ namespace Hauntscope.Bootstrap
                 .As<IApplicationLifecycle>();
             RegisterHaptics(builder);
             RegisterProgress(builder);
+            RegisterLaunch(builder);
 
             builder.RegisterEntryPoint<FrameRateInitializer>();
             builder.RegisterEntryPoint<LanguageSync>();
@@ -54,6 +59,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Audio);
             builder.RegisterInstance(_gameConfig.Vfx);
             builder.RegisterInstance(_gameConfig.Tracking);
+            builder.RegisterInstance(_gameConfig.Launch);
         }
 
         private static void RegisterProgress(IContainerBuilder builder)
@@ -62,6 +68,18 @@ namespace Hauntscope.Bootstrap
             builder.Register<SettingsRepository>(Lifetime.Singleton);
             builder.Register(resolver => resolver.Resolve<PlayerProgressRepository>().Load(), Lifetime.Singleton);
             builder.Register(resolver => resolver.Resolve<SettingsRepository>().Load(), Lifetime.Singleton);
+        }
+
+        private static void RegisterLaunch(IContainerBuilder builder)
+        {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            builder.Register<AndroidCameraPermission>(Lifetime.Singleton).As<ICameraPermission>();
+#else
+            builder.Register<EditorCameraPermission>(Lifetime.Singleton).As<ICameraPermission>();
+#endif
+            builder.Register<ArAvailability>(Lifetime.Singleton).As<IArAvailability>();
+            builder.Register<HuntLaunchOptions>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<HuntLauncher>().AsSelf();
         }
 
         private static void RegisterHaptics(IContainerBuilder builder)

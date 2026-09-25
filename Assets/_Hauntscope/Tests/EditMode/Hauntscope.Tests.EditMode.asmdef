@@ -1,7 +1,7 @@
 {
     "name": "Hauntscope.Tests.EditMode",
     "rootNamespace": "Hauntscope.Tests.EditMode",
-    "references": ["Hauntscope.Core", "Hauntscope.Gameplay", "UnityEngine.TestRunner", "UnityEditor.TestRunner"],
+    "references": ["Hauntscope.Core", "Hauntscope.Gameplay", "UniTask", "UnityEngine.TestRunner", "UnityEditor.TestRunner"],
     "includePlatforms": ["Editor"],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
