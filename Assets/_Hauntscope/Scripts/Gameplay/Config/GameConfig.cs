@@ -18,6 +18,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private TrackingConfig _tracking = new TrackingConfig();
         [SerializeField] private LaunchConfig _launch = new LaunchConfig();
         [SerializeField] private VirtualConfig _virtual = new VirtualConfig();
+        [SerializeField] private TutorialConfig _tutorial = new TutorialConfig();
 
         public int TargetFrameRate => _targetFrameRate;
 
@@ -44,5 +45,7 @@ namespace Hauntscope.Gameplay.Config
         public LaunchConfig Launch => _launch;
 
         public VirtualConfig Virtual => _virtual;
+
+        public TutorialConfig Tutorial => _tutorial;
     }
 }

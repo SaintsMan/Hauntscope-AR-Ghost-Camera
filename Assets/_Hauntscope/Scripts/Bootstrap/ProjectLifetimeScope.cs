@@ -61,6 +61,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Tracking);
             builder.RegisterInstance(_gameConfig.Launch);
             builder.RegisterInstance(_gameConfig.Virtual);
+            builder.RegisterInstance(_gameConfig.Tutorial);
         }
 
         private static void RegisterProgress(IContainerBuilder builder)

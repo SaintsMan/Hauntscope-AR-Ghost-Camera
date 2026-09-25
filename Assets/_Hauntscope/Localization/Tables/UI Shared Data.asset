@@ -267,6 +267,26 @@ MonoBehaviour:
     m_Key: app.name
     m_Metadata:
       m_Items: []
+  - m_Id: 123992666406912
+    m_Key: tutorial.counter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572736
+    m_Key: tutorial.walk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572737
+    m_Key: tutorial.emf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572738
+    m_Key: tutorial.lens
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572739
+    m_Key: tutorial.beam
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

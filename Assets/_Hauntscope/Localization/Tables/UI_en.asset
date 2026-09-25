@@ -273,6 +273,29 @@ MonoBehaviour:
     m_Localized: Hauntscope
     m_Metadata:
       m_Items: []
+  - m_Id: 123992666406912
+    m_Localized: TRAINING {0}/{1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572736
+    m_Localized: Drag on the left side to walk. Swipe on the right side to look around.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572737
+    m_Localized: 'A ghost is here, but invisible. Follow the EMF meter: the closer
+      it is, the faster it beeps.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572738
+    m_Localized: Tap LENS and turn slowly. The lens reveals the ghost, but it drains
+      the battery.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572739
+    m_Localized: Hold BEAM and keep the ghost inside the ring until it is captured.
+      Don't let the battery die!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

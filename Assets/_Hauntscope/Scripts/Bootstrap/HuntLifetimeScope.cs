@@ -60,6 +60,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<HuntingState>(Lifetime.Singleton);
             builder.Register<ResultState>(Lifetime.Singleton);
             builder.RegisterEntryPoint<HuntFlow>();
+            builder.RegisterEntryPoint<TutorialFlow>().AsSelf();
 
             builder.RegisterComponentInHierarchy<CameraFrameView>();
             builder.RegisterEntryPoint<CameraFramePresenter>();
@@ -73,6 +74,8 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<TrackingLostPresenter>();
             builder.RegisterComponentInHierarchy<PauseView>();
             builder.RegisterEntryPoint<PausePresenter>();
+            builder.RegisterComponentInHierarchy<TutorialView>();
+            builder.RegisterEntryPoint<TutorialPresenter>();
         }
 
         private static void RegisterArEnvironment(IContainerBuilder builder)

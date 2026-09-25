@@ -28,7 +28,7 @@ namespace Hauntscope.Gameplay.Progress
                     captures[entry.GhostId] = entry.Count;
             }
 
-            return new PlayerProgress(dto.Ectoplasm, captures, dto.TotalSessions, dto.VirtualRoomNoticeShown);
+            return new PlayerProgress(dto.Ectoplasm, captures, dto.TotalSessions, dto.VirtualRoomNoticeShown, dto.TutorialCompleted);
         }
 
         public void Save(PlayerProgress progress)
@@ -38,7 +38,7 @@ namespace Hauntscope.Gameplay.Progress
                 captures.Add(new CaptureCountDto(pair.Key, pair.Value));
 
             _save.Save(Key, new PlayerProgressDto(CurrentVersion, progress.Ectoplasm.Value, captures,
-                progress.TotalSessions, progress.VirtualRoomNoticeShown));
+                progress.TotalSessions, progress.VirtualRoomNoticeShown, progress.TutorialCompleted));
         }
 
         // No migrations exist yet: version 1 is the only format. Unknown (newer or missing) versions start fresh.

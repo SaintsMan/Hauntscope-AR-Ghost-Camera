@@ -14,7 +14,12 @@ namespace Hauntscope.Gameplay.Progress
         {
         }
 
-        public PlayerProgress(int ectoplasm, IReadOnlyDictionary<string, int> captures, int totalSessions, bool virtualRoomNoticeShown)
+        public PlayerProgress(
+            int ectoplasm,
+            IReadOnlyDictionary<string, int> captures,
+            int totalSessions,
+            bool virtualRoomNoticeShown,
+            bool tutorialCompleted = false)
         {
             _ectoplasm = new ObservableValue<int>(ectoplasm);
             _captures = new Dictionary<string, int>();
@@ -22,6 +27,7 @@ namespace Hauntscope.Gameplay.Progress
                 _captures[pair.Key] = pair.Value;
             TotalSessions = totalSessions;
             VirtualRoomNoticeShown = virtualRoomNoticeShown;
+            TutorialCompleted = tutorialCompleted;
         }
 
         public event Action Changed;
@@ -35,6 +41,8 @@ namespace Hauntscope.Gameplay.Progress
         public bool IsFirstSession => TotalSessions == 0;
 
         public bool VirtualRoomNoticeShown { get; private set; }
+
+        public bool TutorialCompleted { get; private set; }
 
         public int GetCaptureCount(string ghostId)
         {
@@ -51,6 +59,12 @@ namespace Hauntscope.Gameplay.Progress
         {
             _captures[ghostId] = GetCaptureCount(ghostId) + 1;
             _ectoplasm.Value += reward;
+            Changed?.Invoke();
+        }
+
+        public void MarkTutorialCompleted()
+        {
+            TutorialCompleted = true;
             Changed?.Invoke();
         }
 
