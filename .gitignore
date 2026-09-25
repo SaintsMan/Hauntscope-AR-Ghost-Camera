@@ -62,3 +62,7 @@ Thumbs.db
 /Assets/AddressableAssetsData/*/*.bin*
 /Assets/AddressableAssetsData/Android/
 /Assets/AddressableAssetsData/Android.meta
+
+# Addressables copies link.xml here only for the duration of a player build and deletes it on domain reload.
+/Assets/AddressableAssetsData/link.xml
+/Assets/AddressableAssetsData/link.xml.meta
