@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Feedback;
+using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Progress;
 using UnityEngine;
 using VContainer.Unity;
@@ -16,7 +17,7 @@ namespace Hauntscope.UI.Menu
         private readonly MainMenuView _view;
         private readonly MenuNavigation _navigation;
         private readonly PlayerProgress _progress;
-        private readonly ISceneLoader _sceneLoader;
+        private readonly HuntLauncher _launcher;
         private readonly ILocalizationService _localization;
         private readonly UiFeedback _ui;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
@@ -25,14 +26,14 @@ namespace Hauntscope.UI.Menu
             MainMenuView view,
             MenuNavigation navigation,
             PlayerProgress progress,
-            ISceneLoader sceneLoader,
+            HuntLauncher launcher,
             ILocalizationService localization,
             UiFeedback ui)
         {
             _view = view;
             _navigation = navigation;
             _progress = progress;
-            _sceneLoader = sceneLoader;
+            _launcher = launcher;
             _localization = localization;
             _ui = ui;
         }
@@ -40,13 +41,14 @@ namespace Hauntscope.UI.Menu
         public void Start()
         {
             _navigation.Current.Changed += OnScreenChanged;
+            _launcher.Prompt.Changed += OnPromptChanged;
             _progress.Ectoplasm.Changed += OnEctoplasmChanged;
             _localization.Changed += OnLanguageChanged;
             _view.StartClicked += OnStartClicked;
             _view.BestiaryClicked += OnBestiaryClicked;
             _view.SettingsClicked += OnSettingsClicked;
 
-            OnScreenChanged(_navigation.Current.Value);
+            RefreshVisibility();
             OnEctoplasmChanged(_progress.Ectoplasm.Value);
             OnLanguageChanged();
         }
@@ -54,6 +56,7 @@ namespace Hauntscope.UI.Menu
         public void Dispose()
         {
             _navigation.Current.Changed -= OnScreenChanged;
+            _launcher.Prompt.Changed -= OnPromptChanged;
             _progress.Ectoplasm.Changed -= OnEctoplasmChanged;
             _localization.Changed -= OnLanguageChanged;
             _view.StartClicked -= OnStartClicked;
@@ -65,7 +68,18 @@ namespace Hauntscope.UI.Menu
 
         private void OnScreenChanged(MenuScreen screen)
         {
-            _view.SetVisible(screen == MenuScreen.Main);
+            RefreshVisibility();
+        }
+
+        private void OnPromptChanged(LaunchPrompt prompt)
+        {
+            RefreshVisibility();
+        }
+
+        // Launch prompts replace the main screen like any other menu screen, instead of stacking over it.
+        private void RefreshVisibility()
+        {
+            _view.SetVisible(_navigation.Current.Value == MenuScreen.Main && _launcher.Prompt.Value == LaunchPrompt.None);
         }
 
         private void OnEctoplasmChanged(int amount)
@@ -81,7 +95,7 @@ namespace Hauntscope.UI.Menu
         private void OnStartClicked()
         {
             _ui.PlayClick();
-            _sceneLoader.LoadAsync(SceneId.Hunt, _lifetime.Token).Forget();
+            _launcher.LaunchAsync(_lifetime.Token).Forget();
         }
 
         private void OnBestiaryClicked()

@@ -226,6 +226,44 @@ MonoBehaviour:
     m_Localized: Occlusion
     m_Metadata:
       m_Items: []
+  - m_Id: 94804563591168
+    m_Localized: CAMERA ACCESS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534208
+    m_Localized: Hauntscope needs the camera to show ghosts in your room. Without
+      it, you'll hunt in the Virtual Room.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534209
+    m_Localized: Camera access is turned off. Open the app settings and allow Camera
+      in Permissions. Without it, you'll hunt in the Virtual Room.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534210
+    m_Localized: ALLOW CAMERA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534211
+    m_Localized: OPEN SETTINGS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534212
+    m_Localized: PLAY IN VIRTUAL ROOM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534213
+    m_Localized: AR UNAVAILABLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534214
+    m_Localized: Your device doesn't support AR. You'll hunt in the Virtual Room.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534215
+    m_Localized: OK
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

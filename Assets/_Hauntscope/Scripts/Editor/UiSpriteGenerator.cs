@@ -35,6 +35,8 @@ namespace Hauntscope.Editor
             BuildGrain();
             BuildEctoplasm();
             BuildPauseIcon();
+            BuildCameraIcon();
+            BuildRoomIcon();
         }
 
         private static void BuildFrame()
@@ -203,6 +205,45 @@ namespace Hauntscope.Editor
                 RoundBox(p, center + offset, half, 2.5f));
             var pixels = Shape(size, size, sdf, false, 0f, 6f);
             SaveSprite("PauseIcon", size, size, pixels, Vector4.zero);
+        }
+
+        // Photo camera: body with a viewfinder hump, lens ring and a flash dot, drawn with the frame line weight.
+        private static void BuildCameraIcon()
+        {
+            const int size = 128;
+            var lens = new Vector2(64f, 56f);
+            Sdf body = p => Mathf.Min(
+                RoundBox(p, new Vector2(64f, 56f), new Vector2(46f, 30f), 10f),
+                RoundBox(p, new Vector2(44f, 88f), new Vector2(14f, 8f), 4f));
+            var pixels = Max(
+                Max(Shape(size, size, body, true, Line, Glow),
+                    Shape(size, size, p => Circle(p, lens, 17f), true, Line, Glow)),
+                Shape(size, size, p => Circle(p, new Vector2(94f, 72f), 4f), false, 0f, 6f));
+            SaveSprite("CameraIcon", size, size, pixels, Vector4.zero);
+        }
+
+        // Wireframe cube: the Virtual Room as a 3D space instead of the camera feed.
+        private static void BuildRoomIcon()
+        {
+            const int size = 128;
+            var front = new[] { new Vector2(24f, 22f), new Vector2(84f, 22f), new Vector2(84f, 82f), new Vector2(24f, 82f) };
+            var depth = new Vector2(20f, 20f);
+            Sdf sdf = p =>
+            {
+                var distance = float.MaxValue;
+                for (var i = 0; i < 4; i++)
+                {
+                    var a = front[i];
+                    var b = front[(i + 1) % 4];
+                    distance = Mathf.Min(distance, Segment(p, a, b));
+                    distance = Mathf.Min(distance, Segment(p, a + depth, b + depth));
+                    distance = Mathf.Min(distance, Segment(p, a, a + depth));
+                }
+
+                return distance;
+            };
+            var pixels = Shape(size, size, sdf, true, Line, Glow);
+            SaveSprite("RoomIcon", size, size, pixels, Vector4.zero);
         }
 
         private static Color32[] Radial(int size, float start, float end, float power, float strength)

@@ -18,6 +18,10 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<SettingsPresenter>();
             builder.RegisterComponentInHierarchy<CreditsView>();
             builder.RegisterEntryPoint<CreditsPresenter>();
+            builder.RegisterComponentInHierarchy<CameraPermissionView>();
+            builder.RegisterEntryPoint<CameraPermissionPresenter>();
+            builder.RegisterComponentInHierarchy<VirtualRoomNoticeView>();
+            builder.RegisterEntryPoint<VirtualRoomNoticePresenter>();
         }
     }
 }

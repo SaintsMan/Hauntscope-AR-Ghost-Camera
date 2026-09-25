@@ -223,6 +223,42 @@ MonoBehaviour:
     m_Key: settings.occlusion
     m_Metadata:
       m_Items: []
+  - m_Id: 94804563591168
+    m_Key: permission.camera.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534208
+    m_Key: permission.camera.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534209
+    m_Key: permission.camera.body_settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534210
+    m_Key: permission.camera.allow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534211
+    m_Key: permission.camera.open_settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534212
+    m_Key: permission.camera.play_virtual
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534213
+    m_Key: notice.virtual_room.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534214
+    m_Key: notice.virtual_room.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534215
+    m_Key: notice.virtual_room.ok
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
