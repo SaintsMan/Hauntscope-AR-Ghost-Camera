@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-Assets-Shared
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Localization-Assets-Shared
+  m_GUID: 99212ee1cb401d74da6724258ec3930d
+  m_SerializeEntries:
+  - m_GUID: 59adea3bb3554c548b847491dbd6bc64
+    m_Address: Assets/_Hauntscope/Localization/Tables/Ghosts Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b332633b0f2f4a04a85cc1e8a7fe4e3b
+    m_Address: Assets/_Hauntscope/Localization/Tables/UI Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: 8641b13e60fa5a84088cec34fd1901b8, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: d40782dc3bd440a4292b4b637ef3c621, type: 2}
+    - {fileID: 11400000, guid: 956a022aa8a3f7a4fadfa7bc61755726, type: 2}
+    - {fileID: 11400000, guid: 561c3132de6edb94ba59a67eebec8af8, type: 2}

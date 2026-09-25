@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be51871efa6c3e4eae1703925c8f5ac, type: 3}
+  m_Name: Ghosts
+  m_EditorClassIdentifier: Unity.Localization.Editor::UnityEditor.Localization.StringTableCollection
+  m_SharedTableData: {fileID: 11400000, guid: 59adea3bb3554c548b847491dbd6bc64, type: 2}
+  m_Tables:
+  - {fileID: 11400000, guid: 5c4d31b2d20d41f46b999f6b8e636f26, type: 2}
+  - {fileID: 11400000, guid: 7f1ed14e543d69143829242de96b08ca, type: 2}
+  - {fileID: 11400000, guid: 191223713216b4846a82e548c1aba3fe, type: 2}
+  - {fileID: 11400000, guid: 134074f325479604c97e4d78afa2cc5b, type: 2}
+  - {fileID: 11400000, guid: f5adf0479b7b82643a9bbf12b1fdff36, type: 2}
+  - {fileID: 11400000, guid: 03d20edc0c32baf4cb35ef0e735e3d43, type: 2}
+  m_Extensions: []
+  m_Group: String Table
+  references:
+    version: 2
+    RefIds: []
