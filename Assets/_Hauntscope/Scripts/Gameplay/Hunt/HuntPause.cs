@@ -72,6 +72,15 @@ namespace Hauntscope.Gameplay.Hunt
             Remove(MenuReasons);
         }
 
+        // Android Back: opens the pause menu during the hunt and closes it again, like the pause and resume buttons.
+        public void TogglePause()
+        {
+            if (IsMenuRequested)
+                Resume();
+            else
+                PauseManually();
+        }
+
         public void Dispose()
         {
             _tracking.IsTracking.Changed -= OnTrackingChanged;

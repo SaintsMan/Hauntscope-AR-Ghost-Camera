@@ -7,6 +7,7 @@ using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Infrastructure.Audio;
 using Hauntscope.Infrastructure.Haptics;
+using Hauntscope.Infrastructure.Input;
 using Hauntscope.Infrastructure.Lifecycle;
 using Hauntscope.Infrastructure.Localization;
 using Hauntscope.Infrastructure.Permissions;
@@ -36,6 +37,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterComponentOnNewGameObject<UnityApplicationLifecycle>(Lifetime.Singleton, nameof(UnityApplicationLifecycle))
                 .DontDestroyOnLoad()
                 .As<IApplicationLifecycle>();
+            builder.RegisterEntryPoint<InputSystemBackButton>();
             RegisterHaptics(builder);
             RegisterProgress(builder);
             RegisterLaunch(builder);

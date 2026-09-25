@@ -165,5 +165,36 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.IsFalse(_pause.IsPaused);
         }
+
+        [Test]
+        public void TogglePause_Running_OpensPauseMenu()
+        {
+            _pause.TogglePause();
+
+            Assert.IsTrue(_pause.IsMenuRequested);
+        }
+
+        [Test]
+        public void TogglePause_MenuOpen_Resumes()
+        {
+            _pause.PauseManually();
+
+            _pause.TogglePause();
+
+            Assert.IsFalse(_pause.IsPaused);
+        }
+
+        [Test]
+        public void TogglePause_TrackingLostOnly_OpensMenuAndKeepsTrackingReason()
+        {
+            _tracking.SetTracking(true);
+            _tracking.SetTracking(false);
+            _pause.Tick(LostGrace);
+
+            _pause.TogglePause();
+
+            Assert.IsTrue(_pause.IsMenuRequested);
+            Assert.IsTrue(_pause.Has(PauseReason.TrackingLost));
+        }
     }
 }

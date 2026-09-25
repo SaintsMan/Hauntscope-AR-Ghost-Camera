@@ -22,8 +22,12 @@ namespace Hauntscope.UI.Hunt
         private readonly IOcclusionService _occlusion;
         private readonly ILocalizationService _localization;
         private readonly ISceneLoader _sceneLoader;
+        private readonly IBackButton _backButton;
+        private readonly HuntSession _session;
         private readonly UiFeedback _ui;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
+
+        private bool _settingsShown;
 
         public PausePresenter(
             PauseView view,
@@ -33,6 +37,8 @@ namespace Hauntscope.UI.Hunt
             IOcclusionService occlusion,
             ILocalizationService localization,
             ISceneLoader sceneLoader,
+            IBackButton backButton,
+            HuntSession session,
             UiFeedback ui)
         {
             _view = view;
@@ -42,6 +48,8 @@ namespace Hauntscope.UI.Hunt
             _occlusion = occlusion;
             _localization = localization;
             _sceneLoader = sceneLoader;
+            _backButton = backButton;
+            _session = session;
             _ui = ui;
         }
 
@@ -57,8 +65,9 @@ namespace Hauntscope.UI.Hunt
             _view.VibrationClicked += OnVibrationClicked;
             _view.JumpScaresClicked += OnJumpScaresClicked;
             _view.OcclusionClicked += OnOcclusionClicked;
+            _backButton.Pressed += OnBackPressed;
 
-            _view.ShowSettings(false);
+            ShowSettings(false);
             OnPauseChanged(_pause.Reasons.Value);
         }
 
@@ -74,6 +83,7 @@ namespace Hauntscope.UI.Hunt
             _view.VibrationClicked -= OnVibrationClicked;
             _view.JumpScaresClicked -= OnJumpScaresClicked;
             _view.OcclusionClicked -= OnOcclusionClicked;
+            _backButton.Pressed -= OnBackPressed;
             _lifetime.Cancel();
             _lifetime.Dispose();
         }
@@ -82,7 +92,7 @@ namespace Hauntscope.UI.Hunt
         {
             var visible = _pause.IsMenuRequested;
             if (!visible)
-                _view.ShowSettings(false);
+                ShowSettings(false);
             _view.SetVisible(visible);
         }
 
@@ -97,13 +107,39 @@ namespace Hauntscope.UI.Hunt
             _ui.PlayClick();
             _view.SetOcclusionAvailable(_occlusion.IsSupported);
             RenderSettings();
-            _view.ShowSettings(true);
+            ShowSettings(true);
         }
 
         private void OnBackClicked()
         {
             _ui.PlayBack();
-            _view.ShowSettings(false);
+            ShowSettings(false);
+        }
+
+        // Android Back mirrors the on-screen buttons: settings -> pause menu -> hunt, and opens the menu mid-hunt.
+        // The result screen has its own buttons and nothing to pause, so Back is ignored there.
+        private void OnBackPressed()
+        {
+            if (_session.Result.Value != null)
+                return;
+
+            if (_settingsShown)
+            {
+                OnBackClicked();
+                return;
+            }
+
+            if (_pause.IsMenuRequested)
+                _ui.PlayBack();
+            else
+                _ui.PlayClick();
+            _pause.TogglePause();
+        }
+
+        private void ShowSettings(bool settings)
+        {
+            _settingsShown = settings;
+            _view.ShowSettings(settings);
         }
 
         private void OnQuitClicked()
