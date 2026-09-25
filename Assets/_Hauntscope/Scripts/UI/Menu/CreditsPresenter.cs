@@ -1,4 +1,5 @@
 using System;
+using Hauntscope.Gameplay.Feedback;
 using VContainer.Unity;
 
 namespace Hauntscope.UI.Menu
@@ -7,11 +8,13 @@ namespace Hauntscope.UI.Menu
     {
         private readonly CreditsView _view;
         private readonly MenuNavigation _navigation;
+        private readonly UiFeedback _ui;
 
-        public CreditsPresenter(CreditsView view, MenuNavigation navigation)
+        public CreditsPresenter(CreditsView view, MenuNavigation navigation, UiFeedback ui)
         {
             _view = view;
             _navigation = navigation;
+            _ui = ui;
         }
 
         public void Start()
@@ -34,6 +37,7 @@ namespace Hauntscope.UI.Menu
 
         private void OnBackClicked()
         {
+            _ui.PlayBack();
             _navigation.Back();
         }
     }

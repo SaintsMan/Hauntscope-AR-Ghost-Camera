@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Progress;
 using VContainer.Unity;
@@ -20,6 +21,7 @@ namespace Hauntscope.UI.Menu
         private readonly GhostConfig _ghosts;
         private readonly PlayerProgress _progress;
         private readonly ILocalizationService _localization;
+        private readonly UiFeedback _ui;
         private readonly List<BestiaryCardView> _cards = new List<BestiaryCardView>();
         private readonly List<Action> _cardHandlers = new List<Action>();
 
@@ -28,13 +30,15 @@ namespace Hauntscope.UI.Menu
             MenuNavigation navigation,
             GhostConfig ghosts,
             PlayerProgress progress,
-            ILocalizationService localization)
+            ILocalizationService localization,
+            UiFeedback ui)
         {
             _view = view;
             _navigation = navigation;
             _ghosts = ghosts;
             _progress = progress;
             _localization = localization;
+            _ui = ui;
         }
 
         public void Start()
@@ -109,6 +113,7 @@ namespace Hauntscope.UI.Menu
             if (_progress.GetCaptureCount(ghost.Id) == 0)
                 return;
 
+            _ui.PlayClick();
             _view.ShowDetails(ghost.Icon, ghost.RimColor,
                 _localization.Get(LocalizationTable.Ghosts, ghost.NameKey),
                 _localization.Get(LocalizationTable.Ghosts, ghost.DescriptionKey));
@@ -116,11 +121,13 @@ namespace Hauntscope.UI.Menu
 
         private void OnBackClicked()
         {
+            _ui.PlayBack();
             _navigation.Back();
         }
 
         private void OnDetailsCloseClicked()
         {
+            _ui.PlayBack();
             _view.HideDetails();
         }
     }

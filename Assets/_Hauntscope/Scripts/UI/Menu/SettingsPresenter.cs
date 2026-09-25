@@ -1,5 +1,6 @@
 using System;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Progress;
 using VContainer.Unity;
 
@@ -16,19 +17,22 @@ namespace Hauntscope.UI.Menu
         private readonly GameSettings _settings;
         private readonly SettingsRepository _repository;
         private readonly ILocalizationService _localization;
+        private readonly UiFeedback _ui;
 
         public SettingsPresenter(
             SettingsView view,
             MenuNavigation navigation,
             GameSettings settings,
             SettingsRepository repository,
-            ILocalizationService localization)
+            ILocalizationService localization,
+            UiFeedback ui)
         {
             _view = view;
             _navigation = navigation;
             _settings = settings;
             _repository = repository;
             _localization = localization;
+            _ui = ui;
         }
 
         public void Start()
@@ -100,16 +104,19 @@ namespace Hauntscope.UI.Menu
 
         private void OnCreditsClicked()
         {
+            _ui.PlayClick();
             _navigation.Show(MenuScreen.Credits);
         }
 
         private void OnBackClicked()
         {
+            _ui.PlayBack();
             _navigation.Back();
         }
 
         private void SaveAndRender()
         {
+            _ui.PlayClick();
             _repository.Save(_settings);
             Render();
         }

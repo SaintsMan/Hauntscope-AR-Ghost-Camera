@@ -9,6 +9,10 @@ namespace Hauntscope.Tests.EditMode.Fakes
 
         public float LastPitch { get; private set; }
 
+        public int LoopCount { get; private set; }
+
+        public FakeSfxLoop LastLoop { get; private set; }
+
         public void Play2D(AudioClip clip, float volume, float pitch)
         {
             PlayCount++;
@@ -19,6 +23,13 @@ namespace Hauntscope.Tests.EditMode.Fakes
         {
             PlayCount++;
             LastPitch = 1f;
+        }
+
+        public ISfxLoop PlayLoop(AudioClip clip, float volume, bool spatial)
+        {
+            LoopCount++;
+            LastLoop = new FakeSfxLoop(volume);
+            return LastLoop;
         }
     }
 }

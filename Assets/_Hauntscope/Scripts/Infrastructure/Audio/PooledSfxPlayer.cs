@@ -12,6 +12,8 @@ namespace Hauntscope.Infrastructure.Audio
     {
         private const int DefaultCapacity = 8;
         private const int MaxPoolSize = 24;
+        private const float SpatialMinDistance = 0.5f;
+        private const float SpatialMaxDistance = 8f;
 
         private readonly GameObject _root;
         private readonly ObjectPool<AudioSource> _pool;
@@ -30,10 +32,10 @@ namespace Hauntscope.Infrastructure.Audio
             if (clip == null)
                 return;
 
-            var source = Rent();
+            var source = Rent(false);
             source.transform.localPosition = Vector3.zero;
-            source.spatialBlend = 0f;
-            PlayClip(source, clip, volume, pitch);
+            PlayClip(source, clip, volume, pitch, false);
+            _playing.Add(source);
         }
 
         public void Play3D(AudioClip clip, Vector3 position, float volume)
@@ -41,10 +43,22 @@ namespace Hauntscope.Infrastructure.Audio
             if (clip == null)
                 return;
 
-            var source = Rent();
+            var source = Rent(true);
             source.transform.position = position;
-            source.spatialBlend = 1f;
-            PlayClip(source, clip, volume, 1f);
+            PlayClip(source, clip, volume, 1f, false);
+            _playing.Add(source);
+        }
+
+        // Loops are owned by the caller through the returned handle and go back to the pool on Stop.
+        public ISfxLoop PlayLoop(AudioClip clip, float volume, bool spatial)
+        {
+            if (clip == null)
+                return null;
+
+            var source = Rent(spatial);
+            source.transform.localPosition = Vector3.zero;
+            PlayClip(source, clip, volume, 1f, true);
+            return new Loop(source, _pool);
         }
 
         public void Tick()
@@ -70,18 +84,19 @@ namespace Hauntscope.Infrastructure.Audio
                 Object.Destroy(_root);
         }
 
-        private AudioSource Rent()
+        private AudioSource Rent(bool spatial)
         {
             var source = _pool.Get();
-            _playing.Add(source);
+            source.spatialBlend = spatial ? 1f : 0f;
             return source;
         }
 
-        private static void PlayClip(AudioSource source, AudioClip clip, float volume, float pitch)
+        private static void PlayClip(AudioSource source, AudioClip clip, float volume, float pitch, bool loop)
         {
             source.clip = clip;
             source.volume = volume;
             source.pitch = pitch;
+            source.loop = loop;
             source.Play();
         }
 
@@ -91,6 +106,10 @@ namespace Hauntscope.Infrastructure.Audio
             go.transform.SetParent(_root.transform, false);
             var source = go.AddComponent<AudioSource>();
             source.playOnAwake = false;
+            source.rolloffMode = AudioRolloffMode.Logarithmic;
+            source.minDistance = SpatialMinDistance;
+            source.maxDistance = SpatialMaxDistance;
+            source.dopplerLevel = 0f;
             return source;
         }
 
@@ -103,6 +122,7 @@ namespace Hauntscope.Infrastructure.Audio
         {
             source.Stop();
             source.clip = null;
+            source.loop = false;
             source.gameObject.SetActive(false);
         }
 
@@ -110,6 +130,45 @@ namespace Hauntscope.Infrastructure.Audio
         {
             if (source != null)
                 Object.Destroy(source.gameObject);
+        }
+
+        private sealed class Loop : ISfxLoop
+        {
+            private readonly ObjectPool<AudioSource> _pool;
+            private AudioSource _source;
+
+            public Loop(AudioSource source, ObjectPool<AudioSource> pool)
+            {
+                _source = source;
+                _pool = pool;
+            }
+
+            public void SetVolume(float volume)
+            {
+                if (_source != null)
+                    _source.volume = volume;
+            }
+
+            public void SetPitch(float pitch)
+            {
+                if (_source != null)
+                    _source.pitch = pitch;
+            }
+
+            public void SetPosition(Vector3 position)
+            {
+                if (_source != null)
+                    _source.transform.position = position;
+            }
+
+            public void Stop()
+            {
+                if (_source == null)
+                    return;
+
+                _pool.Release(_source);
+                _source = null;
+            }
         }
     }
 }

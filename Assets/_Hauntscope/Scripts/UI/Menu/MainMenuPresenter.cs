@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Progress;
 using UnityEngine;
 using VContainer.Unity;
@@ -17,6 +18,7 @@ namespace Hauntscope.UI.Menu
         private readonly PlayerProgress _progress;
         private readonly ISceneLoader _sceneLoader;
         private readonly ILocalizationService _localization;
+        private readonly UiFeedback _ui;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         public MainMenuPresenter(
@@ -24,13 +26,15 @@ namespace Hauntscope.UI.Menu
             MenuNavigation navigation,
             PlayerProgress progress,
             ISceneLoader sceneLoader,
-            ILocalizationService localization)
+            ILocalizationService localization,
+            UiFeedback ui)
         {
             _view = view;
             _navigation = navigation;
             _progress = progress;
             _sceneLoader = sceneLoader;
             _localization = localization;
+            _ui = ui;
         }
 
         public void Start()
@@ -76,16 +80,19 @@ namespace Hauntscope.UI.Menu
 
         private void OnStartClicked()
         {
+            _ui.PlayClick();
             _sceneLoader.LoadAsync(SceneId.Hunt, _lifetime.Token).Forget();
         }
 
         private void OnBestiaryClicked()
         {
+            _ui.PlayClick();
             _navigation.Show(MenuScreen.Bestiary);
         }
 
         private void OnSettingsClicked()
         {
+            _ui.PlayClick();
             _navigation.Show(MenuScreen.Settings);
         }
     }

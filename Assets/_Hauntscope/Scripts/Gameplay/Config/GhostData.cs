@@ -16,6 +16,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private GhostRarity _rarity;
         [SerializeField] private GhostView _prefab;
         [SerializeField] private Color _rimColor = Color.cyan;
+        [SerializeField] private AudioClip _whisperClip;
         [SerializeField] private GhostMotion _motion = new GhostMotion();
         [SerializeField] private GhostDetection _detection = new GhostDetection();
         [SerializeField] private GhostCapture _capture = new GhostCapture();
@@ -34,6 +35,8 @@ namespace Hauntscope.Gameplay.Config
         public GhostView Prefab => _prefab;
 
         public Color RimColor => _rimColor;
+
+        public AudioClip WhisperClip => _whisperClip;
 
         public GhostMotion Motion => _motion;
 

@@ -2,66 +2,425 @@ using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using static Hauntscope.Editor.AudioDsp;
 
 namespace Hauntscope.Editor
 {
+    // Every sound in the game is synthesised here; clips are written as 16-bit mono WAV next to their importer settings.
     public static class SfxGenerator
     {
-        private const string Folder = "Assets/_Hauntscope/Audio/SFX";
-        private const int SampleRate = 48000;
-        private const float TwoPi = Mathf.PI * 2f;
+        private const string SfxFolder = "Assets/_Hauntscope/Audio/SFX";
+        private const string AmbientFolder = "Assets/_Hauntscope/Audio/Ambient";
+
+        private static readonly Vector3[] Vowels =
+        {
+            new Vector3(800f, 1150f, 2900f),
+            new Vector3(400f, 1700f, 2600f),
+            new Vector3(300f, 2200f, 3000f),
+            new Vector3(450f, 800f, 2830f),
+            new Vector3(325f, 700f, 2530f)
+        };
 
         public static void BuildAll()
         {
-            Save("EmfBeep", EmfBeep(), -3f);
-            Save("BatteryLow", BatteryLow(), -4f);
+            Save(SfxFolder, "EmfBeep", EmfBeep(), -3f, false);
+            Save(SfxFolder, "BatteryLow", BatteryLow(), -4f, false);
+            Save(SfxFolder, "LensOn", LensOn(), -4f, false);
+            Save(SfxFolder, "LensOff", LensOff(), -6f, false);
+            Save(SfxFolder, "BeamLoop", BeamLoop(), -6f, true);
+            Save(SfxFolder, "CaptureSuccess", CaptureSuccess(), -2f, false);
+            Save(SfxFolder, "GhostEscape", GhostEscape(), -4f, false);
+            Save(SfxFolder, "ScareSting", ScareSting(), -1f, false);
+            Save(SfxFolder, "TeleportWhoosh", TeleportWhoosh(), -4f, false);
+            Save(SfxFolder, "ScanComplete", ScanComplete(), -5f, false);
+            Save(SfxFolder, "UiClick", UiClick(), -8f, false);
+            Save(SfxFolder, "UiBack", UiBack(), -9f, false);
+            Save(SfxFolder, "WhisperWisp", Whisper(11, 1.25f, 0.12f, 0.25f, 0.08f, 0.3f, 0.35f, 1f, 0.3f, 1.2f), -6f, true);
+            Save(SfxFolder, "WhisperPoltergeist", Whisper(23, 1f, 0.08f, 0.18f, 0.05f, 0.15f, 0.2f, 2.2f, 0.25f, 1f), -6f, true);
+            Save(SfxFolder, "WhisperShade", Whisper(37, 0.8f, 0.35f, 0.8f, 0.3f, 0.8f, 0.08f, 1f, 0.5f, 1.35f), -6f, true);
+            Save(AmbientFolder, "AmbientDrone", AmbientDrone(), -8f, true);
+            Save(AmbientFolder, "AmbientStatic", AmbientStatic(), -10f, true);
         }
 
         // Radar ping: a gliding tone with harmonics and a detuned layer, soft attack, fast decay and a filtered echo tail.
         private static float[] EmfBeep()
         {
-            const float duration = 0.26f;
             const float glide = 0.07f;
-            const float startHz = 1650f;
-            const float endHz = 1250f;
+            var samples = Buffer(0.26f);
             var detune = Mathf.Pow(2f, 6f / 1200f);
-
-            var samples = new float[(int)(SampleRate * duration)];
-            var phase = 0f;
-            var detunedPhase = 0f;
+            float phase = 0f, detunedPhase = 0f;
             for (var i = 0; i < samples.Length; i++)
             {
-                var t = (float)i / SampleRate;
-                var k = Mathf.Clamp01(t / glide);
-                var frequency = startHz * Mathf.Pow(endHz / startHz, k);
+                var t = Time(i);
+                var frequency = 1650f * Mathf.Pow(1250f / 1650f, Mathf.Clamp01(t / glide));
                 phase += TwoPi * frequency / SampleRate;
                 detunedPhase += TwoPi * frequency * detune / SampleRate;
-
                 var tone = Mathf.Sin(phase) + 0.28f * Mathf.Sin(2f * phase) + 0.1f * Mathf.Sin(3f * phase) + 0.35f * Mathf.Sin(detunedPhase);
                 samples[i] = tone * Envelope(t, 0.0025f, 0.028f);
             }
 
-            return Saturate(AddEcho(samples, 0.07f, 0.25f, 0.3f), 1.2f);
+            return Saturate(TrimTo(Echo(samples, 0.07f, 0.25f, 3500f, 1), samples.Length), 1.2f);
         }
 
         // Camcorder low-battery chirp: two falling square-ish notes.
         private static float[] BatteryLow()
         {
-            const float duration = 0.42f;
-            var samples = new float[(int)(SampleRate * duration)];
-            AddNote(samples, 0f, 0.09f, 1318.5f);
-            AddNote(samples, 0.12f, 0.16f, 987.8f);
-            return Saturate(AddEcho(samples, 0.09f, 0.18f, 0.35f), 1.4f);
+            var samples = Buffer(0.42f);
+            AddSquareNote(samples, 0f, 0.09f, 1318.5f);
+            AddSquareNote(samples, 0.12f, 0.16f, 987.8f);
+            return Saturate(TrimTo(Echo(samples, 0.09f, 0.18f, 3000f, 1), samples.Length), 1.4f);
         }
 
-        private static void AddNote(float[] samples, float start, float length, float frequency)
+        // Power-up: a fast rising sweep with a click on the switch and a small bell on top.
+        private static float[] LensOn()
+        {
+            var samples = Buffer(0.45f);
+            var phase = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var frequency = 350f * Mathf.Pow(1500f / 350f, Mathf.Clamp01(t / 0.16f));
+                phase += TwoPi * frequency / SampleRate;
+                var shimmer = 0.5f + 0.5f * Mathf.Sin(TwoPi * 28f * t);
+                samples[i] = (Mathf.Sin(phase) + 0.3f * Mathf.Sin(2f * phase) * shimmer) * Envelope(t, 0.005f, 0.12f);
+            }
+
+            Add(samples, Click(0.003f, 2500f, 1), 0, 0.6f);
+            Add(samples, Bell(2400f, 0.25f, 3.01f, 2f, 0.08f), (int)(0.14f * SampleRate), 0.35f);
+            return TrimTo(Echo(samples, 0.06f, 0.2f, 4000f, 2), samples.Length);
+        }
+
+        private static float[] LensOff()
+        {
+            var samples = Buffer(0.32f);
+            var phase = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var frequency = 1300f * Mathf.Pow(260f / 1300f, Mathf.Clamp01(t / 0.14f));
+                phase += TwoPi * frequency / SampleRate;
+                samples[i] = (Mathf.Sin(phase) + 0.2f * Mathf.Sin(2f * phase)) * Envelope(t, 0.004f, 0.09f);
+            }
+
+            Add(samples, Click(0.002f, 1800f, 2), 0, 0.4f);
+            return Filter(samples, FilterType.LowPass, 3000f, 0.7f);
+        }
+
+        // Electrical hum: band-limited saw at 90 Hz with a 30 Hz buzz and a sizzle band. 90 and 30 Hz fit the
+        // 2 s loop an integer number of times, so the tonal part is seamless before the crossfade.
+        private static float[] BeamLoop()
+        {
+            var samples = Buffer(2.3f);
+            var sizzle = Filter(Noise(samples.Length, 5), FilterType.BandPass, 3500f, 1.5f);
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var phase = TwoPi * 90f * t;
+                var saw = 0f;
+                for (var h = 1; h <= 10; h++)
+                    saw += Mathf.Sin(phase * h) / h;
+                var buzz = 1f - 0.35f * (0.5f + 0.5f * Mathf.Sin(TwoPi * 30f * t));
+                var crackle = sizzle[i] * (0.6f + 0.4f * Mathf.Sin(TwoPi * 7f * t));
+                samples[i] = saw * 0.5f * buzz + Mathf.Sin(phase * 2f) * 0.25f + crackle * 0.35f;
+            }
+
+            samples = Saturate(Filter(samples, FilterType.LowPass, 5000f, 0.7f), 1.5f);
+            return MakeLoop(samples, 0.3f);
+        }
+
+        // Rising bell arpeggio over a whoosh and a sub thump.
+        private static float[] CaptureSuccess()
+        {
+            var samples = Buffer(1.7f);
+            var notes = new[] { 523.25f, 659.25f, 783.99f, 1046.5f, 1318.5f };
+            var starts = new[] { 0f, 0.07f, 0.14f, 0.21f, 0.3f };
+            for (var n = 0; n < notes.Length; n++)
+            {
+                var last = n == notes.Length - 1;
+                Add(samples, Bell(notes[n], last ? 1.2f : 0.6f, 3.5f, 3f, last ? 0.7f : 0.35f), (int)(starts[n] * SampleRate), last ? 0.8f : 0.6f);
+            }
+
+            var whoosh = Buffer(0.35f);
+            var noise = Noise(whoosh.Length, 9);
+            whoosh = Filter(noise, FilterType.BandPass, i => 400f * Mathf.Pow(5000f / 400f, Time(i) / 0.35f), 1.2f);
+            for (var i = 0; i < whoosh.Length; i++)
+                whoosh[i] *= Mathf.Sin(Mathf.PI * Time(i) / 0.35f);
+            Add(samples, whoosh, 0, 0.5f);
+
+            var thump = Buffer(0.3f);
+            for (var i = 0; i < thump.Length; i++)
+                thump[i] = Mathf.Sin(TwoPi * 60f * Time(i)) * Envelope(Time(i), 0.003f, 0.12f);
+            Add(samples, thump, 0, 0.7f);
+
+            return TrimTo(Reverb(samples, 0.28f, 1f, 0.4f), (int)(1.9f * SampleRate));
+        }
+
+        // Falling moan with vibrato and vocal formants, drowned in reverb.
+        private static float[] GhostEscape()
+        {
+            var samples = Buffer(1.3f);
+            var detune = Mathf.Pow(2f, -8f / 1200f);
+            float phase = 0f, phase2 = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var vibrato = 1f + 0.03f * Mathf.Sin(TwoPi * 5.5f * t);
+                var frequency = 520f * Mathf.Pow(140f / 520f, Mathf.Clamp01(t / 1.2f)) * vibrato;
+                phase += TwoPi * frequency / SampleRate;
+                phase2 += TwoPi * frequency * detune / SampleRate;
+                var voice = 0f;
+                for (var h = 1; h <= 6; h++)
+                    voice += (Mathf.Sin(phase * h) + Mathf.Sin(phase2 * h)) / (h * 1.5f);
+                samples[i] = voice * Adsr(t, 1.3f, 0.08f, 0.5f);
+            }
+
+            var vocal = Filter(samples, FilterType.BandPass, 700f, 3f);
+            var vocal2 = Filter(samples, FilterType.BandPass, 1100f, 4f);
+            var breath = Filter(Noise(samples.Length, 13), FilterType.LowPass, 900f, 0.7f);
+            for (var i = 0; i < samples.Length; i++)
+                samples[i] = vocal[i] + vocal2[i] * 0.7f + samples[i] * 0.15f + breath[i] * 0.15f * Adsr(Time(i), 1.3f, 0.2f, 0.6f);
+
+            return Reverb(samples, 0.45f, 1.3f, 0.8f);
+        }
+
+        // Dissonant stab: detuned tritone cluster bending down, a formant shriek and a filtered impact with a sub thump.
+        private static float[] ScareSting()
+        {
+            var samples = Buffer(1.4f);
+            var cluster = new[] { 220f, 233.1f, 311.1f, 466.2f };
+            var phases = new float[cluster.Length];
+            var shriekPhase = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var bend = Mathf.Pow(2f, -2f / 12f * Mathf.Clamp01(t / 1f));
+                var value = 0f;
+                for (var c = 0; c < cluster.Length; c++)
+                {
+                    phases[c] += TwoPi * cluster[c] * bend / SampleRate;
+                    for (var h = 1; h <= 12; h++)
+                        value += Mathf.Sin(phases[c] * h) / h;
+                }
+
+                var shriekFrequency = (900f - 200f * Mathf.Clamp01(t / 0.9f)) * (1f + 0.04f * Mathf.Sin(TwoPi * 12f * t));
+                shriekPhase += TwoPi * shriekFrequency / SampleRate;
+                var shriek = 0f;
+                for (var h = 1; h <= 8; h++)
+                    shriek += Mathf.Sin(shriekPhase * h) / h;
+
+                samples[i] = value * 0.25f * Envelope(t, 0.005f, 0.6f) + shriek * 0.5f * Adsr(t, 0.9f, 0.02f, 0.5f);
+            }
+
+            var shrill = Filter(samples, FilterType.BandPass, 2200f, 2f);
+            var impact = Filter(Noise(samples.Length, 17), FilterType.LowPass, i => 8000f * Mathf.Pow(200f / 8000f, Mathf.Clamp01(Time(i) / 0.25f)), 0.8f);
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                samples[i] += shrill[i] * 0.8f + impact[i] * Envelope(t, 0.002f, 0.12f) * 1.2f + Mathf.Sin(TwoPi * 45f * t) * Envelope(t, 0.003f, 0.2f);
+            }
+
+            return Reverb(Saturate(samples, 3f), 0.3f, 1.2f, 0.5f);
+        }
+
+        // Swept noise whoosh (up then down) with a zap at the moment of the jump.
+        private static float[] TeleportWhoosh()
+        {
+            var samples = Buffer(0.6f);
+            var swept = Filter(Noise(samples.Length, 21), FilterType.BandPass, i =>
+            {
+                var t = Time(i);
+                return t < 0.25f
+                    ? 300f * Mathf.Pow(6000f / 300f, t / 0.25f)
+                    : 6000f * Mathf.Pow(800f / 6000f, Mathf.Clamp01((t - 0.25f) / 0.3f));
+            }, 2f);
+            for (var i = 0; i < samples.Length; i++)
+                samples[i] = swept[i] * Adsr(Time(i), 0.6f, 0.2f, 0.3f);
+
+            var zap = Buffer(0.15f);
+            var phase = 0f;
+            for (var i = 0; i < zap.Length; i++)
+            {
+                var t = Time(i);
+                var frequency = 2000f * Mathf.Pow(200f / 2000f, t / 0.12f);
+                phase += TwoPi * frequency / SampleRate;
+                zap[i] = Mathf.Sin(phase + 2f * Mathf.Sin(phase * 1.5f)) * Envelope(t, 0.002f, 0.05f);
+            }
+
+            Add(samples, zap, (int)(0.2f * SampleRate), 0.6f);
+            return TrimTo(Reverb(samples, 0.2f, 0.8f, 0.2f), (int)(0.8f * SampleRate));
+        }
+
+        // Two ascending chimes like a camera saying "ready", with a warm pad underneath.
+        private static float[] ScanComplete()
+        {
+            var samples = Buffer(0.8f);
+            Add(samples, Bell(1318.5f, 0.5f, 2f, 1.5f, 0.25f), 0, 0.7f);
+            Add(samples, Bell(1975.5f, 0.6f, 2f, 1.5f, 0.3f), (int)(0.12f * SampleRate), 0.7f);
+            var pad = Buffer(0.7f);
+            for (var i = 0; i < pad.Length; i++)
+            {
+                var t = Time(i);
+                pad[i] = (Mathf.Sin(TwoPi * 329.6f * t) + Mathf.Sin(TwoPi * 493.9f * t)) * Adsr(t, 0.7f, 0.05f, 0.5f) * 0.2f;
+            }
+
+            Add(samples, pad, 0, 1f);
+            return TrimTo(Echo(samples, 0.12f, 0.35f, 3000f, 2), (int)(1.1f * SampleRate));
+        }
+
+        private static float[] UiClick()
+        {
+            var samples = Buffer(0.07f);
+            for (var i = 0; i < samples.Length; i++)
+                samples[i] = Mathf.Sin(TwoPi * 2200f * Time(i)) * Envelope(Time(i), 0.001f, 0.012f);
+            Add(samples, Click(0.002f, 3000f, 31), 0, 0.8f);
+            return samples;
+        }
+
+        private static float[] UiBack()
+        {
+            var samples = Buffer(0.09f);
+            for (var i = 0; i < samples.Length; i++)
+                samples[i] = Mathf.Sin(TwoPi * 1400f * Time(i)) * Envelope(Time(i), 0.001f, 0.018f);
+            Add(samples, Click(0.002f, 2000f, 37), 0, 0.6f);
+            return samples;
+        }
+
+        // Breath through vowel formants shaped into syllables, with occasional sibilants, in a reverberant space.
+        private static float[] Whisper(int seed, float formantScale, float syllableMin, float syllableMax, float gapMin,
+            float gapMax, float sibilance, float drive, float reverbMix, float roomSize)
+        {
+            const float loopLength = 7f;
+            const float crossfade = 1f;
+            var random = new System.Random(seed);
+            var samples = Buffer(loopLength + crossfade);
+            var t = 0.2f;
+            while (t < loopLength + crossfade - 0.2f)
+            {
+                var duration = Mathf.Lerp(syllableMin, syllableMax, (float)random.NextDouble());
+                var from = Vowels[random.Next(Vowels.Length)] * formantScale;
+                var to = Vowels[random.Next(Vowels.Length)] * formantScale;
+                var syllable = Syllable(duration, from, to, random.Next());
+                Add(samples, syllable, (int)(t * SampleRate), 0.6f + 0.4f * (float)random.NextDouble());
+
+                if (random.NextDouble() < sibilance)
+                {
+                    var hiss = Filter(Noise((int)(0.12f * SampleRate), random.Next()), FilterType.HighPass, 4500f, 0.8f);
+                    for (var i = 0; i < hiss.Length; i++)
+                        hiss[i] *= Adsr(Time(i), 0.12f, 0.03f, 0.07f);
+                    Add(samples, hiss, (int)((t + duration * 0.6f) * SampleRate), 0.12f);
+                }
+
+                t += duration + Mathf.Lerp(gapMin, gapMax, (float)random.NextDouble());
+            }
+
+            samples = Filter(Saturate(samples, drive), FilterType.LowPass, 4500f, 0.7f);
+            samples = TrimTo(Reverb(samples, reverbMix, roomSize), samples.Length);
+            return MakeLoop(samples, crossfade);
+        }
+
+        private static float[] Syllable(float duration, Vector3 from, Vector3 to, int seed)
+        {
+            var noise = Noise(Mathf.CeilToInt(duration * SampleRate), seed);
+            var length = noise.Length;
+            var result = new float[length];
+            for (var formant = 0; formant < 3; formant++)
+            {
+                var index = formant;
+                var band = Filter(noise, FilterType.BandPass, i => Mathf.Lerp(from[index], to[index], (float)i / length), 9f);
+                var weight = formant == 0 ? 1f : formant == 1 ? 0.7f : 0.35f;
+                for (var i = 0; i < length; i++)
+                    result[i] += band[i] * weight;
+            }
+
+            for (var i = 0; i < length; i++)
+                result[i] *= Adsr(Time(i), duration, duration * 0.3f, duration * 0.5f) * 3f;
+            return result;
+        }
+
+        // Low beating drone with a breathing rumble and faint air; every tone fits the 16 s loop an integer number of times.
+        private static float[] AmbientDrone()
+        {
+            const float loop = 16f;
+            var samples = Buffer(loop + 2f);
+            var rumble = Filter(Noise(samples.Length, 41), FilterType.LowPass, 120f, 0.7f);
+            var air = Filter(Noise(samples.Length, 43), FilterType.BandPass, 2500f, 0.5f);
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var slow = 0.5f + 0.5f * Mathf.Sin(TwoPi * t / loop);
+                var slower = 0.5f + 0.5f * Mathf.Sin(TwoPi * t / (loop / 2f) + 1f);
+                samples[i] =
+                    Mathf.Sin(TwoPi * 55f * t) * 0.5f +
+                    Mathf.Sin(TwoPi * 55.375f * t) * 0.35f +
+                    Mathf.Sin(TwoPi * 82.5f * t) * 0.2f * slow +
+                    Mathf.Sin(TwoPi * 110.625f * t) * 0.12f * slower +
+                    Mathf.Sin(TwoPi * 165f * t) * 0.05f * slow +
+                    rumble[i] * 0.4f * (0.6f + 0.4f * slower) +
+                    air[i] * 0.008f * slow;
+            }
+
+            return MakeLoop(Filter(samples, FilterType.LowPass, 1400f, 0.7f), 2f);
+        }
+
+        // Radio static: fading hiss, sparse crackles and a faint searching whine.
+        private static float[] AmbientStatic()
+        {
+            const float loop = 10f;
+            var samples = Buffer(loop + 1f);
+            var hiss = Filter(Noise(samples.Length, 51), FilterType.HighPass, 3000f, 0.7f);
+            var drift = Filter(Noise(samples.Length, 53), FilterType.LowPass, 0.6f, 0.7f);
+            var driftPeak = 0f;
+            foreach (var value in drift)
+                driftPeak = Mathf.Max(driftPeak, Mathf.Abs(value));
+
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var fade = 0.55f + 0.45f * drift[i] / Mathf.Max(driftPeak, 1e-6f);
+                var whine = Mathf.Sin(TwoPi * (1900f + 60f * Mathf.Sin(TwoPi * 0.3f * t)) * t) * 0.015f * (0.5f + 0.5f * Mathf.Sin(TwoPi * t / 5f));
+                samples[i] = hiss[i] * 0.3f * fade + whine;
+            }
+
+            var random = new System.Random(57);
+            var crackleCount = (int)(loop * 8f);
+            for (var c = 0; c < crackleCount; c++)
+            {
+                var click = Click(0.002f + 0.004f * (float)random.NextDouble(), 1500f + 2500f * (float)random.NextDouble(), random.Next());
+                Add(samples, click, random.Next(samples.Length), 0.2f + 0.6f * (float)random.NextDouble());
+            }
+
+            return MakeLoop(samples, 1f);
+        }
+
+        private static float[] Bell(float frequency, float duration, float ratio, float index, float decay)
+        {
+            var samples = Buffer(duration);
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var modulator = Mathf.Sin(TwoPi * frequency * ratio * t) * index * Mathf.Exp(-t / (decay * 0.4f));
+                samples[i] = Mathf.Sin(TwoPi * frequency * t + modulator) * Envelope(t, 0.003f, decay);
+            }
+
+            return samples;
+        }
+
+        private static float[] Click(float duration, float highPass, int seed)
+        {
+            var click = Filter(Noise(Mathf.CeilToInt(duration * SampleRate) + 64, seed), FilterType.HighPass, highPass, 0.7f);
+            for (var i = 0; i < click.Length; i++)
+                click[i] *= Mathf.Exp(-Time(i) / (duration * 0.35f));
+            return click;
+        }
+
+        private static void AddSquareNote(float[] samples, float start, float length, float frequency)
         {
             var from = (int)(start * SampleRate);
             var count = (int)(length * SampleRate);
             var phase = 0f;
             for (var i = 0; i < count && from + i < samples.Length; i++)
             {
-                var t = (float)i / SampleRate;
+                var t = Time(i);
                 phase += TwoPi * frequency / SampleRate;
                 var tone = Mathf.Sin(phase) + Mathf.Sin(3f * phase) / 3f + Mathf.Sin(5f * phase) / 5f;
                 var release = Mathf.Clamp01((length - t) / 0.01f);
@@ -69,48 +428,23 @@ namespace Hauntscope.Editor
             }
         }
 
-        private static float Envelope(float t, float attack, float decay)
+        private static float[] TrimTo(float[] samples, int length)
         {
-            var envelope = Mathf.Exp(-t / decay);
-            return t < attack ? envelope * (0.5f - 0.5f * Mathf.Cos(Mathf.PI * t / attack)) : envelope;
-        }
-
-        private static float[] AddEcho(float[] dry, float delaySeconds, float gain, float lowPass)
-        {
-            var delay = (int)(delaySeconds * SampleRate);
-            var result = new float[dry.Length];
-            var filtered = 0f;
-            for (var i = 0; i < dry.Length; i++)
-            {
-                var echo = i >= delay ? dry[i - delay] * gain : 0f;
-                filtered += lowPass * (echo - filtered);
-                result[i] = dry[i] + filtered;
-            }
-
+            if (samples.Length == length)
+                return samples;
+            var result = new float[length];
+            Array.Copy(samples, result, Math.Min(length, samples.Length));
             return result;
         }
 
-        private static float[] Saturate(float[] samples, float drive)
+        private static void Save(string folder, string name, float[] samples, float peakDb, bool loop)
         {
-            var norm = (float)Math.Tanh(drive);
-            for (var i = 0; i < samples.Length; i++)
-                samples[i] = (float)Math.Tanh(drive * samples[i]) / norm;
+            if (!loop)
+                FadeOut(samples, 0.005f);
+            Normalize(samples, peakDb);
 
-            return samples;
-        }
-
-        private static void Save(string name, float[] samples, float peakDb)
-        {
-            var fade = (int)(0.005f * SampleRate);
-            for (var i = 0; i < fade; i++)
-                samples[samples.Length - 1 - i] *= (float)i / fade;
-
-            var peak = 0f;
-            foreach (var sample in samples)
-                peak = Mathf.Max(peak, Mathf.Abs(sample));
-            var gain = Mathf.Pow(10f, peakDb / 20f) / Mathf.Max(peak, 1e-6f);
-
-            var path = $"{Folder}/{name}.wav";
+            Directory.CreateDirectory(Path.GetFullPath(folder));
+            var path = $"{folder}/{name}.wav";
             using (var stream = new FileStream(Path.GetFullPath(path), FileMode.Create))
             using (var writer = new BinaryWriter(stream))
             {
@@ -128,15 +462,18 @@ namespace Hauntscope.Editor
                 writer.Write(new[] { 'd', 'a', 't', 'a' });
                 writer.Write(dataSize);
                 foreach (var sample in samples)
-                    writer.Write((short)Mathf.Clamp(Mathf.RoundToInt(sample * gain * short.MaxValue), short.MinValue, short.MaxValue));
+                    writer.Write((short)Mathf.Clamp(Mathf.RoundToInt(sample * short.MaxValue), short.MinValue, short.MaxValue));
             }
 
             AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
             var importer = (AudioImporter)AssetImporter.GetAtPath(path);
             importer.forceToMono = true;
             var settings = importer.defaultSampleSettings;
-            settings.loadType = AudioClipLoadType.DecompressOnLoad;
-            settings.compressionFormat = AudioCompressionFormat.ADPCM;
+            // Long loops stream-decompress from memory as Vorbis; short one-shots stay decompressed for zero latency.
+            var isLong = samples.Length > SampleRate * 3;
+            settings.loadType = isLong ? AudioClipLoadType.CompressedInMemory : AudioClipLoadType.DecompressOnLoad;
+            settings.compressionFormat = isLong ? AudioCompressionFormat.Vorbis : AudioCompressionFormat.ADPCM;
+            settings.quality = 0.6f;
             settings.preloadAudioData = true;
             importer.defaultSampleSettings = settings;
             importer.SaveAndReimport();

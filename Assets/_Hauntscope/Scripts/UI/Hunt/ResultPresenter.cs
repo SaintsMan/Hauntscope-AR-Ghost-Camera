@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Hunt;
 using UnityEngine;
 using VContainer.Unity;
@@ -20,18 +21,21 @@ namespace Hauntscope.UI.Hunt
         private readonly HuntSession _session;
         private readonly ILocalizationService _localization;
         private readonly ISceneLoader _sceneLoader;
+        private readonly UiFeedback _ui;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         public ResultPresenter(
             ResultView view,
             HuntSession session,
             ILocalizationService localization,
-            ISceneLoader sceneLoader)
+            ISceneLoader sceneLoader,
+            UiFeedback ui)
         {
             _view = view;
             _session = session;
             _localization = localization;
             _sceneLoader = sceneLoader;
+            _ui = ui;
         }
 
         public void Start()
@@ -65,11 +69,13 @@ namespace Hauntscope.UI.Hunt
 
         private void OnHuntAgainClicked()
         {
+            _ui.PlayClick();
             _session.RequestHuntAgain();
         }
 
         private void OnMenuClicked()
         {
+            _ui.PlayBack();
             _sceneLoader.LoadAsync(SceneId.MainMenu, _lifetime.Token).Forget();
         }
 
