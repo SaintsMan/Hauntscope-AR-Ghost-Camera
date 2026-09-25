@@ -18,6 +18,13 @@ namespace Hauntscope.Editor
 
         public static Sprite Render(GameObject prefab, Color rimColor, string path)
         {
+            WritePng(path, RenderPixels(prefab, rimColor, Size), Size);
+            return ImportSprite(path);
+        }
+
+        // Straight-alpha pixels of the ghost as the game draws it, at any size (the app icon needs 1024).
+        public static Color32[] RenderPixels(GameObject prefab, Color rimColor, int size)
+        {
             var scene = EditorSceneManager.NewPreviewScene();
             try
             {
@@ -35,10 +42,9 @@ namespace Hauntscope.Editor
                 camera.farClipPlane = 20f;
                 camera.clearFlags = CameraClearFlags.SolidColor;
 
-                var onBlack = Capture(camera, Color.black);
-                var onWhite = Capture(camera, Color.white);
-                WritePng(path, Matte(onBlack, onWhite));
-                return ImportSprite(path);
+                var onBlack = Capture(camera, Color.black, size);
+                var onWhite = Capture(camera, Color.white, size);
+                return Matte(onBlack, onWhite);
             }
             finally
             {
@@ -67,17 +73,17 @@ namespace Hauntscope.Editor
             return bounds;
         }
 
-        private static Color32[] Capture(Camera camera, Color background)
+        private static Color32[] Capture(Camera camera, Color background, int size)
         {
             camera.backgroundColor = background;
-            var target = RenderTexture.GetTemporary(Size, Size, 24, RenderTextureFormat.ARGB32);
-            var texture = new Texture2D(Size, Size, TextureFormat.RGBA32, false);
+            var target = RenderTexture.GetTemporary(size, size, 24, RenderTextureFormat.ARGB32);
+            var texture = new Texture2D(size, size, TextureFormat.RGBA32, false);
             try
             {
                 camera.targetTexture = target;
                 camera.Render();
                 RenderTexture.active = target;
-                texture.ReadPixels(new Rect(0, 0, Size, Size), 0, 0);
+                texture.ReadPixels(new Rect(0, 0, size, size), 0, 0);
                 texture.Apply();
                 return texture.GetPixels32();
             }
@@ -116,9 +122,9 @@ namespace Hauntscope.Editor
             return result;
         }
 
-        private static void WritePng(string path, Color32[] pixels)
+        private static void WritePng(string path, Color32[] pixels, int size)
         {
-            var texture = new Texture2D(Size, Size, TextureFormat.RGBA32, false);
+            var texture = new Texture2D(size, size, TextureFormat.RGBA32, false);
             try
             {
                 texture.SetPixels32(pixels);

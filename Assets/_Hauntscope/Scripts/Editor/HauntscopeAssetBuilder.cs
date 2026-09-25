@@ -42,6 +42,7 @@ namespace Hauntscope.Editor
             var config = AssetDatabase.LoadAssetAtPath<GameConfig>(GameConfigPath);
             VfxGenerator.BuildAll(config.Ghost.CaptureDuration);
             BuildGhosts();
+            AppIconGenerator.Build();
             WireConfig(config);
         }
 
