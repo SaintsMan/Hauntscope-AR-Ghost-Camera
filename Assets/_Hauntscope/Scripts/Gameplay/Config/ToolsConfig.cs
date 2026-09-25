@@ -6,6 +6,9 @@ namespace Hauntscope.Gameplay.Config
     [Serializable]
     public sealed class ToolsConfig
     {
+        [SerializeField, Min(1f)] private float _batteryMax = 100f;
+        [SerializeField, Min(0f)] private float _passiveDrain = 0.3f;
+        [SerializeField, Range(0f, 1f)] private float _lowBatteryThreshold = 0.2f;
         [SerializeField, Min(0f)] private float _lensDrain = 2f;
         [SerializeField, Min(0f)] private float _beamDrain = 3f;
         [SerializeField, Range(1f, 90f)] private float _revealAngle = 35f;
@@ -21,6 +24,9 @@ namespace Hauntscope.Gameplay.Config
         }
 
         public ToolsConfig(
+            float batteryMax,
+            float passiveDrain,
+            float lowBatteryThreshold,
             float lensDrain,
             float beamDrain,
             float revealAngle,
@@ -31,6 +37,9 @@ namespace Hauntscope.Gameplay.Config
             float captureRate,
             float decayRate)
         {
+            _batteryMax = batteryMax;
+            _passiveDrain = passiveDrain;
+            _lowBatteryThreshold = lowBatteryThreshold;
             _lensDrain = lensDrain;
             _beamDrain = beamDrain;
             _revealAngle = revealAngle;
@@ -41,6 +50,12 @@ namespace Hauntscope.Gameplay.Config
             _captureRate = captureRate;
             _decayRate = decayRate;
         }
+
+        public float BatteryMax => _batteryMax;
+
+        public float PassiveDrain => _passiveDrain;
+
+        public float LowBatteryThreshold => _lowBatteryThreshold;
 
         public float LensDrain => _lensDrain;
 

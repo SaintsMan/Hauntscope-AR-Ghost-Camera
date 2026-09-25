@@ -1,4 +1,3 @@
-using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Tools;
 using NUnit.Framework;
@@ -25,8 +24,8 @@ namespace Hauntscope.Tests.EditMode
             _fixture.Camera.Forward = Vector3.forward;
             _fixture.Mover.Teleport(new Vector3(0f, 1f, 0f));
             _session = new HuntSession();
-            _session.SetGhost(_fixture.Ghost);
-            _lens = new GhostLens(_session, _fixture.Camera, new ToolsConfig(LensDrain, 3f, RevealAngle, RevealInTime, RevealOutTime, 0.5f, 0.18f, 0.2f, 0.1f));
+            _session.Begin(_fixture.Ghost, null);
+            _lens = new GhostLens(_session, _fixture.Camera, TestConfigs.Tools(lensDrain: LensDrain, revealAngle: RevealAngle, revealInTime: RevealInTime, revealOutTime: RevealOutTime));
         }
 
         [Test]
@@ -98,7 +97,7 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void Tick_NoGhostInSession_DoesNothing()
         {
-            var lens = new GhostLens(new HuntSession(), _fixture.Camera, new ToolsConfig(LensDrain, 3f, RevealAngle, RevealInTime, RevealOutTime, 0.5f, 0.18f, 0.2f, 0.1f));
+            var lens = new GhostLens(new HuntSession(), _fixture.Camera, TestConfigs.Tools(lensDrain: LensDrain, revealAngle: RevealAngle, revealInTime: RevealInTime, revealOutTime: RevealOutTime));
             lens.Activate();
 
             Assert.DoesNotThrow(() => lens.Tick(0.1f));

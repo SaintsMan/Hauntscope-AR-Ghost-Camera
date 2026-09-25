@@ -1,4 +1,3 @@
-using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Tools;
 using NUnit.Framework;
@@ -22,8 +21,8 @@ namespace Hauntscope.Tests.EditMode
             _fixture = new GhostFixture();
             _fixture.Ghost.Start();
             var session = new HuntSession();
-            session.SetGhost(_fixture.Ghost);
-            var config = new ToolsConfig(2f, BeamDrain, 35f, 0.4f, 0.8f, 0.5f, ReticleRadius, CaptureRate, DecayRate);
+            session.Begin(_fixture.Ghost, null);
+            var config = TestConfigs.Tools(beamDrain: BeamDrain, reticleRadius: ReticleRadius, captureRate: CaptureRate, decayRate: DecayRate);
             _beam = new CaptureBeam(session, _fixture.Camera, config);
         }
 
