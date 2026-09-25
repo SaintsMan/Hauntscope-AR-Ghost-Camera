@@ -19,7 +19,7 @@ namespace Hauntscope.Tests.EditMode
             var config = new GhostConfig(3f, 6f, 0.5f, 0.05f, 0.5f);
             _mover = new GhostMover(planes, config);
             _mover.Teleport(new Vector3(1f, 1f, 1f));
-            var context = new GhostContext(new GhostMotion(1f, 1f, 2f), config, _mover, new FakeRandom(), planes);
+            var context = new GhostContext(new GhostMotion(1f, 1f, 2f), new GhostDetection(6f), config, _mover, new FakeRandom(), planes);
             _view = new FakeGhostView();
             _ghost = new Ghost(context, _view);
         }

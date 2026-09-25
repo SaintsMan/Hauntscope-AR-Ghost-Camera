@@ -6,9 +6,16 @@ namespace Hauntscope.Gameplay.Ghosts
 {
     public sealed class GhostContext
     {
-        public GhostContext(GhostMotion motion, GhostConfig config, GhostMover mover, IRandom random, IPlaneProvider planes)
+        public GhostContext(
+            GhostMotion motion,
+            GhostDetection detection,
+            GhostConfig config,
+            GhostMover mover,
+            IRandom random,
+            IPlaneProvider planes)
         {
             Motion = motion;
+            Detection = detection;
             Config = config;
             Mover = mover;
             Random = random;
@@ -16,6 +23,8 @@ namespace Hauntscope.Gameplay.Ghosts
         }
 
         public GhostMotion Motion { get; }
+
+        public GhostDetection Detection { get; }
 
         public GhostConfig Config { get; }
 

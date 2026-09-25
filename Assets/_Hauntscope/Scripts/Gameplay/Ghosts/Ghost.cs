@@ -20,6 +20,8 @@ namespace Hauntscope.Gameplay.Ghosts
 
         public Vector3 Position => _context.Mover.Position;
 
+        public float EmfRange => _context.Detection.EmfRange;
+
         public void Start()
         {
             _stateMachine.Start(_wanderState);

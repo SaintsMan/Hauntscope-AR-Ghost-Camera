@@ -28,7 +28,7 @@ namespace Hauntscope.Tests.EditMode
             _random = new FakeRandom();
             var config = new GhostConfig(WanderInterval, WanderInterval, 0.5f, 0.05f, 0.5f);
             _mover = new GhostMover(_planes, config);
-            var context = new GhostContext(new GhostMotion(1f, 1f, 2f), config, _mover, _random, _planes);
+            var context = new GhostContext(new GhostMotion(1f, 1f, 2f), new GhostDetection(6f), config, _mover, _random, _planes);
             _state = new GhostWanderState(context);
         }
 

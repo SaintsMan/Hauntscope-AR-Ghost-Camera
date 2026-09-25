@@ -9,11 +9,14 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private string _id;
         [SerializeField] private GhostView _prefab;
         [SerializeField] private GhostMotion _motion = new GhostMotion();
+        [SerializeField] private GhostDetection _detection = new GhostDetection();
 
         public string Id => _id;
 
         public GhostView Prefab => _prefab;
 
         public GhostMotion Motion => _motion;
+
+        public GhostDetection Detection => _detection;
     }
 }

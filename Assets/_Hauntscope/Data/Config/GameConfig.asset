@@ -27,3 +27,22 @@ MonoBehaviour:
     _moveSmoothTime: 0.8
     _bobAmplitude: 0.05
     _bobFrequency: 0.5
+  _emf:
+    _maxLevel: 5
+    _facingMinFactor: 0.6
+    _noiseAmplitude: 0.05
+    _noiseInterval: 0.2
+    _beepIntervalSlow: 1.2
+    _beepIntervalFast: 0.1
+    _beepClip: {fileID: 8300000, guid: 6a17087adc7a8b74ab2ae137e9513915, type: 3}
+    _beepVolume: 0.6
+    _beepPitchMin: 1
+    _beepPitchMax: 1.6
+    _hapticLevel: 4
+  _haptics:
+    _lightDurationMs: 20
+    _lightAmplitude: 80
+    _mediumDurationMs: 35
+    _mediumAmplitude: 160
+    _heavyDurationMs: 60
+    _heavyAmplitude: 255
