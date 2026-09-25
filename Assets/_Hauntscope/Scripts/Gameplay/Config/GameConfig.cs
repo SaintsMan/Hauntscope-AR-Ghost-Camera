@@ -10,6 +10,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private GhostConfig _ghost = new GhostConfig();
         [SerializeField] private EmfConfig _emf = new EmfConfig();
         [SerializeField] private HapticsConfig _haptics = new HapticsConfig();
+        [SerializeField] private ToolsConfig _tools = new ToolsConfig();
 
         public int TargetFrameRate => _targetFrameRate;
 
@@ -20,5 +21,7 @@ namespace Hauntscope.Gameplay.Config
         public EmfConfig Emf => _emf;
 
         public HapticsConfig Haptics => _haptics;
+
+        public ToolsConfig Tools => _tools;
     }
 }

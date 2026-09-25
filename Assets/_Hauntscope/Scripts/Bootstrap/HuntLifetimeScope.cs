@@ -24,6 +24,9 @@ namespace Hauntscope.Bootstrap
             builder.Register<GhostSelector>(Lifetime.Singleton);
             builder.Register<GhostFactory>(Lifetime.Singleton);
 
+            builder.Register<HuntSession>(Lifetime.Singleton);
+            builder.Register<GhostLens>(Lifetime.Singleton);
+            builder.Register<Toolbelt>(Lifetime.Singleton);
             builder.Register<EmfRadar>(Lifetime.Singleton);
             builder.RegisterEntryPoint<EmfFeedback>();
 
