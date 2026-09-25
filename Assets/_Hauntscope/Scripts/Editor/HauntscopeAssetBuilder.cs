@@ -33,6 +33,14 @@ namespace Hauntscope.Editor
         [MenuItem("Hauntscope/Build Assets")]
         public static void Build()
         {
+            UiSpriteGenerator.BuildAll();
+            SfxGenerator.BuildAll();
+            FontAssetGenerator.BuildAll();
+            BuildGhosts();
+        }
+
+        private static void BuildGhosts()
+        {
             var bodyMaterial = AssetDatabase.LoadAssetAtPath<Material>(GhostMaterialPath);
             var eyesMaterial = BuildEyesMaterial();
             var ghosts = new GhostData[Recipes.Length];
