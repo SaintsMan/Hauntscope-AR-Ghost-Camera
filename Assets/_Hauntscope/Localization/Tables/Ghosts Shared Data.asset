@@ -19,6 +19,14 @@ MonoBehaviour:
     m_Key: ghost.wisp.name
     m_Metadata:
       m_Items: []
+  - m_Id: 37744564109312
+    m_Key: ghost.poltergeist.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37744606052352
+    m_Key: ghost.shade.name
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

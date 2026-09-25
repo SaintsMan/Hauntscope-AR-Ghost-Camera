@@ -10,22 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6498942b478c1142b53ff236e671a09, type: 3}
-  m_Name: Wisp
+  m_Name: Shade
   m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Config.GhostData
-  _id: wisp
-  _nameKey: ghost.wisp.name
-  _rarity: 0
-  _prefab: {fileID: 5507391301681114844, guid: a750329d837344149ba29304915b9ba5, type: 3}
-  _rimColor: {r: 0.30980393, g: 0.9607843, b: 0.9019608, a: 1}
+  _id: shade
+  _nameKey: ghost.shade.name
+  _rarity: 1
+  _prefab: {fileID: 4999927530735615912, guid: 5525ceb71cfc239408b8a352962b9a5d, type: 3}
+  _rimColor: {r: 0.60784316, g: 0.36078432, b: 1, a: 1}
   _motion:
-    _moveSpeed: 0.4
-    _fleeSpeed: 1
+    _moveSpeed: 0.5
+    _fleeSpeed: 1.2
     _hoverHeightMin: 0.8
     _hoverHeightMax: 1.8
   _detection:
     _emfRange: 6
     _revealRange: 3
   _capture:
-    _resistance: 0.8
-    _reward: 10
-  _abilities: []
+    _resistance: 1.3
+    _reward: 30
+  _abilities:
+  - {fileID: 11400000, guid: 09e689a5ad1633a46b9d226fe2732f9e, type: 2}
