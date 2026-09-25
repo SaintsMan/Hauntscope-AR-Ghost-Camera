@@ -17,7 +17,23 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: b332633b0f2f4a04a85cc1e8a7fe4e3b, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 11247262498816
+    m_Localized: CALIBRATING ROOM {0}%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11247321219072
+    m_Localized: ROOM CALIBRATED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11247321219073
+    m_Localized: Point at the floor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11247321219074
+    m_Localized: Move your phone slowly
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
