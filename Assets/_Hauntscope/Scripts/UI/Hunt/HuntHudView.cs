@@ -10,7 +10,7 @@ namespace Hauntscope.UI.Hunt
     {
         [SerializeField] private Image[] _emfSegments;
         [SerializeField] private Color[] _emfLitColors;
-        [SerializeField] private Color _emfUnlitColor;
+        [SerializeField, Range(0f, 1f)] private float _emfUnlitAlpha = 0.15f;
         [SerializeField] private TMP_Text _emfLevelLabel;
         [SerializeField] private ToggleButton _lensButton;
         [SerializeField] private GameObject _lensVignette;
@@ -20,10 +20,6 @@ namespace Hauntscope.UI.Hunt
         [SerializeField] private Image _captureProgress;
         [SerializeField] private Color _reticleIdleColor;
         [SerializeField] private Color _reticleBeamColor;
-        [SerializeField] private Image[] _batterySegments;
-        [SerializeField] private Color _batteryColor;
-        [SerializeField] private Color _batteryLowColor;
-        [SerializeField] private Color _batteryEmptyColor;
 
         public event Action LensClicked
         {
@@ -50,8 +46,14 @@ namespace Hauntscope.UI.Hunt
 
         public void SetEmfLevel(int level)
         {
+            // An unlit LED keeps its own hue, dimmed, like real hardware.
             for (var i = 0; i < _emfSegments.Length; i++)
-                _emfSegments[i].color = i < level ? _emfLitColors[i] : _emfUnlitColor;
+            {
+                var color = _emfLitColors[i];
+                if (i >= level)
+                    color.a *= _emfUnlitAlpha;
+                _emfSegments[i].color = color;
+            }
         }
 
         public void SetEmfLevelText(string text)
@@ -68,14 +70,6 @@ namespace Hauntscope.UI.Hunt
         public void SetBeamActive(bool active)
         {
             _reticleRing.color = active ? _reticleBeamColor : _reticleIdleColor;
-        }
-
-        public void SetBattery(float normalized, bool low)
-        {
-            var lit = Mathf.CeilToInt(normalized * _batterySegments.Length);
-            var color = low ? _batteryLowColor : _batteryColor;
-            for (var i = 0; i < _batterySegments.Length; i++)
-                _batterySegments[i].color = i < lit ? color : _batteryEmptyColor;
         }
 
         public void SetCaptureProgress(float progress)
@@ -105,10 +99,6 @@ namespace Hauntscope.UI.Hunt
             _reticle = Find<RectTransform>("Reticle");
             _reticleRing = Find<Image>("Reticle/Ring");
             _captureProgress = Find<Image>("Reticle/Progress");
-
-            var battery = transform.Find("Battery");
-            if (battery != null)
-                _batterySegments = battery.GetComponentsInChildren<Image>(true);
 
             var vignette = transform.Find("LensVignette");
             if (vignette != null)

@@ -75,3 +75,9 @@ MonoBehaviour:
     _reticleRadius: 0.18
     _captureRate: 0.2
     _decayRate: 0.1
+  _hud:
+    _recBlinkInterval: 0.6
+    _lowBatteryBlinkInterval: 0.3
+    _grainFrameRate: 24
+    _lowBatteryClip: {fileID: 8300000, guid: 53330886e20696845bb2818a680507ab, type: 3}
+    _lowBatteryVolume: 0.7

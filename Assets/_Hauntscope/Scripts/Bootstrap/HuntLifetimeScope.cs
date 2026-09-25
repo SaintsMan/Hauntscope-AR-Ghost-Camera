@@ -37,6 +37,8 @@ namespace Hauntscope.Bootstrap
             builder.Register<ResultState>(Lifetime.Singleton);
             builder.RegisterEntryPoint<HuntFlow>();
 
+            builder.RegisterComponentInHierarchy<CameraFrameView>();
+            builder.RegisterEntryPoint<CameraFramePresenter>();
             builder.RegisterComponentInHierarchy<ScanHudView>();
             builder.RegisterEntryPoint<ScanHudPresenter>();
             builder.RegisterComponentInHierarchy<HuntHudView>();

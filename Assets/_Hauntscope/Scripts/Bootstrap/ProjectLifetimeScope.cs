@@ -43,6 +43,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Emf);
             builder.RegisterInstance(_gameConfig.Haptics);
             builder.RegisterInstance(_gameConfig.Tools);
+            builder.RegisterInstance(_gameConfig.Hud);
         }
 
         private static void RegisterHaptics(IContainerBuilder builder)

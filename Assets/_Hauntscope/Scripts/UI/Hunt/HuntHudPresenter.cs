@@ -17,7 +17,6 @@ namespace Hauntscope.UI.Hunt
         private readonly RoomCalibration _calibration;
         private readonly ILocalizationService _localization;
         private readonly ToolsConfig _toolsConfig;
-        private readonly Battery _battery;
         private readonly HuntSession _session;
 
         public HuntHudPresenter(
@@ -27,7 +26,6 @@ namespace Hauntscope.UI.Hunt
             RoomCalibration calibration,
             ILocalizationService localization,
             ToolsConfig toolsConfig,
-            Battery battery,
             HuntSession session)
         {
             _view = view;
@@ -36,7 +34,6 @@ namespace Hauntscope.UI.Hunt
             _calibration = calibration;
             _localization = localization;
             _toolsConfig = toolsConfig;
-            _battery = battery;
             _session = session;
         }
 
@@ -47,7 +44,6 @@ namespace Hauntscope.UI.Hunt
             _toolbelt.Beam.IsActive.Changed += OnBeamActiveChanged;
             _toolbelt.Beam.Progress.Changed += OnCaptureProgressChanged;
             _calibration.Progress.Changed += OnCalibrationChanged;
-            _battery.Charge.Changed += OnBatteryChanged;
             _session.Result.Changed += OnResultChanged;
             _localization.Changed += OnLanguageChanged;
             _view.LensClicked += OnLensClicked;
@@ -56,7 +52,6 @@ namespace Hauntscope.UI.Hunt
 
             _view.SetReticleRadius(_toolsConfig.ReticleRadius);
             UpdateVisibility();
-            RenderBattery();
             _view.SetLensActive(_toolbelt.Lens.IsActive.Value);
             _view.SetBeamActive(_toolbelt.Beam.IsActive.Value);
             _view.SetCaptureProgress(_toolbelt.Beam.Progress.Value);
@@ -70,7 +65,6 @@ namespace Hauntscope.UI.Hunt
             _toolbelt.Beam.IsActive.Changed -= OnBeamActiveChanged;
             _toolbelt.Beam.Progress.Changed -= OnCaptureProgressChanged;
             _calibration.Progress.Changed -= OnCalibrationChanged;
-            _battery.Charge.Changed -= OnBatteryChanged;
             _session.Result.Changed -= OnResultChanged;
             _localization.Changed -= OnLanguageChanged;
             _view.LensClicked -= OnLensClicked;
@@ -123,19 +117,9 @@ namespace Hauntscope.UI.Hunt
             UpdateVisibility();
         }
 
-        private void OnBatteryChanged(float charge)
-        {
-            RenderBattery();
-        }
-
         private void UpdateVisibility()
         {
             _view.SetVisible(_calibration.IsComplete && _session.Result.Value == null);
-        }
-
-        private void RenderBattery()
-        {
-            _view.SetBattery(_battery.Normalized, _battery.IsLow.Value);
         }
 
         private void OnLanguageChanged()
