@@ -19,9 +19,11 @@ namespace Hauntscope.Gameplay.Ghosts
         private readonly GhostFleeState _fleeState;
         private readonly GhostCapturedState _capturedState;
         private readonly GhostEscapedState _escapedState;
+        private readonly GhostScareState _scareState;
 
         private bool _captureRequested;
         private bool _escapeRequested;
+        private bool _scareRequested;
         private float _revealBeforeEscape;
 
         public Ghost(GhostContext context, IGhostView view)
@@ -39,13 +41,19 @@ namespace Hauntscope.Gameplay.Ghosts
             _fleeState = new GhostFleeState(context, () => IsBeamed);
             _capturedState = new GhostCapturedState(context);
             _escapedState = new GhostEscapedState(context);
+            _scareState = new GhostScareState(context);
 
             _stateMachine.AddAnyTransition(_capturedState, () => _captureRequested);
             _stateMachine.AddAnyTransition(_escapedState, () => _escapeRequested);
             _stateMachine.AddTransition(_wanderState, _alertedState, () => Reveal >= context.Config.AlertRevealThreshold);
+            // The scare wins over fleeing: the session has already counted it, so the lunge must happen.
+            _stateMachine.AddTransition(_alertedState, _scareState, () => _scareRequested);
             _stateMachine.AddTransition(_alertedState, _fleeState, () => IsBeamed);
             _stateMachine.AddTransition(_fleeState, _alertedState, () => _fleeState.IsCalm);
+            _stateMachine.AddTransition(_scareState, _alertedState, () => _scareState.IsFinished);
         }
+
+        public event Action<Vector3, Vector3> Teleported;
 
         public GhostContext Context { get; }
 
@@ -62,7 +70,7 @@ namespace Hauntscope.Gameplay.Ghosts
         // Blink hides the ghost without touching Reveal, so the lens keeps its progress between flashes.
         public bool IsVisible { get; private set; } = true;
 
-        public float VisibleReveal => IsVisible ? Reveal : 0f;
+        public float VisibleReveal => IsScaring ? 1f : IsVisible ? Reveal : 0f;
 
         public float CaptureProgress { get; private set; }
 
@@ -79,6 +87,8 @@ namespace Hauntscope.Gameplay.Ghosts
         public bool IsEscaped => _stateMachine.CurrentState == _escapedState;
 
         public bool IsEscapeFinished => IsEscaped && _escapedState.IsFinished;
+
+        public bool IsScaring => _stateMachine.CurrentState == _scareState;
 
         private bool IsLeaving => _captureRequested || _escapeRequested;
 
@@ -111,8 +121,18 @@ namespace Hauntscope.Gameplay.Ghosts
 
         public void TeleportTo(Vector3 position)
         {
-            if (!IsLeaving)
-                Context.Mover.Teleport(position);
+            if (IsLeaving)
+                return;
+
+            var from = Context.Mover.Position;
+            Context.Mover.Teleport(position);
+            Teleported?.Invoke(from, Context.Mover.Position);
+        }
+
+        public void Scare()
+        {
+            if (!IsLeaving && IsAlerted)
+                _scareRequested = true;
         }
 
         public void Capture()
@@ -140,6 +160,8 @@ namespace Hauntscope.Gameplay.Ghosts
         public void Tick(float deltaTime)
         {
             _stateMachine.Tick(deltaTime);
+            // A scare request is only valid for the tick right after it; a ghost that fled meanwhile must not lunge later.
+            _scareRequested = false;
 
             if (IsLeaving)
             {

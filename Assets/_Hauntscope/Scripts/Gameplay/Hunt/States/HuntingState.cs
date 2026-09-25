@@ -1,5 +1,6 @@
 using Hauntscope.Core.StateMachines;
 using Hauntscope.Gameplay.Config;
+using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Tools;
@@ -16,6 +17,8 @@ namespace Hauntscope.Gameplay.Hunt.States
         private readonly Battery _battery;
         private readonly ToolsConfig _config;
         private readonly PlayerProgress _progress;
+        private readonly ScarePolicy _scarePolicy;
+        private readonly ICameraPose _camera;
 
         public HuntingState(
             HuntSession session,
@@ -25,7 +28,9 @@ namespace Hauntscope.Gameplay.Hunt.States
             Toolbelt toolbelt,
             Battery battery,
             ToolsConfig config,
-            PlayerProgress progress)
+            PlayerProgress progress,
+            ScarePolicy scarePolicy,
+            ICameraPose camera)
         {
             _session = session;
             _selector = selector;
@@ -35,6 +40,8 @@ namespace Hauntscope.Gameplay.Hunt.States
             _battery = battery;
             _config = config;
             _progress = progress;
+            _scarePolicy = scarePolicy;
+            _camera = camera;
         }
 
         public void Enter()
@@ -42,9 +49,10 @@ namespace Hauntscope.Gameplay.Hunt.States
             if (_session.Ghost.Value != null)
                 return;
 
-            var data = _selector.Select(_progress.IsFirstSession);
+            var isFirstHunt = _progress.IsFirstSession;
+            var data = _selector.Select(isFirstHunt);
             _progress.RegisterSession();
-            _session.Begin(_factory.Create(data), data);
+            _session.Begin(_factory.Create(data), data, isFirstHunt);
         }
 
         public void Exit()
@@ -68,6 +76,12 @@ namespace Hauntscope.Gameplay.Hunt.States
             ghost.Tick(deltaTime);
             _radar.Tick(deltaTime, ghost.Position, ghost.EmfRange);
             _session.AddTime(deltaTime);
+
+            if (_scarePolicy.CanScare(_session, ghost, _camera))
+            {
+                ghost.Scare();
+                _session.MarkScared();
+            }
 
             if (_session.Result.Value != null)
                 return;

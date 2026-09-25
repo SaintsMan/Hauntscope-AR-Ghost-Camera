@@ -11,6 +11,7 @@ namespace Hauntscope.Gameplay.Ghosts
             GhostDetection detection,
             GhostCapture capture,
             GhostConfig config,
+            ScareConfig scare,
             GhostMover mover,
             IRandom random,
             IPlaneProvider planes,
@@ -20,6 +21,7 @@ namespace Hauntscope.Gameplay.Ghosts
             Detection = detection;
             Capture = capture;
             Config = config;
+            Scare = scare;
             Mover = mover;
             Random = random;
             Planes = planes;
@@ -33,6 +35,8 @@ namespace Hauntscope.Gameplay.Ghosts
         public GhostCapture Capture { get; }
 
         public GhostConfig Config { get; }
+
+        public ScareConfig Scare { get; }
 
         public GhostMover Mover { get; }
 

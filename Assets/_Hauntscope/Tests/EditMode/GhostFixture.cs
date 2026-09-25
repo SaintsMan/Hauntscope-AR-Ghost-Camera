@@ -23,6 +23,12 @@ namespace Hauntscope.Tests.EditMode
         public const float CaptureDuration = 1.2f;
         public const float EscapeDuration = 1f;
         public const int Reward = 10;
+        public const float ScareMinTime = 45f;
+        public const float ScareDistance = 1.5f;
+        public const float ScareAngle = 45f;
+        public const float ScareDuration = 1.2f;
+        public const float ScareRushTime = 0.3f;
+        public const float ScareFaceDistance = 0.45f;
 
         public GhostFixture(float wanderInterval = 4f, float floorHeight = 0f)
         {
@@ -34,12 +40,14 @@ namespace Hauntscope.Tests.EditMode
             Random = new FakeRandom();
             Camera = new FakeCameraPose { Position = new Vector3(0f, 1.5f, -1.5f), Forward = Vector3.forward };
             Config = CreateConfig(wanderInterval);
+            Scare = CreateScareConfig();
             Mover = new GhostMover(Planes, Config);
             Context = new GhostContext(
                 new GhostMotion(MoveSpeed, FleeSpeed, HoverMin, HoverMax),
                 new GhostDetection(EmfRange, RevealRange),
                 new GhostCapture(Resistance, Reward),
                 Config,
+                Scare,
                 Mover,
                 Random,
                 Planes,
@@ -56,6 +64,8 @@ namespace Hauntscope.Tests.EditMode
 
         public GhostConfig Config { get; }
 
+        public ScareConfig Scare { get; }
+
         public GhostMover Mover { get; }
 
         public GhostContext Context { get; }
@@ -69,6 +79,11 @@ namespace Hauntscope.Tests.EditMode
             return new GhostConfig(wanderInterval, wanderInterval, 0.5f, 0.05f, 0.5f,
                 AlertThreshold, AlertedPause, AlertedSpeedMultiplier,
                 FleeCalmDownTime, FleeDistance, FleeRetargetInterval, CaptureDuration, 2f, 0.3f, EscapeDuration);
+        }
+
+        public static ScareConfig CreateScareConfig()
+        {
+            return new ScareConfig(ScareMinTime, ScareDistance, ScareAngle, ScareDuration, ScareRushTime, ScareFaceDistance);
         }
     }
 }

@@ -13,19 +13,22 @@ namespace Hauntscope.Gameplay.Ghosts
         private readonly IRandom _random;
         private readonly GhostConfig _config;
         private readonly SpawnPointSelector _spawnPoints;
+        private readonly ScareConfig _scare;
 
         public GhostFactory(
             IPlaneProvider planes,
             ICameraPose camera,
             IRandom random,
             GhostConfig config,
-            SpawnPointSelector spawnPoints)
+            SpawnPointSelector spawnPoints,
+            ScareConfig scare)
         {
             _planes = planes;
             _camera = camera;
             _random = random;
             _config = config;
             _spawnPoints = spawnPoints;
+            _scare = scare;
         }
 
         public Ghost Create(GhostData data)
@@ -40,7 +43,7 @@ namespace Hauntscope.Gameplay.Ghosts
             view.name = data.Id;
             view.SetRimColor(data.RimColor);
 
-            var context = new GhostContext(data.Motion, data.Detection, data.Capture, _config, mover, _random, _planes, _camera);
+            var context = new GhostContext(data.Motion, data.Detection, data.Capture, _config, _scare, mover, _random, _planes, _camera);
             var ghost = new Ghost(context, view, CreateAbilities(data));
             ghost.Start();
             return ghost;

@@ -1,3 +1,4 @@
+using System;
 using Hauntscope.Core.Observables;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Ghosts;
@@ -19,11 +20,25 @@ namespace Hauntscope.Gameplay.Hunt
 
         public bool IsHuntAgainRequested { get; private set; }
 
-        public void Begin(Ghost ghost, GhostData data)
+        public bool IsPlayersFirstHunt { get; private set; }
+
+        public bool HasScared { get; private set; }
+
+        public event Action Scared;
+
+        public void Begin(Ghost ghost, GhostData data, bool isPlayersFirstHunt = false)
         {
             GhostData = data;
             Elapsed = 0f;
+            IsPlayersFirstHunt = isPlayersFirstHunt;
+            HasScared = false;
             _ghost.Value = ghost;
+        }
+
+        public void MarkScared()
+        {
+            HasScared = true;
+            Scared?.Invoke();
         }
 
         public void AddTime(float deltaTime)
@@ -49,6 +64,7 @@ namespace Hauntscope.Gameplay.Hunt
             GhostData = null;
             Elapsed = 0f;
             IsHuntAgainRequested = false;
+            HasScared = false;
             _result.Value = null;
         }
     }
