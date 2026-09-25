@@ -26,6 +26,7 @@ namespace Hauntscope.Bootstrap
 
             builder.Register<HuntSession>(Lifetime.Singleton);
             builder.Register<GhostLens>(Lifetime.Singleton);
+            builder.Register<CaptureBeam>(Lifetime.Singleton);
             builder.Register<Toolbelt>(Lifetime.Singleton);
             builder.Register<EmfRadar>(Lifetime.Singleton);
             builder.RegisterEntryPoint<EmfFeedback>();

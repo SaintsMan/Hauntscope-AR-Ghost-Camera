@@ -9,9 +9,11 @@ namespace Hauntscope.Tests.EditMode
     public sealed class ToolbeltTests
     {
         private const float LensDrain = 2f;
+        private const float BeamDrain = 3f;
 
         private GhostFixture _fixture;
         private GhostLens _lens;
+        private CaptureBeam _beam;
         private Toolbelt _toolbelt;
 
         [SetUp]
@@ -21,8 +23,10 @@ namespace Hauntscope.Tests.EditMode
             _fixture.Mover.Teleport(new Vector3(0f, 1f, 0f));
             var session = new HuntSession();
             session.SetGhost(_fixture.Ghost);
-            _lens = new GhostLens(session, _fixture.Camera, new ToolsConfig(LensDrain, 35f, 0.4f, 0.8f));
-            _toolbelt = new Toolbelt(_lens);
+            var config = new ToolsConfig(LensDrain, BeamDrain, 35f, 0.4f, 0.8f, 0.5f, 0.18f, 0.2f, 0.1f);
+            _lens = new GhostLens(session, _fixture.Camera, config);
+            _beam = new CaptureBeam(session, _fixture.Camera, config);
+            _toolbelt = new Toolbelt(_lens, _beam);
         }
 
         [Test]
@@ -44,6 +48,26 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void StartBeam_LensOff_TurnsLensOn()
+        {
+            _toolbelt.StartBeam();
+
+            Assert.IsTrue(_lens.IsActive.Value);
+            Assert.IsTrue(_beam.IsActive.Value);
+        }
+
+        [Test]
+        public void StopBeam_Always_KeepsLensOn()
+        {
+            _toolbelt.StartBeam();
+
+            _toolbelt.StopBeam();
+
+            Assert.IsFalse(_beam.IsActive.Value);
+            Assert.IsTrue(_lens.IsActive.Value);
+        }
+
+        [Test]
         public void TotalDrainPerSecond_NoToolActive_IsZero()
         {
             Assert.AreEqual(0f, _toolbelt.TotalDrainPerSecond);
@@ -58,13 +82,22 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
-        public void DeactivateAll_LensActive_TurnsLensOff()
+        public void TotalDrainPerSecond_Beaming_SumsLensAndBeam()
         {
-            _toolbelt.ToggleLens();
+            _toolbelt.StartBeam();
+
+            Assert.AreEqual(LensDrain + BeamDrain, _toolbelt.TotalDrainPerSecond);
+        }
+
+        [Test]
+        public void DeactivateAll_ToolsActive_TurnsEverythingOff()
+        {
+            _toolbelt.StartBeam();
 
             _toolbelt.DeactivateAll();
 
             Assert.IsFalse(_lens.IsActive.Value);
+            Assert.IsFalse(_beam.IsActive.Value);
         }
 
         [Test]
