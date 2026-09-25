@@ -19,6 +19,7 @@ namespace Hauntscope.Gameplay.Feedback
         private readonly IHaptics _haptics;
         private readonly IVfxPlayer _vfx;
         private readonly AudioConfig _audio;
+        private readonly HuntPause _pause;
 
         private Ghost _ghost;
         private ISfxLoop _whisper;
@@ -35,8 +36,10 @@ namespace Hauntscope.Gameplay.Feedback
             ISfxPlayer sfx,
             IHaptics haptics,
             IVfxPlayer vfx,
-            AudioConfig audio)
+            AudioConfig audio,
+            HuntPause pause)
         {
+            _pause = pause;
             _session = session;
             _toolbelt = toolbelt;
             _calibration = calibration;
@@ -55,6 +58,7 @@ namespace Hauntscope.Gameplay.Feedback
             _toolbelt.Lens.IsActive.Changed += OnLensChanged;
             _toolbelt.Beam.IsActive.Changed += OnBeamChanged;
             _calibration.Progress.Changed += OnCalibrationChanged;
+            _pause.Reasons.Changed += OnPauseChanged;
             _wasCalibrated = _calibration.IsComplete;
         }
 
@@ -65,7 +69,7 @@ namespace Hauntscope.Gameplay.Feedback
 
         public void Tick(float deltaTime)
         {
-            if (_ghost == null)
+            if (_ghost == null || _pause.IsPaused)
                 return;
 
             _whisper?.SetPosition(_ghost.Position);
@@ -97,6 +101,7 @@ namespace Hauntscope.Gameplay.Feedback
             _toolbelt.Lens.IsActive.Changed -= OnLensChanged;
             _toolbelt.Beam.IsActive.Changed -= OnBeamChanged;
             _calibration.Progress.Changed -= OnCalibrationChanged;
+            _pause.Reasons.Changed -= OnPauseChanged;
             DetachGhost();
             StopBeam();
         }
@@ -172,6 +177,12 @@ namespace Hauntscope.Gameplay.Feedback
         {
             _beam?.Stop();
             _beam = null;
+        }
+
+        private void OnPauseChanged(PauseReason reasons)
+        {
+            _whisper?.SetPaused(_pause.IsPaused);
+            _beam?.SetPaused(_pause.IsPaused);
         }
 
         private void OnCalibrationChanged(float progress)

@@ -19,6 +19,8 @@ namespace Hauntscope.Tests.EditMode.Fakes
 
         public bool IsStopped { get; private set; }
 
+        public bool IsPaused { get; private set; }
+
         public void SetVolume(float volume)
         {
             Volume = volume;
@@ -32,6 +34,11 @@ namespace Hauntscope.Tests.EditMode.Fakes
         public void SetPosition(Vector3 position)
         {
             Position = position;
+        }
+
+        public void SetPaused(bool paused)
+        {
+            IsPaused = paused;
         }
 
         public void Stop()

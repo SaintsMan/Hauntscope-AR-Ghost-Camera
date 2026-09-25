@@ -1,6 +1,7 @@
 using System;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
+using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Tools;
 using UnityEngine;
 using VContainer.Unity;
@@ -13,11 +14,13 @@ namespace Hauntscope.Gameplay.Feedback
         private readonly ISfxPlayer _sfx;
         private readonly IHaptics _haptics;
         private readonly EmfConfig _config;
+        private readonly HuntPause _pause;
 
         private float _timeUntilBeep;
 
-        public EmfFeedback(EmfRadar radar, ISfxPlayer sfx, IHaptics haptics, EmfConfig config)
+        public EmfFeedback(EmfRadar radar, ISfxPlayer sfx, IHaptics haptics, EmfConfig config, HuntPause pause)
         {
+            _pause = pause;
             _radar = radar;
             _sfx = sfx;
             _haptics = haptics;
@@ -37,7 +40,7 @@ namespace Hauntscope.Gameplay.Feedback
         public void Tick(float deltaTime)
         {
             var level = _radar.Level.Value;
-            if (level <= 0)
+            if (level <= 0 || _pause.IsPaused)
                 return;
 
             _timeUntilBeep -= deltaTime;

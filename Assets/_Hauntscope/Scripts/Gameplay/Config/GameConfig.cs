@@ -15,6 +15,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private ScareConfig _scare = new ScareConfig();
         [SerializeField] private AudioConfig _audio = new AudioConfig();
         [SerializeField] private VfxConfig _vfx = new VfxConfig();
+        [SerializeField] private TrackingConfig _tracking = new TrackingConfig();
 
         public int TargetFrameRate => _targetFrameRate;
 
@@ -35,5 +36,7 @@ namespace Hauntscope.Gameplay.Config
         public AudioConfig Audio => _audio;
 
         public VfxConfig Vfx => _vfx;
+
+        public TrackingConfig Tracking => _tracking;
     }
 }

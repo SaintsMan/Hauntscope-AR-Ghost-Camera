@@ -161,6 +161,17 @@ namespace Hauntscope.Infrastructure.Audio
                     _source.transform.position = position;
             }
 
+            public void SetPaused(bool paused)
+            {
+                if (_source == null)
+                    return;
+
+                if (paused)
+                    _source.Pause();
+                else
+                    _source.UnPause();
+            }
+
             public void Stop()
             {
                 if (_source == null)

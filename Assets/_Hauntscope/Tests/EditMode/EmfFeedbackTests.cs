@@ -1,6 +1,7 @@
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Feedback;
+using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Tools;
 using Hauntscope.Tests.EditMode.Fakes;
 using NUnit.Framework;
@@ -15,6 +16,7 @@ namespace Hauntscope.Tests.EditMode
         private EmfRadar _radar;
         private FakeSfxPlayer _sfx;
         private FakeHaptics _haptics;
+        private HuntPause _pause;
         private EmfFeedback _feedback;
 
         [SetUp]
@@ -24,7 +26,8 @@ namespace Hauntscope.Tests.EditMode
             _radar = new EmfRadar(new FakeCameraPose(), new FakeRandom(), config);
             _sfx = new FakeSfxPlayer();
             _haptics = new FakeHaptics();
-            _feedback = new EmfFeedback(_radar, _sfx, _haptics, config);
+            _pause = new HuntPause(new FakeTrackingStatus(), new FakeApplicationLifecycle(), new TrackingConfig(0.5f));
+            _feedback = new EmfFeedback(_radar, _sfx, _haptics, config, _pause);
             _feedback.Start();
         }
 
@@ -38,6 +41,17 @@ namespace Hauntscope.Tests.EditMode
         public void Tick_LevelZero_DoesNotBeep()
         {
             _radar.Tick(0.02f, new Vector3(0f, 0f, Range * 2f), Range);
+
+            _feedback.Tick(0.02f);
+
+            Assert.AreEqual(0, _sfx.PlayCount);
+        }
+
+        [Test]
+        public void Tick_Paused_DoesNotBeep()
+        {
+            _radar.Tick(0.02f, new Vector3(0f, 0f, Range / 2f), Range);
+            _pause.PauseManually();
 
             _feedback.Tick(0.02f);
 

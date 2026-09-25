@@ -17,6 +17,7 @@ namespace Hauntscope.Tests.EditMode
         private FakeSfxPlayer _sfx;
         private FakeHaptics _haptics;
         private FakeVfxPlayer _vfx;
+        private HuntPause _pause;
         private HuntFeedback _feedback;
 
         [SetUp]
@@ -32,7 +33,8 @@ namespace Hauntscope.Tests.EditMode
             _sfx = new FakeSfxPlayer();
             _haptics = new FakeHaptics();
             _vfx = new FakeVfxPlayer();
-            _feedback = new HuntFeedback(_session, _toolbelt, calibration, _sfx, _haptics, _vfx, new AudioConfig());
+            _pause = new HuntPause(new FakeTrackingStatus(), new FakeApplicationLifecycle(), new TrackingConfig(0.5f));
+            _feedback = new HuntFeedback(_session, _toolbelt, calibration, _sfx, _haptics, _vfx, new AudioConfig(), _pause);
             _feedback.Start();
         }
 
@@ -87,6 +89,39 @@ namespace Hauntscope.Tests.EditMode
             _feedback.Tick(0.01f);
 
             Assert.AreEqual(new[] { HapticStrength.Light }, _haptics.Played.ToArray());
+        }
+
+        [Test]
+        public void Paused_WithWhisper_PausesLoop()
+        {
+            _session.Begin(_fixture.Ghost, null);
+
+            _pause.PauseManually();
+
+            Assert.IsTrue(_sfx.LastLoop.IsPaused);
+        }
+
+        [Test]
+        public void Resumed_AfterPause_UnpausesLoop()
+        {
+            _session.Begin(_fixture.Ghost, null);
+            _pause.PauseManually();
+
+            _pause.Resume();
+
+            Assert.IsFalse(_sfx.LastLoop.IsPaused);
+        }
+
+        [Test]
+        public void Tick_PausedWhileBeamed_DoesNotPulseHaptics()
+        {
+            _session.Begin(_fixture.Ghost, null);
+            _fixture.Ghost.SetBeamed(true);
+            _pause.PauseManually();
+
+            _feedback.Tick(0.01f);
+
+            Assert.IsEmpty(_haptics.Played);
         }
 
         [Test]

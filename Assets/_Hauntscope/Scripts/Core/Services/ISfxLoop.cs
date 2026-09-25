@@ -10,6 +10,8 @@ namespace Hauntscope.Core.Services
 
         void SetPosition(Vector3 position);
 
+        void SetPaused(bool paused);
+
         void Stop();
     }
 }

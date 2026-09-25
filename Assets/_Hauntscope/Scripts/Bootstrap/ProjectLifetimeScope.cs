@@ -53,6 +53,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Scare);
             builder.RegisterInstance(_gameConfig.Audio);
             builder.RegisterInstance(_gameConfig.Vfx);
+            builder.RegisterInstance(_gameConfig.Tracking);
         }
 
         private static void RegisterProgress(IContainerBuilder builder)
