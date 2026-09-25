@@ -1,7 +1,7 @@
 {
     "name": "Hauntscope.Core",
     "rootNamespace": "Hauntscope.Core",
-    "references": [],
+    "references": ["UniTask"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

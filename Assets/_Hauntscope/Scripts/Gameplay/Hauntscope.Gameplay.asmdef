@@ -1,7 +1,7 @@
 {
     "name": "Hauntscope.Gameplay",
     "rootNamespace": "Hauntscope.Gameplay",
-    "references": ["Hauntscope.Core", "VContainer"],
+    "references": ["Hauntscope.Core", "VContainer", "UniTask"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
