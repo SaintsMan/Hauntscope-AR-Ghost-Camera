@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Hauntscope.Core.Services
 {
@@ -7,6 +8,8 @@ namespace Hauntscope.Core.Services
         event Action Changed;
 
         string CurrentLanguage { get; }
+
+        IReadOnlyList<string> AvailableLanguages { get; }
 
         string Get(string table, string key, params object[] args);
 

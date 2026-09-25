@@ -1,0 +1,77 @@
+using Hauntscope.Gameplay.Progress;
+using Hauntscope.Tests.EditMode.Fakes;
+using NUnit.Framework;
+
+namespace Hauntscope.Tests.EditMode
+{
+    public sealed class PlayerProgressRepositoryTests
+    {
+        private FakeSaveService _save;
+        private PlayerProgressRepository _repository;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _save = new FakeSaveService();
+            _repository = new PlayerProgressRepository(_save);
+        }
+
+        [Test]
+        public void Load_NoSave_ReturnsFreshProgress()
+        {
+            var progress = _repository.Load();
+
+            Assert.AreEqual(0, progress.Ectoplasm.Value);
+            Assert.IsTrue(progress.IsFirstSession);
+        }
+
+        [Test]
+        public void Load_AfterSave_RestoresEverything()
+        {
+            var progress = new PlayerProgress();
+            progress.AddCapture("wisp", 10);
+            progress.AddCapture("wisp", 10);
+            progress.AddCapture("shade", 30);
+            progress.RegisterSession();
+            progress.MarkVirtualRoomNoticeShown();
+            _repository.Save(progress);
+
+            var loaded = _repository.Load();
+
+            Assert.AreEqual(50, loaded.Ectoplasm.Value);
+            Assert.AreEqual(2, loaded.GetCaptureCount("wisp"));
+            Assert.AreEqual(1, loaded.GetCaptureCount("shade"));
+            Assert.AreEqual(1, loaded.TotalSessions);
+            Assert.IsTrue(loaded.VirtualRoomNoticeShown);
+        }
+
+        [Test]
+        public void Save_Always_WritesCurrentVersion()
+        {
+            _repository.Save(new PlayerProgress());
+
+            Assert.IsTrue(_save.TryLoad<PlayerProgressDto>("player_progress", out var dto));
+            Assert.AreEqual(PlayerProgressRepository.CurrentVersion, dto.Version);
+        }
+
+        [Test]
+        public void Load_NewerVersion_StartsFresh()
+        {
+            _save.SetRaw("player_progress", "{\"_version\":99,\"_ectoplasm\":500}");
+
+            var progress = _repository.Load();
+
+            Assert.AreEqual(0, progress.Ectoplasm.Value);
+        }
+
+        [Test]
+        public void Load_MissingVersion_StartsFresh()
+        {
+            _save.SetRaw("player_progress", "{\"_ectoplasm\":500}");
+
+            var progress = _repository.Load();
+
+            Assert.AreEqual(0, progress.Ectoplasm.Value);
+        }
+    }
+}

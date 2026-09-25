@@ -1,5 +1,6 @@
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
+using Hauntscope.Gameplay.Progress;
 using Hauntscope.Infrastructure.Audio;
 using Hauntscope.Infrastructure.Haptics;
 using Hauntscope.Infrastructure.Lifecycle;
@@ -31,8 +32,10 @@ namespace Hauntscope.Bootstrap
                 .DontDestroyOnLoad()
                 .As<IApplicationLifecycle>();
             RegisterHaptics(builder);
+            RegisterProgress(builder);
 
             builder.RegisterEntryPoint<FrameRateInitializer>();
+            builder.RegisterEntryPoint<LanguageSync>();
         }
 
         private void RegisterConfig(IContainerBuilder builder)
@@ -44,6 +47,14 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Haptics);
             builder.RegisterInstance(_gameConfig.Tools);
             builder.RegisterInstance(_gameConfig.Hud);
+        }
+
+        private static void RegisterProgress(IContainerBuilder builder)
+        {
+            builder.Register<PlayerProgressRepository>(Lifetime.Singleton);
+            builder.Register<SettingsRepository>(Lifetime.Singleton);
+            builder.Register(resolver => resolver.Resolve<PlayerProgressRepository>().Load(), Lifetime.Singleton);
+            builder.Register(resolver => resolver.Resolve<SettingsRepository>().Load(), Lifetime.Singleton);
         }
 
         private static void RegisterHaptics(IContainerBuilder builder)
