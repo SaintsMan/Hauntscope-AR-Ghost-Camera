@@ -125,6 +125,39 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Dashed_Always_PlaysWhoosh()
+        {
+            _session.Begin(_fixture.Ghost, null);
+
+            _fixture.Ghost.DashTo(new Vector3(1f, 1f, 0f));
+
+            Assert.AreEqual(1, _sfx.PlayCount);
+        }
+
+        [Test]
+        public void Shrieked_Always_PlaysShriekWithHeavyHaptic()
+        {
+            _session.Begin(_fixture.Ghost, null);
+
+            _fixture.Ghost.Shriek();
+
+            Assert.AreEqual(1, _sfx.PlayCount);
+            Assert.AreEqual(new[] { HapticStrength.Heavy }, _haptics.Played.ToArray());
+        }
+
+        [Test]
+        public void GhostReplaced_OldGhostShrieks_IsIgnored()
+        {
+            var old = new GhostFixture().Ghost;
+            _session.Begin(old, null);
+            _session.Begin(_fixture.Ghost, null);
+
+            old.Shriek();
+
+            Assert.AreEqual(0, _sfx.PlayCount);
+        }
+
+        [Test]
         public void Teleported_Always_FlashesAtBothEnds()
         {
             _session.Begin(_fixture.Ghost, null);

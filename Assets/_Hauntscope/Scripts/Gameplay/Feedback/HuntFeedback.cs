@@ -116,6 +116,8 @@ namespace Hauntscope.Gameplay.Feedback
                 return;
 
             _ghost.Teleported += OnTeleported;
+            _ghost.Dashed += OnDashed;
+            _ghost.Shrieked += OnShrieked;
             var clip = _session.GhostData != null ? _session.GhostData.WhisperClip : null;
             _whisper = _sfx.PlayLoop(clip, _audio.WhisperVolume, true);
             _whisper?.SetPosition(_ghost.Position);
@@ -124,7 +126,12 @@ namespace Hauntscope.Gameplay.Feedback
         private void DetachGhost()
         {
             if (_ghost != null)
+            {
                 _ghost.Teleported -= OnTeleported;
+                _ghost.Dashed -= OnDashed;
+                _ghost.Shrieked -= OnShrieked;
+            }
+
             _whisper?.Stop();
             _whisper = null;
             _ghost = null;
@@ -152,6 +159,17 @@ namespace Hauntscope.Gameplay.Feedback
             _sfx.Play3D(_audio.TeleportWhoosh, to, _audio.TeleportVolume);
             _vfx.Play(VfxId.TeleportFlash, from, RimColor);
             _vfx.Play(VfxId.TeleportFlash, to, RimColor);
+        }
+
+        private void OnDashed(Vector3 from, Vector3 to)
+        {
+            _sfx.Play3D(_audio.DashWhoosh, to, _audio.DashVolume);
+        }
+
+        private void OnShrieked()
+        {
+            _sfx.Play3D(_audio.Shriek, _ghost.Position, _audio.ShriekVolume);
+            _haptics.Play(HapticStrength.Heavy);
         }
 
         private void OnScared()

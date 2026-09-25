@@ -74,7 +74,7 @@ namespace Hauntscope.Gameplay.Hunt.States
 
             _toolbelt.Tick(deltaTime);
             ghost.Tick(deltaTime);
-            _radar.Tick(deltaTime, ghost.Position, ghost.EmfRange);
+            _radar.Tick(deltaTime, ghost.EmfSource, ghost.EmfRange);
             _session.AddTime(deltaTime);
 
             if (_scarePolicy.CanScare(_session, ghost, _camera))

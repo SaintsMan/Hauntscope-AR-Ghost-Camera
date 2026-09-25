@@ -26,6 +26,10 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Range(0f, 1f)] private float _scareVolume = 1.0f;
         [SerializeField] private AudioClip _teleportWhoosh;
         [SerializeField, Range(0f, 1f)] private float _teleportVolume = 0.8f;
+        [SerializeField] private AudioClip _dashWhoosh;
+        [SerializeField, Range(0f, 1f)] private float _dashVolume = 0.7f;
+        [SerializeField] private AudioClip _shriek;
+        [SerializeField, Range(0f, 1f)] private float _shriekVolume = 0.95f;
         [SerializeField] private AudioClip _scanComplete;
         [SerializeField, Range(0f, 1f)] private float _scanVolume = 0.7f;
         [SerializeField] private AudioClip _uiClick;
@@ -72,6 +76,14 @@ namespace Hauntscope.Gameplay.Config
         public AudioClip TeleportWhoosh => _teleportWhoosh;
 
         public float TeleportVolume => _teleportVolume;
+
+        public AudioClip DashWhoosh => _dashWhoosh;
+
+        public float DashVolume => _dashVolume;
+
+        public AudioClip Shriek => _shriek;
+
+        public float ShriekVolume => _shriekVolume;
 
         public AudioClip ScanComplete => _scanComplete;
 

@@ -25,6 +25,8 @@ namespace Hauntscope.Gameplay.Ghosts
         private bool _escapeRequested;
         private bool _scareRequested;
         private float _revealBeforeEscape;
+        private Vector3 _emfDecoy;
+        private bool _hasEmfDecoy;
 
         public Ghost(GhostContext context, IGhostView view)
             : this(context, view, Array.Empty<IGhostAbility>())
@@ -55,9 +57,16 @@ namespace Hauntscope.Gameplay.Ghosts
 
         public event Action<Vector3, Vector3> Teleported;
 
+        public event Action<Vector3, Vector3> Dashed;
+
+        public event Action Shrieked;
+
         public GhostContext Context { get; }
 
         public Vector3 Position => Context.Mover.Position;
+
+        // Where the EMF radar thinks the ghost is; a decoy lets it lie while the whisper still comes from the truth.
+        public Vector3 EmfSource => _hasEmfDecoy ? _emfDecoy : Position;
 
         public float EmfRange => Context.Detection.EmfRange;
 
@@ -129,6 +138,38 @@ namespace Hauntscope.Gameplay.Ghosts
             Teleported?.Invoke(from, Context.Mover.Position);
         }
 
+        public void DashTo(Vector3 position)
+        {
+            if (IsLeaving)
+                return;
+
+            Dashed?.Invoke(Position, position);
+        }
+
+        // Knocks the lens off: the reveal drops to zero, so the player has to find the ghost in the lens again.
+        public void Shriek()
+        {
+            if (IsLeaving)
+                return;
+
+            Reveal = 0f;
+            Shrieked?.Invoke();
+        }
+
+        public void SetEmfDecoy(Vector3 position)
+        {
+            if (IsLeaving)
+                return;
+
+            _emfDecoy = position;
+            _hasEmfDecoy = true;
+        }
+
+        public void ClearEmfDecoy()
+        {
+            _hasEmfDecoy = false;
+        }
+
         public void Scare()
         {
             if (!IsLeaving && IsAlerted)
@@ -141,6 +182,7 @@ namespace Hauntscope.Gameplay.Ghosts
                 return;
 
             _captureRequested = true;
+            _hasEmfDecoy = false;
             IsBeamed = false;
             IsVisible = true;
             Reveal = 1f;
@@ -152,6 +194,7 @@ namespace Hauntscope.Gameplay.Ghosts
                 return;
 
             _escapeRequested = true;
+            _hasEmfDecoy = false;
             IsBeamed = false;
             _revealBeforeEscape = VisibleReveal;
             IsVisible = true;
