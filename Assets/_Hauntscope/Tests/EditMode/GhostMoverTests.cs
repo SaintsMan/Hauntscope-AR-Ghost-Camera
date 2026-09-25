@@ -1,4 +1,3 @@
-using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Tests.EditMode.Fakes;
 using NUnit.Framework;
@@ -19,7 +18,7 @@ namespace Hauntscope.Tests.EditMode
         public void SetUp()
         {
             _planes = new FakePlaneProvider { RoomBounds = new Bounds(Vector3.zero, new Vector3(4f, 0f, 4f)) };
-            _mover = new GhostMover(_planes, new GhostConfig(3f, 6f, 0.5f, BobAmplitude, 0.5f));
+            _mover = new GhostMover(_planes, GhostFixture.CreateConfig());
         }
 
         [Test]

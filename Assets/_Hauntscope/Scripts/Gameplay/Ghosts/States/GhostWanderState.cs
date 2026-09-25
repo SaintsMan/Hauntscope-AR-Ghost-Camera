@@ -6,11 +6,13 @@ namespace Hauntscope.Gameplay.Ghosts.States
     public sealed class GhostWanderState : IState
     {
         private readonly GhostContext _context;
+        private readonly float _speedMultiplier;
         private float _timeUntilNextTarget;
 
-        public GhostWanderState(GhostContext context)
+        public GhostWanderState(GhostContext context, float speedMultiplier)
         {
             _context = context;
+            _speedMultiplier = speedMultiplier;
         }
 
         public void Enter()
@@ -28,7 +30,7 @@ namespace Hauntscope.Gameplay.Ghosts.States
             if (_timeUntilNextTarget <= 0f)
                 PickNextTarget();
 
-            _context.Mover.Tick(deltaTime, _context.Motion.MoveSpeed);
+            _context.Mover.Tick(deltaTime, _context.Motion.MoveSpeed * _speedMultiplier);
         }
 
         private void PickNextTarget()

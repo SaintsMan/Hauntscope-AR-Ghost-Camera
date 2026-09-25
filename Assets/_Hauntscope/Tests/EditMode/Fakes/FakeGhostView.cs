@@ -7,12 +7,22 @@ namespace Hauntscope.Tests.EditMode.Fakes
     {
         public Vector3 Position { get; private set; }
 
-        public int SetPositionCount { get; private set; }
+        public Quaternion Rotation { get; private set; }
 
-        public void SetPosition(Vector3 position)
+        public float Reveal { get; private set; }
+
+        public int SetPoseCount { get; private set; }
+
+        public void SetPose(Vector3 position, Quaternion rotation)
         {
             Position = position;
-            SetPositionCount++;
+            Rotation = rotation;
+            SetPoseCount++;
+        }
+
+        public void SetReveal(float reveal)
+        {
+            Reveal = reveal;
         }
     }
 }

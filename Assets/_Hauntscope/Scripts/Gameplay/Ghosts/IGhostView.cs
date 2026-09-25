@@ -4,6 +4,8 @@ namespace Hauntscope.Gameplay.Ghosts
 {
     public interface IGhostView
     {
-        void SetPosition(Vector3 position);
+        void SetPose(Vector3 position, Quaternion rotation);
+
+        void SetReveal(float reveal);
     }
 }

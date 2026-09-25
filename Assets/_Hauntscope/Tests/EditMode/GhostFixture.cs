@@ -1,0 +1,64 @@
+using Hauntscope.Gameplay.Config;
+using Hauntscope.Gameplay.Ghosts;
+using Hauntscope.Tests.EditMode.Fakes;
+using UnityEngine;
+
+namespace Hauntscope.Tests.EditMode
+{
+    public sealed class GhostFixture
+    {
+        public const float MoveSpeed = 1f;
+        public const float HoverMin = 1f;
+        public const float HoverMax = 2f;
+        public const float EmfRange = 6f;
+        public const float RevealRange = 3f;
+        public const float AlertThreshold = 0.5f;
+        public const float AlertedPause = 0.5f;
+        public const float AlertedSpeedMultiplier = 1.5f;
+
+        public GhostFixture(float wanderInterval = 4f, float floorHeight = 0f)
+        {
+            Planes = new FakePlaneProvider
+            {
+                RoomBounds = new Bounds(Vector3.zero, new Vector3(4f, 0f, 4f)),
+                FloorHeight = floorHeight
+            };
+            Random = new FakeRandom();
+            Camera = new FakeCameraPose { Position = new Vector3(0f, 1.5f, -1.5f), Forward = Vector3.forward };
+            Config = CreateConfig(wanderInterval);
+            Mover = new GhostMover(Planes, Config);
+            Context = new GhostContext(
+                new GhostMotion(MoveSpeed, HoverMin, HoverMax),
+                new GhostDetection(EmfRange, RevealRange),
+                Config,
+                Mover,
+                Random,
+                Planes,
+                Camera);
+            View = new FakeGhostView();
+            Ghost = new Ghost(Context, View);
+        }
+
+        public FakePlaneProvider Planes { get; }
+
+        public FakeRandom Random { get; }
+
+        public FakeCameraPose Camera { get; }
+
+        public GhostConfig Config { get; }
+
+        public GhostMover Mover { get; }
+
+        public GhostContext Context { get; }
+
+        public FakeGhostView View { get; }
+
+        public Ghost Ghost { get; }
+
+        public static GhostConfig CreateConfig(float wanderInterval = 4f)
+        {
+            return new GhostConfig(wanderInterval, wanderInterval, 0.5f, 0.05f, 0.5f,
+                AlertThreshold, AlertedPause, AlertedSpeedMultiplier);
+        }
+    }
+}

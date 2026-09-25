@@ -7,6 +7,7 @@ namespace Hauntscope.Gameplay.Ghosts
     public sealed class GhostMover
     {
         private const float FullCircle = Mathf.PI * 2f;
+        private const float MinFacingSpeed = 0.05f;
 
         private readonly IPlaneProvider _planes;
         private readonly GhostConfig _config;
@@ -23,6 +24,8 @@ namespace Hauntscope.Gameplay.Ghosts
 
         public Vector3 Target { get; private set; }
 
+        public Vector3 Facing { get; private set; } = Vector3.forward;
+
         public Vector3 VisualPosition =>
             Position + Vector3.up * (Mathf.Sin(_elapsed * _config.BobFrequency * FullCircle) * _config.BobAmplitude);
 
@@ -38,11 +41,29 @@ namespace Hauntscope.Gameplay.Ghosts
             Target = ClampToRoom(target);
         }
 
+        public void Stop()
+        {
+            Target = Position;
+            _velocity = Vector3.zero;
+        }
+
+        public void FaceTowards(Vector3 point)
+        {
+            var direction = point - Position;
+            direction.y = 0f;
+            if (direction.sqrMagnitude > 0f)
+                Facing = direction.normalized;
+        }
+
         public void Tick(float deltaTime, float maxSpeed)
         {
             _elapsed += deltaTime;
             var next = Vector3.SmoothDamp(Position, Target, ref _velocity, _config.MoveSmoothTime, maxSpeed, deltaTime);
             Position = ClampToRoom(next);
+
+            var horizontal = new Vector3(_velocity.x, 0f, _velocity.z);
+            if (horizontal.sqrMagnitude > MinFacingSpeed * MinFacingSpeed)
+                Facing = horizontal.normalized;
         }
 
         private Vector3 ClampToRoom(Vector3 position)

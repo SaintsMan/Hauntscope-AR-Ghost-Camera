@@ -4,9 +4,49 @@ namespace Hauntscope.Gameplay.Ghosts
 {
     public sealed class GhostView : MonoBehaviour, IGhostView
     {
-        public void SetPosition(Vector3 position)
+        private static readonly int RevealId = Shader.PropertyToID("_Reveal");
+
+        [SerializeField] private Renderer[] _renderers;
+
+        private Material[] _materials;
+
+        public void SetPose(Vector3 position, Quaternion rotation)
         {
-            transform.position = position;
+            transform.SetPositionAndRotation(position, rotation);
         }
+
+        public void SetReveal(float reveal)
+        {
+            var visible = reveal > 0f;
+            for (var i = 0; i < _renderers.Length; i++)
+            {
+                _renderers[i].enabled = visible;
+                _materials[i].SetFloat(RevealId, reveal);
+            }
+        }
+
+        private void Awake()
+        {
+            // Each ghost owns its material instance so _Reveal and _Dissolve don't leak into other ghosts.
+            _materials = new Material[_renderers.Length];
+            for (var i = 0; i < _renderers.Length; i++)
+                _materials[i] = _renderers[i].material;
+        }
+
+        private void OnDestroy()
+        {
+            if (_materials == null)
+                return;
+
+            foreach (var material in _materials)
+                Destroy(material);
+        }
+
+#if UNITY_EDITOR
+        private void Reset()
+        {
+            _renderers = GetComponentsInChildren<Renderer>(true);
+        }
+#endif
     }
 }

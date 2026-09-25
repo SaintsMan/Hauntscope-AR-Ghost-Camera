@@ -12,7 +12,8 @@ namespace Hauntscope.Gameplay.Ghosts
             GhostConfig config,
             GhostMover mover,
             IRandom random,
-            IPlaneProvider planes)
+            IPlaneProvider planes,
+            ICameraPose camera)
         {
             Motion = motion;
             Detection = detection;
@@ -20,6 +21,7 @@ namespace Hauntscope.Gameplay.Ghosts
             Mover = mover;
             Random = random;
             Planes = planes;
+            Camera = camera;
         }
 
         public GhostMotion Motion { get; }
@@ -33,5 +35,7 @@ namespace Hauntscope.Gameplay.Ghosts
         public IRandom Random { get; }
 
         public IPlaneProvider Planes { get; }
+
+        public ICameraPose Camera { get; }
     }
 }
