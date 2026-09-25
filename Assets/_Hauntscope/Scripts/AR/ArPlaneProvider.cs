@@ -1,4 +1,5 @@
 using System;
+using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Unity.Collections;
 using UnityEngine;
@@ -10,30 +11,21 @@ namespace Hauntscope.AR
     public sealed class ArPlaneProvider : IPlaneProvider, IDisposable
     {
         private readonly ARPlaneManager _planeManager;
+        private readonly RoomConfig _config;
         private bool _planesVisible = true;
 
-        public ArPlaneProvider(ARPlaneManager planeManager)
+        public ArPlaneProvider(ARPlaneManager planeManager, RoomConfig config)
         {
             _planeManager = planeManager;
+            _config = config;
             _planeManager.trackablesChanged.AddListener(OnTrackablesChanged);
         }
 
-        public float HorizontalArea
-        {
-            get
-            {
-                var area = 0f;
-                foreach (var plane in _planeManager.trackables)
-                {
-                    if (plane.alignment != PlaneAlignment.HorizontalUp || plane.subsumedBy != null)
-                        continue;
+        public float HorizontalArea { get; private set; }
 
-                    area += CalculatePolygonArea(plane.boundary);
-                }
+        public Bounds RoomBounds { get; private set; }
 
-                return area;
-            }
-        }
+        public float FloorHeight { get; private set; }
 
         public void SetPlanesVisible(bool visible)
         {
@@ -51,6 +43,46 @@ namespace Hauntscope.AR
         {
             foreach (var plane in changes.added)
                 plane.gameObject.SetActive(_planesVisible);
+
+            Recalculate();
+        }
+
+        private void Recalculate()
+        {
+            var area = 0f;
+            var floor = float.PositiveInfinity;
+            var hasBounds = false;
+            var bounds = new Bounds();
+
+            foreach (var plane in _planeManager.trackables)
+            {
+                if (plane.alignment != PlaneAlignment.HorizontalUp || plane.subsumedBy != null)
+                    continue;
+
+                area += CalculatePolygonArea(plane.boundary);
+                floor = Mathf.Min(floor, plane.transform.position.y);
+
+                foreach (var point in plane.boundary)
+                {
+                    var world = plane.transform.TransformPoint(new Vector3(point.x, 0f, point.y));
+                    if (hasBounds)
+                    {
+                        bounds.Encapsulate(world);
+                    }
+                    else
+                    {
+                        bounds = new Bounds(world, Vector3.zero);
+                        hasBounds = true;
+                    }
+                }
+            }
+
+            var padding = _config.RoomBoundsPadding * 2f;
+            bounds.Expand(new Vector3(padding, 0f, padding));
+
+            HorizontalArea = area;
+            RoomBounds = bounds;
+            FloorHeight = hasBounds ? floor : 0f;
         }
 
         private static float CalculatePolygonArea(NativeArray<Vector2> boundary)

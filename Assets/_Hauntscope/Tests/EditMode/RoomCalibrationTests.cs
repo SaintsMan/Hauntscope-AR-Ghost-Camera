@@ -16,7 +16,7 @@ namespace Hauntscope.Tests.EditMode
         public void SetUp()
         {
             _planes = new FakePlaneProvider();
-            _calibration = new RoomCalibration(_planes, new RoomConfig(CalibrationArea));
+            _calibration = new RoomCalibration(_planes, CreateConfig(CalibrationArea));
         }
 
         [Test]
@@ -77,11 +77,16 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void Refresh_NonPositiveCalibrationArea_IsComplete()
         {
-            var calibration = new RoomCalibration(_planes, new RoomConfig(0f));
+            var calibration = new RoomCalibration(_planes, CreateConfig(0f));
 
             calibration.Refresh();
 
             Assert.IsTrue(calibration.IsComplete);
+        }
+
+        private static RoomConfig CreateConfig(float calibrationArea)
+        {
+            return new RoomConfig(calibrationArea, 1.5f, 0.3f, 2f, 5f);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Hauntscope.Tests.EditMode
         public void SetUp()
         {
             _planes = new FakePlaneProvider();
-            _calibration = new RoomCalibration(_planes, new RoomConfig(1f));
+            _calibration = new RoomCalibration(_planes, new RoomConfig(1f, 1.5f, 0.3f, 2f, 5f));
             _state = new ScanState(_calibration, _planes);
         }
 
