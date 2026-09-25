@@ -10,6 +10,9 @@ namespace Hauntscope.VirtualRoom
     public sealed class VirtualCameraController : IStartable, ITickable, IDisposable
     {
         private const float MinMoveDistance = 0.01f;
+        private const float TwoPi = Mathf.PI * 2f;
+        private const float SwaySeedYaw = 17.3f;
+        private const float SwaySeedPitch = 41.7f;
 
         // Android reports attitude in a right-handed, Z-up frame; this maps it to Unity's left-handed, Y-up frame
         // for a phone held in portrait.
@@ -17,20 +20,30 @@ namespace Hauntscope.VirtualRoom
 
         private readonly Transform _camera;
         private readonly VirtualPointerInput _input;
+        private readonly VirtualJoystick _joystick;
         private readonly IPlaneProvider _planes;
         private readonly VirtualConfig _config;
         private readonly AttitudeSensor _gyro;
 
+        private Vector3 _position;
         private Vector3 _target;
         private float _yaw;
         private float _pitch;
         private float _gyroYawOffset;
         private bool _hasGyroReference;
+        private float _stepPhase;
+        private float _bobWeight;
 
-        public VirtualCameraController(Camera camera, VirtualPointerInput input, IPlaneProvider planes, VirtualConfig config)
+        public VirtualCameraController(
+            Camera camera,
+            VirtualPointerInput input,
+            VirtualJoystick joystick,
+            IPlaneProvider planes,
+            VirtualConfig config)
         {
             _camera = camera.transform;
             _input = input;
+            _joystick = joystick;
             _planes = planes;
             _config = config;
             _gyro = AttitudeSensor.current;
@@ -47,8 +60,8 @@ namespace Hauntscope.VirtualRoom
                 InputSystem.EnableDevice(_gyro);
 
             var start = _camera.position;
-            _target = new Vector3(start.x, EyeY, start.z);
-            _camera.position = _target;
+            _position = new Vector3(start.x, EyeY, start.z);
+            _target = _position;
             _yaw = _camera.eulerAngles.y;
         }
 
@@ -63,9 +76,67 @@ namespace Hauntscope.VirtualRoom
 
         public void Tick()
         {
-            _camera.SetPositionAndRotation(
-                Vector3.MoveTowards(_camera.position, _target, _config.WalkSpeed * Time.deltaTime),
-                CurrentRotation());
+            var deltaTime = Time.deltaTime;
+            var rotation = CurrentRotation();
+            var previous = _position;
+
+            var stick = _joystick.Value;
+            if (stick.sqrMagnitude > _config.JoystickDeadZone * _config.JoystickDeadZone)
+            {
+                Walk(rotation, stick, deltaTime);
+                // The stick takes over from a pending tap, otherwise releasing it would resume an old walk.
+                _target = _position;
+            }
+            else
+            {
+                _position = Vector3.MoveTowards(_position, _target, _config.WalkSpeed * deltaTime);
+            }
+
+            var speed = deltaTime > 0f ? (_position - previous).magnitude / deltaTime : 0f;
+            _camera.SetPositionAndRotation(_position + HeadBob(rotation, speed, deltaTime), rotation * HandheldSway());
+        }
+
+        private void Walk(Quaternion rotation, Vector2 stick, float deltaTime)
+        {
+            var forward = rotation * Vector3.forward;
+            forward.y = 0f;
+            forward.Normalize();
+            var right = new Vector3(forward.z, 0f, -forward.x);
+            var step = (forward * stick.y + right * stick.x) * (_config.WalkSpeed * deltaTime);
+
+            // Blocked moves slide along the obstacle instead of stopping dead, so walls guide the player.
+            if (TryCast(_position, step, out var hit))
+            {
+                var slide = Vector3.ProjectOnPlane(step, hit.normal);
+                slide.y = 0f;
+                step = TryCast(_position, slide, out _) ? Vector3.zero : slide;
+            }
+
+            _position = ClampToRoom(_position + step);
+        }
+
+        private Vector3 HeadBob(Quaternion rotation, float speed, float deltaTime)
+        {
+            // Footsteps only while actually moving; the weight eases in and out so stopping doesn't snap.
+            var moving = Mathf.Clamp01(speed / _config.WalkSpeed);
+            _bobWeight = Mathf.MoveTowards(_bobWeight, moving, deltaTime * _config.BobFrequency * 2f);
+            _stepPhase += deltaTime * _config.BobFrequency * TwoPi * moving;
+
+            var vertical = Mathf.Abs(Mathf.Sin(_stepPhase)) * _config.BobAmplitude;
+            var lateral = Mathf.Sin(_stepPhase * 0.5f) * _config.BobAmplitude * 0.6f;
+            return (Vector3.up * vertical + rotation * Vector3.right * lateral) * _bobWeight;
+        }
+
+        private Quaternion HandheldSway()
+        {
+            // A real hand already moves the phone when the gyro drives the view; faking it on top would fight it.
+            if (_hasGyroReference || _config.SwayAngle <= 0f)
+                return Quaternion.identity;
+
+            var time = Time.time * _config.SwayFrequency;
+            var yaw = (Mathf.PerlinNoise(time, SwaySeedYaw) - 0.5f) * 2f * _config.SwayAngle;
+            var pitch = (Mathf.PerlinNoise(SwaySeedPitch, time) - 0.5f) * 2f * _config.SwayAngle;
+            return Quaternion.Euler(pitch, yaw, 0f);
         }
 
         private Quaternion CurrentRotation()
@@ -112,31 +183,46 @@ namespace Hauntscope.VirtualRoom
 
         private void OnTapped(Vector3 point)
         {
+            var destination = ClampToRoom(new Vector3(point.x, EyeY, point.z));
+            _target = StopBeforeObstacles(_position, destination);
+        }
+
+        private Vector3 ClampToRoom(Vector3 position)
+        {
             var bounds = _planes.RoomBounds;
-            var destination = new Vector3(
-                Mathf.Clamp(point.x, bounds.min.x, bounds.max.x),
+            return new Vector3(
+                Mathf.Clamp(position.x, bounds.min.x, bounds.max.x),
                 EyeY,
-                Mathf.Clamp(point.z, bounds.min.z, bounds.max.z));
-            _target = StopBeforeObstacles(_camera.position, destination);
+                Mathf.Clamp(position.z, bounds.min.z, bounds.max.z));
         }
 
         private Vector3 StopBeforeObstacles(Vector3 from, Vector3 to)
         {
             var path = new Vector3(to.x - from.x, 0f, to.z - from.z);
-            var distance = path.magnitude;
-            if (distance < MinMoveDistance)
+            if (path.magnitude < MinMoveDistance)
                 return new Vector3(from.x, EyeY, from.z);
 
-            var direction = path / distance;
+            if (TryCast(from, path, out var hit))
+                path = path.normalized * hit.distance;
+
+            var end = from + path;
+            return new Vector3(end.x, EyeY, end.z);
+        }
+
+        private bool TryCast(Vector3 from, Vector3 move, out RaycastHit hit)
+        {
+            var distance = move.magnitude;
+            if (distance < Mathf.Epsilon)
+            {
+                hit = default;
+                return false;
+            }
+
             // The body capsule starts above the step height, so the floor and rugs never block it — only furniture and walls.
             var feet = new Vector3(from.x, _planes.FloorHeight + _config.StepHeight + _config.BodyRadius, from.z);
             var head = new Vector3(from.x, EyeY, from.z);
-            if (Physics.CapsuleCast(feet, head, _config.BodyRadius, direction, out var hit, distance,
-                    Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
-                distance = hit.distance;
-
-            var end = from + direction * distance;
-            return new Vector3(end.x, EyeY, end.z);
+            return Physics.CapsuleCast(feet, head, _config.BodyRadius, move / distance, out hit, distance,
+                Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
         }
     }
 }
