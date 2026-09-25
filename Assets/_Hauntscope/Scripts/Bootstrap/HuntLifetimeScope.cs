@@ -1,8 +1,10 @@
 using Hauntscope.AR;
 using Hauntscope.Gameplay.Environment;
+using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Hunt.States;
+using Hauntscope.Gameplay.Tools;
 using Hauntscope.UI.Hunt;
 using Unity.XR.CoreUtils;
 using UnityEngine.XR.ARFoundation;
@@ -22,12 +24,17 @@ namespace Hauntscope.Bootstrap
             builder.Register<GhostSelector>(Lifetime.Singleton);
             builder.Register<GhostFactory>(Lifetime.Singleton);
 
+            builder.Register<EmfRadar>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<EmfFeedback>();
+
             builder.Register<ScanState>(Lifetime.Singleton);
             builder.Register<HuntingState>(Lifetime.Singleton);
             builder.RegisterEntryPoint<HuntFlow>();
 
             builder.RegisterComponentInHierarchy<ScanHudView>();
             builder.RegisterEntryPoint<ScanHudPresenter>();
+            builder.RegisterComponentInHierarchy<HuntHudView>();
+            builder.RegisterEntryPoint<HuntHudPresenter>();
         }
 
         private static void RegisterArEnvironment(IContainerBuilder builder)

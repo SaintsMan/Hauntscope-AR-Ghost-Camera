@@ -34,6 +34,14 @@ MonoBehaviour:
     m_Localized: Move your phone slowly
     m_Metadata:
       m_Items: []
+  - m_Id: 19432002158592
+    m_Localized: EMF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19432052490240
+    m_Localized: LVL {0}
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

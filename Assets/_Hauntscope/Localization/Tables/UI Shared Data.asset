@@ -31,6 +31,14 @@ MonoBehaviour:
     m_Key: hud.scan.hint_move_slowly
     m_Metadata:
       m_Items: []
+  - m_Id: 19432002158592
+    m_Key: hud.emf.label
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19432052490240
+    m_Key: hud.emf.level
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
