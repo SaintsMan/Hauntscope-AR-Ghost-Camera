@@ -15,7 +15,7 @@ namespace Hauntscope.UI.Hunt
         private const string EscapedKey = "result.escaped";
         private const string RewardKey = "result.reward";
         private const string TimeKey = "result.time";
-        private const string BatteryReasonKey = "result.reason.battery";
+        private const string BatteryTipKey = "result.tip.battery";
         private const int SecondsPerMinute = 60;
 
         private readonly ResultView _view;
@@ -24,6 +24,7 @@ namespace Hauntscope.UI.Hunt
         private readonly ISceneLoader _sceneLoader;
         private readonly UiFeedback _ui;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
+        private readonly Func<int, string> _formatReward;
 
         public ResultPresenter(
             ResultView view,
@@ -37,6 +38,7 @@ namespace Hauntscope.UI.Hunt
             _localization = localization;
             _sceneLoader = sceneLoader;
             _ui = ui;
+            _formatReward = FormatReward;
         }
 
         public void Start()
@@ -80,6 +82,11 @@ namespace Hauntscope.UI.Hunt
             _sceneLoader.LoadAsync(SceneId.MainMenu, _lifetime.Token).Forget();
         }
 
+        private string FormatReward(int amount)
+        {
+            return _localization.Get(LocalizationTable.Ui, RewardKey, amount);
+        }
+
         private void Render(HuntResult result)
         {
             _view.SetVisible(result != null);
@@ -90,10 +97,10 @@ namespace Hauntscope.UI.Hunt
             _view.SetTitle(_localization.Get(LocalizationTable.Ui, captured ? CapturedKey : EscapedKey), captured);
             _view.SetGhost(result.Ghost.Icon, result.Ghost.RimColor, captured);
             _view.SetNewEntry(result.IsFirstCapture);
-            // A ghost only escapes when the battery dies, so that is always the reason to show.
-            _view.SetReason(captured ? string.Empty : _localization.Get(LocalizationTable.Ui, BatteryReasonKey));
+            // A ghost only escapes when the battery dies, so the lost hunt ends with how to make a charge last.
+            _view.SetTip(captured ? string.Empty : _localization.Get(LocalizationTable.Ui, BatteryTipKey));
             _view.SetGhostName(_localization.Get(LocalizationTable.Ghosts, result.Ghost.NameKey));
-            _view.SetReward(captured ? _localization.Get(LocalizationTable.Ui, RewardKey, result.Reward) : string.Empty);
+            _view.SetReward(result.Reward, _formatReward);
 
             var seconds = Mathf.FloorToInt(result.Duration);
             _view.SetTime(_localization.Get(LocalizationTable.Ui, TimeKey, seconds / SecondsPerMinute, seconds % SecondsPerMinute));

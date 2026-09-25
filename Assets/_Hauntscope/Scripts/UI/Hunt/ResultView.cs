@@ -1,6 +1,9 @@
 using System;
+using DG.Tweening;
+using Hauntscope.UI.Common;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Hauntscope.UI.Hunt
@@ -21,8 +24,16 @@ namespace Hauntscope.UI.Hunt
         [SerializeField] private Graphic _ghostGlow;
         [SerializeField] private Color _escapedIconColor = new Color(0.25f, 0.28f, 0.32f, 0.9f);
         [SerializeField, Range(0f, 1f)] private float _glowAlpha = 0.35f;
-        [SerializeField] private TMP_Text _reasonLabel;
+        [SerializeField, FormerlySerializedAs("_reasonLabel")] private TMP_Text _tipLabel;
         [SerializeField] private GameObject _newEntryBadge;
+        [SerializeField] private GameObject _reward;
+        [SerializeField] private RectTransform _rewardIcon;
+        [SerializeField, Min(0f)] private float _countDelay = 0.45f;
+        [SerializeField, Min(0.05f)] private float _countDuration = 0.9f;
+
+        private Func<int, string> _rewardFormat;
+        private int _shownReward;
+        private int _rewardTarget = -1;
 
         public event Action HuntAgainClicked;
 
@@ -50,10 +61,10 @@ namespace Hauntscope.UI.Hunt
             _ghostGlow.color = glow;
         }
 
-        public void SetReason(string text)
+        public void SetTip(string text)
         {
-            _reasonLabel.gameObject.SetActive(!string.IsNullOrEmpty(text));
-            _reasonLabel.text = text;
+            _tipLabel.gameObject.SetActive(!string.IsNullOrEmpty(text));
+            _tipLabel.text = text;
         }
 
         public void SetNewEntry(bool visible)
@@ -66,10 +77,27 @@ namespace Hauntscope.UI.Hunt
             _ghostNameLabel.text = text;
         }
 
-        public void SetReward(string text)
+        // The reward counts up from zero once the card has opened, like the ectoplasm balance in the menu.
+        // The presenter owns the wording, so the label is rebuilt through its format for every shown number.
+        public void SetReward(int amount, Func<int, string> format)
         {
-            _rewardLabel.gameObject.SetActive(!string.IsNullOrEmpty(text));
-            _rewardLabel.text = text;
+            _reward.SetActive(amount > 0);
+            _rewardFormat = format;
+            if (amount == _rewardTarget)
+            {
+                ShowReward(_shownReward);
+                return;
+            }
+
+            _rewardTarget = amount;
+            if (amount <= 0)
+                return;
+
+            ShowReward(0);
+            DOTween.To(() => _shownReward, ShowReward, amount, _countDuration)
+                .SetDelay(_countDelay).SetEase(Ease.OutCubic).Ui(gameObject);
+            _rewardIcon.localScale = Vector3.one;
+            _rewardIcon.DOPunchScale(Vector3.one * 0.35f, _countDuration, 6).SetDelay(_countDelay).Ui(gameObject);
         }
 
         public void SetTime(string text)
@@ -81,6 +109,12 @@ namespace Hauntscope.UI.Hunt
         {
             _huntAgainButton.onClick.AddListener(OnHuntAgainClicked);
             _menuButton.onClick.AddListener(OnMenuClicked);
+        }
+
+        // A closed card forgets its reward, so the next catch counts up again even when it pays the same.
+        private void OnDisable()
+        {
+            _rewardTarget = -1;
         }
 
         private void OnDestroy()
@@ -99,12 +133,22 @@ namespace Hauntscope.UI.Hunt
             MenuClicked?.Invoke();
         }
 
+        private void ShowReward(int amount)
+        {
+            _shownReward = amount;
+            _rewardLabel.text = _rewardFormat(amount);
+        }
+
 #if UNITY_EDITOR
         private void Reset()
         {
             _titleLabel = Find<TMP_Text>("Card/Title");
             _ghostNameLabel = Find<TMP_Text>("Card/GhostName");
-            _rewardLabel = Find<TMP_Text>("Card/Reward");
+            var reward = transform.Find("Card/Reward");
+            _reward = reward != null ? reward.gameObject : null;
+            _rewardLabel = Find<TMP_Text>("Card/Reward/Amount");
+            _rewardIcon = Find<RectTransform>("Card/Reward/Icon");
+            _tipLabel = Find<TMP_Text>("Card/Tip");
             _timeLabel = Find<TMP_Text>("Card/Time");
             _huntAgainButton = Find<Button>("Card/HuntAgainButton");
             _menuButton = Find<Button>("Card/MenuButton");

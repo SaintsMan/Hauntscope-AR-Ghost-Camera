@@ -39,6 +39,9 @@ namespace Hauntscope.Editor
             BuildRoomIcon();
             BuildTrackingBand();
             BuildSoftGlow();
+            BuildFloorGrid();
+            BuildPhoneBack();
+            BuildScanCone();
         }
 
         private static void BuildFrame()
@@ -296,6 +299,102 @@ namespace Hauntscope.Editor
             }
 
             SaveSprite("SoftGlow", size, size, pixels, Vector4.zero);
+        }
+
+        // Scan cue floor: a perspective grid that fades into the distance and towards its sides, the patch of floor
+        // the phone is about to find.
+        private static void BuildFloorGrid()
+        {
+            const int width = 512;
+            const int height = 256;
+            const int columns = 6;
+            const float near = Pad * 0.5f;
+            const float far = height - Pad;
+            var vanish = new Vector2(width * 0.5f, far + 90f);
+            var depths = new[] { 1f, 1.45f, 2.1f, 3.5f };
+
+            Sdf sdf = p =>
+            {
+                var distance = float.MaxValue;
+                for (var i = 0; i <= columns; i++)
+                {
+                    var bottom = new Vector2(Pad + (width - Pad * 2f) * i / columns, near);
+                    var top = Vector2.Lerp(bottom, vanish, (far - near) / (vanish.y - near));
+                    distance = Mathf.Min(distance, Segment(p, bottom, top));
+                }
+
+                foreach (var depth in depths)
+                {
+                    var y = vanish.y - (vanish.y - near) / depth;
+                    var t = (y - near) / (vanish.y - near);
+                    var left = Mathf.Lerp(Pad, vanish.x, t);
+                    distance = Mathf.Min(distance, Segment(p, new Vector2(left, y), new Vector2(width - left, y)));
+                }
+
+                return distance;
+            };
+
+            // A softer glow than the frames: at full strength the dense far end of the grid smears into a solid wedge.
+            var pixels = Shape(width, height, sdf, true, Line, Glow * 0.6f);
+            for (var y = 0; y < height; y++)
+            {
+                var t = Mathf.Clamp01((y - near) / (vanish.y - near));
+                var halfWidth = Mathf.Lerp(width * 0.5f - Pad, 0f, t) + Glow;
+                var depthFade = Mathf.Lerp(1f, 0.2f, Mathf.Clamp01((y - near) / (far - near)));
+                for (var x = 0; x < width; x++)
+                {
+                    var side = Mathf.Abs(x + 0.5f - width * 0.5f) / halfWidth;
+                    var sideFade = 1f - Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(0.55f, 1f, side));
+                    var index = y * width + x;
+                    pixels[index].a = (byte)(pixels[index].a * depthFade * sideFade);
+                }
+            }
+
+            SaveSprite("FloorGrid", width, height, pixels, Vector4.zero);
+        }
+
+        // The back of a phone held up to the room: body and a camera bar with two lenses and a flash, centred so the
+        // scan cone can leave from the middle of the bar.
+        private static void BuildPhoneBack()
+        {
+            const int width = 128;
+            const int height = 208;
+            Sdf body = p => RoundBox(p, new Vector2(64f, 104f), new Vector2(44f, 86f), 18f);
+            Sdf bar = p => RoundBox(p, new Vector2(64f, 160f), new Vector2(29f, 14f), 10f);
+            Sdf lenses = p => Mathf.Min(Circle(p, new Vector2(50f, 160f), 6f), Circle(p, new Vector2(71f, 160f), 6f));
+            var pixels = Max(
+                Max(Shape(width, height, body, true, Line, Glow), Shape(width, height, bar, true, Line, Glow)),
+                Max(Shape(width, height, lenses, true, Line * 0.75f, Glow * 0.6f),
+                    Shape(width, height, p => Circle(p, new Vector2(85f, 160f), 2.5f), false, 0f, 6f)));
+            SaveSprite("PhoneBack", width, height, pixels, Vector4.zero);
+        }
+
+        // The field of view from the phone's camera to the floor: a soft wedge with bright edges, pivoted at its apex.
+        private static void BuildScanCone()
+        {
+            const int width = 256;
+            const int height = 256;
+            var apex = new Vector2(width * 0.5f, Pad * 0.5f);
+            var left = new Vector2(Pad, height - Pad * 0.5f);
+            var right = new Vector2(width - Pad, height - Pad * 0.5f);
+            var edges = Shape(width, height, p => Mathf.Min(Segment(p, apex, left), Segment(p, apex, right)), true, Line, Glow);
+
+            var pixels = new Color32[width * height];
+            for (var y = 0; y < height; y++)
+            {
+                var t = Mathf.Clamp01((y - apex.y) / (left.y - apex.y));
+                var halfWidth = Mathf.Lerp(0f, apex.x - Pad, t);
+                for (var x = 0; x < width; x++)
+                {
+                    var inside = Mathf.Clamp01((halfWidth - Mathf.Abs(x + 0.5f - apex.x)) / Glow);
+                    var fill = inside * Mathf.Lerp(0.08f, 0.3f, t);
+                    var index = y * width + x;
+                    var edge = edges[index].a / 255f * Mathf.Lerp(0.25f, 1f, t);
+                    pixels[index] = new Color32(255, 255, 255, (byte)(Mathf.Clamp01(Mathf.Max(fill, edge)) * 255f));
+                }
+            }
+
+            SaveSprite("ScanCone", width, height, pixels, Vector4.zero, new Vector2(0.5f, apex.y / height));
         }
 
         private static Color32[] Radial(int size, float start, float end, float power, float strength)

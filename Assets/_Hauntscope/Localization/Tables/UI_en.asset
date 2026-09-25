@@ -376,12 +376,12 @@ MonoBehaviour:
     m_Localized: 'AR is not supported here: virtual room only'
     m_Metadata:
       m_Items: []
-  - m_Id: 166529502412804
-    m_Localized: The battery died and it slipped away
-    m_Metadata:
-      m_Items: []
   - m_Id: 166529502412805
     m_Localized: NEW ENTRY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 173894771539968
+    m_Localized: 'Save charge: the lens drains the battery'
     m_Metadata:
       m_Items: []
   references:

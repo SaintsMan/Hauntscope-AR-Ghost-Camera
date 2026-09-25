@@ -77,6 +77,9 @@ namespace Hauntscope.UI.Hunt
         {
             var progress = _calibration.Progress.Value;
             _view.SetProgress(progress);
+            // Like ARCore's own guide: the gesture is shown until the first floor plane turns up, after which the
+            // planes themselves and the progress bar are the feedback.
+            _view.SetCueVisible(progress <= 0f);
             UpdateVisibility();
 
             var percent = Mathf.FloorToInt(progress * PercentMultiplier);
