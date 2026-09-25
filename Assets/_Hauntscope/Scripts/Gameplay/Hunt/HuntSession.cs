@@ -46,9 +46,9 @@ namespace Hauntscope.Gameplay.Hunt
             Elapsed += deltaTime;
         }
 
-        public void Finish(HuntOutcome outcome)
+        public void Finish(HuntOutcome outcome, bool isFirstCapture = false)
         {
-            _result.Value = new HuntResult(outcome, GhostData, Elapsed);
+            _result.Value = new HuntResult(outcome, GhostData, Elapsed, isFirstCapture && outcome == HuntOutcome.Captured);
         }
 
         public void RequestHuntAgain()

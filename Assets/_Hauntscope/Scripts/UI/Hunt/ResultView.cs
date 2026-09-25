@@ -17,6 +17,12 @@ namespace Hauntscope.UI.Hunt
         [SerializeField] private Color _escapedColor;
         [SerializeField] private Material _capturedTitleMaterial;
         [SerializeField] private Material _escapedTitleMaterial;
+        [SerializeField] private Image _ghostIcon;
+        [SerializeField] private Graphic _ghostGlow;
+        [SerializeField] private Color _escapedIconColor = new Color(0.25f, 0.28f, 0.32f, 0.9f);
+        [SerializeField, Range(0f, 1f)] private float _glowAlpha = 0.35f;
+        [SerializeField] private TMP_Text _reasonLabel;
+        [SerializeField] private GameObject _newEntryBadge;
 
         public event Action HuntAgainClicked;
 
@@ -32,6 +38,27 @@ namespace Hauntscope.UI.Hunt
             _titleLabel.text = text;
             _titleLabel.color = captured ? _capturedColor : _escapedColor;
             _titleLabel.fontSharedMaterial = captured ? _capturedTitleMaterial : _escapedTitleMaterial;
+        }
+
+        // A caught ghost floats in full colour inside its glow; one that got away is only a dark silhouette.
+        public void SetGhost(Sprite icon, Color accent, bool captured)
+        {
+            _ghostIcon.sprite = icon;
+            _ghostIcon.color = captured ? Color.white : _escapedIconColor;
+            var glow = captured ? accent : _escapedColor;
+            glow.a = _glowAlpha;
+            _ghostGlow.color = glow;
+        }
+
+        public void SetReason(string text)
+        {
+            _reasonLabel.gameObject.SetActive(!string.IsNullOrEmpty(text));
+            _reasonLabel.text = text;
+        }
+
+        public void SetNewEntry(bool visible)
+        {
+            _newEntryBadge.SetActive(visible);
         }
 
         public void SetGhostName(string text)

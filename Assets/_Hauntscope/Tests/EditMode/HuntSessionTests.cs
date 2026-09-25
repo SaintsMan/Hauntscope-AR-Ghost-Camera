@@ -48,6 +48,26 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Finish_FirstCapture_MarksNewEntry()
+        {
+            _session.Begin(_fixture.Ghost, _data);
+
+            _session.Finish(HuntOutcome.Captured, true);
+
+            Assert.IsTrue(_session.Result.Value.IsFirstCapture);
+        }
+
+        [Test]
+        public void Finish_EscapedFlaggedFirst_IsNotNewEntry()
+        {
+            _session.Begin(_fixture.Ghost, _data);
+
+            _session.Finish(HuntOutcome.Escaped, true);
+
+            Assert.IsFalse(_session.Result.Value.IsFirstCapture);
+        }
+
+        [Test]
         public void Result_Captured_GrantsGhostReward()
         {
             _session.Begin(_fixture.Ghost, _data);

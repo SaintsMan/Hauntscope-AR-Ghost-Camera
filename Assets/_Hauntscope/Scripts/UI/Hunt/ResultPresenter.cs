@@ -15,6 +15,7 @@ namespace Hauntscope.UI.Hunt
         private const string EscapedKey = "result.escaped";
         private const string RewardKey = "result.reward";
         private const string TimeKey = "result.time";
+        private const string BatteryReasonKey = "result.reason.battery";
         private const int SecondsPerMinute = 60;
 
         private readonly ResultView _view;
@@ -87,6 +88,10 @@ namespace Hauntscope.UI.Hunt
 
             var captured = result.Outcome == HuntOutcome.Captured;
             _view.SetTitle(_localization.Get(LocalizationTable.Ui, captured ? CapturedKey : EscapedKey), captured);
+            _view.SetGhost(result.Ghost.Icon, result.Ghost.RimColor, captured);
+            _view.SetNewEntry(result.IsFirstCapture);
+            // A ghost only escapes when the battery dies, so that is always the reason to show.
+            _view.SetReason(captured ? string.Empty : _localization.Get(LocalizationTable.Ui, BatteryReasonKey));
             _view.SetGhostName(_localization.Get(LocalizationTable.Ghosts, result.Ghost.NameKey));
             _view.SetReward(captured ? _localization.Get(LocalizationTable.Ui, RewardKey, result.Reward) : string.Empty);
 

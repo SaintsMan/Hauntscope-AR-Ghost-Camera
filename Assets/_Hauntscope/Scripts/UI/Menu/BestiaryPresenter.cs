@@ -47,7 +47,7 @@ namespace Hauntscope.UI.Menu
             {
                 var ghost = _ghosts.Ghosts[i];
                 var card = _view.AddCard();
-                Action handler = () => OnCardClicked(ghost);
+                Action handler = () => OnCardClicked(ghost, card);
                 card.Clicked += handler;
                 _cards.Add(card);
                 _cardHandlers.Add(handler);
@@ -109,10 +109,14 @@ namespace Hauntscope.UI.Menu
             _view.SetCount(_localization.Get(LocalizationTable.Ui, CountKey, known, _cards.Count));
         }
 
-        private void OnCardClicked(GhostData ghost)
+        private void OnCardClicked(GhostData ghost, BestiaryCardView card)
         {
             if (_progress.GetCaptureCount(ghost.Id) == 0)
+            {
+                _ui.PlayBack();
+                card.PlayLocked();
                 return;
+            }
 
             _ui.PlayClick();
             _view.ShowDetails(ghost.Icon, ghost.RimColor,

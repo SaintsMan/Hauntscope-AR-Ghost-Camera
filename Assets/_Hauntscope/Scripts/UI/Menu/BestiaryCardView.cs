@@ -1,4 +1,6 @@
 using System;
+using DG.Tweening;
+using Hauntscope.UI.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,6 +43,15 @@ namespace Hauntscope.UI.Menu
             _nameLabel.color = _unknownColor;
             _countLabel.text = string.Empty;
             SetStamp(stamp, _unknownStampColor);
+        }
+
+        // Tapping a ghost that was never caught gets a short "no": the card jerks and the stamp flashes.
+        public void PlayLocked()
+        {
+            transform.DOKill(true);
+            transform.DOPunchRotation(new Vector3(0f, 0f, 5f), 0.35f, 10).Ui(gameObject);
+            _stampFrame.DOKill(true);
+            _stampFrame.DOFade(1f, 0.08f).SetLoops(2, LoopType.Yoyo).Ui(gameObject);
         }
 
         private void SetStamp(string text, Color color)

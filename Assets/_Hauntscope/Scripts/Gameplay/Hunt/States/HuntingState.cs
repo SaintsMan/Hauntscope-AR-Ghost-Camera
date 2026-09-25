@@ -87,7 +87,7 @@ namespace Hauntscope.Gameplay.Hunt.States
                 return;
 
             if (ghost.IsCaptureFinished)
-                _session.Finish(HuntOutcome.Captured);
+                _session.Finish(HuntOutcome.Captured, _progress.GetCaptureCount(_session.GhostData.Id) == 0);
             else if (ghost.IsEscapeFinished)
                 _session.Finish(HuntOutcome.Escaped);
         }
