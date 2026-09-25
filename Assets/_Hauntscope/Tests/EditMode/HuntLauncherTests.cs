@@ -55,35 +55,36 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
-        public void Launch_CameraGrantedOnRequest_LoadsAr()
+        public void Launch_CameraNotGranted_ExplainsBeforeAnySystemRequest()
         {
+            Launch();
+
+            Assert.AreEqual(LaunchPrompt.CameraPermission, _launcher.Prompt.Value);
+            Assert.AreEqual(0, _camera.RequestCount);
+            Assert.AreEqual(0, _sceneLoader.LoadCount);
+        }
+
+        [Test]
+        public void AllowCamera_GrantedOnRequest_LoadsAr()
+        {
+            Launch();
             _camera.NextResult = PermissionResult.Granted;
 
-            Launch();
+            Allow();
 
             Assert.AreEqual(1, _camera.RequestCount);
             AssertLoaded(HuntEnvironment.Ar);
         }
 
         [Test]
-        public void Launch_CameraDenied_ShowsCameraPermissionPrompt()
+        public void AllowCamera_Denied_KeepsCameraPermissionPrompt()
         {
+            Launch();
             _camera.NextResult = PermissionResult.Denied;
 
-            Launch();
+            Allow();
 
             Assert.AreEqual(LaunchPrompt.CameraPermission, _launcher.Prompt.Value);
-            Assert.AreEqual(0, _sceneLoader.LoadCount);
-        }
-
-        [Test]
-        public void Launch_CameraDeniedPermanently_ShowsCameraSettingsPrompt()
-        {
-            _camera.NextResult = PermissionResult.DeniedPermanently;
-
-            Launch();
-
-            Assert.AreEqual(LaunchPrompt.CameraSettings, _launcher.Prompt.Value);
             Assert.AreEqual(0, _sceneLoader.LoadCount);
         }
 
@@ -147,26 +148,26 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
-        public void AllowCamera_PermissionPromptAndGranted_LoadsAr()
+        public void AllowCamera_DeniedThenGranted_LoadsAr()
         {
-            _camera.NextResult = PermissionResult.Denied;
             Launch();
+            _camera.NextResult = PermissionResult.Denied;
+            Allow();
             _camera.NextResult = PermissionResult.Granted;
 
-            _launcher.AllowCameraAsync(CancellationToken.None).Forget();
+            Allow();
 
             Assert.AreEqual(2, _camera.RequestCount);
             AssertLoaded(HuntEnvironment.Ar);
         }
 
         [Test]
-        public void AllowCamera_PermissionPromptAndDeniedPermanently_SwitchesToSettingsPrompt()
+        public void AllowCamera_DeniedPermanently_SwitchesToSettingsPrompt()
         {
-            _camera.NextResult = PermissionResult.Denied;
             Launch();
             _camera.NextResult = PermissionResult.DeniedPermanently;
 
-            _launcher.AllowCameraAsync(CancellationToken.None).Forget();
+            Allow();
 
             Assert.AreEqual(LaunchPrompt.CameraSettings, _launcher.Prompt.Value);
         }
@@ -174,10 +175,9 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void AllowCamera_SettingsPrompt_OpensSettingsWithoutRequest()
         {
-            _camera.NextResult = PermissionResult.DeniedPermanently;
-            Launch();
+            ReachSettingsPrompt();
 
-            _launcher.AllowCameraAsync(CancellationToken.None).Forget();
+            Allow();
 
             Assert.AreEqual(1, _camera.OpenSettingsCount);
             Assert.AreEqual(1, _camera.RequestCount);
@@ -196,8 +196,7 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void Resumed_SettingsPromptAndPermissionGranted_LoadsAr()
         {
-            _camera.NextResult = PermissionResult.DeniedPermanently;
-            Launch();
+            ReachSettingsPrompt();
             _camera.IsGranted = true;
 
             _lifecycle.Resume();
@@ -208,8 +207,7 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void Resumed_SettingsPromptAndStillDenied_KeepsPrompt()
         {
-            _camera.NextResult = PermissionResult.DeniedPermanently;
-            Launch();
+            ReachSettingsPrompt();
 
             _lifecycle.Resume();
 
@@ -230,10 +228,9 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void Resumed_WhileRequestPending_DoesNotLoadTwice()
         {
-            _camera.NextResult = PermissionResult.Denied;
             Launch();
             _camera.HoldRequests = true;
-            _launcher.AllowCameraAsync(CancellationToken.None).Forget();
+            Allow();
             _camera.IsGranted = true;
 
             _lifecycle.Resume();
@@ -245,8 +242,9 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void Launch_WhileRequestPending_IsIgnored()
         {
-            _camera.HoldRequests = true;
             Launch();
+            _camera.HoldRequests = true;
+            Allow();
 
             Launch();
 
@@ -257,7 +255,6 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void PlayVirtual_CameraPrompt_LoadsVirtualAndClearsPrompt()
         {
-            _camera.NextResult = PermissionResult.Denied;
             Launch();
 
             _launcher.PlayVirtualAsync(CancellationToken.None).Forget();
@@ -290,8 +287,7 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void Dispose_ThenResumed_IsIgnored()
         {
-            _camera.NextResult = PermissionResult.DeniedPermanently;
-            Launch();
+            ReachSettingsPrompt();
             _camera.IsGranted = true;
             DisposeLauncher();
 
@@ -312,6 +308,18 @@ namespace Hauntscope.Tests.EditMode
         {
             _launcher.Dispose();
             _isDisposed = true;
+        }
+
+        private void Allow()
+        {
+            _launcher.AllowCameraAsync(CancellationToken.None).Forget();
+        }
+
+        private void ReachSettingsPrompt()
+        {
+            Launch();
+            _camera.NextResult = PermissionResult.DeniedPermanently;
+            Allow();
         }
 
         private void Launch()

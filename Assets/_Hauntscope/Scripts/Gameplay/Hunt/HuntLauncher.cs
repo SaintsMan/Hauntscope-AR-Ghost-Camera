@@ -131,7 +131,9 @@ namespace Hauntscope.Gameplay.Hunt
                 return;
             }
 
-            await RequestCameraAsync(cancellationToken);
+            // The system dialog is only raised from the explanation screen's button: a player who knows why the
+            // camera is needed rarely denies it, and Android stops showing the dialog after the second denial.
+            _prompt.Value = LaunchPrompt.CameraPermission;
         }
 
         private async UniTask RequestCameraAsync(CancellationToken cancellationToken)
