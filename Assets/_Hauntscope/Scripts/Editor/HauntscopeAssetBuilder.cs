@@ -99,6 +99,9 @@ namespace Hauntscope.Editor
             material.SetFloat("_NoiseStrength", 0f);
             material.SetFloat("_WobbleAmplitude", 0f);
             material.SetFloat("_Reveal", 0f);
+            // Eyes sit half inside the body. Drawn just before it, their front half stays crisp above the body's
+            // depth and the sunken half still shows through the translucent body, even when it pulses in a struggle.
+            material.renderQueue = (int)RenderQueue.Transparent - 1;
             EditorUtility.SetDirty(material);
             return material;
         }

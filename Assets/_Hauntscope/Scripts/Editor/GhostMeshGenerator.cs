@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Hauntscope.Editor
@@ -7,8 +8,11 @@ namespace Hauntscope.Editor
     {
         private const float FullCircle = Mathf.PI * 2f;
         private const float Forward = Mathf.PI * 0.5f;
-        private const int Rings = 28;
-        private const int Segments = 36;
+        // Dense enough that neither the silhouette nor the rim light breaks into visible facets up close.
+        private const int Rings = 56;
+        private const int Segments = 72;
+        private const int HornRings = 6;
+        private const int HornSides = 14;
 
         public static void BuildWisp(Mesh mesh)
         {
@@ -169,17 +173,11 @@ namespace Hauntscope.Editor
                 var radius = v <= shoulder
                     ? 0.44f - 0.1f * v / shoulder
                     : 0.34f * Mathf.Sqrt(Mathf.Max(0f, 1f - Mathf.Pow((v - shoulder) / (1f - shoulder), 2f)));
-
-                // A crown of horns breaks the dome.
-                var horns = Mathf.Pow(Mathf.Max(0f, Mathf.Sin(5f * angle)), 10f);
-                var crown = SmoothStep(0.72f, 1f, v);
-                radius += 0.05f * horns * crown;
                 radius *= 1f + 0.05f * Mathf.Sin(4f * angle + v * 6f);
 
-                var y = v * height + 0.22f * horns * crown;
-                y += Mathf.Pow(1f - v, 6f) * 0.08f * (Mathf.Sin(7f * angle) + 0.6f * Mathf.Sin(3f * angle + 2f));
+                var y = v * height + Mathf.Pow(1f - v, 6f) * 0.08f * (Mathf.Sin(7f * angle) + 0.6f * Mathf.Sin(3f * angle + 2f));
                 return OnRing(radius, angle, y);
-            });
+            }, new HornCrown(count: 5, phase: Mathf.PI * 0.1f, v: 0.84f, length: 0.24f, radius: 0.05f, spread: 0.7f, bend: 0.06f));
         }
 
         private static float Reach(float v, float angle, float direction)
@@ -226,11 +224,11 @@ namespace Hauntscope.Editor
             return new Vector3(Mathf.Cos(angle) * radius, y, Mathf.Sin(angle) * radius);
         }
 
-        private static void Lathe(Mesh mesh, float height, Func<float, float, Vector3> surface)
+        private static void Lathe(Mesh mesh, float height, Func<float, float, Vector3> surface, HornCrown? horns = null)
         {
             var columns = Segments + 1;
-            var vertices = new Vector3[(Rings + 1) * columns + 1];
-            var triangles = new int[Rings * Segments * 6 + Segments * 3];
+            var vertices = new List<Vector3>((Rings + 1) * columns);
+            var triangles = new List<int>(Rings * Segments * 6);
             var centerOffset = new Vector3(0f, height * 0.5f, 0f);
 
             for (var ring = 0; ring <= Rings; ring++)
@@ -239,52 +237,107 @@ namespace Hauntscope.Editor
                 for (var segment = 0; segment <= Segments; segment++)
                 {
                     var angle = (float)segment / Segments * FullCircle;
-                    vertices[ring * columns + segment] = surface(v, angle) - centerOffset;
+                    vertices.Add(surface(v, angle) - centerOffset);
                 }
             }
 
-            var index = 0;
             for (var ring = 0; ring < Rings; ring++)
             {
                 for (var segment = 0; segment < Segments; segment++)
                 {
                     var a = ring * columns + segment;
-                    var b = a + columns;
-                    triangles[index++] = a;
-                    triangles[index++] = b;
-                    triangles[index++] = a + 1;
-                    triangles[index++] = a + 1;
-                    triangles[index++] = b;
-                    triangles[index++] = b + 1;
+                    Quad(triangles, a, a + columns, a + 1, a + columns + 1);
                 }
             }
 
-            // The cap apex sits above the highest hem point so a wavy hem never folds cap triangles towards the viewer.
-            var bottomCenter = vertices.Length - 1;
-            var sum = Vector3.zero;
-            var hemTop = float.NegativeInfinity;
-            for (var segment = 0; segment < Segments; segment++)
-            {
-                sum += vertices[segment];
-                hemTop = Mathf.Max(hemTop, vertices[segment].y);
-            }
-
-            var apex = sum / Segments;
-            apex.y = hemTop + height * 0.05f;
-            vertices[bottomCenter] = apex;
-            for (var segment = 0; segment < Segments; segment++)
-            {
-                triangles[index++] = bottomCenter;
-                triangles[index++] = segment;
-                triangles[index++] = segment + 1;
-            }
+            // The hem stays open like a real sheet: the two-sided shader shows its inside from below. A cap across
+            // it caught the rim light edge-on and read as a flat glowing plate.
+            if (horns.HasValue)
+                AddHorns(vertices, triangles, surface, centerOffset, horns.Value);
 
             mesh.Clear();
-            mesh.vertices = vertices;
-            mesh.triangles = triangles;
+            mesh.SetVertices(vertices);
+            mesh.SetTriangles(triangles, 0);
             mesh.RecalculateNormals();
             WeldSeamNormals(mesh, columns);
             mesh.RecalculateBounds();
+        }
+
+        // Horns are real cones rooted in the surface, not vertices of the dome pulled up: those fold into thin fins
+        // that catch the full rim light as flat white triangles.
+        private static void AddHorns(List<Vector3> vertices, List<int> triangles, Func<float, float, Vector3> surface,
+            Vector3 centerOffset, HornCrown crown)
+        {
+            for (var i = 0; i < crown.Count; i++)
+            {
+                var angle = crown.Phase + i * FullCircle / crown.Count;
+                var root = surface(crown.V, angle) - centerOffset;
+                var outward = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
+                AddHorn(vertices, triangles, root, outward, crown);
+            }
+        }
+
+        private static void AddHorn(List<Vector3> vertices, List<int> triangles, Vector3 root, Vector3 outward, HornCrown crown)
+        {
+            var direction = (Vector3.up + outward * crown.Spread).normalized;
+            var u = Vector3.Cross(Vector3.up, outward).normalized;
+            var w = Vector3.Cross(u, direction);
+            // Rooted a little inside the dome, so the base never shows a seam.
+            var start = root - direction * crown.Radius;
+            var first = vertices.Count;
+            var firstTriangle = triangles.Count;
+
+            for (var ring = 0; ring < HornRings; ring++)
+            {
+                var t = (float)ring / HornRings;
+                var center = start + direction * (crown.Length * t) + outward * (crown.Bend * t * t);
+                var radius = crown.Radius * Mathf.Pow(1f - t, 0.8f);
+                for (var side = 0; side < HornSides; side++)
+                {
+                    var theta = (float)side / HornSides * FullCircle;
+                    vertices.Add(center + (u * Mathf.Cos(theta) + w * Mathf.Sin(theta)) * radius);
+                }
+            }
+
+            var tip = vertices.Count;
+            vertices.Add(start + direction * crown.Length + outward * crown.Bend);
+
+            for (var ring = 0; ring < HornRings - 1; ring++)
+            {
+                var a = first + ring * HornSides;
+                for (var side = 0; side < HornSides; side++)
+                {
+                    var next = (side + 1) % HornSides;
+                    Quad(triangles, a + side, a + HornSides + side, a + next, a + HornSides + next);
+                }
+            }
+
+            var last = first + (HornRings - 1) * HornSides;
+            for (var side = 0; side < HornSides; side++)
+            {
+                triangles.Add(last + side);
+                triangles.Add(tip);
+                triangles.Add(last + (side + 1) % HornSides);
+            }
+
+            // Faces must point out of the cone for the rim light; flip the winding if the basis is mirrored.
+            var a0 = vertices[triangles[firstTriangle]];
+            var normal = Vector3.Cross(vertices[triangles[firstTriangle + 1]] - a0, vertices[triangles[firstTriangle + 2]] - a0);
+            if (Vector3.Dot(normal, a0 - start) >= 0f)
+                return;
+
+            for (var i = firstTriangle; i < triangles.Count; i += 3)
+                (triangles[i + 1], triangles[i + 2]) = (triangles[i + 2], triangles[i + 1]);
+        }
+
+        private static void Quad(List<int> triangles, int a, int b, int a1, int b1)
+        {
+            triangles.Add(a);
+            triangles.Add(b);
+            triangles.Add(a1);
+            triangles.Add(a1);
+            triangles.Add(b);
+            triangles.Add(b1);
         }
 
         // The seam column is duplicated for a closed lathe, so its normals are averaged to hide the seam line.
@@ -301,6 +354,34 @@ namespace Hauntscope.Editor
             }
 
             mesh.normals = normals;
+        }
+
+        private readonly struct HornCrown
+        {
+            public HornCrown(int count, float phase, float v, float length, float radius, float spread, float bend)
+            {
+                Count = count;
+                Phase = phase;
+                V = v;
+                Length = length;
+                Radius = radius;
+                Spread = spread;
+                Bend = bend;
+            }
+
+            public int Count { get; }
+
+            public float Phase { get; }
+
+            public float V { get; }
+
+            public float Length { get; }
+
+            public float Radius { get; }
+
+            public float Spread { get; }
+
+            public float Bend { get; }
         }
     }
 }

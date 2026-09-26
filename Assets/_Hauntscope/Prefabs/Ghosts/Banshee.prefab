@@ -4983,6 +4983,9 @@ MonoBehaviour:
   _struggleJitter: 0.025
   _struggleWobble: 5
   _struggleRim: 1.2
+  _staggerWhiten: 0.7
+  _staggerRim: 1.5
+  _flashRim: 2.5
 --- !u!1 &4927551654962625099
 GameObject:
   m_ObjectHideFlags: 0
