@@ -47,6 +47,7 @@ namespace Hauntscope.Editor
             BuildAdIcon();
             BuildEmfArrow();
             BuildPlusIcon();
+            BuildPhotoIcons();
         }
 
         private static void BuildFrame()
@@ -526,6 +527,59 @@ namespace Hauntscope.Editor
             const int size = 64;
             Sdf plus = p => Mathf.Min(Segment(p, new Vector2(32f, 16f), new Vector2(32f, 48f)), Segment(p, new Vector2(16f, 32f), new Vector2(48f, 32f)));
             SaveSprite("PlusIcon", size, size, Shape(size, size, plus, true, Line, 6f), Vector4.zero);
+        }
+
+        // Spirit camera: an aperture (lens ring with six blades) for the shutter, rating stars, and the share /
+        // save / close glyphs of the photo viewer, all in the frame line weight.
+        private static void BuildPhotoIcons()
+        {
+            const int size = 128;
+            var center = Center(size, size);
+            Sdf blades = p =>
+            {
+                var distance = float.MaxValue;
+                for (var i = 0; i < 6; i++)
+                {
+                    var angle = i * Mathf.PI / 3f;
+                    var from = center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * 40f;
+                    var to = center + new Vector2(Mathf.Cos(angle + 2.1f), Mathf.Sin(angle + 2.1f)) * 14f;
+                    distance = Mathf.Min(distance, Segment(p, from, to));
+                }
+
+                return distance;
+            };
+            SaveSprite("ShutterIcon", size, size, Max(
+                Shape(size, size, p => Circle(p, center, 40f), true, Line, Glow),
+                Shape(size, size, blades, true, Line, Glow)), Vector4.zero);
+
+            var star = new Vector2[10];
+            for (var i = 0; i < star.Length; i++)
+            {
+                var angle = Mathf.PI * 0.5f + i * Mathf.PI / 5f;
+                var radius = i % 2 == 0 ? 46f : 19f;
+                star[i] = center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+            }
+
+            SaveSprite("StarFilled", size, size, Shape(size, size, p => Polygon(p, star), false, 0f, Glow), Vector4.zero);
+            SaveSprite("StarOutline", size, size, Shape(size, size, p => Polygon(p, star), true, Line, Glow * 0.6f), Vector4.zero);
+
+            Sdf share = p => Mathf.Min(
+                Mathf.Min(Segment(p, new Vector2(64f, 44f), new Vector2(64f, 100f)),
+                    Mathf.Min(Segment(p, new Vector2(64f, 100f), new Vector2(46f, 82f)), Segment(p, new Vector2(64f, 100f), new Vector2(82f, 82f)))),
+                Mathf.Min(Mathf.Min(Segment(p, new Vector2(40f, 70f), new Vector2(30f, 70f)), Segment(p, new Vector2(30f, 70f), new Vector2(30f, 24f))),
+                    Mathf.Min(Segment(p, new Vector2(30f, 24f), new Vector2(98f, 24f)),
+                        Mathf.Min(Segment(p, new Vector2(98f, 24f), new Vector2(98f, 70f)), Segment(p, new Vector2(98f, 70f), new Vector2(88f, 70f))))));
+            SaveSprite("ShareIcon", size, size, Shape(size, size, share, true, Line * 1.5f, Glow), Vector4.zero);
+
+            Sdf save = p => Mathf.Min(
+                Mathf.Min(Segment(p, new Vector2(64f, 104f), new Vector2(64f, 48f)),
+                    Mathf.Min(Segment(p, new Vector2(64f, 48f), new Vector2(46f, 66f)), Segment(p, new Vector2(64f, 48f), new Vector2(82f, 66f)))),
+                Mathf.Min(Segment(p, new Vector2(30f, 44f), new Vector2(30f, 24f)),
+                    Mathf.Min(Segment(p, new Vector2(30f, 24f), new Vector2(98f, 24f)), Segment(p, new Vector2(98f, 24f), new Vector2(98f, 44f)))));
+            SaveSprite("SaveIcon", size, size, Shape(size, size, save, true, Line * 1.5f, Glow), Vector4.zero);
+
+            Sdf close = p => Mathf.Min(Segment(p, new Vector2(36f, 36f), new Vector2(92f, 92f)), Segment(p, new Vector2(36f, 92f), new Vector2(92f, 36f)));
+            SaveSprite("CloseIcon", size, size, Shape(size, size, close, true, Line * 1.5f, Glow), Vector4.zero);
         }
 
         private static float Wave(Vector2 p, float fromX, float toX, float y, float amplitude, float periods)

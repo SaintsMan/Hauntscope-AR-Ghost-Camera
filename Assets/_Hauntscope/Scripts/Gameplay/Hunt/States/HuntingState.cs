@@ -2,6 +2,7 @@ using Hauntscope.Core.StateMachines;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Ghosts;
+using Hauntscope.Gameplay.Photo;
 using Hauntscope.Gameplay.Pickups;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Research;
@@ -28,6 +29,7 @@ namespace Hauntscope.Gameplay.Hunt.States
         private readonly PickupField _pickups;
         private readonly EmergencyCharge _emergency;
         private readonly GhostResearch _research;
+        private readonly SpiritCamera _spiritCamera;
 
         public HuntingState(
             HuntSession session,
@@ -45,8 +47,10 @@ namespace Hauntscope.Gameplay.Hunt.States
             HuntLoot loot,
             PickupField pickups,
             EmergencyCharge emergency,
-            GhostResearch research)
+            GhostResearch research,
+            SpiritCamera spiritCamera)
         {
+            _spiritCamera = spiritCamera;
             _research = research;
             _loot = loot;
             _pickups = pickups;
@@ -76,6 +80,7 @@ namespace Hauntscope.Gameplay.Hunt.States
             _loot.Reset();
             _loadout.Begin();
             _emergency.ResetForHunt();
+            _spiritCamera.BeginHunt();
             _session.Begin(_factory.Create(data), data, isFirstHunt);
             _pickups.Begin();
         }
@@ -103,6 +108,7 @@ namespace Hauntscope.Gameplay.Hunt.States
             }
 
             _toolbelt.Tick(deltaTime);
+            _spiritCamera.Tick(deltaTime);
             _pickups.Tick(deltaTime);
             ghost.Tick(deltaTime);
             _radar.Tick(deltaTime, ghost.EmfSource, ghost.EmfRange * _modifiers.EmfRange);
@@ -124,11 +130,14 @@ namespace Hauntscope.Gameplay.Hunt.States
                 return;
 
             var data = _session.GhostData;
+            var photo = _spiritCamera.BestShot;
+            var evidence = _spiritCamera.EvidenceShots;
             if (ghost.IsCaptureFinished)
                 _session.Finish(HuntOutcome.Captured, _progress.GetCaptureCount(data.Id) == 0, _loot.Ectoplasm.Value,
-                    _research.RewardMultiplier(data), _research.IsDeclassifyingCatch(data));
+                    _research.RewardMultiplier(data), _research.WillDeclassify(data, true, evidence), photo, _spiritCamera.Reward, evidence);
             else if (ghost.IsEscapeFinished)
-                _session.Finish(HuntOutcome.Escaped, false, _loot.Ectoplasm.Value);
+                _session.Finish(HuntOutcome.Escaped, false, _loot.Ectoplasm.Value, 1f,
+                    _research.WillDeclassify(data, false, evidence), photo, _spiritCamera.Reward, evidence);
         }
     }
 }

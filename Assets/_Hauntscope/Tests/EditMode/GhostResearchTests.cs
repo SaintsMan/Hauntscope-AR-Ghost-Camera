@@ -61,7 +61,7 @@ namespace Hauntscope.Tests.EditMode
             Capture(ToDeclassify);
 
             Assert.AreEqual(ResearchLevel.Declassified, _research.GetLevel(_ghost));
-            Assert.AreEqual(0, _research.CapturesLeft(_ghost));
+            Assert.AreEqual(0, _research.EvidenceLeft(_ghost));
         }
 
         [Test]
@@ -78,24 +78,66 @@ namespace Hauntscope.Tests.EditMode
             Capture(ToDeclassify - 1);
 
             Assert.AreEqual(1f, _research.RewardMultiplier(_ghost));
-            Assert.AreEqual(1, _research.CapturesLeft(_ghost));
+            Assert.AreEqual(1, _research.EvidenceLeft(_ghost));
         }
 
         [Test]
-        public void IsDeclassifyingCatch_LastCaptureBeforeTheFile_IsTrue()
+        public void WillDeclassify_LastCaptureBeforeTheFile_IsTrue()
         {
             Capture(ToDeclassify - 1);
 
-            Assert.IsTrue(_research.IsDeclassifyingCatch(_ghost));
+            Assert.IsTrue(_research.WillDeclassify(_ghost, true, 0));
         }
 
         [Test]
-        public void IsDeclassifyingCatch_AlreadyDeclassified_IsFalse()
+        public void WillDeclassify_AlreadyDeclassified_IsFalse()
         {
             Capture(ToDeclassify);
 
-            Assert.IsFalse(_research.IsDeclassifyingCatch(_ghost));
+            Assert.IsFalse(_research.WillDeclassify(_ghost, true, 0));
         }
+
+        [Test]
+        public void GetLevel_PhotosFillTheGap_IsDeclassified()
+        {
+            Capture(ToDeclassify - 2);
+            _progress.AddPhotoEvidence("poltergeist", 2, 2);
+
+            Assert.AreEqual(ResearchLevel.Declassified, _research.GetLevel(_ghost));
+        }
+
+        [Test]
+        public void GetLevel_PhotosWithoutAnyCapture_StaySighted()
+        {
+            _progress.MarkSighted("poltergeist");
+            _progress.AddPhotoEvidence("poltergeist", 2, 2);
+
+            Assert.AreEqual(ResearchLevel.Sighted, _research.GetLevel(_ghost));
+        }
+
+        [Test]
+        public void EvidenceLeft_PhotosBeyondTheCap_CountOnlyUpToTheCap()
+        {
+            Capture(1);
+            _progress.AddPhotoEvidence("poltergeist", 5, 5);
+
+            Assert.AreEqual(ToDeclassify - 1 - 2, _research.EvidenceLeft(_ghost));
+        }
+
+        [Test]
+        public void WillDeclassify_EscapeWithTheLastPhoto_IsTrue()
+        {
+            Capture(ToDeclassify - 1);
+
+            Assert.IsTrue(_research.WillDeclassify(_ghost, false, 1));
+        }
+
+        [Test]
+        public void WillDeclassify_PhotosButNeverCaught_IsFalse()
+        {
+            Assert.IsFalse(_research.WillDeclassify(_ghost, false, 5));
+        }
+
 
         private void Capture(int times)
         {

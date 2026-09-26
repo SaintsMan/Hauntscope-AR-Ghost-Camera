@@ -21,26 +21,40 @@ namespace Hauntscope.Gameplay.Progress
             if (!_save.TryLoad<PlayerProgressDto>(Key, out var dto) || !IsSupported(dto.Version))
                 return new PlayerProgress();
 
-            var captures = new Dictionary<string, int>();
-            foreach (var entry in dto.Captures)
-            {
-                if (!string.IsNullOrEmpty(entry.GhostId) && entry.Count > 0)
-                    captures[entry.GhostId] = entry.Count;
-            }
-
-            return new PlayerProgress(dto.Ectoplasm, captures, dto.TotalSessions, dto.VirtualRoomNoticeShown,
-                dto.TutorialCompleted, dto.ReviewPromptedAtCaptures, dto.Sighted, dto.FieldDropDay, dto.FieldDropsClaimed);
+            return new PlayerProgress(dto.Ectoplasm, ToCounts(dto.Captures), dto.TotalSessions, dto.VirtualRoomNoticeShown,
+                dto.TutorialCompleted, dto.ReviewPromptedAtCaptures, dto.Sighted, dto.FieldDropDay, dto.FieldDropsClaimed,
+                ToCounts(dto.PhotoEvidence));
         }
 
         public void Save(PlayerProgress progress)
         {
-            var captures = new List<CaptureCountDto>(progress.Captures.Count);
-            foreach (var pair in progress.Captures)
-                captures.Add(new CaptureCountDto(pair.Key, pair.Value));
-
-            _save.Save(Key, new PlayerProgressDto(CurrentVersion, progress.Ectoplasm.Value, captures,
+            _save.Save(Key, new PlayerProgressDto(CurrentVersion, progress.Ectoplasm.Value, ToDtos(progress.Captures),
                 progress.TotalSessions, progress.VirtualRoomNoticeShown, progress.TutorialCompleted,
-                progress.ReviewPromptedAtCaptures, new List<string>(progress.Sighted), progress.FieldDropDay, progress.FieldDropsClaimed));
+                progress.ReviewPromptedAtCaptures, new List<string>(progress.Sighted), progress.FieldDropDay, progress.FieldDropsClaimed,
+                ToDtos(progress.PhotoEvidence)));
+        }
+
+        private static Dictionary<string, int> ToCounts(IReadOnlyList<CaptureCountDto> entries)
+        {
+            var counts = new Dictionary<string, int>();
+            if (entries == null)
+                return counts;
+
+            foreach (var entry in entries)
+            {
+                if (!string.IsNullOrEmpty(entry.GhostId) && entry.Count > 0)
+                    counts[entry.GhostId] = entry.Count;
+            }
+
+            return counts;
+        }
+
+        private static List<CaptureCountDto> ToDtos(IReadOnlyDictionary<string, int> counts)
+        {
+            var entries = new List<CaptureCountDto>(counts.Count);
+            foreach (var pair in counts)
+                entries.Add(new CaptureCountDto(pair.Key, pair.Value));
+            return entries;
         }
 
         // No migrations exist yet: version 1 is the only format. Unknown (newer or missing) versions start fresh.

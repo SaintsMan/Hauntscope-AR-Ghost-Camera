@@ -5,6 +5,8 @@ using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Ads;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Photo;
+using Hauntscope.UI.Common;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -20,6 +22,7 @@ namespace Hauntscope.UI.Hunt
         private const string CaptureKey = "result.breakdown.capture";
         private const string ResearchKey = "result.breakdown.research";
         private const string FoundKey = "result.breakdown.found";
+        private const string PhotoKey = "result.breakdown.photo";
         private const string SeparatorKey = "result.breakdown.separator";
         private const string NewEntryKey = "result.new_entry";
         private const string DeclassifiedKey = "result.declassified";
@@ -35,6 +38,12 @@ namespace Hauntscope.UI.Hunt
         private readonly RewardDoubler _doubler;
         private readonly AdBreak _adBreak;
         private readonly IAdsService _ads;
+        private readonly PhotoTextures _textures;
+        private readonly PhotoViewer _viewer;
+        private readonly PhotoSharing _sharing;
+
+        private Texture2D _photo;
+        private PhotoShot _shownPhoto;
 
         private bool _isLeaving;
 
@@ -46,8 +55,14 @@ namespace Hauntscope.UI.Hunt
             UiFeedback ui,
             RewardDoubler doubler,
             AdBreak adBreak,
-            IAdsService ads)
+            IAdsService ads,
+            PhotoTextures textures,
+            PhotoViewer viewer,
+            PhotoSharing sharing)
         {
+            _textures = textures;
+            _viewer = viewer;
+            _sharing = sharing;
             _doubler = doubler;
             _adBreak = adBreak;
             _ads = ads;
@@ -66,6 +81,8 @@ namespace Hauntscope.UI.Hunt
             _view.HuntAgainClicked += OnHuntAgainClicked;
             _view.MenuClicked += OnMenuClicked;
             _view.DoubleClicked += OnDoubleClicked;
+            _view.PhotoClicked += OnPhotoClicked;
+            _view.ShareClicked += OnShareClicked;
             _ads.AvailabilityChanged += RenderDouble;
             Render(_session.Result.Value);
         }
@@ -77,7 +94,10 @@ namespace Hauntscope.UI.Hunt
             _view.HuntAgainClicked -= OnHuntAgainClicked;
             _view.MenuClicked -= OnMenuClicked;
             _view.DoubleClicked -= OnDoubleClicked;
+            _view.PhotoClicked -= OnPhotoClicked;
+            _view.ShareClicked -= OnShareClicked;
             _ads.AvailabilityChanged -= RenderDouble;
+            PhotoTextures.Release(ref _photo);
             _lifetime.Cancel();
             _lifetime.Dispose();
         }
@@ -126,6 +146,40 @@ namespace Hauntscope.UI.Hunt
             {
                 _isLeaving = false;
             }
+        }
+
+        private void OnPhotoClicked()
+        {
+            var photo = _session.Result.Value?.BestPhoto;
+            if (photo == null)
+                return;
+
+            _ui.PlayClick();
+            _viewer.Open(photo.Record);
+        }
+
+        private void OnShareClicked()
+        {
+            var photo = _session.Result.Value?.BestPhoto;
+            if (photo == null)
+                return;
+
+            _ui.PlayClick();
+            _sharing.Share(photo.Record);
+        }
+
+        // Decoded once per result: a language switch or a doubled reward re-renders the card with the same photo.
+        private void RenderPhoto(HuntResult result)
+        {
+            var shot = result?.BestPhoto;
+            if (shot == _shownPhoto)
+                return;
+
+            _shownPhoto = shot;
+            PhotoTextures.Release(ref _photo);
+            if (shot != null)
+                _photo = _textures.Load(shot.Record.FileName);
+            _view.SetPhoto(_photo, shot != null ? shot.Score.Stars : 0);
         }
 
         private void OnDoubleClicked()
@@ -178,12 +232,15 @@ namespace Hauntscope.UI.Hunt
                 text += separator + _localization.Get(LocalizationTable.Ui, ResearchKey, research);
             if (result.Found > 0)
                 text += separator + _localization.Get(LocalizationTable.Ui, FoundKey, result.Found);
+            if (result.PhotoReward > 0)
+                text += separator + _localization.Get(LocalizationTable.Ui, PhotoKey, result.PhotoReward);
             return text;
         }
 
         private void Render(HuntResult result)
         {
             _view.SetVisible(result != null);
+            RenderPhoto(result);
             if (result == null)
                 return;
 

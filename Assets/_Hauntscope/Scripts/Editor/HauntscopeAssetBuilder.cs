@@ -288,6 +288,7 @@ namespace Hauntscope.Editor
             SetClip(serialized, "_audio._rewardGranted", SfxFolder, "RewardGranted");
             SetClip(serialized, "_audio._ghostStagger", SfxFolder, "GhostStagger");
             SetClip(serialized, "_audio._ghostSurge", SfxFolder, "GhostSurge");
+            SetClip(serialized, "_audio._photoShutter", SfxFolder, "PhotoShutter");
             serialized.FindProperty("_vfx._captureSpiral").objectReferenceValue = VfxGenerator.CaptureSpiral;
             serialized.FindProperty("_vfx._teleportFlash").objectReferenceValue = VfxGenerator.TeleportFlash;
             serialized.FindProperty("_vfx._revealPulse").objectReferenceValue = VfxGenerator.RevealPulse;

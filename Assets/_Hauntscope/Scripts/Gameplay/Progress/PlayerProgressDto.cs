@@ -19,6 +19,7 @@ namespace Hauntscope.Gameplay.Progress
         [SerializeField] private List<string> _sighted = new List<string>();
         [SerializeField] private int _fieldDropDay;
         [SerializeField] private int _fieldDropsClaimed;
+        [SerializeField] private List<CaptureCountDto> _photoEvidence = new List<CaptureCountDto>();
 
         // Required by JsonUtility, which creates DTOs through the parameterless constructor.
         public PlayerProgressDto()
@@ -35,8 +36,10 @@ namespace Hauntscope.Gameplay.Progress
             int reviewPromptedAtCaptures,
             List<string> sighted,
             int fieldDropDay,
-            int fieldDropsClaimed)
+            int fieldDropsClaimed,
+            List<CaptureCountDto> photoEvidence)
         {
+            _photoEvidence = photoEvidence;
             _sighted = sighted;
             _fieldDropDay = fieldDropDay;
             _fieldDropsClaimed = fieldDropsClaimed;
@@ -68,5 +71,7 @@ namespace Hauntscope.Gameplay.Progress
         public int FieldDropDay => _fieldDropDay;
 
         public int FieldDropsClaimed => _fieldDropsClaimed;
+
+        public IReadOnlyList<CaptureCountDto> PhotoEvidence => _photoEvidence;
     }
 }

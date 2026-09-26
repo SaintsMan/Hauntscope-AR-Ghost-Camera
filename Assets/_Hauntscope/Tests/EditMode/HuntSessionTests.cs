@@ -206,13 +206,13 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
-        public void Finish_EscapedEvenIfFlagged_IsNotDeclassified()
+        public void Finish_EscapedButTheLastPhotoDeclassified_KeepsTheFlag()
         {
             _session.Begin(_fixture.Ghost, _data);
 
             _session.Finish(HuntOutcome.Escaped, false, 0, 1f, true);
 
-            Assert.IsFalse(_session.Result.Value.IsDeclassified);
+            Assert.IsTrue(_session.Result.Value.IsDeclassified);
         }
     }
 }

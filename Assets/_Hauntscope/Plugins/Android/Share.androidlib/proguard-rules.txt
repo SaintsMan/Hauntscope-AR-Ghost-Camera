@@ -1,0 +1,3 @@
+# The bridge is reached only through JNI by name and the provider only through the manifest.
+-keep class com.pavko.hauntscope.share.ShareBridge { *; }
+-keep class com.pavko.hauntscope.share.ShareFileProvider { *; }

@@ -2,6 +2,7 @@ using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Hunt.States;
 using Hauntscope.Gameplay.Progress;
+using Hauntscope.Gameplay.Research;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using Hauntscope.Tests.EditMode.Fakes;
@@ -33,7 +34,8 @@ namespace Hauntscope.Tests.EditMode
             _toolbelt = new Toolbelt(new GhostLens(_session, _fixture.Camera, config, new HuntModifiers()), TestConfigs.Beam(_session, _fixture.Camera, config, new HuntModifiers()));
             _progress = new PlayerProgress();
             _save = new FakeSaveService();
-            _state = new ResultState(_session, _battery, _toolbelt, _progress, new PlayerProgressRepository(_save));
+            _state = new ResultState(_session, _battery, _toolbelt, _progress, new PlayerProgressRepository(_save),
+                new GhostResearch(_progress, new ResearchConfig(5, 0.25f, 2)));
         }
 
         [Test]
@@ -126,6 +128,31 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.AreEqual(9, _progress.Ectoplasm.Value);
             Assert.AreEqual(0, _progress.GetCaptureCount("wisp"));
+        }
+
+        [Test]
+        public void Enter_EscapedWithPhoto_BanksPhotoRewardAndEvidence()
+        {
+            var data = CreateGhost("wisp");
+            _session.Begin(_fixture.Ghost, data);
+            _session.Finish(HuntOutcome.Escaped, false, 0, 1f, false, null, 8, 1);
+
+            _state.Enter();
+
+            Assert.AreEqual(8, _progress.Ectoplasm.Value);
+            Assert.AreEqual(1, _progress.GetPhotoEvidence("wisp"));
+        }
+
+        [Test]
+        public void Enter_MorePhotoEvidenceThanTheCap_IsCapped()
+        {
+            var data = CreateGhost("wisp");
+            _session.Begin(_fixture.Ghost, data);
+            _session.Finish(HuntOutcome.Captured, false, 0, 1f, false, null, 0, 3);
+
+            _state.Enter();
+
+            Assert.AreEqual(2, _progress.GetPhotoEvidence("wisp"));
         }
     }
 }

@@ -53,5 +53,18 @@ namespace Hauntscope.Tests.EditMode
             capture ??= Capture();
             return new CaptureBeam(session, camera, tools, modifiers, new CaptureRateCalculator(tools, capture, modifiers), capture);
         }
+
+        public static PhotoConfig Photo(
+            int filmPerHunt = 3,
+            float shutterCooldown = 1f,
+            float revealThreshold = 0.5f,
+            float centerRadius = 0.2f,
+            float closeDistance = 1.5f,
+            int evidenceMinStars = 2,
+            int albumLimit = 40)
+        {
+            return new PhotoConfig(filmPerHunt, shutterCooldown, revealThreshold, centerRadius, closeDistance,
+                new[] { 2, 4, 8 }, evidenceMinStars, albumLimit);
+        }
     }
 }

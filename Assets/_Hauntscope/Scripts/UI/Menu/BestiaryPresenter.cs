@@ -171,7 +171,7 @@ namespace Hauntscope.UI.Menu
                 ? Ghosts(dossier.ClassifiedKey) + "\n\n" + Ui(BonusKey, Mathf.RoundToInt(_research.DeclassifiedBonus * Percent))
                 : string.Empty;
             _sections.Add(Section("bestiary.section.classified", classified, !declassified,
-                Ui(LockedDeclassifyKey, _research.CapturesLeft(ghost))));
+                Ui(LockedDeclassifyKey, _research.EvidenceLeft(ghost))));
         }
 
         private string Profile(GhostData ghost)

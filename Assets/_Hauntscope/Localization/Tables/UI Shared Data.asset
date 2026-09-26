@@ -619,6 +619,58 @@ MonoBehaviour:
     m_Key: hud.vulnerable
     m_Metadata:
       m_Items: []
+  - m_Id: 400948767096832
+    m_Key: hud.photo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039872
+    m_Key: photo.criteria.center
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039873
+    m_Key: photo.criteria.close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039874
+    m_Key: photo.criteria.moment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039875
+    m_Key: photo.case
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039876
+    m_Key: photo.watermark
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039877
+    m_Key: photo.viewer.share
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039878
+    m_Key: photo.viewer.save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039879
+    m_Key: photo.viewer.saved
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039880
+    m_Key: photo.viewer.save_failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039881
+    m_Key: photo.share_text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039882
+    m_Key: photo.share_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039883
+    m_Key: result.breakdown.photo
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -2,6 +2,7 @@ using System;
 using Hauntscope.Core.Observables;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Ghosts;
+using Hauntscope.Gameplay.Photo;
 
 namespace Hauntscope.Gameplay.Hunt
 {
@@ -47,11 +48,12 @@ namespace Hauntscope.Gameplay.Hunt
             Elapsed += deltaTime;
         }
 
-        public void Finish(HuntOutcome outcome, bool isFirstCapture = false, int found = 0, float rewardMultiplier = 1f, bool isDeclassified = false)
+        public void Finish(HuntOutcome outcome, bool isFirstCapture = false, int found = 0, float rewardMultiplier = 1f,
+            bool isDeclassified = false, PhotoShot bestPhoto = null, int photoReward = 0, int photoEvidence = 0)
         {
             var captured = outcome == HuntOutcome.Captured;
             _result.Value = new HuntResult(outcome, GhostData, Elapsed, isFirstCapture && captured, found, rewardMultiplier, false,
-                isDeclassified && captured);
+                isDeclassified, bestPhoto, photoReward, photoEvidence);
         }
 
         // The ghost was revealed in the lens during this hunt: its Bestiary file opens its behaviour section.

@@ -66,6 +66,8 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private AudioClip _ghostSurge;
         [SerializeField, Range(0f, 1f)] private float _surgeVolume = 0.75f;
         [SerializeField, Min(0.02f)] private float _surgeHapticInterval = 0.12f;
+        [SerializeField] private AudioClip _photoShutter;
+        [SerializeField, Range(0f, 1f)] private float _shutterVolume = 0.85f;
 
         public AudioClip AmbientDrone => _ambientDrone;
 
@@ -187,5 +189,9 @@ namespace Hauntscope.Gameplay.Config
 
         // The surge throbs in the hand faster than a normal beam hold.
         public float SurgeHapticInterval => _surgeHapticInterval;
+
+        public AudioClip PhotoShutter => _photoShutter;
+
+        public float ShutterVolume => _shutterVolume;
     }
 }

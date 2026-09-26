@@ -35,6 +35,12 @@ namespace Hauntscope.UI.Hunt
         [SerializeField, Min(0f)] private float _countDelay = 0.45f;
         [SerializeField, Min(0.05f)] private float _countDuration = 0.9f;
         [SerializeField] private TMP_Text _breakdownLabel;
+        [SerializeField] private RectTransform _photo;
+        [SerializeField] private RawImage _photoImage;
+        [SerializeField] private AspectRatioFitter _photoFitter;
+        [SerializeField] private StarRow _photoStars;
+        [SerializeField] private Button _photoButton;
+        [SerializeField] private Button _shareButton;
 
         private Func<int, string> _rewardFormat;
         private int _shownReward;
@@ -45,6 +51,10 @@ namespace Hauntscope.UI.Hunt
         public event Action MenuClicked;
 
         public event Action DoubleClicked;
+
+        public event Action PhotoClicked;
+
+        public event Action ShareClicked;
 
         public void SetVisible(bool visible)
         {
@@ -130,11 +140,41 @@ namespace Hauntscope.UI.Hunt
             _timeLabel.text = text;
         }
 
+        // The hunt's best shot pinned to the case file like evidence; it drops in after the card opens.
+        public void SetPhoto(Texture photo, int stars)
+        {
+            _photo.gameObject.SetActive(photo != null);
+            _photoImage.texture = photo;
+            if (photo == null)
+                return;
+
+            _photoFitter.aspectRatio = photo.width / (float)photo.height;
+            _photoStars.SetStars(stars, true);
+            if (!isActiveAndEnabled)
+                return;
+
+            _photo.DOKill();
+            _photo.localScale = Vector3.one * 1.6f;
+            _photo.DOScale(1f, 0.4f).SetDelay(_countDelay).SetEase(Ease.OutBack).Ui(gameObject);
+        }
+
         private void Awake()
         {
             _huntAgainButton.onClick.AddListener(OnHuntAgainClicked);
             _menuButton.onClick.AddListener(OnMenuClicked);
             _doubleButton.onClick.AddListener(OnDoubleClicked);
+            _photoButton.onClick.AddListener(OnPhotoClicked);
+            _shareButton.onClick.AddListener(OnShareClicked);
+        }
+
+        private void OnPhotoClicked()
+        {
+            PhotoClicked?.Invoke();
+        }
+
+        private void OnShareClicked()
+        {
+            ShareClicked?.Invoke();
         }
 
         // A closed card forgets its reward, so the next catch counts up again even when it pays the same.
@@ -190,6 +230,12 @@ namespace Hauntscope.UI.Hunt
             _doubleGroup = Find<CanvasGroup>("Card/DoubleButton");
             _huntAgainButton = Find<Button>("Card/HuntAgainButton");
             _menuButton = Find<Button>("Card/MenuButton");
+            _photo = Find<RectTransform>("Card/Photo");
+            _photoImage = Find<RawImage>("Card/Photo/Mask/Image");
+            _photoFitter = Find<AspectRatioFitter>("Card/Photo/Mask/Image");
+            _photoStars = Find<StarRow>("Card/Photo/Stars");
+            _photoButton = Find<Button>("Card/Photo");
+            _shareButton = Find<Button>("Card/Photo/ShareButton");
         }
 
         private T Find<T>(string path) where T : Component

@@ -25,6 +25,7 @@ namespace Hauntscope.Gameplay.Ghosts
         private bool _captureRequested;
         private bool _escapeRequested;
         private bool _scareRequested;
+        private bool _spookRequested;
         private float _revealBeforeEscape;
         private Vector3 _emfDecoy;
         private bool _hasEmfDecoy;
@@ -59,7 +60,7 @@ namespace Hauntscope.Gameplay.Ghosts
             _stateMachine.AddTransition(_wanderState, _alertedState, () => Reveal >= context.Config.AlertRevealThreshold);
             // The scare wins over fleeing: the session has already counted it, so the lunge must happen.
             _stateMachine.AddTransition(_alertedState, _scareState, () => _scareRequested);
-            _stateMachine.AddTransition(_alertedState, _fleeState, () => IsBeamed);
+            _stateMachine.AddTransition(_alertedState, _fleeState, () => IsBeamed || _spookRequested);
             _stateMachine.AddTransition(_fleeState, _surgeState, () => _isSurgeArmed && CaptureProgress >= context.CaptureConfig.SurgeThreshold);
             _stateMachine.AddTransition(_fleeState, _alertedState, () => _fleeState.IsCalm);
             _stateMachine.AddTransition(_surgeState, _fleeState, () => _surgeState.IsFinished);
@@ -220,6 +221,13 @@ namespace Hauntscope.Gameplay.Ghosts
                 _scareRequested = true;
         }
 
+        // A camera flash in its face: a calm ghost bolts, one already running or lunging just keeps going.
+        public void Spook()
+        {
+            if (!IsLeaving && IsAlerted)
+                _spookRequested = true;
+        }
+
         public void Capture()
         {
             if (IsLeaving)
@@ -252,6 +260,7 @@ namespace Hauntscope.Gameplay.Ghosts
             _stateMachine.Tick(deltaTime);
             // A scare request is only valid for the tick right after it; a ghost that fled meanwhile must not lunge later.
             _scareRequested = false;
+            _spookRequested = false;
 
             if (IsSurging && !_wasSurging)
                 BeginSurge();

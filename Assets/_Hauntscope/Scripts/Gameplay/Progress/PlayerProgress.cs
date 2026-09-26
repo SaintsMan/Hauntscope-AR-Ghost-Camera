@@ -9,6 +9,7 @@ namespace Hauntscope.Gameplay.Progress
         private readonly ObservableValue<int> _ectoplasm;
         private readonly Dictionary<string, int> _captures;
         private readonly HashSet<string> _sighted = new HashSet<string>();
+        private readonly Dictionary<string, int> _photoEvidence = new Dictionary<string, int>();
 
         public PlayerProgress()
             : this(0, new Dictionary<string, int>(), 0, false)
@@ -24,8 +25,12 @@ namespace Hauntscope.Gameplay.Progress
             int reviewPromptedAtCaptures = 0,
             IEnumerable<string> sighted = null,
             int fieldDropDay = 0,
-            int fieldDropsClaimed = 0)
+            int fieldDropsClaimed = 0,
+            IReadOnlyDictionary<string, int> photoEvidence = null)
         {
+            if (photoEvidence != null)
+                foreach (var pair in photoEvidence)
+                    _photoEvidence[pair.Key] = pair.Value;
             FieldDropDay = fieldDropDay;
             FieldDropsClaimed = fieldDropsClaimed;
             _ectoplasm = new ObservableValue<int>(ectoplasm);
@@ -102,6 +107,25 @@ namespace Hauntscope.Gameplay.Progress
         {
             if (_sighted.Add(ghostId))
                 Changed?.Invoke();
+        }
+
+        // Photos good enough to count as research, per ghost; capped so photos alone never declassify a file.
+        public IReadOnlyDictionary<string, int> PhotoEvidence => _photoEvidence;
+
+        public int GetPhotoEvidence(string ghostId)
+        {
+            return _photoEvidence.TryGetValue(ghostId, out var count) ? count : 0;
+        }
+
+        public void AddPhotoEvidence(string ghostId, int count, int cap)
+        {
+            var current = GetPhotoEvidence(ghostId);
+            var next = System.Math.Min(cap, current + count);
+            if (count <= 0 || next == current)
+                return;
+
+            _photoEvidence[ghostId] = next;
+            Changed?.Invoke();
         }
 
         public int GetCaptureCount(string ghostId)

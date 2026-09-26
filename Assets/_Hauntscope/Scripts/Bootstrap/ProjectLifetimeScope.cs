@@ -1,3 +1,4 @@
+using System.IO;
 using Hauntscope.AR;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Ads;
@@ -5,6 +6,7 @@ using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Photo;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Research;
 using Hauntscope.Gameplay.Store;
@@ -15,6 +17,7 @@ using Hauntscope.Infrastructure.Input;
 using Hauntscope.Infrastructure.Lifecycle;
 using Hauntscope.Infrastructure.Localization;
 using Hauntscope.Infrastructure.Permissions;
+using Hauntscope.Infrastructure.Photos;
 using Hauntscope.Infrastructure.PlayStore;
 using Hauntscope.Infrastructure.Random;
 using Hauntscope.Infrastructure.Save;
@@ -52,6 +55,7 @@ namespace Hauntscope.Bootstrap
             RegisterLaunch(builder);
             RegisterPlayStore(builder);
             RegisterAds(builder);
+            RegisterPhotos(builder);
 
             builder.RegisterEntryPoint<FrameRateInitializer>();
             builder.RegisterEntryPoint<LanguageSync>();
@@ -84,6 +88,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Ads);
             builder.RegisterInstance(_gameConfig.AdUnits);
             builder.RegisterInstance(_gameConfig.Capture);
+            builder.RegisterInstance(_gameConfig.Photo);
         }
 
         // Scene loads are decorated with the CRT transition; the overlay outlives every scene it covers.
@@ -105,6 +110,25 @@ namespace Hauntscope.Bootstrap
             builder.Register(resolver => resolver.Resolve<InventoryRepository>().Load(), Lifetime.Singleton);
             builder.Register<Shop>(Lifetime.Singleton);
             builder.Register<GhostResearch>(Lifetime.Singleton);
+        }
+
+        // The album is loaded once for the whole game: the hunt adds to it, the Bestiary shows its evidence.
+        private static void RegisterPhotos(IContainerBuilder builder)
+        {
+            builder.Register<FilePhotoStorage>(Lifetime.Singleton).As<IPhotoStorage>()
+                .WithParameter(Path.Combine(Application.persistentDataPath, "photos"));
+#if UNITY_ANDROID && !UNITY_EDITOR
+            builder.Register<AndroidShareService>(Lifetime.Singleton).As<IShareService>();
+#else
+            builder.Register<EditorShareService>(Lifetime.Singleton).As<IShareService>();
+#endif
+            builder.Register<PhotoAlbumRepository>(Lifetime.Singleton);
+            builder.Register(resolver =>
+            {
+                var album = new PhotoAlbum(resolver.Resolve<IPhotoStorage>(), resolver.Resolve<PhotoConfig>());
+                album.Restore(resolver.Resolve<PhotoAlbumRepository>().Load());
+                return album;
+            }, Lifetime.Singleton);
         }
 
         private static void RegisterLaunch(IContainerBuilder builder)

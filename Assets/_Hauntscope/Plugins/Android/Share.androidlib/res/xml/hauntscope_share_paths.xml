@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Unity's persistentDataPath is the external files dir when available, the internal one otherwise. -->
+<paths>
+    <external-files-path name="photos_external" path="photos/" />
+    <files-path name="photos_internal" path="photos/" />
+</paths>

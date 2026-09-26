@@ -155,6 +155,8 @@ MonoBehaviour:
     _ghostSurge: {fileID: 8300000, guid: 6408032f7226b7b4d990c2b5656801d7, type: 3}
     _surgeVolume: 0.75
     _surgeHapticInterval: 0.12
+    _photoShutter: {fileID: 8300000, guid: c9e015f625a9f5741ad59329eba1ec00, type: 3}
+    _shutterVolume: 0.85
   _vfx:
     _captureSpiral: {fileID: 3482571195191366530, guid: 6cc077c0fffe26544bbff774130ad3fc, type: 3}
     _teleportFlash: {fileID: 9163850681629320366, guid: d281b30d52bb11d4fae5ccc1d73b5dcf, type: 3}
@@ -245,6 +247,7 @@ MonoBehaviour:
   _research:
     _capturesToDeclassify: 5
     _declassifiedBonus: 0.25
+    _maxPhotoEvidence: 2
   _ads:
     _interstitialEveryHunts: 3
     _interstitialMinInterval: 150
@@ -273,3 +276,15 @@ MonoBehaviour:
     _surgeCaptureScale: 0.6
     _surgeDecayScale: 2
     _scareProgressLoss: 0.3
+  _photo:
+    _filmPerHunt: 3
+    _shutterCooldown: 1
+    _revealThreshold: 0.5
+    _centerRadius: 0.2
+    _closeDistance: 1.5
+    _starRewards: 020000000400000008000000
+    _evidenceMinStars: 2
+    _albumLimit: 40
+    _width: 1080
+    _jpegQuality: 85
+    _storeUrl: https://play.google.com/store/apps/details?id=com.pavko.hauntscope

@@ -5,10 +5,12 @@ using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Hunt.States;
+using Hauntscope.Gameplay.Photo;
 using Hauntscope.Gameplay.Pickups;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using Hauntscope.Infrastructure.Vfx;
+using Hauntscope.UI.Common;
 using Hauntscope.UI.Hunt;
 using Hauntscope.VirtualRoom;
 using Unity.XR.CoreUtils;
@@ -95,7 +97,28 @@ namespace Hauntscope.Bootstrap
             builder.RegisterComponentInHierarchy<PauseView>();
             builder.RegisterEntryPoint<PausePresenter>();
             builder.RegisterComponentInHierarchy<TutorialView>();
+            RegisterPhotos(builder);
             builder.RegisterEntryPoint<TutorialPresenter>();
+        }
+
+        // The spirit camera's gameplay, the capture that renders the photo, and every screen that shows one.
+        private static void RegisterPhotos(IContainerBuilder builder)
+        {
+            builder.Register<PhotoScorer>(Lifetime.Singleton);
+            builder.Register<SpiritCamera>(Lifetime.Singleton);
+            builder.Register<PhotoTextures>(Lifetime.Singleton);
+            builder.Register<PhotoSharing>(Lifetime.Singleton);
+            builder.Register<PhotoViewer>(Lifetime.Singleton);
+            builder.RegisterComponentInHierarchy<PhotoFrameView>();
+            builder.RegisterComponentInHierarchy<PhotoFlashView>();
+            builder.Register<HudPhotoCapture>(Lifetime.Singleton).As<IPhotoCapture>();
+            builder.RegisterEntryPoint<PhotoFeedback>();
+            builder.RegisterComponentInHierarchy<ShutterView>();
+            builder.RegisterEntryPoint<ShutterPresenter>();
+            builder.RegisterComponentInHierarchy<PhotoToastView>();
+            builder.RegisterEntryPoint<PhotoToastPresenter>();
+            builder.RegisterComponentInHierarchy<PhotoViewerView>();
+            builder.RegisterEntryPoint<PhotoViewerPresenter>();
         }
 
         private static void RegisterArEnvironment(IContainerBuilder builder)

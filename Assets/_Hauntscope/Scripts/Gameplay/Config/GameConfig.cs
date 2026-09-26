@@ -28,6 +28,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private AdsConfig _ads = new AdsConfig();
         [SerializeField] private AdUnitsConfig _adUnits = new AdUnitsConfig();
         [SerializeField] private CaptureConfig _capture = new CaptureConfig();
+        [SerializeField] private PhotoConfig _photo = new PhotoConfig();
 
         public int TargetFrameRate => _targetFrameRate;
 
@@ -74,5 +75,7 @@ namespace Hauntscope.Gameplay.Config
         public AdUnitsConfig AdUnits => _adUnits;
 
         public CaptureConfig Capture => _capture;
+
+        public PhotoConfig Photo => _photo;
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Hauntscope.Gameplay.Research
 {
     // How much the agency knows about a ghost (GDD 5.24): seen in the lens, caught, or studied enough to declassify.
+    // Evidence = captures plus a few good photos; a file still needs at least one capture to open at all.
     public sealed class GhostResearch
     {
         private readonly PlayerProgress _progress;
@@ -16,23 +17,25 @@ namespace Hauntscope.Gameplay.Research
             _config = config;
         }
 
-        public int CapturesToDeclassify => _config.CapturesToDeclassify;
+        public int EvidenceToDeclassify => _config.CapturesToDeclassify;
 
         public float DeclassifiedBonus => _config.DeclassifiedBonus;
+
+        public int MaxPhotoEvidence => _config.MaxPhotoEvidence;
 
         public ResearchLevel GetLevel(GhostData ghost)
         {
             var captures = _progress.GetCaptureCount(ghost.Id);
-            if (captures >= _config.CapturesToDeclassify)
+            if (captures > 0 && Evidence(ghost.Id) >= _config.CapturesToDeclassify)
                 return ResearchLevel.Declassified;
             if (captures > 0)
                 return ResearchLevel.Captured;
             return _progress.IsSighted(ghost.Id) ? ResearchLevel.Sighted : ResearchLevel.Unknown;
         }
 
-        public int CapturesLeft(GhostData ghost)
+        public int EvidenceLeft(GhostData ghost)
         {
-            return Mathf.Max(0, _config.CapturesToDeclassify - _progress.GetCaptureCount(ghost.Id));
+            return Mathf.Max(0, _config.CapturesToDeclassify - Evidence(ghost.Id));
         }
 
         public float RewardMultiplier(GhostData ghost)
@@ -40,10 +43,20 @@ namespace Hauntscope.Gameplay.Research
             return GetLevel(ghost) == ResearchLevel.Declassified ? 1f + _config.DeclassifiedBonus : 1f;
         }
 
-        // Asked before a catch is counted: will this one declassify the file?
-        public bool IsDeclassifyingCatch(GhostData ghost)
+        // Asked before a hunt's results are banked: will this catch and these photos declassify the file?
+        public bool WillDeclassify(GhostData ghost, bool captured, int photoEvidence)
         {
-            return _progress.GetCaptureCount(ghost.Id) + 1 == _config.CapturesToDeclassify;
+            if (GetLevel(ghost) == ResearchLevel.Declassified)
+                return false;
+
+            var captures = _progress.GetCaptureCount(ghost.Id) + (captured ? 1 : 0);
+            var photos = Mathf.Min(_config.MaxPhotoEvidence, _progress.GetPhotoEvidence(ghost.Id) + photoEvidence);
+            return captures > 0 && captures + photos >= _config.CapturesToDeclassify;
+        }
+
+        private int Evidence(string ghostId)
+        {
+            return _progress.GetCaptureCount(ghostId) + Mathf.Min(_config.MaxPhotoEvidence, _progress.GetPhotoEvidence(ghostId));
         }
     }
 }

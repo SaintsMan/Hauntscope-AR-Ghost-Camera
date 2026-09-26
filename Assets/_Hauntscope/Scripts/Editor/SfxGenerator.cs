@@ -54,6 +54,7 @@ namespace Hauntscope.Editor
             Save(SfxFolder, "RewardGranted", RewardGranted(), -3f, false);
             Save(SfxFolder, "GhostStagger", GhostStagger(), -4f, false);
             Save(SfxFolder, "GhostSurge", GhostSurge(), -3f, false);
+            Save(SfxFolder, "PhotoShutter", PhotoShutter(), -3f, false);
             Save(SfxFolder, "WhisperWisp", Whisper(11, 1.25f, 0.12f, 0.25f, 0.08f, 0.3f, 0.35f, 1f, 0.3f, 1.2f), -6f, true);
             Save(SfxFolder, "WhisperPoltergeist", Whisper(23, 1f, 0.08f, 0.18f, 0.05f, 0.15f, 0.2f, 2.2f, 0.25f, 1f), -6f, true);
             Save(SfxFolder, "WhisperShade", Whisper(37, 0.8f, 0.35f, 0.8f, 0.3f, 0.8f, 0.08f, 1f, 0.5f, 1.35f), -6f, true);
@@ -801,6 +802,32 @@ namespace Hauntscope.Editor
             }
 
             return Saturate(Reverb(samples, 0.2f, 0.7f), 1.8f);
+        }
+
+        // Still camera: a two-stage mechanical shutter (open, close), the whine of the flash recharging, and a
+        // faint tape hiccup so it still sounds like the camcorder rather than a phone.
+        private static float[] PhotoShutter()
+        {
+            const float length = 0.9f;
+            var samples = Buffer(length);
+            var whinePhase = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var frequency = Mathf.Lerp(1800f, 5200f, Mathf.Clamp01((t - 0.12f) / 0.6f));
+                whinePhase += TwoPi * frequency / SampleRate;
+                samples[i] = Mathf.Sin(whinePhase) * 0.07f * Adsr(t - 0.12f, 0.7f, 0.08f, 0.3f);
+            }
+
+            Add(samples, Click(0.006f, 1500f, 161), 0, 1f);
+            Add(samples, Click(0.004f, 2600f, 163), (int)(0.004f * SampleRate), 0.6f);
+            Add(samples, Click(0.007f, 1100f, 167), (int)(0.07f * SampleRate), 0.85f);
+            var body = Filter(Noise((int)(0.09f * SampleRate), 169), FilterType.BandPass, 900f, 1.2f);
+            for (var i = 0; i < body.Length; i++)
+                body[i] *= Envelope(Time(i), 0.002f, 0.03f);
+            Add(samples, body, 0, 0.5f);
+            Add(samples, body, (int)(0.07f * SampleRate), 0.35f);
+            return TrimTo(Reverb(samples, 0.12f, 0.5f), samples.Length);
         }
 
         private static float[] Bell(float frequency, float duration, float ratio, float index, float decay)

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <!-- Hands the share sheet a content:// link to one photo instead of exposing the app's files. -->
+        <provider
+            android:name="com.pavko.hauntscope.share.ShareFileProvider"
+            android:authorities="${applicationId}.hauntscope.share"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/hauntscope_share_paths" />
+        </provider>
+    </application>
+</manifest>

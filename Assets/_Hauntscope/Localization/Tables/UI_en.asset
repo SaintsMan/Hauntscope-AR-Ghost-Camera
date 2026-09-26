@@ -628,6 +628,58 @@ MonoBehaviour:
     m_Localized: VULNERABLE
     m_Metadata:
       m_Items: []
+  - m_Id: 400948767096832
+    m_Localized: PHOTO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039872
+    m_Localized: CENTERED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039873
+    m_Localized: CLOSE-UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039874
+    m_Localized: MOMENT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039875
+    m_Localized: "CASE #{0:00} \xB7 {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039876
+    m_Localized: "HAUNTSCOPE \xB7 AR GHOST CAMERA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039877
+    m_Localized: SHARE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039878
+    m_Localized: SAVE TO GALLERY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039879
+    m_Localized: SAVED TO GALLERY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039880
+    m_Localized: COULDN'T SAVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039881
+    m_Localized: 'A ghost in my room: {0}! Caught on camera with Hauntscope. {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039882
+    m_Localized: Share the evidence
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039883
+    m_Localized: PHOTO +{0}
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
