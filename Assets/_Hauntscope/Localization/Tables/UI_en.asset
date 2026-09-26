@@ -292,8 +292,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 123992691572739
-    m_Localized: Hold BEAM and keep the ghost inside the ring until it is captured.
-      Don't let the battery die!
+    m_Localized: It froze! Hold the BEAM and keep it inside the ring.
     m_Metadata:
       m_Items: []
   - m_Id: 149880640503808
@@ -1009,6 +1008,57 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 462155528142856
     m_Localized: "\xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465765972443136
+    m_Localized: It's breaking free! Keep it in the ring, don't let go.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997568
+    m_Localized: AGENT TIP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997569
+    m_Localized: 'Its trick left it stunned: hit it with the beam now!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997570
+    m_Localized: 'Step closer: up close the beam charges much faster.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997571
+    m_Localized: 'It''s in the lens: take a photo for its case file.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997572
+    m_Localized: 'Cold spot: it is hiding nearby. Walk around the furniture and come
+      close.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997573
+    m_Localized: 'Don''t move: it will come to you on its own.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997574
+    m_Localized: 'Witching hour: rare ghosts come more often and every catch pays
+      more.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997575
+    m_Localized: Each perk lasts to the end of the shift and stacks with the others.
+      Pick for the next ghost.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997576
+    m_Localized: NEW
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997577
+    m_Localized: RESET TIPS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997578
+    m_Localized: TIPS WILL SHOW AGAIN
     m_Metadata:
       m_Items: []
   references:

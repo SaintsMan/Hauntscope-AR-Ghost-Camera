@@ -46,6 +46,17 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Load_AfterSave_RestoresSeenTips()
+        {
+            var progress = new PlayerProgress();
+            progress.MarkTipSeen("tip.stagger");
+
+            _repository.Save(progress);
+
+            Assert.IsTrue(_repository.Load().HasSeenTip("tip.stagger"));
+        }
+
+        [Test]
         public void Save_Always_WritesCurrentVersion()
         {
             _repository.Save(new PlayerProgress());

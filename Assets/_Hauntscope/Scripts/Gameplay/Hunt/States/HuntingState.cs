@@ -34,6 +34,7 @@ namespace Hauntscope.Gameplay.Hunt.States
         private readonly WitchingHour _witchingHour;
         private readonly NightShift _shift;
         private readonly HuntReportBuilder _report;
+        private readonly FieldTips _tips;
 
         public HuntingState(
             HuntSession session,
@@ -55,8 +56,10 @@ namespace Hauntscope.Gameplay.Hunt.States
             SpiritCamera spiritCamera,
             WitchingHour witchingHour,
             NightShift shift,
-            HuntReportBuilder report)
+            HuntReportBuilder report,
+            FieldTips tips)
         {
+            _tips = tips;
             _report = report;
             _shift = shift;
             _witchingHour = witchingHour;
@@ -86,7 +89,7 @@ namespace Hauntscope.Gameplay.Hunt.States
 
             var consumeBoosters = _shift.BeginRound();
             var isFirstHunt = _progress.IsFirstSession;
-            var data = _selector.Select(isFirstHunt, _shift.Weights);
+            var data = _selector.Select(_progress.TotalSessions, _shift.Weights);
             _progress.RegisterSession();
             _loot.Reset();
             _loadout.Begin(consumeBoosters);
@@ -122,6 +125,7 @@ namespace Hauntscope.Gameplay.Hunt.States
 
             _toolbelt.Tick(deltaTime);
             _report.Tick(deltaTime);
+            _tips.Tick(deltaTime);
             _spiritCamera.Tick(deltaTime);
             _pickups.Tick(deltaTime);
             ghost.Tick(deltaTime);

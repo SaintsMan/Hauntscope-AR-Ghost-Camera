@@ -121,5 +121,18 @@ namespace Hauntscope.Tests.EditMode
             Assert.IsTrue(spent);
             Assert.AreEqual(15, progress.Ectoplasm.Value);
         }
+    
+        [Test]
+        public void ResetTips_AfterSomeWereSeen_ForgetsThemAll()
+        {
+            var progress = new PlayerProgress();
+            progress.MarkTipSeen("tip.stagger");
+            progress.MarkTipSeen("coach.shift");
+
+            progress.ResetTips();
+
+            Assert.IsFalse(progress.HasSeenTip("tip.stagger"));
+            Assert.IsEmpty(progress.SeenTips);
+        }
     }
 }

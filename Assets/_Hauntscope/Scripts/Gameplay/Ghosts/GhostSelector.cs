@@ -18,19 +18,17 @@ namespace Hauntscope.Gameplay.Ghosts
             _witchingHour = witchingHour;
         }
 
-        // Night shift rounds bring their own rarity split; otherwise the config's applies.
-        public GhostData Select(bool isFirstSession, RarityWeights weights = null)
+        // The first two hunts are set (the tutorial ghost, then the one that teaches vulnerability); after that night
+        // shift rounds bring their own rarity split, otherwise the config's applies.
+        public GhostData Select(int huntsPlayed, RarityWeights weights = null)
         {
             var ghosts = _config.Ghosts;
             if (ghosts.Count == 0)
                 throw new InvalidOperationException("GhostConfig has no ghosts.");
 
-            if (isFirstSession)
-            {
-                var first = FindById(_config.FirstGhostId);
-                if (first != null)
-                    return first;
-            }
+            var set = huntsPlayed == 0 ? FindById(_config.FirstGhostId) : huntsPlayed == 1 ? FindById(_config.SecondGhostId) : null;
+            if (set != null)
+                return set;
 
             var night = _witchingHour.IsActive;
             var totalWeight = 0f;

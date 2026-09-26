@@ -45,9 +45,20 @@ namespace Hauntscope.Tests.EditMode
         {
             _random.DefaultValue = 0.99f;
 
-            var ghost = _selector.Select(isFirstSession: true);
+            var ghost = _selector.Select(huntsPlayed: 0);
 
             Assert.AreSame(_wisp, ghost);
+        }
+
+        [Test]
+        public void Select_SecondHunt_ReturnsSecondGhostRegardlessOfRandom()
+        {
+            _random.DefaultValue = 0.99f;
+            var config = new GhostConfig(new[] { _poltergeist, _wisp, _shade }, "wisp", 75f, 25f, 0f, "poltergeist");
+
+            var ghost = new GhostSelector(config, _random, _witchingHour).Select(huntsPlayed: 1);
+
+            Assert.AreSame(_poltergeist, ghost);
         }
 
         [Test]
@@ -55,7 +66,7 @@ namespace Hauntscope.Tests.EditMode
         {
             _random.Enqueue(0.1f);
 
-            Assert.AreSame(_poltergeist, _selector.Select(isFirstSession: false));
+            Assert.AreSame(_poltergeist, _selector.Select(huntsPlayed: 5));
         }
 
         [Test]
@@ -63,7 +74,7 @@ namespace Hauntscope.Tests.EditMode
         {
             _random.Enqueue(0.5f);
 
-            Assert.AreSame(_wisp, _selector.Select(isFirstSession: false));
+            Assert.AreSame(_wisp, _selector.Select(huntsPlayed: 5));
         }
 
         [Test]
@@ -71,7 +82,7 @@ namespace Hauntscope.Tests.EditMode
         {
             _random.Enqueue(0.8f);
 
-            Assert.AreSame(_shade, _selector.Select(isFirstSession: false));
+            Assert.AreSame(_shade, _selector.Select(huntsPlayed: 5));
         }
 
         [Test]
@@ -88,7 +99,7 @@ namespace Hauntscope.Tests.EditMode
             var config = new GhostConfig(new[] { _shade }, "wisp", 75f, 25f, 0f);
             var selector = new GhostSelector(config, _random, _witchingHour);
 
-            Assert.AreSame(_shade, selector.Select(isFirstSession: true));
+            Assert.AreSame(_shade, selector.Select(huntsPlayed: 0));
         }
 
         [Test]
@@ -96,7 +107,7 @@ namespace Hauntscope.Tests.EditMode
         {
             _random.Enqueue(0.1f);
 
-            var ghost = _selector.Select(isFirstSession: false, new RarityWeights(0f, 60f, 40f));
+            var ghost = _selector.Select(huntsPlayed: 5, new RarityWeights(0f, 60f, 40f));
 
             Assert.AreSame(_shade, ghost);
         }
@@ -109,7 +120,7 @@ namespace Hauntscope.Tests.EditMode
                 _witchingHour);
             _random.Enqueue(0.99f);
 
-            var ghost = selector.Select(isFirstSession: false);
+            var ghost = selector.Select(huntsPlayed: 5);
 
             Assert.AreSame(_shade, ghost);
             Object.DestroyImmediate(lurker);
@@ -124,7 +135,7 @@ namespace Hauntscope.Tests.EditMode
             _clock.LocalNow = new DateTime(2026, 10, 31, 23, 30, 0);
             _random.Enqueue(0.99f);
 
-            var ghost = selector.Select(isFirstSession: false);
+            var ghost = selector.Select(huntsPlayed: 5);
 
             Assert.AreSame(lurker, ghost);
             Object.DestroyImmediate(lurker);
@@ -164,7 +175,7 @@ namespace Hauntscope.Tests.EditMode
             for (var i = 0; i < samples; i++)
             {
                 _random.Enqueue((i + 0.5f) / samples);
-                if (selector.Select(isFirstSession: false) == target)
+                if (selector.Select(huntsPlayed: 5) == target)
                     picks++;
             }
 

@@ -11,7 +11,8 @@ using VContainer.Unity;
 namespace Hauntscope.Gameplay.Hunt
 {
     // Teaches the first hunt by watching it rather than scripting it: each hint stays up until the player has
-    // actually done that thing, so nobody is rushed and nobody has to tap "next".
+    // actually done that thing, so nobody is rushed and nobody has to tap "next". The last two hints are the
+    // vulnerable moment and the last-second surge; the lesson ends with the hunt.
     public sealed class TutorialFlow : IStartable, ITickable, IDisposable
     {
         private readonly HuntSession _session;
@@ -48,14 +49,14 @@ namespace Hauntscope.Gameplay.Hunt
 
         public IReadOnlyObservableValue<TutorialStep> Step => _step;
 
-        public int StepCount => (int)TutorialStep.HoldBeam - (int)FirstStep + 1;
+        public int StepCount => (int)TutorialStep.Surge - (int)FirstStep + 1;
 
         public int StepNumber => (int)_step.Value - (int)FirstStep + 1;
 
         // Walking is only a lesson in the Virtual Room; in AR the player simply walks.
         private TutorialStep FirstStep => _options.Environment == HuntEnvironment.Virtual ? TutorialStep.Walk : TutorialStep.FollowEmf;
 
-        private bool IsRunning => _step.Value != TutorialStep.None && _step.Value != TutorialStep.Done;
+        public bool IsRunning => _step.Value != TutorialStep.None && _step.Value != TutorialStep.Done;
 
         public void Start()
         {
@@ -96,10 +97,11 @@ namespace Hauntscope.Gameplay.Hunt
                     _step.Value = TutorialStep.UseLens;
                     break;
                 case TutorialStep.UseLens when ghost.VisibleReveal >= _config.RevealThreshold:
+                    ghost.Stagger(_config.HoldBeamStagger);
                     _step.Value = TutorialStep.HoldBeam;
                     break;
-                case TutorialStep.HoldBeam when ghost.CaptureProgress >= _config.BeamProgress:
-                    Complete();
+                case TutorialStep.HoldBeam when ghost.IsSurging:
+                    _step.Value = TutorialStep.Surge;
                     break;
             }
         }

@@ -15,7 +15,7 @@ namespace Hauntscope.Tests.EditMode
         private const float WalkDistance = 1f;
         private const int EmfLevel = 3;
         private const float RevealThreshold = 0.5f;
-        private const float BeamProgress = 0.25f;
+        private const float HoldBeamStagger = 3f;
 
         private GhostFixture _fixture;
         private HuntSession _session;
@@ -56,7 +56,7 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.AreEqual(TutorialStep.FollowEmf, _flow.Step.Value);
             Assert.AreEqual(1, _flow.StepNumber);
-            Assert.AreEqual(3, _flow.StepCount);
+            Assert.AreEqual(4, _flow.StepCount);
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace Hauntscope.Tests.EditMode
             _session.Begin(_fixture.Ghost, null);
 
             Assert.AreEqual(TutorialStep.Walk, _flow.Step.Value);
-            Assert.AreEqual(4, _flow.StepCount);
+            Assert.AreEqual(5, _flow.StepCount);
         }
 
         [Test]
@@ -141,16 +141,34 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
-        public void Tick_BeamProgress_CompletesAndSaves()
+        public void Tick_GhostRevealed_FreezesItForTheBeam()
         {
-            _session.Begin(_fixture.Ghost, null);
-            _radar.Tick(0.1f, _camera.Position, 6f);
-            _flow.Tick();
-            _fixture.Ghost.SetReveal(1f);
-            _flow.Tick();
-            _fixture.Ghost.SetCaptureProgress(BeamProgress);
+            Reveal();
+
+            Assert.IsTrue(_fixture.Ghost.IsStaggered);
+        }
+
+        [Test]
+        public void Tick_GhostSurges_MovesToSurge()
+        {
+            Reveal();
+            _fixture.Ghost.Tick(HoldBeamStagger + 0.1f);
+            _fixture.Ghost.SetBeamed(true);
+            _fixture.Ghost.Tick(0.01f);
+            _fixture.Ghost.SetCaptureProgress(1f);
+            _fixture.Ghost.Tick(0.01f);
 
             _flow.Tick();
+
+            Assert.AreEqual(TutorialStep.Surge, _flow.Step.Value);
+        }
+
+        [Test]
+        public void HuntCaptured_AfterSurge_CompletesAndSaves()
+        {
+            Reveal();
+
+            _session.Finish(HuntOutcome.Escaped);
 
             Assert.AreEqual(TutorialStep.Done, _flow.Step.Value);
             Assert.IsTrue(_progress.TutorialCompleted);
@@ -190,11 +208,20 @@ namespace Hauntscope.Tests.EditMode
             Assert.AreEqual(TutorialStep.None, _flow.Step.Value);
         }
 
+        private void Reveal()
+        {
+            _session.Begin(_fixture.Ghost, null);
+            _radar.Tick(0.1f, _camera.Position, 6f);
+            _flow.Tick();
+            _fixture.Ghost.SetReveal(1f);
+            _flow.Tick();
+        }
+
         private void CreateFlow(PlayerProgress progress)
         {
             _progress = progress;
             _flow = new TutorialFlow(_session, _radar, _camera, _pause, _options, _progress, _repository,
-                new TutorialConfig(WalkDistance, EmfLevel, RevealThreshold, BeamProgress));
+                new TutorialConfig(WalkDistance, EmfLevel, RevealThreshold, HoldBeamStagger));
             _flow.Start();
         }
     }

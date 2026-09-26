@@ -9,6 +9,7 @@ namespace Hauntscope.Gameplay.Config
     {
         [SerializeField] private GhostData[] _ghosts = Array.Empty<GhostData>();
         [SerializeField] private string _firstGhostId = "wisp";
+        [SerializeField] private string _secondGhostId = "poltergeist";
         [SerializeField, Min(0f)] private float _commonWeight = 60f;
         [SerializeField, Min(0f)] private float _rareWeight = 30f;
         [SerializeField, Min(0f)] private float _legendaryWeight = 10f;
@@ -37,10 +38,12 @@ namespace Hauntscope.Gameplay.Config
             string firstGhostId,
             float commonWeight,
             float rareWeight,
-            float legendaryWeight)
+            float legendaryWeight,
+            string secondGhostId = null)
         {
             _ghosts = ghosts;
             _firstGhostId = firstGhostId;
+            _secondGhostId = secondGhostId;
             _commonWeight = commonWeight;
             _rareWeight = rareWeight;
             _legendaryWeight = legendaryWeight;
@@ -83,6 +86,9 @@ namespace Hauntscope.Gameplay.Config
         public IReadOnlyList<GhostData> Ghosts => _ghosts;
 
         public string FirstGhostId => _firstGhostId;
+
+        // The second hunt always brings this one: it teaches vulnerability after a teleport, and photos.
+        public string SecondGhostId => _secondGhostId;
 
         public float GetRarityWeight(GhostRarity rarity)
         {

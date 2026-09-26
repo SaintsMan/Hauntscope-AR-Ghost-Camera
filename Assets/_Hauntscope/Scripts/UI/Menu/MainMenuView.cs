@@ -16,6 +16,10 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private Button _contractsButton;
         [SerializeField] private GameObject _contractsBadge;
         [SerializeField] private TMP_Text _contractsBadgeLabel;
+        [SerializeField] private RectTransform _shiftMark;
+        [SerializeField] private RectTransform _contractsMark;
+        [SerializeField] private float _markPulseScale = 1.12f;
+        [SerializeField, Min(0.1f)] private float _markPulsePeriod = 0.9f;
         [SerializeField] private Button _shiftButton;
         [SerializeField] private CanvasGroup _shiftGroup;
         [SerializeField] private TMP_Text _shiftCaption;
@@ -67,6 +71,25 @@ namespace Hauntscope.UI.Menu
         public void SetVisible(bool visible)
         {
             gameObject.SetActive(visible);
+        }
+
+        // A NEW tag that pulses until its button is first pressed.
+        public void SetMarks(bool shift, bool contracts)
+        {
+            SetMark(_shiftMark, shift);
+            SetMark(_contractsMark, contracts);
+        }
+
+        private void SetMark(RectTransform mark, bool visible)
+        {
+            if (mark.gameObject.activeSelf == visible)
+                return;
+
+            mark.gameObject.SetActive(visible);
+            mark.DOKill();
+            mark.localScale = Vector3.one;
+            if (visible)
+                mark.DOScale(_markPulseScale, _markPulsePeriod * 0.5f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).Ui(mark.gameObject);
         }
 
         // How many done orders wait to be claimed; nothing to claim, no badge.
@@ -243,6 +266,8 @@ namespace Hauntscope.UI.Menu
             var badge = transform.Find("Buttons/Row2/ContractsButton/Badge");
             _contractsBadge = badge != null ? badge.gameObject : null;
             _contractsBadgeLabel = Find<TMP_Text>("Buttons/Row2/ContractsButton/Badge/Label");
+            _shiftMark = Find<RectTransform>("Buttons/ShiftButton/NewMark");
+            _contractsMark = Find<RectTransform>("Buttons/Row2/ContractsButton/NewMark");
             _shopButton = Find<Button>("Buttons/Row/ShopButton");
             _ectoplasmLabel = Find<TMP_Text>("Ectoplasm/Amount");
             _versionLabel = Find<TMP_Text>("Version");

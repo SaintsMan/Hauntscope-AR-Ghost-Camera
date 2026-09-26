@@ -999,6 +999,54 @@ MonoBehaviour:
     m_Key: ration.gear
     m_Metadata:
       m_Items: []
+  - m_Id: 465765972443136
+    m_Key: tutorial.surge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997568
+    m_Key: tips.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997569
+    m_Key: tips.stagger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997570
+    m_Key: tips.close_in
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997571
+    m_Key: tips.photo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997572
+    m_Key: tips.cold_spot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997573
+    m_Key: tips.cat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997574
+    m_Key: tips.witching_hour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997575
+    m_Key: tips.shift_break
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997576
+    m_Key: menu.new
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997577
+    m_Key: settings.reset_tips
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997578
+    m_Key: settings.tips_reset_done
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

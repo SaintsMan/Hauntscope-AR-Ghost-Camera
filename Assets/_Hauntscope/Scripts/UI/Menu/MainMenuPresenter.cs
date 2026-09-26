@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Contracts;
+using Hauntscope.Gameplay.Engagement;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Ghosts;
@@ -41,6 +42,7 @@ namespace Hauntscope.UI.Menu
         private readonly HuntLaunchOptions _options;
         private readonly ShiftConfig _shiftConfig;
         private readonly ContractBoard _contracts;
+        private readonly MenuCoachMarks _marks;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         private int _shownSecond = -1;
@@ -60,8 +62,10 @@ namespace Hauntscope.UI.Menu
             WitchingHour witchingHour,
             HuntLaunchOptions options,
             ShiftConfig shiftConfig,
-            ContractBoard contracts)
+            ContractBoard contracts,
+            MenuCoachMarks marks)
         {
+            _marks = marks;
             _contracts = contracts;
             _options = options;
             _shiftConfig = shiftConfig;
@@ -86,6 +90,7 @@ namespace Hauntscope.UI.Menu
             _view.StartClicked += OnStartClicked;
             _view.ShiftClicked += OnShiftClicked;
             _progress.Changed += RenderShift;
+            _progress.Changed += RenderMarks;
             _view.BestiaryClicked += OnBestiaryClicked;
             _view.SettingsClicked += OnSettingsClicked;
             _view.ShopClicked += OnShopClicked;
@@ -101,6 +106,12 @@ namespace Hauntscope.UI.Menu
             OnEctoplasmChanged(_progress.Ectoplasm.Value);
             OnLanguageChanged();
             RenderContracts();
+            RenderMarks();
+        }
+
+        private void RenderMarks()
+        {
+            _view.SetMarks(_marks.IsMarked(CoachMark.Shift), _marks.IsMarked(CoachMark.Contracts));
         }
 
         private void RenderContracts()
@@ -111,6 +122,7 @@ namespace Hauntscope.UI.Menu
         private void OnContractsClicked()
         {
             _ui.PlayClick();
+            _marks.Dismiss(CoachMark.Contracts);
             _navigation.Show(MenuScreen.Contracts);
         }
 
@@ -144,6 +156,7 @@ namespace Hauntscope.UI.Menu
             _view.StartClicked -= OnStartClicked;
             _view.ShiftClicked -= OnShiftClicked;
             _progress.Changed -= RenderShift;
+            _progress.Changed -= RenderMarks;
             _view.BestiaryClicked -= OnBestiaryClicked;
             _view.SettingsClicked -= OnSettingsClicked;
             _view.ShopClicked -= OnShopClicked;
@@ -210,6 +223,7 @@ namespace Hauntscope.UI.Menu
             }
 
             _ui.PlayClick();
+            _marks.Dismiss(CoachMark.Shift);
             _options.SelectMode(HuntMode.Shift);
             _launcher.LaunchAsync(_lifetime.Token).Forget();
         }

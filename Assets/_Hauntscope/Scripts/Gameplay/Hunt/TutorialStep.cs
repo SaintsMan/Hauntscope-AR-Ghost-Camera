@@ -7,6 +7,7 @@ namespace Hauntscope.Gameplay.Hunt
         FollowEmf,
         UseLens,
         HoldBeam,
+        Surge,
         Done
     }
 }

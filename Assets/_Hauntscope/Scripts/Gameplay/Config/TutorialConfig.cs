@@ -9,18 +9,18 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Min(0f)] private float _walkDistance = 1f;
         [SerializeField, Min(0)] private int _emfLevel = 3;
         [SerializeField, Range(0f, 1f)] private float _revealThreshold = 0.5f;
-        [SerializeField, Range(0f, 1f)] private float _beamProgress = 0.25f;
+        [SerializeField, Min(0f)] private float _holdBeamStagger = 3f;
 
         public TutorialConfig()
         {
         }
 
-        public TutorialConfig(float walkDistance, int emfLevel, float revealThreshold, float beamProgress)
+        public TutorialConfig(float walkDistance, int emfLevel, float revealThreshold, float holdBeamStagger)
         {
             _walkDistance = walkDistance;
             _emfLevel = emfLevel;
             _revealThreshold = revealThreshold;
-            _beamProgress = beamProgress;
+            _holdBeamStagger = holdBeamStagger;
         }
 
         public float WalkDistance => _walkDistance;
@@ -29,6 +29,7 @@ namespace Hauntscope.Gameplay.Config
 
         public float RevealThreshold => _revealThreshold;
 
-        public float BeamProgress => _beamProgress;
+        // The tutorial ghost has no ability of its own, so the lesson freezes it for the first beam.
+        public float HoldBeamStagger => _holdBeamStagger;
     }
 }

@@ -31,6 +31,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: b05103b2d7b29694d9df9c2c3df1c0e0, type: 2}
     - {fileID: 11400000, guid: 2ab0606b4e846af49876176a29ca33ff, type: 2}
     _firstGhostId: wisp
+    _secondGhostId: poltergeist
     _commonWeight: 60
     _rareWeight: 30
     _legendaryWeight: 10
@@ -201,7 +202,7 @@ MonoBehaviour:
     _walkDistance: 1
     _emfLevel: 3
     _revealThreshold: 0.5
-    _beamProgress: 0.25
+    _holdBeamStagger: 3
   _boot:
     _introDuration: 1.4
     _stepMinDuration: 0.5
@@ -400,3 +401,11 @@ MonoBehaviour:
       - _gear: {fileID: 11400000, guid: b54c80d22466f8e40b5ef536b5090ffb, type: 2}
         _count: 2
     _adMultiplier: 2
+  _tips:
+    _duration: 5
+    _closeInDistance: 2
+    _closeInHold: 2
+    _coldSpotEmfLevel: 3
+    _photoFromHunt: 2
+    _catGhostId: phantom_cat
+    _contractsMarkAfter: 1

@@ -41,6 +41,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<LoadoutPresenter>();
 
             builder.Register<MenuPopupQueue>(Lifetime.Singleton);
+            builder.Register<MenuCoachMarks>(Lifetime.Singleton);
             builder.Register<ReviewPolicy>(Lifetime.Singleton);
             builder.RegisterEntryPoint<ReviewPrompter>();
         }

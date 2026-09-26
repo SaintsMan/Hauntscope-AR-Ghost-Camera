@@ -10,6 +10,8 @@ namespace Hauntscope.UI.Menu
 {
     public sealed class SettingsPresenter : IStartable, IDisposable
     {
+        private const string ResetTipsKey = "settings.reset_tips";
+        private const string TipsResetKey = "settings.tips_reset_done";
         private const string OnKey = "common.on";
         private const string OffKey = "common.off";
         private const string LanguageNameKeyPrefix = "settings.language_name.";
@@ -21,6 +23,8 @@ namespace Hauntscope.UI.Menu
         private readonly ILocalizationService _localization;
         private readonly UiFeedback _ui;
         private readonly IAdPrivacy _privacy;
+        private readonly PlayerProgress _progress;
+        private readonly PlayerProgressRepository _progressRepository;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         public SettingsPresenter(
@@ -30,8 +34,12 @@ namespace Hauntscope.UI.Menu
             SettingsRepository repository,
             ILocalizationService localization,
             UiFeedback ui,
-            IAdPrivacy privacy)
+            IAdPrivacy privacy,
+            PlayerProgress progress,
+            PlayerProgressRepository progressRepository)
         {
+            _progress = progress;
+            _progressRepository = progressRepository;
             _privacy = privacy;
             _view = view;
             _navigation = navigation;
@@ -52,6 +60,7 @@ namespace Hauntscope.UI.Menu
             _view.JumpScaresClicked += OnJumpScaresClicked;
             _view.LanguageClicked += OnLanguageClicked;
             _view.PrivacyClicked += OnPrivacyClicked;
+            _view.ResetTipsClicked += OnResetTipsClicked;
 
             OnScreenChanged(_navigation.Current.Value);
             Render();
@@ -68,6 +77,7 @@ namespace Hauntscope.UI.Menu
             _view.JumpScaresClicked -= OnJumpScaresClicked;
             _view.LanguageClicked -= OnLanguageClicked;
             _view.PrivacyClicked -= OnPrivacyClicked;
+            _view.ResetTipsClicked -= OnResetTipsClicked;
             _lifetime.Cancel();
             _lifetime.Dispose();
         }
@@ -76,8 +86,19 @@ namespace Hauntscope.UI.Menu
         {
             _view.SetVisible(screen == MenuScreen.Settings);
             // Consent status arrives after start-up, so it is checked each time the screen opens.
-            if (screen == MenuScreen.Settings)
-                _view.SetPrivacyVisible(_privacy.IsOptionsRequired);
+            if (screen != MenuScreen.Settings)
+                return;
+
+            _view.SetPrivacyVisible(_privacy.IsOptionsRequired);
+            _view.SetResetTips(_localization.Get(LocalizationTable.Ui, ResetTipsKey), _progress.SeenTips.Count > 0);
+        }
+
+        private void OnResetTipsClicked()
+        {
+            _ui.PlayClick();
+            _progress.ResetTips();
+            _progressRepository.Save(_progress);
+            _view.SetResetTips(_localization.Get(LocalizationTable.Ui, TipsResetKey), false);
         }
 
         private void OnSoundClicked()

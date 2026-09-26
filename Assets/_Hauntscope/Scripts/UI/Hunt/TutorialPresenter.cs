@@ -12,6 +12,7 @@ namespace Hauntscope.UI.Hunt
         private const string EmfKey = "tutorial.emf";
         private const string LensKey = "tutorial.lens";
         private const string BeamKey = "tutorial.beam";
+        private const string SurgeKey = "tutorial.surge";
 
         private readonly TutorialFlow _flow;
         private readonly TutorialView _view;
@@ -44,7 +45,7 @@ namespace Hauntscope.UI.Hunt
             _view.SetWalkCue(step == TutorialStep.Walk);
             _view.SetEmfCue(step == TutorialStep.FollowEmf);
             _view.SetLensCue(step == TutorialStep.UseLens);
-            _view.SetBeamCue(step == TutorialStep.HoldBeam);
+            _view.SetBeamCue(step == TutorialStep.HoldBeam || step == TutorialStep.Surge);
             if (key == null)
                 return;
 
@@ -69,6 +70,8 @@ namespace Hauntscope.UI.Hunt
                     return LensKey;
                 case TutorialStep.HoldBeam:
                     return BeamKey;
+                case TutorialStep.Surge:
+                    return SurgeKey;
                 default:
                     return null;
             }

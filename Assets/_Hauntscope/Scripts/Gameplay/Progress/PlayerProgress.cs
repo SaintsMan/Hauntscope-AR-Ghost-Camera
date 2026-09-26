@@ -10,6 +10,7 @@ namespace Hauntscope.Gameplay.Progress
         private readonly Dictionary<string, int> _captures;
         private readonly HashSet<string> _sighted = new HashSet<string>();
         private readonly Dictionary<string, int> _photoEvidence = new Dictionary<string, int>();
+        private readonly HashSet<string> _seenTips = new HashSet<string>();
 
         public PlayerProgress()
             : this(0, new Dictionary<string, int>(), 0, false)
@@ -28,8 +29,11 @@ namespace Hauntscope.Gameplay.Progress
             int fieldDropsClaimed = 0,
             IReadOnlyDictionary<string, int> photoEvidence = null,
             int shiftsCompleted = 0,
-            int bestShiftRound = 0)
+            int bestShiftRound = 0,
+            IEnumerable<string> seenTips = null)
         {
+            if (seenTips != null)
+                _seenTips.UnionWith(seenTips);
             ShiftsCompleted = shiftsCompleted;
             BestShiftRound = bestShiftRound;
             if (photoEvidence != null)
@@ -97,6 +101,30 @@ namespace Hauntscope.Gameplay.Progress
 
             FieldDropsClaimed++;
             AddEctoplasm(reward);
+        }
+
+        // Field tips and menu marks already shown (GDD 5.31).
+        public IReadOnlyCollection<string> SeenTips => _seenTips;
+
+        public bool HasSeenTip(string key)
+        {
+            return _seenTips.Contains(key);
+        }
+
+        public void MarkTipSeen(string key)
+        {
+            if (_seenTips.Add(key))
+                Changed?.Invoke();
+        }
+
+        // Settings: "Reset tips" shows every tip and menu mark again.
+        public void ResetTips()
+        {
+            if (_seenTips.Count == 0)
+                return;
+
+            _seenTips.Clear();
+            Changed?.Invoke();
         }
 
         // Ghosts revealed in the lens at least once, caught or not.

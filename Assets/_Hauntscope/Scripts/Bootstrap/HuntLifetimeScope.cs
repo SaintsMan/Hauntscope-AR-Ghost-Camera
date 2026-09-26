@@ -4,6 +4,7 @@ using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Hunt.Tips;
 using Hauntscope.Gameplay.Hunt.States;
 using Hauntscope.Gameplay.Photo;
 using Hauntscope.Gameplay.Pickups;
@@ -84,6 +85,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<ShiftBreakState>(Lifetime.Singleton);
             builder.RegisterEntryPoint<HuntFlow>();
             builder.RegisterEntryPoint<TutorialFlow>().AsSelf();
+            RegisterTips(builder);
 
             builder.RegisterComponentInHierarchy<CameraFrameView>();
             builder.RegisterEntryPoint<CameraFramePresenter>();
@@ -115,6 +117,22 @@ namespace Hauntscope.Bootstrap
         }
 
         // Always registered: in a single hunt the night shift simply stays off.
+        // Rules are asked in this order, so it is also their priority when two come up at once.
+        private static void RegisterTips(IContainerBuilder builder)
+        {
+            builder.Register<FieldTipContext>(Lifetime.Singleton);
+            builder.Register<ShiftBreakTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
+            builder.Register<CatTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
+            builder.Register<WitchingHourTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
+            builder.Register<StaggerTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
+            builder.Register<ColdSpotTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
+            builder.Register<CloseInTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
+            builder.Register<PhotoTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
+            builder.RegisterEntryPoint<FieldTips>().AsSelf();
+            builder.RegisterComponentInHierarchy<FieldTipView>();
+            builder.RegisterEntryPoint<FieldTipPresenter>();
+        }
+
         private static void RegisterShift(IContainerBuilder builder)
         {
             builder.Register<ShiftDifficulty>(Lifetime.Singleton);

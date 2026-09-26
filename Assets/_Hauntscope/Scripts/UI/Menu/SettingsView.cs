@@ -19,6 +19,10 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private TMP_Text _languageLabel;
         [SerializeField] private Button _creditsButton;
         [SerializeField] private Button _privacyButton;
+        [SerializeField] private Button _resetTipsButton;
+        [SerializeField] private CanvasGroup _resetTipsGroup;
+        [SerializeField] private TMP_Text _resetTipsLabel;
+        [SerializeField, Range(0f, 1f)] private float _disabledAlpha = 0.45f;
 
         public event Action BackClicked;
 
@@ -27,6 +31,8 @@ namespace Hauntscope.UI.Menu
         public event Action CreditsClicked;
 
         public event Action PrivacyClicked;
+
+        public event Action ResetTipsClicked;
 
         public event Action SoundClicked
         {
@@ -67,6 +73,14 @@ namespace Hauntscope.UI.Menu
         }
 
         // Shown only where the consent rules require a way back to the choice.
+        // Dimmed once there is nothing left to reset.
+        public void SetResetTips(string label, bool interactable)
+        {
+            _resetTipsLabel.text = label;
+            _resetTipsButton.interactable = interactable;
+            _resetTipsGroup.alpha = interactable ? 1f : _disabledAlpha;
+        }
+
         public void SetPrivacyVisible(bool visible)
         {
             _privacyButton.gameObject.SetActive(visible);
@@ -89,6 +103,7 @@ namespace Hauntscope.UI.Menu
             _languageButton.onClick.AddListener(OnLanguageClicked);
             _creditsButton.onClick.AddListener(OnCreditsClicked);
             _privacyButton.onClick.AddListener(OnPrivacyClicked);
+            _resetTipsButton.onClick.AddListener(OnResetTipsClicked);
         }
 
         private void OnDestroy()
@@ -97,6 +112,7 @@ namespace Hauntscope.UI.Menu
             _languageButton.onClick.RemoveListener(OnLanguageClicked);
             _creditsButton.onClick.RemoveListener(OnCreditsClicked);
             _privacyButton.onClick.RemoveListener(OnPrivacyClicked);
+            _resetTipsButton.onClick.RemoveListener(OnResetTipsClicked);
         }
 
         private void OnBackClicked()
@@ -117,6 +133,11 @@ namespace Hauntscope.UI.Menu
         private void OnPrivacyClicked()
         {
             PrivacyClicked?.Invoke();
+        }
+
+        private void OnResetTipsClicked()
+        {
+            ResetTipsClicked?.Invoke();
         }
     }
 }
