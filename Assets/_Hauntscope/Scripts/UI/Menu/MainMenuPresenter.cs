@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Feedback;
+using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Progress;
 using UnityEngine;
@@ -18,6 +19,10 @@ namespace Hauntscope.UI.Menu
         private const string ArHintKey = "menu.mode.ar_hint";
         private const string VirtualHintKey = "menu.mode.virtual_hint";
         private const string ArUnavailableKey = "menu.mode.ar_unavailable";
+        private const string StandbyKey = "splash.standby";
+        private const string WitchingHourKey = "menu.witching_hour";
+        private const string DayChannelKey = "menu.channel.day";
+        private const string NightChannelKey = "menu.channel.night";
 
         private readonly MainMenuView _view;
         private readonly MenuNavigation _navigation;
@@ -28,9 +33,11 @@ namespace Hauntscope.UI.Menu
         private readonly GameSettings _settings;
         private readonly SettingsRepository _settingsRepository;
         private readonly IArAvailability _arAvailability;
+        private readonly WitchingHour _witchingHour;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         private int _shownSecond = -1;
+        private bool? _shownWitchingHour;
         private bool _arAvailable = true;
 
         public MainMenuPresenter(
@@ -42,8 +49,10 @@ namespace Hauntscope.UI.Menu
             UiFeedback ui,
             GameSettings settings,
             SettingsRepository settingsRepository,
-            IArAvailability arAvailability)
+            IArAvailability arAvailability,
+            WitchingHour witchingHour)
         {
+            _witchingHour = witchingHour;
             _settings = settings;
             _settingsRepository = settingsRepository;
             _arAvailability = arAvailability;
@@ -85,6 +94,16 @@ namespace Hauntscope.UI.Menu
 
             _shownSecond = now.Second;
             _view.SetTimestamp(_localization.Get(LocalizationTable.Ui, TimestampKey, now));
+            if (_witchingHour.IsActive != _shownWitchingHour)
+                RenderStatus();
+        }
+
+        private void RenderStatus()
+        {
+            var night = _witchingHour.IsActive;
+            _shownWitchingHour = night;
+            _view.SetStatus(_localization.Get(LocalizationTable.Ui, night ? WitchingHourKey : StandbyKey),
+                _localization.Get(LocalizationTable.Ui, night ? NightChannelKey : DayChannelKey), night);
         }
 
         public void Dispose()
@@ -130,6 +149,7 @@ namespace Hauntscope.UI.Menu
             _shownSecond = -1;
             _view.SetVersion(_localization.Get(LocalizationTable.Ui, VersionKey, Application.version));
             RenderMode();
+            RenderStatus();
         }
 
         // A device without ARCore support can only hunt in the Virtual Room; the camera half stays visible but disabled,

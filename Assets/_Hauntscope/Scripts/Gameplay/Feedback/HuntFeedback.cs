@@ -3,6 +3,7 @@ using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Tools;
 using UnityEngine;
 using VContainer.Unity;
@@ -21,6 +22,7 @@ namespace Hauntscope.Gameplay.Feedback
         private readonly AudioConfig _audio;
         private readonly VfxConfig _vfxConfig;
         private readonly HuntPause _pause;
+        private readonly GameSettings _settings;
 
         private Ghost _ghost;
         private ISfxLoop _whisper;
@@ -40,8 +42,10 @@ namespace Hauntscope.Gameplay.Feedback
             IVfxPlayer vfx,
             AudioConfig audio,
             VfxConfig vfxConfig,
-            HuntPause pause)
+            HuntPause pause,
+            GameSettings settings)
         {
+            _settings = settings;
             _vfxConfig = vfxConfig;
             _pause = pause;
             _session = session;
@@ -139,6 +143,9 @@ namespace Hauntscope.Gameplay.Feedback
             _ghost.Shrieked += OnShrieked;
             _ghost.Staggered += OnStaggered;
             _ghost.SurgeStarted += OnSurgeStarted;
+            _ghost.Crept += OnCrept;
+            _ghost.Lunged += OnLunged;
+            _ghost.Settled += OnSettled;
             var clip = _session.GhostData != null ? _session.GhostData.WhisperClip : null;
             _whisper = _sfx.PlayLoop(clip, _audio.WhisperVolume, true);
             _whisper?.SetPosition(_ghost.Position);
@@ -153,6 +160,9 @@ namespace Hauntscope.Gameplay.Feedback
                 _ghost.Shrieked -= OnShrieked;
                 _ghost.Staggered -= OnStaggered;
                 _ghost.SurgeStarted -= OnSurgeStarted;
+                _ghost.Crept -= OnCrept;
+                _ghost.Lunged -= OnLunged;
+                _ghost.Settled -= OnSettled;
             }
 
             _whisper?.Stop();
@@ -197,13 +207,41 @@ namespace Hauntscope.Gameplay.Feedback
 
         private void OnStaggered()
         {
-            // The freeze on being noticed coincides with the reveal pulse; that moment already has its own flash.
-            if (_ghost.IsAlerted)
+            // The freeze on being noticed coincides with the reveal pulse; that moment already has its own flash. A cat
+            // sitting down is not knocked out either: it meows instead of sparking.
+            if (_ghost.IsAlerted || _ghost.IsSettled)
                 return;
 
             _sfx.Play3D(_audio.GhostStagger, _ghost.Position, _audio.StaggerVolume);
             _vfx.Play(VfxId.StaggerSparks, _ghost.Position, RimColor);
             _haptics.Play(HapticStrength.Medium);
+        }
+
+        private void OnCrept()
+        {
+            _sfx.Play3D(_audio.LurkerCreak, _ghost.Position, _audio.CreakVolume);
+        }
+
+        // Behind the player the face-rush of a jump scare would go unseen, so the lunge is all sound and hand.
+        private void OnLunged()
+        {
+            if (_settings.JumpScares.Value)
+            {
+                _sfx.Play2D(_audio.ScareSting, _audio.ScareVolume, 1f);
+                _haptics.Play(HapticStrength.Heavy);
+                return;
+            }
+
+            var whisper = _session.GhostData != null ? _session.GhostData.WhisperClip : null;
+            _sfx.Play2D(whisper, _audio.LungeWhisperVolume, 1f);
+            _haptics.Play(HapticStrength.Medium);
+        }
+
+        private void OnSettled()
+        {
+            _sfx.Play3D(_audio.CatMeow, _ghost.Position, _audio.MeowVolume);
+            _sfx.Play3D(_audio.CatPurr, _ghost.Position, _audio.PurrVolume);
+            _haptics.Play(HapticStrength.Light);
         }
 
         private void OnSurgeStarted()

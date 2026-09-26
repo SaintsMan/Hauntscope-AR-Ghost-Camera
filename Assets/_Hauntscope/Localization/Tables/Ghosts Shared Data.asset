@@ -183,6 +183,62 @@ MonoBehaviour:
     m_Key: ghost.mimic.tip
     m_Metadata:
       m_Items: []
+  - m_Id: 438211471343616
+    m_Key: ghost.lurker.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286656
+    m_Key: ghost.lurker.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286657
+    m_Key: ghost.lurker.rumor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286658
+    m_Key: ghost.lurker.behavior
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286659
+    m_Key: ghost.lurker.tactics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286660
+    m_Key: ghost.lurker.classified
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286661
+    m_Key: ghost.lurker.tip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286662
+    m_Key: ghost.phantom_cat.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286663
+    m_Key: ghost.phantom_cat.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286664
+    m_Key: ghost.phantom_cat.rumor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286665
+    m_Key: ghost.phantom_cat.behavior
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286666
+    m_Key: ghost.phantom_cat.tactics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286667
+    m_Key: ghost.phantom_cat.classified
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286668
+    m_Key: ghost.phantom_cat.tip
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -62,6 +62,11 @@ namespace Hauntscope.Editor
             Save(SfxFolder, "WhisperWraith", Whisper(53, 0.9f, 0.05f, 0.12f, 0.03f, 0.12f, 0.45f, 2.6f, 0.2f, 1.1f), -6f, true);
             Save(SfxFolder, "WhisperBanshee", Whisper(67, 1.45f, 0.45f, 1f, 0.25f, 0.7f, 0.1f, 1.4f, 0.6f, 1.4f), -6f, true);
             Save(SfxFolder, "WhisperMimic", Whisper(79, 1.05f, 0.1f, 0.3f, 0.1f, 0.4f, 0.25f, 1.2f, 0.3f, 1.05f), -6f, true);
+            Save(SfxFolder, "WhisperLurker", Whisper(97, 0.72f, 0.45f, 1f, 0.35f, 0.9f, 0.4f, 1.6f, 0.6f, 1.4f), -6f, true);
+            Save(SfxFolder, "WhisperPhantomCat", PurrLoop(), -12f, true);
+            Save(SfxFolder, "LurkerCreak", LurkerCreak(), -3f, false);
+            Save(SfxFolder, "CatMeow", CatMeow(), -3f, false);
+            Save(SfxFolder, "CatPurr", CatPurr(), -5f, false);
             Save(AmbientFolder, "AmbientDrone", AmbientDrone(), -8f, true);
             Save(AmbientFolder, "AmbientStatic", AmbientStatic(), -10f, true);
         }
@@ -828,6 +833,125 @@ namespace Hauntscope.Editor
             Add(samples, body, 0, 0.5f);
             Add(samples, body, (int)(0.07f * SampleRate), 0.35f);
             return TrimTo(Reverb(samples, 0.12f, 0.5f), samples.Length);
+        }
+
+        // A floorboard somewhere behind the player: stick-slip pulses speeding up and slowing down, ringing through two
+        // wood resonances, with a soft thump as the weight shifts onto it.
+        private static float[] LurkerCreak()
+        {
+            const float length = 0.85f;
+            var random = new System.Random(173);
+            var pulses = Buffer(length);
+            var phase = 0f;
+            for (var i = 0; i < pulses.Length; i++)
+            {
+                var t = Time(i) / length;
+                var rate = Mathf.Lerp(22f, 58f, Mathf.Sin(Mathf.PI * t)) * (0.85f + 0.3f * (float)random.NextDouble());
+                phase += rate / SampleRate;
+                if (phase < 1f)
+                    continue;
+
+                phase -= 1f;
+                pulses[i] = 0.6f + 0.4f * (float)random.NextDouble();
+            }
+
+            var wood = Filter(pulses, FilterType.BandPass, i => 560f + 140f * Mathf.Sin(Mathf.PI * Time(i) / length), 9f);
+            var grain = Filter(pulses, FilterType.BandPass, 1450f, 11f);
+            var friction = Filter(Noise(pulses.Length, 179), FilterType.BandPass, 900f, 1.5f);
+            var samples = Buffer(length);
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var thump = Mathf.Sin(TwoPi * 62f * t) * Envelope(t, 0.01f, 0.15f);
+                samples[i] = (wood[i] * 3.2f + grain[i] * 1.6f + friction[i] * 0.12f) * Adsr(t, length, 0.12f, 0.3f) + thump * 0.35f;
+            }
+
+            return TrimTo(Reverb(samples, 0.28f, 0.8f), (int)((length + 0.35f) * SampleRate));
+        }
+
+        // A ghostly meow: a voice gliding up and back down while its formants move from "ee" through "ah" to "oo",
+        // a breath of air on it and a long, hollow tail.
+        private static float[] CatMeow()
+        {
+            const float length = 0.75f;
+            var voice = Buffer(length);
+            var phase = 0f;
+            for (var i = 0; i < voice.Length; i++)
+            {
+                var t = Time(i) / length;
+                var pitch = t < 0.35f ? Mathf.Lerp(520f, 820f, Smooth(t / 0.35f)) : Mathf.Lerp(820f, 430f, Smooth((t - 0.35f) / 0.65f));
+                phase += TwoPi * pitch * (1f + 0.012f * Mathf.Sin(TwoPi * 6f * Time(i))) / SampleRate;
+                var sample = 0f;
+                for (var h = 1; h <= 10 && pitch * h < 8000f; h++)
+                    sample += Mathf.Sin(phase * h) / h;
+                voice[i] = sample;
+            }
+
+            var breath = Noise(voice.Length, 181);
+            var samples = Buffer(length);
+            for (var formant = 0; formant < 3; formant++)
+            {
+                var index = formant;
+                var band = Filter(voice, FilterType.BandPass, i => MeowFormant(index, Time(i) / length), 6f);
+                var air = Filter(breath, FilterType.BandPass, i => MeowFormant(index, Time(i) / length), 8f);
+                var weight = formant == 0 ? 1f : formant == 1 ? 0.75f : 0.4f;
+                for (var i = 0; i < samples.Length; i++)
+                    samples[i] += (band[i] + air[i] * 0.25f) * weight;
+            }
+
+            for (var i = 0; i < samples.Length; i++)
+                samples[i] *= Adsr(Time(i), length, 0.05f, 0.3f);
+            var hollow = Echo(samples, 0.11f, 0.3f, 3000f, 3);
+            return TrimTo(Reverb(hollow, 0.4f, 1.2f), (int)((length + 0.7f) * SampleRate));
+        }
+
+        private static float MeowFormant(int formant, float t)
+        {
+            var from = Vowels[2][formant];
+            var middle = Vowels[0][formant];
+            var to = Vowels[4][formant];
+            return t < 0.4f ? Mathf.Lerp(from, middle, Smooth(t / 0.4f)) : Mathf.Lerp(middle, to, Smooth((t - 0.4f) / 0.6f));
+        }
+
+        // The cat sitting down by the player: a warm purr swelling in and out over a few breaths.
+        private static float[] CatPurr()
+        {
+            const float length = 3f;
+            var samples = Purr(length, 191);
+            for (var i = 0; i < samples.Length; i++)
+                samples[i] *= Adsr(Time(i), length, 0.4f, 0.9f);
+            return samples;
+        }
+
+        // The phantom cat's presence: a soft, endless purr instead of a whisper.
+        private static float[] PurrLoop()
+        {
+            const float loopLength = 6f;
+            const float crossfade = 0.8f;
+            return MakeLoop(Purr(loopLength + crossfade, 193), crossfade);
+        }
+
+        // Rumbling air pulsing about 26 times a second, breathing in and out, the out-breath deeper and louder.
+        private static float[] Purr(float length, int seed)
+        {
+            var noise = Filter(Noise(Mathf.CeilToInt(length * SampleRate), seed), FilterType.LowPass, 900f, 0.7f);
+            var samples = Buffer(length);
+            float pulsePhase = 0f, tonePhase = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var breath = Mathf.Repeat(t / 1.9f, 1f);
+                var exhale = breath > 0.45f;
+                var rate = exhale ? 24f : 27f;
+                pulsePhase += TwoPi * rate / SampleRate;
+                tonePhase += TwoPi * (exhale ? 48f : 54f) / SampleRate;
+                var pulse = Mathf.Pow(0.5f + 0.5f * Mathf.Sin(pulsePhase), 3f);
+                var swell = Mathf.Sin(Mathf.PI * (exhale ? (breath - 0.45f) / 0.55f : breath / 0.45f));
+                var level = (exhale ? 1f : 0.65f) * (0.25f + 0.75f * swell);
+                samples[i] = (noise[i] * 2.2f + Mathf.Sin(tonePhase) * 0.35f) * pulse * level;
+            }
+
+            return samples;
         }
 
         private static float[] Bell(float frequency, float duration, float ratio, float index, float decay)

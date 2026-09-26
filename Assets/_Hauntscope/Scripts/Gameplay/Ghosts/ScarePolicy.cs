@@ -23,6 +23,9 @@ namespace Hauntscope.Gameplay.Ghosts
             if (!_settings.JumpScares.Value || session.IsPlayersFirstHunt || session.HasScared)
                 return false;
 
+            if (session.GhostData != null && !session.GhostData.CanScare)
+                return false;
+
             if (session.Elapsed < _config.MinTime || !ghost.IsAlerted)
                 return false;
 

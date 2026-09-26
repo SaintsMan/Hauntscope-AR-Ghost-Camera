@@ -30,6 +30,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private CaptureConfig _capture = new CaptureConfig();
         [SerializeField] private PhotoConfig _photo = new PhotoConfig();
         [SerializeField] private HideConfig _hide = new HideConfig();
+        [SerializeField] private NightConfig _night = new NightConfig();
 
         public int TargetFrameRate => _targetFrameRate;
 
@@ -80,5 +81,7 @@ namespace Hauntscope.Gameplay.Config
         public PhotoConfig Photo => _photo;
 
         public HideConfig Hide => _hide;
+
+        public NightConfig Night => _night;
     }
 }

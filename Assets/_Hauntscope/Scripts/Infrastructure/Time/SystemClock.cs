@@ -8,5 +8,7 @@ namespace Hauntscope.Infrastructure.Time
         public DateTime UtcNow => DateTime.UtcNow;
 
         public DateTime Today => DateTime.Today;
+
+        public DateTime LocalNow => DateTime.Now;
     }
 }

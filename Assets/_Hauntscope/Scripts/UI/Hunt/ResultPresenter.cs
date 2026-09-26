@@ -23,6 +23,7 @@ namespace Hauntscope.UI.Hunt
         private const string ResearchKey = "result.breakdown.research";
         private const string FoundKey = "result.breakdown.found";
         private const string PhotoKey = "result.breakdown.photo";
+        private const string NightKey = "result.breakdown.night";
         private const string SeparatorKey = "result.breakdown.separator";
         private const string NewEntryKey = "result.new_entry";
         private const string DeclassifiedKey = "result.declassified";
@@ -227,9 +228,10 @@ namespace Hauntscope.UI.Hunt
         {
             var separator = _localization.Get(LocalizationTable.Ui, SeparatorKey);
             var text = _localization.Get(LocalizationTable.Ui, CaptureKey, result.BaseReward * (result.IsDoubled ? 2 : 1));
-            var research = result.CaptureReward - result.BaseReward * (result.IsDoubled ? 2 : 1);
-            if (research > 0)
-                text += separator + _localization.Get(LocalizationTable.Ui, ResearchKey, research);
+            if (result.ResearchBonus > 0)
+                text += separator + _localization.Get(LocalizationTable.Ui, ResearchKey, result.ResearchBonus);
+            if (result.NightBonus > 0)
+                text += separator + _localization.Get(LocalizationTable.Ui, NightKey, result.NightBonus);
             if (result.Found > 0)
                 text += separator + _localization.Get(LocalizationTable.Ui, FoundKey, result.Found);
             if (result.PhotoReward > 0)

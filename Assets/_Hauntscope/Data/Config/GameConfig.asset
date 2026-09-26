@@ -28,6 +28,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 5bbccbe20b9d0e7418dfac95af446161, type: 2}
     - {fileID: 11400000, guid: 85829def68b4a0c499a5d6d6b40caceb, type: 2}
     - {fileID: 11400000, guid: 914c3025178e5be4d9f965eb5557e386, type: 2}
+    - {fileID: 11400000, guid: b05103b2d7b29694d9df9c2c3df1c0e0, type: 2}
+    - {fileID: 11400000, guid: 2ab0606b4e846af49876176a29ca33ff, type: 2}
     _firstGhostId: wisp
     _commonWeight: 60
     _rareWeight: 30
@@ -157,13 +159,21 @@ MonoBehaviour:
     _surgeHapticInterval: 0.12
     _photoShutter: {fileID: 8300000, guid: c9e015f625a9f5741ad59329eba1ec00, type: 3}
     _shutterVolume: 0.85
+    _lurkerCreak: {fileID: 8300000, guid: b491d86c76972b844904ede40cdd65e0, type: 3}
+    _creakVolume: 0.9
+    _lungeWhisperVolume: 1
+    _catMeow: {fileID: 8300000, guid: fde8359fa27b07f45a35b3b2dbadfd9f, type: 3}
+    _meowVolume: 0.85
+    _catPurr: {fileID: 8300000, guid: f11f08b057f72474b9febb126f960411, type: 3}
+    _purrVolume: 0.8
+    _witchingHourDronePitch: 0.84
   _vfx:
-    _captureSpiral: {fileID: 3482571195191366530, guid: 6cc077c0fffe26544bbff774130ad3fc, type: 3}
-    _teleportFlash: {fileID: 9163850681629320366, guid: d281b30d52bb11d4fae5ccc1d73b5dcf, type: 3}
-    _revealPulse: {fileID: 7298845405034352830, guid: 100f08603d74b874a92e27dd76cbbfbb, type: 3}
-    _pickupBurst: {fileID: 4244323925081070652, guid: f489a33a572159443be892ff334deda2, type: 3}
-    _staggerSparks: {fileID: 6152194248836977993, guid: e355fba8f6cef23478fd53df8ea7a160, type: 3}
-    _coldSpot: {fileID: 2383050041594738201, guid: d91f2868fd632934ba29c6e8fe1ef839, type: 3}
+    _captureSpiral: {fileID: 0}
+    _teleportFlash: {fileID: 0}
+    _revealPulse: {fileID: 0}
+    _pickupBurst: {fileID: 0}
+    _staggerSparks: {fileID: 0}
+    _coldSpot: {fileID: 0}
     _coldSpotColor: {r: 0.9, g: 0.93, b: 0.95, a: 1}
     _beamOriginForward: 0.3
     _beamOriginDrop: 0.2
@@ -303,3 +313,8 @@ MonoBehaviour:
     _minDistance: 2
     _wallOffset: 0.35
     _cornerInset: 0.4
+  _night:
+    _startHour: 23
+    _endHour: 4
+    _legendaryWeightMultiplier: 2
+    _rewardMultiplier: 1.25

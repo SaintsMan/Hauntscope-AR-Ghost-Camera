@@ -231,6 +231,78 @@ MonoBehaviour:
       for 2 seconds: strike.'
     m_Metadata:
       m_Items: []
+  - m_Id: 438211471343616
+    m_Localized: Lurker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286656
+    m_Localized: 'Tall, thin and patient. It never comes at you head-on: it waits
+      until you look away and closes in one silent step at a time.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286657
+    m_Localized: Night guards all report the same figure at the end of the corridor,
+      a little closer every time they look back at the monitor. Nobody has seen it
+      before eleven.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286658
+    m_Localized: 'Moves only while you look away: the moment the camera turns to
+      it, it freezes. It creeps up behind you and edges closer; let it reach your
+      back and it lunges. It only comes out between 23:00 and 04:00.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286659
+    m_Localized: 'Listen to the floor: a creak means it has set off again. Turn round
+      at once and you catch it mid-step, winded for a moment. Keep it in view while
+      you beam it: watched, it cannot run.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286660
+    m_Localized: 'Every lurker file ends the same way: the agent''s last recording
+      is a shot of their own back, taken from just above head height.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286661
+    m_Localized: 'The Lurker only moves when you look away: when the floor creaks,
+      turn round at once.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286662
+    m_Localized: Phantom Cat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286663
+    m_Localized: A small, curious spirit that still thinks it lives here. It hates
+      sudden moves and loves a quiet lap.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286664
+    m_Localized: Tenants hear purring from an empty armchair and find a warm dent
+      at the foot of the bed in the morning. Nobody in the building keeps a cat.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286665
+    m_Localized: A sudden step or a quick turn of the camera sends it running for
+      a couple of seconds. Stand still for a moment and it comes over and sits about
+      1.2 m away. It never scares anyone; it meows.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286666
+    m_Localized: 'Freeze and let it come to you. While it sits and purrs it is wide
+      open for up to 3 seconds: beam it without moving the phone.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286667
+    m_Localized: Phantom cats are not the ghosts of pets. They are what a home remembers
+      of the evenings it was happy.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286668
+    m_Localized: 'The cat runs from sudden moves: stand still and let it come and
+      sit by you.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

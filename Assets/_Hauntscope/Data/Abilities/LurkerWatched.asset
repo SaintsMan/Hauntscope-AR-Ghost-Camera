@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969aa8d64dce06849aaffc9b14e03fc7, type: 3}
+  m_Name: LurkerWatched
+  m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Ghosts.Abilities.WatchedAbilityConfig
+  _viewAngle: 50
+  _behindDistance: 1.5
+  _closeInSpeed: 0.15
+  _lungeDistance: 0.9
+  _lungeDelay: 1
+  _bounceDistance: 3
+  _bounceDuration: 0.35
+  _catchWindow: 0.5
+  _catchCooldown: 3
+  _staggerDuration: 1.2
+  _creakInterval: 2

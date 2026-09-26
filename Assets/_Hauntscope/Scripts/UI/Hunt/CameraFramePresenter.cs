@@ -2,6 +2,7 @@ using System;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Feedback;
+using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Tools;
 using UnityEngine;
@@ -61,7 +62,9 @@ namespace Hauntscope.UI.Hunt
             _battery.IsLow.Changed += OnBatteryLowChanged;
             _localization.Changed += OnLanguageChanged;
             _session.Result.Changed += OnResultChanged;
+            _session.Ghost.Changed += OnGhostChanged;
             _view.PauseClicked += OnPauseClicked;
+            _view.SetWitchingHour(_session.IsWitchingHour);
             RenderTimecode(true);
             OnResultChanged(_session.Result.Value);
             RenderBattery();
@@ -104,7 +107,14 @@ namespace Hauntscope.UI.Hunt
             _battery.IsLow.Changed -= OnBatteryLowChanged;
             _localization.Changed -= OnLanguageChanged;
             _session.Result.Changed -= OnResultChanged;
+            _session.Ghost.Changed -= OnGhostChanged;
             _view.PauseClicked -= OnPauseClicked;
+        }
+
+        // Night rules are fixed when a hunt begins, so the clock shows the hunt's, not the wall clock's.
+        private void OnGhostChanged(Ghost ghost)
+        {
+            _view.SetWitchingHour(_session.IsWitchingHour);
         }
 
         private void TickGrain(float deltaTime)

@@ -691,6 +691,26 @@ MonoBehaviour:
     m_Key: bestiary.evidence.pile
     m_Metadata:
       m_Items: []
+  - m_Id: 438212909989888
+    m_Key: result.breakdown.night
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155712
+    m_Key: hud.witching_hour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155713
+    m_Key: menu.witching_hour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155714
+    m_Key: menu.channel.day
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155715
+    m_Key: menu.channel.night
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

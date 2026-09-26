@@ -18,6 +18,8 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private Color _rimColor = Color.cyan;
         [SerializeField] private AudioClip _whisperClip;
         [SerializeField] private bool _canHide = true;
+        [SerializeField] private bool _canScare = true;
+        [SerializeField] private bool _nightOnly;
         [SerializeField] private GhostMotion _motion = new GhostMotion();
         [SerializeField] private GhostDetection _detection = new GhostDetection();
         [SerializeField] private GhostCapture _capture = new GhostCapture();
@@ -42,6 +44,12 @@ namespace Hauntscope.Gameplay.Config
 
         // The tutorial wisp never hides: the first hunt teaches the lens and the beam, not the room (GDD 5.28).
         public bool CanHide => _canHide;
+
+        // The phantom cat never jump-scares; it meows instead (GDD 5.28).
+        public bool CanScare => _canScare;
+
+        // Only turns up during the witching hour (the lurker).
+        public bool NightOnly => _nightOnly;
 
         public GhostMotion Motion => _motion;
 

@@ -177,7 +177,99 @@ namespace Hauntscope.Editor
 
                 var y = v * height + Mathf.Pow(1f - v, 6f) * 0.08f * (Mathf.Sin(7f * angle) + 0.6f * Mathf.Sin(3f * angle + 2f));
                 return OnRing(radius, angle, y);
-            }, new HornCrown(count: 5, phase: Mathf.PI * 0.1f, v: 0.84f, length: 0.24f, radius: 0.05f, spread: 0.7f, bend: 0.06f));
+            }, (vertices, triangles, surface) =>
+                AddHorns(vertices, triangles, surface, new HornCrown(count: 5, phase: Mathf.PI * 0.1f, v: 0.84f, length: 0.24f,
+                    radius: 0.05f, spread: 0.7f, bend: 0.06f)));
+        }
+
+        // The lurker: far too tall and thin, the head hanging forward, no legs, just a body thinning into a wisp, and
+        // long arms that hang past its hips ending in claws.
+        public static void BuildLurker(Mesh mesh)
+        {
+            const float height = 2.05f;
+            var profile = new[]
+            {
+                new Vector2(0f, 0.015f),
+                new Vector2(0.18f, 0.07f),
+                new Vector2(0.45f, 0.13f),
+                new Vector2(0.68f, 0.12f),
+                new Vector2(0.77f, 0.15f),
+                new Vector2(0.83f, 0.055f),
+                new Vector2(0.9f, 0.1f),
+                new Vector2(1f, 0f)
+            };
+
+            Lathe(mesh, height, (v, angle) =>
+            {
+                var radius = SampleProfile(profile, v);
+                // Shoulders stick out sideways, a coat-hanger frame under the skin.
+                var shoulders = Mathf.Exp(-Mathf.Pow((v - 0.77f) / 0.035f, 2f)) * Mathf.Pow(Mathf.Abs(Mathf.Cos(angle)), 2f);
+                radius += 0.06f * shoulders;
+                radius *= 1f + 0.04f * Mathf.Sin(5f * angle + v * 11f) * (1f - v);
+
+                var position = OnRing(radius, angle, v * height);
+                // The head droops forward and the tail end sways, so it never stands straight like a pillar.
+                position.z += 0.1f * SmoothStep(0.8f, 1f, v) + 0.03f * SmoothStep(0.5f, 0.8f, v);
+                position.x += 0.06f * Mathf.Pow(1f - v, 3f);
+                return position;
+            }, (vertices, triangles, surface) =>
+            {
+                foreach (var side in new[] { -1f, 1f })
+                {
+                    var shoulder = surface(0.765f, side > 0f ? 0f : Mathf.PI) + new Vector3(-0.02f * side, 0f, 0f);
+                    var elbow = shoulder + new Vector3(0.1f * side, -0.45f, 0.05f);
+                    var hand = shoulder + new Vector3(0.08f * side, -1.0f, 0.16f);
+                    AddTube(vertices, triangles, shoulder, elbow, hand, 0.045f, 0.018f, 14, 10);
+                    for (var finger = -1; finger <= 1; finger++)
+                    {
+                        var spread = new Vector3(0.035f * finger * side + 0.01f * side, -0.07f, 0.04f + 0.02f * (1 - Mathf.Abs(finger)));
+                        AddTube(vertices, triangles, hand, hand + spread, hand + spread * 2.2f + new Vector3(0f, 0.02f, 0.03f), 0.013f, 0f, 5, 6);
+                    }
+                }
+            });
+        }
+
+        // The phantom cat, sitting: haunches on the floor, a narrow chest, a round head with two ears, and a tail
+        // curled round its paws.
+        public static void BuildPhantomCat(Mesh mesh)
+        {
+            const float height = 0.42f;
+            var profile = new[]
+            {
+                new Vector2(0f, 0.11f),
+                new Vector2(0.2f, 0.145f),
+                new Vector2(0.46f, 0.095f),
+                new Vector2(0.62f, 0.07f),
+                new Vector2(0.72f, 0.1f),
+                new Vector2(0.88f, 0.095f),
+                new Vector2(1f, 0f)
+            };
+
+            Lathe(mesh, height, (v, angle) =>
+            {
+                var radius = SampleProfile(profile, v);
+                var position = OnRing(radius, angle, v * height);
+                // Haunches sit back, the chest pushes forward and the head leans out over the paws.
+                position.z += -0.05f * Mathf.Pow(1f - v, 2f) + 0.03f * Mathf.Exp(-Mathf.Pow((v - 0.45f) / 0.12f, 2f))
+                    + 0.035f * SmoothStep(0.6f, 0.75f, v);
+                // A slightly flattened, wider face.
+                position.x *= 1f + 0.12f * SmoothStep(0.65f, 0.8f, v);
+                return position;
+            }, (vertices, triangles, surface) =>
+            {
+                foreach (var side in new[] { -1f, 1f })
+                {
+                    var root = surface(0.93f, Forward - side * 0.75f);
+                    var outward = new Vector3(Mathf.Cos(Forward - side * 0.75f), 0f, Mathf.Sin(Forward - side * 0.75f));
+                    var tip = root + Vector3.up * 0.1f + outward * 0.035f;
+                    AddTube(vertices, triangles, root - Vector3.up * 0.02f, (root + tip) * 0.5f + outward * 0.01f, tip, 0.036f, 0f, 6, 10);
+                }
+
+                var tailRoot = surface(0.08f, -Forward) + new Vector3(0f, 0.01f, 0.02f);
+                var tailBend = tailRoot + new Vector3(0.2f, -0.02f, -0.02f);
+                var tailTip = tailRoot + new Vector3(0.21f, 0.03f, 0.22f);
+                AddTube(vertices, triangles, tailRoot, tailBend, tailTip, 0.03f, 0.012f, 16, 10);
+            });
         }
 
         private static float Reach(float v, float angle, float direction)
@@ -224,7 +316,8 @@ namespace Hauntscope.Editor
             return new Vector3(Mathf.Cos(angle) * radius, y, Mathf.Sin(angle) * radius);
         }
 
-        private static void Lathe(Mesh mesh, float height, Func<float, float, Vector3> surface, HornCrown? horns = null)
+        private static void Lathe(Mesh mesh, float height, Func<float, float, Vector3> surface,
+            Action<List<Vector3>, List<int>, Func<float, float, Vector3>> details = null)
         {
             var columns = Segments + 1;
             var vertices = new List<Vector3>((Rings + 1) * columns);
@@ -252,8 +345,8 @@ namespace Hauntscope.Editor
 
             // The hem stays open like a real sheet: the two-sided shader shows its inside from below. A cap across
             // it caught the rim light edge-on and read as a flat glowing plate.
-            if (horns.HasValue)
-                AddHorns(vertices, triangles, surface, centerOffset, horns.Value);
+            // Extra parts are placed on the same centred surface the body was built from.
+            details?.Invoke(vertices, triangles, (v, angle) => surface(v, angle) - centerOffset);
 
             mesh.Clear();
             mesh.SetVertices(vertices);
@@ -265,69 +358,84 @@ namespace Hauntscope.Editor
 
         // Horns are real cones rooted in the surface, not vertices of the dome pulled up: those fold into thin fins
         // that catch the full rim light as flat white triangles.
-        private static void AddHorns(List<Vector3> vertices, List<int> triangles, Func<float, float, Vector3> surface,
-            Vector3 centerOffset, HornCrown crown)
+        private static void AddHorns(List<Vector3> vertices, List<int> triangles, Func<float, float, Vector3> surface, HornCrown crown)
         {
             for (var i = 0; i < crown.Count; i++)
             {
                 var angle = crown.Phase + i * FullCircle / crown.Count;
-                var root = surface(crown.V, angle) - centerOffset;
+                var root = surface(crown.V, angle);
                 var outward = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
-                AddHorn(vertices, triangles, root, outward, crown);
+                var direction = (Vector3.up + outward * crown.Spread).normalized;
+                // Rooted a little inside the dome, so the base never shows a seam.
+                var start = root - direction * crown.Radius;
+                var tip = start + direction * crown.Length + outward * crown.Bend;
+                var middle = start + direction * (crown.Length * 0.5f) + outward * (crown.Bend * 0.25f);
+                AddTube(vertices, triangles, start, middle, tip, crown.Radius, 0f, HornRings, HornSides);
             }
         }
 
-        private static void AddHorn(List<Vector3> vertices, List<int> triangles, Vector3 root, Vector3 outward, HornCrown crown)
+        // A tapering tube along a quadratic curve from root through bend to tip: horns, ears, arms, claws, a tail.
+        // A tip radius of zero closes it in a point; otherwise the end is rounded off with a short cone.
+        private static void AddTube(List<Vector3> vertices, List<int> triangles, Vector3 root, Vector3 bend, Vector3 tip,
+            float rootRadius, float tipRadius, int rings, int sides)
         {
-            var direction = (Vector3.up + outward * crown.Spread).normalized;
-            var u = Vector3.Cross(Vector3.up, outward).normalized;
-            var w = Vector3.Cross(u, direction);
-            // Rooted a little inside the dome, so the base never shows a seam.
-            var start = root - direction * crown.Radius;
             var first = vertices.Count;
             var firstTriangle = triangles.Count;
-
-            for (var ring = 0; ring < HornRings; ring++)
+            var u = Vector3.zero;
+            for (var ring = 0; ring < rings; ring++)
             {
-                var t = (float)ring / HornRings;
-                var center = start + direction * (crown.Length * t) + outward * (crown.Bend * t * t);
-                var radius = crown.Radius * Mathf.Pow(1f - t, 0.8f);
-                for (var side = 0; side < HornSides; side++)
+                var t = (float)ring / rings;
+                var center = Curve(root, bend, tip, t);
+                var tangent = (Curve(root, bend, tip, Mathf.Min(1f, t + 0.01f)) - Curve(root, bend, tip, Mathf.Max(0f, t - 0.01f))).normalized;
+                // Parallel transport: each ring keeps the previous ring's side vector, only tilted onto the new tangent,
+                // so the tube never twists where it bends.
+                u = ring == 0 ? Vector3.Cross(Mathf.Abs(tangent.y) < 0.9f ? Vector3.up : Vector3.right, tangent) : u - tangent * Vector3.Dot(u, tangent);
+                u.Normalize();
+                var w = Vector3.Cross(u, tangent);
+                var radius = Mathf.Lerp(rootRadius, tipRadius, Mathf.Pow(t, 0.9f));
+                for (var side = 0; side < sides; side++)
                 {
-                    var theta = (float)side / HornSides * FullCircle;
+                    var theta = (float)side / sides * FullCircle;
                     vertices.Add(center + (u * Mathf.Cos(theta) + w * Mathf.Sin(theta)) * radius);
                 }
             }
 
-            var tip = vertices.Count;
-            vertices.Add(start + direction * crown.Length + outward * crown.Bend);
+            var end = vertices.Count;
+            var direction = (tip - Curve(root, bend, tip, 0.95f)).normalized;
+            vertices.Add(tip + direction * tipRadius);
 
-            for (var ring = 0; ring < HornRings - 1; ring++)
+            for (var ring = 0; ring < rings - 1; ring++)
             {
-                var a = first + ring * HornSides;
-                for (var side = 0; side < HornSides; side++)
+                var a = first + ring * sides;
+                for (var side = 0; side < sides; side++)
                 {
-                    var next = (side + 1) % HornSides;
-                    Quad(triangles, a + side, a + HornSides + side, a + next, a + HornSides + next);
+                    var next = (side + 1) % sides;
+                    Quad(triangles, a + side, a + sides + side, a + next, a + sides + next);
                 }
             }
 
-            var last = first + (HornRings - 1) * HornSides;
-            for (var side = 0; side < HornSides; side++)
+            var last = first + (rings - 1) * sides;
+            for (var side = 0; side < sides; side++)
             {
                 triangles.Add(last + side);
-                triangles.Add(tip);
-                triangles.Add(last + (side + 1) % HornSides);
+                triangles.Add(end);
+                triangles.Add(last + (side + 1) % sides);
             }
 
-            // Faces must point out of the cone for the rim light; flip the winding if the basis is mirrored.
+            // Faces must point out of the tube for the rim light; flip the winding if the frame came out mirrored.
             var a0 = vertices[triangles[firstTriangle]];
             var normal = Vector3.Cross(vertices[triangles[firstTriangle + 1]] - a0, vertices[triangles[firstTriangle + 2]] - a0);
-            if (Vector3.Dot(normal, a0 - start) >= 0f)
+            if (Vector3.Dot(normal, a0 - root) >= 0f)
                 return;
 
             for (var i = firstTriangle; i < triangles.Count; i += 3)
                 (triangles[i + 1], triangles[i + 2]) = (triangles[i + 2], triangles[i + 1]);
+        }
+
+        private static Vector3 Curve(Vector3 a, Vector3 b, Vector3 c, float t)
+        {
+            var u = 1f - t;
+            return u * u * a + 2f * u * t * b + t * t * c;
         }
 
         private static void Quad(List<int> triangles, int a, int b, int a1, int b1)

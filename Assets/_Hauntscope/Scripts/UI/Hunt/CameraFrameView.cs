@@ -16,6 +16,9 @@ namespace Hauntscope.UI.Hunt
         [SerializeField] private Color _batteryEmptyColor;
         [SerializeField] private RawImage _grain;
         [SerializeField] private Button _pauseButton;
+        [SerializeField] private GameObject _witchingHourLabel;
+        [SerializeField] private Color _timecodeColor = new Color(0.9f, 0.93f, 0.95f, 1f);
+        [SerializeField] private Color _witchingHourColor = new Color(1f, 0.23f, 0.23f, 1f);
 
         public event Action PauseClicked;
 
@@ -27,6 +30,13 @@ namespace Hauntscope.UI.Hunt
         public void SetTimecode(string text)
         {
             _timecode.text = text;
+        }
+
+        // The camcorder clock turns red in the witching hour and says so underneath (GDD 5.28).
+        public void SetWitchingHour(bool active)
+        {
+            _timecode.color = active ? _witchingHourColor : _timecodeColor;
+            _witchingHourLabel.SetActive(active);
         }
 
         public void SetBattery(float normalized, bool low, bool highlighted)
@@ -73,6 +83,8 @@ namespace Hauntscope.UI.Hunt
             _timecode = Find<TMP_Text>("Frame/Rec/Timecode");
             _batteryShell = Find<Graphic>("Frame/Battery");
             _grain = Find<RawImage>("Overlay/Grain");
+            var witching = transform.Find("Frame/WitchingHour");
+            _witchingHourLabel = witching != null ? witching.gameObject : null;
 
             var cells = transform.Find("Frame/Battery/Cells");
             if (cells != null)

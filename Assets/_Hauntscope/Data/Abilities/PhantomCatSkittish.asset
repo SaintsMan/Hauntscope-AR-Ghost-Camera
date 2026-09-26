@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5d0fc25b57819243b88f23f451cd238, type: 3}
+  m_Name: PhantomCatSkittish
+  m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Ghosts.Abilities.SkittishAbilityConfig
+  _sharpSpeed: 0.5
+  _sharpTurn: 90
+  _calmSpeed: 0.1
+  _calmTurn: 15
+  _calmTime: 1.5
+  _sitDistance: 1.2
+  _sitDuration: 3
+  _arriveDistance: 0.25
+  _smoothing: 0.15
+  _sitCooldown: 4

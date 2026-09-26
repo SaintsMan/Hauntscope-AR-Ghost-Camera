@@ -23,12 +23,16 @@ namespace Hauntscope.Gameplay.Hunt
 
         public bool IsPlayersFirstHunt { get; private set; }
 
+        // Fixed when the hunt begins, so a hunt that runs past 04:00 keeps its night rules to the end.
+        public bool IsWitchingHour { get; private set; }
+
         public bool HasScared { get; private set; }
 
         public event Action Scared;
 
-        public void Begin(Ghost ghost, GhostData data, bool isPlayersFirstHunt = false)
+        public void Begin(Ghost ghost, GhostData data, bool isPlayersFirstHunt = false, bool isWitchingHour = false)
         {
+            IsWitchingHour = isWitchingHour;
             GhostData = data;
             Elapsed = 0f;
             IsPlayersFirstHunt = isPlayersFirstHunt;
@@ -49,11 +53,11 @@ namespace Hauntscope.Gameplay.Hunt
         }
 
         public void Finish(HuntOutcome outcome, bool isFirstCapture = false, int found = 0, float rewardMultiplier = 1f,
-            bool isDeclassified = false, PhotoShot bestPhoto = null, int photoReward = 0, int photoEvidence = 0)
+            bool isDeclassified = false, PhotoShot bestPhoto = null, int photoReward = 0, int photoEvidence = 0, float nightMultiplier = 1f)
         {
             var captured = outcome == HuntOutcome.Captured;
             _result.Value = new HuntResult(outcome, GhostData, Elapsed, isFirstCapture && captured, found, rewardMultiplier, false,
-                isDeclassified, bestPhoto, photoReward, photoEvidence);
+                isDeclassified, bestPhoto, photoReward, photoEvidence, nightMultiplier);
         }
 
         // The ghost was revealed in the lens during this hunt: its Bestiary file opens its behaviour section.

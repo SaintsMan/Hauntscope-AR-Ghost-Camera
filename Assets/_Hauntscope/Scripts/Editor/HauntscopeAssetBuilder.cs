@@ -43,7 +43,17 @@ namespace Hauntscope.Editor
             new GhostRecipe("mimic", "Mimic", GhostRarity.Legendary, "#FFD166", GhostMeshGenerator.BuildMimic,
                 moveSpeed: 0.7f, fleeSpeed: 1.8f, resistance: 1.4f, reward: 60, threat: 5, surgeJerk: 0.45f,
                 eyeCenter: new Vector3(0f, 0.06f, 0.33f), eyeSpacing: 0.13f, eyeScale: new Vector3(0.075f, 0.1f, 0.03f),
-                abilityPath: Root + "/Data/Abilities/MimicDecoy.asset", abilityType: typeof(DecoyAbilityConfig))
+                abilityPath: Root + "/Data/Abilities/MimicDecoy.asset", abilityType: typeof(DecoyAbilityConfig)),
+            new GhostRecipe("lurker", "Lurker", GhostRarity.Rare, "#FFB547", GhostMeshGenerator.BuildLurker,
+                moveSpeed: 0.9f, fleeSpeed: 1.8f, resistance: 1.5f, reward: 45, threat: 4,
+                eyeCenter: new Vector3(0f, 0.82f, 0.17f), eyeSpacing: 0.038f, eyeScale: new Vector3(0.022f, 0.009f, 0.012f),
+                abilityPath: Root + "/Data/Abilities/LurkerWatched.asset", abilityType: typeof(WatchedAbilityConfig),
+                canHide: false, nightOnly: true, hoverMin: 1.1f, hoverMax: 1.3f),
+            new GhostRecipe("phantom_cat", "PhantomCat", GhostRarity.Rare, "#4FF5E6", GhostMeshGenerator.BuildPhantomCat,
+                moveSpeed: 0.6f, fleeSpeed: 2.2f, resistance: 0.9f, reward: 25, threat: 1, surgeJerk: 0.12f,
+                eyeCenter: new Vector3(0f, 0.126f, 0.125f), eyeSpacing: 0.042f, eyeScale: new Vector3(0.006f, 0.02f, 0.008f),
+                abilityPath: Root + "/Data/Abilities/PhantomCatSkittish.asset", abilityType: typeof(SkittishAbilityConfig),
+                canHide: false, canScare: false, hoverMin: 0.25f, hoverMax: 0.5f)
         };
 
         [MenuItem("Hauntscope/Build Assets")]
@@ -221,6 +231,10 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_rimColor").colorValue = recipe.RimColor;
             serialized.FindProperty("_whisperClip").objectReferenceValue = LoadClip(SfxFolder, "Whisper" + recipe.AssetName);
             serialized.FindProperty("_canHide").boolValue = recipe.CanHide;
+            serialized.FindProperty("_canScare").boolValue = recipe.CanScare;
+            serialized.FindProperty("_nightOnly").boolValue = recipe.NightOnly;
+            serialized.FindProperty("_motion._hoverHeightMin").floatValue = recipe.HoverMin;
+            serialized.FindProperty("_motion._hoverHeightMax").floatValue = recipe.HoverMax;
             serialized.FindProperty("_motion._moveSpeed").floatValue = recipe.MoveSpeed;
             serialized.FindProperty("_motion._fleeSpeed").floatValue = recipe.FleeSpeed;
             var body = prefab.GetComponentInChildren<MeshFilter>().sharedMesh.bounds;
@@ -296,6 +310,9 @@ namespace Hauntscope.Editor
             SetClip(serialized, "_audio._ghostStagger", SfxFolder, "GhostStagger");
             SetClip(serialized, "_audio._ghostSurge", SfxFolder, "GhostSurge");
             SetClip(serialized, "_audio._photoShutter", SfxFolder, "PhotoShutter");
+            SetClip(serialized, "_audio._lurkerCreak", SfxFolder, "LurkerCreak");
+            SetClip(serialized, "_audio._catMeow", SfxFolder, "CatMeow");
+            SetClip(serialized, "_audio._catPurr", SfxFolder, "CatPurr");
             serialized.FindProperty("_vfx._captureSpiral").objectReferenceValue = VfxGenerator.CaptureSpiral;
             serialized.FindProperty("_vfx._teleportFlash").objectReferenceValue = VfxGenerator.TeleportFlash;
             serialized.FindProperty("_vfx._revealPulse").objectReferenceValue = VfxGenerator.RevealPulse;
@@ -339,10 +356,18 @@ namespace Hauntscope.Editor
                 string abilityPath = null,
                 Type abilityType = null,
                 float surgeJerk = 0.3f,
-                bool canHide = true)
+                bool canHide = true,
+                bool canScare = true,
+                bool nightOnly = false,
+                float hoverMin = 0.8f,
+                float hoverMax = 1.8f)
             {
                 SurgeJerk = surgeJerk;
                 CanHide = canHide;
+                CanScare = canScare;
+                NightOnly = nightOnly;
+                HoverMin = hoverMin;
+                HoverMax = hoverMax;
                 Id = id;
                 AssetName = assetName;
                 Rarity = rarity;
@@ -394,6 +419,14 @@ namespace Hauntscope.Editor
             public float SurgeJerk { get; }
 
             public bool CanHide { get; }
+
+            public bool CanScare { get; }
+
+            public bool NightOnly { get; }
+
+            public float HoverMin { get; }
+
+            public float HoverMax { get; }
         }
     }
 }

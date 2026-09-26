@@ -68,6 +68,14 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Min(0.02f)] private float _surgeHapticInterval = 0.12f;
         [SerializeField] private AudioClip _photoShutter;
         [SerializeField, Range(0f, 1f)] private float _shutterVolume = 0.85f;
+        [SerializeField] private AudioClip _lurkerCreak;
+        [SerializeField, Range(0f, 1f)] private float _creakVolume = 0.9f;
+        [SerializeField, Range(0f, 1f)] private float _lungeWhisperVolume = 1f;
+        [SerializeField] private AudioClip _catMeow;
+        [SerializeField, Range(0f, 1f)] private float _meowVolume = 0.85f;
+        [SerializeField] private AudioClip _catPurr;
+        [SerializeField, Range(0f, 1f)] private float _purrVolume = 0.8f;
+        [SerializeField, Range(0.5f, 1f)] private float _witchingHourDronePitch = 0.84f;
 
         public AudioClip AmbientDrone => _ambientDrone;
 
@@ -193,5 +201,23 @@ namespace Hauntscope.Gameplay.Config
         public AudioClip PhotoShutter => _photoShutter;
 
         public float ShutterVolume => _shutterVolume;
+
+        // A floorboard behind the player: the lurker has set off again.
+        public AudioClip LurkerCreak => _lurkerCreak;
+
+        public float CreakVolume => _creakVolume;
+
+        // With jump scares off, the lurker's lunge is its whisper right in the player's ear instead of the sting.
+        public float LungeWhisperVolume => _lungeWhisperVolume;
+
+        public AudioClip CatMeow => _catMeow;
+
+        public float MeowVolume => _meowVolume;
+
+        public AudioClip CatPurr => _catPurr;
+
+        public float PurrVolume => _purrVolume;
+
+        public float WitchingHourDronePitch => _witchingHourDronePitch;
     }
 }

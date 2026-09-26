@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6498942b478c1142b53ff236e671a09, type: 3}
+  m_Name: Lurker
+  m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Config.GhostData
+  _id: lurker
+  _nameKey: ghost.lurker.name
+  _descriptionKey: ghost.lurker.description
+  _icon: {fileID: 21300000, guid: e75d81406e847374a971ac8b4d770585, type: 3}
+  _rarity: 1
+  _prefab: {fileID: 7535482402497825275, guid: 5e84f475c4e1de4459a12331e291973c, type: 3}
+  _rimColor: {r: 1, g: 0.70980394, b: 0.2784314, a: 1}
+  _whisperClip: {fileID: 8300000, guid: 7210ba44851a2954b907abb7b5fe0ac5, type: 3}
+  _canHide: 0
+  _canScare: 1
+  _nightOnly: 1
+  _motion:
+    _moveSpeed: 0.9
+    _fleeSpeed: 1.8
+    _hoverHeightMin: 1.1
+    _hoverHeightMax: 1.3
+    _bodyBottom: -1.025
+    _bodyTop: 1.025
+  _detection:
+    _emfRange: 6
+    _revealRange: 3
+  _capture:
+    _resistance: 1.5
+    _reward: 45
+    _surgeJerk: 0.3
+  _dossier:
+    _rumorKey: ghost.lurker.rumor
+    _behaviorKey: ghost.lurker.behavior
+    _tacticsKey: ghost.lurker.tactics
+    _classifiedKey: ghost.lurker.classified
+    _tipKey: ghost.lurker.tip
+    _threat: 4
+  _abilities:
+  - {fileID: 11400000, guid: 073aef7da0b7cd54bb2032ba9960263b, type: 2}

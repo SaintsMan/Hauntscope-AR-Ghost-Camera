@@ -8,5 +8,8 @@ namespace Hauntscope.Core.Services
 
         // The player's local calendar date, for limits that reset at midnight.
         DateTime Today { get; }
+
+        // The player's wall clock, for things tied to the hour of the night.
+        DateTime LocalNow { get; }
     }
 }

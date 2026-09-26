@@ -16,6 +16,12 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private TMP_Text _ectoplasmLabel;
         [SerializeField] private TMP_Text _versionLabel;
         [SerializeField] private TMP_Text _timestampLabel;
+        [SerializeField] private TMP_Text _statusLabel;
+        [SerializeField] private TMP_Text _channelLabel;
+        [SerializeField] private Graphic _statusDot;
+        [SerializeField] private Color _statusColor = new Color(0.9f, 0.93f, 0.95f, 1f);
+        [SerializeField] private Color _standbyDotColor = new Color(0.24f, 1f, 0.43f, 1f);
+        [SerializeField] private Color _witchingHourColor = new Color(1f, 0.23f, 0.23f, 1f);
         [SerializeField] private RectTransform _ectoplasmIcon;
         [SerializeField, Min(0.05f)] private float _countDuration = 0.9f;
         [SerializeField] private Button _arModeButton;
@@ -98,6 +104,15 @@ namespace Hauntscope.UI.Menu
         public void SetModeCaption(string text)
         {
             _modeCaption.text = text;
+        }
+
+        // STANDBY on channel 1 by day; channel 13 and a red light in the witching hour.
+        public void SetStatus(string status, string channel, bool witchingHour)
+        {
+            _statusLabel.text = status;
+            _statusLabel.color = witchingHour ? _witchingHourColor : _statusColor;
+            _channelLabel.text = channel;
+            _statusDot.color = witchingHour ? _witchingHourColor : _standbyDotColor;
         }
 
         public void SetTimestamp(string text)
@@ -190,6 +205,9 @@ namespace Hauntscope.UI.Menu
             _virtualModeButton = Find<Button>("Buttons/ModeSwitch/Virtual");
             _modeThumb = Find<RectTransform>("Buttons/ModeSwitch/Thumb");
             _modeCaption = Find<TMP_Text>("Buttons/ModeCaption");
+            _statusLabel = Find<TMP_Text>("TopBar/Label");
+            _channelLabel = Find<TMP_Text>("TopBar/Channel");
+            _statusDot = Find<Graphic>("TopBar/Dot");
             var ar = transform.Find("Buttons/ModeSwitch/Ar");
             if (ar != null)
                 _arModeGraphics = new Graphic[] { Find<Graphic>("Buttons/ModeSwitch/Ar/Icon"), Find<Graphic>("Buttons/ModeSwitch/Ar/Label") };

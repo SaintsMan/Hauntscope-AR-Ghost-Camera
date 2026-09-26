@@ -37,6 +37,22 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void CanScare_GhostThatNeverScares_ReturnsFalse()
+        {
+            var cat = ScriptableObject.CreateInstance<Hauntscope.Gameplay.Config.GhostData>();
+            var serialized = new UnityEditor.SerializedObject(cat);
+            serialized.FindProperty("_canScare").boolValue = false;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+            _session.Begin(_fixture.Ghost, cat);
+            _session.AddTime(GhostFixture.ScareMinTime);
+
+            var result = _policy.CanScare(_session, _fixture.Ghost, _fixture.Camera);
+
+            Assert.IsFalse(result);
+            Object.DestroyImmediate(cat);
+        }
+
+        [Test]
         public void CanScare_JumpScaresDisabled_ReturnsFalse()
         {
             _settings.SetJumpScares(false);

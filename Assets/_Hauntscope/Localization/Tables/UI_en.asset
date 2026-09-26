@@ -702,6 +702,26 @@ MonoBehaviour:
     m_Localized: "\xD7{0}"
     m_Metadata:
       m_Items: []
+  - m_Id: 438212909989888
+    m_Localized: WITCHING HOUR +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155712
+    m_Localized: WITCHING HOUR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155713
+    m_Localized: WITCHING HOUR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155714
+    m_Localized: CH-01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155715
+    m_Localized: CH-13
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

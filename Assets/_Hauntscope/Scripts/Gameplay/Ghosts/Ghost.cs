@@ -27,6 +27,9 @@ namespace Hauntscope.Gameplay.Ghosts
         private bool _escapeRequested;
         private bool _scareRequested;
         private bool _spookRequested;
+        private bool _startleRequested;
+        private bool _isHeld;
+        private bool _isSettled;
         private float _revealBeforeEscape;
         private Vector3 _emfDecoy;
         private bool _hasEmfDecoy;
@@ -71,7 +74,8 @@ namespace Hauntscope.Gameplay.Ghosts
             _stateMachine.AddTransition(_wanderState, _alertedState, () => Reveal >= context.Config.AlertRevealThreshold);
             // The scare wins over fleeing: the session has already counted it, so the lunge must happen.
             _stateMachine.AddTransition(_alertedState, _scareState, () => _scareRequested);
-            _stateMachine.AddTransition(_alertedState, _fleeState, () => IsBeamed || _spookRequested);
+            _stateMachine.AddTransition(_alertedState, _fleeState, () => IsBeamed || _spookRequested || _startleRequested);
+            _stateMachine.AddTransition(_wanderState, _fleeState, () => _startleRequested);
             _stateMachine.AddTransition(_fleeState, _surgeState, () => _isSurgeArmed && CaptureProgress >= context.CaptureConfig.SurgeThreshold);
             _stateMachine.AddTransition(_fleeState, _alertedState, () => _fleeState.IsCalm);
             _stateMachine.AddTransition(_surgeState, _fleeState, () => _surgeState.IsFinished);
@@ -94,6 +98,12 @@ namespace Hauntscope.Gameplay.Ghosts
         public event Action SurgeStarted;
 
         public event Action<Vector3> HideStarted;
+
+        public event Action Crept;
+
+        public event Action Lunged;
+
+        public event Action Settled;
 
         public event Action Flushed;
 
@@ -126,6 +136,11 @@ namespace Hauntscope.Gameplay.Ghosts
 
         // Winded after using an ability: it hangs in place and the beam charges faster.
         public bool IsStaggered => _staggerRemaining > 0f && !IsLeaving;
+
+        // A stagger it chose itself (the cat sitting down by the player), not one it was knocked into.
+        public bool IsSettled => _isSettled && IsStaggered;
+
+        public bool IsWandering => _stateMachine.CurrentState == _wanderState;
 
         public bool IsAlerted => _stateMachine.CurrentState == _alertedState;
 
@@ -249,6 +264,52 @@ namespace Hauntscope.Gameplay.Ghosts
         }
 
         // A camera flash in its face: a calm ghost bolts, one already running or lunging just keeps going.
+        // Held by the player's gaze (the lurker): it keeps its state but cannot move while watched.
+        public void Hold(bool held)
+        {
+            held = held && !IsLeaving;
+            // Frozen means frozen: momentum left in the smoothing would otherwise let it glide on under the gaze.
+            if (held && !_isHeld)
+                Context.Mover.Stop();
+            _isHeld = held;
+        }
+
+        // The lurker slipped out of sight and set off again; the creak is the player's cue to turn around.
+        public void Creep()
+        {
+            if (!IsLeaving)
+                Crept?.Invoke();
+        }
+
+        // The lurker got right behind the player unnoticed: the scare happens without the jump scare's face-rush.
+        public void Lunge()
+        {
+            if (!IsLeaving)
+                Lunged?.Invoke();
+        }
+
+        // Sits down by its own choice and stays still for a while: the same opening as a stagger.
+        public void Settle(float duration)
+        {
+            if (IsLeaving || duration <= 0f)
+                return;
+
+            _isSettled = true;
+            Stagger(duration);
+            Settled?.Invoke();
+        }
+
+        // A sudden move scares the cat off at once, even out of sitting and before it was ever noticed.
+        public void Startle()
+        {
+            if (IsLeaving || IsFleeing || IsSurging)
+                return;
+
+            _staggerRemaining = 0f;
+            _isSettled = false;
+            _startleRequested = true;
+        }
+
         public void Spook()
         {
             if (!IsLeaving && IsAlerted)
@@ -284,11 +345,14 @@ namespace Hauntscope.Gameplay.Ghosts
             _staggerRemaining = Mathf.Max(0f, _staggerRemaining - deltaTime);
             _hideCooldown = Mathf.Max(0f, _hideCooldown - deltaTime);
             var speed = IsBeamed ? _speedScale * _beamedSpeedScale : _speedScale;
-            Context.Mover.SpeedScale = IsStaggered ? 0f : speed;
+            if (!IsStaggered)
+                _isSettled = false;
+            Context.Mover.SpeedScale = IsStaggered || _isHeld ? 0f : speed;
             _stateMachine.Tick(deltaTime);
             // A scare request is only valid for the tick right after it; a ghost that fled meanwhile must not lunge later.
             _scareRequested = false;
             _spookRequested = false;
+            _startleRequested = false;
 
             if (IsSurging && !_wasSurging)
                 BeginSurge();

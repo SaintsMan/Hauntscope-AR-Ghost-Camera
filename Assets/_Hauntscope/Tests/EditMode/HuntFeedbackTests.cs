@@ -2,6 +2,7 @@ using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using Hauntscope.Tests.EditMode.Fakes;
@@ -20,6 +21,7 @@ namespace Hauntscope.Tests.EditMode
         private FakeVfxPlayer _vfx;
         private HuntPause _pause;
         private HuntFeedback _feedback;
+        private GameSettings _settings;
 
         [SetUp]
         public void SetUp()
@@ -35,7 +37,9 @@ namespace Hauntscope.Tests.EditMode
             _haptics = new FakeHaptics();
             _vfx = new FakeVfxPlayer();
             _pause = new HuntPause(new FakeTrackingStatus(), new FakeApplicationLifecycle(), new TrackingConfig(0.5f), new FakeAdsService());
-            _feedback = new HuntFeedback(_session, _toolbelt, calibration, _sfx, _haptics, _vfx, new AudioConfig(), new VfxConfig(), _pause);
+            _settings = new GameSettings();
+            _feedback = new HuntFeedback(_session, _toolbelt, calibration, _sfx, _haptics, _vfx, new AudioConfig(), new VfxConfig(), _pause,
+                _settings);
             _feedback.Start();
         }
 
@@ -264,6 +268,52 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.IsTrue(_fixture.Ghost.IsStaggered);
             CollectionAssert.DoesNotContain(_vfx.Played, VfxId.StaggerSparks);
+        }
+
+        [Test]
+        public void GhostSettled_CatSitsDown_MeowsAndPurrsWithoutSparks()
+        {
+            _session.Begin(_fixture.Ghost, null);
+
+            _fixture.Ghost.Settle(3f);
+
+            CollectionAssert.DoesNotContain(_vfx.Played, VfxId.StaggerSparks);
+            Assert.AreEqual(2, _sfx.PlayCount);
+            Assert.AreEqual(new[] { HapticStrength.Light }, _haptics.Played.ToArray());
+        }
+
+        [Test]
+        public void GhostLunged_JumpScaresOn_PlaysStingWithHeavyHaptic()
+        {
+            _session.Begin(_fixture.Ghost, null);
+
+            _fixture.Ghost.Lunge();
+
+            Assert.AreEqual(1, _sfx.PlayCount);
+            Assert.AreEqual(new[] { HapticStrength.Heavy }, _haptics.Played.ToArray());
+        }
+
+        [Test]
+        public void GhostLunged_JumpScaresOff_WhispersWithMediumHaptic()
+        {
+            _settings.SetJumpScares(false);
+            _session.Begin(_fixture.Ghost, null);
+
+            _fixture.Ghost.Lunge();
+
+            Assert.AreEqual(1, _sfx.PlayCount);
+            Assert.AreEqual(new[] { HapticStrength.Medium }, _haptics.Played.ToArray());
+        }
+
+        [Test]
+        public void GhostCrept_Always_PlaysCreakWithoutHaptic()
+        {
+            _session.Begin(_fixture.Ghost, null);
+
+            _fixture.Ghost.Creep();
+
+            Assert.AreEqual(1, _sfx.PlayCount);
+            Assert.IsEmpty(_haptics.Played);
         }
 
         [Test]

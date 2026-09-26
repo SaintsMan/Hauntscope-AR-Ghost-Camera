@@ -30,6 +30,7 @@ namespace Hauntscope.Gameplay.Hunt.States
         private readonly EmergencyCharge _emergency;
         private readonly GhostResearch _research;
         private readonly SpiritCamera _spiritCamera;
+        private readonly WitchingHour _witchingHour;
 
         public HuntingState(
             HuntSession session,
@@ -48,8 +49,10 @@ namespace Hauntscope.Gameplay.Hunt.States
             PickupField pickups,
             EmergencyCharge emergency,
             GhostResearch research,
-            SpiritCamera spiritCamera)
+            SpiritCamera spiritCamera,
+            WitchingHour witchingHour)
         {
+            _witchingHour = witchingHour;
             _spiritCamera = spiritCamera;
             _research = research;
             _loot = loot;
@@ -81,7 +84,7 @@ namespace Hauntscope.Gameplay.Hunt.States
             _loadout.Begin();
             _emergency.ResetForHunt();
             _spiritCamera.BeginHunt();
-            _session.Begin(_factory.Create(data), data, isFirstHunt);
+            _session.Begin(_factory.Create(data), data, isFirstHunt, _witchingHour.IsActive);
             _pickups.Begin();
         }
 
@@ -134,7 +137,8 @@ namespace Hauntscope.Gameplay.Hunt.States
             var evidence = _spiritCamera.EvidenceShots;
             if (ghost.IsCaptureFinished)
                 _session.Finish(HuntOutcome.Captured, _progress.GetCaptureCount(data.Id) == 0, _loot.Ectoplasm.Value,
-                    _research.RewardMultiplier(data), _research.WillDeclassify(data, true, evidence), photo, _spiritCamera.Reward, evidence);
+                    _research.RewardMultiplier(data), _research.WillDeclassify(data, true, evidence), photo, _spiritCamera.Reward, evidence,
+                    _session.IsWitchingHour ? _witchingHour.NightRewardMultiplier : 1f);
             else if (ghost.IsEscapeFinished)
                 _session.Finish(HuntOutcome.Escaped, false, _loot.Ectoplasm.Value, 1f,
                     _research.WillDeclassify(data, false, evidence), photo, _spiritCamera.Reward, evidence);

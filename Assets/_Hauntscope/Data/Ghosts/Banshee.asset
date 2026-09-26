@@ -21,6 +21,8 @@ MonoBehaviour:
   _rimColor: {r: 1, g: 0.23137255, b: 0.23137255, a: 1}
   _whisperClip: {fileID: 8300000, guid: 48066c87d04bb1c49a7006a33b98e72a, type: 3}
   _canHide: 1
+  _canScare: 1
+  _nightOnly: 0
   _motion:
     _moveSpeed: 0.6
     _fleeSpeed: 1.5

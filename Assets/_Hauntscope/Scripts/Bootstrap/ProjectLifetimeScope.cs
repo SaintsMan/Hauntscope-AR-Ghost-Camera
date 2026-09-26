@@ -5,6 +5,7 @@ using Hauntscope.Gameplay.Ads;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Feedback;
+using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Photo;
 using Hauntscope.Gameplay.Progress;
@@ -90,6 +91,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Capture);
             builder.RegisterInstance(_gameConfig.Photo);
             builder.RegisterInstance(_gameConfig.Hide);
+            builder.RegisterInstance(_gameConfig.Night);
         }
 
         // Scene loads are decorated with the CRT transition; the overlay outlives every scene it covers.
@@ -171,6 +173,7 @@ namespace Hauntscope.Bootstrap
         private static void RegisterAds(IContainerBuilder builder)
         {
             builder.Register<SystemClock>(Lifetime.Singleton).As<IClock>();
+            builder.Register<WitchingHour>(Lifetime.Singleton);
             builder.Register<AdPacing>(Lifetime.Singleton);
 #if UNITY_ANDROID && !UNITY_EDITOR
             builder.Register<AdMobAdsService>(Lifetime.Singleton).AsSelf().As<IAdPrivacy>();
