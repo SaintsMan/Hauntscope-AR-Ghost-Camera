@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Ghosts;
@@ -23,6 +24,8 @@ namespace Hauntscope.UI.Menu
         private const string WitchingHourKey = "menu.witching_hour";
         private const string DayChannelKey = "menu.channel.day";
         private const string NightChannelKey = "menu.channel.night";
+        private const string ShiftLockedKey = "menu.shift.locked";
+        private const string ShiftRecordKey = "menu.shift.record";
 
         private readonly MainMenuView _view;
         private readonly MenuNavigation _navigation;
@@ -34,6 +37,8 @@ namespace Hauntscope.UI.Menu
         private readonly SettingsRepository _settingsRepository;
         private readonly IArAvailability _arAvailability;
         private readonly WitchingHour _witchingHour;
+        private readonly HuntLaunchOptions _options;
+        private readonly ShiftConfig _shiftConfig;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         private int _shownSecond = -1;
@@ -50,8 +55,12 @@ namespace Hauntscope.UI.Menu
             GameSettings settings,
             SettingsRepository settingsRepository,
             IArAvailability arAvailability,
-            WitchingHour witchingHour)
+            WitchingHour witchingHour,
+            HuntLaunchOptions options,
+            ShiftConfig shiftConfig)
         {
+            _options = options;
+            _shiftConfig = shiftConfig;
             _witchingHour = witchingHour;
             _settings = settings;
             _settingsRepository = settingsRepository;
@@ -71,6 +80,8 @@ namespace Hauntscope.UI.Menu
             _progress.Ectoplasm.Changed += OnEctoplasmChanged;
             _localization.Changed += OnLanguageChanged;
             _view.StartClicked += OnStartClicked;
+            _view.ShiftClicked += OnShiftClicked;
+            _progress.Changed += RenderShift;
             _view.BestiaryClicked += OnBestiaryClicked;
             _view.SettingsClicked += OnSettingsClicked;
             _view.ShopClicked += OnShopClicked;
@@ -113,6 +124,8 @@ namespace Hauntscope.UI.Menu
             _progress.Ectoplasm.Changed -= OnEctoplasmChanged;
             _localization.Changed -= OnLanguageChanged;
             _view.StartClicked -= OnStartClicked;
+            _view.ShiftClicked -= OnShiftClicked;
+            _progress.Changed -= RenderShift;
             _view.BestiaryClicked -= OnBestiaryClicked;
             _view.SettingsClicked -= OnSettingsClicked;
             _view.ShopClicked -= OnShopClicked;
@@ -150,6 +163,35 @@ namespace Hauntscope.UI.Menu
             _view.SetVersion(_localization.Get(LocalizationTable.Ui, VersionKey, Application.version));
             RenderMode();
             RenderStatus();
+            RenderShift();
+        }
+
+        private bool IsShiftUnlocked => _progress.TotalSessions >= _shiftConfig.UnlockHunts;
+
+        // The best round so far once there is one; before the shift opens, how many hunts it still takes.
+        private void RenderShift()
+        {
+            if (!IsShiftUnlocked)
+            {
+                _view.SetShift(false, _localization.Get(LocalizationTable.Ui, ShiftLockedKey, _shiftConfig.UnlockHunts));
+                return;
+            }
+
+            var best = _progress.BestShiftRound;
+            _view.SetShift(true, best > 0 ? _localization.Get(LocalizationTable.Ui, ShiftRecordKey, best, _shiftConfig.Length) : string.Empty);
+        }
+
+        private void OnShiftClicked()
+        {
+            if (!IsShiftUnlocked)
+            {
+                _ui.PlayDenied();
+                return;
+            }
+
+            _ui.PlayClick();
+            _options.SelectMode(HuntMode.Shift);
+            _launcher.LaunchAsync(_lifetime.Token).Forget();
         }
 
         // A device without ARCore support can only hunt in the Virtual Room; the camera half stays visible but disabled,
@@ -198,6 +240,7 @@ namespace Hauntscope.UI.Menu
         private void OnStartClicked()
         {
             _ui.PlayClick();
+            _options.SelectMode(HuntMode.Single);
             _launcher.LaunchAsync(_lifetime.Token).Forget();
         }
 

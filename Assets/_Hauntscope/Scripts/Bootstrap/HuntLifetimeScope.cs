@@ -96,6 +96,12 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<EmergencyChargePresenter>();
             builder.RegisterComponentInHierarchy<ResultView>();
             builder.RegisterEntryPoint<ResultPresenter>();
+            builder.RegisterComponentInHierarchy<ShiftSummaryView>();
+            builder.RegisterEntryPoint<ShiftSummaryPresenter>();
+            builder.RegisterComponentInHierarchy<ShiftBreakView>();
+            builder.RegisterEntryPoint<ShiftBreakPresenter>();
+            builder.RegisterComponentInHierarchy<ShiftHudView>();
+            builder.RegisterEntryPoint<ShiftHudPresenter>();
             builder.RegisterComponentInHierarchy<TrackingLostView>();
             builder.RegisterEntryPoint<TrackingLostPresenter>();
             builder.RegisterComponentInHierarchy<PauseView>();

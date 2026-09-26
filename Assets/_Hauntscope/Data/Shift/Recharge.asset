@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63d80395f7cfcf74a8742312ad154f3e, type: 3}
+  m_Name: Recharge
+  m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Shift.ChargePerkData
+  _id: recharge
+  _nameKey: shift.perk.recharge.name
+  _descriptionKey: shift.perk.recharge.description
+  _icon: {fileID: 21300000, guid: 4d4808d8320b29d4aa47b45e73282bc4, type: 3}
+  _charge: 0.4

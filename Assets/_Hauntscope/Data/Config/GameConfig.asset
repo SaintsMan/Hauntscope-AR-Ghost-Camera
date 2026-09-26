@@ -222,6 +222,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: fb66218587672634681629a61314cd93, type: 2}
     - {fileID: 11400000, guid: e60fd00f91282274e8a0cbd5ffe58f15, type: 2}
     - {fileID: 11400000, guid: 4ce1a41ea9b0ac64e82dffc3922b4c20, type: 2}
+    _overflowRefund: 0.5
   _pickups:
     _spawns:
     - _pickup: {fileID: 11400000, guid: 8e4a12f0e1fbe6f4f9bb827b9b88c56e, type: 2}
@@ -318,3 +319,33 @@ MonoBehaviour:
     _endHour: 4
     _legendaryWeightMultiplier: 2
     _rewardMultiplier: 1.25
+  _shift:
+    _length: 3
+    _unlockHunts: 3
+    _roundRecharge: 0.25
+    _resistanceStep: 0.15
+    _speedStep: 0.1
+    _rewardMultipliers:
+    - 1
+    - 1.5
+    - 2
+    _roundWeights:
+    - _common: 60
+      _rare: 30
+      _legendary: 10
+    - _common: 30
+      _rare: 50
+      _legendary: 20
+    - _common: 0
+      _rare: 60
+      _legendary: 40
+    _completeBonus: 40
+    _perkOffer: 3
+    _perks:
+    - {fileID: 11400000, guid: 32e398caed36a7143a0e67ee8ec0e5f2, type: 2}
+    - {fileID: 11400000, guid: bb695d726c97a504aba25d38ed206e2b, type: 2}
+    - {fileID: 11400000, guid: 16246f4ac9102074f9e329a7cd575193, type: 2}
+    - {fileID: 11400000, guid: 82afa94603cef5048bc0935c32965d07, type: 2}
+    - {fileID: 11400000, guid: c02e2c45d07ade148b3a149f6aad5e8a, type: 2}
+    - {fileID: 11400000, guid: ba68680411cd50a47bde19e8970216a3, type: 2}
+    - {fileID: 11400000, guid: 615008f2eace8714994a0398c37547a3, type: 2}

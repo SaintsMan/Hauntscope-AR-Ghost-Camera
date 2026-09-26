@@ -71,6 +71,7 @@ namespace Hauntscope.Editor
             PickupAssetBuilder.Build();
             AppIconGenerator.Build();
             StoreAssetBuilder.Build();
+            ShiftAssetBuilder.Build();
             WireConfig(config);
         }
 

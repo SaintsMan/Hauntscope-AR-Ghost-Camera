@@ -711,6 +711,126 @@ MonoBehaviour:
     m_Key: menu.channel.night
     m_Metadata:
       m_Items: []
+  - m_Id: 448606227529728
+    m_Key: menu.shift.button
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278464
+    m_Key: menu.shift.locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278465
+    m_Key: menu.shift.record
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278466
+    m_Key: hud.shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278467
+    m_Key: result.next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278468
+    m_Key: result.new_shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278469
+    m_Key: result.breakdown.shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278470
+    m_Key: shift.summary.round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278471
+    m_Key: shift.summary.closed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278472
+    m_Key: shift.summary.failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278473
+    m_Key: shift.summary.bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278474
+    m_Key: shift.summary.bonus_gear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278475
+    m_Key: shift.break.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278476
+    m_Key: shift.break.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278477
+    m_Key: shift.break.status
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278478
+    m_Key: shift.break.chosen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278479
+    m_Key: shift.perk.cold_lens.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278480
+    m_Key: shift.perk.cold_lens.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278481
+    m_Key: shift.perk.antenna.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278482
+    m_Key: shift.perk.antenna.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278483
+    m_Key: shift.perk.heavy_hand.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278484
+    m_Key: shift.perk.heavy_hand.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278485
+    m_Key: shift.perk.wide_beam.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278486
+    m_Key: shift.perk.wide_beam.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278487
+    m_Key: shift.perk.salt_pocket.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278488
+    m_Key: shift.perk.salt_pocket.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278489
+    m_Key: shift.perk.recharge.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278490
+    m_Key: shift.perk.recharge.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278491
+    m_Key: shift.perk.extra_film.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278492
+    m_Key: shift.perk.extra_film.description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

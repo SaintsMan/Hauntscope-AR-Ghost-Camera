@@ -13,6 +13,10 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private Button _bestiaryButton;
         [SerializeField] private Button _settingsButton;
         [SerializeField] private Button _shopButton;
+        [SerializeField] private Button _shiftButton;
+        [SerializeField] private CanvasGroup _shiftGroup;
+        [SerializeField] private TMP_Text _shiftCaption;
+        [SerializeField, Range(0f, 1f)] private float _lockedAlpha = 0.45f;
         [SerializeField] private TMP_Text _ectoplasmLabel;
         [SerializeField] private TMP_Text _versionLabel;
         [SerializeField] private TMP_Text _timestampLabel;
@@ -42,6 +46,8 @@ namespace Hauntscope.UI.Menu
         private int _shownEctoplasm = -1;
 
         public event Action StartClicked;
+
+        public event Action ShiftClicked;
 
         public event Action BestiaryClicked;
 
@@ -115,6 +121,14 @@ namespace Hauntscope.UI.Menu
             _statusDot.color = witchingHour ? _witchingHourColor : _standbyDotColor;
         }
 
+        // Locked, the shift button stays in view but dimmed, with how many hunts it takes to open it.
+        public void SetShift(bool unlocked, string caption)
+        {
+            _shiftGroup.alpha = unlocked ? 1f : _lockedAlpha;
+            _shiftCaption.text = caption;
+            _shiftCaption.gameObject.SetActive(!string.IsNullOrEmpty(caption));
+        }
+
         public void SetTimestamp(string text)
         {
             _timestampLabel.text = text;
@@ -128,6 +142,7 @@ namespace Hauntscope.UI.Menu
         private void Awake()
         {
             _startButton.onClick.AddListener(OnStartClicked);
+            _shiftButton.onClick.AddListener(OnShiftClicked);
             _bestiaryButton.onClick.AddListener(OnBestiaryClicked);
             _settingsButton.onClick.AddListener(OnSettingsClicked);
             _shopButton.onClick.AddListener(OnShopClicked);
@@ -138,6 +153,7 @@ namespace Hauntscope.UI.Menu
         private void OnDestroy()
         {
             _startButton.onClick.RemoveListener(OnStartClicked);
+            _shiftButton.onClick.RemoveListener(OnShiftClicked);
             _bestiaryButton.onClick.RemoveListener(OnBestiaryClicked);
             _settingsButton.onClick.RemoveListener(OnSettingsClicked);
             _shopButton.onClick.RemoveListener(OnShopClicked);
@@ -148,6 +164,11 @@ namespace Hauntscope.UI.Menu
         private void OnStartClicked()
         {
             StartClicked?.Invoke();
+        }
+
+        private void OnShiftClicked()
+        {
+            ShiftClicked?.Invoke();
         }
 
         private void OnBestiaryClicked()
@@ -194,6 +215,9 @@ namespace Hauntscope.UI.Menu
         private void Reset()
         {
             _startButton = Find<Button>("Buttons/StartButton");
+            _shiftButton = Find<Button>("Buttons/ShiftButton");
+            _shiftGroup = Find<CanvasGroup>("Buttons/ShiftButton");
+            _shiftCaption = Find<TMP_Text>("Buttons/ShiftButton/Caption");
             _bestiaryButton = Find<Button>("Buttons/Row/BestiaryButton");
             _settingsButton = Find<Button>("Buttons/SettingsButton");
             _shopButton = Find<Button>("Buttons/Row/ShopButton");

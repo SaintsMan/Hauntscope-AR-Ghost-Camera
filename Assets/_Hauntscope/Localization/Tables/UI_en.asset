@@ -722,6 +722,126 @@ MonoBehaviour:
     m_Localized: CH-13
     m_Metadata:
       m_Items: []
+  - m_Id: 448606227529728
+    m_Localized: "NIGHT SHIFT \xB7 3 GHOSTS"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278464
+    m_Localized: Opens after {0} hunts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278465
+    m_Localized: 'Record: {0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278466
+    m_Localized: "SHIFT {0}/{1} \xB7 \xD7{2:0.#}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278467
+    m_Localized: NEXT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278468
+    m_Localized: NEW SHIFT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278469
+    m_Localized: "SHIFT \xD7{0:0.#} +{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278470
+    m_Localized: "NIGHT SHIFT {0}/{1} \xB7 SHIFT TOTAL +{2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278471
+    m_Localized: "SHIFT CLOSED {0}/{0} \xB7 SHIFT TOTAL +{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278472
+    m_Localized: "SHIFT OVER AT {0}/{1} \xB7 SHIFT TOTAL +{2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278473
+    m_Localized: SHIFT BONUS +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278474
+    m_Localized: SHIFT BONUS +{0} AND {1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278475
+    m_Localized: "BREAK \xB7 SHIFT {0}/{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278476
+    m_Localized: Choose one. Perks last to the end of the shift and stack.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278477
+    m_Localized: "Battery {0}% \xB7 next ghost is tougher, catch \xD7{1:0.#}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278478
+    m_Localized: IN THIS SHIFT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278479
+    m_Localized: Cold Lens
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278480
+    m_Localized: The lens drains the battery half as fast.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278481
+    m_Localized: Boosted Antenna
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278482
+    m_Localized: The EMF reaches 50% further and points at the ghost.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278483
+    m_Localized: Heavy Hand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278484
+    m_Localized: The beam captures 25% faster.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278485
+    m_Localized: Wide Beam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278486
+    m_Localized: The capture ring is 30% wider.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278487
+    m_Localized: Salt in the Pocket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278488
+    m_Localized: Ghosts move 20% slower.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278489
+    m_Localized: Fresh Battery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278490
+    m_Localized: +40% charge right now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278491
+    m_Localized: Spare Cassette
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278492
+    m_Localized: +2 frames of film in every hunt left in the shift.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

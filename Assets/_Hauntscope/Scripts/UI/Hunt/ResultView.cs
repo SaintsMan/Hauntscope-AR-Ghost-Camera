@@ -15,6 +15,7 @@ namespace Hauntscope.UI.Hunt
         [SerializeField] private TMP_Text _rewardLabel;
         [SerializeField] private TMP_Text _timeLabel;
         [SerializeField] private Button _huntAgainButton;
+        [SerializeField] private TMP_Text _huntAgainLabel;
         [SerializeField] private Button _menuButton;
         [SerializeField] private Color _capturedColor;
         [SerializeField] private Color _escapedColor;
@@ -134,6 +135,12 @@ namespace Hauntscope.UI.Hunt
             _doubleGroup.alpha = ready ? 1f : _disabledAlpha;
         }
 
+        // HUNT AGAIN, or NEXT between the rounds of a night shift.
+        public void SetHuntAgainLabel(string text)
+        {
+            _huntAgainLabel.text = text;
+        }
+
         public void SetTime(string text)
         {
             _timeLabel.text = text;
@@ -227,6 +234,7 @@ namespace Hauntscope.UI.Hunt
             _doubleButton = Find<Button>("Card/DoubleButton");
             _doubleGroup = Find<CanvasGroup>("Card/DoubleButton");
             _huntAgainButton = Find<Button>("Card/HuntAgainButton");
+            _huntAgainLabel = Find<TMP_Text>("Card/HuntAgainButton/Label");
             _menuButton = Find<Button>("Card/MenuButton");
             _photo = Find<RectTransform>("Card/Photo");
             _photoImage = Find<RawImage>("Card/Photo/Image");

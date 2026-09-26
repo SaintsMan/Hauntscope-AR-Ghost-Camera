@@ -48,6 +48,7 @@ namespace Hauntscope.Editor
             BuildEmfArrow();
             BuildPlusIcon();
             BuildPhotoIcons();
+            BuildShiftIcons();
         }
 
         private static void BuildFrame()
@@ -580,6 +581,82 @@ namespace Hauntscope.Editor
 
             Sdf close = p => Mathf.Min(Segment(p, new Vector2(36f, 36f), new Vector2(92f, 92f)), Segment(p, new Vector2(36f, 92f), new Vector2(92f, 36f)));
             SaveSprite("CloseIcon", size, size, Shape(size, size, close, true, Line * 1.5f, Glow), Vector4.zero);
+        }
+
+        // Night shift: a crescent moon for the menu button, and the perks that have no gear icon of their own (a lens with
+        // a snowflake, a kettlebell, a ring pushing outwards, a cassette), all in the gear icons' line and glow.
+        private static void BuildShiftIcons()
+        {
+            const int size = 128;
+            var center = Center(size, size);
+
+            Sdf crescent = p => Mathf.Max(Circle(p, new Vector2(60f, 64f), 40f), -Circle(p, new Vector2(82f, 76f), 34f));
+            Sdf twinkles = p => Mathf.Min(Sparkle(p, new Vector2(98f, 34f), 9f), Sparkle(p, new Vector2(108f, 62f), 5f));
+            SaveSprite("ShiftMoon", size, size, Max(Shape(size, size, crescent, true, Line, Glow), Shape(size, size, twinkles, false, 0f, Glow * 0.7f)),
+                Vector4.zero);
+
+            Sdf flake = p =>
+            {
+                var distance = float.MaxValue;
+                for (var i = 0; i < 6; i++)
+                {
+                    var angle = i * Mathf.PI / 3f + Mathf.PI * 0.5f;
+                    var direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+                    var side = new Vector2(-direction.y, direction.x);
+                    var tip = center + direction * 22f;
+                    distance = Mathf.Min(distance, Segment(p, center, tip));
+                    distance = Mathf.Min(distance, Segment(p, center + direction * 13f, center + direction * 19f + side * 6f));
+                    distance = Mathf.Min(distance, Segment(p, center + direction * 13f, center + direction * 19f - side * 6f));
+                }
+
+                return distance;
+            };
+            SaveSprite("PerkColdLens", size, size, Max(
+                Shape(size, size, p => Circle(p, center, 40f), true, Line, Glow),
+                Shape(size, size, flake, true, Line * 0.8f, Glow)), Vector4.zero);
+
+            // A kettlebell: a round, slightly flattened body with a thick handle arching over it, and a flat base.
+            Sdf kettlebell = p => Mathf.Min(
+                Mathf.Min(Mathf.Max(Circle(p, new Vector2(64f, 54f), 34f), 26f - p.y), Arc(p, new Vector2(64f, 88f), 18f, 90f, 100f)),
+                Segment(p, new Vector2(40f, 26f), new Vector2(88f, 26f)));
+            SaveSprite("PerkHeavyHand", size, size, Max(
+                Shape(size, size, kettlebell, true, Line, Glow),
+                Shape(size, size, p => Arc(p, new Vector2(64f, 54f), 20f, 135f, 30f), true, Line * 0.8f, Glow * 0.6f)), Vector4.zero);
+
+            Sdf arrows = p =>
+            {
+                var distance = float.MaxValue;
+                for (var i = 0; i < 4; i++)
+                {
+                    var angle = i * Mathf.PI * 0.5f + Mathf.PI * 0.25f;
+                    var direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+                    var side = new Vector2(-direction.y, direction.x);
+                    var tip = center + direction * 52f;
+                    distance = Mathf.Min(distance, Segment(p, tip, tip - direction * 10f + side * 9f));
+                    distance = Mathf.Min(distance, Segment(p, tip, tip - direction * 10f - side * 9f));
+                }
+
+                return distance;
+            };
+            SaveSprite("PerkWideBeam", size, size, Max(
+                Max(Shape(size, size, p => Circle(p, center, 30f), true, Line, Glow), Shape(size, size, arrows, true, Line, Glow)),
+                Shape(size, size, p => Circle(p, center, 5f), false, 0f, Glow)), Vector4.zero);
+
+            Sdf shell = p => RoundBox(p, center, new Vector2(46f, 30f), 8f);
+            Sdf reels = p => Mathf.Min(Circle(p, new Vector2(46f, 68f), 9f), Circle(p, new Vector2(82f, 68f), 9f));
+            Sdf window = p => Mathf.Min(RoundBox(p, new Vector2(64f, 68f), new Vector2(30f, 12f), 5f),
+                Segment(p, new Vector2(40f, 42f), new Vector2(88f, 42f)));
+            SaveSprite("PerkCassette", size, size, Max(
+                Max(Shape(size, size, shell, true, Line, Glow), Shape(size, size, window, true, Line * 0.8f, Glow)),
+                Shape(size, size, reels, true, Line * 0.8f, Glow)), Vector4.zero);
+        }
+
+        // A four-pointed glint.
+        private static float Sparkle(Vector2 p, Vector2 center, float radius)
+        {
+            var d = p - center;
+            var q = new Vector2(Mathf.Abs(d.x), Mathf.Abs(d.y));
+            return Mathf.Pow(Mathf.Pow(q.x / radius, 0.5f) + Mathf.Pow(q.y / radius, 0.5f), 2f) * radius * 0.5f - radius * 0.5f;
         }
 
         private static float Wave(Vector2 p, float fromX, float toX, float y, float amplitude, float periods)

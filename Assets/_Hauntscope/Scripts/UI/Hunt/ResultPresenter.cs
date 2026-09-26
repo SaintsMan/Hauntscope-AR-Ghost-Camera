@@ -6,6 +6,7 @@ using Hauntscope.Gameplay.Ads;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Photo;
+using Hauntscope.Gameplay.Shift;
 using Hauntscope.UI.Common;
 using UnityEngine;
 using VContainer.Unity;
@@ -27,6 +28,10 @@ namespace Hauntscope.UI.Hunt
         private const string SeparatorKey = "result.breakdown.separator";
         private const string NewEntryKey = "result.new_entry";
         private const string DeclassifiedKey = "result.declassified";
+        private const string HuntAgainKey = "result.hunt_again";
+        private const string NextKey = "result.next";
+        private const string NewShiftKey = "result.new_shift";
+        private const string ShiftKey = "result.breakdown.shift";
         private const int SecondsPerMinute = 60;
 
         private readonly ResultView _view;
@@ -42,6 +47,7 @@ namespace Hauntscope.UI.Hunt
         private readonly PhotoTextures _textures;
         private readonly PhotoViewer _viewer;
         private readonly PhotoSharing _sharing;
+        private readonly NightShift _shift;
 
         private Texture2D _photo;
         private PhotoShot _shownPhoto;
@@ -59,8 +65,10 @@ namespace Hauntscope.UI.Hunt
             IAdsService ads,
             PhotoTextures textures,
             PhotoViewer viewer,
-            PhotoSharing sharing)
+            PhotoSharing sharing,
+            NightShift shift)
         {
+            _shift = shift;
             _textures = textures;
             _viewer = viewer;
             _sharing = sharing;
@@ -85,6 +93,7 @@ namespace Hauntscope.UI.Hunt
             _view.PhotoClicked += OnPhotoClicked;
             _view.ShareClicked += OnShareClicked;
             _ads.AvailabilityChanged += RenderDouble;
+            _shift.Phase.Changed += OnShiftPhaseChanged;
             Render(_session.Result.Value);
         }
 
@@ -98,6 +107,7 @@ namespace Hauntscope.UI.Hunt
             _view.PhotoClicked -= OnPhotoClicked;
             _view.ShareClicked -= OnShareClicked;
             _ads.AvailabilityChanged -= RenderDouble;
+            _shift.Phase.Changed -= OnShiftPhaseChanged;
             PhotoTextures.Release(ref _photo);
             _lifetime.Cancel();
             _lifetime.Dispose();
@@ -111,6 +121,17 @@ namespace Hauntscope.UI.Hunt
         private void OnLanguageChanged()
         {
             Render(_session.Result.Value);
+        }
+
+        // The shift hears about the result after the card has shown it, so the button catches up here.
+        private void OnShiftPhaseChanged(ShiftPhase phase)
+        {
+            RenderHuntAgainLabel();
+        }
+
+        private void RenderHuntAgainLabel()
+        {
+            _view.SetHuntAgainLabel(_localization.Get(LocalizationTable.Ui, HuntAgainLabelKey()));
         }
 
         private void OnHuntAgainClicked()
@@ -137,7 +158,9 @@ namespace Hauntscope.UI.Hunt
             _isLeaving = true;
             try
             {
-                await _adBreak.TryShowAsync(cancellationToken);
+                // Never an ad between the rounds of a night shift, only once it is over (GDD 5.27).
+                if (toMenu || _shift.Phase.Value != ShiftPhase.BetweenRounds)
+                    await _adBreak.TryShowAsync(cancellationToken);
                 if (toMenu)
                     await _sceneLoader.LoadAsync(SceneId.MainMenu, cancellationToken);
                 else
@@ -146,6 +169,19 @@ namespace Hauntscope.UI.Hunt
             finally
             {
                 _isLeaving = false;
+            }
+        }
+
+        private string HuntAgainLabelKey()
+        {
+            switch (_shift.Phase.Value)
+            {
+                case ShiftPhase.BetweenRounds:
+                    return NextKey;
+                case ShiftPhase.Ended:
+                    return NewShiftKey;
+                default:
+                    return HuntAgainKey;
             }
         }
 
@@ -232,6 +268,8 @@ namespace Hauntscope.UI.Hunt
                 text += separator + _localization.Get(LocalizationTable.Ui, ResearchKey, result.ResearchBonus);
             if (result.NightBonus > 0)
                 text += separator + _localization.Get(LocalizationTable.Ui, NightKey, result.NightBonus);
+            if (result.ShiftBonus > 0)
+                text += separator + _localization.Get(LocalizationTable.Ui, ShiftKey, result.ShiftMultiplier, result.ShiftBonus);
             if (result.Found > 0)
                 text += separator + _localization.Get(LocalizationTable.Ui, FoundKey, result.Found);
             if (result.PhotoReward > 0)
@@ -247,6 +285,7 @@ namespace Hauntscope.UI.Hunt
                 return;
 
             var captured = result.Outcome == HuntOutcome.Captured;
+            RenderHuntAgainLabel();
             _view.SetTitle(_localization.Get(LocalizationTable.Ui, captured ? CapturedKey : EscapedKey), captured);
             _view.SetGhost(result.Ghost.Icon, result.Ghost.RimColor, captured);
             _view.SetBadge(Badge(result));
