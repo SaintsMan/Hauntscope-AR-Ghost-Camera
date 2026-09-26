@@ -191,10 +191,10 @@ MonoBehaviour:
     _revealThreshold: 0.5
     _beamProgress: 0.25
   _boot:
-    _introDuration: 2.2
-    _stepMinDuration: 1
-    _stepTimeout: 5
-    _outroDuration: 0.8
+    _introDuration: 1.4
+    _stepMinDuration: 0.5
+    _stepTimeout: 2.5
+    _outroDuration: 0.6
   _review:
     _minCaptures: 3
     _repeatEveryCaptures: 20

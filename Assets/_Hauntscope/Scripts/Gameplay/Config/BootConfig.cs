@@ -6,10 +6,10 @@ namespace Hauntscope.Gameplay.Config
     [Serializable]
     public sealed class BootConfig
     {
-        [SerializeField, Min(0f)] private float _introDuration = 2.2f;
-        [SerializeField, Min(0f)] private float _stepMinDuration = 1f;
-        [SerializeField, Min(0.1f)] private float _stepTimeout = 5f;
-        [SerializeField, Min(0f)] private float _outroDuration = 0.8f;
+        [SerializeField, Min(0f)] private float _introDuration = 1.4f;
+        [SerializeField, Min(0f)] private float _stepMinDuration = 0.5f;
+        [SerializeField, Min(0.1f)] private float _stepTimeout = 2.5f;
+        [SerializeField, Min(0f)] private float _outroDuration = 0.6f;
 
         public BootConfig()
         {
