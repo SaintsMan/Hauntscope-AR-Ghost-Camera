@@ -26,6 +26,7 @@ namespace Hauntscope.Infrastructure.Vfx
             Register(VfxId.TeleportFlash, config.TeleportFlash);
             Register(VfxId.RevealPulse, config.RevealPulse);
             Register(VfxId.PickupBurst, config.PickupBurst);
+            Register(VfxId.StaggerSparks, config.StaggerSparks);
         }
 
         public void Play(VfxId id, Vector3 position, Color color)

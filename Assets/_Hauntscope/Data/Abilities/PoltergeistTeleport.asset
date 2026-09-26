@@ -16,3 +16,4 @@ MonoBehaviour:
   _minDistance: 2
   _maxDistance: 3
   _cooldown: 5
+  _staggerDuration: 1.2

@@ -5,6 +5,7 @@ namespace Hauntscope.Core.Services
         CaptureSpiral,
         TeleportFlash,
         RevealPulse,
-        PickupBurst
+        PickupBurst,
+        StaggerSparks
     }
 }

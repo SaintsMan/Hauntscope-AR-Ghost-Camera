@@ -52,6 +52,8 @@ namespace Hauntscope.Editor
             Save(SfxFolder, "CellBeacon", CellBeacon(), -5f, true);
             Save(SfxFolder, "EmergencyAlarm", EmergencyAlarm(), -4f, false);
             Save(SfxFolder, "RewardGranted", RewardGranted(), -3f, false);
+            Save(SfxFolder, "GhostStagger", GhostStagger(), -4f, false);
+            Save(SfxFolder, "GhostSurge", GhostSurge(), -3f, false);
             Save(SfxFolder, "WhisperWisp", Whisper(11, 1.25f, 0.12f, 0.25f, 0.08f, 0.3f, 0.35f, 1f, 0.3f, 1.2f), -6f, true);
             Save(SfxFolder, "WhisperPoltergeist", Whisper(23, 1f, 0.08f, 0.18f, 0.05f, 0.15f, 0.2f, 2.2f, 0.25f, 1f), -6f, true);
             Save(SfxFolder, "WhisperShade", Whisper(37, 0.8f, 0.35f, 0.8f, 0.3f, 0.8f, 0.08f, 1f, 0.5f, 1.35f), -6f, true);
@@ -744,6 +746,61 @@ namespace Hauntscope.Editor
 
             Add(samples, pad, 0, 1f);
             return TrimTo(Reverb(samples, 0.3f, 1f, 0.4f), (int)(1.7f * SampleRate));
+        }
+
+        // Winded ghost: a dull hit, then its voice sags down like air let out of it, with a dizzy wobble and static fizz.
+        private static float[] GhostStagger()
+        {
+            const float length = 1f;
+            var samples = Buffer(length);
+            var fizz = Filter(Noise(samples.Length, 151), FilterType.BandPass, 3600f, 1.2f);
+            var phase = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var wobble = 1f + 0.06f * Mathf.Sin(TwoPi * 7f * t);
+                var frequency = 420f * Mathf.Pow(150f / 420f, Mathf.Clamp01(t / 0.8f)) * wobble;
+                phase += TwoPi * frequency / SampleRate;
+                var voice = 0f;
+                for (var h = 1; h <= 7; h++)
+                    voice += Mathf.Sin(phase * h) / (h * 1.3f);
+                var tremolo = 0.65f + 0.35f * Mathf.Sin(TwoPi * 11f * t);
+                var crackle = fizz[i] * Envelope(t, 0.004f, 0.25f) * (0.5f + 0.5f * Mathf.Sin(TwoPi * 50f * t));
+                var thud = Mathf.Sin(TwoPi * 70f * t) * Envelope(t, 0.003f, 0.12f);
+                samples[i] = voice * 0.45f * tremolo * Adsr(t, length, 0.02f, 0.45f) + crackle * 0.5f + thud * 0.9f;
+            }
+
+            var sagging = Filter(samples, FilterType.LowPass, i => 5000f * Mathf.Pow(900f / 5000f, Mathf.Clamp01(Time(i) / 0.8f)), 1.4f);
+            Add(sagging, Click(0.004f, 900f, 153), 0, 0.7f);
+            return TrimTo(Reverb(sagging, 0.3f, 0.9f), (int)((length + 0.3f) * SampleRate));
+        }
+
+        // Last surge: a detuned drone straining upwards, its tremolo speeding up and noise tightening, and no release,
+        // because the capture or the break-free that follows is the payoff.
+        private static float[] GhostSurge()
+        {
+            const float length = 1.7f;
+            var samples = Buffer(length);
+            var strain = Filter(Noise(samples.Length, 157), FilterType.BandPass, i => 500f * Mathf.Pow(5000f / 500f, Mathf.Clamp01(Time(i) / length)), 2.5f);
+            var detune = Mathf.Pow(2f, 14f / 1200f);
+            float phase = 0f, phase2 = 0f, tremoloPhase = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var rise = Mathf.Clamp01(t / length);
+                var frequency = 98f * Mathf.Pow(2f, rise * 1.2f);
+                phase += TwoPi * frequency / SampleRate;
+                phase2 += TwoPi * frequency * detune / SampleRate;
+                tremoloPhase += TwoPi * Mathf.Lerp(6f, 24f, rise * rise) / SampleRate;
+                var drone = 0f;
+                for (var h = 1; h <= 10; h++)
+                    drone += (Mathf.Sin(phase * h) + Mathf.Sin(phase2 * h)) / h;
+                var tremolo = 0.6f + 0.4f * Mathf.Sin(tremoloPhase);
+                var swell = Mathf.Lerp(0.35f, 1f, rise) * Adsr(t, length, 0.08f, 0.05f);
+                samples[i] = (drone * 0.22f * tremolo + strain[i] * 0.6f * rise) * swell;
+            }
+
+            return Saturate(Reverb(samples, 0.2f, 0.7f), 1.8f);
         }
 
         private static float[] Bell(float frequency, float duration, float ratio, float index, float decay)

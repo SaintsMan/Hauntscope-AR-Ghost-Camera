@@ -1,3 +1,4 @@
+using System;
 using Hauntscope.Core.StateMachines;
 
 namespace Hauntscope.Gameplay.Ghosts.States
@@ -14,11 +15,15 @@ namespace Hauntscope.Gameplay.Ghosts.States
             _fastWander = new GhostWanderState(context, context.Config.AlertedSpeedMultiplier);
         }
 
+        // The ghost freezes to stare at the camera: the ghost turns this moment into a stagger window.
+        public event Action<float> PauseStarted;
+
         public void Enter()
         {
             _context.Mover.Stop();
             _context.Mover.FaceTowards(_context.Camera.Position);
             _pauseRemaining = _context.Config.AlertedPauseDuration;
+            PauseStarted?.Invoke(_pauseRemaining);
         }
 
         public void Exit()

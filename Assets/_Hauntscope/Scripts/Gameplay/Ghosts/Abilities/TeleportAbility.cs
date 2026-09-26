@@ -10,10 +10,12 @@ namespace Hauntscope.Gameplay.Ghosts.Abilities
         private readonly float _minDistance;
         private readonly float _maxDistance;
         private readonly float _cooldown;
+        private readonly float _staggerDuration;
         private float _cooldownRemaining;
 
-        public TeleportAbility(float progressThreshold, float minDistance, float maxDistance, float cooldown)
+        public TeleportAbility(float progressThreshold, float minDistance, float maxDistance, float cooldown, float staggerDuration = 0f)
         {
+            _staggerDuration = staggerDuration;
             _progressThreshold = progressThreshold;
             _minDistance = minDistance;
             _maxDistance = maxDistance;
@@ -37,6 +39,7 @@ namespace Hauntscope.Gameplay.Ghosts.Abilities
             var offset = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * distance;
 
             ghost.TeleportTo(ghost.Position + offset);
+            ghost.Stagger(_staggerDuration);
             _cooldownRemaining = _cooldown;
         }
     }

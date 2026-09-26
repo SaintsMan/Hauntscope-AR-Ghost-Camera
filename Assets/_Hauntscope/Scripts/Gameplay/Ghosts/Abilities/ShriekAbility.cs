@@ -10,11 +10,13 @@ namespace Hauntscope.Gameplay.Ghosts.Abilities
         private readonly float _revealThreshold;
         private readonly float _jamDuration;
         private readonly float _cooldown;
+        private readonly float _staggerDuration;
         private float _cooldownRemaining;
         private float _jamRemaining;
 
-        public ShriekAbility(float triggerDistance, float revealThreshold, float jamDuration, float cooldown)
+        public ShriekAbility(float triggerDistance, float revealThreshold, float jamDuration, float cooldown, float staggerDuration = 0f)
         {
+            _staggerDuration = staggerDuration;
             _triggerDistance = triggerDistance;
             _revealThreshold = revealThreshold;
             _jamDuration = jamDuration;
@@ -28,7 +30,11 @@ namespace Hauntscope.Gameplay.Ghosts.Abilities
             if (_jamRemaining > 0f)
             {
                 _jamRemaining -= deltaTime;
-                ghost.SetVisible(_jamRemaining <= 0f);
+                var isBack = _jamRemaining <= 0f;
+                ghost.SetVisible(isBack);
+                // The shriek spends her: she comes back out of the static exhausted.
+                if (isBack)
+                    ghost.Stagger(_staggerDuration);
                 return;
             }
 

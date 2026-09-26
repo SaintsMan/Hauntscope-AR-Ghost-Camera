@@ -29,7 +29,7 @@ namespace Hauntscope.Tests.EditMode
             _fixture.Ghost.Start();
             _session = new HuntSession();
             var config = TestConfigs.Tools();
-            _toolbelt = new Toolbelt(new GhostLens(_session, _fixture.Camera, config, new HuntModifiers()), new CaptureBeam(_session, _fixture.Camera, config, new HuntModifiers()));
+            _toolbelt = new Toolbelt(new GhostLens(_session, _fixture.Camera, config, new HuntModifiers()), TestConfigs.Beam(_session, _fixture.Camera, config, new HuntModifiers()));
             var calibration = new RoomCalibration(new FakePlaneProvider(), new RoomConfig(2f, 1.5f, 0.3f, 2f, 5f));
             _sfx = new FakeSfxPlayer();
             _haptics = new FakeHaptics();
@@ -241,6 +241,49 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.IsTrue(whisper.IsStopped);
             Assert.IsEmpty(_vfx.Played);
+        }
+
+        [Test]
+        public void GhostStaggered_AfterAbility_PlaysSparksAndHaptic()
+        {
+            _session.Begin(_fixture.Ghost, null);
+
+            _fixture.Ghost.Stagger(1f);
+
+            Assert.AreEqual(new[] { VfxId.StaggerSparks }, _vfx.Played.ToArray());
+            Assert.AreEqual(1, _sfx.PlayCount);
+        }
+
+        [Test]
+        public void GhostStaggered_ByFreezingOnReveal_LeavesTheMomentToTheRevealPulse()
+        {
+            _session.Begin(_fixture.Ghost, null);
+            _fixture.Ghost.SetReveal(1f);
+
+            _fixture.Ghost.Tick(0.01f);
+
+            Assert.IsTrue(_fixture.Ghost.IsStaggered);
+            CollectionAssert.DoesNotContain(_vfx.Played, VfxId.StaggerSparks);
+        }
+
+        [Test]
+        public void GhostSurgeStarted_Always_PlaysSurgeSoundAndHeavyHaptic()
+        {
+            var capture = TestConfigs.Capture(surgeThreshold: 0.85f);
+            var fixture = new GhostFixture(capture: capture);
+            fixture.Ghost.Start();
+            _session.Begin(fixture.Ghost, null);
+            fixture.Ghost.SetReveal(1f);
+            fixture.Ghost.Tick(0.01f);
+            fixture.Ghost.SetBeamed(true);
+            fixture.Ghost.Tick(0.01f);
+            var sounds = _sfx.PlayCount;
+            fixture.Ghost.SetCaptureProgress(0.9f);
+
+            fixture.Ghost.Tick(0.01f);
+
+            Assert.IsTrue(fixture.Ghost.IsSurging);
+            Assert.AreEqual(sounds + 1, _sfx.PlayCount);
         }
     }
 }

@@ -1,4 +1,8 @@
 using Hauntscope.Gameplay.Config;
+using Hauntscope.Gameplay.Environment;
+using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Store;
+using Hauntscope.Gameplay.Tools;
 
 namespace Hauntscope.Tests.EditMode
 {
@@ -20,6 +24,34 @@ namespace Hauntscope.Tests.EditMode
         {
             return new ToolsConfig(batteryMax, passiveDrain, lowBatteryThreshold, lensDrain, beamDrain, revealAngle,
                 revealInTime, revealOutTime, beamRevealThreshold, reticleRadius, captureRate, decayRate);
+        }
+
+        // Neutral by default (no distance bonus, no surge before full progress) so older beam tests keep their maths.
+        public static CaptureConfig Capture(
+            float staggerCaptureMultiplier = 2f,
+            float staggerSink = 0.15f,
+            float staggerBlendTime = 0.15f,
+            float closeDistance = 1f,
+            float farDistance = 2.5f,
+            float closeCaptureMultiplier = 1f,
+            float farCaptureMultiplier = 1f,
+            float surgeThreshold = 1f,
+            float surgeRearm = 0.6f,
+            float surgeDuration = 1.6f,
+            float surgeJerkInterval = 0.3f,
+            float surgeCaptureScale = 0.6f,
+            float surgeDecayScale = 2f,
+            float scareProgressLoss = 0.3f)
+        {
+            return new CaptureConfig(staggerCaptureMultiplier, staggerSink, staggerBlendTime, closeDistance, farDistance,
+                closeCaptureMultiplier, farCaptureMultiplier, surgeThreshold, surgeRearm, surgeDuration, surgeJerkInterval,
+                surgeCaptureScale, surgeDecayScale, scareProgressLoss);
+        }
+
+        public static CaptureBeam Beam(HuntSession session, ICameraPose camera, ToolsConfig tools, HuntModifiers modifiers, CaptureConfig capture = null)
+        {
+            capture ??= Capture();
+            return new CaptureBeam(session, camera, tools, modifiers, new CaptureRateCalculator(tools, capture, modifiers), capture);
         }
     }
 }

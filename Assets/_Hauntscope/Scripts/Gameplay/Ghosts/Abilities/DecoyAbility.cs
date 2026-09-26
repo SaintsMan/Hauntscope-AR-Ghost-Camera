@@ -10,11 +10,13 @@ namespace Hauntscope.Gameplay.Ghosts.Abilities
 
         private readonly float _minDistance;
         private readonly float _interval;
+        private readonly float _staggerDuration;
         private float _timeUntilMove;
         private bool _isExposed;
 
-        public DecoyAbility(float minDistance, float interval)
+        public DecoyAbility(float minDistance, float interval, float staggerDuration = 0f)
         {
+            _staggerDuration = staggerDuration;
             _minDistance = minDistance;
             _interval = interval;
         }
@@ -30,6 +32,7 @@ namespace Hauntscope.Gameplay.Ghosts.Abilities
             {
                 _isExposed = true;
                 ghost.ClearEmfDecoy();
+                ghost.Stagger(_staggerDuration);
                 return;
             }
 

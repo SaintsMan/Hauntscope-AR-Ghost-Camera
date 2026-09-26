@@ -33,12 +33,19 @@ namespace Hauntscope.UI.Hunt
         [SerializeField, Min(0.05f)] private float _sweepDuration = 0.5f;
         [SerializeField, Min(0.05f)] private float _flashDuration = 0.6f;
         [SerializeField] private RectTransform _emfArrow;
+        [SerializeField] private TMP_Text _focusLabel;
+        [SerializeField] private Color _focusFarColor = new Color(0.49f, 0.55f, 0.6f, 1f);
+        [SerializeField] private Color _focusGoodColor = new Color(1f, 0.71f, 0.28f, 1f);
+        [SerializeField] private Color _focusDangerColor = new Color(1f, 0.23f, 0.23f, 1f);
+        [SerializeField] private GameObject _vulnerableLabel;
+        [SerializeField] private Color _reticleSurgeColor = new Color(1f, 0.23f, 0.23f, 1f);
 
         private float _lensVignetteAlpha = -1f;
         private float _lockGlowAlpha = -1f;
         private int _shownEmfLevel;
         private bool _beamActive;
         private bool _locked;
+        private bool _surging;
         private Tween _spin;
 
         public event Action LensClicked
@@ -154,6 +161,46 @@ namespace Hauntscope.UI.Hunt
             _reticle.anchoredPosition = pixels > 0f ? UnityEngine.Random.insideUnitCircle * pixels : Vector2.zero;
         }
 
+        public void SetFocusVisible(bool visible)
+        {
+            if (_focusLabel.gameObject.activeSelf != visible)
+                _focusLabel.gameObject.SetActive(visible);
+        }
+
+        public void SetFocus(string text, FocusZone zone)
+        {
+            _focusLabel.text = text;
+            _focusLabel.color = zone == FocusZone.Danger ? _focusDangerColor : zone == FocusZone.Good ? _focusGoodColor : _focusFarColor;
+        }
+
+        public void SetVulnerable(bool vulnerable)
+        {
+            _vulnerableLabel.SetActive(vulnerable);
+            if (!vulnerable || !isActiveAndEnabled)
+                return;
+
+            var label = _vulnerableLabel.transform;
+            label.DOKill();
+            label.localScale = Vector3.one;
+            label.DOPunchScale(Vector3.one * 0.35f, 0.3f, 6).Ui(gameObject);
+        }
+
+        // The last surge turns the ring red and kicks it, so the player knows this is the moment to hold on.
+        public void SetSurging(bool surging)
+        {
+            if (surging == _surging)
+                return;
+
+            _surging = surging;
+            RenderReticle();
+            if (!surging || !isActiveAndEnabled)
+                return;
+
+            _reticle.DOKill();
+            _reticle.localScale = Vector3.one;
+            _reticle.DOPunchScale(Vector3.one * 0.3f, 0.35f, 6).Ui(gameObject);
+        }
+
         public void PlayCaptureFlash()
         {
             _captureFlash.DOKill();
@@ -180,7 +227,7 @@ namespace Hauntscope.UI.Hunt
         private void RenderReticle()
         {
             CaptureAlphas();
-            _reticleRing.color = _locked ? _reticleLockedColor : _beamActive ? _reticleBeamColor : _reticleIdleColor;
+            _reticleRing.color = _surging ? _reticleSurgeColor : _locked ? _reticleLockedColor : _beamActive ? _reticleBeamColor : _reticleIdleColor;
             _lockGlow.DOKill();
             _lockGlow.DOFade(_locked ? _lockGlowAlpha : 0f, 0.15f).Ui(gameObject);
 
@@ -219,6 +266,7 @@ namespace Hauntscope.UI.Hunt
         private void OnDisable()
         {
             _spin = null;
+            _surging = false;
             _reticle.anchoredPosition = Vector2.zero;
             _reticle.localScale = Vector3.one;
             _lensSweep.gameObject.SetActive(false);
@@ -256,6 +304,10 @@ namespace Hauntscope.UI.Hunt
             _captureFlash = Find<Graphic>("CaptureFlash");
             _scareFlash = Find<Image>("ScareFlash");
             _emfArrow = Find<RectTransform>("EmfArrow");
+            _focusLabel = Find<TMP_Text>("Reticle/Focus");
+            var vulnerable = transform.Find("Reticle/Vulnerable");
+            if (vulnerable != null)
+                _vulnerableLabel = vulnerable.gameObject;
         }
 
         private T Find<T>(string path) where T : Component

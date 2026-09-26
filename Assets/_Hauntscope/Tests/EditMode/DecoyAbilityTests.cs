@@ -83,5 +83,16 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.AreEqual(_fixture.Ghost.Position, _fixture.Ghost.EmfSource);
         }
+
+        [Test]
+        public void Tick_Exposed_StaggersGhost()
+        {
+            var ability = new DecoyAbility(MinDistance, Interval, 2f);
+            _fixture.Ghost.SetReveal(1f);
+
+            ability.Tick(_fixture.Ghost, 0.1f);
+
+            Assert.IsTrue(_fixture.Ghost.IsStaggered);
+        }
     }
 }

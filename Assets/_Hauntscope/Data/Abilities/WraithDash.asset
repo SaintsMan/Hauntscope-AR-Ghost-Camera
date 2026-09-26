@@ -15,3 +15,4 @@ MonoBehaviour:
   _distance: 1.5
   _duration: 0.22
   _cooldown: 2
+  _staggerDuration: 0.7

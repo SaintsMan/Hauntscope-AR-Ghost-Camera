@@ -61,6 +61,11 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Range(0f, 1f)] private float _emergencyVolume = 0.8f;
         [SerializeField] private AudioClip _rewardGranted;
         [SerializeField, Range(0f, 1f)] private float _rewardVolume = 0.8f;
+        [SerializeField] private AudioClip _ghostStagger;
+        [SerializeField, Range(0f, 1f)] private float _staggerVolume = 0.8f;
+        [SerializeField] private AudioClip _ghostSurge;
+        [SerializeField, Range(0f, 1f)] private float _surgeVolume = 0.75f;
+        [SerializeField, Min(0.02f)] private float _surgeHapticInterval = 0.12f;
 
         public AudioClip AmbientDrone => _ambientDrone;
 
@@ -171,5 +176,16 @@ namespace Hauntscope.Gameplay.Config
         public AudioClip RewardGranted => _rewardGranted;
 
         public float RewardVolume => _rewardVolume;
+
+        public AudioClip GhostStagger => _ghostStagger;
+
+        public float StaggerVolume => _staggerVolume;
+
+        public AudioClip GhostSurge => _ghostSurge;
+
+        public float SurgeVolume => _surgeVolume;
+
+        // The surge throbs in the hand faster than a normal beam hold.
+        public float SurgeHapticInterval => _surgeHapticInterval;
     }
 }

@@ -83,5 +83,19 @@ namespace Hauntscope.Tests.EditMode
             Assert.IsFalse(_ability.IsJamming);
             Assert.AreEqual(1f, _fixture.Ghost.Reveal);
         }
+
+        [Test]
+        public void Tick_BackFromShriek_ComesBackStaggered()
+        {
+            var ability = new ShriekAbility(TriggerDistance, RevealThreshold, JamDuration, Cooldown, 1.5f);
+            _fixture.Ghost.SetReveal(1f);
+            ability.Tick(_fixture.Ghost, 0.1f);
+            Assert.IsFalse(_fixture.Ghost.IsStaggered);
+
+            ability.Tick(_fixture.Ghost, JamDuration + 0.01f);
+
+            Assert.IsTrue(_fixture.Ghost.IsVisible);
+            Assert.IsTrue(_fixture.Ghost.IsStaggered);
+        }
     }
 }

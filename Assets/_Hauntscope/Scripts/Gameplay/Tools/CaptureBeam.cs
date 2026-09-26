@@ -15,16 +15,28 @@ namespace Hauntscope.Gameplay.Tools
         private readonly ICameraPose _camera;
         private readonly ToolsConfig _config;
         private readonly HuntModifiers _modifiers;
+        private readonly CaptureRateCalculator _rate;
+        private readonly CaptureConfig _capture;
         private readonly ObservableValue<bool> _isActive = new ObservableValue<bool>();
         private readonly ObservableValue<float> _progress = new ObservableValue<float>();
         private readonly ObservableValue<bool> _isLocked = new ObservableValue<bool>();
 
-        public CaptureBeam(HuntSession session, ICameraPose camera, ToolsConfig config, HuntModifiers modifiers)
+        private bool _wasScaring;
+
+        public CaptureBeam(
+            HuntSession session,
+            ICameraPose camera,
+            ToolsConfig config,
+            HuntModifiers modifiers,
+            CaptureRateCalculator rate,
+            CaptureConfig capture)
         {
             _session = session;
             _camera = camera;
             _config = config;
             _modifiers = modifiers;
+            _rate = rate;
+            _capture = capture;
         }
 
         public IReadOnlyObservableValue<bool> IsActive => _isActive;
@@ -38,6 +50,9 @@ namespace Hauntscope.Gameplay.Tools
 
         // Fraction of the screen width; the equipped laser widens or narrows the ring.
         public float ReticleRadius => _config.ReticleRadius * _modifiers.ReticleRadius;
+
+        // Camera-to-ghost distance as of the last tick; the HUD's focus scale reads it.
+        public float GhostDistance { get; private set; }
 
         public void Activate()
         {
@@ -53,6 +68,7 @@ namespace Hauntscope.Gameplay.Tools
         public void ResetProgress()
         {
             _progress.Value = 0f;
+            _wasScaring = false;
         }
 
         public void Tick(float deltaTime)
@@ -64,15 +80,23 @@ namespace Hauntscope.Gameplay.Tools
                 return;
             }
 
+            GhostDistance = Vector3.Distance(_camera.Position, ghost.Position);
+
+            // Getting close is the risk that pays for the faster capture: a jump scare knocks the charge back.
+            var progress = _progress.Value;
+            if (ghost.IsScaring && !_wasScaring)
+                progress = Mathf.Max(0f, progress - _capture.ScareProgressLoss);
+            _wasScaring = ghost.IsScaring;
+
             var reveal = _modifiers.LocksHiddenGhosts ? Mathf.Max(ghost.Reveal, ghost.VisibleReveal) : ghost.VisibleReveal;
             var hitting = _isActive.Value && reveal > _config.BeamRevealThreshold;
             ghost.SetBeamed(hitting);
             _isLocked.Value = hitting && IsInReticle(ghost.Position);
 
             var delta = _isLocked.Value
-                ? _config.CaptureRate * _modifiers.CaptureRate / ghost.Resistance * deltaTime
-                : -_config.DecayRate * _modifiers.DecayRate * deltaTime;
-            _progress.Value = Mathf.Clamp01(_progress.Value + delta);
+                ? _rate.Charge(GhostDistance, ghost.IsStaggered, ghost.IsSurging, ghost.Resistance) * deltaTime
+                : -_rate.Decay(ghost.IsSurging) * deltaTime;
+            _progress.Value = Mathf.Clamp01(progress + delta);
             ghost.SetCaptureProgress(_progress.Value);
 
             if (_progress.Value >= 1f)

@@ -24,7 +24,7 @@ namespace Hauntscope.Tests.EditMode
             var session = new HuntSession();
             session.Begin(_fixture.Ghost, null);
             var config = TestConfigs.Tools(beamDrain: BeamDrain, reticleRadius: ReticleRadius, captureRate: CaptureRate, decayRate: DecayRate);
-            _beam = new CaptureBeam(session, _fixture.Camera, config, new HuntModifiers());
+            _beam = TestConfigs.Beam(session, _fixture.Camera, config, new HuntModifiers());
         }
 
         [Test]
@@ -264,7 +264,83 @@ namespace Hauntscope.Tests.EditMode
             var session = new HuntSession();
             session.Begin(_fixture.Ghost, null);
             var config = TestConfigs.Tools(beamDrain: BeamDrain, reticleRadius: ReticleRadius, captureRate: CaptureRate, decayRate: DecayRate);
-            return new CaptureBeam(session, _fixture.Camera, config, modifiers);
+            return TestConfigs.Beam(session, _fixture.Camera, config, modifiers);
+        }
+
+        [Test]
+        public void Tick_StaggeredGhost_ChargesTwiceAsFast()
+        {
+            _fixture.Ghost.SetReveal(1f);
+            _fixture.Ghost.Stagger(5f);
+            _beam.Activate();
+
+            _beam.Tick(1f);
+
+            Assert.AreEqual(CaptureRate * 2f / GhostFixture.Resistance, _beam.Progress.Value, 1e-5f);
+        }
+
+        [Test]
+        public void Tick_GhostUpClose_ChargesFasterThanFromAfar()
+        {
+            var capture = TestConfigs.Capture(closeDistance: 1f, farDistance: 3f, closeCaptureMultiplier: 1.5f, farCaptureMultiplier: 0.5f);
+            var beam = CreateBeam(new HuntModifierSet(), capture);
+            _fixture.Ghost.SetReveal(1f);
+            _fixture.Camera.Position = _fixture.Ghost.Position + Vector3.back * 0.5f;
+            beam.Activate();
+
+            beam.Tick(1f);
+
+            Assert.AreEqual(CaptureRate * 1.5f / GhostFixture.Resistance, beam.Progress.Value, 1e-5f);
+            Assert.AreEqual(0.5f, beam.GhostDistance, 1e-5f);
+        }
+
+        [Test]
+        public void Tick_JumpScare_KnocksProgressBack()
+        {
+            var capture = TestConfigs.Capture(scareProgressLoss: 0.3f);
+            var beam = CreateBeam(new HuntModifierSet(), capture);
+            _fixture.Ghost.SetReveal(1f);
+            beam.Activate();
+            beam.Tick(2f);
+            beam.Deactivate();
+            _fixture.Ghost.Tick(0.01f);
+            _fixture.Ghost.Scare();
+            _fixture.Ghost.Tick(0.01f);
+            var before = beam.Progress.Value;
+
+            beam.Tick(0f);
+
+            Assert.AreEqual(before - 0.3f, beam.Progress.Value, 1e-5f);
+        }
+
+        [Test]
+        public void Tick_ScareContinues_KnocksBackOnlyOnce()
+        {
+            var capture = TestConfigs.Capture(scareProgressLoss: 0.3f);
+            var beam = CreateBeam(new HuntModifierSet(), capture);
+            _fixture.Ghost.SetReveal(1f);
+            beam.Activate();
+            beam.Tick(2f);
+            beam.Deactivate();
+            _fixture.Ghost.Tick(0.01f);
+            _fixture.Ghost.Scare();
+            _fixture.Ghost.Tick(0.01f);
+            beam.Tick(0f);
+            var afterFirst = beam.Progress.Value;
+
+            beam.Tick(0f);
+
+            Assert.AreEqual(afterFirst, beam.Progress.Value, 1e-5f);
+        }
+
+        private CaptureBeam CreateBeam(HuntModifierSet set, Hauntscope.Gameplay.Config.CaptureConfig capture)
+        {
+            var modifiers = new HuntModifiers();
+            modifiers.Apply(set);
+            var session = new HuntSession();
+            session.Begin(_fixture.Ghost, null);
+            var config = TestConfigs.Tools(beamDrain: BeamDrain, reticleRadius: ReticleRadius, captureRate: CaptureRate, decayRate: DecayRate);
+            return TestConfigs.Beam(session, _fixture.Camera, config, modifiers, capture);
         }
     }
 }

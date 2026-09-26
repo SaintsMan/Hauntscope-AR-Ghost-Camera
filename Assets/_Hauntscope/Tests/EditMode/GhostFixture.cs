@@ -1,5 +1,6 @@
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Ghosts;
+using Hauntscope.Gameplay.Ghosts.Abilities;
 using Hauntscope.Tests.EditMode.Fakes;
 using UnityEngine;
 
@@ -30,7 +31,7 @@ namespace Hauntscope.Tests.EditMode
         public const float ScareRushTime = 0.3f;
         public const float ScareFaceDistance = 0.45f;
 
-        public GhostFixture(float wanderInterval = 4f, float floorHeight = 0f)
+        public GhostFixture(float wanderInterval = 4f, float floorHeight = 0f, CaptureConfig capture = null, IGhostAbility[] abilities = null)
         {
             Planes = new FakePlaneProvider
             {
@@ -41,6 +42,7 @@ namespace Hauntscope.Tests.EditMode
             Camera = new FakeCameraPose { Position = new Vector3(0f, 1.5f, -1.5f), Forward = Vector3.forward };
             Config = CreateConfig(wanderInterval);
             Scare = CreateScareConfig();
+            Capture = capture ?? TestConfigs.Capture();
             Mover = new GhostMover(Planes, Config);
             Context = new GhostContext(
                 new GhostMotion(MoveSpeed, FleeSpeed, HoverMin, HoverMax),
@@ -48,12 +50,13 @@ namespace Hauntscope.Tests.EditMode
                 new GhostCapture(Resistance, Reward),
                 Config,
                 Scare,
+                Capture,
                 Mover,
                 Random,
                 Planes,
                 Camera);
             View = new FakeGhostView();
-            Ghost = new Ghost(Context, View);
+            Ghost = new Ghost(Context, View, abilities ?? System.Array.Empty<IGhostAbility>());
         }
 
         public FakePlaneProvider Planes { get; }
@@ -65,6 +68,8 @@ namespace Hauntscope.Tests.EditMode
         public GhostConfig Config { get; }
 
         public ScareConfig Scare { get; }
+
+        public CaptureConfig Capture { get; }
 
         public GhostMover Mover { get; }
 

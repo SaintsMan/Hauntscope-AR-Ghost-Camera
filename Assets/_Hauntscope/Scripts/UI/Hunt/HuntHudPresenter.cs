@@ -1,6 +1,7 @@
 using System;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
+using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
@@ -12,6 +13,8 @@ namespace Hauntscope.UI.Hunt
     public sealed class HuntHudPresenter : IStartable, ITickable, IDisposable
     {
         private const string EmfLevelKey = "hud.emf.level";
+        private const string FocusKey = "hud.focus";
+        private const float FocusStep = 10f;
 
         private readonly HuntHudView _view;
         private readonly EmfRadar _radar;
@@ -24,10 +27,16 @@ namespace Hauntscope.UI.Hunt
         private readonly HuntPause _pause;
         private readonly HuntModifiers _modifiers;
         private readonly HuntLoadout _loadout;
+        private readonly ToolsConfig _toolsConfig;
+        private readonly CaptureConfig _captureConfig;
 
         private float _scareFlash;
         private float _shownProgress;
         private bool _isShaking;
+        private bool _isFocusShown;
+        private int _shownFocusTenths = -1;
+        private bool _isVulnerableShown;
+        private bool _isSurgeShown;
 
         public HuntHudPresenter(
             HuntHudView view,
@@ -40,8 +49,12 @@ namespace Hauntscope.UI.Hunt
             HudConfig hudConfig,
             HuntPause pause,
             HuntModifiers modifiers,
-            HuntLoadout loadout)
+            HuntLoadout loadout,
+            ToolsConfig toolsConfig,
+            CaptureConfig captureConfig)
         {
+            _toolsConfig = toolsConfig;
+            _captureConfig = captureConfig;
             _modifiers = modifiers;
             _loadout = loadout;
             _hudConfig = hudConfig;
@@ -74,6 +87,8 @@ namespace Hauntscope.UI.Hunt
             OnLoadoutChanged();
             UpdateVisibility();
             _view.SetScareFlash(0f);
+            _view.SetFocusVisible(false);
+            _view.SetVulnerable(false);
             _view.SetLensActive(_toolbelt.Lens.IsActive.Value);
             _view.SetBeamActive(_toolbelt.Beam.IsActive.Value);
             _view.SetCaptureProgress(_toolbelt.Beam.Progress.Value);
@@ -82,10 +97,20 @@ namespace Hauntscope.UI.Hunt
 
         public void Tick()
         {
-            var shaking = _toolbelt.Beam.IsLocked.Value && !_pause.IsPaused;
+            var ghost = _session.Ghost.Value;
+            var paused = _pause.IsPaused;
+            var surging = ghost != null && ghost.IsSurging && !paused;
+            var shaking = (_toolbelt.Beam.IsLocked.Value || surging) && !paused;
             if (shaking || _isShaking)
-                _view.SetReticleShake(shaking ? _toolbelt.Beam.Progress.Value * _hudConfig.ReticleShake : 0f);
+                _view.SetReticleShake(!shaking ? 0f : surging ? _hudConfig.SurgeShake : _toolbelt.Beam.Progress.Value * _hudConfig.ReticleShake);
             _isShaking = shaking;
+            if (surging != _isSurgeShown)
+            {
+                _isSurgeShown = surging;
+                _view.SetSurging(surging);
+            }
+
+            RenderFocus(ghost, paused);
             _view.SetEmfBearing(_modifiers.ShowsEmfDirection && _radar.Level.Value > 0 && !_pause.IsPaused, _radar.Bearing);
 
             if (_scareFlash <= 0f)
@@ -185,6 +210,41 @@ namespace Hauntscope.UI.Hunt
         private void OnLanguageChanged()
         {
             RenderEmf(_radar.Level.Value);
+            _shownFocusTenths = -1;
+        }
+
+        // The camcorder's focus scale doubles as the proximity gauge; the text is rebuilt only when the reading
+        // changes by a tenth of a metre, so no string is formatted on a quiet frame.
+        private void RenderFocus(Ghost ghost, bool paused)
+        {
+            var visible = ghost != null && !paused && !ghost.IsCaptured && !ghost.IsEscaped
+                && ghost.VisibleReveal >= _toolsConfig.BeamRevealThreshold;
+            if (visible != _isFocusShown)
+            {
+                _isFocusShown = visible;
+                _view.SetFocusVisible(visible);
+            }
+
+            var vulnerable = visible && ghost.IsStaggered;
+            if (vulnerable != _isVulnerableShown)
+            {
+                _isVulnerableShown = vulnerable;
+                _view.SetVulnerable(vulnerable);
+            }
+
+            if (!visible)
+                return;
+
+            var distance = _toolbelt.Beam.GhostDistance;
+            var tenths = Mathf.RoundToInt(distance * FocusStep);
+            if (tenths == _shownFocusTenths)
+                return;
+
+            _shownFocusTenths = tenths;
+            var zone = distance <= _scareConfig.Distance ? FocusZone.Danger
+                : distance <= _captureConfig.FarDistance ? FocusZone.Good
+                : FocusZone.Far;
+            _view.SetFocus(_localization.Get(LocalizationTable.Ui, FocusKey, tenths / FocusStep), zone);
         }
 
         private void RenderEmf(int level)

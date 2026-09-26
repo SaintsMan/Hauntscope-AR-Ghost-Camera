@@ -11,14 +11,16 @@ namespace Hauntscope.Gameplay.Ghosts.Abilities
         private readonly float _distance;
         private readonly float _duration;
         private readonly float _cooldown;
+        private readonly float _staggerDuration;
         private float _cooldownRemaining;
         private float _elapsed;
         private bool _isDashing;
         private Vector3 _from;
         private Vector3 _to;
 
-        public DashAbility(float distance, float duration, float cooldown)
+        public DashAbility(float distance, float duration, float cooldown, float staggerDuration = 0f)
         {
+            _staggerDuration = staggerDuration;
             _distance = distance;
             _duration = duration;
             _cooldown = cooldown;
@@ -79,6 +81,7 @@ namespace Hauntscope.Gameplay.Ghosts.Abilities
 
             _isDashing = false;
             _cooldownRemaining = _cooldown;
+            ghost.Stagger(_staggerDuration);
         }
 
         private static float Room(GhostContext context, Vector3 direction)

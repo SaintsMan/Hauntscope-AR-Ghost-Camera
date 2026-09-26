@@ -60,6 +60,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<EmergencyCharge>().AsSelf();
             builder.RegisterEntryPoint<HuntPause>().AsSelf();
             builder.Register<GhostLens>(Lifetime.Singleton);
+            builder.Register<CaptureRateCalculator>(Lifetime.Singleton);
             builder.Register<CaptureBeam>(Lifetime.Singleton);
             builder.Register<Toolbelt>(Lifetime.Singleton);
             builder.Register<Battery>(Lifetime.Singleton);

@@ -16,3 +16,4 @@ MonoBehaviour:
   _revealThreshold: 0.6
   _jamDuration: 2
   _cooldown: 9
+  _staggerDuration: 1.5

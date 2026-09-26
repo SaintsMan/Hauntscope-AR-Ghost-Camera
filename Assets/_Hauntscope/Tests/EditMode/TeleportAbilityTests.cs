@@ -89,5 +89,26 @@ namespace Hauntscope.Tests.EditMode
             Assert.That(Mathf.Abs(position.x), Is.LessThanOrEqualTo(1.5f));
             Assert.That(Mathf.Abs(position.z), Is.LessThanOrEqualTo(1.5f));
         }
+
+        [Test]
+        public void Tick_Teleported_StaggersGhost()
+        {
+            var ability = new TeleportAbility(Threshold, 2f, 3f, Cooldown, 1.2f);
+            _fixture.Ghost.SetCaptureProgress(1f);
+
+            ability.Tick(_fixture.Ghost, 0.1f);
+
+            Assert.IsTrue(_fixture.Ghost.IsStaggered);
+        }
+
+        [Test]
+        public void Tick_NoTeleport_NoStagger()
+        {
+            var ability = new TeleportAbility(Threshold, 2f, 3f, Cooldown, 1.2f);
+
+            ability.Tick(_fixture.Ghost, 0.1f);
+
+            Assert.IsFalse(_fixture.Ghost.IsStaggered);
+        }
     }
 }

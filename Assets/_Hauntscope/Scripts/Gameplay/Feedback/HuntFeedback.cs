@@ -85,8 +85,10 @@ namespace Hauntscope.Gameplay.Feedback
                 _timeUntilBeamPulse -= deltaTime;
                 if (_timeUntilBeamPulse <= 0f)
                 {
-                    _haptics.Play(HapticStrength.Light);
-                    _timeUntilBeamPulse = _audio.BeamHapticInterval;
+                    // The last surge fights back in the hand too: harder, faster pulses until it breaks or is caught.
+                    var surging = _ghost.IsSurging;
+                    _haptics.Play(surging ? HapticStrength.Medium : HapticStrength.Light);
+                    _timeUntilBeamPulse = surging ? _audio.SurgeHapticInterval : _audio.BeamHapticInterval;
                 }
             }
 
@@ -135,6 +137,8 @@ namespace Hauntscope.Gameplay.Feedback
             _ghost.Teleported += OnTeleported;
             _ghost.Dashed += OnDashed;
             _ghost.Shrieked += OnShrieked;
+            _ghost.Staggered += OnStaggered;
+            _ghost.SurgeStarted += OnSurgeStarted;
             var clip = _session.GhostData != null ? _session.GhostData.WhisperClip : null;
             _whisper = _sfx.PlayLoop(clip, _audio.WhisperVolume, true);
             _whisper?.SetPosition(_ghost.Position);
@@ -147,6 +151,8 @@ namespace Hauntscope.Gameplay.Feedback
                 _ghost.Teleported -= OnTeleported;
                 _ghost.Dashed -= OnDashed;
                 _ghost.Shrieked -= OnShrieked;
+                _ghost.Staggered -= OnStaggered;
+                _ghost.SurgeStarted -= OnSurgeStarted;
             }
 
             _whisper?.Stop();
@@ -186,6 +192,23 @@ namespace Hauntscope.Gameplay.Feedback
         private void OnShrieked()
         {
             _sfx.Play3D(_audio.Shriek, _ghost.Position, _audio.ShriekVolume);
+            _haptics.Play(HapticStrength.Heavy);
+        }
+
+        private void OnStaggered()
+        {
+            // The freeze on being noticed coincides with the reveal pulse; that moment already has its own flash.
+            if (_ghost.IsAlerted)
+                return;
+
+            _sfx.Play3D(_audio.GhostStagger, _ghost.Position, _audio.StaggerVolume);
+            _vfx.Play(VfxId.StaggerSparks, _ghost.Position, RimColor);
+            _haptics.Play(HapticStrength.Medium);
+        }
+
+        private void OnSurgeStarted()
+        {
+            _sfx.Play2D(_audio.GhostSurge, _audio.SurgeVolume, 1f);
             _haptics.Play(HapticStrength.Heavy);
         }
 

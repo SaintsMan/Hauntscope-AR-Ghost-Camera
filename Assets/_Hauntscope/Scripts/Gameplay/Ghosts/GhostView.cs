@@ -18,6 +18,8 @@ namespace Hauntscope.Gameplay.Ghosts
         [SerializeField, Min(0f)] private float _struggleJitter = 0.025f;
         [SerializeField, Min(0f)] private float _struggleWobble = 5f;
         [SerializeField, Min(0f)] private float _struggleRim = 1.2f;
+        [SerializeField, Range(0f, 1f)] private float _staggerWhiten = 0.7f;
+        [SerializeField, Min(0f)] private float _staggerRim = 1.5f;
 
         private Material[] _materials;
         private Material _bodyMaterial;
@@ -26,6 +28,8 @@ namespace Hauntscope.Gameplay.Ghosts
         private float _baseRimIntensity;
         private float _baseWobble;
         private float _struggle;
+        private float _stagger;
+        private Color _rimColor;
 
         public void SetPose(Vector3 position, Quaternion rotation)
         {
@@ -57,14 +61,26 @@ namespace Hauntscope.Gameplay.Ghosts
                 return;
 
             _struggle = struggle;
-            _bodyMaterial.SetFloat(RimIntensityId, _baseRimIntensity * (1f + struggle * _struggleRim));
+            ApplyRimIntensity();
             _bodyMaterial.SetFloat(WobbleAmplitudeId, _baseWobble * (1f + struggle * _struggleWobble));
             if (struggle > 0f)
                 transform.position += Random.insideUnitSphere * (struggle * _struggleJitter);
         }
 
+        // A winded ghost's rim washes out to white and flares, readable at a glance even across the room.
+        public void SetStagger(float stagger)
+        {
+            if (stagger <= 0f && _stagger <= 0f)
+                return;
+
+            _stagger = stagger;
+            _bodyMaterial.SetColor(RimColorId, Color.Lerp(_rimColor, Color.white, stagger * _staggerWhiten));
+            ApplyRimIntensity();
+        }
+
         public void SetRimColor(Color color)
         {
+            _rimColor = color;
             _bodyMaterial.SetColor(RimColorId, color);
             var baseColor = _bodyMaterial.GetColor(BaseColorId);
             _bodyMaterial.SetColor(BaseColorId, new Color(color.r, color.g, color.b, baseColor.a));
@@ -81,6 +97,11 @@ namespace Hauntscope.Gameplay.Ghosts
             Destroy(gameObject);
         }
 
+        private void ApplyRimIntensity()
+        {
+            _bodyMaterial.SetFloat(RimIntensityId, _baseRimIntensity * (1f + _struggle * _struggleRim + _stagger * _staggerRim));
+        }
+
         private void Awake()
         {
             // Each ghost owns its material instance so _Reveal and _Dissolve don't leak into other ghosts.
@@ -93,6 +114,7 @@ namespace Hauntscope.Gameplay.Ghosts
             }
 
             _baseRimIntensity = _bodyMaterial.GetFloat(RimIntensityId);
+            _rimColor = _bodyMaterial.GetColor(RimColorId);
             _baseWobble = _bodyMaterial.GetFloat(WobbleAmplitudeId);
             _trailSystems = _trail != null ? _trail.GetComponentsInChildren<ParticleSystem>(true) : System.Array.Empty<ParticleSystem>();
             _isTrailing = true;

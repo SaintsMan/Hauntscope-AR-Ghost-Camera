@@ -25,7 +25,7 @@ namespace Hauntscope.Tests.EditMode
             session.Begin(_fixture.Ghost, null);
             var config = TestConfigs.Tools(lensDrain: LensDrain, beamDrain: BeamDrain);
             _lens = new GhostLens(session, _fixture.Camera, config, new HuntModifiers());
-            _beam = new CaptureBeam(session, _fixture.Camera, config, new HuntModifiers());
+            _beam = TestConfigs.Beam(session, _fixture.Camera, config, new HuntModifiers());
             _toolbelt = new Toolbelt(_lens, _beam);
         }
 

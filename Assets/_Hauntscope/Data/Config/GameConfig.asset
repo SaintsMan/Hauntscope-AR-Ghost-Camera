@@ -38,7 +38,7 @@ MonoBehaviour:
     _bobAmplitude: 0.05
     _bobFrequency: 0.5
     _alertRevealThreshold: 0.5
-    _alertedPauseDuration: 0.5
+    _alertedPauseDuration: 0.9
     _alertedSpeedMultiplier: 1.5
     _fleeCalmDownTime: 2
     _fleeDistance: 2.5
@@ -77,7 +77,7 @@ MonoBehaviour:
     _revealOutTime: 0.8
     _beamRevealThreshold: 0.5
     _reticleRadius: 0.14
-    _captureRate: 0.16
+    _captureRate: 0.13
     _decayRate: 0.15
   _hud:
     _recBlinkInterval: 0.6
@@ -86,6 +86,7 @@ MonoBehaviour:
     _lowBatteryClip: {fileID: 8300000, guid: 53330886e20696845bb2818a680507ab, type: 3}
     _lowBatteryVolume: 0.7
     _reticleShake: 7
+    _surgeShake: 16
   _scare:
     _minTime: 30
     _distance: 1.5
@@ -149,11 +150,17 @@ MonoBehaviour:
     _emergencyVolume: 0.8
     _rewardGranted: {fileID: 8300000, guid: ee1c5c4b8923a58409eb4163778fef90, type: 3}
     _rewardVolume: 0.8
+    _ghostStagger: {fileID: 8300000, guid: c33598961dad0af40b1a9f0794a87e3e, type: 3}
+    _staggerVolume: 0.8
+    _ghostSurge: {fileID: 8300000, guid: 6408032f7226b7b4d990c2b5656801d7, type: 3}
+    _surgeVolume: 0.75
+    _surgeHapticInterval: 0.12
   _vfx:
     _captureSpiral: {fileID: 3482571195191366530, guid: 6cc077c0fffe26544bbff774130ad3fc, type: 3}
     _teleportFlash: {fileID: 9163850681629320366, guid: d281b30d52bb11d4fae5ccc1d73b5dcf, type: 3}
     _revealPulse: {fileID: 7298845405034352830, guid: 100f08603d74b874a92e27dd76cbbfbb, type: 3}
     _pickupBurst: {fileID: 4244323925081070652, guid: f489a33a572159443be892ff334deda2, type: 3}
+    _staggerSparks: {fileID: 6152194248836977993, guid: e355fba8f6cef23478fd53df8ea7a160, type: 3}
     _beamOriginForward: 0.3
     _beamOriginDrop: 0.2
     _beamRange: 4
@@ -251,3 +258,18 @@ MonoBehaviour:
     _androidAppId: ca-app-pub-3940256099942544~3347511713
     _rewardedUnitId: ca-app-pub-3940256099942544/5224354917
     _interstitialUnitId: ca-app-pub-3940256099942544/1033173712
+  _capture:
+    _staggerCaptureMultiplier: 2
+    _staggerSink: 0.15
+    _staggerBlendTime: 0.15
+    _closeDistance: 1
+    _farDistance: 2.5
+    _closeCaptureMultiplier: 1.5
+    _farCaptureMultiplier: 0.75
+    _surgeThreshold: 0.85
+    _surgeRearm: 0.6
+    _surgeDuration: 1.6
+    _surgeJerkInterval: 0.3
+    _surgeCaptureScale: 0.6
+    _surgeDecayScale: 2
+    _scareProgressLoss: 0.3

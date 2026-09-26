@@ -22,7 +22,7 @@ namespace Hauntscope.Editor
         private static readonly GhostRecipe[] Recipes =
         {
             new GhostRecipe("wisp", "Wisp", GhostRarity.Common, "#4FF5E6", GhostMeshGenerator.BuildWisp,
-                moveSpeed: 0.45f, fleeSpeed: 1.3f, resistance: 0.8f, reward: 10, threat: 1,
+                moveSpeed: 0.45f, fleeSpeed: 1.3f, resistance: 0.8f, reward: 10, threat: 1, surgeJerk: 0.15f,
                 eyeCenter: new Vector3(0f, -0.07f, 0.17f), eyeSpacing: 0.06f, eyeScale: new Vector3(0.04f, 0.05f, 0.02f)),
             new GhostRecipe("poltergeist", "Poltergeist", GhostRarity.Common, "#3DFF6E", GhostMeshGenerator.BuildPoltergeist,
                 moveSpeed: 0.8f, fleeSpeed: 1.9f, resistance: 1f, reward: 15, threat: 2,
@@ -41,7 +41,7 @@ namespace Hauntscope.Editor
                 eyeCenter: new Vector3(0f, 0.6f, 0.11f), eyeSpacing: 0.042f, eyeScale: new Vector3(0.022f, 0.034f, 0.015f),
                 abilityPath: Root + "/Data/Abilities/BansheeShriek.asset", abilityType: typeof(ShriekAbilityConfig)),
             new GhostRecipe("mimic", "Mimic", GhostRarity.Legendary, "#FFD166", GhostMeshGenerator.BuildMimic,
-                moveSpeed: 0.7f, fleeSpeed: 1.8f, resistance: 1.4f, reward: 60, threat: 5,
+                moveSpeed: 0.7f, fleeSpeed: 1.8f, resistance: 1.4f, reward: 60, threat: 5, surgeJerk: 0.45f,
                 eyeCenter: new Vector3(0f, 0.06f, 0.33f), eyeSpacing: 0.13f, eyeScale: new Vector3(0.075f, 0.1f, 0.03f),
                 abilityPath: Root + "/Data/Abilities/MimicDecoy.asset", abilityType: typeof(DecoyAbilityConfig))
         };
@@ -221,6 +221,7 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_motion._fleeSpeed").floatValue = recipe.FleeSpeed;
             serialized.FindProperty("_capture._resistance").floatValue = recipe.Resistance;
             serialized.FindProperty("_capture._reward").intValue = recipe.Reward;
+            serialized.FindProperty("_capture._surgeJerk").floatValue = recipe.SurgeJerk;
             serialized.FindProperty("_dossier._rumorKey").stringValue = $"ghost.{recipe.Id}.rumor";
             serialized.FindProperty("_dossier._behaviorKey").stringValue = $"ghost.{recipe.Id}.behavior";
             serialized.FindProperty("_dossier._tacticsKey").stringValue = $"ghost.{recipe.Id}.tactics";
@@ -285,10 +286,13 @@ namespace Hauntscope.Editor
             SetClip(serialized, "_audio._cellBeacon", SfxFolder, "CellBeacon");
             SetClip(serialized, "_audio._emergencyAlarm", SfxFolder, "EmergencyAlarm");
             SetClip(serialized, "_audio._rewardGranted", SfxFolder, "RewardGranted");
+            SetClip(serialized, "_audio._ghostStagger", SfxFolder, "GhostStagger");
+            SetClip(serialized, "_audio._ghostSurge", SfxFolder, "GhostSurge");
             serialized.FindProperty("_vfx._captureSpiral").objectReferenceValue = VfxGenerator.CaptureSpiral;
             serialized.FindProperty("_vfx._teleportFlash").objectReferenceValue = VfxGenerator.TeleportFlash;
             serialized.FindProperty("_vfx._revealPulse").objectReferenceValue = VfxGenerator.RevealPulse;
             serialized.FindProperty("_vfx._pickupBurst").objectReferenceValue = VfxGenerator.PickupBurst;
+            serialized.FindProperty("_vfx._staggerSparks").objectReferenceValue = VfxGenerator.StaggerSparks;
             serialized.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(config);
             AssetDatabase.SaveAssets();
@@ -324,8 +328,10 @@ namespace Hauntscope.Editor
                 float eyeSpacing,
                 Vector3 eyeScale,
                 string abilityPath = null,
-                Type abilityType = null)
+                Type abilityType = null,
+                float surgeJerk = 0.3f)
             {
+                SurgeJerk = surgeJerk;
                 Id = id;
                 AssetName = assetName;
                 Rarity = rarity;
@@ -373,6 +379,8 @@ namespace Hauntscope.Editor
             public string AbilityPath { get; }
 
             public Type AbilityType { get; }
+
+            public float SurgeJerk { get; }
         }
     }
 }

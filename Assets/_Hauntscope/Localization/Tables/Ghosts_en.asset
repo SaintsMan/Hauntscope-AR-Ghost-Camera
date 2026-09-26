@@ -83,8 +83,9 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308545
-    m_Localized: 'Keep it in the ring and don''t chase it: it circles back on its
-      own. The perfect catch to learn the beam on.'
+    m_Localized: 'The moment it notices you, it freezes: that is when to hit the
+      beam. Get close, since the beam bites harder up close, and hold on through
+      its last struggle.'
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308546
@@ -93,8 +94,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308547
-    m_Localized: 'Wisps are slow: stay close, keep the ring on it and let the beam
-      finish.'
+    m_Localized: 'It freezes when it notices you: beam it right then, from up close.'
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308548
@@ -108,8 +108,9 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308550
-    m_Localized: 'After a jump, sweep the lens and lock on again fast: the next 5
-      seconds are your window to finish it.'
+    m_Localized: 'Every jump leaves it dazed for about a second. Sweep the lens,
+      lock on fast and beam it while it is stunned: the capture charges twice as
+      fast.'
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308551
@@ -118,8 +119,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308552
-    m_Localized: 'It teleports at 40%: after the jump, find it in the lens and lock
-      on again within 5 seconds.'
+    m_Localized: 'After a teleport it is dazed for a second: lock on at once and
+      the beam charges double.'
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308553
@@ -133,8 +134,9 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308555
-    m_Localized: 'Step back: from farther away its dash moves it less on screen.
-      A wide ring (W2 Floodlight) or a tethering beam helps.'
+    m_Localized: 'Every dash ends with a dead stop for a split second. Don''t chase
+      the dash: wait for the stop and hit it then. A wide ring (W2 Floodlight) or
+      a tethering beam helps keep it in view.'
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308556
@@ -143,8 +145,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308557
-    m_Localized: 'Wraiths dash sideways under the beam: step back so the dash moves
-      them less on screen.'
+    m_Localized: 'After each dash the wraith stops for a split second: strike right
+      then.'
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308558
@@ -158,8 +160,9 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308560
-    m_Localized: Hold the beam through the gaps without moving the ring. The P4 Phase
-      Lance keeps its grip even while it is gone.
+    m_Localized: 'Its only weak moment is the first: when it notices you, it freezes.
+      After that, hold the beam through the gaps without moving the ring. The P4
+      Phase Lance keeps its grip even while it is gone.'
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308561
@@ -169,8 +172,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308562
-    m_Localized: 'The Shade only charges while visible: keep the ring still through
-      its flicker.'
+    m_Localized: Strike when it first freezes, then keep the ring still through its
+      flicker.
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308563
@@ -185,8 +188,9 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308565
-    m_Localized: Keep your distance and hunt her from across the room. Right after
-      a shriek, the next 9 seconds are safe to push in.
+    m_Localized: 'Keep your distance until she shrieks. She comes back out of the
+      static exhausted and won''t shriek again for 9 seconds: that is the moment
+      to rush in close and beam her.'
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308566
@@ -195,8 +199,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308567
-    m_Localized: 'The Banshee shrieks when you get closer than ~2.3 m: hunt her from
-      a distance.'
+    m_Localized: 'After her shriek she comes back exhausted: rush in and beam her
+      then.'
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308568
@@ -212,7 +216,8 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 350925203308570
     m_Localized: 'Trust your ears, not the meter: turn towards the whisper, then
-      sweep the lens. It resists hard, so bring spare batteries.'
+      sweep the lens. Once exposed it is stunned for two seconds, your best window.
+      It resists hard, so bring spare batteries.'
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308571
@@ -222,7 +227,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 350925203308572
-    m_Localized: 'The Mimic''s EMF is a decoy: follow the whisper, not the meter.'
+    m_Localized: 'Follow the whisper, not the meter. Once revealed it is stunned
+      for 2 seconds: strike.'
     m_Metadata:
       m_Items: []
   references:

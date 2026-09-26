@@ -32,6 +32,8 @@ namespace Hauntscope.Editor
 
         public static ParticleSystem PickupBurst { get; private set; }
 
+        public static ParticleSystem StaggerSparks { get; private set; }
+
         public static GameObject CaptureBeamRig { get; private set; }
 
         public static void BuildAll(float captureDuration)
@@ -45,6 +47,7 @@ namespace Hauntscope.Editor
             TeleportFlash = BuildTeleportFlash();
             RevealPulse = BuildRevealPulse();
             PickupBurst = BuildPickupBurst();
+            StaggerSparks = BuildStaggerSparks();
             BuildBeamNoise();
             CaptureBeamRig = BuildCaptureBeam();
             AssetDatabase.SaveAssets();
@@ -604,6 +607,48 @@ namespace Hauntscope.Editor
                 Spin(smoke, 60f);
                 SizeOverLifetime(smoke, Curve(0f, 0.6f, 1f, 1.4f));
                 AlphaOverLifetime(smoke, 0f, 0.15f, 0.22f, 1f, 0f);
+
+                return SavePrefab(root);
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+
+        // A winded ghost: a quick flash, electric sparks spitting out and arcing down, and a fizz of motes sinking
+        // with it, so the stagger window reads even in the corner of the eye. Tinted with the ghost's rim at runtime.
+        private static ParticleSystem BuildStaggerSparks()
+        {
+            var root = CreateRoot("StaggerSparks");
+            try
+            {
+                var core = root.GetComponent<ParticleSystem>();
+                core.GetComponent<ParticleSystemRenderer>().sharedMaterial = _ring;
+                ConfigureOneShot(core, 0.1f, 0.35f, 0f, 0.55f);
+                Burst(core, 0f, 1);
+                SizeOverLifetime(core, Curve(0f, 0.2f, 0.5f, 1f, 1f, 1f));
+                AlphaOverLifetime(core, 1f, 0.25f, 0.8f, 1f, 0f);
+
+                var sparks = CreateSystem("Sparks", root.transform, _streak, 32);
+                ConfigureOneShot(sparks, 0.1f, new ParticleSystem.MinMaxCurve(0.35f, 0.7f), new ParticleSystem.MinMaxCurve(0.8f, 1.8f),
+                    new ParticleSystem.MinMaxCurve(0.012f, 0.026f));
+                var sparksMain = sparks.main;
+                sparksMain.gravityModifier = 0.6f;
+                Burst(sparks, 0f, 26);
+                Sphere(sparks, 0.12f, 1f);
+                Drag(sparks, 0.08f);
+                Stretch(sparks, 0.08f, 1.5f);
+                AlphaOverLifetime(sparks, 1f, 0.3f, 1f, 1f, 0f);
+
+                var fizz = CreateSystem("Fizz", root.transform, _dot, 24);
+                ConfigureOneShot(fizz, 0.1f, new ParticleSystem.MinMaxCurve(0.6f, 1f), new ParticleSystem.MinMaxCurve(0.05f, 0.25f),
+                    new ParticleSystem.MinMaxCurve(0.012f, 0.03f));
+                Burst(fizz, 0.05f, 18);
+                Sphere(fizz, 0.2f, 0.6f);
+                Drift(fizz, -0.2f);
+                Noise(fizz, 0.1f, 3f);
+                AlphaOverLifetime(fizz, 0f, 0.2f, 1f, 1f, 0f);
 
                 return SavePrefab(root);
             }

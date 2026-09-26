@@ -95,5 +95,18 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.IsTrue(_ability.IsDashing);
         }
+
+        [Test]
+        public void Tick_DashFinished_StaggersGhost()
+        {
+            var ability = new DashAbility(Distance, Duration, Cooldown, 0.7f);
+            _fixture.Ghost.SetBeamed(true);
+            ability.Tick(_fixture.Ghost, 0.01f);
+            Assert.IsFalse(_fixture.Ghost.IsStaggered);
+
+            ability.Tick(_fixture.Ghost, Duration);
+
+            Assert.IsTrue(_fixture.Ghost.IsStaggered);
+        }
     }
 }

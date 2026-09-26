@@ -20,6 +20,7 @@ namespace Hauntscope.Gameplay.Ghosts
         private readonly GhostCapturedState _capturedState;
         private readonly GhostEscapedState _escapedState;
         private readonly GhostScareState _scareState;
+        private readonly GhostSurgeState _surgeState;
 
         private bool _captureRequested;
         private bool _escapeRequested;
@@ -29,6 +30,10 @@ namespace Hauntscope.Gameplay.Ghosts
         private bool _hasEmfDecoy;
         private float _speedScale = 1f;
         private float _beamedSpeedScale = 1f;
+        private float _staggerRemaining;
+        private float _staggerWeight;
+        private bool _isSurgeArmed = true;
+        private bool _wasSurging;
 
         public Ghost(GhostContext context, IGhostView view)
             : this(context, view, Array.Empty<IGhostAbility>())
@@ -46,6 +51,8 @@ namespace Hauntscope.Gameplay.Ghosts
             _capturedState = new GhostCapturedState(context);
             _escapedState = new GhostEscapedState(context);
             _scareState = new GhostScareState(context);
+            _surgeState = new GhostSurgeState(context);
+            _alertedState.PauseStarted += Stagger;
 
             _stateMachine.AddAnyTransition(_capturedState, () => _captureRequested);
             _stateMachine.AddAnyTransition(_escapedState, () => _escapeRequested);
@@ -53,7 +60,9 @@ namespace Hauntscope.Gameplay.Ghosts
             // The scare wins over fleeing: the session has already counted it, so the lunge must happen.
             _stateMachine.AddTransition(_alertedState, _scareState, () => _scareRequested);
             _stateMachine.AddTransition(_alertedState, _fleeState, () => IsBeamed);
+            _stateMachine.AddTransition(_fleeState, _surgeState, () => _isSurgeArmed && CaptureProgress >= context.CaptureConfig.SurgeThreshold);
             _stateMachine.AddTransition(_fleeState, _alertedState, () => _fleeState.IsCalm);
+            _stateMachine.AddTransition(_surgeState, _fleeState, () => _surgeState.IsFinished);
             _stateMachine.AddTransition(_scareState, _alertedState, () => _scareState.IsFinished);
         }
 
@@ -62,6 +71,10 @@ namespace Hauntscope.Gameplay.Ghosts
         public event Action<Vector3, Vector3> Dashed;
 
         public event Action Shrieked;
+
+        public event Action Staggered;
+
+        public event Action SurgeStarted;
 
         public GhostContext Context { get; }
 
@@ -87,9 +100,14 @@ namespace Hauntscope.Gameplay.Ghosts
 
         public bool IsBeamed { get; private set; }
 
+        // Winded after using an ability: it hangs in place and the beam charges faster.
+        public bool IsStaggered => _staggerRemaining > 0f && !IsLeaving;
+
         public bool IsAlerted => _stateMachine.CurrentState == _alertedState;
 
         public bool IsFleeing => _stateMachine.CurrentState == _fleeState;
+
+        public bool IsSurging => _stateMachine.CurrentState == _surgeState;
 
         public bool IsCaptured => _stateMachine.CurrentState == _capturedState;
 
@@ -120,14 +138,32 @@ namespace Hauntscope.Gameplay.Ghosts
             IsBeamed = beamed && !IsLeaving;
         }
 
+        // Dropping back below the rearm mark means the ghost wriggled free, so the next approach earns another surge.
         public void SetCaptureProgress(float progress)
         {
             CaptureProgress = progress;
+            if (progress < Context.CaptureConfig.SurgeRearm)
+                _isSurgeArmed = true;
         }
 
         public void SetVisible(bool visible)
         {
-            IsVisible = visible || IsLeaving;
+            IsVisible = visible || IsLeaving || IsSurging;
+        }
+
+        public void Stagger(float duration)
+        {
+            if (IsLeaving || duration <= 0f)
+                return;
+
+            var wasStaggered = IsStaggered;
+            _staggerRemaining = Mathf.Max(_staggerRemaining, duration);
+            if (wasStaggered)
+                return;
+
+            // Killing the momentum matters: with zero speed allowed but velocity left over, SmoothDamp would coast on.
+            Context.Mover.Stop();
+            Staggered?.Invoke();
         }
 
         public void TeleportTo(Vector3 position)
@@ -210,22 +246,30 @@ namespace Hauntscope.Gameplay.Ghosts
 
         public void Tick(float deltaTime)
         {
-            Context.Mover.SpeedScale = IsBeamed ? _speedScale * _beamedSpeedScale : _speedScale;
+            _staggerRemaining = Mathf.Max(0f, _staggerRemaining - deltaTime);
+            var speed = IsBeamed ? _speedScale * _beamedSpeedScale : _speedScale;
+            Context.Mover.SpeedScale = IsStaggered ? 0f : speed;
             _stateMachine.Tick(deltaTime);
             // A scare request is only valid for the tick right after it; a ghost that fled meanwhile must not lunge later.
             _scareRequested = false;
+
+            if (IsSurging && !_wasSurging)
+                BeginSurge();
+            _wasSurging = IsSurging;
 
             if (IsLeaving)
             {
                 if (IsEscaped)
                     Reveal = _revealBeforeEscape * (1f - _escapedState.Progress);
             }
-            else
+            else if (!IsSurging)
             {
                 for (var i = 0; i < _abilities.Count; i++)
                     _abilities[i].Tick(this, deltaTime);
             }
 
+            var blend = Context.CaptureConfig.StaggerBlendTime;
+            _staggerWeight = Mathf.MoveTowards(_staggerWeight, IsStaggered ? 1f : 0f, deltaTime / blend);
             SyncView();
         }
 
@@ -234,13 +278,24 @@ namespace Hauntscope.Gameplay.Ghosts
             _view.Despawn();
         }
 
+        // Abilities stay silent through the surge and a flickering ghost holds still in view: the last fight is
+        // about the player's aim, not about luck.
+        private void BeginSurge()
+        {
+            _isSurgeArmed = false;
+            IsVisible = true;
+            SurgeStarted?.Invoke();
+        }
+
         private void SyncView()
         {
             var mover = Context.Mover;
-            _view.SetPose(mover.VisualPosition, Quaternion.LookRotation(mover.Facing));
+            var sag = Vector3.down * (Context.CaptureConfig.StaggerSink * _staggerWeight);
+            _view.SetPose(mover.VisualPosition + sag, Quaternion.LookRotation(mover.Facing));
             _view.SetReveal(VisibleReveal);
             _view.SetDissolve(IsCaptured ? _capturedState.Progress : 0f);
             _view.SetStruggle(IsBeamed ? CaptureProgress : 0f);
+            _view.SetStagger(_staggerWeight);
         }
     }
 }

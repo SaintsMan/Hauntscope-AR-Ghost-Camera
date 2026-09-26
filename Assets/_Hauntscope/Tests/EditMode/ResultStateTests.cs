@@ -30,7 +30,7 @@ namespace Hauntscope.Tests.EditMode
             _session.Begin(_fixture.Ghost, null);
             var config = TestConfigs.Tools();
             _battery = new Battery(config);
-            _toolbelt = new Toolbelt(new GhostLens(_session, _fixture.Camera, config, new HuntModifiers()), new CaptureBeam(_session, _fixture.Camera, config, new HuntModifiers()));
+            _toolbelt = new Toolbelt(new GhostLens(_session, _fixture.Camera, config, new HuntModifiers()), TestConfigs.Beam(_session, _fixture.Camera, config, new HuntModifiers()));
             _progress = new PlayerProgress();
             _save = new FakeSaveService();
             _state = new ResultState(_session, _battery, _toolbelt, _progress, new PlayerProgressRepository(_save));

@@ -7,10 +7,11 @@ namespace Hauntscope.Gameplay.Ghosts.Abilities
     {
         [SerializeField, Min(0f)] private float _minDistance = 2.5f;
         [SerializeField, Min(0.1f)] private float _interval = 5f;
+        [SerializeField, Min(0f)] private float _staggerDuration = 2f;
 
         public override IGhostAbility CreateAbility()
         {
-            return new DecoyAbility(_minDistance, _interval);
+            return new DecoyAbility(_minDistance, _interval, _staggerDuration);
         }
     }
 }
