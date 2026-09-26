@@ -33,6 +33,7 @@ namespace Hauntscope.Gameplay.Hunt.States
         private readonly SpiritCamera _spiritCamera;
         private readonly WitchingHour _witchingHour;
         private readonly NightShift _shift;
+        private readonly HuntReportBuilder _report;
 
         public HuntingState(
             HuntSession session,
@@ -53,8 +54,10 @@ namespace Hauntscope.Gameplay.Hunt.States
             GhostResearch research,
             SpiritCamera spiritCamera,
             WitchingHour witchingHour,
-            NightShift shift)
+            NightShift shift,
+            HuntReportBuilder report)
         {
+            _report = report;
             _shift = shift;
             _witchingHour = witchingHour;
             _spiritCamera = spiritCamera;
@@ -118,6 +121,7 @@ namespace Hauntscope.Gameplay.Hunt.States
             }
 
             _toolbelt.Tick(deltaTime);
+            _report.Tick(deltaTime);
             _spiritCamera.Tick(deltaTime);
             _pickups.Tick(deltaTime);
             ghost.Tick(deltaTime);

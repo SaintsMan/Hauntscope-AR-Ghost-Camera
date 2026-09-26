@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
+using Hauntscope.Gameplay.Contracts;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Ghosts;
@@ -39,6 +40,7 @@ namespace Hauntscope.UI.Menu
         private readonly WitchingHour _witchingHour;
         private readonly HuntLaunchOptions _options;
         private readonly ShiftConfig _shiftConfig;
+        private readonly ContractBoard _contracts;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         private int _shownSecond = -1;
@@ -57,8 +59,10 @@ namespace Hauntscope.UI.Menu
             IArAvailability arAvailability,
             WitchingHour witchingHour,
             HuntLaunchOptions options,
-            ShiftConfig shiftConfig)
+            ShiftConfig shiftConfig,
+            ContractBoard contracts)
         {
+            _contracts = contracts;
             _options = options;
             _shiftConfig = shiftConfig;
             _witchingHour = witchingHour;
@@ -85,6 +89,8 @@ namespace Hauntscope.UI.Menu
             _view.BestiaryClicked += OnBestiaryClicked;
             _view.SettingsClicked += OnSettingsClicked;
             _view.ShopClicked += OnShopClicked;
+            _view.ContractsClicked += OnContractsClicked;
+            _contracts.Changed += RenderContracts;
             _view.ArModeClicked += OnArModeClicked;
             _view.VirtualModeClicked += OnVirtualModeClicked;
             _settings.Environment.Changed += OnEnvironmentChanged;
@@ -94,6 +100,18 @@ namespace Hauntscope.UI.Menu
             CheckArAsync(_lifetime.Token).Forget();
             OnEctoplasmChanged(_progress.Ectoplasm.Value);
             OnLanguageChanged();
+            RenderContracts();
+        }
+
+        private void RenderContracts()
+        {
+            _view.SetContractsBadge(_contracts.ReadyCount);
+        }
+
+        private void OnContractsClicked()
+        {
+            _ui.PlayClick();
+            _navigation.Show(MenuScreen.Contracts);
         }
 
         // A camcorder date stamp in the corner of the menu, ticking with the real clock.
@@ -129,6 +147,8 @@ namespace Hauntscope.UI.Menu
             _view.BestiaryClicked -= OnBestiaryClicked;
             _view.SettingsClicked -= OnSettingsClicked;
             _view.ShopClicked -= OnShopClicked;
+            _view.ContractsClicked -= OnContractsClicked;
+            _contracts.Changed -= RenderContracts;
             _view.ArModeClicked -= OnArModeClicked;
             _view.VirtualModeClicked -= OnVirtualModeClicked;
             _settings.Environment.Changed -= OnEnvironmentChanged;

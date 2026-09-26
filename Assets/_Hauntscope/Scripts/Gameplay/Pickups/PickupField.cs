@@ -129,6 +129,7 @@ namespace Hauntscope.Gameplay.Pickups
                 return;
 
             var gain = pickup.Collect(_loot, _battery);
+            _loot.RecordPickup(pickup.Data.Id);
             Collected?.Invoke(pickup, gain);
         }
 

@@ -22,6 +22,8 @@ namespace Hauntscope.Tests.EditMode
         private PlayerProgress _progress;
         private FakeSaveService _save;
         private ShiftFixture _shift;
+        private ReportFixture _report;
+        private ContractFixture _contracts;
 
         [SetUp]
         public void SetUp()
@@ -36,13 +38,18 @@ namespace Hauntscope.Tests.EditMode
             _progress = new PlayerProgress();
             _save = new FakeSaveService();
             _shift = new ShiftFixture();
+            _report = new ReportFixture(_session, _fixture, _shift);
+            _contracts = new ContractFixture();
+            _contracts.OpenFirstBoard();
             _state = new ResultState(_session, _battery, _toolbelt, _progress, new PlayerProgressRepository(_save),
-                new GhostResearch(_progress, new ResearchConfig(5, 0.25f, 2)), _shift.Shift);
+                new GhostResearch(_progress, new ResearchConfig(5, 0.25f, 2)), _shift.Shift, _report.Builder, _contracts.Board);
         }
 
         [TearDown]
         public void TearDown()
         {
+            _report.Dispose();
+            _contracts.Dispose();
             _shift.Dispose();
         }
 
@@ -59,6 +66,19 @@ namespace Hauntscope.Tests.EditMode
             _state.Exit();
 
             Assert.AreEqual(0.4f + ShiftFixture.RoundRecharge, _battery.Normalized, 1e-4f);
+            Object.DestroyImmediate(data);
+        }
+
+        [Test]
+        public void Enter_Finished_RecordsTheHuntOnTheContractBoard()
+        {
+            var data = CreateGhost("wraith");
+            _session.Begin(_fixture.Ghost, data);
+            _session.Finish(HuntOutcome.Captured);
+
+            _state.Enter();
+
+            Assert.AreEqual(1, _contracts.Board.Slots[_contracts.IndexOf(_contracts.CaptureAny)].Progress);
             Object.DestroyImmediate(data);
         }
 

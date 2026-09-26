@@ -32,6 +32,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private HideConfig _hide = new HideConfig();
         [SerializeField] private NightConfig _night = new NightConfig();
         [SerializeField] private ShiftConfig _shift = new ShiftConfig();
+        [SerializeField] private ContractConfig _contracts = new ContractConfig();
 
         public int TargetFrameRate => _targetFrameRate;
 
@@ -86,5 +87,7 @@ namespace Hauntscope.Gameplay.Config
         public NightConfig Night => _night;
 
         public ShiftConfig Shift => _shift;
+
+        public ContractConfig Contracts => _contracts;
     }
 }

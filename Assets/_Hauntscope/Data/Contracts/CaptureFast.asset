@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e23f5edaf1ab35d408caf0a0715c4834, type: 3}
+  m_Name: CaptureFast
+  m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Contracts.ContractData
+  _id: capture_fast
+  _tier: 2
+  _target: 1
+  _descriptionKey: contract.capture_fast
+  _goal:
+    rid: 4168420706154447545
+  references:
+    version: 2
+    RefIds:
+    - rid: 4168420706154447545
+      type: {class: FastCaptureGoal, ns: Hauntscope.Gameplay.Contracts, asm: Hauntscope.Gameplay}
+      data:
+        _maxSeconds: 90

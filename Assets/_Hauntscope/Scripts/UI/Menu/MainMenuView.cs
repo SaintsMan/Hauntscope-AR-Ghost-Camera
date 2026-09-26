@@ -13,6 +13,9 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private Button _bestiaryButton;
         [SerializeField] private Button _settingsButton;
         [SerializeField] private Button _shopButton;
+        [SerializeField] private Button _contractsButton;
+        [SerializeField] private GameObject _contractsBadge;
+        [SerializeField] private TMP_Text _contractsBadgeLabel;
         [SerializeField] private Button _shiftButton;
         [SerializeField] private CanvasGroup _shiftGroup;
         [SerializeField] private TMP_Text _shiftCaption;
@@ -55,6 +58,8 @@ namespace Hauntscope.UI.Menu
 
         public event Action ShopClicked;
 
+        public event Action ContractsClicked;
+
         public event Action ArModeClicked;
 
         public event Action VirtualModeClicked;
@@ -62,6 +67,13 @@ namespace Hauntscope.UI.Menu
         public void SetVisible(bool visible)
         {
             gameObject.SetActive(visible);
+        }
+
+        // How many done orders wait to be claimed; nothing to claim, no badge.
+        public void SetContractsBadge(int count)
+        {
+            _contractsBadge.SetActive(count > 0);
+            _contractsBadgeLabel.text = count.ToString();
         }
 
         // The balance counts up to a new value, so ectoplasm earned in a hunt is noticed on the way back.
@@ -146,6 +158,7 @@ namespace Hauntscope.UI.Menu
             _bestiaryButton.onClick.AddListener(OnBestiaryClicked);
             _settingsButton.onClick.AddListener(OnSettingsClicked);
             _shopButton.onClick.AddListener(OnShopClicked);
+            _contractsButton.onClick.AddListener(OnContractsClicked);
             _arModeButton.onClick.AddListener(OnArModeClicked);
             _virtualModeButton.onClick.AddListener(OnVirtualModeClicked);
         }
@@ -157,6 +170,7 @@ namespace Hauntscope.UI.Menu
             _bestiaryButton.onClick.RemoveListener(OnBestiaryClicked);
             _settingsButton.onClick.RemoveListener(OnSettingsClicked);
             _shopButton.onClick.RemoveListener(OnShopClicked);
+            _contractsButton.onClick.RemoveListener(OnContractsClicked);
             _arModeButton.onClick.RemoveListener(OnArModeClicked);
             _virtualModeButton.onClick.RemoveListener(OnVirtualModeClicked);
         }
@@ -184,6 +198,11 @@ namespace Hauntscope.UI.Menu
         private void OnShopClicked()
         {
             ShopClicked?.Invoke();
+        }
+
+        private void OnContractsClicked()
+        {
+            ContractsClicked?.Invoke();
         }
 
         private void OnArModeClicked()
@@ -219,7 +238,11 @@ namespace Hauntscope.UI.Menu
             _shiftGroup = Find<CanvasGroup>("Buttons/ShiftButton");
             _shiftCaption = Find<TMP_Text>("Buttons/ShiftButton/Caption");
             _bestiaryButton = Find<Button>("Buttons/Row/BestiaryButton");
-            _settingsButton = Find<Button>("Buttons/SettingsButton");
+            _settingsButton = Find<Button>("Buttons/Row2/SettingsButton");
+            _contractsButton = Find<Button>("Buttons/Row2/ContractsButton");
+            var badge = transform.Find("Buttons/Row2/ContractsButton/Badge");
+            _contractsBadge = badge != null ? badge.gameObject : null;
+            _contractsBadgeLabel = Find<TMP_Text>("Buttons/Row2/ContractsButton/Badge/Label");
             _shopButton = Find<Button>("Buttons/Row/ShopButton");
             _ectoplasmLabel = Find<TMP_Text>("Ectoplasm/Amount");
             _versionLabel = Find<TMP_Text>("Version");

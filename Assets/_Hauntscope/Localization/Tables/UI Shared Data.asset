@@ -831,6 +831,134 @@ MonoBehaviour:
     m_Key: shift.perk.extra_film.description
     m_Metadata:
       m_Items: []
+  - m_Id: 457669652905984
+    m_Key: menu.contracts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460416
+    m_Key: contracts.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460417
+    m_Key: contracts.order
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460418
+    m_Key: contracts.tier.easy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460419
+    m_Key: contracts.tier.medium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460420
+    m_Key: contracts.tier.hard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460421
+    m_Key: contracts.progress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460422
+    m_Key: contracts.reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460423
+    m_Key: contracts.reward_gear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460424
+    m_Key: contracts.claimed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460425
+    m_Key: contracts.claim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460426
+    m_Key: contracts.replace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460427
+    m_Key: contracts.done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460428
+    m_Key: contracts.paid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460429
+    m_Key: contracts.countdown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460430
+    m_Key: contracts.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460431
+    m_Key: result.contract.one
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460432
+    m_Key: result.contract.many
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460433
+    m_Key: result.contract.claim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460434
+    m_Key: contract.capture_any
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460435
+    m_Key: contract.pickups
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460436
+    m_Key: contract.photo_any
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460437
+    m_Key: contract.stagger_hits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460438
+    m_Key: contract.photo_perfect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460439
+    m_Key: contract.flush_out
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460440
+    m_Key: contract.capture_close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460441
+    m_Key: contract.cursed_case
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460442
+    m_Key: contract.clean_capture
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460443
+    m_Key: contract.battery_left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460444
+    m_Key: contract.shift_round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460445
+    m_Key: contract.capture_ghost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460446
+    m_Key: contract.capture_fast
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

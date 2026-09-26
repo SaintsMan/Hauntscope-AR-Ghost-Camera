@@ -349,3 +349,27 @@ MonoBehaviour:
     - {fileID: 11400000, guid: c02e2c45d07ade148b3a149f6aad5e8a, type: 2}
     - {fileID: 11400000, guid: ba68680411cd50a47bde19e8970216a3, type: 2}
     - {fileID: 11400000, guid: 615008f2eace8714994a0398c37547a3, type: 2}
+  _contracts:
+    _slots: 000000000100000002000000
+    _rewards: 0f0000001e00000032000000
+    _gearChances:
+    - 0
+    - 0
+    - 0.3
+    _freeReplaces: 1
+    _adReplaces: 1
+    _staggerHitSeconds: 0.5
+    _contracts:
+    - {fileID: 11400000, guid: ba084651f74ccfd478825b2d8a2d557f, type: 2}
+    - {fileID: 11400000, guid: 0741c55ba8f765b4685f1761b9cb4ce0, type: 2}
+    - {fileID: 11400000, guid: a150d7ec2ad8e6c47931d819e5657c63, type: 2}
+    - {fileID: 11400000, guid: e4793b90d65505549ab537ea3c95cda1, type: 2}
+    - {fileID: 11400000, guid: 612eb621fb162fd4d9802c869287aa2c, type: 2}
+    - {fileID: 11400000, guid: eda773c9a6a9f42468f9e2b02cd5b38c, type: 2}
+    - {fileID: 11400000, guid: 771e97eae83802949bdbf6dbde4c9467, type: 2}
+    - {fileID: 11400000, guid: c37f435b7d76af14fa8553f5fdf2f3a0, type: 2}
+    - {fileID: 11400000, guid: 17e2a7b24557110478daf08d4a494cb4, type: 2}
+    - {fileID: 11400000, guid: ea1f08abf20ff524186a22ad52366fad, type: 2}
+    - {fileID: 11400000, guid: e237ac60833f19045b6024ad7b327063, type: 2}
+    - {fileID: 11400000, guid: c1b9d5f5e52332c45bd07ba92930d9fc, type: 2}
+    - {fileID: 11400000, guid: d221734c65283944186ef75d5820fd68, type: 2}

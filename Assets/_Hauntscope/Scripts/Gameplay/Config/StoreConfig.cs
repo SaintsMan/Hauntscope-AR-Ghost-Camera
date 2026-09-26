@@ -36,6 +36,22 @@ namespace Hauntscope.Gameplay.Config
         // Gear rewarded beyond its stack limit is paid out as this share of its price.
         public float OverflowRefund => _overflowRefund;
 
+        // Stackable gear by id: the spare battery or a booster.
+        public GearData FindGear(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return null;
+            if (_spareBattery != null && _spareBattery.Id == id)
+                return _spareBattery;
+            foreach (var booster in _boosters)
+            {
+                if (booster.Id == id)
+                    return booster;
+            }
+
+            return null;
+        }
+
         public LaserData FindLaser(string id)
         {
             foreach (var laser in _lasers)

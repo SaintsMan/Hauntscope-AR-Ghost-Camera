@@ -1,4 +1,5 @@
 using Hauntscope.Core.StateMachines;
+using Hauntscope.Gameplay.Contracts;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Research;
 using Hauntscope.Gameplay.Shift;
@@ -15,6 +16,8 @@ namespace Hauntscope.Gameplay.Hunt.States
         private readonly PlayerProgressRepository _progressRepository;
         private readonly GhostResearch _research;
         private readonly NightShift _shift;
+        private readonly HuntReportBuilder _report;
+        private readonly ContractBoard _contracts;
 
         public ResultState(
             HuntSession session,
@@ -23,8 +26,12 @@ namespace Hauntscope.Gameplay.Hunt.States
             PlayerProgress progress,
             PlayerProgressRepository progressRepository,
             GhostResearch research,
-            NightShift shift)
+            NightShift shift,
+            HuntReportBuilder report,
+            ContractBoard contracts)
         {
+            _report = report;
+            _contracts = contracts;
             _shift = shift;
             _research = research;
             _session = session;
@@ -48,8 +55,11 @@ namespace Hauntscope.Gameplay.Hunt.States
             }
 
             _progressRepository.Save(_progress);
-            if (result != null)
-                _shift.RecordResult(result);
+            if (result == null)
+                return;
+
+            _contracts.Record(_report.Build(result));
+            _shift.RecordResult(result);
         }
 
         // Between rounds of a night shift the battery carries over with a top-up; any other hunt starts full.

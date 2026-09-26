@@ -32,6 +32,8 @@ namespace Hauntscope.Bootstrap
             builder.Register<FieldDrop>(Lifetime.Singleton);
             builder.RegisterComponentInHierarchy<ShopView>();
             builder.RegisterEntryPoint<ShopPresenter>();
+            builder.RegisterComponentInHierarchy<ContractsView>();
+            builder.RegisterEntryPoint<ContractsPresenter>();
             builder.RegisterComponentInHierarchy<LoadoutView>();
             builder.RegisterEntryPoint<LoadoutPresenter>();
 

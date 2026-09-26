@@ -56,6 +56,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<SpareBatteries>(Lifetime.Singleton);
             builder.Register<HuntSession>(Lifetime.Singleton);
             builder.Register<HuntLoot>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<HuntReportBuilder>().AsSelf();
             builder.Register<RewardDoubler>(Lifetime.Singleton);
             builder.Register<PickupFactory>(Lifetime.Singleton).As<IPickupFactory>();
             builder.Register<PickupSpotSelector>(Lifetime.Singleton);
@@ -102,6 +103,8 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<ShiftBreakPresenter>();
             builder.RegisterComponentInHierarchy<ShiftHudView>();
             builder.RegisterEntryPoint<ShiftHudPresenter>();
+            builder.RegisterComponentInHierarchy<ContractToastView>();
+            builder.RegisterEntryPoint<ContractToastPresenter>();
             builder.RegisterComponentInHierarchy<TrackingLostView>();
             builder.RegisterEntryPoint<TrackingLostPresenter>();
             builder.RegisterComponentInHierarchy<PauseView>();

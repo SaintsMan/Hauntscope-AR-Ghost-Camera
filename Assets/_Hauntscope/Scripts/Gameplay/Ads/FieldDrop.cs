@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
+using Hauntscope.Gameplay.Engagement;
 using Hauntscope.Gameplay.Progress;
 
 namespace Hauntscope.Gameplay.Ads
@@ -70,10 +71,9 @@ namespace Hauntscope.Gameplay.Ads
             _ads.AvailabilityChanged -= OnAvailabilityChanged;
         }
 
-        // yyyymmdd: compact, readable in the save file, and changes exactly at local midnight.
         public static int DayKey(DateTime date)
         {
-            return date.Year * 10000 + date.Month * 100 + date.Day;
+            return LocalDay.Key(date);
         }
 
         private void OnAvailabilityChanged()
