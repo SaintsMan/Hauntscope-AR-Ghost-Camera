@@ -553,7 +553,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 350926574845966
-    m_Localized: 'Captures left to declassify: {0}.'
+    m_Localized: 'Evidence left to declassify: {0}.'
     m_Metadata:
       m_Items: []
   - m_Id: 350926574845967
