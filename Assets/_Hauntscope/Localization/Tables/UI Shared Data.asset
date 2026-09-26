@@ -959,6 +959,46 @@ MonoBehaviour:
     m_Key: contract.capture_fast
     m_Metadata:
       m_Items: []
+  - m_Id: 462155494588416
+    m_Key: ration.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142848
+    m_Key: ration.day
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142849
+    m_Key: ration.subtitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142850
+    m_Key: ration.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142851
+    m_Key: ration.tomorrow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142852
+    m_Key: ration.claim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142853
+    m_Key: ration.done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142854
+    m_Key: ration.double
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142855
+    m_Key: ration.ectoplasm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142856
+    m_Key: ration.gear
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

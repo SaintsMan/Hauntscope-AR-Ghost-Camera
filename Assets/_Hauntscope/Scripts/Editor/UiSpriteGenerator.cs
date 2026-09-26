@@ -49,6 +49,7 @@ namespace Hauntscope.Editor
             BuildPlusIcon();
             BuildPhotoIcons();
             BuildShiftIcons();
+            BuildRationIcons();
         }
 
         private static void BuildFrame()
@@ -649,6 +650,33 @@ namespace Hauntscope.Editor
             SaveSprite("PerkCassette", size, size, Max(
                 Max(Shape(size, size, shell, true, Line, Glow), Shape(size, size, window, true, Line * 0.8f, Glow)),
                 Shape(size, size, reels, true, Line * 0.8f, Glow)), Vector4.zero);
+        }
+
+        // Daily ration: a desk calendar for the menu corner (two rings over a page, a header line, a grid of days)
+        // and the tick on a claimed frame.
+        private static void BuildRationIcons()
+        {
+            const int size = 128;
+            Sdf page = p => RoundBox(p, new Vector2(64f, 58f), new Vector2(40f, 36f), 8f);
+            Sdf lines = p => Mathf.Min(Segment(p, new Vector2(28f, 78f), new Vector2(100f, 78f)),
+                Mathf.Min(Segment(p, new Vector2(46f, 88f), new Vector2(46f, 104f)), Segment(p, new Vector2(82f, 88f), new Vector2(82f, 104f))));
+            Sdf days = p =>
+            {
+                var distance = float.MaxValue;
+                for (var row = 0; row < 2; row++)
+                {
+                    for (var column = 0; column < 3; column++)
+                        distance = Mathf.Min(distance, Circle(p, new Vector2(44f + column * 20f, 60f - row * 18f), 4.5f));
+                }
+
+                return distance;
+            };
+            SaveSprite("CalendarIcon", size, size, Max(
+                Max(Shape(size, size, page, true, Line, Glow), Shape(size, size, lines, true, Line, Glow)),
+                Shape(size, size, days, false, 0f, Glow * 0.7f)), Vector4.zero);
+
+            Sdf tick = p => Mathf.Min(Segment(p, new Vector2(32f, 66f), new Vector2(54f, 42f)), Segment(p, new Vector2(54f, 42f), new Vector2(98f, 90f)));
+            SaveSprite("CheckIcon", size, size, Shape(size, size, tick, true, Line * 1.4f, Glow), Vector4.zero);
         }
 
         // A four-pointed glint.

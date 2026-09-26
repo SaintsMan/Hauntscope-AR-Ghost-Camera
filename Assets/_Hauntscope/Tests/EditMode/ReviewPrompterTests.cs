@@ -15,6 +15,7 @@ namespace Hauntscope.Tests.EditMode
         private PlayerProgressRepository _repository;
         private PlayerProgress _progress;
         private ReviewPrompter _prompter;
+        private MenuPopupQueue _popups;
 
         [SetUp]
         public void SetUp()
@@ -24,7 +25,8 @@ namespace Hauntscope.Tests.EditMode
             _repository = new PlayerProgressRepository(_save);
             _progress = new PlayerProgress();
             var config = new ReviewConfig(MinCaptures, 10, 0f);
-            _prompter = new ReviewPrompter(new ReviewPolicy(config), config, _progress, _repository, _review);
+            _popups = new MenuPopupQueue();
+            _prompter = new ReviewPrompter(new ReviewPolicy(config), config, _progress, _repository, _review, _popups);
         }
 
         [TearDown]
@@ -53,6 +55,17 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Start_MenuCardOpen_WaitsForIt()
+        {
+            CaptureMinimum();
+            _popups.Enqueue(new HeldPopup());
+
+            _prompter.Start();
+
+            Assert.AreEqual(0, _review.RequestCount);
+        }
+
+        [Test]
         public void Start_PolicyAccepts_SavesPromptBeforeAsking()
         {
             CaptureMinimum();
@@ -66,6 +79,17 @@ namespace Hauntscope.Tests.EditMode
         {
             for (var i = 0; i < MinCaptures; i++)
                 _progress.AddCapture("wisp", 10);
+        }
+    
+        private sealed class HeldPopup : IMenuPopup
+        {
+            public void Open()
+            {
+            }
+
+            public void Close()
+            {
+            }
         }
     }
 }

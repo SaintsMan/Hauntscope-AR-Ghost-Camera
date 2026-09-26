@@ -42,7 +42,8 @@ namespace Hauntscope.Gameplay.Engagement
                 }
             }
 
-            return new EngagementProgress(dto.ContractDay, slots, dto.FreeReplacesUsed, dto.AdReplacesUsed);
+            return new EngagementProgress(dto.ContractDay, slots, dto.FreeReplacesUsed, dto.AdReplacesUsed, dto.LoginClaims,
+                dto.LastLoginDay, dto.LastLoginShownDay);
         }
 
         public void Save(EngagementProgress progress)
@@ -55,7 +56,8 @@ namespace Hauntscope.Gameplay.Engagement
                     reward.Gear != null ? reward.Gear.Id : string.Empty, reward.GearCount));
             }
 
-            _save.Save(Key, new EngagementDto(CurrentVersion, progress.ContractDay, slots, progress.FreeReplacesUsed, progress.AdReplacesUsed));
+            _save.Save(Key, new EngagementDto(CurrentVersion, progress.ContractDay, slots, progress.FreeReplacesUsed, progress.AdReplacesUsed,
+                progress.LoginClaims, progress.LastLoginDay, progress.LastLoginShownDay));
         }
 
         // No migrations exist yet: version 1 is the only format. Unknown (newer or missing) versions start fresh.

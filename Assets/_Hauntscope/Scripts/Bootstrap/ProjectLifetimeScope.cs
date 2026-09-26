@@ -96,6 +96,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Night);
             builder.RegisterInstance(_gameConfig.Shift);
             builder.RegisterInstance(_gameConfig.Contracts);
+            builder.RegisterInstance(_gameConfig.Login);
         }
 
         // Scene loads are decorated with the CRT transition; the overlay outlives every scene it covers.
@@ -122,6 +123,7 @@ namespace Hauntscope.Bootstrap
             builder.Register(resolver => resolver.Resolve<EngagementRepository>().Load(), Lifetime.Singleton);
             builder.Register<ContractGenerator>(Lifetime.Singleton);
             builder.Register<ContractBoard>(Lifetime.Singleton);
+            builder.Register<LoginCalendar>(Lifetime.Singleton);
         }
 
         // The album is loaded once for the whole game: the hunt adds to it, the Bestiary shows its evidence. Decoding

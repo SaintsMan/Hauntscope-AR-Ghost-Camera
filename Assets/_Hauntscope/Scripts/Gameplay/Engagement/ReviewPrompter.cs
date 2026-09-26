@@ -17,6 +17,7 @@ namespace Hauntscope.Gameplay.Engagement
         private readonly PlayerProgress _progress;
         private readonly PlayerProgressRepository _repository;
         private readonly IInAppReview _review;
+        private readonly MenuPopupQueue _popups;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         public ReviewPrompter(
@@ -24,8 +25,10 @@ namespace Hauntscope.Gameplay.Engagement
             ReviewConfig config,
             PlayerProgress progress,
             PlayerProgressRepository repository,
-            IInAppReview review)
+            IInAppReview review,
+            MenuPopupQueue popups)
         {
+            _popups = popups;
             _policy = policy;
             _config = config;
             _progress = progress;
@@ -54,6 +57,9 @@ namespace Hauntscope.Gameplay.Engagement
         {
             if (_config.MenuDelay > 0f)
                 await UniTask.Delay(TimeSpan.FromSeconds(_config.MenuDelay), cancellationToken: cancellationToken);
+            // Last in line: the review dialog never covers the menu's own cards.
+            if (!_popups.IsIdle)
+                await UniTask.WaitUntil(() => _popups.IsIdle, cancellationToken: cancellationToken);
 
             await _review.RequestAsync(cancellationToken);
         }

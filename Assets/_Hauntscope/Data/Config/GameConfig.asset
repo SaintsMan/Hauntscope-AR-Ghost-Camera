@@ -373,3 +373,30 @@ MonoBehaviour:
     - {fileID: 11400000, guid: e237ac60833f19045b6024ad7b327063, type: 2}
     - {fileID: 11400000, guid: c1b9d5f5e52332c45bd07ba92930d9fc, type: 2}
     - {fileID: 11400000, guid: d221734c65283944186ef75d5820fd68, type: 2}
+  _login:
+    _days:
+    - _ectoplasm: 15
+      _gear: []
+    - _ectoplasm: 0
+      _gear:
+      - _gear: {fileID: 11400000, guid: b54c80d22466f8e40b5ef536b5090ffb, type: 2}
+        _count: 1
+    - _ectoplasm: 25
+      _gear: []
+    - _ectoplasm: 0
+      _gear:
+      - _gear: {fileID: 11400000, guid: fb66218587672634681629a61314cd93, type: 2}
+        _count: 1
+      - _gear: {fileID: 11400000, guid: e60fd00f91282274e8a0cbd5ffe58f15, type: 2}
+        _count: 1
+    - _ectoplasm: 40
+      _gear: []
+    - _ectoplasm: 0
+      _gear:
+      - _gear: {fileID: 11400000, guid: 4ce1a41ea9b0ac64e82dffc3922b4c20, type: 2}
+        _count: 2
+    - _ectoplasm: 80
+      _gear:
+      - _gear: {fileID: 11400000, guid: b54c80d22466f8e40b5ef536b5090ffb, type: 2}
+        _count: 2
+    _adMultiplier: 2

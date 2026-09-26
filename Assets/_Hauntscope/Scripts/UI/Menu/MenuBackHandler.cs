@@ -1,5 +1,6 @@
 using System;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Engagement;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.UI.Common;
@@ -18,6 +19,7 @@ namespace Hauntscope.UI.Menu
         private readonly HuntLauncher _launcher;
         private readonly ISystemNavigation _system;
         private readonly UiFeedback _ui;
+        private readonly MenuPopupQueue _popups;
 
         public MenuBackHandler(
             IBackButton backButton,
@@ -25,8 +27,10 @@ namespace Hauntscope.UI.Menu
             PhotoViewer viewer,
             HuntLauncher launcher,
             ISystemNavigation system,
-            UiFeedback ui)
+            UiFeedback ui,
+            MenuPopupQueue popups)
         {
+            _popups = popups;
             _backButton = backButton;
             _navigation = navigation;
             _viewer = viewer;
@@ -55,6 +59,12 @@ namespace Hauntscope.UI.Menu
             }
 
             if (_launcher.CancelPrompt())
+            {
+                _ui.PlayBack();
+                return;
+            }
+
+            if (_popups.CloseCurrent())
             {
                 _ui.PlayBack();
                 return;

@@ -29,15 +29,17 @@ namespace Hauntscope.Gameplay.Engagement
         public int Grant(RewardBundle bundle)
         {
             var ectoplasm = bundle.Ectoplasm;
-            if (bundle.Gear != null && bundle.GearCount > 0)
+            foreach (var item in bundle.Items)
             {
-                var room = Mathf.Max(0, bundle.Gear.MaxStack - _inventory.GetCount(bundle.Gear.Id));
-                var kept = Mathf.Min(room, bundle.GearCount);
+                var room = Mathf.Max(0, item.Gear.MaxStack - _inventory.GetCount(item.Gear.Id));
+                var kept = Mathf.Min(room, item.Count);
                 if (kept > 0)
-                    _inventory.AddGear(bundle.Gear.Id, kept);
-                ectoplasm += Mathf.RoundToInt((bundle.GearCount - kept) * bundle.Gear.Price * _store.OverflowRefund);
-                _inventoryRepository.Save(_inventory);
+                    _inventory.AddGear(item.Gear.Id, kept);
+                ectoplasm += Mathf.RoundToInt((item.Count - kept) * item.Gear.Price * _store.OverflowRefund);
             }
+
+            if (bundle.Items.Count > 0)
+                _inventoryRepository.Save(_inventory);
 
             if (ectoplasm > 0)
                 _progress.AddEctoplasm(ectoplasm);

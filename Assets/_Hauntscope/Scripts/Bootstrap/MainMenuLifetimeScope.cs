@@ -34,9 +34,13 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<ShopPresenter>();
             builder.RegisterComponentInHierarchy<ContractsView>();
             builder.RegisterEntryPoint<ContractsPresenter>();
+            builder.RegisterComponentInHierarchy<DailyRewardView>();
+            builder.RegisterComponentInHierarchy<CalendarButtonView>();
+            builder.RegisterEntryPoint<DailyRewardPresenter>();
             builder.RegisterComponentInHierarchy<LoadoutView>();
             builder.RegisterEntryPoint<LoadoutPresenter>();
 
+            builder.Register<MenuPopupQueue>(Lifetime.Singleton);
             builder.Register<ReviewPolicy>(Lifetime.Singleton);
             builder.RegisterEntryPoint<ReviewPrompter>();
         }

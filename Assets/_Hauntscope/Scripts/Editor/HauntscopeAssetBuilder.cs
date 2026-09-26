@@ -73,6 +73,7 @@ namespace Hauntscope.Editor
             StoreAssetBuilder.Build();
             ShiftAssetBuilder.Build();
             ContractAssetBuilder.Build();
+            LoginAssetBuilder.Build();
             WireConfig(config);
         }
 

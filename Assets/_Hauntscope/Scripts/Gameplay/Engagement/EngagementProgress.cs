@@ -3,7 +3,8 @@ using Hauntscope.Gameplay.Contracts;
 
 namespace Hauntscope.Gameplay.Engagement
 {
-    // The daily side of the game that is saved: today's contract board and the replaces used on it.
+    // The daily side of the game that is saved: today's contract board and the replaces used on it, and how far the
+    // daily ration's cassette has run.
     public sealed class EngagementProgress
     {
         private readonly List<ContractSlot> _contracts;
@@ -12,12 +13,36 @@ namespace Hauntscope.Gameplay.Engagement
         {
         }
 
-        public EngagementProgress(int contractDay, List<ContractSlot> contracts, int freeReplacesUsed, int adReplacesUsed)
+        public EngagementProgress(int contractDay, List<ContractSlot> contracts, int freeReplacesUsed, int adReplacesUsed,
+            int loginClaims = 0, int lastLoginDay = 0, int lastLoginShownDay = 0)
         {
             ContractDay = contractDay;
             _contracts = contracts;
             FreeReplacesUsed = freeReplacesUsed;
             AdReplacesUsed = adReplacesUsed;
+            LoginClaims = loginClaims;
+            LastLoginDay = lastLoginDay;
+            LastLoginShownDay = lastLoginShownDay;
+        }
+
+        // Rations claimed so far; the cassette frame is this modulo its length.
+        public int LoginClaims { get; private set; }
+
+        // yyyymmdd of the last claimed ration.
+        public int LastLoginDay { get; private set; }
+
+        // yyyymmdd of the last day the ration card opened by itself.
+        public int LastLoginShownDay { get; private set; }
+
+        public void ClaimLogin(int day)
+        {
+            LoginClaims++;
+            LastLoginDay = day;
+        }
+
+        public void MarkLoginShown(int day)
+        {
+            LastLoginShownDay = day;
         }
 
         public int ContractDay { get; private set; }

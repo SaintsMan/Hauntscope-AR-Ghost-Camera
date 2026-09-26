@@ -971,6 +971,46 @@ MonoBehaviour:
     m_Localized: Catch a ghost in 1:30 or less
     m_Metadata:
       m_Items: []
+  - m_Id: 462155494588416
+    m_Localized: DAILY RATION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142848
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142849
+    m_Localized: Frame {0} of {1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142850
+    m_Localized: A missed day never rewinds the tape
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142851
+    m_Localized: The next frame comes tomorrow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142852
+    m_Localized: CLAIM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142853
+    m_Localized: DONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142854
+    m_Localized: "\xD7{0} FOR AN AD"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142855
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142856
+    m_Localized: "\xD7{0}"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

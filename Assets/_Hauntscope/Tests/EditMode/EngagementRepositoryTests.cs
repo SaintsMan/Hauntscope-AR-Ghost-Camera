@@ -54,6 +54,18 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Load_AfterSave_RestoresTheRation()
+        {
+            _fixture.Repository.Save(new EngagementProgress(0, new List<ContractSlot>(), 0, 0, 4, ContractFixture.Today, ContractFixture.Today));
+
+            var loaded = _fixture.Repository.Load();
+
+            Assert.AreEqual(4, loaded.LoginClaims);
+            Assert.AreEqual(ContractFixture.Today, loaded.LastLoginDay);
+            Assert.AreEqual(ContractFixture.Today, loaded.LastLoginShownDay);
+        }
+
+        [Test]
         public void Load_ContractNoLongerInTheGame_DropsIt()
         {
             var removed = ContractFixture.Contract("retired", ContractTier.Easy, 1, new CaptureCountGoal());
