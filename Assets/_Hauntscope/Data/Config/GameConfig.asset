@@ -163,6 +163,8 @@ MonoBehaviour:
     _revealPulse: {fileID: 7298845405034352830, guid: 100f08603d74b874a92e27dd76cbbfbb, type: 3}
     _pickupBurst: {fileID: 4244323925081070652, guid: f489a33a572159443be892ff334deda2, type: 3}
     _staggerSparks: {fileID: 6152194248836977993, guid: e355fba8f6cef23478fd53df8ea7a160, type: 3}
+    _coldSpot: {fileID: 2383050041594738201, guid: d91f2868fd632934ba29c6e8fe1ef839, type: 3}
+    _coldSpotColor: {r: 0.9, g: 0.93, b: 0.95, a: 1}
     _beamOriginForward: 0.3
     _beamOriginDrop: 0.2
     _beamRange: 4
@@ -289,3 +291,15 @@ MonoBehaviour:
     _width: 1080
     _jpegQuality: 85
     _storeUrl: https://play.google.com/store/apps/details?id=com.pavko.hauntscope
+  _hide:
+    _chance: 0.3
+    _cooldown: 20
+    _durationMin: 6
+    _durationMax: 10
+    _floorClearanceMin: 0.02
+    _floorClearanceMax: 0.15
+    _revealRange: 1.2
+    _flushStagger: 1
+    _minDistance: 2
+    _wallOffset: 0.35
+    _cornerInset: 0.4

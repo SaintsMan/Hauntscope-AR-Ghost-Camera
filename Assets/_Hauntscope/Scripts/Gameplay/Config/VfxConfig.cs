@@ -11,6 +11,8 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private ParticleSystem _revealPulse;
         [SerializeField] private ParticleSystem _pickupBurst;
         [SerializeField] private ParticleSystem _staggerSparks;
+        [SerializeField] private ParticleSystem _coldSpot;
+        [SerializeField] private Color _coldSpotColor = new Color(0.9f, 0.93f, 0.95f, 1f);
         [SerializeField, Min(0f)] private float _beamOriginForward = 0.3f;
         [SerializeField, Min(0f)] private float _beamOriginDrop = 0.2f;
         [SerializeField, Min(0.5f)] private float _beamRange = 4f;
@@ -27,6 +29,11 @@ namespace Hauntscope.Gameplay.Config
         public ParticleSystem PickupBurst => _pickupBurst;
 
         public ParticleSystem StaggerSparks => _staggerSparks;
+
+        public ParticleSystem ColdSpot => _coldSpot;
+
+        // Frost is not the ghost's own glow: it stays the same icy white whoever is hiding, so it reads as a clue.
+        public Color ColdSpotColor => _coldSpotColor;
 
         // The beam leaves from just below and in front of the lens, so it rises into view from the bottom edge.
         public float BeamOriginForward => _beamOriginForward;

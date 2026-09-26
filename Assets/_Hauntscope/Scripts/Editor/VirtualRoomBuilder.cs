@@ -120,6 +120,19 @@ namespace Hauntscope.Editor
             new RoomProp("cardboardBoxClosed", new Vector3(3.55f, 0f, -1.45f), -8f)
         };
 
+        // Behind furniture or out of sight of the living room, all inside the ghosts' room bounds: the lens has to be
+        // walked around each one (GDD 5.28). The sofa stands against the wall and the flat has no kitchen island, so
+        // the armchair and the nook by the fridge take their places. Nothing sits under a table: a tall ghost would
+        // stick through the top, and the top would hide the cold spot.
+        private static readonly (string Name, Vector3 Position)[] HideSpots =
+        {
+            ("BehindArmchair", new Vector3(-2.1f, 0f, 2.85f)),
+            ("BehindTelevision", new Vector3(-0.3f, 0f, 0.6f)),
+            ("BesideFridge", new Vector3(3.1f, 0f, 2.4f)),
+            ("FootOfBed", new Vector3(2.85f, 0f, -0.85f)),
+            ("BesideWardrobe", new Vector3(1.2f, 0f, -2.5f))
+        };
+
         [MenuItem("Hauntscope/Build Virtual Room")]
         public static void Build()
         {
@@ -136,6 +149,7 @@ namespace Hauntscope.Editor
             BuildPartitions(Group(root.transform, "Partitions"));
             BuildFloor(Group(root.transform, "Floor"));
             BuildProps(Group(root.transform, "Furniture"));
+            BuildHideSpots(root.transform);
             var lights = Group(root.transform, "Lights");
             BuildLamp(lights);
             BuildBedsideLight(lights);
@@ -145,6 +159,39 @@ namespace Hauntscope.Editor
             Object.DestroyImmediate(root);
             AssetDatabase.SaveAssets();
             Debug.Log("Hauntscope: built Virtual Room.");
+        }
+
+        // Adds or replaces only the hide spot markers, so the scene keeps its references into the existing room.
+        [MenuItem("Hauntscope/Build Virtual Room Hide Spots")]
+        public static void BuildHideSpotsInPrefab()
+        {
+            var root = PrefabUtility.LoadPrefabContents(PrefabPath);
+            try
+            {
+                BuildHideSpots(root.transform);
+                PrefabUtility.SaveAsPrefabAsset(root, PrefabPath);
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(root);
+            }
+
+            Debug.Log($"Hauntscope: placed {HideSpots.Length} hide spots in the Virtual Room.");
+        }
+
+        private static void BuildHideSpots(Transform room)
+        {
+            var existing = room.Find("HideSpots");
+            if (existing != null)
+                Object.DestroyImmediate(existing.gameObject);
+
+            var group = Group(room, "HideSpots");
+            foreach (var (name, position) in HideSpots)
+            {
+                var marker = new GameObject(name, typeof(VirtualHideSpot));
+                marker.transform.SetParent(group, false);
+                marker.transform.localPosition = position;
+            }
         }
 
         private static Dictionary<string, Material> BuildMaterials()

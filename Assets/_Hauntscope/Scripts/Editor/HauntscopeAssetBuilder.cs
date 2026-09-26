@@ -22,7 +22,7 @@ namespace Hauntscope.Editor
         private static readonly GhostRecipe[] Recipes =
         {
             new GhostRecipe("wisp", "Wisp", GhostRarity.Common, "#4FF5E6", GhostMeshGenerator.BuildWisp,
-                moveSpeed: 0.45f, fleeSpeed: 1.3f, resistance: 0.8f, reward: 10, threat: 1, surgeJerk: 0.15f,
+                moveSpeed: 0.45f, fleeSpeed: 1.3f, resistance: 0.8f, reward: 10, threat: 1, surgeJerk: 0.15f, canHide: false,
                 eyeCenter: new Vector3(0f, -0.07f, 0.17f), eyeSpacing: 0.06f, eyeScale: new Vector3(0.04f, 0.05f, 0.02f)),
             new GhostRecipe("poltergeist", "Poltergeist", GhostRarity.Common, "#3DFF6E", GhostMeshGenerator.BuildPoltergeist,
                 moveSpeed: 0.8f, fleeSpeed: 1.9f, resistance: 1f, reward: 15, threat: 2,
@@ -220,6 +220,7 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_prefab").objectReferenceValue = prefab;
             serialized.FindProperty("_rimColor").colorValue = recipe.RimColor;
             serialized.FindProperty("_whisperClip").objectReferenceValue = LoadClip(SfxFolder, "Whisper" + recipe.AssetName);
+            serialized.FindProperty("_canHide").boolValue = recipe.CanHide;
             serialized.FindProperty("_motion._moveSpeed").floatValue = recipe.MoveSpeed;
             serialized.FindProperty("_motion._fleeSpeed").floatValue = recipe.FleeSpeed;
             var body = prefab.GetComponentInChildren<MeshFilter>().sharedMesh.bounds;
@@ -300,6 +301,7 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_vfx._revealPulse").objectReferenceValue = VfxGenerator.RevealPulse;
             serialized.FindProperty("_vfx._pickupBurst").objectReferenceValue = VfxGenerator.PickupBurst;
             serialized.FindProperty("_vfx._staggerSparks").objectReferenceValue = VfxGenerator.StaggerSparks;
+            serialized.FindProperty("_vfx._coldSpot").objectReferenceValue = VfxGenerator.ColdSpot;
             serialized.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(config);
             AssetDatabase.SaveAssets();
@@ -336,9 +338,11 @@ namespace Hauntscope.Editor
                 Vector3 eyeScale,
                 string abilityPath = null,
                 Type abilityType = null,
-                float surgeJerk = 0.3f)
+                float surgeJerk = 0.3f,
+                bool canHide = true)
             {
                 SurgeJerk = surgeJerk;
+                CanHide = canHide;
                 Id = id;
                 AssetName = assetName;
                 Rarity = rarity;
@@ -388,6 +392,8 @@ namespace Hauntscope.Editor
             public Type AbilityType { get; }
 
             public float SurgeJerk { get; }
+
+            public bool CanHide { get; }
         }
     }
 }

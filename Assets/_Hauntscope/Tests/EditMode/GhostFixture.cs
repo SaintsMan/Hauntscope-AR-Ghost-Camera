@@ -31,7 +31,8 @@ namespace Hauntscope.Tests.EditMode
         public const float ScareRushTime = 0.3f;
         public const float ScareFaceDistance = 0.45f;
 
-        public GhostFixture(float wanderInterval = 4f, float floorHeight = 0f, CaptureConfig capture = null, IGhostAbility[] abilities = null)
+        public GhostFixture(float wanderInterval = 4f, float floorHeight = 0f, CaptureConfig capture = null, IGhostAbility[] abilities = null,
+            HideConfig hide = null)
         {
             Planes = new FakePlaneProvider
             {
@@ -44,6 +45,7 @@ namespace Hauntscope.Tests.EditMode
             Scare = CreateScareConfig();
             Capture = capture ?? TestConfigs.Capture();
             Mover = new GhostMover(Planes, Config);
+            HideSpots = new FakeHideSpotProvider();
             Context = new GhostContext(
                 new GhostMotion(MoveSpeed, FleeSpeed, HoverMin, HoverMax),
                 new GhostDetection(EmfRange, RevealRange),
@@ -54,7 +56,10 @@ namespace Hauntscope.Tests.EditMode
                 Mover,
                 Random,
                 Planes,
-                Camera);
+                Camera,
+                hide,
+                HideSpots,
+                hide != null);
             View = new FakeGhostView();
             Ghost = new Ghost(Context, View, abilities ?? System.Array.Empty<IGhostAbility>());
         }
@@ -72,6 +77,8 @@ namespace Hauntscope.Tests.EditMode
         public CaptureConfig Capture { get; }
 
         public GhostMover Mover { get; }
+
+        public FakeHideSpotProvider HideSpots { get; }
 
         public GhostContext Context { get; }
 

@@ -16,7 +16,10 @@ namespace Hauntscope.Gameplay.Ghosts
             GhostMover mover,
             IRandom random,
             IPlaneProvider planes,
-            ICameraPose camera)
+            ICameraPose camera,
+            HideConfig hide = null,
+            IHideSpotProvider hideSpots = null,
+            bool canHide = false)
         {
             Motion = motion;
             Detection = detection;
@@ -28,6 +31,9 @@ namespace Hauntscope.Gameplay.Ghosts
             Random = random;
             Planes = planes;
             Camera = camera;
+            Hide = hide;
+            HideSpots = hideSpots;
+            CanHide = canHide && hide != null && hideSpots != null;
         }
 
         public GhostMotion Motion { get; }
@@ -49,5 +55,11 @@ namespace Hauntscope.Gameplay.Ghosts
         public IPlaneProvider Planes { get; }
 
         public ICameraPose Camera { get; }
+
+        public HideConfig Hide { get; }
+
+        public IHideSpotProvider HideSpots { get; }
+
+        public bool CanHide { get; }
     }
 }

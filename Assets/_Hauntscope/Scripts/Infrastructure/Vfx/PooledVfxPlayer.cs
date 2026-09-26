@@ -27,24 +27,21 @@ namespace Hauntscope.Infrastructure.Vfx
             Register(VfxId.RevealPulse, config.RevealPulse);
             Register(VfxId.PickupBurst, config.PickupBurst);
             Register(VfxId.StaggerSparks, config.StaggerSparks);
+            Register(VfxId.ColdSpot, config.ColdSpot);
         }
 
         public void Play(VfxId id, Vector3 position, Color color)
         {
-            if (!_pools.TryGetValue(id, out var pool))
-                return;
+            if (_pools.TryGetValue(id, out var pool))
+                _active.Add((id, Spawn(pool, position, color)));
+        }
 
-            var system = pool.Get();
-            system.transform.position = position;
-            system.GetComponentsInChildren(true, _children);
-            foreach (var child in _children)
-            {
-                var main = child.main;
-                main.startColor = color;
-            }
-
-            system.Play(true);
-            _active.Add((id, system));
+        // A looping effect stays out of the active list until it is stopped: it would never finish on its own.
+        public IVfxLoop PlayLoop(VfxId id, Vector3 position, Color color)
+        {
+            return _pools.TryGetValue(id, out var pool)
+                ? new VfxLoop(this, id, Spawn(pool, position, color))
+                : new SilentLoop();
         }
 
         public void Tick()
@@ -71,6 +68,28 @@ namespace Hauntscope.Infrastructure.Vfx
                 Object.Destroy(_root);
         }
 
+        private ParticleSystem Spawn(ObjectPool<ParticleSystem> pool, Vector3 position, Color color)
+        {
+            var system = pool.Get();
+            system.transform.position = position;
+            system.GetComponentsInChildren(true, _children);
+            foreach (var child in _children)
+            {
+                var main = child.main;
+                main.startColor = color;
+            }
+
+            system.Play(true);
+            return system;
+        }
+
+        // Stopped loops fade out their live particles first; Tick returns them to the pool once nothing is left.
+        private void Finish(VfxId id, ParticleSystem system)
+        {
+            system.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+            _active.Add((id, system));
+        }
+
         private void Register(VfxId id, ParticleSystem prefab)
         {
             if (prefab == null)
@@ -90,6 +109,37 @@ namespace Hauntscope.Infrastructure.Vfx
                         Object.Destroy(system.gameObject);
                 },
                 false, DefaultCapacity, MaxPoolSize);
+        }
+
+        private sealed class VfxLoop : IVfxLoop
+        {
+            private readonly PooledVfxPlayer _owner;
+            private readonly VfxId _id;
+            private readonly ParticleSystem _system;
+            private bool _stopped;
+
+            public VfxLoop(PooledVfxPlayer owner, VfxId id, ParticleSystem system)
+            {
+                _owner = owner;
+                _id = id;
+                _system = system;
+            }
+
+            public void Stop()
+            {
+                if (_stopped || _system == null)
+                    return;
+
+                _stopped = true;
+                _owner.Finish(_id, _system);
+            }
+        }
+
+        private sealed class SilentLoop : IVfxLoop
+        {
+            public void Stop()
+            {
+            }
         }
     }
 }

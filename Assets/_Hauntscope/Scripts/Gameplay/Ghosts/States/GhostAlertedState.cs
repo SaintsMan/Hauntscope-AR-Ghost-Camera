@@ -13,10 +13,13 @@ namespace Hauntscope.Gameplay.Ghosts.States
         {
             _context = context;
             _fastWander = new GhostWanderState(context, context.Config.AlertedSpeedMultiplier);
+            _fastWander.TargetPicked += OnTargetPicked;
         }
 
         // The ghost freezes to stare at the camera: the ghost turns this moment into a stagger window.
         public event Action<float> PauseStarted;
+
+        public event Action Retargeted;
 
         public void Enter()
         {
@@ -42,6 +45,11 @@ namespace Hauntscope.Gameplay.Ghosts.States
             }
 
             _fastWander.Tick(deltaTime);
+        }
+
+        private void OnTargetPicked()
+        {
+            Retargeted?.Invoke();
         }
     }
 }

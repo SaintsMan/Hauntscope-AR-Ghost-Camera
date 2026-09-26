@@ -20,6 +20,7 @@ MonoBehaviour:
   _prefab: {fileID: 4642989566787932298, guid: 8f2fde728bb60e043973d03612579191, type: 3}
   _rimColor: {r: 1, g: 0.81960785, b: 0.4, a: 1}
   _whisperClip: {fileID: 8300000, guid: b81fcccc568912845958452e69562f02, type: 3}
+  _canHide: 1
   _motion:
     _moveSpeed: 0.7
     _fleeSpeed: 1.8

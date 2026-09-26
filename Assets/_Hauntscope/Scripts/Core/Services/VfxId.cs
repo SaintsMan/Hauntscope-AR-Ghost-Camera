@@ -6,6 +6,7 @@ namespace Hauntscope.Core.Services
         TeleportFlash,
         RevealPulse,
         PickupBurst,
-        StaggerSparks
+        StaggerSparks,
+        ColdSpot
     }
 }

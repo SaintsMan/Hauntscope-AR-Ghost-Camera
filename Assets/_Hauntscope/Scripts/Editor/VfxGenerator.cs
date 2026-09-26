@@ -17,12 +17,15 @@ namespace Hauntscope.Editor
         private const int BeamNoiseWidth = 256;
         private const int BeamNoiseHeight = 64;
         private static readonly Color Amber = new Color(1f, 0.71f, 0.28f, 1f);
+        // A cold blue cast over the white the frost is played with, still inside ui_text / ghost_cyan.
+        private static readonly Color Icy = new Color(0.78f, 0.95f, 1f, 1f);
         private const int TextureSize = 128;
 
         private static Material _dot;
         private static Material _ring;
         private static Material _smoke;
         private static Material _streak;
+        private static Material _frost;
 
         public static ParticleSystem CaptureSpiral { get; private set; }
 
@@ -34,6 +37,8 @@ namespace Hauntscope.Editor
 
         public static ParticleSystem StaggerSparks { get; private set; }
 
+        public static ParticleSystem ColdSpot { get; private set; }
+
         public static GameObject CaptureBeamRig { get; private set; }
 
         public static void BuildAll(float captureDuration)
@@ -43,11 +48,13 @@ namespace Hauntscope.Editor
             _ring = BuildMaterial("VfxRing", "ParticleRing", 2f, 0.45f);
             _smoke = BuildMaterial("VfxSmoke", "ParticleSmoke", 0.9f, 0.1f);
             _streak = BuildMaterial("VfxStreak", "ParticleStreak", 2.2f, 0.55f);
+            _frost = BuildMaterial("VfxFrost", "ParticleFrost", 1.9f, 0.35f);
             CaptureSpiral = BuildCaptureSpiral(captureDuration);
             TeleportFlash = BuildTeleportFlash();
             RevealPulse = BuildRevealPulse();
             PickupBurst = BuildPickupBurst();
             StaggerSparks = BuildStaggerSparks();
+            ColdSpot = BuildColdSpot();
             BuildBeamNoise();
             CaptureBeamRig = BuildCaptureBeam();
             AssetDatabase.SaveAssets();
@@ -658,6 +665,111 @@ namespace Hauntscope.Editor
             }
         }
 
+        // A hiding ghost chills the floor under it (GDD 5.28): frost patches spread and shimmer, glints of ice catch
+        // the light and cold vapour curls up out of the spot. Looping until the ghost leaves; then it thaws out.
+        private static ParticleSystem BuildColdSpot()
+        {
+            var root = CreateRoot("ColdSpot");
+            try
+            {
+                var frost = root.GetComponent<ParticleSystem>();
+                frost.GetComponent<ParticleSystemRenderer>().sharedMaterial = _frost;
+                Looping(frost, 1f, 4f);
+                var frostMain = frost.main;
+                frostMain.maxParticles = 24;
+                frostMain.startLifetime = new ParticleSystem.MinMaxCurve(3.4f, 4.6f);
+                frostMain.startSize = new ParticleSystem.MinMaxCurve(0.35f, 0.7f);
+                frostMain.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
+                frostMain.playOnAwake = false;
+                Flat(frost, 0.4f);
+                frost.transform.localPosition = new Vector3(0f, 0.01f, 0f);
+                frost.GetComponent<ParticleSystemRenderer>().renderMode = ParticleSystemRenderMode.HorizontalBillboard;
+                Spin(frost, 4f);
+                SizeOverLifetime(frost, Curve(0f, 0.7f, 0.4f, 1f, 1f, 1.08f));
+                Tint(frost, Icy, 0f, 0.25f, 1f, 1f, 0f);
+
+                // A faint cold glow under the frost, so the patch reads on a bright floor as well as a dark one.
+                var chill = CreateSystem("Chill", root.transform, _smoke, 4);
+                Looping(chill, 1f, 0.8f);
+                var chillMain = chill.main;
+                chillMain.startLifetime = 4f;
+                chillMain.startSize = new ParticleSystem.MinMaxCurve(1.2f, 1.5f);
+                chillMain.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
+                chillMain.playOnAwake = false;
+                var chillShape = chill.shape;
+                chillShape.enabled = false;
+                chill.transform.localPosition = new Vector3(0f, 0.005f, 0f);
+                chill.GetComponent<ParticleSystemRenderer>().renderMode = ParticleSystemRenderMode.HorizontalBillboard;
+                Tint(chill, Icy, 0f, 0.35f, 0.12f, 1f, 0f);
+
+                var glints = CreateSystem("Glints", root.transform, _dot, 24);
+                Looping(glints, 1f, 18f);
+                var glintsMain = glints.main;
+                glintsMain.startLifetime = new ParticleSystem.MinMaxCurve(0.35f, 0.8f);
+                glintsMain.startSize = new ParticleSystem.MinMaxCurve(0.012f, 0.03f);
+                glintsMain.playOnAwake = false;
+                Flat(glints, 0.55f);
+                glints.transform.localPosition = new Vector3(0f, 0.02f, 0f);
+                AlphaOverLifetime(glints, 0f, 0.3f, 1f, 1f, 0f);
+
+                // The vapour climbs to about head height, so a spot behind furniture still gives itself away from across
+                // the room.
+                var vapour = CreateSystem("Vapour", root.transform, _smoke, 64);
+                Looping(vapour, 1f, 12f);
+                var vapourMain = vapour.main;
+                vapourMain.startLifetime = new ParticleSystem.MinMaxCurve(3.8f, 5f);
+                vapourMain.startSize = new ParticleSystem.MinMaxCurve(0.16f, 0.26f);
+                vapourMain.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
+                vapourMain.playOnAwake = false;
+                Flat(vapour, 0.4f);
+                Drift(vapour, 0.28f);
+                Noise(vapour, 0.1f, 1.2f);
+                Spin(vapour, 25f);
+                SizeOverLifetime(vapour, Curve(0f, 0.5f, 1f, 2.6f));
+                // Thin at the floor, so the frost under it stays crisp, and thickest once it has risen.
+                Tint(vapour, Icy, 0f, 0.35f, 0.3f, 1f, 0f);
+
+                var motes = CreateSystem("Motes", root.transform, _dot, 16);
+                Looping(motes, 1f, 3.5f);
+                var motesMain = motes.main;
+                motesMain.startLifetime = new ParticleSystem.MinMaxCurve(1.6f, 2.6f);
+                motesMain.startSize = new ParticleSystem.MinMaxCurve(0.006f, 0.014f);
+                motesMain.playOnAwake = false;
+                Flat(motes, 0.35f);
+                Drift(motes, 0.2f);
+                Noise(motes, 0.05f, 2f);
+                AlphaOverLifetime(motes, 0f, 0.25f, 0.9f, 1f, 0f);
+
+                return SavePrefab(root);
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+
+        // Emits from a disc lying on the floor rather than from a point.
+        private static void Flat(ParticleSystem system, float radius)
+        {
+            var shape = system.shape;
+            shape.shapeType = ParticleSystemShapeType.Circle;
+            shape.radius = radius;
+            shape.radiusThickness = 1f;
+            shape.rotation = new Vector3(90f, 0f, 0f);
+        }
+
+        // Alpha as AlphaOverLifetime, but with a colour tint multiplied into the runtime colour.
+        private static void Tint(ParticleSystem system, Color tint, float start, float peakTime, float peak, float endTime, float end)
+        {
+            var gradient = new Gradient();
+            gradient.SetKeys(
+                new[] { new GradientColorKey(tint, 0f), new GradientColorKey(tint, 1f) },
+                new[] { new GradientAlphaKey(start, 0f), new GradientAlphaKey(peak, peakTime), new GradientAlphaKey(end, endTime) });
+            var color = system.colorOverLifetime;
+            color.enabled = true;
+            color.color = new ParticleSystem.MinMaxGradient(gradient);
+        }
+
         private static GameObject CreateRoot(string name)
         {
             var root = new GameObject(name);
@@ -853,6 +965,40 @@ namespace Hauntscope.Editor
                 var blob = Mathf.Pow(Mathf.Clamp01(1f - r), 1.5f);
                 var billow = 0.6f + 0.4f * Fbm(u * 3f, v * 3f);
                 return Mathf.Clamp01(blob * billow * 1.2f);
+            });
+
+            // A hoarfrost crystal seen from above: six straight arms, each with side branches leaving at 60 degrees and
+            // shrinking towards the tip, over a grain of ice. Several of these overlap into a frost patch.
+            SaveTexture("ParticleFrost", (u, v, r) =>
+            {
+                var sector = Mathf.PI / 3f;
+                var angle = Mathf.Repeat(Mathf.Atan2(v - 0.5f, u - 0.5f) + sector * 0.5f, sector) - sector * 0.5f;
+                var jitter = 0.04f * (Fbm(u * 9f, v * 9f) - 0.5f);
+                var along = r * Mathf.Cos(angle);
+                var across = Mathf.Abs(r * Mathf.Sin(angle) + jitter * r);
+
+                var armWidth = Mathf.Lerp(0.035f, 0.008f, r);
+                var arm = Mathf.Exp(-Sqr(across / armWidth)) * (1f - Step(0.8f, 0.95f, r));
+
+                var branches = 0f;
+                const float spacing = 0.11f;
+                for (var k = 1; k <= 6; k++)
+                {
+                    var root = k * spacing;
+                    var length = 0.3f * (1f - root / 0.9f);
+                    if (length <= 0f)
+                        break;
+
+                    var x = along - root;
+                    var t = x * 0.5f + across * 0.866f;
+                    var off = Mathf.Abs(x * 0.866f - across * 0.5f);
+                    var width = Mathf.Lerp(0.02f, 0.006f, Mathf.Clamp01(t / length));
+                    branches = Mathf.Max(branches, Mathf.Exp(-Sqr(off / width)) * Step(0f, 0.01f, t) * (1f - Step(length * 0.7f, length, t)));
+                }
+
+                var grain = Mathf.Pow(Fbm(u * 26f, v * 26f), 3.5f);
+                var falloff = Mathf.Pow(Mathf.Clamp01(1f - r), 0.9f);
+                return Mathf.Clamp01((Mathf.Max(arm, branches * 0.9f) + grain * 0.7f + 0.08f) * falloff);
             });
 
             SaveTexture("ParticleStreak", (u, v, r) =>

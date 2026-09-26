@@ -69,6 +69,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<EmfRadar>(Lifetime.Singleton);
             builder.RegisterEntryPoint<EmfFeedback>();
             builder.RegisterEntryPoint<HuntFeedback>();
+            builder.RegisterEntryPoint<ColdSpotFeedback>();
             builder.RegisterComponentInHierarchy<CaptureBeamView>().As<IBeamView>();
             builder.RegisterEntryPoint<BeamFeedback>();
             builder.RegisterEntryPoint<HuntAmbience>();
@@ -129,6 +130,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<ArTrackingStatus>(Lifetime.Singleton).As<ITrackingStatus>();
             builder.RegisterComponentInHierarchy<AROcclusionManager>();
             builder.Register<ArOcclusionService>(Lifetime.Singleton).As<IOcclusionService>();
+            builder.Register<ArHideSpotProvider>(Lifetime.Singleton).As<IHideSpotProvider>();
         }
 
         private void RegisterVirtualEnvironment(IContainerBuilder builder)
@@ -140,6 +142,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<VirtualTrackingStatus>(Lifetime.Singleton).As<ITrackingStatus>();
             builder.Register<NullOcclusionService>(Lifetime.Singleton).As<IOcclusionService>();
             builder.RegisterEntryPoint<VirtualCameraController>().WithParameter(_virtualCamera);
+            builder.Register<VirtualHideSpotProvider>(Lifetime.Singleton).As<IHideSpotProvider>().WithParameter(_virtualRig.transform);
         }
     }
 }

@@ -17,6 +17,8 @@ namespace Hauntscope.Gameplay.Ghosts
         private readonly ScareConfig _scare;
         private readonly CaptureConfig _capture;
         private readonly HuntModifiers _modifiers;
+        private readonly HideConfig _hide;
+        private readonly IHideSpotProvider _hideSpots;
 
         public GhostFactory(
             IPlaneProvider planes,
@@ -26,8 +28,12 @@ namespace Hauntscope.Gameplay.Ghosts
             SpawnPointSelector spawnPoints,
             ScareConfig scare,
             CaptureConfig capture,
-            HuntModifiers modifiers)
+            HuntModifiers modifiers,
+            HideConfig hide,
+            IHideSpotProvider hideSpots)
         {
+            _hide = hide;
+            _hideSpots = hideSpots;
             _capture = capture;
             _modifiers = modifiers;
             _planes = planes;
@@ -50,7 +56,8 @@ namespace Hauntscope.Gameplay.Ghosts
             view.name = data.Id;
             view.SetRimColor(data.RimColor);
 
-            var context = new GhostContext(data.Motion, data.Detection, data.Capture, _config, _scare, _capture, mover, _random, _planes, _camera);
+            var context = new GhostContext(data.Motion, data.Detection, data.Capture, _config, _scare, _capture, mover, _random, _planes,
+                _camera, _hide, _hideSpots, data.CanHide);
             var ghost = new Ghost(context, view, CreateAbilities(data));
             ghost.SetSpeedModifiers(_modifiers.GhostSpeed, _modifiers.BeamedGhostSpeed);
             ghost.Start();

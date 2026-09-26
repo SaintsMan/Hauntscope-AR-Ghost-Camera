@@ -21,6 +21,7 @@ namespace Hauntscope.Gameplay.Ghosts
         private readonly GhostEscapedState _escapedState;
         private readonly GhostScareState _scareState;
         private readonly GhostSurgeState _surgeState;
+        private readonly GhostHideState _hideState;
 
         private bool _captureRequested;
         private bool _escapeRequested;
@@ -35,6 +36,9 @@ namespace Hauntscope.Gameplay.Ghosts
         private float _staggerWeight;
         private bool _isSurgeArmed = true;
         private bool _wasSurging;
+        private bool _hasBeenAlerted;
+        private bool _hideRequested;
+        private float _hideCooldown;
 
         public Ghost(GhostContext context, IGhostView view)
             : this(context, view, Array.Empty<IGhostAbility>())
@@ -53,7 +57,14 @@ namespace Hauntscope.Gameplay.Ghosts
             _escapedState = new GhostEscapedState(context);
             _scareState = new GhostScareState(context);
             _surgeState = new GhostSurgeState(context);
+            _hideState = new GhostHideState(context, () => Reveal >= context.Config.AlertRevealThreshold);
             _alertedState.PauseStarted += Stagger;
+            _alertedState.PauseStarted += OnAlerted;
+            _wanderState.TargetPicked += OnWanderRetargeted;
+            _alertedState.Retargeted += OnWanderRetargeted;
+            _hideState.Started += OnHideStarted;
+            _hideState.Flushed += OnFlushed;
+            _hideState.Ended += OnHideEnded;
 
             _stateMachine.AddAnyTransition(_capturedState, () => _captureRequested);
             _stateMachine.AddAnyTransition(_escapedState, () => _escapeRequested);
@@ -65,6 +76,11 @@ namespace Hauntscope.Gameplay.Ghosts
             _stateMachine.AddTransition(_fleeState, _alertedState, () => _fleeState.IsCalm);
             _stateMachine.AddTransition(_surgeState, _fleeState, () => _surgeState.IsFinished);
             _stateMachine.AddTransition(_scareState, _alertedState, () => _scareState.IsFinished);
+            // Re-checked on the way in: the lens may have found the ghost between the decision and the next tick.
+            _stateMachine.AddTransition(_wanderState, _hideState, () => _hideRequested && CanStartHiding());
+            _stateMachine.AddTransition(_alertedState, _hideState, () => _hideRequested && CanStartHiding());
+            _stateMachine.AddTransition(_hideState, _fleeState, () => _hideState.IsFlushed);
+            _stateMachine.AddTransition(_hideState, _wanderState, () => _hideState.IsFinished);
         }
 
         public event Action<Vector3, Vector3> Teleported;
@@ -77,6 +93,12 @@ namespace Hauntscope.Gameplay.Ghosts
 
         public event Action SurgeStarted;
 
+        public event Action<Vector3> HideStarted;
+
+        public event Action Flushed;
+
+        public event Action HideEnded;
+
         public GhostContext Context { get; }
 
         public Vector3 Position => Context.Mover.Position;
@@ -86,7 +108,8 @@ namespace Hauntscope.Gameplay.Ghosts
 
         public float EmfRange => Context.Detection.EmfRange;
 
-        public float RevealRange => Context.Detection.RevealRange;
+        // Crouched in its hiding spot, it only shows up when the lens is right on top of it.
+        public float RevealRange => IsHiding ? Context.Hide.RevealRange : Context.Detection.RevealRange;
 
         public float Resistance => Context.Capture.Resistance;
 
@@ -109,6 +132,10 @@ namespace Hauntscope.Gameplay.Ghosts
         public bool IsFleeing => _stateMachine.CurrentState == _fleeState;
 
         public bool IsSurging => _stateMachine.CurrentState == _surgeState;
+
+        public bool IsHiding => _stateMachine.CurrentState == _hideState;
+
+        public Vector3 HideSpot => _hideState.Spot;
 
         public bool IsCaptured => _stateMachine.CurrentState == _capturedState;
 
@@ -255,6 +282,7 @@ namespace Hauntscope.Gameplay.Ghosts
         public void Tick(float deltaTime)
         {
             _staggerRemaining = Mathf.Max(0f, _staggerRemaining - deltaTime);
+            _hideCooldown = Mathf.Max(0f, _hideCooldown - deltaTime);
             var speed = IsBeamed ? _speedScale * _beamedSpeedScale : _speedScale;
             Context.Mover.SpeedScale = IsStaggered ? 0f : speed;
             _stateMachine.Tick(deltaTime);
@@ -293,6 +321,42 @@ namespace Hauntscope.Gameplay.Ghosts
             _view.SetPhotoFlash(lit);
             if (!lit)
                 _view.SetReveal(VisibleReveal);
+        }
+
+        // Only a ghost that knows it has been seen hides, and never while the lens or the beam is already on it.
+        private bool CanStartHiding()
+        {
+            return Context.CanHide && _hasBeenAlerted && _hideCooldown <= 0f && !IsLeaving && !IsBeamed
+                && Reveal < Context.Config.AlertRevealThreshold && Context.HideSpots.Spots.Count > 0;
+        }
+
+        private void OnAlerted(float pause)
+        {
+            _hasBeenAlerted = true;
+            _hideRequested = false;
+        }
+
+        private void OnWanderRetargeted()
+        {
+            _hideRequested = CanStartHiding() && Context.Random.Value < Context.Hide.Chance;
+        }
+
+        private void OnHideStarted(Vector3 spot)
+        {
+            _hideRequested = false;
+            HideStarted?.Invoke(spot);
+        }
+
+        private void OnFlushed()
+        {
+            Stagger(Context.Hide.FlushStagger);
+            Flushed?.Invoke();
+        }
+
+        private void OnHideEnded()
+        {
+            _hideCooldown = Context.Hide.Cooldown;
+            HideEnded?.Invoke();
         }
 
         // Abilities stay silent through the surge and a flickering ghost holds still in view: the last fight is

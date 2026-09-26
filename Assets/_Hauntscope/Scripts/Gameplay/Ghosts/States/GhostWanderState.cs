@@ -1,3 +1,4 @@
+using System;
 using Hauntscope.Core.StateMachines;
 using UnityEngine;
 
@@ -14,6 +15,9 @@ namespace Hauntscope.Gameplay.Ghosts.States
             _context = context;
             _speedMultiplier = speedMultiplier;
         }
+
+        // Each new wander target is a moment of choice for the ghost, e.g. to go into hiding instead.
+        public event Action TargetPicked;
 
         public void Enter()
         {
@@ -44,6 +48,7 @@ namespace Hauntscope.Gameplay.Ghosts.States
 
             _context.Mover.SetTarget(target);
             _timeUntilNextTarget = random.Range(_context.Config.WanderIntervalMin, _context.Config.WanderIntervalMax);
+            TargetPicked?.Invoke();
         }
     }
 }
