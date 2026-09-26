@@ -22,26 +22,26 @@ namespace Hauntscope.Editor
         private static readonly GhostRecipe[] Recipes =
         {
             new GhostRecipe("wisp", "Wisp", GhostRarity.Common, "#4FF5E6", GhostMeshGenerator.BuildWisp,
-                moveSpeed: 0.45f, fleeSpeed: 1.3f, resistance: 0.8f, reward: 10,
+                moveSpeed: 0.45f, fleeSpeed: 1.3f, resistance: 0.8f, reward: 10, threat: 1,
                 eyeCenter: new Vector3(0f, -0.07f, 0.17f), eyeSpacing: 0.06f, eyeScale: new Vector3(0.04f, 0.05f, 0.02f)),
             new GhostRecipe("poltergeist", "Poltergeist", GhostRarity.Common, "#3DFF6E", GhostMeshGenerator.BuildPoltergeist,
-                moveSpeed: 0.8f, fleeSpeed: 1.9f, resistance: 1f, reward: 15,
+                moveSpeed: 0.8f, fleeSpeed: 1.9f, resistance: 1f, reward: 15, threat: 2,
                 eyeCenter: new Vector3(0f, 0.34f, 0.3f), eyeSpacing: 0.1f, eyeScale: new Vector3(0.06f, 0.08f, 0.03f),
                 abilityPath: Root + "/Data/Abilities/PoltergeistTeleport.asset", abilityType: typeof(TeleportAbilityConfig)),
             new GhostRecipe("wraith", "Wraith", GhostRarity.Common, "#E6EDF3", GhostMeshGenerator.BuildWraith,
-                moveSpeed: 1.1f, fleeSpeed: 2.4f, resistance: 0.9f, reward: 20,
+                moveSpeed: 1.1f, fleeSpeed: 2.4f, resistance: 0.9f, reward: 20, threat: 3,
                 eyeCenter: new Vector3(0f, 0.69f, 0.23f), eyeSpacing: 0.045f, eyeScale: new Vector3(0.035f, 0.012f, 0.02f),
                 abilityPath: Root + "/Data/Abilities/WraithDash.asset", abilityType: typeof(DashAbilityConfig)),
             new GhostRecipe("shade", "Shade", GhostRarity.Rare, "#9B5CFF", GhostMeshGenerator.BuildShade,
-                moveSpeed: 0.55f, fleeSpeed: 1.6f, resistance: 1f, reward: 30,
+                moveSpeed: 0.55f, fleeSpeed: 1.6f, resistance: 1f, reward: 30, threat: 3,
                 eyeCenter: new Vector3(0f, 0.6f, 0.17f), eyeSpacing: 0.06f, eyeScale: new Vector3(0.045f, 0.025f, 0.02f),
                 abilityPath: Root + "/Data/Abilities/ShadeBlink.asset", abilityType: typeof(BlinkAbilityConfig)),
             new GhostRecipe("banshee", "Banshee", GhostRarity.Rare, "#FF3B3B", GhostMeshGenerator.BuildBanshee,
-                moveSpeed: 0.6f, fleeSpeed: 1.5f, resistance: 1.1f, reward: 35,
+                moveSpeed: 0.6f, fleeSpeed: 1.5f, resistance: 1.1f, reward: 35, threat: 4,
                 eyeCenter: new Vector3(0f, 0.6f, 0.11f), eyeSpacing: 0.042f, eyeScale: new Vector3(0.022f, 0.034f, 0.015f),
                 abilityPath: Root + "/Data/Abilities/BansheeShriek.asset", abilityType: typeof(ShriekAbilityConfig)),
             new GhostRecipe("mimic", "Mimic", GhostRarity.Legendary, "#FFD166", GhostMeshGenerator.BuildMimic,
-                moveSpeed: 0.7f, fleeSpeed: 1.8f, resistance: 1.4f, reward: 60,
+                moveSpeed: 0.7f, fleeSpeed: 1.8f, resistance: 1.4f, reward: 60, threat: 5,
                 eyeCenter: new Vector3(0f, 0.06f, 0.33f), eyeSpacing: 0.13f, eyeScale: new Vector3(0.075f, 0.1f, 0.03f),
                 abilityPath: Root + "/Data/Abilities/MimicDecoy.asset", abilityType: typeof(DecoyAbilityConfig))
         };
@@ -221,6 +221,12 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_motion._fleeSpeed").floatValue = recipe.FleeSpeed;
             serialized.FindProperty("_capture._resistance").floatValue = recipe.Resistance;
             serialized.FindProperty("_capture._reward").intValue = recipe.Reward;
+            serialized.FindProperty("_dossier._rumorKey").stringValue = $"ghost.{recipe.Id}.rumor";
+            serialized.FindProperty("_dossier._behaviorKey").stringValue = $"ghost.{recipe.Id}.behavior";
+            serialized.FindProperty("_dossier._tacticsKey").stringValue = $"ghost.{recipe.Id}.tactics";
+            serialized.FindProperty("_dossier._classifiedKey").stringValue = $"ghost.{recipe.Id}.classified";
+            serialized.FindProperty("_dossier._tipKey").stringValue = $"ghost.{recipe.Id}.tip";
+            serialized.FindProperty("_dossier._threat").intValue = recipe.Threat;
 
             var abilities = serialized.FindProperty("_abilities");
             abilities.arraySize = ability != null ? 1 : 0;
@@ -313,6 +319,7 @@ namespace Hauntscope.Editor
                 float fleeSpeed,
                 float resistance,
                 int reward,
+                int threat,
                 Vector3 eyeCenter,
                 float eyeSpacing,
                 Vector3 eyeScale,
@@ -329,6 +336,7 @@ namespace Hauntscope.Editor
                 FleeSpeed = fleeSpeed;
                 Resistance = resistance;
                 Reward = reward;
+                Threat = threat;
                 EyeCenter = eyeCenter;
                 EyeSpacing = eyeSpacing;
                 EyeScale = eyeScale;
@@ -353,6 +361,8 @@ namespace Hauntscope.Editor
             public float Resistance { get; }
 
             public int Reward { get; }
+
+            public int Threat { get; }
 
             public Vector3 EyeCenter { get; }
 

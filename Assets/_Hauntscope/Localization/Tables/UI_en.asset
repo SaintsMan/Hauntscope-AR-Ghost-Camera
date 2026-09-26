@@ -492,6 +492,94 @@ MonoBehaviour:
     m_Localized: "  \xB7  "
     m_Metadata:
       m_Items: []
+  - m_Id: 350926537097216
+    m_Localized: SIGHTED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845952
+    m_Localized: DECLASSIFIED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845953
+    m_Localized: "CASE FILE #{0:00} \xB7 {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845954
+    m_Localized: COMMON
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845955
+    m_Localized: RARE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845956
+    m_Localized: LEGENDARY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845957
+    m_Localized: THREAT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845958
+    m_Localized: WITNESS REPORTS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845959
+    m_Localized: BEHAVIOUR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845960
+    m_Localized: CASE NOTES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845961
+    m_Localized: TACTICS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845962
+    m_Localized: PROFILE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845963
+    m_Localized: TOP SECRET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845964
+    m_Localized: Reveal it in the lens to declassify.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845965
+    m_Localized: Capture it to declassify.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845966
+    m_Localized: 'Captures left to declassify: {0}.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845967
+    m_Localized: 'Research grant: +{0}% ectoplasm for every catch.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845968
+    m_Localized: SPEED      {0:0.0} m/s
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845969
+    m_Localized: ESCAPE     {0:0.0} m/s
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845970
+    m_Localized: "RESISTANCE \xD7{0:0.0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845971
+    m_Localized: REWARD     {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845972
+    m_Localized: DECLASSIFIED
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -83,5 +83,43 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.AreEqual(2, _progress.ReviewPromptedAtCaptures);
         }
+
+        [Test]
+        public void MarkSighted_Twice_RaisesChangedOnce()
+        {
+            var progress = new PlayerProgress();
+            var changed = 0;
+            progress.Changed += () => changed++;
+
+            progress.MarkSighted("shade");
+            progress.MarkSighted("shade");
+
+            Assert.AreEqual(1, changed);
+            Assert.IsTrue(progress.IsSighted("shade"));
+        }
+
+        [Test]
+        public void TrySpend_MoreThanBalance_KeepsTheBalance()
+        {
+            var progress = new PlayerProgress();
+            progress.AddEctoplasm(20);
+
+            var spent = progress.TrySpend(25);
+
+            Assert.IsFalse(spent);
+            Assert.AreEqual(20, progress.Ectoplasm.Value);
+        }
+
+        [Test]
+        public void TrySpend_EnoughBalance_Deducts()
+        {
+            var progress = new PlayerProgress();
+            progress.AddEctoplasm(40);
+
+            var spent = progress.TrySpend(25);
+
+            Assert.IsTrue(spent);
+            Assert.AreEqual(15, progress.Ectoplasm.Value);
+        }
     }
 }

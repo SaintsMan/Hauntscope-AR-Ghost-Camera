@@ -1,35 +1,55 @@
 using System;
 using System.Collections.Generic;
 using Hauntscope.Core.Services;
-using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Config;
+using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Progress;
+using Hauntscope.Gameplay.Research;
+using UnityEngine;
 using VContainer.Unity;
 
 namespace Hauntscope.UI.Menu
 {
+    // The Bestiary as agency case files (GDD 5.24): every ghost can be opened, and each research level
+    // declassifies more of its file.
     public sealed class BestiaryPresenter : IStartable, IDisposable
     {
         private const string CountKey = "bestiary.count";
         private const string TimesKey = "bestiary.times";
-        private const string CapturedKey = "bestiary.captured";
-        private const string UnknownKey = "bestiary.unknown";
         private const string UnknownNameKey = "bestiary.unknown_name";
+        private const string CaseKey = "bestiary.case";
+        private const string LockedSightKey = "bestiary.locked.sight";
+        private const string LockedCaptureKey = "bestiary.locked.capture";
+        private const string LockedDeclassifyKey = "bestiary.locked.declassify";
+        private const string BonusKey = "bestiary.bonus";
+        private const string SpeedKey = "bestiary.stat.speed";
+        private const string FleeKey = "bestiary.stat.flee";
+        private const string ResistanceKey = "bestiary.stat.resistance";
+        private const string RewardKey = "bestiary.stat.reward";
+        private const int Percent = 100;
+
+        private static readonly string[] StampKeys = { "bestiary.unknown", "bestiary.sighted", "bestiary.captured", "bestiary.declassified" };
+        private static readonly string[] RarityKeys = { "bestiary.rarity.common", "bestiary.rarity.rare", "bestiary.rarity.legendary" };
 
         private readonly BestiaryView _view;
         private readonly MenuNavigation _navigation;
         private readonly GhostConfig _ghosts;
         private readonly PlayerProgress _progress;
+        private readonly GhostResearch _research;
         private readonly ILocalizationService _localization;
         private readonly UiFeedback _ui;
         private readonly List<BestiaryCardView> _cards = new List<BestiaryCardView>();
         private readonly List<Action> _cardHandlers = new List<Action>();
+        private readonly List<DossierSection> _sections = new List<DossierSection>();
+
+        private int _openIndex = -1;
 
         public BestiaryPresenter(
             BestiaryView view,
             MenuNavigation navigation,
             GhostConfig ghosts,
             PlayerProgress progress,
+            GhostResearch research,
             ILocalizationService localization,
             UiFeedback ui)
         {
@@ -37,6 +57,7 @@ namespace Hauntscope.UI.Menu
             _navigation = navigation;
             _ghosts = ghosts;
             _progress = progress;
+            _research = research;
             _localization = localization;
             _ui = ui;
         }
@@ -45,9 +66,9 @@ namespace Hauntscope.UI.Menu
         {
             for (var i = 0; i < _ghosts.Ghosts.Count; i++)
             {
-                var ghost = _ghosts.Ghosts[i];
+                var index = i;
                 var card = _view.AddCard();
-                Action handler = () => OnCardClicked(ghost, card);
+                Action handler = () => OnCardClicked(index);
                 card.Clicked += handler;
                 _cards.Add(card);
                 _cardHandlers.Add(handler);
@@ -55,7 +76,7 @@ namespace Hauntscope.UI.Menu
 
             _navigation.Current.Changed += OnScreenChanged;
             _progress.Changed += Render;
-            _localization.Changed += Render;
+            _localization.Changed += OnLanguageChanged;
             _view.BackClicked += OnBackClicked;
             _view.DetailsCloseClicked += OnDetailsCloseClicked;
 
@@ -71,7 +92,7 @@ namespace Hauntscope.UI.Menu
 
             _navigation.Current.Changed -= OnScreenChanged;
             _progress.Changed -= Render;
-            _localization.Changed -= Render;
+            _localization.Changed -= OnLanguageChanged;
             _view.BackClicked -= OnBackClicked;
             _view.DetailsCloseClicked -= OnDetailsCloseClicked;
         }
@@ -79,50 +100,106 @@ namespace Hauntscope.UI.Menu
         private void OnScreenChanged(MenuScreen screen)
         {
             _view.SetVisible(screen == MenuScreen.Bestiary || screen == MenuScreen.BestiaryCard);
-            if (screen != MenuScreen.BestiaryCard)
-                _view.HideDetails();
+            if (screen == MenuScreen.BestiaryCard)
+                return;
+
+            _openIndex = -1;
+            _view.HideDetails();
+        }
+
+        private void OnLanguageChanged()
+        {
+            Render();
+            if (_openIndex >= 0)
+                ShowDetails(_openIndex, false);
         }
 
         private void Render()
         {
-            var known = 0;
+            var captured = 0;
             for (var i = 0; i < _cards.Count; i++)
             {
                 var ghost = _ghosts.Ghosts[i];
+                var level = _research.GetLevel(ghost);
                 var count = _progress.GetCaptureCount(ghost.Id);
                 if (count > 0)
-                {
-                    known++;
-                    _cards[i].SetCaptured(ghost.Icon, ghost.RimColor,
-                        _localization.Get(LocalizationTable.Ghosts, ghost.NameKey),
-                        _localization.Get(LocalizationTable.Ui, TimesKey, count),
-                        _localization.Get(LocalizationTable.Ui, CapturedKey));
-                }
-                else
-                {
-                    _cards[i].SetUnknown(ghost.Icon,
-                        _localization.Get(LocalizationTable.Ui, UnknownNameKey),
-                        _localization.Get(LocalizationTable.Ui, UnknownKey));
-                }
+                    captured++;
+
+                _cards[i].SetEntry(ghost.Icon, ghost.RimColor, Name(ghost, level),
+                    count > 0 ? _localization.Get(LocalizationTable.Ui, TimesKey, count) : string.Empty,
+                    _localization.Get(LocalizationTable.Ui, StampKeys[(int)level]), level);
             }
 
-            _view.SetCount(_localization.Get(LocalizationTable.Ui, CountKey, known, _cards.Count));
+            _view.SetCount(_localization.Get(LocalizationTable.Ui, CountKey, captured, _cards.Count));
         }
 
-        private void OnCardClicked(GhostData ghost, BestiaryCardView card)
+        private void OnCardClicked(int index)
         {
-            if (_progress.GetCaptureCount(ghost.Id) == 0)
-            {
-                _ui.PlayBack();
-                card.PlayLocked();
-                return;
-            }
-
             _ui.PlayClick();
-            _view.ShowDetails(ghost.Icon, ghost.RimColor,
-                _localization.Get(LocalizationTable.Ghosts, ghost.NameKey),
-                _localization.Get(LocalizationTable.Ghosts, ghost.DescriptionKey));
+            ShowDetails(index, true);
             _navigation.Show(MenuScreen.BestiaryCard);
+        }
+
+        private void ShowDetails(int index, bool retype)
+        {
+            _openIndex = index;
+            var ghost = _ghosts.Ghosts[index];
+            var level = _research.GetLevel(ghost);
+            var rarity = _localization.Get(LocalizationTable.Ui, RarityKeys[(int)ghost.Rarity]);
+            var header = new DossierHeader(ghost.Icon, ghost.RimColor, Name(ghost, level),
+                _localization.Get(LocalizationTable.Ui, CaseKey, index + 1, rarity),
+                _localization.Get(LocalizationTable.Ui, StampKeys[(int)level]), level, ghost.Dossier.Threat);
+
+            BuildSections(ghost, level);
+            _view.ShowDetails(header, _sections, retype);
+        }
+
+        private void BuildSections(GhostData ghost, ResearchLevel level)
+        {
+            var dossier = ghost.Dossier;
+            var sight = Ui(LockedSightKey);
+            var capture = Ui(LockedCaptureKey);
+            _sections.Clear();
+            _sections.Add(Section("bestiary.section.rumor", Ghosts(dossier.RumorKey), false, string.Empty));
+            _sections.Add(Section("bestiary.section.behavior", Ghosts(dossier.BehaviorKey), level < ResearchLevel.Sighted, sight));
+            _sections.Add(Section("bestiary.section.notes", Ghosts(ghost.DescriptionKey), level < ResearchLevel.Captured, capture));
+            _sections.Add(Section("bestiary.section.tactics", Ghosts(dossier.TacticsKey), level < ResearchLevel.Captured, capture));
+            _sections.Add(Section("bestiary.section.profile", Profile(ghost), level < ResearchLevel.Captured, capture));
+
+            var declassified = level == ResearchLevel.Declassified;
+            var classified = declassified
+                ? Ghosts(dossier.ClassifiedKey) + "\n\n" + Ui(BonusKey, Mathf.RoundToInt(_research.DeclassifiedBonus * Percent))
+                : string.Empty;
+            _sections.Add(Section("bestiary.section.classified", classified, !declassified,
+                Ui(LockedDeclassifyKey, _research.CapturesLeft(ghost))));
+        }
+
+        private string Profile(GhostData ghost)
+        {
+            return Ui(SpeedKey, ghost.Motion.MoveSpeed) + "\n" + Ui(FleeKey, ghost.Motion.FleeSpeed) + "\n"
+                + Ui(ResistanceKey, ghost.Capture.Resistance) + "\n" + Ui(RewardKey, ghost.Capture.Reward);
+        }
+
+        private DossierSection Section(string titleKey, string body, bool locked, string hint)
+        {
+            return new DossierSection(Ui(titleKey), body, locked, hint);
+        }
+
+        private string Name(GhostData ghost, ResearchLevel level)
+        {
+            return level >= ResearchLevel.Sighted
+                ? _localization.Get(LocalizationTable.Ghosts, ghost.NameKey)
+                : Ui(UnknownNameKey);
+        }
+
+        private string Ui(string key, params object[] args)
+        {
+            return _localization.Get(LocalizationTable.Ui, key, args);
+        }
+
+        private string Ghosts(string key)
+        {
+            return string.IsNullOrEmpty(key) ? string.Empty : _localization.Get(LocalizationTable.Ghosts, key);
         }
 
         private void OnBackClicked()

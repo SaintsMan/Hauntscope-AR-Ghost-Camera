@@ -31,5 +31,12 @@ MonoBehaviour:
   _capture:
     _resistance: 0.9
     _reward: 20
+  _dossier:
+    _rumorKey: ghost.wraith.rumor
+    _behaviorKey: ghost.wraith.behavior
+    _tacticsKey: ghost.wraith.tactics
+    _classifiedKey: ghost.wraith.classified
+    _tipKey: ghost.wraith.tip
+    _threat: 3
   _abilities:
   - {fileID: 11400000, guid: 559f4d8b2f6ca0148813ff350ff98c01, type: 2}

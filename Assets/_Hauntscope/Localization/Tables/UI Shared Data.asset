@@ -483,6 +483,94 @@ MonoBehaviour:
     m_Key: result.breakdown.separator
     m_Metadata:
       m_Items: []
+  - m_Id: 350926537097216
+    m_Key: bestiary.sighted
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845952
+    m_Key: bestiary.declassified
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845953
+    m_Key: bestiary.case
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845954
+    m_Key: bestiary.rarity.common
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845955
+    m_Key: bestiary.rarity.rare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845956
+    m_Key: bestiary.rarity.legendary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845957
+    m_Key: bestiary.threat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845958
+    m_Key: bestiary.section.rumor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845959
+    m_Key: bestiary.section.behavior
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845960
+    m_Key: bestiary.section.notes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845961
+    m_Key: bestiary.section.tactics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845962
+    m_Key: bestiary.section.profile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845963
+    m_Key: bestiary.section.classified
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845964
+    m_Key: bestiary.locked.sight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845965
+    m_Key: bestiary.locked.capture
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845966
+    m_Key: bestiary.locked.declassify
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845967
+    m_Key: bestiary.bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845968
+    m_Key: bestiary.stat.speed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845969
+    m_Key: bestiary.stat.flee
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845970
+    m_Key: bestiary.stat.resistance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845971
+    m_Key: bestiary.stat.reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845972
+    m_Key: result.declassified
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

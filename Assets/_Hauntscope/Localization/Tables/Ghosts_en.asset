@@ -72,6 +72,159 @@ MonoBehaviour:
       comes from another. Trust your ears until the lens catches it.
     m_Metadata:
       m_Items: []
+  - m_Id: 350925186531328
+    m_Localized: Night-shift nurses swear a small light drifts down the corridor
+      at 3 a.m. and flees from anyone who calls out to it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308544
+    m_Localized: Slow and harmless. It drifts around the room at a lazy pace, bolts
+      from the beam and calms down again after a couple of seconds.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308545
+    m_Localized: 'Keep it in the ring and don''t chase it: it circles back on its
+      own. The perfect catch to learn the beam on.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308546
+    m_Localized: 'Agency file 0-01: every wisp analysed so far carries the same faint
+      signal, a lullaby hummed at 432 Hz. Nobody knows whose.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308547
+    m_Localized: 'Wisps are slow: stay close, keep the ring on it and let the beam
+      finish.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308548
+    m_Localized: Plates fly off shelves and doors slam in empty rooms. Tenants say
+      the cold spot never stays in one place for long.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308549
+    m_Localized: "Once the capture passes 40%, it teleports 2\u20133 m away. It needs
+      about 5 seconds before it can jump again."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308550
+    m_Localized: 'After a jump, sweep the lens and lock on again fast: the next 5
+      seconds are your window to finish it.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308551
+    m_Localized: 'Poltergeists are not the spirits of the dead. Agency data suggests
+      they feed on stress: every one was found in a home in the middle of a quarrel.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308552
+    m_Localized: 'It teleports at 40%: after the jump, find it in the lens and lock
+      on again within 5 seconds.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308553
+    m_Localized: Drivers on the old bypass see a pale figure at the roadside, and
+      swear it was on the other side of the road a heartbeat later.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308554
+    m_Localized: The fastest runner on file. Under the beam it dashes 1.5 m sideways
+      across your line of sight, every 2 seconds.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308555
+    m_Localized: 'Step back: from farther away its dash moves it less on screen.
+      A wide ring (W2 Floodlight) or a tethering beam helps.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308556
+    m_Localized: Wraiths are echoes of people who died in a hurry. They are not running
+      from you; they are still running to whatever they were late for.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308557
+    m_Localized: 'Wraiths dash sideways under the beam: step back so the dash moves
+      them less on screen.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308558
+    m_Localized: It turns up in the corner of old photos and home videos, but never
+      twice in the same frame.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308559
+    m_Localized: 'Flickers in and out: visible for 1.2 s of every 2 s. The beam only
+      charges while it is visible, and progress fades in the gaps.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308560
+    m_Localized: Hold the beam through the gaps without moving the ring. The P4 Phase
+      Lance keeps its grip even while it is gone.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308561
+    m_Localized: 'A shade is not a spirit but a single moment: the frame a camera
+      missed. Agency tapes show the same shade in houses 900 km apart, on the same
+      night.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308562
+    m_Localized: 'The Shade only charges while visible: keep the ring still through
+      its flicker.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308563
+    m_Localized: Neighbours hear a woman crying through the walls the night before
+      something goes wrong. The ones who went to look don't talk about it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308564
+    m_Localized: 'Come closer than about 2.3 m while she is revealed and she shrieks:
+      she drops out of the lens for 2 s and the reveal resets. She needs 9 s to shriek
+      again.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308565
+    m_Localized: Keep your distance and hunt her from across the room. Right after
+      a shriek, the next 9 seconds are safe to push in.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308566
+    m_Localized: "Every banshee recording in the archive, slowed down 8\xD7, contains
+      a name. Never the same one. Agents are advised not to listen to them alone."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308567
+    m_Localized: 'The Banshee shrieks when you get closer than ~2.3 m: hunt her from
+      a distance.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308568
+    m_Localized: It talks in your own voice from the next room. The EMF meters in
+      that house never pointed the same way twice.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308569
+    m_Localized: 'The EMF lies: it points at a fake source at least 2.5 m away and
+      moves it every 5 s. The whisper comes from where it really is. Once revealed,
+      the lie stops.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308570
+    m_Localized: 'Trust your ears, not the meter: turn towards the whisper, then
+      sweep the lens. It resists hard, so bring spare batteries.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308571
+    m_Localized: 'The agency''s first mimic was never caught. Its file still reads
+      ''Agent on duty: unknown'', in handwriting that matches every agent who has
+      read it.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308572
+    m_Localized: 'The Mimic''s EMF is a decoy: follow the whisper, not the meter.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

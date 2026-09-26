@@ -183,5 +183,36 @@ namespace Hauntscope.Tests.EditMode
             Assert.IsFalse(_session.Result.Value.IsDoubled);
             Assert.AreEqual(6, _session.Result.Value.Reward);
         }
+
+        [Test]
+        public void Begin_NewHunt_ForgetsThePreviousSighting()
+        {
+            _session.Begin(_fixture.Ghost, _data);
+            _session.MarkSighted();
+
+            _session.Begin(_fixture.Ghost, _data);
+
+            Assert.IsFalse(_session.IsSighted);
+        }
+
+        [Test]
+        public void Finish_DeclassifyingCatch_IsFlagged()
+        {
+            _session.Begin(_fixture.Ghost, _data);
+
+            _session.Finish(HuntOutcome.Captured, false, 0, 1f, true);
+
+            Assert.IsTrue(_session.Result.Value.IsDeclassified);
+        }
+
+        [Test]
+        public void Finish_EscapedEvenIfFlagged_IsNotDeclassified()
+        {
+            _session.Begin(_fixture.Ghost, _data);
+
+            _session.Finish(HuntOutcome.Escaped, false, 0, 1f, true);
+
+            Assert.IsFalse(_session.Result.Value.IsDeclassified);
+        }
     }
 }

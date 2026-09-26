@@ -12,8 +12,10 @@ namespace Hauntscope.Gameplay.Hunt
             bool isFirstCapture = false,
             int found = 0,
             float rewardMultiplier = 1f,
-            bool isDoubled = false)
+            bool isDoubled = false,
+            bool isDeclassified = false)
         {
+            IsDeclassified = isDeclassified;
             IsFirstCapture = isFirstCapture;
             Outcome = outcome;
             Ghost = ghost;
@@ -38,6 +40,9 @@ namespace Hauntscope.Gameplay.Hunt
         // Research bonus for declassified ghosts (1 = none).
         public float RewardMultiplier { get; }
 
+        // This catch declassified the ghost's Bestiary file.
+        public bool IsDeclassified { get; }
+
         // A rewarded ad doubled the capture reward (not the pickups).
         public bool IsDoubled { get; }
 
@@ -49,7 +54,7 @@ namespace Hauntscope.Gameplay.Hunt
 
         public HuntResult WithDoubledCapture()
         {
-            return new HuntResult(Outcome, Ghost, Duration, IsFirstCapture, Found, RewardMultiplier, true);
+            return new HuntResult(Outcome, Ghost, Duration, IsFirstCapture, Found, RewardMultiplier, true, IsDeclassified);
         }
     }
 }

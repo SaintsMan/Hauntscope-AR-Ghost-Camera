@@ -31,5 +31,12 @@ MonoBehaviour:
   _capture:
     _resistance: 1
     _reward: 30
+  _dossier:
+    _rumorKey: ghost.shade.rumor
+    _behaviorKey: ghost.shade.behavior
+    _tacticsKey: ghost.shade.tactics
+    _classifiedKey: ghost.shade.classified
+    _tipKey: ghost.shade.tip
+    _threat: 3
   _abilities:
   - {fileID: 11400000, guid: 09e689a5ad1633a46b9d226fe2732f9e, type: 2}

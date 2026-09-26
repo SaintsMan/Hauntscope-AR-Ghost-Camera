@@ -31,5 +31,12 @@ MonoBehaviour:
   _capture:
     _resistance: 1.4
     _reward: 60
+  _dossier:
+    _rumorKey: ghost.mimic.rumor
+    _behaviorKey: ghost.mimic.behavior
+    _tacticsKey: ghost.mimic.tactics
+    _classifiedKey: ghost.mimic.classified
+    _tipKey: ghost.mimic.tip
+    _threat: 5
   _abilities:
   - {fileID: 11400000, guid: 2641c20cf7982ec4b9ba04db55da7657, type: 2}

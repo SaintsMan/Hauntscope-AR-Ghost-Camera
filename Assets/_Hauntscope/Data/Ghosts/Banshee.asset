@@ -31,5 +31,12 @@ MonoBehaviour:
   _capture:
     _resistance: 1.1
     _reward: 35
+  _dossier:
+    _rumorKey: ghost.banshee.rumor
+    _behaviorKey: ghost.banshee.behavior
+    _tacticsKey: ghost.banshee.tactics
+    _classifiedKey: ghost.banshee.classified
+    _tipKey: ghost.banshee.tip
+    _threat: 4
   _abilities:
   - {fileID: 11400000, guid: 697c040352c2ea3449d116d60c640314, type: 2}

@@ -20,6 +20,8 @@ namespace Hauntscope.UI.Hunt
         private const string ResearchKey = "result.breakdown.research";
         private const string FoundKey = "result.breakdown.found";
         private const string SeparatorKey = "result.breakdown.separator";
+        private const string NewEntryKey = "result.new_entry";
+        private const string DeclassifiedKey = "result.declassified";
         private const int SecondsPerMinute = 60;
 
         private readonly ResultView _view;
@@ -91,6 +93,23 @@ namespace Hauntscope.UI.Hunt
             return _localization.Get(LocalizationTable.Ui, RewardKey, amount);
         }
 
+        private string Badge(HuntResult result)
+        {
+            if (result.IsDeclassified)
+                return _localization.Get(LocalizationTable.Ui, DeclassifiedKey);
+            return result.IsFirstCapture ? _localization.Get(LocalizationTable.Ui, NewEntryKey) : string.Empty;
+        }
+
+        // A ghost that was seen and still got away leaves a tip against that ghost; one never found in the lens
+        // got away because the battery died, so the tip is about making a charge last.
+        private string Tip(HuntResult result)
+        {
+            var tipKey = result.Ghost.Dossier.TipKey;
+            return _session.IsSighted && !string.IsNullOrEmpty(tipKey)
+                ? _localization.Get(LocalizationTable.Ghosts, tipKey)
+                : _localization.Get(LocalizationTable.Ui, BatteryTipKey);
+        }
+
         private string Breakdown(HuntResult result)
         {
             var separator = _localization.Get(LocalizationTable.Ui, SeparatorKey);
@@ -112,9 +131,8 @@ namespace Hauntscope.UI.Hunt
             var captured = result.Outcome == HuntOutcome.Captured;
             _view.SetTitle(_localization.Get(LocalizationTable.Ui, captured ? CapturedKey : EscapedKey), captured);
             _view.SetGhost(result.Ghost.Icon, result.Ghost.RimColor, captured);
-            _view.SetNewEntry(result.IsFirstCapture);
-            // A ghost only escapes when the battery dies, so the lost hunt ends with how to make a charge last.
-            _view.SetTip(captured ? string.Empty : _localization.Get(LocalizationTable.Ui, BatteryTipKey));
+            _view.SetBadge(Badge(result));
+            _view.SetTip(captured ? string.Empty : Tip(result));
             _view.SetGhostName(_localization.Get(LocalizationTable.Ghosts, result.Ghost.NameKey));
             _view.SetReward(result.Reward, _formatReward);
             _view.SetBreakdown(captured ? Breakdown(result) : string.Empty);

@@ -1,6 +1,5 @@
 using System;
-using DG.Tweening;
-using Hauntscope.UI.Common;
+using Hauntscope.Gameplay.Research;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,38 +19,45 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private Color _unknownColor;
         [SerializeField] private Color _unknownStampColor;
         [SerializeField] private Color _capturedStampColor;
+        [SerializeField] private Color _sightedStampColor = new Color(1f, 0.71f, 0.28f, 1f);
+        [SerializeField] private Color _declassifiedStampColor = new Color(1f, 0.82f, 0.4f, 1f);
+        [SerializeField, Range(0f, 1f)] private float _sightedTint = 0.3f;
+        [SerializeField, Range(0f, 1f)] private float _sightedBorderAlpha = 0.55f;
 
         public event Action Clicked;
 
-        public void SetCaptured(Sprite icon, Color accent, string ghostName, string count, string stamp)
+        // A ghost the agency has only glimpsed stays a silhouette with a trace of its colour; a caught one is shown whole.
+        public void SetEntry(Sprite icon, Color accent, string ghostName, string count, string stamp, ResearchLevel level)
         {
+            var known = level >= ResearchLevel.Captured;
             _icon.sprite = icon;
-            _icon.color = Color.white;
-            _border.color = accent;
+            _icon.color = known ? Color.white
+                : level == ResearchLevel.Sighted ? Color.Lerp(_silhouetteColor, accent, _sightedTint) : _silhouetteColor;
+
+            var border = accent;
+            if (level == ResearchLevel.Sighted)
+                border.a *= _sightedBorderAlpha;
+            _border.color = level == ResearchLevel.Unknown ? _unknownColor : border;
+
             _nameLabel.text = ghostName;
-            _nameLabel.color = Color.white;
+            _nameLabel.color = level == ResearchLevel.Unknown ? _unknownColor : Color.white;
             _countLabel.text = count;
-            SetStamp(stamp, _capturedStampColor);
+            SetStamp(stamp, StampColor(level));
         }
 
-        public void SetUnknown(Sprite icon, string ghostName, string stamp)
+        private Color StampColor(ResearchLevel level)
         {
-            _icon.sprite = icon;
-            _icon.color = _silhouetteColor;
-            _border.color = _unknownColor;
-            _nameLabel.text = ghostName;
-            _nameLabel.color = _unknownColor;
-            _countLabel.text = string.Empty;
-            SetStamp(stamp, _unknownStampColor);
-        }
-
-        // Tapping a ghost that was never caught gets a short "no": the card jerks and the stamp flashes.
-        public void PlayLocked()
-        {
-            transform.DOKill(true);
-            transform.DOPunchRotation(new Vector3(0f, 0f, 5f), 0.35f, 10).Ui(gameObject);
-            _stampFrame.DOKill(true);
-            _stampFrame.DOFade(1f, 0.08f).SetLoops(2, LoopType.Yoyo).Ui(gameObject);
+            switch (level)
+            {
+                case ResearchLevel.Sighted:
+                    return _sightedStampColor;
+                case ResearchLevel.Captured:
+                    return _capturedStampColor;
+                case ResearchLevel.Declassified:
+                    return _declassifiedStampColor;
+                default:
+                    return _unknownStampColor;
+            }
         }
 
         private void SetStamp(string text, Color color)

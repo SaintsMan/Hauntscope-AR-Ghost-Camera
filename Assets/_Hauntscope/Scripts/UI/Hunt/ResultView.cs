@@ -26,6 +26,7 @@ namespace Hauntscope.UI.Hunt
         [SerializeField, Range(0f, 1f)] private float _glowAlpha = 0.35f;
         [SerializeField, FormerlySerializedAs("_reasonLabel")] private TMP_Text _tipLabel;
         [SerializeField] private GameObject _newEntryBadge;
+        [SerializeField] private TMP_Text _badgeLabel;
         [SerializeField] private GameObject _reward;
         [SerializeField] private RectTransform _rewardIcon;
         [SerializeField, Min(0f)] private float _countDelay = 0.45f;
@@ -68,9 +69,11 @@ namespace Hauntscope.UI.Hunt
             _tipLabel.text = text;
         }
 
-        public void SetNewEntry(bool visible)
+        // A stamp for a Bestiary milestone of this catch: a new entry, or a file declassified. Empty hides it.
+        public void SetBadge(string text)
         {
-            _newEntryBadge.SetActive(visible);
+            _newEntryBadge.SetActive(!string.IsNullOrEmpty(text));
+            _badgeLabel.text = text;
         }
 
         public void SetGhostName(string text)
@@ -159,6 +162,9 @@ namespace Hauntscope.UI.Hunt
             _tipLabel = Find<TMP_Text>("Card/Tip");
             _timeLabel = Find<TMP_Text>("Card/Time");
             _breakdownLabel = Find<TMP_Text>("Card/Breakdown");
+            var badge = transform.Find("Card/NewEntry");
+            _newEntryBadge = badge != null ? badge.gameObject : null;
+            _badgeLabel = Find<TMP_Text>("Card/NewEntry/Label");
             _huntAgainButton = Find<Button>("Card/HuntAgainButton");
             _menuButton = Find<Button>("Card/MenuButton");
         }

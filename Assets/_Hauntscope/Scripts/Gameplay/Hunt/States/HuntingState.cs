@@ -4,6 +4,7 @@ using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Pickups;
 using Hauntscope.Gameplay.Progress;
+using Hauntscope.Gameplay.Research;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 
@@ -26,6 +27,7 @@ namespace Hauntscope.Gameplay.Hunt.States
         private readonly HuntLoot _loot;
         private readonly PickupField _pickups;
         private readonly EmergencyCharge _emergency;
+        private readonly GhostResearch _research;
 
         public HuntingState(
             HuntSession session,
@@ -42,8 +44,10 @@ namespace Hauntscope.Gameplay.Hunt.States
             HuntModifiers modifiers,
             HuntLoot loot,
             PickupField pickups,
-            EmergencyCharge emergency)
+            EmergencyCharge emergency,
+            GhostResearch research)
         {
+            _research = research;
             _loot = loot;
             _pickups = pickups;
             _emergency = emergency;
@@ -104,6 +108,12 @@ namespace Hauntscope.Gameplay.Hunt.States
             _radar.Tick(deltaTime, ghost.EmfSource, ghost.EmfRange * _modifiers.EmfRange);
             _session.AddTime(deltaTime);
 
+            if (!_session.IsSighted && ghost.VisibleReveal >= ghost.Context.Config.AlertRevealThreshold)
+            {
+                _session.MarkSighted();
+                _progress.MarkSighted(_session.GhostData.Id);
+            }
+
             if (_scarePolicy.CanScare(_session, ghost, _camera))
             {
                 ghost.Scare();
@@ -113,8 +123,10 @@ namespace Hauntscope.Gameplay.Hunt.States
             if (_session.Result.Value != null)
                 return;
 
+            var data = _session.GhostData;
             if (ghost.IsCaptureFinished)
-                _session.Finish(HuntOutcome.Captured, _progress.GetCaptureCount(_session.GhostData.Id) == 0, _loot.Ectoplasm.Value);
+                _session.Finish(HuntOutcome.Captured, _progress.GetCaptureCount(data.Id) == 0, _loot.Ectoplasm.Value,
+                    _research.RewardMultiplier(data), _research.IsDeclassifyingCatch(data));
             else if (ghost.IsEscapeFinished)
                 _session.Finish(HuntOutcome.Escaped, false, _loot.Ectoplasm.Value);
         }

@@ -96,5 +96,29 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.AreEqual(0, progress.ReviewPromptedAtCaptures);
         }
+
+        [Test]
+        public void Load_AfterSightings_RestoresSightedGhosts()
+        {
+            var progress = new PlayerProgress();
+            progress.MarkSighted("banshee");
+            _repository.Save(progress);
+
+            var loaded = _repository.Load();
+
+            Assert.IsTrue(loaded.IsSighted("banshee"));
+            Assert.IsFalse(loaded.IsSighted("mimic"));
+        }
+
+        [Test]
+        public void Load_AfterSpending_KeepsTheRestOfTheBalance()
+        {
+            var progress = new PlayerProgress();
+            progress.AddEctoplasm(100);
+            progress.TrySpend(30);
+            _repository.Save(progress);
+
+            Assert.AreEqual(70, _repository.Load().Ectoplasm.Value);
+        }
     }
 }

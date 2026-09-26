@@ -20,6 +20,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private GhostMotion _motion = new GhostMotion();
         [SerializeField] private GhostDetection _detection = new GhostDetection();
         [SerializeField] private GhostCapture _capture = new GhostCapture();
+        [SerializeField] private GhostDossier _dossier = new GhostDossier();
         [SerializeField] private GhostAbilityConfig[] _abilities = Array.Empty<GhostAbilityConfig>();
 
         public string Id => _id;
@@ -43,6 +44,8 @@ namespace Hauntscope.Gameplay.Config
         public GhostDetection Detection => _detection;
 
         public GhostCapture Capture => _capture;
+
+        public GhostDossier Dossier => _dossier;
 
         public IReadOnlyList<GhostAbilityConfig> Abilities => _abilities;
     }

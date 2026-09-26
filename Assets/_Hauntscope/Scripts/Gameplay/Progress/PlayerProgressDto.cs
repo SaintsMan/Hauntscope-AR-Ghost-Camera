@@ -16,6 +16,7 @@ namespace Hauntscope.Gameplay.Progress
         // Added without a version bump: saves written before these fields simply read the default.
         [SerializeField] private bool _tutorialCompleted;
         [SerializeField] private int _reviewPromptedAtCaptures;
+        [SerializeField] private List<string> _sighted = new List<string>();
 
         // Required by JsonUtility, which creates DTOs through the parameterless constructor.
         public PlayerProgressDto()
@@ -29,8 +30,10 @@ namespace Hauntscope.Gameplay.Progress
             int totalSessions,
             bool virtualRoomNoticeShown,
             bool tutorialCompleted,
-            int reviewPromptedAtCaptures)
+            int reviewPromptedAtCaptures,
+            List<string> sighted)
         {
+            _sighted = sighted;
             _version = version;
             _ectoplasm = ectoplasm;
             _captures = captures;
@@ -53,5 +56,7 @@ namespace Hauntscope.Gameplay.Progress
         public bool TutorialCompleted => _tutorialCompleted;
 
         public int ReviewPromptedAtCaptures => _reviewPromptedAtCaptures;
+
+        public IReadOnlyList<string> Sighted => _sighted;
     }
 }

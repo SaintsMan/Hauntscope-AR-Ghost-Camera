@@ -31,4 +31,11 @@ MonoBehaviour:
   _capture:
     _resistance: 0.8
     _reward: 10
+  _dossier:
+    _rumorKey: ghost.wisp.rumor
+    _behaviorKey: ghost.wisp.behavior
+    _tacticsKey: ghost.wisp.tactics
+    _classifiedKey: ghost.wisp.classified
+    _tipKey: ghost.wisp.tip
+    _threat: 1
   _abilities: []

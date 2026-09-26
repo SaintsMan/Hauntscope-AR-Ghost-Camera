@@ -32,6 +32,7 @@ namespace Hauntscope.Gameplay.Hunt
             Elapsed = 0f;
             IsPlayersFirstHunt = isPlayersFirstHunt;
             HasScared = false;
+            IsSighted = false;
             _ghost.Value = ghost;
         }
 
@@ -46,9 +47,19 @@ namespace Hauntscope.Gameplay.Hunt
             Elapsed += deltaTime;
         }
 
-        public void Finish(HuntOutcome outcome, bool isFirstCapture = false, int found = 0, float rewardMultiplier = 1f)
+        public void Finish(HuntOutcome outcome, bool isFirstCapture = false, int found = 0, float rewardMultiplier = 1f, bool isDeclassified = false)
         {
-            _result.Value = new HuntResult(outcome, GhostData, Elapsed, isFirstCapture && outcome == HuntOutcome.Captured, found, rewardMultiplier);
+            var captured = outcome == HuntOutcome.Captured;
+            _result.Value = new HuntResult(outcome, GhostData, Elapsed, isFirstCapture && captured, found, rewardMultiplier, false,
+                isDeclassified && captured);
+        }
+
+        // The ghost was revealed in the lens during this hunt: its Bestiary file opens its behaviour section.
+        public bool IsSighted { get; private set; }
+
+        public void MarkSighted()
+        {
+            IsSighted = true;
         }
 
         public void DoubleCaptureReward()

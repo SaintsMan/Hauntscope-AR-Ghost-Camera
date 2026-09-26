@@ -8,6 +8,7 @@ namespace Hauntscope.Gameplay.Progress
     {
         private readonly ObservableValue<int> _ectoplasm;
         private readonly Dictionary<string, int> _captures;
+        private readonly HashSet<string> _sighted = new HashSet<string>();
 
         public PlayerProgress()
             : this(0, new Dictionary<string, int>(), 0, false)
@@ -20,7 +21,8 @@ namespace Hauntscope.Gameplay.Progress
             int totalSessions,
             bool virtualRoomNoticeShown,
             bool tutorialCompleted = false,
-            int reviewPromptedAtCaptures = 0)
+            int reviewPromptedAtCaptures = 0,
+            IEnumerable<string> sighted = null)
         {
             _ectoplasm = new ObservableValue<int>(ectoplasm);
             _captures = new Dictionary<string, int>();
@@ -30,6 +32,8 @@ namespace Hauntscope.Gameplay.Progress
             VirtualRoomNoticeShown = virtualRoomNoticeShown;
             TutorialCompleted = tutorialCompleted;
             ReviewPromptedAtCaptures = reviewPromptedAtCaptures;
+            if (sighted != null)
+                _sighted.UnionWith(sighted);
         }
 
         public event Action Changed;
@@ -58,6 +62,20 @@ namespace Hauntscope.Gameplay.Progress
                     total += count;
                 return total;
             }
+        }
+
+        // Ghosts revealed in the lens at least once, caught or not.
+        public IReadOnlyCollection<string> Sighted => _sighted;
+
+        public bool IsSighted(string ghostId)
+        {
+            return _sighted.Contains(ghostId);
+        }
+
+        public void MarkSighted(string ghostId)
+        {
+            if (_sighted.Add(ghostId))
+                Changed?.Invoke();
         }
 
         public int GetCaptureCount(string ghostId)
