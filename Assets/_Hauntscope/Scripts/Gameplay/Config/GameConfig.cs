@@ -22,6 +22,8 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private BootConfig _boot = new BootConfig();
         [SerializeField] private ReviewConfig _review = new ReviewConfig();
         [SerializeField] private StoreConfig _store = new StoreConfig();
+        [SerializeField] private PickupConfig _pickups = new PickupConfig();
+        [SerializeField] private EmergencyConfig _emergency = new EmergencyConfig();
 
         public int TargetFrameRate => _targetFrameRate;
 
@@ -56,5 +58,9 @@ namespace Hauntscope.Gameplay.Config
         public ReviewConfig Review => _review;
 
         public StoreConfig Store => _store;
+
+        public PickupConfig Pickups => _pickups;
+
+        public EmergencyConfig Emergency => _emergency;
     }
 }

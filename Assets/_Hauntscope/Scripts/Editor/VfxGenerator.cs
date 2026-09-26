@@ -30,6 +30,8 @@ namespace Hauntscope.Editor
 
         public static ParticleSystem RevealPulse { get; private set; }
 
+        public static ParticleSystem PickupBurst { get; private set; }
+
         public static GameObject CaptureBeamRig { get; private set; }
 
         public static void BuildAll(float captureDuration)
@@ -42,6 +44,7 @@ namespace Hauntscope.Editor
             CaptureSpiral = BuildCaptureSpiral(captureDuration);
             TeleportFlash = BuildTeleportFlash();
             RevealPulse = BuildRevealPulse();
+            PickupBurst = BuildPickupBurst();
             BuildBeamNoise();
             CaptureBeamRig = BuildCaptureBeam();
             AssetDatabase.SaveAssets();
@@ -191,6 +194,123 @@ namespace Hauntscope.Editor
             {
                 Object.DestroyImmediate(root);
             }
+        }
+
+        // Under every pickup: rings rippling out across the floor, a soft disc of light, motes rising around it and,
+        // for pickups meant to be spotted from across the room, a thin beam of light. Tinted per pickup at runtime.
+        public static void AddPickupMarker(GameObject pickup, bool beam)
+        {
+            var marker = new GameObject("Marker");
+            marker.transform.SetParent(pickup.transform, false);
+
+            var ripple = CreateSystem("Ripple", marker.transform, _ring, 4);
+            Looping(ripple, 1.4f, 0.72f);
+            var rippleMain = ripple.main;
+            rippleMain.startLifetime = 1.4f;
+            rippleMain.startSize = 0.9f;
+            ripple.transform.localPosition = new Vector3(0f, 0.01f, 0f);
+            ripple.GetComponent<ParticleSystemRenderer>().renderMode = ParticleSystemRenderMode.HorizontalBillboard;
+            SizeOverLifetime(ripple, Curve(0f, 0.15f, 1f, 1f));
+            AlphaOverLifetime(ripple, 0f, 0.1f, 0.9f, 1f, 0f);
+
+            var disc = CreateSystem("Disc", marker.transform, _dot, 3);
+            Looping(disc, 2f, 1f);
+            var discMain = disc.main;
+            discMain.startLifetime = 2.2f;
+            discMain.startSize = 0.6f;
+            disc.transform.localPosition = new Vector3(0f, 0.012f, 0f);
+            disc.GetComponent<ParticleSystemRenderer>().renderMode = ParticleSystemRenderMode.HorizontalBillboard;
+            AlphaOverLifetime(disc, 0f, 0.5f, 0.45f, 1f, 0f);
+
+            if (beam)
+            {
+                var shaft = CreateSystem("Beam", marker.transform, _streak, 4);
+                Looping(shaft, 1.2f, 2f);
+                var shaftMain = shaft.main;
+                shaftMain.startLifetime = 1.3f;
+                shaftMain.startSize = 0.09f;
+                shaft.transform.localPosition = new Vector3(0f, 0.7f, 0f);
+                var shape = shaft.shape;
+                shape.enabled = false;
+                Drift(shaft, 0.02f);
+                // A stretched billboard turns around its velocity, so the shaft always faces the camera and stays upright.
+                Stretch(shaft, 0f, 14f);
+                AlphaOverLifetime(shaft, 0f, 0.35f, 0.4f, 1f, 0f);
+            }
+
+            var motes = CreateSystem("Motes", marker.transform, _dot, 20);
+            Looping(motes, 1f, 6f);
+            var motesMain = motes.main;
+            motesMain.startLifetime = new ParticleSystem.MinMaxCurve(1.4f, 2.2f);
+            motesMain.startSize = new ParticleSystem.MinMaxCurve(0.01f, 0.022f);
+            var motesShape = motes.shape;
+            motesShape.shapeType = ParticleSystemShapeType.Circle;
+            motesShape.radius = 0.2f;
+            motesShape.rotation = new Vector3(90f, 0f, 0f);
+            Drift(motes, 0.14f);
+            Noise(motes, 0.04f, 1.5f);
+            AlphaOverLifetime(motes, 0f, 0.2f, 1f, 1f, 0f);
+        }
+
+        // Collecting a pickup: a flash, a ring and sparks that burst upwards.
+        private static ParticleSystem BuildPickupBurst()
+        {
+            var root = CreateRoot("PickupBurst");
+            try
+            {
+                var core = root.GetComponent<ParticleSystem>();
+                core.GetComponent<ParticleSystemRenderer>().sharedMaterial = _ring;
+                ConfigureOneShot(core, 0.1f, 0.5f, 0f, 1.1f);
+                Burst(core, 0f, 1);
+                SizeOverLifetime(core, Curve(0f, 0.1f, 0.35f, 0.85f, 1f, 1f));
+                AlphaOverLifetime(core, 1f, 0.3f, 0.8f, 1f, 0f);
+
+                var glow = CreateSystem("Glow", root.transform, _dot, 2);
+                ConfigureOneShot(glow, 0.1f, 0.35f, 0f, 1.2f);
+                Burst(glow, 0f, 1);
+                SizeOverLifetime(glow, Curve(0f, 0.6f, 0.2f, 1f, 1f, 0.6f));
+                AlphaOverLifetime(glow, 0.9f, 0.15f, 0.6f, 1f, 0f);
+
+                var sparks = CreateSystem("Sparks", root.transform, _streak, 40);
+                ConfigureOneShot(sparks, 0.1f, new ParticleSystem.MinMaxCurve(0.5f, 0.9f), new ParticleSystem.MinMaxCurve(1.2f, 2.4f),
+                    new ParticleSystem.MinMaxCurve(0.02f, 0.035f));
+                Burst(sparks, 0f, 32);
+                var shape = sparks.shape;
+                shape.shapeType = ParticleSystemShapeType.Cone;
+                shape.angle = 35f;
+                shape.radius = 0.05f;
+                shape.rotation = new Vector3(-90f, 0f, 0f);
+                Drag(sparks, 0.08f);
+                Stretch(sparks, 0.08f, 1.5f);
+                AlphaOverLifetime(sparks, 1f, 0.5f, 1f, 1f, 0f);
+
+                var motes = CreateSystem("Motes", root.transform, _dot, 24);
+                ConfigureOneShot(motes, 0.1f, new ParticleSystem.MinMaxCurve(0.8f, 1.4f), new ParticleSystem.MinMaxCurve(0.2f, 0.6f),
+                    new ParticleSystem.MinMaxCurve(0.015f, 0.03f));
+                Burst(motes, 0f, 20);
+                Sphere(motes, 0.15f, 0.5f);
+                Drift(motes, 0.3f);
+                Noise(motes, 0.06f, 2f);
+                AlphaOverLifetime(motes, 1f, 0.4f, 1f, 1f, 0f);
+
+                return SavePrefab(root);
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+
+        private static void Looping(ParticleSystem system, float duration, float rate)
+        {
+            var main = system.main;
+            main.loop = true;
+            main.playOnAwake = true;
+            main.duration = duration;
+            main.simulationSpace = ParticleSystemSimulationSpace.World;
+            main.startSpeed = 0f;
+            var emission = system.emission;
+            emission.rateOverTime = rate;
         }
 
         // The beam rig lives once per Hunt scene: two line renderers and an impact that sprays sparks while locked.

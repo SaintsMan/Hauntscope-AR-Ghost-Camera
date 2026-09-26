@@ -2,6 +2,7 @@ using Hauntscope.Core.StateMachines;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Ghosts;
+using Hauntscope.Gameplay.Pickups;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
@@ -22,6 +23,9 @@ namespace Hauntscope.Gameplay.Hunt.States
         private readonly ICameraPose _camera;
         private readonly HuntLoadout _loadout;
         private readonly HuntModifiers _modifiers;
+        private readonly HuntLoot _loot;
+        private readonly PickupField _pickups;
+        private readonly EmergencyCharge _emergency;
 
         public HuntingState(
             HuntSession session,
@@ -35,8 +39,14 @@ namespace Hauntscope.Gameplay.Hunt.States
             ScarePolicy scarePolicy,
             ICameraPose camera,
             HuntLoadout loadout,
-            HuntModifiers modifiers)
+            HuntModifiers modifiers,
+            HuntLoot loot,
+            PickupField pickups,
+            EmergencyCharge emergency)
         {
+            _loot = loot;
+            _pickups = pickups;
+            _emergency = emergency;
             _loadout = loadout;
             _modifiers = modifiers;
             _session = session;
@@ -59,14 +69,18 @@ namespace Hauntscope.Gameplay.Hunt.States
             var isFirstHunt = _progress.IsFirstSession;
             var data = _selector.Select(isFirstHunt);
             _progress.RegisterSession();
+            _loot.Reset();
             _loadout.Begin();
+            _emergency.ResetForHunt();
             _session.Begin(_factory.Create(data), data, isFirstHunt);
+            _pickups.Begin();
         }
 
         public void Exit()
         {
             _toolbelt.DeactivateAll();
             _radar.Reset();
+            _pickups.Clear();
         }
 
         public void Tick(float deltaTime)
@@ -74,13 +88,18 @@ namespace Hauntscope.Gameplay.Hunt.States
             var ghost = _session.Ghost.Value;
 
             _battery.Drain((_config.PassiveDrain + _toolbelt.TotalDrainPerSecond) * deltaTime);
-            if (_battery.IsDepleted)
+            if (_battery.IsDepleted && !ghost.IsCaptured && !ghost.IsEscaped)
             {
+                // The emergency card pauses the hunt; the ghost only gets away once there is no way to recharge.
+                if (_emergency.TryOffer())
+                    return;
+
                 _toolbelt.DeactivateAll();
                 ghost.Escape();
             }
 
             _toolbelt.Tick(deltaTime);
+            _pickups.Tick(deltaTime);
             ghost.Tick(deltaTime);
             _radar.Tick(deltaTime, ghost.EmfSource, ghost.EmfRange * _modifiers.EmfRange);
             _session.AddTime(deltaTime);
@@ -95,9 +114,9 @@ namespace Hauntscope.Gameplay.Hunt.States
                 return;
 
             if (ghost.IsCaptureFinished)
-                _session.Finish(HuntOutcome.Captured, _progress.GetCaptureCount(_session.GhostData.Id) == 0);
+                _session.Finish(HuntOutcome.Captured, _progress.GetCaptureCount(_session.GhostData.Id) == 0, _loot.Ectoplasm.Value);
             else if (ghost.IsEscapeFinished)
-                _session.Finish(HuntOutcome.Escaped);
+                _session.Finish(HuntOutcome.Escaped, false, _loot.Ectoplasm.Value);
         }
     }
 }

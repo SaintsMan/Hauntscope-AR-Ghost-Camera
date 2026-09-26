@@ -46,9 +46,16 @@ namespace Hauntscope.Gameplay.Hunt
             Elapsed += deltaTime;
         }
 
-        public void Finish(HuntOutcome outcome, bool isFirstCapture = false)
+        public void Finish(HuntOutcome outcome, bool isFirstCapture = false, int found = 0, float rewardMultiplier = 1f)
         {
-            _result.Value = new HuntResult(outcome, GhostData, Elapsed, isFirstCapture && outcome == HuntOutcome.Captured);
+            _result.Value = new HuntResult(outcome, GhostData, Elapsed, isFirstCapture && outcome == HuntOutcome.Captured, found, rewardMultiplier);
+        }
+
+        public void DoubleCaptureReward()
+        {
+            var result = _result.Value;
+            if (result != null && result.Outcome == HuntOutcome.Captured && !result.IsDoubled)
+                _result.Value = result.WithDoubledCapture();
         }
 
         public void RequestHuntAgain()

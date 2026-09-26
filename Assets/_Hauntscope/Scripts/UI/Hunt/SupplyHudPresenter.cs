@@ -2,6 +2,8 @@ using System;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Feedback;
+using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Pickups;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using UnityEngine;
@@ -12,6 +14,8 @@ namespace Hauntscope.UI.Hunt
     public sealed class SupplyHudPresenter : IStartable, IDisposable
     {
         private const string CountKey = "loadout.count";
+        private const string LootKey = "hud.loot";
+        private const int Percent = 100;
 
         private readonly SupplyHudView _view;
         private readonly SpareBatteries _spares;
@@ -22,6 +26,8 @@ namespace Hauntscope.UI.Hunt
         private readonly IHaptics _haptics;
         private readonly AudioConfig _audio;
         private readonly UiFeedback _ui;
+        private readonly HuntLoot _loot;
+        private readonly PickupField _pickups;
 
         private int _shownCount = -1;
         private bool _shownUsable;
@@ -35,8 +41,12 @@ namespace Hauntscope.UI.Hunt
             ISfxPlayer sfx,
             IHaptics haptics,
             AudioConfig audio,
-            UiFeedback ui)
+            UiFeedback ui,
+            HuntLoot loot,
+            PickupField pickups)
         {
+            _loot = loot;
+            _pickups = pickups;
             _view = view;
             _spares = spares;
             _battery = battery;
@@ -55,8 +65,12 @@ namespace Hauntscope.UI.Hunt
             _battery.Charge.Changed += OnChargeChanged;
             _loadout.Changed += RenderBoosters;
             _localization.Changed += OnLanguageChanged;
+            _loot.Ectoplasm.Changed += OnLootChanged;
+            _pickups.Collected += OnCollected;
+            _pickups.Spawned += OnSpawned;
             RenderSpare(true);
             RenderBoosters();
+            RenderLoot(false);
         }
 
         public void Dispose()
@@ -66,6 +80,9 @@ namespace Hauntscope.UI.Hunt
             _battery.Charge.Changed -= OnChargeChanged;
             _loadout.Changed -= RenderBoosters;
             _localization.Changed -= OnLanguageChanged;
+            _loot.Ectoplasm.Changed -= OnLootChanged;
+            _pickups.Collected -= OnCollected;
+            _pickups.Spawned -= OnSpawned;
         }
 
         private void OnSpareClicked()
@@ -91,6 +108,33 @@ namespace Hauntscope.UI.Hunt
         private void OnLanguageChanged()
         {
             RenderSpare(true);
+            RenderLoot(false);
+        }
+
+        private void OnLootChanged(int amount)
+        {
+            RenderLoot(amount > 0);
+        }
+
+        private void RenderLoot(bool punch)
+        {
+            var amount = _loot.Ectoplasm.Value;
+            _view.SetLoot(amount > 0, _localization.Get(LocalizationTable.Ui, LootKey, amount), punch);
+        }
+
+        private void OnCollected(Pickup pickup, PickupGain gain)
+        {
+            if (string.IsNullOrEmpty(pickup.Data.ToastKey))
+                return;
+
+            var percent = Mathf.RoundToInt(gain.Charge * Percent);
+            _view.ShowToast(_localization.Get(LocalizationTable.Ui, pickup.Data.ToastKey, gain.Ectoplasm, percent), pickup.Data.Color);
+        }
+
+        private void OnSpawned(Pickup pickup)
+        {
+            if (!string.IsNullOrEmpty(pickup.Data.AnnounceKey))
+                _view.ShowToast(_localization.Get(LocalizationTable.Ui, pickup.Data.AnnounceKey), pickup.Data.Color);
         }
 
         private void RenderSpare(bool force)

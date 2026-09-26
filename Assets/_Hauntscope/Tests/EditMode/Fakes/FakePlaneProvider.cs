@@ -1,3 +1,4 @@
+using System;
 using Hauntscope.Gameplay.Environment;
 using UnityEngine;
 
@@ -13,9 +14,16 @@ namespace Hauntscope.Tests.EditMode.Fakes
 
         public bool PlanesVisible { get; private set; }
 
+        public Func<Vector3, bool> FloorTest { get; set; } = _ => true;
+
         public void SetPlanesVisible(bool visible)
         {
             PlanesVisible = visible;
+        }
+
+        public bool IsFloorPoint(Vector3 point)
+        {
+            return FloorTest(point);
         }
     }
 }

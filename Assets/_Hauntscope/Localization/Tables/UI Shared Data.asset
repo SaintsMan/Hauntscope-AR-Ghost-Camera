@@ -427,6 +427,62 @@ MonoBehaviour:
     m_Key: loadout.count
     m_Metadata:
       m_Items: []
+  - m_Id: 347118767570944
+    m_Key: hud.loot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319680
+    m_Key: hud.pickup.ecto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319681
+    m_Key: hud.pickup.charge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319682
+    m_Key: hud.pickup.cell_nearby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319683
+    m_Key: emergency.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319684
+    m_Key: emergency.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319685
+    m_Key: emergency.spare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319686
+    m_Key: emergency.ad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319687
+    m_Key: emergency.give_up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319688
+    m_Key: emergency.seconds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319689
+    m_Key: result.breakdown.capture
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319690
+    m_Key: result.breakdown.research
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319691
+    m_Key: result.breakdown.found
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319692
+    m_Key: result.breakdown.separator
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

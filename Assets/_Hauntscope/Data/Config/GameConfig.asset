@@ -19,6 +19,7 @@ MonoBehaviour:
     _roomBoundsPadding: 0.3
     _spawnMinDistance: 2
     _spawnMaxDistance: 5
+    _floorTolerance: 0.15
   _ghost:
     _ghosts:
     - {fileID: 11400000, guid: 3ef98d6c258acb94891fc0449bc6a268, type: 2}
@@ -149,9 +150,10 @@ MonoBehaviour:
     _rewardGranted: {fileID: 8300000, guid: ee1c5c4b8923a58409eb4163778fef90, type: 3}
     _rewardVolume: 0.8
   _vfx:
-    _captureSpiral: {fileID: 0}
-    _teleportFlash: {fileID: 0}
-    _revealPulse: {fileID: 0}
+    _captureSpiral: {fileID: 3482571195191366530, guid: 6cc077c0fffe26544bbff774130ad3fc, type: 3}
+    _teleportFlash: {fileID: 9163850681629320366, guid: d281b30d52bb11d4fae5ccc1d73b5dcf, type: 3}
+    _revealPulse: {fileID: 7298845405034352830, guid: 100f08603d74b874a92e27dd76cbbfbb, type: 3}
+    _pickupBurst: {fileID: 4244323925081070652, guid: f489a33a572159443be892ff334deda2, type: 3}
     _beamOriginForward: 0.3
     _beamOriginDrop: 0.2
     _beamRange: 4
@@ -199,3 +201,37 @@ MonoBehaviour:
     - {fileID: 11400000, guid: fb66218587672634681629a61314cd93, type: 2}
     - {fileID: 11400000, guid: e60fd00f91282274e8a0cbd5ffe58f15, type: 2}
     - {fileID: 11400000, guid: 4ce1a41ea9b0ac64e82dffc3922b4c20, type: 2}
+  _pickups:
+    _spawns:
+    - _pickup: {fileID: 11400000, guid: 8e4a12f0e1fbe6f4f9bb827b9b88c56e, type: 2}
+      _trigger: 0
+      _chance: 1
+      _countMin: 2
+      _countMax: 4
+      _batteryBelow: 0
+    - _pickup: {fileID: 11400000, guid: d7619f6ef6bab2a4bac6aafcd08bf8ce, type: 2}
+      _trigger: 0
+      _chance: 0.3
+      _countMin: 1
+      _countMax: 1
+      _batteryBelow: 0
+    - _pickup: {fileID: 11400000, guid: b4950207e7917514f8f1723ef102fef9, type: 2}
+      _trigger: 1
+      _chance: 1
+      _countMin: 1
+      _countMax: 1
+      _batteryBelow: 0.5
+    _collectRadius: 0.6
+    _collectVisibility: 0.5
+    _collectDuration: 0.4
+    _collectTargetForward: 0.35
+    _collectTargetDrop: 0.2
+    _spawnMinDistance: 1.5
+    _spawnMaxDistance: 4.5
+    _minSpacing: 1
+    _lensRevealRange: 3.5
+    _lensRevealAngle: 40
+    _fadeTime: 0.4
+  _emergency:
+    _countdown: 8
+    _adCharge: 0.5

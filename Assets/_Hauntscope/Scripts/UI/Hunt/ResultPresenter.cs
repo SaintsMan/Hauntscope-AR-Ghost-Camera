@@ -16,6 +16,10 @@ namespace Hauntscope.UI.Hunt
         private const string RewardKey = "result.reward";
         private const string TimeKey = "result.time";
         private const string BatteryTipKey = "result.tip.battery";
+        private const string CaptureKey = "result.breakdown.capture";
+        private const string ResearchKey = "result.breakdown.research";
+        private const string FoundKey = "result.breakdown.found";
+        private const string SeparatorKey = "result.breakdown.separator";
         private const int SecondsPerMinute = 60;
 
         private readonly ResultView _view;
@@ -87,6 +91,18 @@ namespace Hauntscope.UI.Hunt
             return _localization.Get(LocalizationTable.Ui, RewardKey, amount);
         }
 
+        private string Breakdown(HuntResult result)
+        {
+            var separator = _localization.Get(LocalizationTable.Ui, SeparatorKey);
+            var text = _localization.Get(LocalizationTable.Ui, CaptureKey, result.BaseReward * (result.IsDoubled ? 2 : 1));
+            var research = result.CaptureReward - result.BaseReward * (result.IsDoubled ? 2 : 1);
+            if (research > 0)
+                text += separator + _localization.Get(LocalizationTable.Ui, ResearchKey, research);
+            if (result.Found > 0)
+                text += separator + _localization.Get(LocalizationTable.Ui, FoundKey, result.Found);
+            return text;
+        }
+
         private void Render(HuntResult result)
         {
             _view.SetVisible(result != null);
@@ -101,6 +117,7 @@ namespace Hauntscope.UI.Hunt
             _view.SetTip(captured ? string.Empty : _localization.Get(LocalizationTable.Ui, BatteryTipKey));
             _view.SetGhostName(_localization.Get(LocalizationTable.Ghosts, result.Ghost.NameKey));
             _view.SetReward(result.Reward, _formatReward);
+            _view.SetBreakdown(captured ? Breakdown(result) : string.Empty);
 
             var seconds = Mathf.FloorToInt(result.Duration);
             _view.SetTime(_localization.Get(LocalizationTable.Ui, TimeKey, seconds / SecondsPerMinute, seconds % SecondsPerMinute));

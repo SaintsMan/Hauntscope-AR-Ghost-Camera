@@ -8,6 +8,7 @@ namespace Hauntscope.Gameplay.Hunt
         None = 0,
         Manual = 1,
         Background = 2,
-        TrackingLost = 4
+        TrackingLost = 4,
+        Emergency = 8
     }
 }

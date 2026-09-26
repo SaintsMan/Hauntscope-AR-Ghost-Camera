@@ -30,6 +30,7 @@ namespace Hauntscope.UI.Hunt
         [SerializeField] private RectTransform _rewardIcon;
         [SerializeField, Min(0f)] private float _countDelay = 0.45f;
         [SerializeField, Min(0.05f)] private float _countDuration = 0.9f;
+        [SerializeField] private TMP_Text _breakdownLabel;
 
         private Func<int, string> _rewardFormat;
         private int _shownReward;
@@ -100,6 +101,13 @@ namespace Hauntscope.UI.Hunt
             _rewardIcon.DOPunchScale(Vector3.one * 0.35f, _countDuration, 6).SetDelay(_countDelay).Ui(gameObject);
         }
 
+        // Where the reward came from: the catch, the research bonus, pickups from the room.
+        public void SetBreakdown(string text)
+        {
+            _breakdownLabel.gameObject.SetActive(!string.IsNullOrEmpty(text));
+            _breakdownLabel.text = text;
+        }
+
         public void SetTime(string text)
         {
             _timeLabel.text = text;
@@ -150,6 +158,7 @@ namespace Hauntscope.UI.Hunt
             _rewardIcon = Find<RectTransform>("Card/Reward/Icon");
             _tipLabel = Find<TMP_Text>("Card/Tip");
             _timeLabel = Find<TMP_Text>("Card/Time");
+            _breakdownLabel = Find<TMP_Text>("Card/Breakdown");
             _huntAgainButton = Find<Button>("Card/HuntAgainButton");
             _menuButton = Find<Button>("Card/MenuButton");
         }

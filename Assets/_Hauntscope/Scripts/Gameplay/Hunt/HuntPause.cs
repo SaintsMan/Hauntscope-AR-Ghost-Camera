@@ -81,6 +81,15 @@ namespace Hauntscope.Gameplay.Hunt
                 PauseManually();
         }
 
+        // The emergency charge card holds the hunt while the player decides what to do with a dead battery.
+        public void SetEmergency(bool active)
+        {
+            if (active)
+                Add(PauseReason.Emergency);
+            else
+                Remove(PauseReason.Emergency);
+        }
+
         public void Dispose()
         {
             _tracking.IsTracking.Changed -= OnTrackingChanged;

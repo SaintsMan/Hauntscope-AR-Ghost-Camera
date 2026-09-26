@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82f4cf6e8a55fc347844d5982863e717, type: 3}
+  m_Name: EctoVial
+  m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Pickups.EctoplasmPickupData
+  _id: ecto_vial
+  _prefab: {fileID: 737902606027948763, guid: c5f9a6920a2357a4eb18c281321bec63, type: 3}
+  _color: {r: 0.23921569, g: 1, b: 0.43137255, a: 1}
+  _lensOnly: 0
+  _collectClip: {fileID: 8300000, guid: 2a6b256ac0006cf428cb3a9dfaecfdb4, type: 3}
+  _beaconClip: {fileID: 0}
+  _toastKey: hud.pickup.ecto
+  _announceKey: 
+  _minAmount: 3
+  _maxAmount: 6

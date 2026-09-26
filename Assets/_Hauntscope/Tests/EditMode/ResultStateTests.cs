@@ -115,5 +115,17 @@ namespace Hauntscope.Tests.EditMode
             serialized.ApplyModifiedPropertiesWithoutUndo();
             return data;
         }
+
+        [Test]
+        public void Enter_EscapedWithPickups_PaysOutTheFoundEctoplasm()
+        {
+            _session.Begin(_fixture.Ghost, CreateGhost("wisp"));
+            _session.Finish(HuntOutcome.Escaped, false, 9);
+
+            _state.Enter();
+
+            Assert.AreEqual(9, _progress.Ectoplasm.Value);
+            Assert.AreEqual(0, _progress.GetCaptureCount("wisp"));
+        }
     }
 }

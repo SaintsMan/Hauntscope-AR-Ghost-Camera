@@ -34,6 +34,23 @@ namespace Hauntscope.AR
                 plane.gameObject.SetActive(visible);
         }
 
+        public bool IsFloorPoint(Vector3 point)
+        {
+            foreach (var plane in _planeManager.trackables)
+            {
+                if (plane.alignment != PlaneAlignment.HorizontalUp || plane.subsumedBy != null)
+                    continue;
+                if (Mathf.Abs(plane.transform.position.y - FloorHeight) > _config.FloorTolerance)
+                    continue;
+
+                var local = plane.transform.InverseTransformPoint(point);
+                if (IsInside(plane.boundary, new Vector2(local.x, local.z)))
+                    return true;
+            }
+
+            return false;
+        }
+
         public void Dispose()
         {
             _planeManager.trackablesChanged.RemoveListener(OnTrackablesChanged);
@@ -83,6 +100,20 @@ namespace Hauntscope.AR
             HorizontalArea = area;
             RoomBounds = bounds;
             FloorHeight = hasBounds ? floor : 0f;
+        }
+
+        private static bool IsInside(NativeArray<Vector2> polygon, Vector2 point)
+        {
+            var inside = false;
+            for (int i = 0, j = polygon.Length - 1; i < polygon.Length; j = i++)
+            {
+                var a = polygon[i];
+                var b = polygon[j];
+                if ((a.y > point.y) != (b.y > point.y) && point.x < (b.x - a.x) * (point.y - a.y) / (b.y - a.y) + a.x)
+                    inside = !inside;
+            }
+
+            return inside;
         }
 
         private static float CalculatePolygonArea(NativeArray<Vector2> boundary)

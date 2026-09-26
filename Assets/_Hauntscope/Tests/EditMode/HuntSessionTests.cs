@@ -124,5 +124,64 @@ namespace Hauntscope.Tests.EditMode
             Assert.AreEqual(0f, _session.Elapsed);
             Assert.IsFalse(_session.IsHuntAgainRequested);
         }
+
+        [Test]
+        public void Finish_CapturedWithPickups_RewardAddsFound()
+        {
+            _session.Begin(_fixture.Ghost, _data);
+
+            _session.Finish(HuntOutcome.Captured, false, 7);
+
+            var result = _session.Result.Value;
+            Assert.AreEqual(_data.Capture.Reward, result.CaptureReward);
+            Assert.AreEqual(7, result.Found);
+            Assert.AreEqual(_data.Capture.Reward + 7, result.Reward);
+        }
+
+        [Test]
+        public void Finish_EscapedWithPickups_KeepsOnlyFound()
+        {
+            _session.Begin(_fixture.Ghost, _data);
+
+            _session.Finish(HuntOutcome.Escaped, false, 5);
+
+            Assert.AreEqual(0, _session.Result.Value.CaptureReward);
+            Assert.AreEqual(5, _session.Result.Value.Reward);
+        }
+
+        [Test]
+        public void Finish_ResearchMultiplier_RoundsTheCaptureBonus()
+        {
+            _session.Begin(_fixture.Ghost, _data);
+
+            _session.Finish(HuntOutcome.Captured, false, 0, 1.25f);
+
+            Assert.AreEqual(Mathf.RoundToInt(_data.Capture.Reward * 1.25f), _session.Result.Value.CaptureReward);
+        }
+
+        [Test]
+        public void DoubleCaptureReward_Captured_DoublesOnlyTheCatch()
+        {
+            _session.Begin(_fixture.Ghost, _data);
+            _session.Finish(HuntOutcome.Captured, false, 6);
+
+            _session.DoubleCaptureReward();
+
+            var result = _session.Result.Value;
+            Assert.IsTrue(result.IsDoubled);
+            Assert.AreEqual(_data.Capture.Reward * 2 + 6, result.Reward);
+        }
+
+        [Test]
+        public void DoubleCaptureReward_Escaped_ChangesNothing()
+        {
+            _session.Begin(_fixture.Ghost, _data);
+            _session.Finish(HuntOutcome.Escaped, false, 6);
+
+            _session.DoubleCaptureReward();
+
+            Assert.IsFalse(_session.Result.Value.IsDoubled);
+            Assert.AreEqual(6, _session.Result.Value.Reward);
+        }
     }
 }

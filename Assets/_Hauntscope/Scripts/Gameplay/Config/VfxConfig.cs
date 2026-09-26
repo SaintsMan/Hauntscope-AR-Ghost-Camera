@@ -9,6 +9,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private ParticleSystem _captureSpiral;
         [SerializeField] private ParticleSystem _teleportFlash;
         [SerializeField] private ParticleSystem _revealPulse;
+        [SerializeField] private ParticleSystem _pickupBurst;
         [SerializeField, Min(0f)] private float _beamOriginForward = 0.3f;
         [SerializeField, Min(0f)] private float _beamOriginDrop = 0.2f;
         [SerializeField, Min(0.5f)] private float _beamRange = 4f;
@@ -21,6 +22,8 @@ namespace Hauntscope.Gameplay.Config
         public ParticleSystem TeleportFlash => _teleportFlash;
 
         public ParticleSystem RevealPulse => _revealPulse;
+
+        public ParticleSystem PickupBurst => _pickupBurst;
 
         // The beam leaves from just below and in front of the lens, so it rises into view from the bottom edge.
         public float BeamOriginForward => _beamOriginForward;

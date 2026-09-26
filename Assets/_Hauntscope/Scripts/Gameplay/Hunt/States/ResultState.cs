@@ -32,7 +32,9 @@ namespace Hauntscope.Gameplay.Hunt.States
 
             var result = _session.Result.Value;
             if (result != null && result.Outcome == HuntOutcome.Captured)
-                _progress.AddCapture(result.Ghost.Id, result.Reward);
+                _progress.AddCapture(result.Ghost.Id, result.CaptureReward);
+            if (result != null)
+                _progress.AddEctoplasm(result.Found);
 
             _progressRepository.Save(_progress);
         }

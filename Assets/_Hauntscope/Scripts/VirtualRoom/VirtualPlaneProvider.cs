@@ -6,8 +6,14 @@ namespace Hauntscope.VirtualRoom
 {
     public sealed class VirtualPlaneProvider : IPlaneProvider
     {
+        // Casting down from below table height: the first thing hit is the floor only where nothing stands on it.
+        private const float ProbeHeight = 1.2f;
+
+        private readonly Collider _floor;
+
         public VirtualPlaneProvider(Collider floor, RoomConfig config)
         {
+            _floor = floor;
             var floorBounds = floor.bounds;
             FloorHeight = floorBounds.max.y;
 
@@ -30,6 +36,13 @@ namespace Hauntscope.VirtualRoom
 
         public void SetPlanesVisible(bool visible)
         {
+        }
+
+        public bool IsFloorPoint(Vector3 point)
+        {
+            var origin = new Vector3(point.x, FloorHeight + ProbeHeight, point.z);
+            return Physics.Raycast(origin, Vector3.down, out var hit, ProbeHeight * 2f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)
+                && hit.collider == _floor;
         }
     }
 }

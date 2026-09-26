@@ -436,6 +436,62 @@ MonoBehaviour:
     m_Localized: "\xD7{0}"
     m_Metadata:
       m_Items: []
+  - m_Id: 347118767570944
+    m_Localized: +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319680
+    m_Localized: +{0} ECTOPLASM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319681
+    m_Localized: +{1}% CHARGE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319682
+    m_Localized: SPARE CELL NEARBY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319683
+    m_Localized: BATTERY DEAD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319684
+    m_Localized: The ghost is slipping away. Recharge to keep hunting.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319685
+    m_Localized: "SPARE \xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319686
+    m_Localized: +50% CHARGE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319687
+    m_Localized: GIVE UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319688
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319689
+    m_Localized: CATCH +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319690
+    m_Localized: RESEARCH +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319691
+    m_Localized: FOUND +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319692
+    m_Localized: "  \xB7  "
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

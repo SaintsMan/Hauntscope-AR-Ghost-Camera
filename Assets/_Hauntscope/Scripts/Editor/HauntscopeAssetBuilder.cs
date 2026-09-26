@@ -58,6 +58,7 @@ namespace Hauntscope.Editor
             VfxGenerator.BuildAll(config.Ghost.CaptureDuration);
             SplashAnimationGenerator.Build(config.Boot);
             BuildGhosts();
+            PickupAssetBuilder.Build();
             AppIconGenerator.Build();
             StoreAssetBuilder.Build();
             WireConfig(config);
@@ -281,6 +282,7 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_vfx._captureSpiral").objectReferenceValue = VfxGenerator.CaptureSpiral;
             serialized.FindProperty("_vfx._teleportFlash").objectReferenceValue = VfxGenerator.TeleportFlash;
             serialized.FindProperty("_vfx._revealPulse").objectReferenceValue = VfxGenerator.RevealPulse;
+            serialized.FindProperty("_vfx._pickupBurst").objectReferenceValue = VfxGenerator.PickupBurst;
             serialized.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(config);
             AssetDatabase.SaveAssets();

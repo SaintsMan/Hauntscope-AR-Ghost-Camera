@@ -11,6 +11,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Min(0f)] private float _roomBoundsPadding = 0.3f;
         [SerializeField, Min(0f)] private float _spawnMinDistance = 2f;
         [SerializeField, Min(0f)] private float _spawnMaxDistance = 5f;
+        [SerializeField, Min(0f)] private float _floorTolerance = 0.15f;
 
         public RoomConfig()
         {
@@ -35,6 +36,9 @@ namespace Hauntscope.Gameplay.Config
         public float CalibratedMessageDuration => _calibratedMessageDuration;
 
         public float RoomBoundsPadding => _roomBoundsPadding;
+
+        // AR: a horizontal plane counts as floor when it is this close to the lowest one, so tables are not floor.
+        public float FloorTolerance => _floorTolerance;
 
         public float SpawnMinDistance => _spawnMinDistance;
 
