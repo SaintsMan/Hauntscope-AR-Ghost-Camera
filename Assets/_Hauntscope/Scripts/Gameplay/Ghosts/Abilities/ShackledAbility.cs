@@ -2,60 +2,58 @@ using UnityEngine;
 
 namespace Hauntscope.Gameplay.Ghosts.Abilities
 {
-    // The wraith refuses to be held in the reticle: once beamed it darts sideways across the line of sight,
-    // so the player has to re-aim instead of just holding the button.
-    public sealed class DashAbility : IGhostAbility
+    // The kaidannyk (GDD 5.32) fights the beam with its chains: at set points of the capture it yanks sideways, and if
+    // the ring has lost it when the yank ends, the capture slips back. Dropped below a point it has used, it re-arms.
+    public sealed class ShackledAbility : IGhostAbility
     {
-        private const float MinSideRoom = 0.5f;
+        private const float MinSideRoom = 0.4f;
 
+        private readonly float[] _thresholds;
         private readonly float _distance;
         private readonly float _duration;
-        private readonly float _cooldown;
-        private readonly float _staggerDuration;
-        private float _cooldownRemaining;
+        private readonly float _gripLoss;
+        private readonly float _rearm;
+
+        private int _next;
         private float _elapsed;
-        private bool _isDashing;
         private Vector3 _from;
         private Vector3 _to;
 
-        public DashAbility(float distance, float duration, float cooldown, float staggerDuration = 0f)
+        public ShackledAbility(float[] thresholds, float distance, float duration, float gripLoss, float rearm)
         {
-            _staggerDuration = staggerDuration;
+            _thresholds = thresholds;
             _distance = distance;
             _duration = duration;
-            _cooldown = cooldown;
+            _gripLoss = gripLoss;
+            _rearm = rearm;
         }
 
-        public bool IsDashing => _isDashing;
+        public bool IsYanking { get; private set; }
 
         public void Tick(Ghost ghost, float deltaTime)
         {
-            if (_isDashing)
+            if (IsYanking)
             {
                 Advance(ghost, deltaTime);
                 return;
             }
 
-            if (_cooldownRemaining > 0f)
-            {
-                _cooldownRemaining -= deltaTime;
-                return;
-            }
+            if (_next > 0 && ghost.CaptureProgress < _thresholds[_next - 1] - _rearm)
+                _next--;
 
-            if (ghost.IsBeamed)
+            if (_next < _thresholds.Length && ghost.IsBeamed && ghost.CaptureProgress >= _thresholds[_next])
                 Begin(ghost);
         }
 
         private void Begin(Ghost ghost)
         {
+            _next++;
             var context = ghost.Context;
-            // A dash into a wall would barely move; the other side of the line of sight is taken instead.
             var side = RoomReach.Sideways(context, MinSideRoom);
-
             _from = ghost.Position;
             _to = _from + side * Mathf.Min(_distance, RoomReach.Distance(context, side));
             _elapsed = 0f;
-            _isDashing = true;
+            IsYanking = true;
             ghost.DashTo(_to);
         }
 
@@ -65,13 +63,11 @@ namespace Hauntscope.Gameplay.Ghosts.Abilities
             var t = _duration > 0f ? Mathf.Clamp01(_elapsed / _duration) : 1f;
             var eased = 1f - (1f - t) * (1f - t);
             ghost.Context.Mover.Teleport(Vector3.Lerp(_from, _to, eased));
-
             if (t < 1f)
                 return;
 
-            _isDashing = false;
-            _cooldownRemaining = _cooldown;
-            ghost.Stagger(_staggerDuration);
+            IsYanking = false;
+            ghost.TestGrip(_gripLoss);
         }
     }
 }

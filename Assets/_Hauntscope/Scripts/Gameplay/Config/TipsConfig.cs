@@ -13,6 +13,10 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Min(0)] private int _coldSpotEmfLevel = 3;
         [SerializeField, Min(0)] private int _photoFromHunt = 2;
         [SerializeField] private string _catGhostId = "phantom_cat";
+        [SerializeField] private string _domovykGhostId = "domovyk";
+        [SerializeField] private string _negativeGhostId = "negative";
+        [SerializeField] private string _kaidannykGhostId = "kaidannyk";
+        [SerializeField] private string _maraGhostId = "mara";
         [SerializeField, Min(0)] private int _contractsMarkAfter = 1;
 
         public TipsConfig()
@@ -43,6 +47,15 @@ namespace Hauntscope.Gameplay.Config
         public int PhotoFromHunt => _photoFromHunt;
 
         public string CatGhostId => _catGhostId;
+
+        // Ghosts whose first hunt opens with their own tip (GDD 5.32): the rules they break are not in any other hunt.
+        public string DomovykGhostId => _domovykGhostId;
+
+        public string NegativeGhostId => _negativeGhostId;
+
+        public string KaidannykGhostId => _kaidannykGhostId;
+
+        public string MaraGhostId => _maraGhostId;
 
         // Hunts played before CONTRACTS gets its NEW mark.
         public int ContractsMarkAfter => _contractsMarkAfter;

@@ -29,6 +29,8 @@ namespace Hauntscope.Gameplay.Ghosts
         private bool _spookRequested;
         private bool _startleRequested;
         private bool _isHeld;
+        private float _gripTest;
+        private float _pendingBite;
         private bool _isSettled;
         private float _revealBeforeEscape;
         private Vector3 _emfDecoy;
@@ -109,6 +111,12 @@ namespace Hauntscope.Gameplay.Ghosts
 
         public event Action HideEnded;
 
+        public event Action Knocked;
+
+        public event Action Rattled;
+
+        public event Action Developed;
+
         public GhostContext Context { get; }
 
         public Vector3 Position => Context.Mover.Position;
@@ -118,8 +126,10 @@ namespace Hauntscope.Gameplay.Ghosts
 
         public float EmfRange => Context.Detection.EmfRange;
 
-        // Crouched in its hiding spot, it only shows up when the lens is right on top of it.
-        public float RevealRange => IsHiding ? Context.Hide.RevealRange : Context.Detection.RevealRange;
+        // Crouched in its hiding spot, it only shows up when the lens is right on top of it. Undeveloped, the negative
+        // gives the lens nothing to find at all.
+        public float RevealRange => IsPhotoOnly && !IsDeveloped ? 0f
+            : IsHiding ? Context.Hide.RevealRange : Context.Detection.RevealRange;
 
         public float Resistance => Context.Capture.Resistance;
 
@@ -151,6 +161,14 @@ namespace Hauntscope.Gameplay.Ghosts
         public bool IsHiding => _stateMachine.CurrentState == _hideState;
 
         public Vector3 HideSpot => _hideState.Spot;
+
+        // Lives on film: only a photo shows it to the lens, and only for a while (the negative).
+        public bool IsPhotoOnly => Context.PhotoOnly;
+
+        public bool IsDeveloped { get; private set; }
+
+        // Photos taken with it in the frame this hunt.
+        public int PhotoCount { get; private set; }
 
         public bool IsCaptured => _stateMachine.CurrentState == _capturedState;
 
@@ -308,6 +326,65 @@ namespace Hauntscope.Gameplay.Ghosts
             _staggerRemaining = 0f;
             _isSettled = false;
             _startleRequested = true;
+        }
+
+        // The domovyk knocking from inside its hiding spot: the player's cue to follow the sound.
+        public void Knock()
+        {
+            if (!IsLeaving && IsHiding)
+                Knocked?.Invoke();
+        }
+
+        // The domovyk's answer to a jump scare: the crockery rattles, nothing comes at the camera.
+        public void Rattle()
+        {
+            if (!IsLeaving)
+                Rattled?.Invoke();
+        }
+
+        public void NotifyPhotographed()
+        {
+            if (!IsLeaving)
+                PhotoCount++;
+        }
+
+        // Every photo develops it again, so each one flashes it back into sight.
+        public void SetDeveloped(bool developed)
+        {
+            if (IsLeaving)
+                return;
+
+            IsDeveloped = developed;
+            if (developed)
+                Developed?.Invoke();
+        }
+
+        // The end of a chain yank: the beam takes this much off the capture unless its ring still holds the ghost.
+        public void TestGrip(float loss)
+        {
+            if (!IsLeaving)
+                _gripTest = Mathf.Max(_gripTest, loss);
+        }
+
+        public float TakeGripTest()
+        {
+            var loss = _gripTest;
+            _gripTest = 0f;
+            return loss;
+        }
+
+        // A share of the battery taken by the ghost (the mara's lunge), for the hunt to drain.
+        public void Bite(float fraction)
+        {
+            if (!IsLeaving)
+                _pendingBite += fraction;
+        }
+
+        public float TakeBite()
+        {
+            var bite = _pendingBite;
+            _pendingBite = 0f;
+            return bite;
         }
 
         public void Spook()

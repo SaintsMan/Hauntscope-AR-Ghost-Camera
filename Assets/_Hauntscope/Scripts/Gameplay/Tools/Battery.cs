@@ -29,6 +29,12 @@ namespace Hauntscope.Gameplay.Tools
             SetCharge(_charge.Value - amount);
         }
 
+        // A share of a full charge gone at once (the mara's bite).
+        public void DrainFraction(float fraction)
+        {
+            SetCharge(_charge.Value - fraction * _config.BatteryMax);
+        }
+
         public void Recharge(float fraction)
         {
             SetCharge(_charge.Value + fraction * _config.BatteryMax);

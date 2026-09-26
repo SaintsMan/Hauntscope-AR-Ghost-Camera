@@ -94,6 +94,7 @@ namespace Hauntscope.Gameplay.Photo
             {
                 var fileName = await _capture.CaptureAsync(new PhotoCaption(data, score.Stars, taken.ToLocalTime()), cancellationToken);
                 ghost.SetPhotoFlash(false);
+                ghost.NotifyPhotographed();
                 ghost.Spook();
                 var record = new PhotoRecord(fileName, data.Id, score.Stars, new DateTimeOffset(taken).ToUnixTimeSeconds());
                 _album.Add(record);

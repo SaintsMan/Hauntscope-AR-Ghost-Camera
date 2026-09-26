@@ -113,5 +113,21 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.AreEqual(LensDrain * 0.5f, lens.DrainPerSecond, 1e-5f);
         }
+
+        [Test]
+        public void Tick_PhotoOnlyGhostUndeveloped_StaysUnrevealed()
+        {
+            var fixture = new GhostFixture(photoOnly: true);
+            fixture.Camera.Position = _fixture.Camera.Position;
+            fixture.Mover.Teleport(new Vector3(0f, 1f, 0f));
+            var session = new HuntSession();
+            session.Begin(fixture.Ghost, null);
+            var lens = new GhostLens(session, fixture.Camera, TestConfigs.Tools(revealInTime: RevealInTime), new HuntModifiers());
+            lens.Activate();
+
+            lens.Tick(RevealInTime);
+
+            Assert.AreEqual(0f, fixture.Ghost.Reveal);
+        }
     }
 }

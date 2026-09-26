@@ -19,7 +19,8 @@ namespace Hauntscope.Gameplay.Ghosts
             ICameraPose camera,
             HideConfig hide = null,
             IHideSpotProvider hideSpots = null,
-            bool canHide = false)
+            bool canHide = false,
+            bool photoOnly = false)
         {
             Motion = motion;
             Detection = detection;
@@ -34,6 +35,7 @@ namespace Hauntscope.Gameplay.Ghosts
             Hide = hide;
             HideSpots = hideSpots;
             CanHide = canHide && hide != null && hideSpots != null;
+            PhotoOnly = photoOnly;
         }
 
         public GhostMotion Motion { get; }
@@ -61,5 +63,7 @@ namespace Hauntscope.Gameplay.Ghosts
         public IHideSpotProvider HideSpots { get; }
 
         public bool CanHide { get; }
+
+        public bool PhotoOnly { get; }
     }
 }

@@ -9,6 +9,10 @@ namespace Hauntscope.Gameplay.Hunt
         ColdSpot,
         Cat,
         WitchingHour,
-        ShiftBreak
+        ShiftBreak,
+        Domovyk,
+        Negative,
+        Kaidannyk,
+        Mara
     }
 }

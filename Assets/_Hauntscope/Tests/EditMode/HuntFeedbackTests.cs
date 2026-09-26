@@ -394,5 +394,47 @@ namespace Hauntscope.Tests.EditMode
             Assert.IsTrue(fixture.Ghost.IsSurging);
             Assert.AreEqual(sounds + 1, _sfx.PlayCount);
         }
+
+        [Test]
+        public void Developed_Always_FlashesTheFilmAtTheGhost()
+        {
+            _session.Begin(_fixture.Ghost, null);
+
+            _fixture.Ghost.SetDeveloped(true);
+
+            Assert.AreEqual(new[] { VfxId.DevelopFlash }, _vfx.Played.ToArray());
+            Assert.AreEqual(new[] { HapticStrength.Light }, _haptics.Played.ToArray());
+        }
+
+        [Test]
+        public void Rattled_Always_JoltsTheHandWithoutAnyEffect()
+        {
+            _session.Begin(_fixture.Ghost, null);
+
+            _fixture.Ghost.Rattle();
+
+            Assert.IsEmpty(_vfx.Played);
+            Assert.AreEqual(new[] { HapticStrength.Medium }, _haptics.Played.ToArray());
+        }
+
+        [Test]
+        public void Knocked_FromHiding_ShakesDustOutAtTheGhost()
+        {
+            var fixture = new GhostFixture(hide: new HideConfig(1f, 5f, 8f, 8f, 1.2f, 2f, 2f));
+            fixture.HideSpots.SpotList.Add(new Vector3(1.5f, 0f, 1.5f));
+            fixture.Ghost.Start();
+            fixture.Ghost.SetReveal(1f);
+            fixture.Ghost.Tick(0.01f);
+            fixture.Ghost.SetReveal(0f);
+            fixture.Ghost.Tick(GhostFixture.AlertedPause + 0.02f);
+            fixture.Ghost.Tick(0.01f);
+            _session.Begin(fixture.Ghost, null);
+            _vfx.Played.Clear();
+
+            fixture.Ghost.Knock();
+
+            Assert.AreEqual(new[] { VfxId.KnockDust }, _vfx.Played.ToArray());
+            Assert.AreEqual(1, _sfx.PlayCount);
+        }
     }
 }

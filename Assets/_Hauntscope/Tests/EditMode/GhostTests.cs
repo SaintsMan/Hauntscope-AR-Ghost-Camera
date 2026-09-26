@@ -165,5 +165,49 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.AreEqual(GhostMood.Fleeing, _fixture.View.Mood);
         }
+
+        [Test]
+        public void RevealRange_PhotoOnlyUndeveloped_IsZero()
+        {
+            var fixture = new GhostFixture(photoOnly: true);
+
+            Assert.AreEqual(0f, fixture.Ghost.RevealRange);
+        }
+
+        [Test]
+        public void Knock_NotHiding_RaisesNothing()
+        {
+            var knocks = 0;
+            _fixture.Ghost.Knocked += () => knocks++;
+            _fixture.Ghost.Start();
+
+            _fixture.Ghost.Knock();
+
+            Assert.AreEqual(0, knocks);
+        }
+
+        [Test]
+        public void TakeBite_AfterTwoBites_ReturnsTheSumOnce()
+        {
+            _fixture.Ghost.Bite(0.2f);
+            _fixture.Ghost.Bite(0.1f);
+
+            var first = _fixture.Ghost.TakeBite();
+            var second = _fixture.Ghost.TakeBite();
+
+            Assert.AreEqual(0.3f, first, 1e-5f);
+            Assert.AreEqual(0f, second);
+        }
+
+        [Test]
+        public void TestGrip_Leaving_IsIgnored()
+        {
+            _fixture.Ghost.Start();
+            _fixture.Ghost.Capture();
+
+            _fixture.Ghost.TestGrip(0.25f);
+
+            Assert.AreEqual(0f, _fixture.Ghost.TakeGripTest());
+        }
     }
 }

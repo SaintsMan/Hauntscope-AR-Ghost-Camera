@@ -57,7 +57,7 @@ namespace Hauntscope.Gameplay.Ghosts
             view.SetRimColor(data.RimColor);
 
             var context = new GhostContext(data.Motion, data.Detection, data.Capture, _config, _scare, _capture, mover, _random, _planes,
-                _camera, _hide, _hideSpots, data.CanHide);
+                _camera, data.HasOwnHide ? data.Hide : _hide, _hideSpots, data.CanHide, data.PhotoOnly);
             var ghost = new Ghost(context, view, CreateAbilities(data));
             ghost.SetSpeedModifiers(_modifiers.GhostSpeed, _modifiers.BeamedGhostSpeed);
             ghost.Start();

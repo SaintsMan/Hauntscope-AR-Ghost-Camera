@@ -148,6 +148,9 @@ namespace Hauntscope.Gameplay.Feedback
             _ghost.Crept += OnCrept;
             _ghost.Lunged += OnLunged;
             _ghost.Settled += OnSettled;
+            _ghost.Knocked += OnKnocked;
+            _ghost.Rattled += OnRattled;
+            _ghost.Developed += OnDeveloped;
             var clip = _session.GhostData != null ? _session.GhostData.WhisperClip : null;
             _whisper = _sfx.PlayLoop(clip, _audio.WhisperVolume, true);
             _whisper?.SetPosition(_ghost.Position);
@@ -165,6 +168,9 @@ namespace Hauntscope.Gameplay.Feedback
                 _ghost.Crept -= OnCrept;
                 _ghost.Lunged -= OnLunged;
                 _ghost.Settled -= OnSettled;
+                _ghost.Knocked -= OnKnocked;
+                _ghost.Rattled -= OnRattled;
+                _ghost.Developed -= OnDeveloped;
             }
 
             _whisper?.Stop();
@@ -234,6 +240,9 @@ namespace Hauntscope.Gameplay.Feedback
             if (_settings.JumpScares.Value)
             {
                 _sfx.Play2D(_audio.ScareSting, _audio.ScareVolume, 1f);
+                var scream = Voice?.Scare;
+                if (scream != null)
+                    _sfx.Play2D(scream, _audio.ScreamVolume, 1f);
                 _haptics.Play(HapticStrength.Heavy);
                 return;
             }
@@ -247,6 +256,27 @@ namespace Hauntscope.Gameplay.Feedback
         {
             _sfx.Play3D(Or(Voice?.Ability, _audio.CatMeow), _ghost.Position, _audio.MeowVolume);
             _sfx.Play3D(_audio.CatPurr, _ghost.Position, _audio.PurrVolume);
+            _haptics.Play(HapticStrength.Light);
+        }
+
+        // Heard through the furniture, with dust shaken loose where it sits.
+        private void OnKnocked()
+        {
+            _sfx.Play3D(Or(Voice?.Ability, _audio.Knock), _ghost.Position, _audio.KnockVolume);
+            _vfx.Play(VfxId.KnockDust, _ghost.Position, RimColor);
+        }
+
+        // All noise and no lunge, so neither the sting nor the scare flash: just its crockery and a jolt in the hand.
+        private void OnRattled()
+        {
+            PlayVoice(Voice?.Scare, _audio.RattleVolume);
+            _haptics.Play(HapticStrength.Medium);
+        }
+
+        private void OnDeveloped()
+        {
+            _sfx.Play3D(Or(Voice?.Ability, _audio.GhostReveal), _ghost.Position, _audio.DevelopVolume);
+            _vfx.Play(VfxId.DevelopFlash, _ghost.Position, RimColor);
             _haptics.Play(HapticStrength.Light);
         }
 

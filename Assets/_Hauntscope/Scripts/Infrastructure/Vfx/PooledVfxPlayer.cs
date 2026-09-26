@@ -30,6 +30,8 @@ namespace Hauntscope.Infrastructure.Vfx
             Register(VfxId.ColdSpot, config.ColdSpot);
             Register(VfxId.DashStreak, config.DashStreak);
             Register(VfxId.ShriekWave, config.ShriekWave);
+            Register(VfxId.KnockDust, config.KnockDust);
+            Register(VfxId.DevelopFlash, config.DevelopFlash);
         }
 
         public void Play(VfxId id, Vector3 position, Color color)

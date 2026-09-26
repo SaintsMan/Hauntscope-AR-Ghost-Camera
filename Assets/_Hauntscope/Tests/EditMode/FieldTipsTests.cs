@@ -291,7 +291,7 @@ namespace Hauntscope.Tests.EditMode
             var context = new FieldTipContext(_session, _beam, radar, _camera, _shift.Shift, _progress, _ghost.Camera, config);
             var rules = new IFieldTipRule[]
             {
-                new ShiftBreakTipRule(), new CatTipRule(), new WitchingHourTipRule(), new StaggerTipRule(), new ColdSpotTipRule(),
+                new ShiftBreakTipRule(), new GhostTipRule(FieldTipId.Cat, "phantom_cat"), new WitchingHourTipRule(), new StaggerTipRule(), new ColdSpotTipRule(),
                 new CloseInTipRule(), new PhotoTipRule()
             };
             _tips = new FieldTips(rules, context, _session, _shift.Shift, _tutorial, _progress, _repository, config);

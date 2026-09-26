@@ -239,5 +239,15 @@ namespace Hauntscope.Tests.EditMode
             _camera.Tick(0f);
             return _camera.ShootAsync(CancellationToken.None).GetAwaiter().GetResult();
         }
+
+        [Test]
+        public void ShootAsync_Armed_CountsThePhotoOnTheGhost()
+        {
+            Arm();
+
+            Shoot();
+
+            Assert.AreEqual(1, _fixture.Ghost.PhotoCount);
+        }
     }
 }

@@ -88,10 +88,14 @@ namespace Hauntscope.Gameplay.Tools
                 progress = Mathf.Max(0f, progress - _capture.ScareProgressLoss);
             _wasScaring = ghost.IsScaring;
 
+            var gripLoss = ghost.TakeGripTest();
             var reveal = _modifiers.LocksHiddenGhosts ? Mathf.Max(ghost.Reveal, ghost.VisibleReveal) : ghost.VisibleReveal;
             var hitting = _isActive.Value && reveal > _config.BeamRevealThreshold;
             ghost.SetBeamed(hitting);
             _isLocked.Value = hitting && IsInReticle(ghost.Position);
+            // The kaidannyk's chains: a yank that left the ring empty tears the capture back.
+            if (!_isLocked.Value)
+                progress = Mathf.Max(0f, progress - gripLoss);
 
             var delta = _isLocked.Value
                 ? _rate.Charge(GhostDistance, ghost.IsStaggered, ghost.IsSurging, ghost.Resistance) * deltaTime

@@ -77,5 +77,13 @@ namespace Hauntscope.Tests.EditMode
             Assert.IsFalse(_battery.IsLow.Value);
             Assert.IsFalse(_battery.IsDepleted);
         }
+
+        [Test]
+        public void DrainFraction_Quarter_TakesAQuarterOfAFullCharge()
+        {
+            _battery.DrainFraction(0.25f);
+
+            Assert.AreEqual(Max * 0.75f, _battery.Charge.Value, 1e-4f);
+        }
     }
 }

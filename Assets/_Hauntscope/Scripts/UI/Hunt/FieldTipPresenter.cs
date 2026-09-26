@@ -10,7 +10,8 @@ namespace Hauntscope.UI.Hunt
     {
         private static readonly string[] Keys =
         {
-            null, "tips.stagger", "tips.close_in", "tips.photo", "tips.cold_spot", "tips.cat", "tips.witching_hour", "tips.shift_break"
+            null, "tips.stagger", "tips.close_in", "tips.photo", "tips.cold_spot", "tips.cat", "tips.witching_hour", "tips.shift_break",
+            null, null, null, null
         };
 
         private readonly FieldTips _tips;
@@ -69,7 +70,8 @@ namespace Hauntscope.UI.Hunt
         private string Text(FieldTipId tip)
         {
             var dossierKey = _session.GhostData != null ? _session.GhostData.Dossier.TipKey : null;
-            if (tip == FieldTipId.Stagger && !string.IsNullOrEmpty(dossierKey))
+            // A ghost's own first-meeting tip has no UI line: it is the tip from its case file.
+            if ((tip == FieldTipId.Stagger || Keys[(int)tip] == null) && !string.IsNullOrEmpty(dossierKey))
                 return _localization.Get(LocalizationTable.Ghosts, dossierKey);
             return _localization.Get(LocalizationTable.Ui, Keys[(int)tip]);
         }

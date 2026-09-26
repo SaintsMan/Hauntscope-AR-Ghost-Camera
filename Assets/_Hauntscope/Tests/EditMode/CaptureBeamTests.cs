@@ -342,5 +342,32 @@ namespace Hauntscope.Tests.EditMode
             var config = TestConfigs.Tools(beamDrain: BeamDrain, reticleRadius: ReticleRadius, captureRate: CaptureRate, decayRate: DecayRate);
             return TestConfigs.Beam(session, _fixture.Camera, config, modifiers, capture);
         }
+
+        [Test]
+        public void Tick_YankLeftTheRingEmpty_TearsTheCaptureBack()
+        {
+            _fixture.Ghost.SetReveal(1f);
+            _beam.Activate();
+            _beam.Tick(2f);
+            _fixture.Ghost.TestGrip(0.25f);
+            _fixture.Camera.ViewportPoint = new Vector3(0.5f + ReticleRadius + 0.05f, 0.5f, 1f);
+
+            _beam.Tick(1f);
+
+            Assert.AreEqual(CaptureRate * 2f - 0.25f - DecayRate, _beam.Progress.Value, 1e-5f);
+        }
+
+        [Test]
+        public void Tick_YankButStillInTheRing_KeepsTheCapture()
+        {
+            _fixture.Ghost.SetReveal(1f);
+            _beam.Activate();
+            _beam.Tick(2f);
+            _fixture.Ghost.TestGrip(0.25f);
+
+            _beam.Tick(1f);
+
+            Assert.AreEqual(CaptureRate * 3f, _beam.Progress.Value, 1e-5f);
+        }
     }
 }

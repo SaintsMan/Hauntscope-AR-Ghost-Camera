@@ -62,10 +62,11 @@ namespace Hauntscope.Tests.EditMode
             float minFrameFill = 0.3f,
             float frameMargin = 0.03f,
             int evidenceMinStars = 2,
-            int albumLimit = 40)
+            int albumLimit = 40,
+            float photoOnlyRange = 3f)
         {
             return new PhotoConfig(filmPerHunt, shutterCooldown, revealThreshold, centerRadius, minFrameFill, frameMargin,
-                new[] { 2, 4, 8 }, evidenceMinStars, albumLimit);
+                new[] { 2, 4, 8 }, evidenceMinStars, albumLimit, photoOnlyRange);
         }
     }
 }

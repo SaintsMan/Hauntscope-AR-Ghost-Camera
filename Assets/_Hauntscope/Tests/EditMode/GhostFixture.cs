@@ -32,7 +32,7 @@ namespace Hauntscope.Tests.EditMode
         public const float ScareFaceDistance = 0.45f;
 
         public GhostFixture(float wanderInterval = 4f, float floorHeight = 0f, CaptureConfig capture = null, IGhostAbility[] abilities = null,
-            HideConfig hide = null)
+            HideConfig hide = null, bool photoOnly = false)
         {
             Planes = new FakePlaneProvider
             {
@@ -59,7 +59,8 @@ namespace Hauntscope.Tests.EditMode
                 Camera,
                 hide,
                 HideSpots,
-                hide != null);
+                hide != null,
+                photoOnly);
             View = new FakeGhostView();
             Ghost = new Ghost(Context, View, abilities ?? System.Array.Empty<IGhostAbility>());
         }

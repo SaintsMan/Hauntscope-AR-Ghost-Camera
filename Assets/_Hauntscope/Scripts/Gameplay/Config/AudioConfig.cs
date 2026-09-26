@@ -80,6 +80,10 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private AudioClip _catPurr;
         [SerializeField, Range(0f, 1f)] private float _purrVolume = 0.8f;
         [SerializeField, Range(0.5f, 1f)] private float _witchingHourDronePitch = 0.84f;
+        [SerializeField] private AudioClip _knock;
+        [SerializeField, Range(0f, 1f)] private float _knockVolume = 1f;
+        [SerializeField, Range(0f, 1f)] private float _rattleVolume = 0.9f;
+        [SerializeField, Range(0f, 1f)] private float _developVolume = 0.8f;
 
         public AudioClip AmbientDrone => _ambientDrone;
 
@@ -229,5 +233,15 @@ namespace Hauntscope.Gameplay.Config
         public float PurrVolume => _purrVolume;
 
         public float WitchingHourDronePitch => _witchingHourDronePitch;
+
+        // Knuckles on wood from inside the furniture: the domovyk's hiding spot.
+        public AudioClip Knock => _knock;
+
+        public float KnockVolume => _knockVolume;
+
+        public float RattleVolume => _rattleVolume;
+
+        // The negative flashing onto the film after a photo.
+        public float DevelopVolume => _developVolume;
     }
 }

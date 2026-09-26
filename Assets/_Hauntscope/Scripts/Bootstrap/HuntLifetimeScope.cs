@@ -1,5 +1,7 @@
+using System;
 using Hauntscope.AR;
 using Hauntscope.Gameplay.Ads;
+using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Ghosts;
@@ -122,7 +124,11 @@ namespace Hauntscope.Bootstrap
         {
             builder.Register<FieldTipContext>(Lifetime.Singleton);
             builder.Register<ShiftBreakTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
-            builder.Register<CatTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
+            RegisterGhostTip(builder, FieldTipId.Cat, tips => tips.CatGhostId);
+            RegisterGhostTip(builder, FieldTipId.Negative, tips => tips.NegativeGhostId);
+            RegisterGhostTip(builder, FieldTipId.Mara, tips => tips.MaraGhostId);
+            RegisterGhostTip(builder, FieldTipId.Kaidannyk, tips => tips.KaidannykGhostId);
+            RegisterGhostTip(builder, FieldTipId.Domovyk, tips => tips.DomovykGhostId);
             builder.Register<WitchingHourTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
             builder.Register<StaggerTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
             builder.Register<ColdSpotTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
@@ -131,6 +137,13 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<FieldTips>().AsSelf();
             builder.RegisterComponentInHierarchy<FieldTipView>();
             builder.RegisterEntryPoint<FieldTipPresenter>();
+        }
+
+        // Scoped, not Singleton: VContainer refuses two Singletons of one implementation type in a collection, and this
+        // scope lives exactly as long as the hunt anyway.
+        private static void RegisterGhostTip(IContainerBuilder builder, FieldTipId id, Func<TipsConfig, string> ghostId)
+        {
+            builder.Register<IFieldTipRule>(resolver => new GhostTipRule(id, ghostId(resolver.Resolve<TipsConfig>())), Lifetime.Scoped);
         }
 
         private static void RegisterShift(IContainerBuilder builder)

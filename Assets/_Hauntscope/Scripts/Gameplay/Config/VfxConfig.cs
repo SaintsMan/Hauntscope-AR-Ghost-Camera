@@ -14,6 +14,8 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private ParticleSystem _coldSpot;
         [SerializeField] private ParticleSystem _dashStreak;
         [SerializeField] private ParticleSystem _shriekWave;
+        [SerializeField] private ParticleSystem _knockDust;
+        [SerializeField] private ParticleSystem _developFlash;
         [SerializeField] private Color _coldSpotColor = new Color(0.9f, 0.93f, 0.95f, 1f);
         [SerializeField, Min(0f)] private float _beamOriginForward = 0.3f;
         [SerializeField, Min(0f)] private float _beamOriginDrop = 0.2f;
@@ -39,6 +41,12 @@ namespace Hauntscope.Gameplay.Config
 
         // The banshee's cry as rings rolling out from her.
         public ParticleSystem ShriekWave => _shriekWave;
+
+        // Dust shaken out of the furniture by the domovyk's knock.
+        public ParticleSystem KnockDust => _knockDust;
+
+        // The negative flashing onto the film: a burst in reversed light.
+        public ParticleSystem DevelopFlash => _developFlash;
 
         // Frost is not the ghost's own glow: it stays the same icy white whoever is hiding, so it reads as a clue.
         public Color ColdSpotColor => _coldSpotColor;

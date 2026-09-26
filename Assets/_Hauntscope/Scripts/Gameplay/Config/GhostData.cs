@@ -20,6 +20,9 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private bool _canHide = true;
         [SerializeField] private bool _canScare = true;
         [SerializeField] private bool _nightOnly;
+        [SerializeField] private bool _photoOnly;
+        [SerializeField] private bool _hasOwnHide;
+        [SerializeField] private HideConfig _hide = new HideConfig();
         [SerializeField] private GhostMotion _motion = new GhostMotion();
         [SerializeField] private GhostDetection _detection = new GhostDetection();
         [SerializeField] private GhostCapture _capture = new GhostCapture();
@@ -52,6 +55,14 @@ namespace Hauntscope.Gameplay.Config
 
         // Only turns up during the witching hour (the lurker).
         public bool NightOnly => _nightOnly;
+
+        // Seen only on photos (the negative, GDD 5.32).
+        public bool PhotoOnly => _photoOnly;
+
+        // A ghost that hides its own way (the domovyk) brings its own numbers; the rest use GameConfig's.
+        public bool HasOwnHide => _hasOwnHide;
+
+        public HideConfig Hide => _hide;
 
         public GhostMotion Motion => _motion;
 

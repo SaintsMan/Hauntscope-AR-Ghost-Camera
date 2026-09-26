@@ -9,6 +9,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Min(0)] private int _filmPerHunt = 3;
         [SerializeField, Min(0f)] private float _shutterCooldown = 1f;
         [SerializeField, Range(0f, 1f)] private float _revealThreshold = 0.5f;
+        [SerializeField, Min(0f)] private float _photoOnlyRange = 3f;
         [SerializeField, Range(0.01f, 0.5f)] private float _centerRadius = 0.2f;
         [SerializeField, Range(0.05f, 1f)] private float _minFrameFill = 0.3f;
         [SerializeField, Range(0f, 0.2f)] private float _frameMargin = 0.03f;
@@ -32,8 +33,10 @@ namespace Hauntscope.Gameplay.Config
             float frameMargin,
             int[] starRewards,
             int evidenceMinStars,
-            int albumLimit)
+            int albumLimit,
+            float photoOnlyRange = 3f)
         {
+            _photoOnlyRange = photoOnlyRange;
             _filmPerHunt = filmPerHunt;
             _shutterCooldown = shutterCooldown;
             _revealThreshold = revealThreshold;
@@ -51,6 +54,9 @@ namespace Hauntscope.Gameplay.Config
 
         // The ghost must be at least this revealed in the lens for the shutter to arm.
         public float RevealThreshold => _revealThreshold;
+
+        // A ghost that only shows on film arms the shutter from this close, revealed or not (the negative).
+        public float PhotoOnlyRange => _photoOnlyRange;
 
         // Fraction of the screen width around the centre that counts as a well-framed shot.
         public float CenterRadius => _centerRadius;

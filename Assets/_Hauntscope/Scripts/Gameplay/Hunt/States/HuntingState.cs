@@ -129,6 +129,9 @@ namespace Hauntscope.Gameplay.Hunt.States
             _spiritCamera.Tick(deltaTime);
             _pickups.Tick(deltaTime);
             ghost.Tick(deltaTime);
+            var bite = ghost.TakeBite();
+            if (bite > 0f)
+                _battery.DrainFraction(bite);
             _radar.Tick(deltaTime, ghost.EmfSource, ghost.EmfRange * _modifiers.EmfRange);
             _session.AddTime(deltaTime);
 

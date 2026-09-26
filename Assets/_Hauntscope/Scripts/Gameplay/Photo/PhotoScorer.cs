@@ -21,7 +21,7 @@ namespace Hauntscope.Gameplay.Photo
         // A shot is only allowed of a ghost the lens shows on screen, so film is never spent on an empty frame.
         public bool IsInFrame(Ghost ghost)
         {
-            if (ghost == null || ghost.IsCaptured || ghost.IsEscaped || ghost.VisibleReveal < _config.RevealThreshold)
+            if (ghost == null || ghost.IsCaptured || ghost.IsEscaped || !IsShown(ghost))
                 return false;
 
             var viewport = _camera.WorldToViewport(ghost.Position);
@@ -39,6 +39,13 @@ namespace Hauntscope.Gameplay.Photo
             var isCentered = dx * dx + dy * dy <= radius * radius;
             var isMoment = ghost.IsStaggered || ghost.IsSurging || ghost.IsScaring;
             return new PhotoScore(isCentered, IsFramed(ghost), isMoment);
+        }
+
+        // The negative exists only on film, so for it being close is enough: the player aims by EMF and whisper.
+        private bool IsShown(Ghost ghost)
+        {
+            return ghost.VisibleReveal >= _config.RevealThreshold
+                || ghost.IsPhotoOnly && Vector3.Distance(_camera.Position, ghost.Position) <= _config.PhotoOnlyRange;
         }
 
         private bool IsFramed(Ghost ghost)

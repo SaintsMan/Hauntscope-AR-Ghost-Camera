@@ -128,5 +128,32 @@ namespace Hauntscope.Tests.EditMode
         {
             _fixture.Camera.Projection = point => new Vector3(0.5f, 0.5f + (point.y - GhostHeight) * fill, 1f);
         }
+
+        [Test]
+        public void IsInFrame_PhotoOnlyCloseAndUnrevealed_IsTrue()
+        {
+            var fixture = PhotoOnlyAt(2f);
+            var scorer = new PhotoScorer(fixture.Camera, TestConfigs.Photo(photoOnlyRange: 2.5f));
+
+            Assert.IsTrue(scorer.IsInFrame(fixture.Ghost));
+        }
+
+        [Test]
+        public void IsInFrame_PhotoOnlyTooFar_IsFalse()
+        {
+            var fixture = PhotoOnlyAt(3f);
+            var scorer = new PhotoScorer(fixture.Camera, TestConfigs.Photo(photoOnlyRange: 2.5f));
+
+            Assert.IsFalse(scorer.IsInFrame(fixture.Ghost));
+        }
+
+        private static GhostFixture PhotoOnlyAt(float distance)
+        {
+            var fixture = new GhostFixture(photoOnly: true);
+            fixture.Mover.Teleport(new Vector3(0f, 1.5f, 0f));
+            fixture.Camera.Position = new Vector3(0f, 1.5f, -distance);
+            fixture.Ghost.Start();
+            return fixture;
+        }
     }
 }

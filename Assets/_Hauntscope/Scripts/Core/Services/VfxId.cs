@@ -9,6 +9,8 @@ namespace Hauntscope.Core.Services
         StaggerSparks,
         ColdSpot,
         DashStreak,
-        ShriekWave
+        ShriekWave,
+        KnockDust,
+        DevelopFlash
     }
 }
