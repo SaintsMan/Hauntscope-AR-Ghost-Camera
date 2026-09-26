@@ -68,6 +68,8 @@ namespace Hauntscope.Editor
                     return Frost;
                 case TrailLook.Streaks:
                     return Streak;
+                case TrailLook.Links:
+                    return Ring;
                 default:
                     return Smoke;
             }

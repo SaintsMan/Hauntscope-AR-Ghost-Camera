@@ -1,5 +1,7 @@
 using static Hauntscope.Editor.AudioDsp;
+using static Hauntscope.Editor.GhostClanks;
 using static Hauntscope.Editor.GhostCries;
+using Mathf = UnityEngine.Mathf;
 
 namespace Hauntscope.Editor
 {
@@ -89,6 +91,59 @@ namespace Hauntscope.Editor
                     () => Mix(Sucked(Moan(1.8f, 160f, 90f, U, O, 0.02f, 0.6f, 1.4f, 174, 0.8f)), Rattle(1.5f, 12f, 40f, 3000f, 175), 0.5f),
                     () => Rattle(1.2f, 25f, 6f, 2800f, 176),
                     () => Rattle(0.35f, 40f, 40f, 4000f, 177));
+        }
+
+        // A grumpy old man of the house: he mutters to himself, knocks from inside the wardrobe, answers a scare by
+        // sending the crockery flying, groans "oy" as the beam takes him and shuffles off grumbling.
+        public static GhostVoiceRecipe Domovyk()
+        {
+            return new GhostVoiceRecipe(() => SfxGenerator.Whisper(113, 0.78f, 0.12f, 0.3f, 0.12f, 0.5f, 0.05f, 2.4f, 0.25f, 0.9f))
+                .WithAbility(SfxGenerator.WoodKnock)
+                .WithCries(
+                    () => Mix(Clatter(1.1f, 14, 211), Grunt(0.3f, 140f, O, 0.3f, 212, 0.85f), 0.5f, 0.15f),
+                    () => Sucked(Mix(Voice(0.45f, t => 170f - 60f * t, O, I, 5f, 0.03f, 0.3f, 2f, 0.02f, 0.4f, 0.85f, 213),
+                        Voice(0.7f, t => 160f - 70f * t, O, U, 5f, 0.04f, 0.3f, 2f, 0.02f, 0.4f, 0.85f, 214), 1f, 0.5f)),
+                    () => Mix(Laugh(4, 150f, 0.12f, 0.08f, 0.3f, O, 215, 0.85f), Rattle(0.8f, 12f, 6f, 1800f, 216), 0.4f),
+                    () => Grunt(0.28f, 130f, U, 0.35f, 217, 0.85f));
+        }
+
+        // Everything about it runs backwards, like a reel spooled the wrong way: its whisper, its cries, its escape.
+        public static GhostVoiceRecipe Negative()
+        {
+            return new GhostVoiceRecipe(() => Reversed(SfxGenerator.Whisper(131, 1.1f, 0.2f, 0.45f, 0.1f, 0.4f, 0.3f, 1.4f, 0.45f, 1.2f)))
+                .WithAbility(() => Mix(Reversed(Hiss(0.5f, 3000f, 221)), SfxGenerator.Bell(1900f, 0.8f, 2.76f, 2f, 0.3f), 0.5f, 0.35f))
+                .WithCries(
+                    () => Reversed(Scream(1f, 500f, 1300f, 400f, 0.5f, 222)),
+                    () => Sucked(Reversed(Moan(1.6f, 280f, 420f, O, A, 0.04f, 0.4f, 1.3f, 223))),
+                    () => Mix(Rattle(1f, 40f, 8f, 3800f, 224), Reversed(Hiss(0.8f, 2400f, 225)), 0.5f),
+                    () => Reversed(Grunt(0.3f, 260f, E, 0.3f, 226)));
+        }
+
+        // Iron first, voice second: chains clink with every move, the yank cracks like a whip, he roars from deep in the
+        // hood and drags his chains away.
+        public static GhostVoiceRecipe Kaidannyk()
+        {
+            return new GhostVoiceRecipe(() => ChainLoop(231), -8f)
+                .WithAbility(() => Mix(Clank(0.9f, 18, 232), Hiss(0.25f, 1600f, 233), 0.5f))
+                .WithCries(
+                    () => Mix(Scream(1.1f, 85f, 160f, 70f, 0.6f, 234, 0.7f), Clank(0.8f, 10, 235), 0.6f, 0.1f),
+                    () => Mix(Sucked(Moan(2f, 110f, 55f, U, O, 0.02f, 0.3f, 1.6f, 236, 0.7f)), Clank(1.4f, 12, 237), 0.7f, 0.4f),
+                    () => Mix(Echo(Moan(1.2f, 95f, 80f, O, U, 0.02f, 0.4f, 1.5f, 238, 0.7f), 0.3f, 0.4f, 1800f, 3), Clank(1.6f, 14, 239), 0.6f),
+                    () => Mix(Grunt(0.4f, 95f, A, 0.25f, 240, 0.7f), Clank(0.3f, 4, 241), 0.7f));
+        }
+
+        // A breath held too long: she sighs close to the ear, screams high and thin as she lunges, wails as she is
+        // pulled in and gasps when spent.
+        public static GhostVoiceRecipe Mara()
+        {
+            return new GhostVoiceRecipe(() => SfxGenerator.Whisper(149, 1.35f, 0.4f, 0.9f, 0.3f, 1f, 0.5f, 1.2f, 0.55f, 1.5f))
+                .WithAbility(() => Echo(Voice(1.2f, t => 420f - 120f * t, A, U, 5f, 0.02f, 0.8f, 1f, 0.05f, 0.9f, 1.3f, 251), 0.3f, 0.45f, 2500f, 3))
+                .WithCries(
+                    () => Scream(1.1f, 1100f, 2600f, 1500f, 0.35f, 252, 1.3f),
+                    () => Sucked(Reverb(Voice(2f, t => 900f + 500f * Mathf.Sin(Mathf.PI * t / 2f), I, U, 6f, 0.05f, 0.5f, 1.5f, 0.05f, 0.9f,
+                        1.3f, 253), 0.5f, 1.4f, 0.8f)),
+                    () => Echo(Moan(1.4f, 520f, 300f, A, U, 0.03f, 0.7f, 1f, 254, 1.3f), 0.28f, 0.5f, 2200f, 4),
+                    () => Voice(0.35f, t => 700f + 400f * t, A, I, 20f, 0.05f, 0.9f, 1f, 0.01f, 0.2f, 1.3f, 255));
         }
 
         // A cat through and through: it purrs, meows when it sits, trills when startled, hisses on its way out and

@@ -25,11 +25,15 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3ef98d6c258acb94891fc0449bc6a268, type: 2}
     - {fileID: 11400000, guid: ec4e9649e10448d4198f37e2c69bb44b, type: 2}
     - {fileID: 11400000, guid: 03504df5ef7017745932cf405c348f7f, type: 2}
+    - {fileID: 11400000, guid: 6649b92ab90ec9c4a9ed3eddb0198ca9, type: 2}
     - {fileID: 11400000, guid: 5bbccbe20b9d0e7418dfac95af446161, type: 2}
     - {fileID: 11400000, guid: 85829def68b4a0c499a5d6d6b40caceb, type: 2}
-    - {fileID: 11400000, guid: 914c3025178e5be4d9f965eb5557e386, type: 2}
     - {fileID: 11400000, guid: b05103b2d7b29694d9df9c2c3df1c0e0, type: 2}
     - {fileID: 11400000, guid: 2ab0606b4e846af49876176a29ca33ff, type: 2}
+    - {fileID: 11400000, guid: 62509e0ef81d8ed408ec0463fc602e00, type: 2}
+    - {fileID: 11400000, guid: d85a3aaaf7fa6784dae4986f2e7c8a2d, type: 2}
+    - {fileID: 11400000, guid: 914c3025178e5be4d9f965eb5557e386, type: 2}
+    - {fileID: 11400000, guid: 28c5f01c9bb9d834983ed6fffcd6d9cc, type: 2}
     _firstGhostId: wisp
     _secondGhostId: poltergeist
     _commonWeight: 60
@@ -171,6 +175,10 @@ MonoBehaviour:
     _catPurr: {fileID: 8300000, guid: f11f08b057f72474b9febb126f960411, type: 3}
     _purrVolume: 0.8
     _witchingHourDronePitch: 0.84
+    _knock: {fileID: 8300000, guid: a94086351000edf44bdf78b7920061a2, type: 3}
+    _knockVolume: 1
+    _rattleVolume: 0.9
+    _developVolume: 0.8
   _vfx:
     _captureSpiral: {fileID: 3482571195191366530, guid: 6cc077c0fffe26544bbff774130ad3fc, type: 3}
     _teleportFlash: {fileID: 9163850681629320366, guid: d281b30d52bb11d4fae5ccc1d73b5dcf, type: 3}
@@ -180,6 +188,8 @@ MonoBehaviour:
     _coldSpot: {fileID: 2383050041594738201, guid: d91f2868fd632934ba29c6e8fe1ef839, type: 3}
     _dashStreak: {fileID: 8416430064101701351, guid: 35ef5b8d6ac2332488d5a59548bd8cb9, type: 3}
     _shriekWave: {fileID: 1191439139199968191, guid: a8d56733fcd08ba4bb5c18228c1ad607, type: 3}
+    _knockDust: {fileID: 6947038893527906294, guid: eecfd3695988b8b47a71a73679b6734a, type: 3}
+    _developFlash: {fileID: 2077983091399694561, guid: c0e30ead10a5a1046839af3c4c15786b, type: 3}
     _coldSpotColor: {r: 0.9, g: 0.93, b: 0.95, a: 1}
     _beamOriginForward: 0.3
     _beamOriginDrop: 0.2
@@ -299,6 +309,7 @@ MonoBehaviour:
     _filmPerHunt: 3
     _shutterCooldown: 1
     _revealThreshold: 0.5
+    _photoOnlyRange: 3
     _centerRadius: 0.2
     _minFrameFill: 0.3
     _frameMargin: 0.03
@@ -413,4 +424,8 @@ MonoBehaviour:
     _coldSpotEmfLevel: 3
     _photoFromHunt: 2
     _catGhostId: phantom_cat
+    _domovykGhostId: domovyk
+    _negativeGhostId: negative
+    _kaidannykGhostId: kaidannyk
+    _maraGhostId: mara
     _contractsMarkAfter: 1

@@ -58,6 +58,7 @@ namespace Hauntscope.Editor
             Save(SfxFolder, "LurkerCreak", LurkerCreak(), -3f, false);
             Save(SfxFolder, "CatMeow", CatMeow(), -3f, false);
             Save(SfxFolder, "CatPurr", CatPurr(), -5f, false);
+            Save(SfxFolder, "Knock", WoodKnock(), -3f, false);
             Save(AmbientFolder, "AmbientDrone", AmbientDrone(), -8f, true);
             Save(AmbientFolder, "AmbientStatic", AmbientStatic(), -10f, true);
         }
@@ -915,6 +916,16 @@ namespace Hauntscope.Editor
         }
 
         // The phantom cat's presence: a soft, endless purr instead of a whisper.
+        // Three knuckle raps on a wardrobe door, the last one heavier, in a small room.
+        internal static float[] WoodKnock()
+        {
+            var samples = Buffer(0.9f);
+            Add(samples, GhostCries.Knock(0.16f, 170f, 301), 0, 0.8f);
+            Add(samples, GhostCries.Knock(0.16f, 180f, 302), (int)(0.19f * SampleRate), 0.75f);
+            Add(samples, GhostCries.Knock(0.2f, 150f, 303), (int)(0.4f * SampleRate), 1f);
+            return Reverb(samples, 0.25f, 0.5f, 0.2f);
+        }
+
         internal static float[] PurrLoop()
         {
             const float loopLength = 6f;

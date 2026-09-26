@@ -239,6 +239,118 @@ MonoBehaviour:
     m_Key: ghost.phantom_cat.tip
     m_Metadata:
       m_Items: []
+  - m_Id: 496208654499840
+    m_Key: ghost.domovyk.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248576
+    m_Key: ghost.domovyk.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248577
+    m_Key: ghost.domovyk.rumor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248578
+    m_Key: ghost.domovyk.behavior
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248579
+    m_Key: ghost.domovyk.tactics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248580
+    m_Key: ghost.domovyk.classified
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248581
+    m_Key: ghost.domovyk.tip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248582
+    m_Key: ghost.negative.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248583
+    m_Key: ghost.negative.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248584
+    m_Key: ghost.negative.rumor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248585
+    m_Key: ghost.negative.behavior
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248586
+    m_Key: ghost.negative.tactics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248587
+    m_Key: ghost.negative.classified
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248588
+    m_Key: ghost.negative.tip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248589
+    m_Key: ghost.kaidannyk.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248590
+    m_Key: ghost.kaidannyk.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248591
+    m_Key: ghost.kaidannyk.rumor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248592
+    m_Key: ghost.kaidannyk.behavior
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248593
+    m_Key: ghost.kaidannyk.tactics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248594
+    m_Key: ghost.kaidannyk.classified
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248595
+    m_Key: ghost.kaidannyk.tip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248596
+    m_Key: ghost.mara.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248597
+    m_Key: ghost.mara.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248598
+    m_Key: ghost.mara.rumor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248599
+    m_Key: ghost.mara.behavior
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248600
+    m_Key: ghost.mara.tactics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248601
+    m_Key: ghost.mara.classified
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248602
+    m_Key: ghost.mara.tip
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

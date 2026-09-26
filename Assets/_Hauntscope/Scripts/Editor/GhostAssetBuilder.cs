@@ -193,6 +193,9 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_canHide").boolValue = recipe.CanHide;
             serialized.FindProperty("_canScare").boolValue = recipe.CanScare;
             serialized.FindProperty("_nightOnly").boolValue = recipe.NightOnly;
+            serialized.FindProperty("_photoOnly").boolValue = recipe.PhotoOnly;
+            serialized.FindProperty("_hasOwnHide").boolValue = recipe.OwnHide != null;
+            serialized.FindProperty("_hide").boxedValue = recipe.OwnHide ?? new HideConfig();
             serialized.FindProperty("_motion._hoverHeightMin").floatValue = recipe.HoverMin;
             serialized.FindProperty("_motion._hoverHeightMax").floatValue = recipe.HoverMax;
             serialized.FindProperty("_motion._moveSpeed").floatValue = recipe.MoveSpeed;

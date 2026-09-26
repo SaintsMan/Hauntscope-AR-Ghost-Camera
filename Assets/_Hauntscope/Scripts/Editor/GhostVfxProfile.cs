@@ -81,6 +81,7 @@ namespace Hauntscope.Editor
         Smoke,
         Dust,
         Frost,
-        Streaks
+        Streaks,
+        Links
     }
 }

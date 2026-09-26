@@ -29,6 +29,20 @@ MonoBehaviour:
   _canHide: 1
   _canScare: 1
   _nightOnly: 0
+  _photoOnly: 0
+  _hasOwnHide: 0
+  _hide:
+    _chance: 0.3
+    _cooldown: 20
+    _durationMin: 6
+    _durationMax: 10
+    _floorClearanceMin: 0.02
+    _floorClearanceMax: 0.15
+    _revealRange: 1.2
+    _flushStagger: 1
+    _minDistance: 2
+    _wallOffset: 0.35
+    _cornerInset: 0.4
   _motion:
     _moveSpeed: 0.7
     _fleeSpeed: 1.8

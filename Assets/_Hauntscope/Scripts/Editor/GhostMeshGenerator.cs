@@ -389,6 +389,265 @@ namespace Hauntscope.Editor
             });
         }
 
+        // The domovyk: a hunched little house spirit, shaggy all over, with a beard fanning down to his belly, bushy brows
+        // over small eyes, a potato nose, jug ears, a tuft of hair sticking up and short arms folded over his tummy.
+        public static void BuildDomovyk(Mesh mesh)
+        {
+            const float height = 0.62f;
+            var profile = new[]
+            {
+                new Vector2(0f, 0.2f),
+                new Vector2(0.15f, 0.235f),
+                new Vector2(0.4f, 0.225f),
+                new Vector2(0.58f, 0.185f),
+                new Vector2(0.66f, 0.14f),
+                new Vector2(0.79f, 0.165f),
+                new Vector2(0.9f, 0.145f),
+                new Vector2(1f, 0f)
+            };
+
+            Lathe(mesh, height, (v, angle) =>
+            {
+                var radius = SampleProfile(profile, v);
+                var front = Mathf.Max(0f, Mathf.Sin(angle));
+                var back = Mathf.Max(0f, -Mathf.Sin(angle));
+                // The beard: a fan from the chin down over the belly, combed into ridges.
+                var beard = SmoothStep(0.2f, 0.36f, v) * (1f - SmoothStep(0.64f, 0.72f, v)) * Mathf.Pow(front, 2f);
+                radius += beard * (0.055f + 0.016f * Mathf.Abs(Mathf.Sin(9f * angle + v * 3f)));
+                radius += 0.05f * Mathf.Exp(-Mathf.Pow((v - 0.6f) / 0.1f, 2f)) * Mathf.Pow(back, 1.5f);
+                // Shaggy all over, rougher towards the hem.
+                radius += (0.004f + 0.012f * Mathf.Pow(1f - v, 2f)) * Mathf.Sin(31f * angle + 7f * Mathf.Sin(5f * v + 3f * angle));
+
+                var y = v * height - Mathf.Pow(1f - v, 6f) * 0.05f * (0.5f + 0.5f * Mathf.Sin(9f * angle));
+                // The beard's point hangs lower than the fur around it.
+                y -= 0.05f * beard * Mathf.Pow(front, 6f) * (1f - SmoothStep(0.25f, 0.4f, v));
+                var position = OnRing(radius, angle, y);
+                position.z += 0.07f * SmoothStep(0.6f, 0.85f, v);
+                return position;
+            }, (vertices, triangles, surface) =>
+            {
+                foreach (var side in new[] { -1f, 1f })
+                {
+                    var shoulder = surface(0.55f, Forward - side * 1.2f);
+                    var hand = surface(0.33f, Forward - side * 0.25f) + new Vector3(0f, 0f, 0.045f);
+                    AddTube(vertices, triangles, shoulder, shoulder + new Vector3(side * 0.03f, -0.1f, 0.07f), hand, 0.034f, 0.03f, 10, 10);
+
+                    // Brows sweeping out and a little up: a permanent frown.
+                    var brow = surface(0.855f, Forward - side * 0.36f) + new Vector3(0f, 0f, -0.01f);
+                    AddTube(vertices, triangles, brow - new Vector3(side * 0.03f, 0.006f, 0f), brow + new Vector3(side * 0.02f, 0.008f, 0.012f),
+                        brow + new Vector3(side * 0.07f, 0.03f, 0.0f), 0.022f, 0.005f, 8, 8);
+
+                    var ear = surface(0.8f, side > 0f ? 0.15f : Mathf.PI - 0.15f);
+                    AddTube(vertices, triangles, ear - new Vector3(side * 0.02f, 0f, 0f), ear + new Vector3(side * 0.025f, 0.01f, -0.01f),
+                        ear + new Vector3(side * 0.04f, 0.025f, -0.02f), 0.034f, 0.022f, 6, 10);
+                }
+
+                var nose = surface(0.76f, Forward);
+                AddTube(vertices, triangles, nose - new Vector3(0f, 0f, 0.025f), nose + new Vector3(0f, -0.004f, 0.012f),
+                    nose + new Vector3(0f, -0.018f, 0.026f), 0.036f, 0.03f, 6, 12);
+
+                // Moustache drooping from under the nose into the beard.
+                foreach (var side in new[] { -1f, 1f })
+                {
+                    var root = nose + new Vector3(side * 0.012f, -0.035f, 0.01f);
+                    AddTube(vertices, triangles, root, root + new Vector3(side * 0.05f, -0.01f, 0f), root + new Vector3(side * 0.08f, -0.07f, -0.02f),
+                        0.016f, 0.003f, 8, 8);
+                }
+
+                // A tuft of hair on the crown, blown every which way.
+                for (var tuft = 0; tuft < 3; tuft++)
+                {
+                    var angle = -Forward + (tuft - 1f) * 0.7f;
+                    var root = surface(0.93f, angle);
+                    var outward = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
+                    AddTube(vertices, triangles, root - outward * 0.015f, root + Vector3.up * 0.025f + outward * 0.015f,
+                        root + Vector3.up * 0.04f + outward * 0.05f, 0.026f, 0.006f, 8, 8);
+                }
+            });
+        }
+
+        // The negative: a figure caught on the wrong side of the film, long hair hanging over its face and down its back,
+        // thin arms at its sides ending in long fingers, the lower edge burnt away like the end of a reel.
+        public static void BuildNegative(Mesh mesh)
+        {
+            const float height = 1.6f;
+            var profile = new[]
+            {
+                new Vector2(0f, 0.19f),
+                new Vector2(0.3f, 0.16f),
+                new Vector2(0.5f, 0.13f),
+                new Vector2(0.66f, 0.15f),
+                new Vector2(0.76f, 0.14f),
+                new Vector2(0.82f, 0.05f),
+                new Vector2(0.88f, 0.09f),
+                new Vector2(0.95f, 0.092f),
+                new Vector2(1f, 0f)
+            };
+
+            Lathe(mesh, height, (v, angle) =>
+            {
+                var radius = SampleProfile(profile, v);
+                var front = Mathf.Max(0f, Mathf.Sin(angle));
+                // Hair from the crown down over the shoulders and the back, in strands; over the face only a thin
+                // fringe, so the dark eyes show between the strands.
+                var strands = Mathf.Abs(Mathf.Sin(38f * angle + 5f * v));
+                var fall = SmoothStep(0.55f, 0.66f, v) * (1f - SmoothStep(0.985f, 1f, v)) * Mathf.Pow(1f - front, 1.5f);
+                radius += fall * (0.035f + 0.008f * strands);
+                radius += SmoothStep(0.8f, 0.86f, v) * (1f - SmoothStep(0.97f, 1f, v)) * Mathf.Pow(front, 2f) * 0.012f
+                    * Mathf.Pow(Mathf.Abs(Mathf.Sin(22f * angle)), 0.5f);
+                var burn = Mathf.Pow(1f - v, 9f);
+                var tears = Mathf.Pow(Mathf.Abs(Mathf.Sin(4f * angle + 1.3f * Mathf.Sin(9f * angle))), 6f);
+                // Hair ends raggedly over the back.
+                var y = v * height - burn * 0.3f * tears - 0.06f * fall * (1f - SmoothStep(0.6f, 0.7f, v)) * strands;
+                var position = OnRing(radius, angle, y);
+                position.x *= 1f + 0.35f * Mathf.Exp(-Mathf.Pow((v - 0.74f) / 0.05f, 2f));
+                position.z *= 0.82f;
+                // The head hangs forward and to one side, like someone who has stood still for far too long.
+                var tilt = SmoothStep(0.8f, 1f, v);
+                position.x += 0.035f * tilt;
+                position.z += 0.05f * tilt;
+                return position;
+            }, (vertices, triangles, surface) =>
+            {
+                foreach (var side in new[] { -1f, 1f })
+                {
+                    var shoulder = surface(0.72f, side > 0f ? 0f : Mathf.PI) - new Vector3(0.03f * side, 0f, 0f);
+                    var elbow = shoulder + new Vector3(0.03f * side, -0.32f, 0.02f);
+                    var hand = shoulder + new Vector3(0.035f * side, -0.62f, 0.06f);
+                    AddTube(vertices, triangles, shoulder, elbow, hand, 0.034f, 0.022f, 16, 10);
+                    for (var finger = -1; finger <= 1; finger++)
+                    {
+                        var end = hand + new Vector3(0.008f * side, -0.17f + 0.02f * Mathf.Abs(finger), finger * 0.024f);
+                        AddTube(vertices, triangles, hand + new Vector3(0f, 0f, finger * 0.01f), (hand + end) * 0.5f + new Vector3(0.006f * side, 0f, 0f),
+                            end, 0.009f, 0.0015f, 8, 6);
+                    }
+                }
+            });
+        }
+
+        // The kaidannyk: a tall hooded convict, the pointed hood falling deep over an empty face, a heavy mantle, wrists
+        // shackled together in front and two chains dropping from the irons to trail along the floor behind him.
+        public static void BuildKaidannyk(Mesh mesh)
+        {
+            const float height = 1.9f;
+            var profile = new[]
+            {
+                new Vector2(0f, 0.3f),
+                new Vector2(0.3f, 0.25f),
+                new Vector2(0.58f, 0.23f),
+                new Vector2(0.7f, 0.32f),
+                new Vector2(0.76f, 0.26f),
+                new Vector2(0.8f, 0.19f),
+                new Vector2(0.86f, 0.175f),
+                new Vector2(0.93f, 0.1f),
+                new Vector2(1f, 0f)
+            };
+
+            Lathe(mesh, height, (v, angle) =>
+            {
+                var radius = SampleProfile(profile, v);
+                var front = Mathf.Max(0f, Mathf.Sin(angle));
+                // The hood's opening: a hollow where the face should be.
+                radius -= 0.08f * Mathf.Pow(front, 4f) * Mathf.Exp(-Mathf.Pow((v - 0.85f) / 0.045f, 2f));
+                var folds = SmoothStep(0.05f, 0.3f, v) * (1f - SmoothStep(0.58f, 0.66f, v));
+                radius += folds * 0.018f * Mathf.Sin(12f * angle + 0.8f * Mathf.Sin(4f * angle));
+                // The mantle's ragged lower edge over the robe.
+                var mantle = Mathf.Exp(-Mathf.Pow((v - 0.68f) / 0.03f, 2f));
+                radius += mantle * 0.02f * Mathf.Pow(Mathf.Abs(Mathf.Sin(7f * angle)), 3f);
+                var y = v * height + Mathf.Pow(1f - v, 8f) * 0.1f * (Mathf.Sin(6f * angle) + 0.5f * Mathf.Sin(13f * angle + 2f));
+                var position = OnRing(radius, angle, y);
+                // A stoop: the hood hangs forward and its point falls back down the neck.
+                position.z += 0.09f * SmoothStep(0.7f, 0.86f, v) - 0.16f * Mathf.Pow(SmoothStep(0.86f, 1f, v), 1.5f);
+                position.y += 0.06f * Mathf.Pow(SmoothStep(0.9f, 1f, v), 2f);
+                return position;
+            }, (vertices, triangles, surface) =>
+            {
+                var wrists = surface(0.5f, Forward) + new Vector3(0f, 0f, 0.2f);
+                foreach (var side in new[] { -1f, 1f })
+                {
+                    var shoulder = surface(0.71f, Forward - side * 1.35f) - new Vector3(side * 0.03f, 0f, 0f);
+                    var wrist = wrists + new Vector3(side * 0.085f, 0f, 0f);
+                    // A wide sleeve down to a flared cuff, the bare wrist and hand out of it, the iron round the wrist.
+                    var elbow = shoulder + new Vector3(side * 0.05f, -0.36f, 0.04f);
+                    var cuff = wrist + (elbow - wrist).normalized * 0.09f;
+                    AddTube(vertices, triangles, shoulder, elbow, cuff, 0.075f, 0.095f, 18, 14);
+                    AddTube(vertices, triangles, cuff, wrist, wrist + new Vector3(-side * 0.02f, -0.03f, 0.08f), 0.036f, 0.028f, 8, 10);
+                    AddTorus(vertices, triangles, wrist + new Vector3(0f, 0f, 0.01f), (wrist - elbow).normalized, 0.05f, 0.015f, 18, 8);
+
+                    var floor = -height * 0.5f + 0.02f;
+                    var drop = new Vector3(wrist.x + side * 0.05f, floor, wrist.z + 0.04f);
+                    var end = new Vector3(wrist.x + side * 0.3f, floor, -0.6f);
+                    AddChain(vertices, triangles,
+                        new[] { wrist + Vector3.down * 0.06f, drop, (drop + end) * 0.5f + new Vector3(side * 0.12f, 0f, 0f), end }, 0.03f, 0.008f,
+                        0.05f);
+                }
+
+                AddChain(vertices, triangles, new[]
+                {
+                    wrists + new Vector3(-0.075f, -0.05f, 0.02f), wrists + new Vector3(0f, -0.11f, 0.03f), wrists + new Vector3(0.075f, -0.05f, 0.02f)
+                }, 0.025f, 0.007f, 0.042f);
+            });
+        }
+
+        // The mara: tall and still under a black veil that falls from a peak over her head to a wide ragged hem on the
+        // floor. No face shows, only the eyes; long bony hands reach out of the veil towards whoever holds the light.
+        public static void BuildMara(Mesh mesh)
+        {
+            const float height = 1.85f;
+            var profile = new[]
+            {
+                new Vector2(0f, 0.38f),
+                new Vector2(0.2f, 0.3f),
+                new Vector2(0.45f, 0.21f),
+                new Vector2(0.62f, 0.18f),
+                new Vector2(0.74f, 0.17f),
+                new Vector2(0.8f, 0.115f),
+                new Vector2(0.86f, 0.125f),
+                new Vector2(0.95f, 0.08f),
+                new Vector2(1f, 0f)
+            };
+
+            Lathe(mesh, height, (v, angle) =>
+            {
+                var radius = SampleProfile(profile, v);
+                var back = Mathf.Max(0f, -Mathf.Sin(angle));
+                var folds = SmoothStep(0.02f, 0.3f, v) * (1f - SmoothStep(0.7f, 0.8f, v));
+                radius += folds * 0.022f * Mathf.Sin(11f * angle + 0.9f * Mathf.Sin(5f * angle + v * 4f));
+                // The veil falls from the peak straight over the face, so the head reads as a shrouded shape, not a skull.
+                radius += 0.03f * SmoothStep(0.78f, 0.84f, v) * (1f - SmoothStep(0.9f, 0.97f, v));
+                var tatter = Mathf.Pow(1f - v, 7f);
+                var y = v * height - tatter * (0.18f * back + 0.1f * Mathf.Pow(Mathf.Abs(Mathf.Sin(7f * angle + 1f)), 3f));
+                // The veil rises to a thin peak above her head.
+                y += 0.12f * Mathf.Pow(SmoothStep(0.94f, 1f, v), 2f);
+                var position = OnRing(radius, angle, y);
+                position.z -= 0.08f * Mathf.Pow(1f - v, 3f) * back;
+                position.z += 0.04f * SmoothStep(0.8f, 0.95f, v);
+                return position;
+            }, (vertices, triangles, surface) =>
+            {
+                foreach (var side in new[] { -1f, 1f })
+                {
+                    // Forearms slipping out of the veil at the waist, hands reaching forward, fingers far too long.
+                    var elbow = surface(0.58f, Forward - side * 0.8f) - new Vector3(side * 0.02f, 0f, 0.03f);
+                    var wrist = surface(0.6f, Forward - side * 0.45f) + new Vector3(side * 0.03f, 0.02f, 0.12f);
+                    AddTube(vertices, triangles, elbow, (elbow + wrist) * 0.5f + new Vector3(0f, -0.02f, 0f), wrist, 0.04f, 0.03f, 12, 10);
+                    var reach = new Vector3(side * 0.12f, -0.05f, 1f).normalized;
+                    for (var finger = 0; finger < 4; finger++)
+                    {
+                        var spread = (finger - 1.5f) * 0.02f;
+                        var root = wrist + new Vector3(spread, 0.004f * (finger - 1.5f), 0.01f);
+                        var knuckle = root + reach * 0.13f + new Vector3(spread * 0.6f, 0.025f, 0f);
+                        var tip = knuckle + reach * 0.13f + new Vector3(spread * 0.8f, -0.08f, 0f);
+                        AddTube(vertices, triangles, root, knuckle, tip, 0.017f, 0.003f, 12, 8);
+                    }
+
+                    var thumb = wrist + new Vector3(-side * 0.025f, -0.01f, 0.01f);
+                    AddTube(vertices, triangles, thumb, thumb + reach * 0.07f + new Vector3(-side * 0.03f, -0.01f, 0f),
+                        thumb + reach * 0.12f + new Vector3(-side * 0.04f, -0.05f, 0f), 0.016f, 0.003f, 10, 8);
+                }
+            });
+        }
+
         // The glowing face (eyes, mouth, teeth) as the body's second submesh: in the same object space it moves with
         // the face as the shader breathes and sways the body.
         public static void AddFace(Mesh mesh, Mesh face)
@@ -410,6 +669,91 @@ namespace Hauntscope.Editor
             mesh.SetTriangles(body, 0);
             mesh.SetTriangles(faceTriangles, 1);
             mesh.RecalculateBounds();
+        }
+
+        // A ring of the given radius around an axis: a shackle, or one link of a chain.
+        private static void AddTorus(List<Vector3> vertices, List<int> triangles, Vector3 center, Vector3 axis, float radius, float thickness,
+            int segments, int sides)
+        {
+            axis.Normalize();
+            var u = Vector3.Cross(axis, Mathf.Abs(axis.y) < 0.9f ? Vector3.up : Vector3.right).normalized;
+            var w = Vector3.Cross(axis, u);
+            var first = vertices.Count;
+            for (var segment = 0; segment < segments; segment++)
+            {
+                var theta = (float)segment / segments * FullCircle;
+                var outward = u * Mathf.Cos(theta) + w * Mathf.Sin(theta);
+                var ring = center + outward * radius;
+                for (var side = 0; side < sides; side++)
+                {
+                    var phi = (float)side / sides * FullCircle;
+                    vertices.Add(ring + (outward * Mathf.Cos(phi) + axis * Mathf.Sin(phi)) * thickness);
+                }
+            }
+
+            for (var segment = 0; segment < segments; segment++)
+            {
+                var next = (segment + 1) % segments;
+                for (var side = 0; side < sides; side++)
+                {
+                    var nextSide = (side + 1) % sides;
+                    Quad(triangles, first + segment * sides + side, first + segment * sides + nextSide, first + next * sides + side,
+                        first + next * sides + nextSide);
+                }
+            }
+        }
+
+        // Links along a path, each turned a quarter from the last so they hang interlocked like a real chain.
+        private static void AddChain(List<Vector3> vertices, List<int> triangles, Vector3[] path, float linkRadius, float thickness, float step)
+        {
+            var link = 0;
+            for (var i = 1; i < path.Length; i++)
+            {
+                var from = path[i - 1];
+                var to = path[i];
+                var direction = (to - from).normalized;
+                var side = Vector3.Cross(direction, Mathf.Abs(direction.y) < 0.9f ? Vector3.up : Vector3.right).normalized;
+                var count = Mathf.Max(1, Mathf.RoundToInt(Vector3.Distance(from, to) / step));
+                for (var k = 0; k < count; k++)
+                {
+                    var center = Vector3.Lerp(from, to, (k + 0.5f) / count);
+                    var flat = link % 2 == 0 ? side : Vector3.Cross(direction, side);
+                    AddLink(vertices, triangles, center, direction, flat, linkRadius, thickness);
+                    link++;
+                }
+            }
+        }
+
+        // An oval link lying in the plane of its direction and one side: a torus stretched along the chain.
+        private static void AddLink(List<Vector3> vertices, List<int> triangles, Vector3 center, Vector3 along, Vector3 across, float radius,
+            float thickness)
+        {
+            const int segments = 10;
+            const int sides = 5;
+            var normal = Vector3.Cross(along, across).normalized;
+            var first = vertices.Count;
+            for (var segment = 0; segment < segments; segment++)
+            {
+                var theta = (float)segment / segments * FullCircle;
+                var outward = along * Mathf.Cos(theta) + across * Mathf.Sin(theta);
+                var ring = center + along * (Mathf.Cos(theta) * radius * 1.5f) + across * (Mathf.Sin(theta) * radius);
+                for (var side = 0; side < sides; side++)
+                {
+                    var phi = (float)side / sides * FullCircle;
+                    vertices.Add(ring + (outward * Mathf.Cos(phi) + normal * Mathf.Sin(phi)) * thickness);
+                }
+            }
+
+            for (var segment = 0; segment < segments; segment++)
+            {
+                var next = (segment + 1) % segments;
+                for (var side = 0; side < sides; side++)
+                {
+                    var nextSide = (side + 1) % sides;
+                    Quad(triangles, first + segment * sides + side, first + segment * sides + nextSide, first + next * sides + side,
+                        first + next * sides + nextSide);
+                }
+            }
         }
 
         private static float Reach(float v, float angle, float direction)

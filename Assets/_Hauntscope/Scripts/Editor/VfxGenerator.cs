@@ -53,6 +53,10 @@ namespace Hauntscope.Editor
 
         public static ParticleSystem ShriekWave { get; private set; }
 
+        public static ParticleSystem KnockDust { get; private set; }
+
+        public static ParticleSystem DevelopFlash { get; private set; }
+
         public static GameObject CaptureBeamRig { get; private set; }
 
         // Ghosts can be rebuilt on their own: their trails then use the particle materials already on disk.
@@ -81,6 +85,8 @@ namespace Hauntscope.Editor
             ColdSpot = BuildColdSpot();
             DashStreak = BuildDashStreak();
             ShriekWave = BuildShriekWave();
+            KnockDust = BuildKnockDust();
+            DevelopFlash = BuildDevelopFlash();
             BuildBeamNoise();
             CaptureBeamRig = BuildCaptureBeam();
             AssetDatabase.SaveAssets();
@@ -566,6 +572,95 @@ namespace Hauntscope.Editor
                 Drag(dust, 0.25f);
                 Noise(dust, 0.12f, 2f);
                 AlphaOverLifetime(dust, 1f, 0.3f, 0.8f, 1f, 0f);
+
+                return SavePrefab(root);
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+
+        // The domovyk's knock from inside the furniture: a low thud ring, a puff of dust bursting out and grit raining
+        // down after it.
+        private static ParticleSystem BuildKnockDust()
+        {
+            var root = CreateRoot("KnockDust");
+            try
+            {
+                var puff = root.GetComponent<ParticleSystem>();
+                puff.GetComponent<ParticleSystemRenderer>().sharedMaterial = _smoke;
+                ConfigureOneShot(puff, 0.1f, new ParticleSystem.MinMaxCurve(0.9f, 1.4f), new ParticleSystem.MinMaxCurve(0.1f, 0.35f),
+                    new ParticleSystem.MinMaxCurve(0.12f, 0.24f));
+                var puffMain = puff.main;
+                puffMain.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
+                Burst(puff, 0f, 8);
+                Sphere(puff, 0.15f, 1f);
+                Drag(puff, 0.4f);
+                Spin(puff, 30f);
+                SizeOverLifetime(puff, Curve(0f, 0.6f, 1f, 1.6f));
+                AlphaOverLifetime(puff, 0f, 0.1f, 0.3f, 1f, 0f);
+
+                var thud = CreateSystem("Thud", root.transform, _ring, 2);
+                ConfigureOneShot(thud, 0.1f, 0.35f, 0f, 0.6f);
+                Burst(thud, 0f, 1);
+                SizeOverLifetime(thud, Curve(0f, 0.2f, 1f, 1f));
+                AlphaOverLifetime(thud, 0.8f, 0.3f, 0.5f, 1f, 0f);
+
+                var grit = CreateSystem("Grit", root.transform, _dot, 40);
+                ConfigureOneShot(grit, 0.1f, new ParticleSystem.MinMaxCurve(0.6f, 1.1f), new ParticleSystem.MinMaxCurve(0.3f, 0.8f),
+                    new ParticleSystem.MinMaxCurve(0.008f, 0.02f));
+                var gritMain = grit.main;
+                gritMain.gravityModifier = 0.5f;
+                Burst(grit, 0.02f, 30);
+                Sphere(grit, 0.12f, 1f);
+                Drag(grit, 0.1f);
+                AlphaOverLifetime(grit, 1f, 0.3f, 1f, 1f, 0f);
+
+                return SavePrefab(root);
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+
+        // The negative flashing onto the film: a hard frame-flash, a ring of light snapping outwards and silver grains
+        // flung off like developer splashing.
+        private static ParticleSystem BuildDevelopFlash()
+        {
+            var root = CreateRoot("DevelopFlash");
+            try
+            {
+                var core = root.GetComponent<ParticleSystem>();
+                ConfigureOneShot(core, 0.1f, 0.25f, 0f, 1.1f);
+                Burst(core, 0f, 1);
+                SizeOverLifetime(core, Curve(0f, 0.5f, 0.2f, 1f, 1f, 0.8f));
+                AlphaOverLifetime(core, 1f, 0.1f, 1f, 1f, 0f);
+
+                var ring = CreateSystem("Ring", root.transform, _ring, 2);
+                ConfigureOneShot(ring, 0.1f, 0.45f, 0f, 1.3f);
+                Burst(ring, 0f, 1);
+                SizeOverLifetime(ring, Curve(0f, 0.15f, 0.4f, 0.9f, 1f, 1f));
+                AlphaOverLifetime(ring, 1f, 0.3f, 0.8f, 1f, 0f);
+
+                var grains = CreateSystem("Grains", root.transform, _streak, 48);
+                ConfigureOneShot(grains, 0.1f, new ParticleSystem.MinMaxCurve(0.25f, 0.5f), new ParticleSystem.MinMaxCurve(1.5f, 3.2f),
+                    new ParticleSystem.MinMaxCurve(0.01f, 0.025f));
+                Burst(grains, 0f, 40);
+                Sphere(grains, 0.15f, 1f);
+                Drag(grains, 0.25f);
+                Stretch(grains, 0.06f, 1.2f);
+                AlphaOverLifetime(grains, 1f, 0.3f, 1f, 1f, 0f);
+
+                var motes = CreateSystem("Motes", root.transform, _dot, 32);
+                ConfigureOneShot(motes, 0.1f, new ParticleSystem.MinMaxCurve(0.8f, 1.4f), new ParticleSystem.MinMaxCurve(0.05f, 0.25f),
+                    new ParticleSystem.MinMaxCurve(0.01f, 0.025f));
+                Burst(motes, 0.05f, 24);
+                Sphere(motes, 0.35f, 0.5f);
+                Drift(motes, 0.1f);
+                Noise(motes, 0.08f, 3f);
+                AlphaOverLifetime(motes, 0f, 0.2f, 1f, 1f, 0f);
 
                 return SavePrefab(root);
             }

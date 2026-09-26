@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6498942b478c1142b53ff236e671a09, type: 3}
+  m_Name: Kaidannyk
+  m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Config.GhostData
+  _id: kaidannyk
+  _nameKey: ghost.kaidannyk.name
+  _descriptionKey: ghost.kaidannyk.description
+  _icon: {fileID: 21300000, guid: 27a09412befa17847b5e3d8f8b07afc6, type: 3}
+  _rarity: 1
+  _prefab: {fileID: 8069548704484989023, guid: ea3311ce996e3d941bbdff599d347116, type: 3}
+  _rimColor: {r: 0.30980393, g: 0.9607843, b: 0.9019608, a: 1}
+  _voice:
+    _whisper: {fileID: 8300000, guid: 3617ba88470cce44e86a56ab359dbee8, type: 3}
+    _ability: {fileID: 8300000, guid: e5596bada18fe6148a4e946f04e17b7a, type: 3}
+    _scare: {fileID: 8300000, guid: 6743f87528628c845bd1c63538ca2f5b, type: 3}
+    _capture: {fileID: 8300000, guid: b7293caa621d0bc468bdf226fac03472, type: 3}
+    _escape: {fileID: 8300000, guid: 5fddd9666e648ad4e8ed6df2c2f07788, type: 3}
+    _stagger: {fileID: 8300000, guid: d7d147ace9c3cfa43ba5e09b440df0e8, type: 3}
+  _canHide: 1
+  _canScare: 1
+  _nightOnly: 0
+  _photoOnly: 0
+  _hasOwnHide: 0
+  _hide:
+    _chance: 0.3
+    _cooldown: 20
+    _durationMin: 6
+    _durationMax: 10
+    _floorClearanceMin: 0.02
+    _floorClearanceMax: 0.15
+    _revealRange: 1.2
+    _flushStagger: 1
+    _minDistance: 2
+    _wallOffset: 0.35
+    _cornerInset: 0.4
+  _motion:
+    _moveSpeed: 0.45
+    _fleeSpeed: 1.2
+    _hoverHeightMin: 0.95
+    _hoverHeightMax: 1.02
+    _bodyBottom: -1.0993011
+    _bodyTop: 1.01
+  _detection:
+    _emfRange: 6
+    _revealRange: 3
+  _capture:
+    _resistance: 1.6
+    _reward: 40
+    _surgeJerk: 0.2
+  _dossier:
+    _rumorKey: ghost.kaidannyk.rumor
+    _behaviorKey: ghost.kaidannyk.behavior
+    _tacticsKey: ghost.kaidannyk.tactics
+    _classifiedKey: ghost.kaidannyk.classified
+    _tipKey: ghost.kaidannyk.tip
+    _threat: 4
+  _abilities:
+  - {fileID: 11400000, guid: abb3bf7cf85238f489c7fd3ae4a49df3, type: 2}

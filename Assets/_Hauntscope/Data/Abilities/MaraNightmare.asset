@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e311fa2e0fb05604eb65ef8e58e37459, type: 3}
+  m_Name: MaraNightmare
+  m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Ghosts.Abilities.NightmareAbilityConfig
+  _litThreshold: 0.05
+  _lungeDistance: 1.3
+  _bite: 0.2
+  _bounceDistance: 3
+  _bounceDuration: 0.35
+  _spentStagger: 1.2
+  _retreatDistance: 3.5

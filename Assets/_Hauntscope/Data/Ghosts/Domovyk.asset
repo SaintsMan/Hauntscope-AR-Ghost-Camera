@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6498942b478c1142b53ff236e671a09, type: 3}
+  m_Name: Domovyk
+  m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Config.GhostData
+  _id: domovyk
+  _nameKey: ghost.domovyk.name
+  _descriptionKey: ghost.domovyk.description
+  _icon: {fileID: 21300000, guid: c6f6521cd1d79134bbad173c1ef0da86, type: 3}
+  _rarity: 0
+  _prefab: {fileID: 2149179754933935759, guid: 3625e4cf63dbeb044874ccc08dee3e98, type: 3}
+  _rimColor: {r: 1, g: 0.70980394, b: 0.2784314, a: 1}
+  _voice:
+    _whisper: {fileID: 8300000, guid: 2056d943bda62ac498c9ed1411df6215, type: 3}
+    _ability: {fileID: 8300000, guid: 85c4e781bc248544184ad203f7cfb91c, type: 3}
+    _scare: {fileID: 8300000, guid: 62607ef33c831644b97f74827a5c0e43, type: 3}
+    _capture: {fileID: 8300000, guid: 4eea8f070c922314c8e3c75c0357b799, type: 3}
+    _escape: {fileID: 8300000, guid: 58d0ffaa0e4c40049988ca2d653ce044, type: 3}
+    _stagger: {fileID: 8300000, guid: f621b0c737c55304c8813f90317f2fc5, type: 3}
+  _canHide: 1
+  _canScare: 0
+  _nightOnly: 0
+  _photoOnly: 0
+  _hasOwnHide: 1
+  _hide:
+    _chance: 0.85
+    _cooldown: 5
+    _durationMin: 5
+    _durationMax: 8
+    _floorClearanceMin: 0.02
+    _floorClearanceMax: 0.15
+    _revealRange: 1.2
+    _flushStagger: 2
+    _minDistance: 2
+    _wallOffset: 0.35
+    _cornerInset: 0.4
+  _motion:
+    _moveSpeed: 0.55
+    _fleeSpeed: 1.9
+    _hoverHeightMin: 0.36
+    _hoverHeightMax: 0.6
+    _bodyBottom: -0.36
+    _bodyTop: 0.3101657
+  _detection:
+    _emfRange: 6
+    _revealRange: 3
+  _capture:
+    _resistance: 0.9
+    _reward: 18
+    _surgeJerk: 0.2
+  _dossier:
+    _rumorKey: ghost.domovyk.rumor
+    _behaviorKey: ghost.domovyk.behavior
+    _tacticsKey: ghost.domovyk.tactics
+    _classifiedKey: ghost.domovyk.classified
+    _tipKey: ghost.domovyk.tip
+    _threat: 2
+  _abilities:
+  - {fileID: 11400000, guid: 5a4e4fbac157fe844ab65406a391acde, type: 2}

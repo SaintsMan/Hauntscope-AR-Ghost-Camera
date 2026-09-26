@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Hauntscope.Editor
 {
-    // The roster (GDD 5.15, 5.28, 5.32), in the order the Bestiary lists it.
+    // The roster (GDD 5.15, 5.28, 5.32), in the order the Bestiary lists it: commons, rares, legendaries.
     internal static class GhostRecipes
     {
         private const string Abilities = "Assets/_Hauntscope/Data/Abilities/";
@@ -38,6 +38,15 @@ namespace Hauntscope.Editor
                     .Leaves(new GhostVfxProfile().WithTrail(TrailLook.Streaks, 22f, 0.03f, 0.07f, 0.5f, 0.9f, 0.02f, 0.1f).WithMotes(3f, 0.05f)
                         .WithAura(6f, 0.3f, 0.7f, 2.4f).WithHalo(0.9f, 0.1f))
                     .Sounds(GhostVoices.Wraith()),
+                new GhostRecipe("domovyk", "Domovyk", GhostRarity.Common, "#FFB547", GhostMeshGenerator.BuildDomovyk)
+                    .Moves(0.55f, 1.9f, 0.36f, 0.6f).Catch(0.9f, 18, 2, surgeJerk: 0.2f).Rules(canScare: false)
+                    .Hides(new HideConfig(0.85f, 5f, 5f, 8f, 1.2f, 2f, 2f))
+                    .Features(new GhostFace().Eyes(new Vector3(0f, 0.2f, 0.21f), 0.05f, new Vector3(0.02f, 0.014f, 0.01f)))
+                    .Ability<HomebodyAbilityConfig>(Abilities + "DomovykHomebody.asset")
+                    .Looks(new GhostLook().Body(0.3f, 2.2f, 1.6f, 0.6f, 4f).Hem(0.012f, 0.2f, 6f).Motion(0.012f, 1.6f, 0.012f, 0.9f))
+                    .Leaves(new GhostVfxProfile().WithTrail(TrailLook.Dust, 12f, 0.012f, 0.03f, 0.8f, 1.4f, -0.1f, 0.04f).WithMotes(6f, -0.05f)
+                        .WithAura(6f, 0.22f, 0.5f, 1.2f).WithHalo(0.7f, 0.14f))
+                    .Sounds(GhostVoices.Domovyk()),
                 new GhostRecipe("shade", "Shade", GhostRarity.Rare, "#9B5CFF", GhostMeshGenerator.BuildShade)
                     .Moves(0.55f, 1.6f).Catch(1f, 30, 3)
                     .Eyes(new Vector3(0f, 0.6f, 0.17f), 0.06f, new Vector3(0.045f, 0.025f, 0.02f))
@@ -55,18 +64,6 @@ namespace Hauntscope.Editor
                     .Leaves(new GhostVfxProfile().WithTrail(TrailLook.Frost, 12f, 0.02f, 0.05f, 1.2f, 2f, 0.1f).WithMotes(6f, 0.1f)
                         .WithAura(10f, 0.25f, 0.8f, 1.6f).WithHalo(1f, 0.14f))
                     .Sounds(GhostVoices.Banshee()),
-                new GhostRecipe("mimic", "Mimic", GhostRarity.Legendary, "#FFD166", GhostMeshGenerator.BuildMimic)
-                    .Moves(0.7f, 1.8f).Catch(1.4f, 60, 5, surgeJerk: 0.45f)
-                    .Features(new GhostFace().Eyes(new Vector3(0f, 0.06f, 0.33f), 0.13f, new Vector3(0.075f, 0.1f, 0.03f))
-                        .Teeth(new Vector3(-0.15f, -0.07f, 0.34f), new Vector3(0f, -0.095f, 0.37f), new Vector3(0.15f, -0.07f, 0.34f), 7,
-                            new Vector3(0f, -0.045f, 0.008f), 0.018f)
-                        .Teeth(new Vector3(-0.12f, -0.16f, 0.368f), new Vector3(0f, -0.175f, 0.385f), new Vector3(0.12f, -0.16f, 0.368f), 6,
-                            new Vector3(0f, 0.035f, 0.006f), 0.015f))
-                    .Ability<DecoyAbilityConfig>(Abilities + "MimicDecoy.asset")
-                    .Looks(new GhostLook().Body(0.24f, 2.4f, 1.7f).Hem(0.03f, 0.25f, 4f).Motion(0.014f, 2.3f, 0.02f, 1.4f))
-                    .Leaves(new GhostVfxProfile().WithTrail(TrailLook.Dust, 14f, 0.015f, 0.04f, 1f, 1.6f, 0.05f).WithMotes(12f, 0.08f)
-                        .WithAura(18f, 0.5f, 0.5f, 1.8f).WithHalo(1.4f, 0.18f))
-                    .Sounds(GhostVoices.Mimic()),
                 new GhostRecipe("lurker", "Lurker", GhostRarity.Rare, "#FFB547", GhostMeshGenerator.BuildLurker)
                     .Moves(0.9f, 1.8f, 1.1f, 1.3f).Catch(1.5f, 45, 4).Rules(canHide: false, nightOnly: true)
                     .Eyes(new Vector3(0f, 0.82f, 0.17f), 0.038f, new Vector3(0.022f, 0.009f, 0.012f))
@@ -83,7 +80,45 @@ namespace Hauntscope.Editor
                     .Looks(new GhostLook().Body(0.26f, 2.2f, 1.7f).Hem(0.005f, 0.1f, 2f).Motion(0.01f, 2.4f, 0.008f, 0.9f))
                     .Leaves(new GhostVfxProfile().WithTrail(TrailLook.Dust, 8f, 0.01f, 0.025f, 0.8f, 1.2f, 0.08f).WithMotes(6f, 0.06f)
                         .WithAura(8f, 0.2f, 0.5f, 1.6f).WithHalo(0.6f, 0.14f))
-                    .Sounds(GhostVoices.PhantomCat())
+                    .Sounds(GhostVoices.PhantomCat()),
+                new GhostRecipe("negative", "Negative", GhostRarity.Rare, "#E6EDF3", GhostMeshGenerator.BuildNegative)
+                    .Moves(0.6f, 1.7f, 0.9f, 1.4f).Catch(1.1f, 35, 4).Rules(photoOnly: true)
+                    .Eyes(new Vector3(0.028f, 0.64f, 0.1f), 0.032f, new Vector3(0.016f, 0.011f, 0.01f))
+                    .Ability<UndevelopedAbilityConfig>(Abilities + "NegativeUndeveloped.asset")
+                    .Looks(new GhostLook().Body(0.55f, 1.8f, 2.2f, 0.35f, 5f).Colored(new Color(0.02f, 0.02f, 0.03f, 0.85f))
+                        .Eyes(new Color(0f, 0f, 0f, 1f)).Hem(0.02f, 0.25f, 4f).Motion(0.004f, 0.8f, 0.008f, 0.4f))
+                    .Leaves(new GhostVfxProfile().WithTrail(TrailLook.Streaks, 10f, 0.01f, 0.025f, 0.4f, 0.8f, 0f, 0.02f).WithMotes(8f, 0.02f)
+                        .WithAura(4f, 0.25f, 0.6f, 0.8f).WithHalo(0.9f, 0.1f))
+                    .Sounds(GhostVoices.Negative()),
+                new GhostRecipe("kaidannyk", "Kaidannyk", GhostRarity.Rare, "#4FF5E6", GhostMeshGenerator.BuildKaidannyk)
+                    .Moves(0.45f, 1.2f, 0.95f, 1.02f).Catch(1.6f, 40, 4, surgeJerk: 0.2f)
+                    .Eyes(new Vector3(0f, 0.68f, 0.2f), 0.045f, new Vector3(0.028f, 0.012f, 0.015f))
+                    .Ability<ShackledAbilityConfig>(Abilities + "KaidannykShackled.asset")
+                    .Looks(new GhostLook().Body(0.24f, 2.4f, 1.6f, 0.6f, 2.5f).Hem(0.03f, 0.25f, 2.5f).Motion(0.008f, 0.9f, 0.012f, 0.4f))
+                    .Leaves(new GhostVfxProfile().WithTrail(TrailLook.Links, 6f, 0.02f, 0.04f, 1f, 1.6f, -0.15f, 0.02f).WithMotes(3f, -0.04f)
+                        .WithAura(5f, 0.3f, 0.35f, 0.7f).WithHalo(1.1f, 0.12f))
+                    .Sounds(GhostVoices.Kaidannyk()),
+                new GhostRecipe("mimic", "Mimic", GhostRarity.Legendary, "#FFD166", GhostMeshGenerator.BuildMimic)
+                    .Moves(0.7f, 1.8f).Catch(1.4f, 60, 5, surgeJerk: 0.45f)
+                    .Features(new GhostFace().Eyes(new Vector3(0f, 0.06f, 0.33f), 0.13f, new Vector3(0.075f, 0.1f, 0.03f))
+                        .Teeth(new Vector3(-0.15f, -0.07f, 0.34f), new Vector3(0f, -0.095f, 0.37f), new Vector3(0.15f, -0.07f, 0.34f), 7,
+                            new Vector3(0f, -0.045f, 0.008f), 0.018f)
+                        .Teeth(new Vector3(-0.12f, -0.16f, 0.368f), new Vector3(0f, -0.175f, 0.385f), new Vector3(0.12f, -0.16f, 0.368f), 6,
+                            new Vector3(0f, 0.035f, 0.006f), 0.015f))
+                    .Ability<DecoyAbilityConfig>(Abilities + "MimicDecoy.asset")
+                    .Looks(new GhostLook().Body(0.24f, 2.4f, 1.7f).Hem(0.03f, 0.25f, 4f).Motion(0.014f, 2.3f, 0.02f, 1.4f))
+                    .Leaves(new GhostVfxProfile().WithTrail(TrailLook.Dust, 14f, 0.015f, 0.04f, 1f, 1.6f, 0.05f).WithMotes(12f, 0.08f)
+                        .WithAura(18f, 0.5f, 0.5f, 1.8f).WithHalo(1.4f, 0.18f))
+                    .Sounds(GhostVoices.Mimic()),
+                new GhostRecipe("mara", "Mara", GhostRarity.Legendary, "#9B5CFF", GhostMeshGenerator.BuildMara)
+                    .Moves(0.55f, 1.8f, 0.95f, 1.25f).Catch(1.5f, 70, 5, surgeJerk: 0.4f).Rules(canScare: false)
+                    .Eyes(new Vector3(0f, 0.66f, 0.15f), 0.04f, new Vector3(0.024f, 0.009f, 0.012f))
+                    .Ability<NightmareAbilityConfig>(Abilities + "MaraNightmare.asset")
+                    .Looks(new GhostLook().Body(0.5f, 2f, 2f, 0.7f, 3.5f).Colored(new Color(0.05f, 0.02f, 0.09f, 0.8f))
+                        .Hem(0.05f, 0.35f, 2.5f).Motion(0.006f, 0.7f, 0.02f, 0.35f))
+                    .Leaves(new GhostVfxProfile().WithTrail(TrailLook.Smoke, 16f, 0.08f, 0.2f, 1.8f, 2.8f, -0.02f, 0.04f).WithMotes(4f, 0.05f)
+                        .WithAura(6f, 0.35f, 0.7f, 0.5f).WithHalo(1.4f, 0.18f))
+                    .Sounds(GhostVoices.Mara())
             };
         }
     }

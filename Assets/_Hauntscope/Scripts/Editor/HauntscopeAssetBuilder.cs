@@ -72,6 +72,7 @@ namespace Hauntscope.Editor
             SetClip(serialized, "_audio._lurkerCreak", SfxFolder, "LurkerCreak");
             SetClip(serialized, "_audio._catMeow", SfxFolder, "CatMeow");
             SetClip(serialized, "_audio._catPurr", SfxFolder, "CatPurr");
+            SetClip(serialized, "_audio._knock", SfxFolder, "Knock");
             serialized.FindProperty("_vfx._captureSpiral").objectReferenceValue = VfxGenerator.CaptureSpiral;
             serialized.FindProperty("_vfx._teleportFlash").objectReferenceValue = VfxGenerator.TeleportFlash;
             serialized.FindProperty("_vfx._revealPulse").objectReferenceValue = VfxGenerator.RevealPulse;
@@ -80,6 +81,8 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_vfx._coldSpot").objectReferenceValue = VfxGenerator.ColdSpot;
             serialized.FindProperty("_vfx._dashStreak").objectReferenceValue = VfxGenerator.DashStreak;
             serialized.FindProperty("_vfx._shriekWave").objectReferenceValue = VfxGenerator.ShriekWave;
+            serialized.FindProperty("_vfx._knockDust").objectReferenceValue = VfxGenerator.KnockDust;
+            serialized.FindProperty("_vfx._developFlash").objectReferenceValue = VfxGenerator.DevelopFlash;
             serialized.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(config);
             AssetDatabase.SaveAssets();

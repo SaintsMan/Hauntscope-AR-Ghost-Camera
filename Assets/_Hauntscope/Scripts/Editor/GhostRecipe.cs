@@ -52,6 +52,11 @@ namespace Hauntscope.Editor
 
         public bool NightOnly { get; private set; }
 
+        public bool PhotoOnly { get; private set; }
+
+        // Null: the ghost hides by GameConfig's numbers.
+        public HideConfig OwnHide { get; private set; }
+
         public GhostFace Face { get; private set; } = new GhostFace();
 
         public string AbilityPath { get; private set; }
@@ -82,11 +87,18 @@ namespace Hauntscope.Editor
             return this;
         }
 
-        public GhostRecipe Rules(bool canHide = true, bool canScare = true, bool nightOnly = false)
+        public GhostRecipe Rules(bool canHide = true, bool canScare = true, bool nightOnly = false, bool photoOnly = false)
         {
             CanHide = canHide;
             CanScare = canScare;
             NightOnly = nightOnly;
+            PhotoOnly = photoOnly;
+            return this;
+        }
+
+        public GhostRecipe Hides(HideConfig hide)
+        {
+            OwnHide = hide;
             return this;
         }
 

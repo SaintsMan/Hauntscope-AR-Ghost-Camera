@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6498942b478c1142b53ff236e671a09, type: 3}
+  m_Name: Mara
+  m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Config.GhostData
+  _id: mara
+  _nameKey: ghost.mara.name
+  _descriptionKey: ghost.mara.description
+  _icon: {fileID: 21300000, guid: 1c05f7a69a45cc4469a5d0b6d715dcbf, type: 3}
+  _rarity: 2
+  _prefab: {fileID: 4840447902407261863, guid: 8aa42b11aedf7db428f217ed92e42249, type: 3}
+  _rimColor: {r: 0.60784316, g: 0.36078432, b: 1, a: 1}
+  _voice:
+    _whisper: {fileID: 8300000, guid: 90d1d8675e5a3cf4aac2d439cc12778f, type: 3}
+    _ability: {fileID: 8300000, guid: f225326eaff9c8a4da0f63cb927ed3a1, type: 3}
+    _scare: {fileID: 8300000, guid: 239bb26ccda60044ca5e76653d03da04, type: 3}
+    _capture: {fileID: 8300000, guid: 7e78f8393081df543b1e98080d7aa4d1, type: 3}
+    _escape: {fileID: 8300000, guid: fe14abfe766940143b379de45e2a0c08, type: 3}
+    _stagger: {fileID: 8300000, guid: e7d35ecf5c1782b4180fae4be49b4def, type: 3}
+  _canHide: 1
+  _canScare: 0
+  _nightOnly: 0
+  _photoOnly: 0
+  _hasOwnHide: 0
+  _hide:
+    _chance: 0.3
+    _cooldown: 20
+    _durationMin: 6
+    _durationMax: 10
+    _floorClearanceMin: 0.02
+    _floorClearanceMax: 0.15
+    _revealRange: 1.2
+    _flushStagger: 1
+    _minDistance: 2
+    _wallOffset: 0.35
+    _cornerInset: 0.4
+  _motion:
+    _moveSpeed: 0.55
+    _fleeSpeed: 1.8
+    _hoverHeightMin: 0.95
+    _hoverHeightMax: 1.25
+    _bodyBottom: -1.1950994
+    _bodyTop: 1.0450001
+  _detection:
+    _emfRange: 6
+    _revealRange: 3
+  _capture:
+    _resistance: 1.5
+    _reward: 70
+    _surgeJerk: 0.4
+  _dossier:
+    _rumorKey: ghost.mara.rumor
+    _behaviorKey: ghost.mara.behavior
+    _tacticsKey: ghost.mara.tactics
+    _classifiedKey: ghost.mara.classified
+    _tipKey: ghost.mara.tip
+    _threat: 5
+  _abilities:
+  - {fileID: 11400000, guid: ef956068ead178f48955885f08b39c65, type: 2}

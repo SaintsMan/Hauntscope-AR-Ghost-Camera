@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec57d9fb70af9684994d2036a808acf8, type: 3}
+  m_Name: KaidannykShackled
+  m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Ghosts.Abilities.ShackledAbilityConfig
+  _thresholds:
+  - 0.4
+  - 0.7
+  _distance: 0.6
+  _duration: 0.3
+  _gripLoss: 0.25
+  _rearm: 0.15
