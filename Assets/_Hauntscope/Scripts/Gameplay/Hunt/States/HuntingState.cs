@@ -6,6 +6,7 @@ using Hauntscope.Gameplay.Photo;
 using Hauntscope.Gameplay.Pickups;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Research;
+using Hauntscope.Gameplay.Shift;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 
@@ -31,6 +32,7 @@ namespace Hauntscope.Gameplay.Hunt.States
         private readonly GhostResearch _research;
         private readonly SpiritCamera _spiritCamera;
         private readonly WitchingHour _witchingHour;
+        private readonly NightShift _shift;
 
         public HuntingState(
             HuntSession session,
@@ -50,8 +52,10 @@ namespace Hauntscope.Gameplay.Hunt.States
             EmergencyCharge emergency,
             GhostResearch research,
             SpiritCamera spiritCamera,
-            WitchingHour witchingHour)
+            WitchingHour witchingHour,
+            NightShift shift)
         {
+            _shift = shift;
             _witchingHour = witchingHour;
             _spiritCamera = spiritCamera;
             _research = research;
@@ -77,13 +81,16 @@ namespace Hauntscope.Gameplay.Hunt.States
             if (_session.Ghost.Value != null)
                 return;
 
+            var consumeBoosters = _shift.BeginRound();
             var isFirstHunt = _progress.IsFirstSession;
-            var data = _selector.Select(isFirstHunt);
+            var data = _selector.Select(isFirstHunt, _shift.Weights);
             _progress.RegisterSession();
             _loot.Reset();
-            _loadout.Begin();
+            _loadout.Begin(consumeBoosters);
+            // Before the ghost is made: its speed is read from the modifiers when it spawns.
+            _shift.ApplyRound();
             _emergency.ResetForHunt();
-            _spiritCamera.BeginHunt();
+            _spiritCamera.BeginHunt(_shift.ExtraFilm);
             _session.Begin(_factory.Create(data), data, isFirstHunt, _witchingHour.IsActive);
             _pickups.Begin();
         }
@@ -138,7 +145,7 @@ namespace Hauntscope.Gameplay.Hunt.States
             if (ghost.IsCaptureFinished)
                 _session.Finish(HuntOutcome.Captured, _progress.GetCaptureCount(data.Id) == 0, _loot.Ectoplasm.Value,
                     _research.RewardMultiplier(data), _research.WillDeclassify(data, true, evidence), photo, _spiritCamera.Reward, evidence,
-                    _session.IsWitchingHour ? _witchingHour.NightRewardMultiplier : 1f);
+                    _session.IsWitchingHour ? _witchingHour.NightRewardMultiplier : 1f, _shift.RewardMultiplier);
             else if (ghost.IsEscapeFinished)
                 _session.Finish(HuntOutcome.Escaped, false, _loot.Ectoplasm.Value, 1f,
                     _research.WillDeclassify(data, false, evidence), photo, _spiritCamera.Reward, evidence);

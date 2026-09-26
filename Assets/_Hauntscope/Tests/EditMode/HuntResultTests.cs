@@ -46,6 +46,26 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void ShiftBonus_SecondRound_ListsTheExtraHalf()
+        {
+            var result = new HuntResult(HuntOutcome.Captured, _ghost, 60f, shiftMultiplier: 1.5f);
+
+            Assert.AreEqual(30, result.CaptureReward);
+            Assert.AreEqual(0, result.NightBonus);
+            Assert.AreEqual(10, result.ShiftBonus);
+        }
+
+        [Test]
+        public void Bonuses_AllStacked_AddUpToTheCaptureReward()
+        {
+            var result = new HuntResult(HuntOutcome.Captured, _ghost, 60f, rewardMultiplier: 1.25f, nightMultiplier: 1.25f,
+                shiftMultiplier: 2f).WithDoubledCapture();
+
+            Assert.AreEqual(result.CaptureReward, 40 + result.ResearchBonus + result.NightBonus + result.ShiftBonus);
+            Assert.AreEqual(124, result.CaptureReward);
+        }
+
+        [Test]
         public void NightBonus_Escaped_IsZero()
         {
             var result = new HuntResult(HuntOutcome.Escaped, _ghost, 60f, nightMultiplier: 1.25f);

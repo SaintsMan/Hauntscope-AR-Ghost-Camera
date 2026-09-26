@@ -59,9 +59,10 @@ namespace Hauntscope.Gameplay.Photo
 
         public int Reward => BestShot != null ? _config.RewardFor(BestShot.Score.Stars) : 0;
 
-        public void BeginHunt()
+        // A night shift perk can load extra frames for the round.
+        public void BeginHunt(int extraFilm = 0)
         {
-            _film.Value = _config.FilmPerHunt;
+            _film.Value = _config.FilmPerHunt + extraFilm;
             _cooldown = 0f;
             BestShot = null;
             EvidenceShots = 0;

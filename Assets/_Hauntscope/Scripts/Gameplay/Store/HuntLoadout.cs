@@ -30,9 +30,18 @@ namespace Hauntscope.Gameplay.Store
 
         public IReadOnlyList<BoosterData> ActiveBoosters => _activeBoosters;
 
-        public void Begin()
+        // A night shift uses its boosters up at its start only and keeps them for the rounds after (GDD 5.27).
+        public void Begin(bool consumeBoosters = true)
         {
             ApplyLaser();
+            if (!consumeBoosters)
+            {
+                foreach (var booster in _activeBoosters)
+                    _modifiers.Apply(booster.Modifiers);
+                Changed?.Invoke();
+                return;
+            }
+
             _activeBoosters.Clear();
             foreach (var booster in _store.Boosters)
             {

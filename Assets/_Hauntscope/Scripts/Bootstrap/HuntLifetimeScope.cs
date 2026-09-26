@@ -7,6 +7,7 @@ using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Hunt.States;
 using Hauntscope.Gameplay.Photo;
 using Hauntscope.Gameplay.Pickups;
+using Hauntscope.Gameplay.Shift;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using Hauntscope.Infrastructure.Vfx;
@@ -50,6 +51,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<ScarePolicy>(Lifetime.Singleton);
 
             builder.Register<HuntModifiers>(Lifetime.Singleton);
+            RegisterShift(builder);
             builder.Register<HuntLoadout>(Lifetime.Singleton);
             builder.Register<SpareBatteries>(Lifetime.Singleton);
             builder.Register<HuntSession>(Lifetime.Singleton);
@@ -78,6 +80,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<ScanState>(Lifetime.Singleton);
             builder.Register<HuntingState>(Lifetime.Singleton);
             builder.Register<ResultState>(Lifetime.Singleton);
+            builder.Register<ShiftBreakState>(Lifetime.Singleton);
             builder.RegisterEntryPoint<HuntFlow>();
             builder.RegisterEntryPoint<TutorialFlow>().AsSelf();
 
@@ -100,6 +103,15 @@ namespace Hauntscope.Bootstrap
             builder.RegisterComponentInHierarchy<TutorialView>();
             RegisterPhotos(builder);
             builder.RegisterEntryPoint<TutorialPresenter>();
+        }
+
+        // Always registered: in a single hunt the night shift simply stays off.
+        private static void RegisterShift(IContainerBuilder builder)
+        {
+            builder.Register<ShiftDifficulty>(Lifetime.Singleton);
+            builder.Register<ShiftPerkPicker>(Lifetime.Singleton);
+            builder.Register<ShiftPerkTarget>(Lifetime.Singleton);
+            builder.Register<NightShift>(Lifetime.Singleton);
         }
 
         // The spirit camera's gameplay, the capture that renders the photo, and every screen that shows one.

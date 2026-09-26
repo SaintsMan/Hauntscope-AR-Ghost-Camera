@@ -1,6 +1,7 @@
 using Hauntscope.Core.StateMachines;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Research;
+using Hauntscope.Gameplay.Shift;
 using Hauntscope.Gameplay.Tools;
 
 namespace Hauntscope.Gameplay.Hunt.States
@@ -13,6 +14,7 @@ namespace Hauntscope.Gameplay.Hunt.States
         private readonly PlayerProgress _progress;
         private readonly PlayerProgressRepository _progressRepository;
         private readonly GhostResearch _research;
+        private readonly NightShift _shift;
 
         public ResultState(
             HuntSession session,
@@ -20,8 +22,10 @@ namespace Hauntscope.Gameplay.Hunt.States
             Toolbelt toolbelt,
             PlayerProgress progress,
             PlayerProgressRepository progressRepository,
-            GhostResearch research)
+            GhostResearch research,
+            NightShift shift)
         {
+            _shift = shift;
             _research = research;
             _session = session;
             _battery = battery;
@@ -44,12 +48,18 @@ namespace Hauntscope.Gameplay.Hunt.States
             }
 
             _progressRepository.Save(_progress);
+            if (result != null)
+                _shift.RecordResult(result);
         }
 
+        // Between rounds of a night shift the battery carries over with a top-up; any other hunt starts full.
         public void Exit()
         {
             _session.Reset();
-            _battery.Refill();
+            if (_shift.Phase.Value == ShiftPhase.BetweenRounds)
+                _battery.Recharge(_shift.RoundRecharge);
+            else
+                _battery.Refill();
             _toolbelt.Beam.ResetProgress();
         }
 

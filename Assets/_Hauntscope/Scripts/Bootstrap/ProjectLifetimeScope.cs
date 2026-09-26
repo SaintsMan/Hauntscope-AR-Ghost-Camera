@@ -4,6 +4,7 @@ using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Ads;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
+using Hauntscope.Gameplay.Engagement;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
@@ -92,6 +93,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Photo);
             builder.RegisterInstance(_gameConfig.Hide);
             builder.RegisterInstance(_gameConfig.Night);
+            builder.RegisterInstance(_gameConfig.Shift);
         }
 
         // Scene loads are decorated with the CRT transition; the overlay outlives every scene it covers.
@@ -112,6 +114,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<InventoryRepository>(Lifetime.Singleton);
             builder.Register(resolver => resolver.Resolve<InventoryRepository>().Load(), Lifetime.Singleton);
             builder.Register<Shop>(Lifetime.Singleton);
+            builder.Register<RewardGranter>(Lifetime.Singleton);
             builder.Register<GhostResearch>(Lifetime.Singleton);
         }
 

@@ -26,8 +26,12 @@ namespace Hauntscope.Gameplay.Progress
             IEnumerable<string> sighted = null,
             int fieldDropDay = 0,
             int fieldDropsClaimed = 0,
-            IReadOnlyDictionary<string, int> photoEvidence = null)
+            IReadOnlyDictionary<string, int> photoEvidence = null,
+            int shiftsCompleted = 0,
+            int bestShiftRound = 0)
         {
+            ShiftsCompleted = shiftsCompleted;
+            BestShiftRound = bestShiftRound;
             if (photoEvidence != null)
                 foreach (var pair in photoEvidence)
                     _photoEvidence[pair.Key] = pair.Value;
@@ -131,6 +135,26 @@ namespace Hauntscope.Gameplay.Progress
         public int GetCaptureCount(string ghostId)
         {
             return _captures.TryGetValue(ghostId, out var count) ? count : 0;
+        }
+
+        // Night shift records (GDD 5.27): shifts seen through to the end, and the furthest round ever reached.
+        public int ShiftsCompleted { get; private set; }
+
+        public int BestShiftRound { get; private set; }
+
+        public void RecordShiftRound(int round)
+        {
+            if (round <= BestShiftRound)
+                return;
+
+            BestShiftRound = round;
+            Changed?.Invoke();
+        }
+
+        public void CompleteShift()
+        {
+            ShiftsCompleted++;
+            Changed?.Invoke();
         }
 
         public void RegisterSession()

@@ -12,6 +12,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private LaserData[] _lasers = Array.Empty<LaserData>();
         [SerializeField] private SpareBatteryData _spareBattery;
         [SerializeField] private BoosterData[] _boosters = Array.Empty<BoosterData>();
+        [SerializeField, Range(0f, 1f)] private float _overflowRefund = 0.5f;
 
         public StoreConfig()
         {
@@ -31,6 +32,9 @@ namespace Hauntscope.Gameplay.Config
         public SpareBatteryData SpareBattery => _spareBattery;
 
         public IReadOnlyList<BoosterData> Boosters => _boosters;
+
+        // Gear rewarded beyond its stack limit is paid out as this share of its price.
+        public float OverflowRefund => _overflowRefund;
 
         public LaserData FindLaser(string id)
         {

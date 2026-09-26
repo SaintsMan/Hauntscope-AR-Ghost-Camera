@@ -33,6 +33,21 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Begin_LaterShiftRound_ReappliesTheBoostersWithoutUsingMore()
+        {
+            var store = new StoreFixture();
+            store.Inventory.AddGear(StoreFixture.SaltId, 2);
+            store.Inventory.SetArmed(StoreFixture.SaltId, true);
+            var loadout = store.CreateLoadout();
+            loadout.Begin();
+
+            loadout.Begin(false);
+
+            Assert.AreEqual(1, store.Inventory.GetCount(StoreFixture.SaltId));
+            Assert.AreEqual(0.65f, store.Modifiers.GhostSpeed, 1e-4f);
+        }
+
+        [Test]
         public void Begin_DisarmedBooster_IsKept()
         {
             var store = new StoreFixture();

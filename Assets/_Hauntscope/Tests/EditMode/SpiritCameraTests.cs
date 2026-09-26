@@ -194,6 +194,14 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void BeginHunt_ExtraFilm_LoadsItOnTop()
+        {
+            _camera.BeginHunt(2);
+
+            Assert.AreEqual(Film + 2, _camera.Film.Value);
+        }
+
+        [Test]
         public void BeginHunt_AfterShots_ForgetsThePreviousHunt()
         {
             Arm();

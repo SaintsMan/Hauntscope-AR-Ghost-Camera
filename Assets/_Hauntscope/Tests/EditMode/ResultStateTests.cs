@@ -21,6 +21,7 @@ namespace Hauntscope.Tests.EditMode
         private ResultState _state;
         private PlayerProgress _progress;
         private FakeSaveService _save;
+        private ShiftFixture _shift;
 
         [SetUp]
         public void SetUp()
@@ -34,8 +35,31 @@ namespace Hauntscope.Tests.EditMode
             _toolbelt = new Toolbelt(new GhostLens(_session, _fixture.Camera, config, new HuntModifiers()), TestConfigs.Beam(_session, _fixture.Camera, config, new HuntModifiers()));
             _progress = new PlayerProgress();
             _save = new FakeSaveService();
+            _shift = new ShiftFixture();
             _state = new ResultState(_session, _battery, _toolbelt, _progress, new PlayerProgressRepository(_save),
-                new GhostResearch(_progress, new ResearchConfig(5, 0.25f, 2)));
+                new GhostResearch(_progress, new ResearchConfig(5, 0.25f, 2)), _shift.Shift);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _shift.Dispose();
+        }
+
+        [Test]
+        public void Exit_BetweenShiftRounds_CarriesTheBatteryWithATopUp()
+        {
+            var data = CreateGhost("wraith");
+            _shift.Shift.BeginRound();
+            _session.Begin(_fixture.Ghost, data);
+            _session.Finish(HuntOutcome.Captured);
+            _battery.Drain(60f);
+            _state.Enter();
+
+            _state.Exit();
+
+            Assert.AreEqual(0.4f + ShiftFixture.RoundRecharge, _battery.Normalized, 1e-4f);
+            Object.DestroyImmediate(data);
         }
 
         [Test]

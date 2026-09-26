@@ -18,7 +18,8 @@ namespace Hauntscope.Gameplay.Ghosts
             _witchingHour = witchingHour;
         }
 
-        public GhostData Select(bool isFirstSession)
+        // Night shift rounds bring their own rarity split; otherwise the config's applies.
+        public GhostData Select(bool isFirstSession, RarityWeights weights = null)
         {
             var ghosts = _config.Ghosts;
             if (ghosts.Count == 0)
@@ -34,7 +35,7 @@ namespace Hauntscope.Gameplay.Ghosts
             var night = _witchingHour.IsActive;
             var totalWeight = 0f;
             for (var i = 0; i < ghosts.Count; i++)
-                totalWeight += WeightOf(ghosts[i], night);
+                totalWeight += WeightOf(ghosts[i], night, weights);
 
             if (totalWeight <= 0f)
                 return AnyAvailable(ghosts, night, _random.Range(0, ghosts.Count));
@@ -43,7 +44,7 @@ namespace Hauntscope.Gameplay.Ghosts
             var roll = _random.Range(0f, totalWeight);
             for (var i = 0; i < ghosts.Count; i++)
             {
-                roll -= WeightOf(ghosts[i], night);
+                roll -= WeightOf(ghosts[i], night, weights);
                 if (roll < 0f)
                     return ghosts[i];
             }
@@ -66,7 +67,7 @@ namespace Hauntscope.Gameplay.Ghosts
         }
 
         // Night-only ghosts are out of the pool by day, and a rarity's share goes to the ghosts that can come now.
-        private float WeightOf(GhostData ghost, bool night)
+        private float WeightOf(GhostData ghost, bool night, RarityWeights weights)
         {
             if (!IsAvailable(ghost, night))
                 return 0f;
@@ -79,7 +80,8 @@ namespace Hauntscope.Gameplay.Ghosts
                     sameRarity++;
             }
 
-            var weight = _config.GetRarityWeight(ghost.Rarity) / sameRarity;
+            var share = weights != null ? weights.WeightOf(ghost.Rarity) : _config.GetRarityWeight(ghost.Rarity);
+            var weight = share / sameRarity;
             return ghost.Rarity == GhostRarity.Legendary ? weight * _witchingHour.LegendaryWeightMultiplier : weight;
         }
 

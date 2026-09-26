@@ -92,6 +92,16 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Select_RoundWeights_ReplaceTheConfiguredSplit()
+        {
+            _random.Enqueue(0.1f);
+
+            var ghost = _selector.Select(isFirstSession: false, new RarityWeights(0f, 60f, 40f));
+
+            Assert.AreSame(_shade, ghost);
+        }
+
+        [Test]
         public void Select_NightOnlyGhostByDay_TakesNoneOfTheRareShare()
         {
             var lurker = CreateGhost("lurker", GhostRarity.Rare, nightOnly: true);

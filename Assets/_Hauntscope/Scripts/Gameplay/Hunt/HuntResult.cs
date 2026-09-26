@@ -18,9 +18,11 @@ namespace Hauntscope.Gameplay.Hunt
             PhotoShot bestPhoto = null,
             int photoReward = 0,
             int photoEvidence = 0,
-            float nightMultiplier = 1f)
+            float nightMultiplier = 1f,
+            float shiftMultiplier = 1f)
         {
             NightMultiplier = nightMultiplier;
+            ShiftMultiplier = shiftMultiplier;
             BestPhoto = bestPhoto;
             PhotoReward = photoReward;
             PhotoEvidence = photoEvidence;
@@ -52,6 +54,9 @@ namespace Hauntscope.Gameplay.Hunt
         // Witching hour bonus on the catch (1 = none), shown on its own line of the breakdown.
         public float NightMultiplier { get; }
 
+        // Night shift round bonus on the catch (1 = none, x1.5 and x2 in later rounds).
+        public float ShiftMultiplier { get; }
+
         // This catch declassified the ghost's Bestiary file.
         public bool IsDeclassified { get; }
 
@@ -68,19 +73,24 @@ namespace Hauntscope.Gameplay.Hunt
 
         public int BaseReward => Outcome == HuntOutcome.Captured ? Ghost.Capture.Reward : 0;
 
-        public int CaptureReward => Mathf.RoundToInt(BaseReward * RewardMultiplier * NightMultiplier) * (IsDoubled ? 2 : 1);
+        public int CaptureReward => Mathf.RoundToInt(BaseReward * RewardMultiplier * NightMultiplier * ShiftMultiplier) * Doubling;
 
-        // The parts of the capture reward above the base, as the result card lists them (doubling included).
-        public int ResearchBonus => (Mathf.RoundToInt(BaseReward * RewardMultiplier) - BaseReward) * (IsDoubled ? 2 : 1);
+        // The parts of the capture reward above the base, as the result card lists them (doubling included); the last
+        // one takes the rounding, so they always add up to the capture reward.
+        public int ResearchBonus => (Mathf.RoundToInt(BaseReward * RewardMultiplier) - BaseReward) * Doubling;
 
-        public int NightBonus => CaptureReward - BaseReward * (IsDoubled ? 2 : 1) - ResearchBonus;
+        public int NightBonus => (Mathf.RoundToInt(BaseReward * RewardMultiplier * NightMultiplier) - Mathf.RoundToInt(BaseReward * RewardMultiplier)) * Doubling;
+
+        public int ShiftBonus => CaptureReward - BaseReward * Doubling - ResearchBonus - NightBonus;
+
+        private int Doubling => IsDoubled ? 2 : 1;
 
         public int Reward => CaptureReward + Found + PhotoReward;
 
         public HuntResult WithDoubledCapture()
         {
             return new HuntResult(Outcome, Ghost, Duration, IsFirstCapture, Found, RewardMultiplier, true, IsDeclassified,
-                BestPhoto, PhotoReward, PhotoEvidence, NightMultiplier);
+                BestPhoto, PhotoReward, PhotoEvidence, NightMultiplier, ShiftMultiplier);
         }
     }
 }
