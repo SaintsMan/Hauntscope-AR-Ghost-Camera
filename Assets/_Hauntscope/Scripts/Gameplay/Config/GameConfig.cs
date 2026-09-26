@@ -21,6 +21,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private TutorialConfig _tutorial = new TutorialConfig();
         [SerializeField] private BootConfig _boot = new BootConfig();
         [SerializeField] private ReviewConfig _review = new ReviewConfig();
+        [SerializeField] private StoreConfig _store = new StoreConfig();
 
         public int TargetFrameRate => _targetFrameRate;
 
@@ -53,5 +54,7 @@ namespace Hauntscope.Gameplay.Config
         public BootConfig Boot => _boot;
 
         public ReviewConfig Review => _review;
+
+        public StoreConfig Store => _store;
     }
 }

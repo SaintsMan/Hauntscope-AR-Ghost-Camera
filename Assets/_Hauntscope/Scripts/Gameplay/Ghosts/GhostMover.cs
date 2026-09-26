@@ -26,6 +26,9 @@ namespace Hauntscope.Gameplay.Ghosts
 
         public Vector3 Facing { get; private set; } = Vector3.forward;
 
+        // Equipment slows the ghost (salt, a tethering beam) without the states knowing about it.
+        public float SpeedScale { get; set; } = 1f;
+
         public Vector3 VisualPosition =>
             Position + Vector3.up * (Mathf.Sin(_elapsed * _config.BobFrequency * FullCircle) * _config.BobAmplitude);
 
@@ -66,7 +69,7 @@ namespace Hauntscope.Gameplay.Ghosts
         public void Tick(float deltaTime, float maxSpeed)
         {
             _elapsed += deltaTime;
-            var next = Vector3.SmoothDamp(Position, Target, ref _velocity, _config.MoveSmoothTime, maxSpeed, deltaTime);
+            var next = Vector3.SmoothDamp(Position, Target, ref _velocity, _config.MoveSmoothTime, maxSpeed * SpeedScale, deltaTime);
             Position = ClampToRoom(next);
 
             var horizontal = new Vector3(_velocity.x, 0f, _velocity.z);

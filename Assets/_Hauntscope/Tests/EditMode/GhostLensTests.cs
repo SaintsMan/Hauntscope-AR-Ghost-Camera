@@ -1,4 +1,5 @@
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using NUnit.Framework;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace Hauntscope.Tests.EditMode
             _fixture.Mover.Teleport(new Vector3(0f, 1f, 0f));
             _session = new HuntSession();
             _session.Begin(_fixture.Ghost, null);
-            _lens = new GhostLens(_session, _fixture.Camera, TestConfigs.Tools(lensDrain: LensDrain, revealAngle: RevealAngle, revealInTime: RevealInTime, revealOutTime: RevealOutTime));
+            _lens = new GhostLens(_session, _fixture.Camera, TestConfigs.Tools(lensDrain: LensDrain, revealAngle: RevealAngle, revealInTime: RevealInTime, revealOutTime: RevealOutTime), new HuntModifiers());
         }
 
         [Test]
@@ -97,10 +98,20 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void Tick_NoGhostInSession_DoesNothing()
         {
-            var lens = new GhostLens(new HuntSession(), _fixture.Camera, TestConfigs.Tools(lensDrain: LensDrain, revealAngle: RevealAngle, revealInTime: RevealInTime, revealOutTime: RevealOutTime));
+            var lens = new GhostLens(new HuntSession(), _fixture.Camera, TestConfigs.Tools(lensDrain: LensDrain, revealAngle: RevealAngle, revealInTime: RevealInTime, revealOutTime: RevealOutTime), new HuntModifiers());
             lens.Activate();
 
             Assert.DoesNotThrow(() => lens.Tick(0.1f));
+        }
+
+        [Test]
+        public void DrainPerSecond_FocusLens_Halves()
+        {
+            var modifiers = new HuntModifiers();
+            modifiers.Apply(new HuntModifierSet(lensDrain: 0.5f));
+            var lens = new GhostLens(new HuntSession(), _fixture.Camera, TestConfigs.Tools(lensDrain: LensDrain), modifiers);
+
+            Assert.AreEqual(LensDrain * 0.5f, lens.DrainPerSecond, 1e-5f);
         }
     }
 }

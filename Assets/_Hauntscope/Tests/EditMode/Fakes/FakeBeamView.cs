@@ -17,9 +17,19 @@ namespace Hauntscope.Tests.EditMode.Fakes
 
         public bool IsLocked { get; private set; }
 
+        public Color IdleColor { get; private set; }
+
+        public Color LockedColor { get; private set; }
+
         public void SetVisible(bool visible)
         {
             IsVisible = visible;
+        }
+
+        public void SetColors(Color idle, Color locked)
+        {
+            IdleColor = idle;
+            LockedColor = locked;
         }
 
         public void SetBeam(Vector3 origin, Vector3 target, float intensity, bool locked)

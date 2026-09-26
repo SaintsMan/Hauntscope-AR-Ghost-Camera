@@ -3,6 +3,7 @@ using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Progress;
+using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 
 namespace Hauntscope.Gameplay.Hunt.States
@@ -19,6 +20,8 @@ namespace Hauntscope.Gameplay.Hunt.States
         private readonly PlayerProgress _progress;
         private readonly ScarePolicy _scarePolicy;
         private readonly ICameraPose _camera;
+        private readonly HuntLoadout _loadout;
+        private readonly HuntModifiers _modifiers;
 
         public HuntingState(
             HuntSession session,
@@ -30,8 +33,12 @@ namespace Hauntscope.Gameplay.Hunt.States
             ToolsConfig config,
             PlayerProgress progress,
             ScarePolicy scarePolicy,
-            ICameraPose camera)
+            ICameraPose camera,
+            HuntLoadout loadout,
+            HuntModifiers modifiers)
         {
+            _loadout = loadout;
+            _modifiers = modifiers;
             _session = session;
             _selector = selector;
             _factory = factory;
@@ -52,6 +59,7 @@ namespace Hauntscope.Gameplay.Hunt.States
             var isFirstHunt = _progress.IsFirstSession;
             var data = _selector.Select(isFirstHunt);
             _progress.RegisterSession();
+            _loadout.Begin();
             _session.Begin(_factory.Create(data), data, isFirstHunt);
         }
 
@@ -74,7 +82,7 @@ namespace Hauntscope.Gameplay.Hunt.States
 
             _toolbelt.Tick(deltaTime);
             ghost.Tick(deltaTime);
-            _radar.Tick(deltaTime, ghost.EmfSource, ghost.EmfRange);
+            _radar.Tick(deltaTime, ghost.EmfSource, ghost.EmfRange * _modifiers.EmfRange);
             _session.AddTime(deltaTime);
 
             if (_scarePolicy.CanScare(_session, ghost, _camera))

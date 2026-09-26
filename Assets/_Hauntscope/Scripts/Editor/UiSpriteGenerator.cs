@@ -42,6 +42,11 @@ namespace Hauntscope.Editor
             BuildFloorGrid();
             BuildPhoneBack();
             BuildScanCone();
+            BuildLaserIcons();
+            BuildGearIcons();
+            BuildAdIcon();
+            BuildEmfArrow();
+            BuildPlusIcon();
         }
 
         private static void BuildFrame()
@@ -395,6 +400,184 @@ namespace Hauntscope.Editor
             }
 
             SaveSprite("ScanCone", width, height, pixels, Vector4.zero, new Vector2(0.5f, apex.y / height));
+        }
+
+        // Laser icons share one emitter on the left; the beam it throws tells the lasers apart at a glance.
+        private static void BuildLaserIcons()
+        {
+            SaveLaser("LaserStandard", p => Segment(p, new Vector2(74f, 64f), new Vector2(110f, 64f)));
+            SaveLaser("LaserFloodlight", p => Mathf.Min(
+                Mathf.Min(Segment(p, new Vector2(74f, 64f), new Vector2(108f, 88f)), Segment(p, new Vector2(74f, 64f), new Vector2(108f, 40f))),
+                Segment(p, new Vector2(108f, 40f), new Vector2(108f, 88f))));
+            SaveLaser("LaserTether", p => Mathf.Min(Wave(p, 74f, 104f, 64f, 9f, 1.5f), Circle(p, new Vector2(106f, 64f), 6f)));
+            SaveLaser("LaserPhase", p =>
+            {
+                var distance = float.MaxValue;
+                for (var x = 74f; x < 92f; x += 8f)
+                    distance = Mathf.Min(distance, Segment(p, new Vector2(x, 64f), new Vector2(x + 4f, 64f)));
+                return Mathf.Min(distance, Polygon(p, new[]
+                {
+                    new Vector2(94f, 64f), new Vector2(103f, 73f), new Vector2(112f, 64f), new Vector2(103f, 55f)
+                }));
+            });
+        }
+
+        private static void SaveLaser(string name, Sdf beam)
+        {
+            const int size = 128;
+            Sdf emitter = p => Mathf.Min(
+                RoundBox(p, new Vector2(36f, 64f), new Vector2(24f, 17f), 7f),
+                RoundBox(p, new Vector2(30f, 42f), new Vector2(8f, 10f), 3f));
+            var pixels = Max(
+                Max(Shape(size, size, emitter, true, Line, Glow),
+                    Shape(size, size, p => RoundBox(p, new Vector2(64f, 64f), new Vector2(5f, 9f), 2f), false, 0f, Glow)),
+                Shape(size, size, beam, true, Line * 1.5f, Glow * 1.4f));
+            SaveSprite(name, size, size, pixels, Vector4.zero);
+        }
+
+        private static void BuildGearIcons()
+        {
+            const int size = 128;
+
+            Sdf battery = p => Mathf.Min(
+                RoundBox(p, new Vector2(58f, 64f), new Vector2(40f, 24f), 9f),
+                RoundBox(p, new Vector2(106f, 64f), new Vector2(5f, 10f), 3f));
+            Sdf bolt = p => Polygon(p, new[]
+            {
+                new Vector2(64f, 82f), new Vector2(46f, 60f), new Vector2(58f, 60f), new Vector2(52f, 46f),
+                new Vector2(72f, 68f), new Vector2(60f, 68f)
+            });
+            SaveSprite("GearBattery", size, size,
+                Max(Shape(size, size, battery, true, Line, Glow), Shape(size, size, bolt, false, 0f, Glow * 0.8f)), Vector4.zero);
+
+            var tip = new Vector2(64f, 70f);
+            Sdf mast = p => Mathf.Min(
+                Mathf.Min(Segment(p, new Vector2(64f, 24f), tip), Segment(p, new Vector2(46f, 18f), new Vector2(64f, 40f))),
+                Segment(p, new Vector2(82f, 18f), new Vector2(64f, 40f)));
+            Sdf waves = p =>
+            {
+                var distance = float.MaxValue;
+                foreach (var radius in new[] { 16f, 28f, 40f })
+                {
+                    distance = Mathf.Min(distance, Arc(p, tip, radius, 0f, 42f));
+                    distance = Mathf.Min(distance, Arc(p, tip, radius, 180f, 42f));
+                }
+
+                return distance;
+            };
+            SaveSprite("GearEmfAmp", size, size, Max(
+                Max(Shape(size, size, mast, true, Line, Glow), Shape(size, size, waves, true, Line, Glow)),
+                Shape(size, size, p => Circle(p, tip, 5f), false, 0f, Glow)), Vector4.zero);
+
+            var center = Center(size, size);
+            Sdf lens = p =>
+            {
+                var distance = Mathf.Min(Mathf.Abs(Circle(p, center, 32f)), Mathf.Abs(Circle(p, center, 18f)));
+                for (var i = 0; i < 4; i++)
+                {
+                    var angle = i * Mathf.PI * 0.5f;
+                    var direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+                    distance = Mathf.Min(distance, Segment(p, center + direction * 38f, center + direction * 46f));
+                }
+
+                return distance;
+            };
+            SaveSprite("GearFocusLens", size, size, Max(
+                Shape(size, size, lens, true, Line, Glow),
+                Shape(size, size, p => Circle(p, center, 5f), false, 0f, Glow)), Vector4.zero);
+
+            Sdf shaker = p => Mathf.Min(
+                RoundBox(p, new Vector2(64f, 70f), new Vector2(22f, 26f), 10f),
+                RoundBox(p, new Vector2(64f, 106f), new Vector2(18f, 8f), 4f));
+            Sdf grains = p =>
+            {
+                var distance = float.MaxValue;
+                for (var x = 22f; x <= 106f; x += 12f)
+                    distance = Mathf.Min(distance, Circle(p, new Vector2(x, 26f + 3f * Mathf.Sin(x * 0.2f)), 3.2f));
+                distance = Mathf.Min(distance, Circle(p, new Vector2(56f, 108f), 2.2f));
+                distance = Mathf.Min(distance, Circle(p, new Vector2(64f, 108f), 2.2f));
+                return Mathf.Min(distance, Circle(p, new Vector2(72f, 108f), 2.2f));
+            };
+            SaveSprite("GearSalt", size, size, Max(
+                Shape(size, size, shaker, true, Line, Glow),
+                Shape(size, size, grains, false, 0f, Glow * 0.7f)), Vector4.zero);
+        }
+
+        // Rewarded ads: a play triangle on a small screen, so the player knows the button starts a video.
+        private static void BuildAdIcon()
+        {
+            const int size = 128;
+            var pixels = Max(
+                Shape(size, size, p => RoundBox(p, new Vector2(64f, 64f), new Vector2(46f, 34f), 11f), true, Line, Glow),
+                Shape(size, size, p => Polygon(p, new[] { new Vector2(54f, 46f), new Vector2(54f, 82f), new Vector2(84f, 64f) }), false, 0f, Glow));
+            SaveSprite("AdIcon", size, size, pixels, Vector4.zero);
+        }
+
+        // EMF amplifier bearing: a chevron that points at the ghost.
+        private static void BuildEmfArrow()
+        {
+            const int size = 64;
+            Sdf chevron = p => Mathf.Min(Segment(p, new Vector2(16f, 24f), new Vector2(32f, 46f)), Segment(p, new Vector2(48f, 24f), new Vector2(32f, 46f)));
+            SaveSprite("EmfArrow", size, size, Shape(size, size, chevron, true, 6f, 8f), Vector4.zero);
+        }
+
+        private static void BuildPlusIcon()
+        {
+            const int size = 64;
+            Sdf plus = p => Mathf.Min(Segment(p, new Vector2(32f, 16f), new Vector2(32f, 48f)), Segment(p, new Vector2(16f, 32f), new Vector2(48f, 32f)));
+            SaveSprite("PlusIcon", size, size, Shape(size, size, plus, true, Line, 6f), Vector4.zero);
+        }
+
+        private static float Wave(Vector2 p, float fromX, float toX, float y, float amplitude, float periods)
+        {
+            const int steps = 48;
+            var distance = float.MaxValue;
+            var previous = new Vector2(fromX, y);
+            for (var i = 1; i <= steps; i++)
+            {
+                var t = (float)i / steps;
+                var point = new Vector2(Mathf.Lerp(fromX, toX, t), y + amplitude * Mathf.Sin(t * periods * Mathf.PI * 2f));
+                distance = Mathf.Min(distance, Segment(p, previous, point));
+                previous = point;
+            }
+
+            return distance;
+        }
+
+        // Unsigned distance to an arc of the given radius spanning +-halfAngle degrees around centerAngle.
+        private static float Arc(Vector2 p, Vector2 center, float radius, float centerAngle, float halfAngle)
+        {
+            var offset = p - center;
+            var angle = Mathf.DeltaAngle(centerAngle, Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg);
+            if (Mathf.Abs(angle) <= halfAngle)
+                return Mathf.Abs(offset.magnitude - radius);
+
+            var from = (centerAngle - halfAngle) * Mathf.Deg2Rad;
+            var to = (centerAngle + halfAngle) * Mathf.Deg2Rad;
+            var a = center + new Vector2(Mathf.Cos(from), Mathf.Sin(from)) * radius;
+            var b = center + new Vector2(Mathf.Cos(to), Mathf.Sin(to)) * radius;
+            return Mathf.Min((p - a).magnitude, (p - b).magnitude);
+        }
+
+        // Signed distance to a simple polygon (negative inside).
+        private static float Polygon(Vector2 p, Vector2[] vertices)
+        {
+            var distance = Vector2.Dot(p - vertices[0], p - vertices[0]);
+            var sign = 1f;
+            for (int i = 0, j = vertices.Length - 1; i < vertices.Length; j = i, i++)
+            {
+                var e = vertices[j] - vertices[i];
+                var w = p - vertices[i];
+                var b = w - e * Mathf.Clamp01(Vector2.Dot(w, e) / Vector2.Dot(e, e));
+                distance = Mathf.Min(distance, Vector2.Dot(b, b));
+                var c1 = p.y >= vertices[i].y;
+                var c2 = p.y < vertices[j].y;
+                var c3 = e.x * w.y > e.y * w.x;
+                if ((c1 && c2 && c3) || (!c1 && !c2 && !c3))
+                    sign = -sign;
+            }
+
+            return sign * Mathf.Sqrt(distance);
         }
 
         private static Color32[] Radial(int size, float start, float end, float power, float strength)

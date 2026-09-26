@@ -375,6 +375,58 @@ MonoBehaviour:
     m_Key: result.tip.battery
     m_Metadata:
       m_Items: []
+  - m_Id: 341883303100416
+    m_Key: menu.shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849152
+    m_Key: shop.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849153
+    m_Key: shop.tab.lasers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849154
+    m_Key: shop.tab.gear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849155
+    m_Key: shop.price
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849156
+    m_Key: shop.equip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849157
+    m_Key: shop.equipped
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849158
+    m_Key: shop.max
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849159
+    m_Key: shop.owned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849160
+    m_Key: shop.stat.power
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849161
+    m_Key: shop.stat.hold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849162
+    m_Key: shop.stat.economy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849163
+    m_Key: loadout.count
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

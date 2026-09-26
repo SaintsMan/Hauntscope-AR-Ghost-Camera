@@ -24,6 +24,10 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<CameraPermissionPresenter>();
             builder.RegisterComponentInHierarchy<VirtualRoomNoticeView>();
             builder.RegisterEntryPoint<VirtualRoomNoticePresenter>();
+            builder.RegisterComponentInHierarchy<ShopView>();
+            builder.RegisterEntryPoint<ShopPresenter>();
+            builder.RegisterComponentInHierarchy<LoadoutView>();
+            builder.RegisterEntryPoint<LoadoutPresenter>();
 
             builder.Register<ReviewPolicy>(Lifetime.Singleton);
             builder.RegisterEntryPoint<ReviewPrompter>();

@@ -27,6 +27,8 @@ namespace Hauntscope.Gameplay.Ghosts
         private float _revealBeforeEscape;
         private Vector3 _emfDecoy;
         private bool _hasEmfDecoy;
+        private float _speedScale = 1f;
+        private float _beamedSpeedScale = 1f;
 
         public Ghost(GhostContext context, IGhostView view)
             : this(context, view, Array.Empty<IGhostAbility>())
@@ -156,6 +158,12 @@ namespace Hauntscope.Gameplay.Ghosts
             Shrieked?.Invoke();
         }
 
+        public void SetSpeedModifiers(float speedScale, float beamedSpeedScale)
+        {
+            _speedScale = speedScale;
+            _beamedSpeedScale = beamedSpeedScale;
+        }
+
         public void SetEmfDecoy(Vector3 position)
         {
             if (IsLeaving)
@@ -202,6 +210,7 @@ namespace Hauntscope.Gameplay.Ghosts
 
         public void Tick(float deltaTime)
         {
+            Context.Mover.SpeedScale = IsBeamed ? _speedScale * _beamedSpeedScale : _speedScale;
             _stateMachine.Tick(deltaTime);
             // A scare request is only valid for the tick right after it; a ghost that fled meanwhile must not lunge later.
             _scareRequested = false;

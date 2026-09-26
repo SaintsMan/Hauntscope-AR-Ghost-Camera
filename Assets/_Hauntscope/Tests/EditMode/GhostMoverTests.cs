@@ -115,5 +115,26 @@ namespace Hauntscope.Tests.EditMode
             Assert.LessOrEqual(maxOffset, BobAmplitude + 1e-5f);
             Assert.Greater(maxOffset, 0f);
         }
+
+        [Test]
+        public void Tick_HalfSpeedScale_CoversLessDistance()
+        {
+            var fixture = new GhostFixture();
+            var fast = fixture.Mover;
+            var slow = new GhostMover(fixture.Planes, fixture.Config) { SpeedScale = 0.5f };
+            fast.Teleport(Vector3.zero);
+            slow.Teleport(Vector3.zero);
+            fast.SetTarget(new Vector3(1.5f, 0f, 0f));
+            slow.SetTarget(new Vector3(1.5f, 0f, 0f));
+
+            for (var i = 0; i < 10; i++)
+            {
+                fast.Tick(0.05f, 0.2f);
+                slow.Tick(0.05f, 0.2f);
+            }
+
+            Assert.Greater(slow.Position.x, 0f);
+            Assert.Less(slow.Position.x, fast.Position.x * 0.75f);
+        }
     }
 }

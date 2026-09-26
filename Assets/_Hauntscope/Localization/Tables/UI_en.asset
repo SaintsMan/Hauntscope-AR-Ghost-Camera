@@ -384,6 +384,58 @@ MonoBehaviour:
     m_Localized: 'Save charge: the lens drains the battery'
     m_Metadata:
       m_Items: []
+  - m_Id: 341883303100416
+    m_Localized: SHOP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849152
+    m_Localized: SUPPLY DEPOT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849153
+    m_Localized: LASERS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849154
+    m_Localized: GEAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849155
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849156
+    m_Localized: EQUIP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849157
+    m_Localized: IN HAND
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849158
+    m_Localized: MAX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849159
+    m_Localized: "\xD7{0}/{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849160
+    m_Localized: POWER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849161
+    m_Localized: HOLD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849162
+    m_Localized: ECONOMY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849163
+    m_Localized: "\xD7{0}"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -1,5 +1,6 @@
 using Hauntscope.Gameplay.Ghosts.Abilities;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using NUnit.Framework;
 using UnityEngine;
@@ -65,7 +66,7 @@ namespace Hauntscope.Tests.EditMode
             _fixture.Ghost.SetReveal(1f);
             var session = new HuntSession();
             session.Begin(_fixture.Ghost, null);
-            var beam = new CaptureBeam(session, _fixture.Camera, TestConfigs.Tools());
+            var beam = new CaptureBeam(session, _fixture.Camera, TestConfigs.Tools(), new HuntModifiers());
             beam.Activate();
             _ability.Tick(_fixture.Ghost, VisibleDuration + 0.1f);
 

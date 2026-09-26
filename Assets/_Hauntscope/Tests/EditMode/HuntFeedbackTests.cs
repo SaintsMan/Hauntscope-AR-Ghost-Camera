@@ -2,6 +2,7 @@ using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using Hauntscope.Tests.EditMode.Fakes;
 using NUnit.Framework;
@@ -28,7 +29,7 @@ namespace Hauntscope.Tests.EditMode
             _fixture.Ghost.Start();
             _session = new HuntSession();
             var config = TestConfigs.Tools();
-            _toolbelt = new Toolbelt(new GhostLens(_session, _fixture.Camera, config), new CaptureBeam(_session, _fixture.Camera, config));
+            _toolbelt = new Toolbelt(new GhostLens(_session, _fixture.Camera, config, new HuntModifiers()), new CaptureBeam(_session, _fixture.Camera, config, new HuntModifiers()));
             var calibration = new RoomCalibration(new FakePlaneProvider(), new RoomConfig(2f, 1.5f, 0.3f, 2f, 5f));
             _sfx = new FakeSfxPlayer();
             _haptics = new FakeHaptics();

@@ -2,6 +2,7 @@ using System;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using UnityEngine;
 using VContainer.Unity;
@@ -17,11 +18,12 @@ namespace Hauntscope.UI.Hunt
         private readonly Toolbelt _toolbelt;
         private readonly RoomCalibration _calibration;
         private readonly ILocalizationService _localization;
-        private readonly ToolsConfig _toolsConfig;
         private readonly HuntSession _session;
         private readonly ScareConfig _scareConfig;
         private readonly HudConfig _hudConfig;
         private readonly HuntPause _pause;
+        private readonly HuntModifiers _modifiers;
+        private readonly HuntLoadout _loadout;
 
         private float _scareFlash;
         private float _shownProgress;
@@ -33,12 +35,15 @@ namespace Hauntscope.UI.Hunt
             Toolbelt toolbelt,
             RoomCalibration calibration,
             ILocalizationService localization,
-            ToolsConfig toolsConfig,
             HuntSession session,
             ScareConfig scareConfig,
             HudConfig hudConfig,
-            HuntPause pause)
+            HuntPause pause,
+            HuntModifiers modifiers,
+            HuntLoadout loadout)
         {
+            _modifiers = modifiers;
+            _loadout = loadout;
             _hudConfig = hudConfig;
             _pause = pause;
             _view = view;
@@ -46,7 +51,6 @@ namespace Hauntscope.UI.Hunt
             _toolbelt = toolbelt;
             _calibration = calibration;
             _localization = localization;
-            _toolsConfig = toolsConfig;
             _session = session;
             _scareConfig = scareConfig;
         }
@@ -65,8 +69,9 @@ namespace Hauntscope.UI.Hunt
             _view.LensClicked += OnLensClicked;
             _view.BeamPressed += OnBeamPressed;
             _view.BeamReleased += OnBeamReleased;
+            _loadout.Changed += OnLoadoutChanged;
 
-            _view.SetReticleRadius(_toolsConfig.ReticleRadius);
+            OnLoadoutChanged();
             UpdateVisibility();
             _view.SetScareFlash(0f);
             _view.SetLensActive(_toolbelt.Lens.IsActive.Value);
@@ -81,6 +86,7 @@ namespace Hauntscope.UI.Hunt
             if (shaking || _isShaking)
                 _view.SetReticleShake(shaking ? _toolbelt.Beam.Progress.Value * _hudConfig.ReticleShake : 0f);
             _isShaking = shaking;
+            _view.SetEmfBearing(_modifiers.ShowsEmfDirection && _radar.Level.Value > 0 && !_pause.IsPaused, _radar.Bearing);
 
             if (_scareFlash <= 0f)
                 return;
@@ -103,6 +109,13 @@ namespace Hauntscope.UI.Hunt
             _view.LensClicked -= OnLensClicked;
             _view.BeamPressed -= OnBeamPressed;
             _view.BeamReleased -= OnBeamReleased;
+            _loadout.Changed -= OnLoadoutChanged;
+        }
+
+        // The equipped laser (and any future booster) sets how wide the capture ring is.
+        private void OnLoadoutChanged()
+        {
+            _view.SetReticleRadius(_toolbelt.Beam.ReticleRadius);
         }
 
         private void OnScared()

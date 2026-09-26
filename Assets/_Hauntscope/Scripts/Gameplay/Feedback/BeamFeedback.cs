@@ -1,6 +1,7 @@
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using UnityEngine;
 using VContainer.Unity;
@@ -9,7 +10,7 @@ namespace Hauntscope.Gameplay.Feedback
 {
     // Draws the capture beam: straight ahead while searching, bent onto the ghost once it is locked, and brighter as
     // the capture charges. Hidden while paused, since nothing drains or charges then.
-    public sealed class BeamFeedback : ITickable
+    public sealed class BeamFeedback : IStartable, ITickable
     {
         private readonly CaptureBeam _beam;
         private readonly HuntSession _session;
@@ -17,17 +18,33 @@ namespace Hauntscope.Gameplay.Feedback
         private readonly ICameraPose _camera;
         private readonly IBeamView _view;
         private readonly VfxConfig _config;
+        private readonly HuntLoadout _loadout;
 
         private bool _isVisible;
 
-        public BeamFeedback(CaptureBeam beam, HuntSession session, HuntPause pause, ICameraPose camera, IBeamView view, VfxConfig config)
+        public BeamFeedback(
+            CaptureBeam beam,
+            HuntSession session,
+            HuntPause pause,
+            ICameraPose camera,
+            IBeamView view,
+            VfxConfig config,
+            HuntLoadout loadout)
         {
+            _loadout = loadout;
             _beam = beam;
             _session = session;
             _pause = pause;
             _camera = camera;
             _view = view;
             _config = config;
+        }
+
+        public void Start()
+        {
+            var laser = _loadout.Laser;
+            if (laser != null)
+                _view.SetColors(laser.BeamColor, laser.LockedColor);
         }
 
         void ITickable.Tick()

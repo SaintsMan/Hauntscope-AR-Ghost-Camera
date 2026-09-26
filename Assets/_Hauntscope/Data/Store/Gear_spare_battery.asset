@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f28a03680fadfb49bb85d1837124230, type: 3}
+  m_Name: Gear_spare_battery
+  m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Store.SpareBatteryData
+  _id: spare_battery
+  _nameKey: gear.spare_battery.name
+  _descriptionKey: gear.spare_battery.description
+  _icon: {fileID: 21300000, guid: 4d4808d8320b29d4aa47b45e73282bc4, type: 3}
+  _accent: {r: 0.23921569, g: 1, b: 0.43137255, a: 1}
+  _price: 30
+  _maxStack: 5
+  _charge: 0.5

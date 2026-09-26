@@ -2,6 +2,7 @@ using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Ghosts.Abilities;
+using Hauntscope.Gameplay.Store;
 using UnityEngine;
 
 namespace Hauntscope.Gameplay.Ghosts
@@ -14,6 +15,7 @@ namespace Hauntscope.Gameplay.Ghosts
         private readonly GhostConfig _config;
         private readonly SpawnPointSelector _spawnPoints;
         private readonly ScareConfig _scare;
+        private readonly HuntModifiers _modifiers;
 
         public GhostFactory(
             IPlaneProvider planes,
@@ -21,8 +23,10 @@ namespace Hauntscope.Gameplay.Ghosts
             IRandom random,
             GhostConfig config,
             SpawnPointSelector spawnPoints,
-            ScareConfig scare)
+            ScareConfig scare,
+            HuntModifiers modifiers)
         {
+            _modifiers = modifiers;
             _planes = planes;
             _camera = camera;
             _random = random;
@@ -45,6 +49,7 @@ namespace Hauntscope.Gameplay.Ghosts
 
             var context = new GhostContext(data.Motion, data.Detection, data.Capture, _config, _scare, mover, _random, _planes, _camera);
             var ghost = new Ghost(context, view, CreateAbilities(data));
+            ghost.SetSpeedModifiers(_modifiers.GhostSpeed, _modifiers.BeamedGhostSpeed);
             ghost.Start();
             return ghost;
         }

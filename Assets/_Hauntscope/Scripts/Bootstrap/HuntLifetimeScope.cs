@@ -4,6 +4,7 @@ using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Hunt.States;
+using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using Hauntscope.Infrastructure.Vfx;
 using Hauntscope.UI.Hunt;
@@ -44,6 +45,9 @@ namespace Hauntscope.Bootstrap
             builder.Register<GhostFactory>(Lifetime.Singleton);
             builder.Register<ScarePolicy>(Lifetime.Singleton);
 
+            builder.Register<HuntModifiers>(Lifetime.Singleton);
+            builder.Register<HuntLoadout>(Lifetime.Singleton);
+            builder.Register<SpareBatteries>(Lifetime.Singleton);
             builder.Register<HuntSession>(Lifetime.Singleton);
             builder.RegisterEntryPoint<HuntPause>().AsSelf();
             builder.Register<GhostLens>(Lifetime.Singleton);
@@ -70,6 +74,8 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<ScanHudPresenter>();
             builder.RegisterComponentInHierarchy<HuntHudView>();
             builder.RegisterEntryPoint<HuntHudPresenter>();
+            builder.RegisterComponentInHierarchy<SupplyHudView>();
+            builder.RegisterEntryPoint<SupplyHudPresenter>();
             builder.RegisterComponentInHierarchy<ResultView>();
             builder.RegisterEntryPoint<ResultPresenter>();
             builder.RegisterComponentInHierarchy<TrackingLostView>();

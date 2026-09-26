@@ -105,5 +105,30 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.AreEqual(0f, _fixture.View.Struggle);
         }
+
+        [Test]
+        public void Tick_Salted_MovesSlower()
+        {
+            var fixture = new GhostFixture();
+            fixture.Ghost.SetSpeedModifiers(0.5f, 1f);
+            fixture.Ghost.Start();
+
+            fixture.Ghost.Tick(0.02f);
+
+            Assert.AreEqual(0.5f, fixture.Mover.SpeedScale, 1e-5f);
+        }
+
+        [Test]
+        public void Tick_BeamedWithTether_StacksBothSlowdowns()
+        {
+            var fixture = new GhostFixture();
+            fixture.Ghost.SetSpeedModifiers(0.5f, 0.5f);
+            fixture.Ghost.Start();
+            fixture.Ghost.SetBeamed(true);
+
+            fixture.Ghost.Tick(0.02f);
+
+            Assert.AreEqual(0.25f, fixture.Mover.SpeedScale, 1e-5f);
+        }
     }
 }

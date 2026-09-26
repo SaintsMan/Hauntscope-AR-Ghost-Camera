@@ -5,6 +5,7 @@ using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Progress;
+using Hauntscope.Gameplay.Store;
 using Hauntscope.Infrastructure.Audio;
 using Hauntscope.Infrastructure.Haptics;
 using Hauntscope.Infrastructure.Input;
@@ -71,6 +72,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Tutorial);
             builder.RegisterInstance(_gameConfig.Boot);
             builder.RegisterInstance(_gameConfig.Review);
+            builder.RegisterInstance(_gameConfig.Store);
         }
 
         // Scene loads are decorated with the CRT transition; the overlay outlives every scene it covers.
@@ -88,6 +90,9 @@ namespace Hauntscope.Bootstrap
             builder.Register<SettingsRepository>(Lifetime.Singleton);
             builder.Register(resolver => resolver.Resolve<PlayerProgressRepository>().Load(), Lifetime.Singleton);
             builder.Register(resolver => resolver.Resolve<SettingsRepository>().Load(), Lifetime.Singleton);
+            builder.Register<InventoryRepository>(Lifetime.Singleton);
+            builder.Register(resolver => resolver.Resolve<InventoryRepository>().Load(), Lifetime.Singleton);
+            builder.Register<Shop>(Lifetime.Singleton);
         }
 
         private static void RegisterLaunch(IContainerBuilder builder)

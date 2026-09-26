@@ -2,6 +2,7 @@ using Hauntscope.Core.Observables;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Store;
 using UnityEngine;
 
 namespace Hauntscope.Gameplay.Tools
@@ -11,18 +12,20 @@ namespace Hauntscope.Gameplay.Tools
         private readonly HuntSession _session;
         private readonly ICameraPose _camera;
         private readonly ToolsConfig _config;
+        private readonly HuntModifiers _modifiers;
         private readonly ObservableValue<bool> _isActive = new ObservableValue<bool>();
 
-        public GhostLens(HuntSession session, ICameraPose camera, ToolsConfig config)
+        public GhostLens(HuntSession session, ICameraPose camera, ToolsConfig config, HuntModifiers modifiers)
         {
             _session = session;
             _camera = camera;
             _config = config;
+            _modifiers = modifiers;
         }
 
         public IReadOnlyObservableValue<bool> IsActive => _isActive;
 
-        public float DrainPerSecond => _config.LensDrain;
+        public float DrainPerSecond => _config.LensDrain * _modifiers.LensDrain;
 
         public void Activate()
         {

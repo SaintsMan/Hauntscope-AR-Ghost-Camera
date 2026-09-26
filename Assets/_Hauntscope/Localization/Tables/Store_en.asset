@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Store_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 2866b66d97950fe4a88f0cb2dddde093, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 1129709568
+    m_Localized: M1 STANDARD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486784
+    m_Localized: Agency standard issue. Reliable, and nothing more.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486785
+    m_Localized: W2 FLOODLIGHT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486786
+    m_Localized: A wide ring that forgives a shaky hand. Capture fades half as fast.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486787
+    m_Localized: T3 TETHER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486788
+    m_Localized: 'Grips the ghost: half speed in the beam, capture +20%.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486789
+    m_Localized: P4 PHASE LANCE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486790
+    m_Localized: Captures 60% faster and holds ghosts that vanish. Narrow ring.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486791
+    m_Localized: SPARE BATTERY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486792
+    m_Localized: +50% charge. Swap it in any time during a hunt, or when the battery
+      dies.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486793
+    m_Localized: EMF AMPLIFIER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486794
+    m_Localized: EMF reaches 50% farther and an arrow points to the source. One hunt.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486795
+    m_Localized: FOCUS LENS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486796
+    m_Localized: The Ghost Lens drains half as much battery. One hunt.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486797
+    m_Localized: SALT LINE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486798
+    m_Localized: Ghosts move 35% slower over a salted floor. One hunt.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

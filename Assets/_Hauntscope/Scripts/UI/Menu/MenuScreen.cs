@@ -6,6 +6,7 @@ namespace Hauntscope.UI.Menu
         Bestiary,
         BestiaryCard,
         Settings,
-        Credits
+        Credits,
+        Shop
     }
 }

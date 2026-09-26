@@ -33,6 +33,12 @@ namespace Hauntscope.Gameplay.Tools
                 SetImpact(false);
         }
 
+        public void SetColors(Color idle, Color locked)
+        {
+            _idleColor = idle;
+            _lockedColor = locked;
+        }
+
         public void SetBeam(Vector3 origin, Vector3 target, float intensity, bool locked)
         {
             var direction = target - origin;

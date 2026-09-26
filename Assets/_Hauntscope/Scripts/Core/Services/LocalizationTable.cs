@@ -4,5 +4,6 @@ namespace Hauntscope.Core.Services
     {
         public const string Ui = "UI";
         public const string Ghosts = "Ghosts";
+        public const string Store = "Store";
     }
 }

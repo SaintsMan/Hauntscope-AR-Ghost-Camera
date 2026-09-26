@@ -64,6 +64,7 @@ namespace Hauntscope.UI.Menu
             _view.StartClicked += OnStartClicked;
             _view.BestiaryClicked += OnBestiaryClicked;
             _view.SettingsClicked += OnSettingsClicked;
+            _view.ShopClicked += OnShopClicked;
             _view.ArModeClicked += OnArModeClicked;
             _view.VirtualModeClicked += OnVirtualModeClicked;
             _settings.Environment.Changed += OnEnvironmentChanged;
@@ -95,6 +96,7 @@ namespace Hauntscope.UI.Menu
             _view.StartClicked -= OnStartClicked;
             _view.BestiaryClicked -= OnBestiaryClicked;
             _view.SettingsClicked -= OnSettingsClicked;
+            _view.ShopClicked -= OnShopClicked;
             _view.ArModeClicked -= OnArModeClicked;
             _view.VirtualModeClicked -= OnVirtualModeClicked;
             _settings.Environment.Changed -= OnEnvironmentChanged;
@@ -183,6 +185,12 @@ namespace Hauntscope.UI.Menu
         {
             _ui.PlayClick();
             _navigation.Show(MenuScreen.Bestiary);
+        }
+
+        private void OnShopClicked()
+        {
+            _ui.PlayClick();
+            _navigation.ShowShop(ShopTab.Lasers);
         }
 
         private void OnSettingsClicked()

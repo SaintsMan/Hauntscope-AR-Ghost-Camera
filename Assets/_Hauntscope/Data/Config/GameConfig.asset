@@ -133,10 +133,25 @@ MonoBehaviour:
     _splashVolume: 0.7
     _screenOn: {fileID: 8300000, guid: 631836927b2997f469e741d827a2d487, type: 3}
     _transitionVolume: 0.55
+    _purchase: {fileID: 8300000, guid: c738ed1c1fe0d0c4a8bd333d81c0122f, type: 3}
+    _denied: {fileID: 8300000, guid: 322f33029adf4c54283a6441dbb02fcd, type: 3}
+    _storeVolume: 0.7
+    _batteryInsert: {fileID: 8300000, guid: 0443abbf64b8c304c9f5b88f7954b5d1, type: 3}
+    _batteryInsertVolume: 0.8
+    _pickupEcto: {fileID: 8300000, guid: 2a6b256ac0006cf428cb3a9dfaecfdb4, type: 3}
+    _pickupCase: {fileID: 8300000, guid: 397dfc20d41eb394195fb730efb10d4c, type: 3}
+    _pickupCell: {fileID: 8300000, guid: d0239f2c49b6d7c4fae7dac4b24843e9, type: 3}
+    _pickupVolume: 0.8
+    _cellBeacon: {fileID: 8300000, guid: 3609a4429e2881241990a4f558032931, type: 3}
+    _cellBeaconVolume: 0.6
+    _emergencyAlarm: {fileID: 8300000, guid: dffb7e664fea9d545a2a09dc9ab7a431, type: 3}
+    _emergencyVolume: 0.8
+    _rewardGranted: {fileID: 8300000, guid: ee1c5c4b8923a58409eb4163778fef90, type: 3}
+    _rewardVolume: 0.8
   _vfx:
-    _captureSpiral: {fileID: 3482571195191366530, guid: 6cc077c0fffe26544bbff774130ad3fc, type: 3}
-    _teleportFlash: {fileID: 9163850681629320366, guid: d281b30d52bb11d4fae5ccc1d73b5dcf, type: 3}
-    _revealPulse: {fileID: 7298845405034352830, guid: 100f08603d74b874a92e27dd76cbbfbb, type: 3}
+    _captureSpiral: {fileID: 0}
+    _teleportFlash: {fileID: 0}
+    _revealPulse: {fileID: 0}
     _beamOriginForward: 0.3
     _beamOriginDrop: 0.2
     _beamRange: 4
@@ -173,3 +188,14 @@ MonoBehaviour:
     _minCaptures: 3
     _repeatEveryCaptures: 20
     _menuDelay: 1.5
+  _store:
+    _lasers:
+    - {fileID: 11400000, guid: 2bd018007a76f3540912fa07b980311c, type: 2}
+    - {fileID: 11400000, guid: 579d13372ce588e40ae6bd041fbe91a1, type: 2}
+    - {fileID: 11400000, guid: b29d8e868f99cc54abed4ae028638679, type: 2}
+    - {fileID: 11400000, guid: ff9a0d691a8b9784aaef89ef5616cf9c, type: 2}
+    _spareBattery: {fileID: 11400000, guid: b54c80d22466f8e40b5ef536b5090ffb, type: 2}
+    _boosters:
+    - {fileID: 11400000, guid: fb66218587672634681629a61314cd93, type: 2}
+    - {fileID: 11400000, guid: e60fd00f91282274e8a0cbd5ffe58f15, type: 2}
+    - {fileID: 11400000, guid: 4ce1a41ea9b0ac64e82dffc3922b4c20, type: 2}

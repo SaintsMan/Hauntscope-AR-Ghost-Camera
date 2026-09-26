@@ -32,6 +32,7 @@ namespace Hauntscope.UI.Hunt
         [SerializeField, Min(0.05f)] private float _lensFade = 0.25f;
         [SerializeField, Min(0.05f)] private float _sweepDuration = 0.5f;
         [SerializeField, Min(0.05f)] private float _flashDuration = 0.6f;
+        [SerializeField] private RectTransform _emfArrow;
 
         private float _lensVignetteAlpha = -1f;
         private float _lockGlowAlpha = -1f;
@@ -83,6 +84,15 @@ namespace Hauntscope.UI.Hunt
                     color.a *= _emfUnlitAlpha;
                 _emfSegments[i].color = color;
             }
+        }
+
+        // EMF amplifier: the chevron above the meter turns towards the source (bearing in degrees, positive = right).
+        public void SetEmfBearing(bool visible, float bearing)
+        {
+            if (_emfArrow.gameObject.activeSelf != visible)
+                _emfArrow.gameObject.SetActive(visible);
+            if (visible)
+                _emfArrow.localRotation = Quaternion.Euler(0f, 0f, -bearing);
         }
 
         public void SetEmfLevelText(string text)
@@ -245,6 +255,7 @@ namespace Hauntscope.UI.Hunt
             _lockGlow = Find<Graphic>("Reticle/LockGlow");
             _captureFlash = Find<Graphic>("CaptureFlash");
             _scareFlash = Find<Image>("ScareFlash");
+            _emfArrow = Find<RectTransform>("EmfArrow");
         }
 
         private T Find<T>(string path) where T : Component

@@ -59,6 +59,7 @@ namespace Hauntscope.Editor
             SplashAnimationGenerator.Build(config.Boot);
             BuildGhosts();
             AppIconGenerator.Build();
+            StoreAssetBuilder.Build();
             WireConfig(config);
         }
 
@@ -268,6 +269,15 @@ namespace Hauntscope.Editor
             SetClip(serialized, "_audio._splashOff", SfxFolder, "SplashOff");
             SetClip(serialized, "_audio._bootTick", SfxFolder, "BootTick");
             SetClip(serialized, "_audio._screenOn", SfxFolder, "ScreenOn");
+            SetClip(serialized, "_audio._purchase", SfxFolder, "Purchase");
+            SetClip(serialized, "_audio._denied", SfxFolder, "Denied");
+            SetClip(serialized, "_audio._batteryInsert", SfxFolder, "BatteryInsert");
+            SetClip(serialized, "_audio._pickupEcto", SfxFolder, "PickupEcto");
+            SetClip(serialized, "_audio._pickupCase", SfxFolder, "PickupCase");
+            SetClip(serialized, "_audio._pickupCell", SfxFolder, "PickupCell");
+            SetClip(serialized, "_audio._cellBeacon", SfxFolder, "CellBeacon");
+            SetClip(serialized, "_audio._emergencyAlarm", SfxFolder, "EmergencyAlarm");
+            SetClip(serialized, "_audio._rewardGranted", SfxFolder, "RewardGranted");
             serialized.FindProperty("_vfx._captureSpiral").objectReferenceValue = VfxGenerator.CaptureSpiral;
             serialized.FindProperty("_vfx._teleportFlash").objectReferenceValue = VfxGenerator.TeleportFlash;
             serialized.FindProperty("_vfx._revealPulse").objectReferenceValue = VfxGenerator.RevealPulse;

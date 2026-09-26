@@ -29,6 +29,11 @@ namespace Hauntscope.Gameplay.Tools
             SetCharge(_charge.Value - amount);
         }
 
+        public void Recharge(float fraction)
+        {
+            SetCharge(_charge.Value + fraction * _config.BatteryMax);
+        }
+
         public void Refill()
         {
             SetCharge(_config.BatteryMax);

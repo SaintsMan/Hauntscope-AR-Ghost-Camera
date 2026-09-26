@@ -78,6 +78,25 @@ namespace Hauntscope.Gameplay.Progress
             Changed?.Invoke();
         }
 
+        public void AddEctoplasm(int amount)
+        {
+            if (amount <= 0)
+                return;
+
+            _ectoplasm.Value += amount;
+            Changed?.Invoke();
+        }
+
+        public bool TrySpend(int amount)
+        {
+            if (amount < 0 || _ectoplasm.Value < amount)
+                return false;
+
+            _ectoplasm.Value -= amount;
+            Changed?.Invoke();
+            return true;
+        }
+
         public void MarkTutorialCompleted()
         {
             TutorialCompleted = true;

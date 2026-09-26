@@ -27,6 +27,9 @@ namespace Hauntscope.Gameplay.Tools
 
         public float Value { get; private set; }
 
+        // Horizontal angle from where the camera looks to the source, in degrees; positive is to the right.
+        public float Bearing { get; private set; }
+
         public void Tick(float deltaTime, Vector3 sourcePosition, float range)
         {
             // Noise is resampled on an interval so the level doesn't flicker every frame at a bucket edge.
@@ -42,6 +45,7 @@ namespace Hauntscope.Gameplay.Tools
             var proximity = range > 0f ? Mathf.Clamp01(1f - distance / range) : 0f;
             var direction = distance > 0f ? toSource / distance : _camera.Forward;
             var facing = Mathf.Clamp01(Vector3.Dot(_camera.Forward, direction) * 0.5f + 0.5f);
+            Bearing = Vector3.SignedAngle(Flat(_camera.Forward), Flat(toSource), Vector3.up);
             var signal = proximity > 0f ? proximity * Mathf.Lerp(_config.FacingMinFactor, 1f, facing) + _noise : 0f;
 
             Value = Mathf.Clamp01(signal);
@@ -51,8 +55,15 @@ namespace Hauntscope.Gameplay.Tools
         public void Reset()
         {
             Value = 0f;
+            Bearing = 0f;
             _level.Value = 0;
             _timeUntilNoise = 0f;
+        }
+
+        private static Vector3 Flat(Vector3 vector)
+        {
+            vector.y = 0f;
+            return vector;
         }
     }
 }

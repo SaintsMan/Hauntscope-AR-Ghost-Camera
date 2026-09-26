@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Localization-Assets-Shared
   m_GUID: 99212ee1cb401d74da6724258ec3930d
   m_SerializeEntries:
+  - m_GUID: 2866b66d97950fe4a88f0cb2dddde093
+    m_Address: Assets/_Hauntscope/Localization/Tables/Store Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 59adea3bb3554c548b847491dbd6bc64
     m_Address: Assets/_Hauntscope/Localization/Tables/Ghosts Shared Data.asset
     m_ReadOnly: 1

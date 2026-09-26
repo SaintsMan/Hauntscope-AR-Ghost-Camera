@@ -107,5 +107,21 @@ namespace Hauntscope.Tests.EditMode
         {
             return new EmfConfig(5, 0.6f, noiseAmplitude, 0.2f, 1.2f, 0.1f, 1f, 1.3f, 4);
         }
+
+        [Test]
+        public void Tick_SourceToTheRight_BearingIsPositive()
+        {
+            _radar.Tick(DeltaTime, new Vector3(2f, 0f, 2f), Range);
+
+            Assert.AreEqual(45f, _radar.Bearing, 1e-3f);
+        }
+
+        [Test]
+        public void Tick_SourceToTheLeftAndAbove_BearingIgnoresHeight()
+        {
+            _radar.Tick(DeltaTime, new Vector3(-2f, 3f, 0f), Range);
+
+            Assert.AreEqual(-90f, _radar.Bearing, 1e-3f);
+        }
     }
 }

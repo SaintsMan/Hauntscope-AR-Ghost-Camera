@@ -12,6 +12,7 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private Button _startButton;
         [SerializeField] private Button _bestiaryButton;
         [SerializeField] private Button _settingsButton;
+        [SerializeField] private Button _shopButton;
         [SerializeField] private TMP_Text _ectoplasmLabel;
         [SerializeField] private TMP_Text _versionLabel;
         [SerializeField] private TMP_Text _timestampLabel;
@@ -39,6 +40,8 @@ namespace Hauntscope.UI.Menu
         public event Action BestiaryClicked;
 
         public event Action SettingsClicked;
+
+        public event Action ShopClicked;
 
         public event Action ArModeClicked;
 
@@ -112,6 +115,7 @@ namespace Hauntscope.UI.Menu
             _startButton.onClick.AddListener(OnStartClicked);
             _bestiaryButton.onClick.AddListener(OnBestiaryClicked);
             _settingsButton.onClick.AddListener(OnSettingsClicked);
+            _shopButton.onClick.AddListener(OnShopClicked);
             _arModeButton.onClick.AddListener(OnArModeClicked);
             _virtualModeButton.onClick.AddListener(OnVirtualModeClicked);
         }
@@ -121,6 +125,7 @@ namespace Hauntscope.UI.Menu
             _startButton.onClick.RemoveListener(OnStartClicked);
             _bestiaryButton.onClick.RemoveListener(OnBestiaryClicked);
             _settingsButton.onClick.RemoveListener(OnSettingsClicked);
+            _shopButton.onClick.RemoveListener(OnShopClicked);
             _arModeButton.onClick.RemoveListener(OnArModeClicked);
             _virtualModeButton.onClick.RemoveListener(OnVirtualModeClicked);
         }
@@ -138,6 +143,11 @@ namespace Hauntscope.UI.Menu
         private void OnSettingsClicked()
         {
             SettingsClicked?.Invoke();
+        }
+
+        private void OnShopClicked()
+        {
+            ShopClicked?.Invoke();
         }
 
         private void OnArModeClicked()
@@ -169,8 +179,9 @@ namespace Hauntscope.UI.Menu
         private void Reset()
         {
             _startButton = Find<Button>("Buttons/StartButton");
-            _bestiaryButton = Find<Button>("Buttons/BestiaryButton");
+            _bestiaryButton = Find<Button>("Buttons/Row/BestiaryButton");
             _settingsButton = Find<Button>("Buttons/SettingsButton");
+            _shopButton = Find<Button>("Buttons/Row/ShopButton");
             _ectoplasmLabel = Find<TMP_Text>("Ectoplasm/Amount");
             _versionLabel = Find<TMP_Text>("Version");
             _timestampLabel = Find<TMP_Text>("Timestamp");

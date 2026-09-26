@@ -2,6 +2,7 @@ using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Hunt.States;
 using Hauntscope.Gameplay.Progress;
+using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using Hauntscope.Tests.EditMode.Fakes;
 using NUnit.Framework;
@@ -29,7 +30,7 @@ namespace Hauntscope.Tests.EditMode
             _session.Begin(_fixture.Ghost, null);
             var config = TestConfigs.Tools();
             _battery = new Battery(config);
-            _toolbelt = new Toolbelt(new GhostLens(_session, _fixture.Camera, config), new CaptureBeam(_session, _fixture.Camera, config));
+            _toolbelt = new Toolbelt(new GhostLens(_session, _fixture.Camera, config, new HuntModifiers()), new CaptureBeam(_session, _fixture.Camera, config, new HuntModifiers()));
             _progress = new PlayerProgress();
             _save = new FakeSaveService();
             _state = new ResultState(_session, _battery, _toolbelt, _progress, new PlayerProgressRepository(_save));

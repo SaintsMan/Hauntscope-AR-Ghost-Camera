@@ -46,6 +46,21 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Range(0f, 1f)] private float _splashVolume = 0.7f;
         [SerializeField] private AudioClip _screenOn;
         [SerializeField, Range(0f, 1f)] private float _transitionVolume = 0.55f;
+        [SerializeField] private AudioClip _purchase;
+        [SerializeField] private AudioClip _denied;
+        [SerializeField, Range(0f, 1f)] private float _storeVolume = 0.7f;
+        [SerializeField] private AudioClip _batteryInsert;
+        [SerializeField, Range(0f, 1f)] private float _batteryInsertVolume = 0.8f;
+        [SerializeField] private AudioClip _pickupEcto;
+        [SerializeField] private AudioClip _pickupCase;
+        [SerializeField] private AudioClip _pickupCell;
+        [SerializeField, Range(0f, 1f)] private float _pickupVolume = 0.8f;
+        [SerializeField] private AudioClip _cellBeacon;
+        [SerializeField, Range(0f, 1f)] private float _cellBeaconVolume = 0.6f;
+        [SerializeField] private AudioClip _emergencyAlarm;
+        [SerializeField, Range(0f, 1f)] private float _emergencyVolume = 0.8f;
+        [SerializeField] private AudioClip _rewardGranted;
+        [SerializeField, Range(0f, 1f)] private float _rewardVolume = 0.8f;
 
         public AudioClip AmbientDrone => _ambientDrone;
 
@@ -126,5 +141,35 @@ namespace Hauntscope.Gameplay.Config
         public AudioClip ScreenOn => _screenOn;
 
         public float TransitionVolume => _transitionVolume;
+
+        public AudioClip Purchase => _purchase;
+
+        public AudioClip Denied => _denied;
+
+        public float StoreVolume => _storeVolume;
+
+        public AudioClip BatteryInsert => _batteryInsert;
+
+        public float BatteryInsertVolume => _batteryInsertVolume;
+
+        public AudioClip PickupEcto => _pickupEcto;
+
+        public AudioClip PickupCase => _pickupCase;
+
+        public AudioClip PickupCell => _pickupCell;
+
+        public float PickupVolume => _pickupVolume;
+
+        public AudioClip CellBeacon => _cellBeacon;
+
+        public float CellBeaconVolume => _cellBeaconVolume;
+
+        public AudioClip EmergencyAlarm => _emergencyAlarm;
+
+        public float EmergencyVolume => _emergencyVolume;
+
+        public AudioClip RewardGranted => _rewardGranted;
+
+        public float RewardVolume => _rewardVolume;
     }
 }

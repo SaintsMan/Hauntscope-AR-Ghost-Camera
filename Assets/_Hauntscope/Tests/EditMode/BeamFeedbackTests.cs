@@ -1,6 +1,7 @@
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using Hauntscope.Tests.EditMode.Fakes;
 using NUnit.Framework;
@@ -26,11 +27,11 @@ namespace Hauntscope.Tests.EditMode
             _fixture.Ghost.Start();
             _session = new HuntSession();
             _session.Begin(_fixture.Ghost, null);
-            _beam = new CaptureBeam(_session, _fixture.Camera, TestConfigs.Tools());
+            _beam = new CaptureBeam(_session, _fixture.Camera, TestConfigs.Tools(), new HuntModifiers());
             _pause = new HuntPause(new FakeTrackingStatus(), new FakeApplicationLifecycle(), new TrackingConfig(0.5f));
             _view = new FakeBeamView();
             _config = new VfxConfig();
-            _feedback = new BeamFeedback(_beam, _session, _pause, _fixture.Camera, _view, _config);
+            _feedback = new BeamFeedback(_beam, _session, _pause, _fixture.Camera, _view, _config, new StoreFixture().CreateLoadout());
         }
 
         [Test]

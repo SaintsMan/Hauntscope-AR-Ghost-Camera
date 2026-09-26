@@ -1,4 +1,5 @@
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using NUnit.Framework;
 using UnityEngine;
@@ -23,8 +24,8 @@ namespace Hauntscope.Tests.EditMode
             var session = new HuntSession();
             session.Begin(_fixture.Ghost, null);
             var config = TestConfigs.Tools(lensDrain: LensDrain, beamDrain: BeamDrain);
-            _lens = new GhostLens(session, _fixture.Camera, config);
-            _beam = new CaptureBeam(session, _fixture.Camera, config);
+            _lens = new GhostLens(session, _fixture.Camera, config, new HuntModifiers());
+            _beam = new CaptureBeam(session, _fixture.Camera, config, new HuntModifiers());
             _toolbelt = new Toolbelt(_lens, _beam);
         }
 

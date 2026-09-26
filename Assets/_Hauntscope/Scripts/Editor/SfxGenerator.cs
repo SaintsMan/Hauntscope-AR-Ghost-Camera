@@ -43,6 +43,15 @@ namespace Hauntscope.Editor
             Save(SfxFolder, "SplashOff", SplashOff(), -5f, false);
             Save(SfxFolder, "BootTick", BootTick(), -12f, false);
             Save(SfxFolder, "ScreenOn", ScreenOn(), -5f, false);
+            Save(SfxFolder, "Purchase", Purchase(), -4f, false);
+            Save(SfxFolder, "Denied", Denied(), -7f, false);
+            Save(SfxFolder, "BatteryInsert", BatteryInsert(), -4f, false);
+            Save(SfxFolder, "PickupEcto", PickupEcto(), -4f, false);
+            Save(SfxFolder, "PickupCase", PickupCase(), -3f, false);
+            Save(SfxFolder, "PickupCell", PickupCell(), -4f, false);
+            Save(SfxFolder, "CellBeacon", CellBeacon(), -5f, true);
+            Save(SfxFolder, "EmergencyAlarm", EmergencyAlarm(), -4f, false);
+            Save(SfxFolder, "RewardGranted", RewardGranted(), -3f, false);
             Save(SfxFolder, "WhisperWisp", Whisper(11, 1.25f, 0.12f, 0.25f, 0.08f, 0.3f, 0.35f, 1f, 0.3f, 1.2f), -6f, true);
             Save(SfxFolder, "WhisperPoltergeist", Whisper(23, 1f, 0.08f, 0.18f, 0.05f, 0.15f, 0.2f, 2.2f, 0.25f, 1f), -6f, true);
             Save(SfxFolder, "WhisperShade", Whisper(37, 0.8f, 0.35f, 0.8f, 0.3f, 0.8f, 0.08f, 1f, 0.5f, 1.35f), -6f, true);
@@ -586,6 +595,155 @@ namespace Hauntscope.Editor
 
             Add(samples, Click(0.002f, 2800f, 101), 0, 1f);
             return samples;
+        }
+
+        // Supply depot purchase: a relay clack, two bright bells a fifth apart and a shimmer of falling sparkle.
+        private static float[] Purchase()
+        {
+            var samples = Buffer(0.9f);
+            Add(samples, Click(0.004f, 1500f, 211), 0, 0.9f);
+            Add(samples, Bell(1567.98f, 0.5f, 2.01f, 1.2f, 0.18f), (int)(0.02f * SampleRate), 0.6f);
+            Add(samples, Bell(2349.3f, 0.7f, 2.01f, 1.2f, 0.28f), (int)(0.09f * SampleRate), 0.55f);
+            var sparkle = Filter(Noise((int)(0.5f * SampleRate), 213), FilterType.HighPass, 6000f, 0.7f);
+            for (var i = 0; i < sparkle.Length; i++)
+            {
+                var t = Time(i);
+                sparkle[i] *= Adsr(t, 0.5f, 0.02f, 0.4f) * (0.5f + 0.5f * Mathf.Sin(TwoPi * 23f * t));
+            }
+
+            Add(samples, sparkle, (int)(0.08f * SampleRate), 0.18f);
+            return TrimTo(Echo(samples, 0.09f, 0.3f, 4000f, 2), (int)(1.1f * SampleRate));
+        }
+
+        // Not enough ectoplasm or a full stack: a short, dull double buzz.
+        private static float[] Denied()
+        {
+            var samples = Buffer(0.32f);
+            AddSquareNote(samples, 0f, 0.09f, 146.8f);
+            AddSquareNote(samples, 0.13f, 0.12f, 110f);
+            return Filter(samples, FilterType.LowPass, 1400f, 0.7f);
+        }
+
+        // A spare battery clicked into the camcorder: latch clack, contact spark and a charging whine that settles on a beep.
+        private static float[] BatteryInsert()
+        {
+            var samples = Buffer(0.8f);
+            Add(samples, Click(0.004f, 1200f, 221), 0, 1f);
+            Add(samples, Click(0.003f, 2400f, 223), (int)(0.07f * SampleRate), 0.8f);
+            var phase = 0f;
+            var whine = Buffer(0.45f);
+            for (var i = 0; i < whine.Length; i++)
+            {
+                var t = Time(i);
+                phase += TwoPi * (300f * Mathf.Pow(2200f / 300f, Smooth(Mathf.Clamp01(t / 0.4f)))) / SampleRate;
+                whine[i] = (Mathf.Sin(phase) + 0.3f * Mathf.Sin(2f * phase)) * Adsr(t, 0.45f, 0.05f, 0.08f);
+            }
+
+            Add(samples, whine, (int)(0.1f * SampleRate), 0.45f);
+            AddSquareNote(samples, 0.58f, 0.08f, 1760f);
+            return Saturate(samples, 1.2f);
+        }
+
+        // Ectoplasm vial: a wet bubbling bloop rising into a glassy chime.
+        private static float[] PickupEcto()
+        {
+            var samples = Buffer(0.9f);
+            var phase = 0f;
+            for (var i = 0; i < (int)(0.18f * SampleRate); i++)
+            {
+                var t = Time(i);
+                phase += TwoPi * (220f * Mathf.Pow(4f, t / 0.18f) * (1f + 0.08f * Mathf.Sin(TwoPi * 38f * t))) / SampleRate;
+                samples[i] = Mathf.Sin(phase) * Adsr(t, 0.18f, 0.01f, 0.05f) * 0.8f;
+            }
+
+            Add(samples, Bell(1318.5f, 0.6f, 3.01f, 1.5f, 0.22f), (int)(0.12f * SampleRate), 0.5f);
+            Add(samples, Bell(1975.5f, 0.5f, 3.01f, 1f, 0.18f), (int)(0.18f * SampleRate), 0.35f);
+            return TrimTo(Reverb(samples, 0.25f, 0.8f, 0.3f), (int)(1f * SampleRate));
+        }
+
+        // Cursed case: heavy latches snap open and a golden arpeggio spills out.
+        private static float[] PickupCase()
+        {
+            var samples = Buffer(1.6f);
+            Add(samples, Click(0.006f, 700f, 231), 0, 1f);
+            Add(samples, Click(0.006f, 700f, 233), (int)(0.06f * SampleRate), 0.9f);
+            var thump = Buffer(0.25f);
+            for (var i = 0; i < thump.Length; i++)
+                thump[i] = Mathf.Sin(TwoPi * 75f * Time(i)) * Envelope(Time(i), 0.003f, 0.08f);
+            Add(samples, thump, 0, 0.7f);
+            var notes = new[] { 783.99f, 987.77f, 1174.66f, 1567.98f, 1975.53f };
+            for (var n = 0; n < notes.Length; n++)
+                Add(samples, Bell(notes[n], 0.9f, 2.01f, 1.4f, n == notes.Length - 1 ? 0.5f : 0.3f), (int)((0.14f + n * 0.06f) * SampleRate), 0.45f);
+            return TrimTo(Reverb(samples, 0.3f, 1f, 0.4f), (int)(1.8f * SampleRate));
+        }
+
+        // Lost battery found: an electric zap, then the charging whine and two confirming beeps.
+        private static float[] PickupCell()
+        {
+            var samples = Buffer(0.9f);
+            var zap = Filter(Noise((int)(0.12f * SampleRate), 241), FilterType.BandPass, i => 5000f * Mathf.Pow(0.3f, Time(i) / 0.12f), 2f);
+            for (var i = 0; i < zap.Length; i++)
+                zap[i] *= Envelope(Time(i), 0.002f, 0.04f);
+            Add(samples, zap, 0, 0.8f);
+            var whine = Buffer(0.4f);
+            var phase = 0f;
+            for (var i = 0; i < whine.Length; i++)
+            {
+                var t = Time(i);
+                phase += TwoPi * (400f * Mathf.Pow(2400f / 400f, Smooth(Mathf.Clamp01(t / 0.4f)))) / SampleRate;
+                whine[i] = Mathf.Sin(phase) * Adsr(t, 0.4f, 0.03f, 0.06f);
+            }
+
+            Add(samples, whine, (int)(0.05f * SampleRate), 0.4f);
+            AddSquareNote(samples, 0.5f, 0.07f, 1760f);
+            AddSquareNote(samples, 0.62f, 0.1f, 2349.3f);
+            return Saturate(samples, 1.2f);
+        }
+
+        // The lost battery's beacon: a smoke-detector chirp once per loop, found by ear across the room.
+        private static float[] CellBeacon()
+        {
+            var samples = Buffer(1.5f);
+            var phase = 0f;
+            for (var i = 0; i < (int)(0.09f * SampleRate); i++)
+            {
+                var t = Time(i);
+                phase += TwoPi * 3150f / SampleRate;
+                samples[i] = (Mathf.Sin(phase) + 0.25f * Mathf.Sin(2f * phase)) * Adsr(t, 0.09f, 0.004f, 0.03f);
+            }
+
+            return samples;
+        }
+
+        // Battery dead: the camcorder's alarm, three falling double beeps.
+        private static float[] EmergencyAlarm()
+        {
+            var samples = Buffer(1.1f);
+            for (var n = 0; n < 3; n++)
+            {
+                AddSquareNote(samples, n * 0.34f, 0.12f, 987.77f);
+                AddSquareNote(samples, n * 0.34f + 0.14f, 0.14f, 739.99f);
+            }
+
+            return Filter(samples, FilterType.LowPass, 3500f, 0.7f);
+        }
+
+        // An ad reward landing: a rising sparkle arpeggio over a warm pad.
+        private static float[] RewardGranted()
+        {
+            var samples = Buffer(1.5f);
+            var notes = new[] { 659.25f, 830.61f, 987.77f, 1318.51f, 1661.22f, 1975.53f };
+            for (var n = 0; n < notes.Length; n++)
+                Add(samples, Bell(notes[n], 0.8f, 2.01f, 1.1f, 0.3f), (int)(n * 0.055f * SampleRate), 0.4f);
+            var pad = Buffer(1f);
+            for (var i = 0; i < pad.Length; i++)
+            {
+                var t = Time(i);
+                pad[i] = (Mathf.Sin(TwoPi * 329.63f * t) + Mathf.Sin(TwoPi * 493.88f * t)) * Adsr(t, 1f, 0.1f, 0.6f) * 0.2f;
+            }
+
+            Add(samples, pad, 0, 1f);
+            return TrimTo(Reverb(samples, 0.3f, 1f, 0.4f), (int)(1.7f * SampleRate));
         }
 
         private static float[] Bell(float frequency, float duration, float ratio, float index, float decay)
