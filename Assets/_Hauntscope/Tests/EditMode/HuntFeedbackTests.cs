@@ -163,6 +163,65 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Teleported_GhostHasItsOwnSound_PlaysThatSound()
+        {
+            var ability = Clip("ability");
+            var data = Voiced(new GhostVoice(null, ability));
+            _session.Begin(_fixture.Ghost, data);
+
+            _fixture.Ghost.TeleportTo(new Vector3(1f, 1f, 1f));
+
+            CollectionAssert.AreEqual(new[] { ability }, _sfx.Clips);
+            Object.DestroyImmediate(data);
+            Object.DestroyImmediate(ability);
+        }
+
+        [Test]
+        public void GhostCaptured_GhostHasItsOwnCry_PlaysItOverTheSharedSound()
+        {
+            var cry = Clip("cry");
+            var data = Voiced(new GhostVoice(null, capture: cry));
+            _session.Begin(_fixture.Ghost, data);
+            _fixture.Ghost.Capture();
+            _fixture.Ghost.Tick(0.01f);
+
+            _feedback.Tick(0.01f);
+
+            CollectionAssert.Contains(_sfx.Clips, cry);
+            Assert.AreEqual(2, _sfx.PlayCount);
+            Object.DestroyImmediate(data);
+            Object.DestroyImmediate(cry);
+        }
+
+        [Test]
+        public void Scared_GhostHasItsOwnScream_ScreamsOverTheSting()
+        {
+            var scream = Clip("scream");
+            var data = Voiced(new GhostVoice(null, scare: scream));
+            _session.Begin(_fixture.Ghost, data);
+
+            _session.MarkScared();
+
+            Assert.AreEqual(2, _sfx.PlayCount);
+            Assert.AreSame(scream, _sfx.Clips[1]);
+            Object.DestroyImmediate(data);
+            Object.DestroyImmediate(scream);
+        }
+
+        private static AudioClip Clip(string name)
+        {
+            return AudioClip.Create(name, 16, 1, 48000, false);
+        }
+
+        private static GhostData Voiced(GhostVoice voice)
+        {
+            var data = ScriptableObject.CreateInstance<GhostData>();
+            typeof(GhostData).GetField("_voice", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
+                .SetValue(data, voice);
+            return data;
+        }
+
+        [Test]
         public void Teleported_Always_FlashesAtBothEnds()
         {
             _session.Begin(_fixture.Ghost, null);

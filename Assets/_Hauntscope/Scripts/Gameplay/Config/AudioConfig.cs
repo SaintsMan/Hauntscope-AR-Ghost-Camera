@@ -63,6 +63,10 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Range(0f, 1f)] private float _rewardVolume = 0.8f;
         [SerializeField] private AudioClip _ghostStagger;
         [SerializeField, Range(0f, 1f)] private float _staggerVolume = 0.8f;
+        // A ghost's own voice over the shared effects (GDD 5.32).
+        [SerializeField, Range(0f, 1f)] private float _captureCryVolume = 0.8f;
+        [SerializeField, Range(0f, 1f)] private float _staggerGruntVolume = 0.7f;
+        [SerializeField, Range(0f, 1f)] private float _screamVolume = 0.9f;
         [SerializeField] private AudioClip _ghostSurge;
         [SerializeField, Range(0f, 1f)] private float _surgeVolume = 0.75f;
         [SerializeField, Min(0.02f)] private float _surgeHapticInterval = 0.12f;
@@ -190,6 +194,12 @@ namespace Hauntscope.Gameplay.Config
         public AudioClip GhostStagger => _ghostStagger;
 
         public float StaggerVolume => _staggerVolume;
+
+        public float CaptureCryVolume => _captureCryVolume;
+
+        public float StaggerGruntVolume => _staggerGruntVolume;
+
+        public float ScreamVolume => _screamVolume;
 
         public AudioClip GhostSurge => _ghostSurge;
 

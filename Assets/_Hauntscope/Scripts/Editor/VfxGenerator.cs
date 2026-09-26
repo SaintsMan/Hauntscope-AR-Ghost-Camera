@@ -27,6 +27,16 @@ namespace Hauntscope.Editor
         private static Material _streak;
         private static Material _frost;
 
+        internal static Material Dot => _dot;
+
+        internal static Material Ring => _ring;
+
+        internal static Material Smoke => _smoke;
+
+        internal static Material Streak => _streak;
+
+        internal static Material Frost => _frost;
+
         public static ParticleSystem CaptureSpiral { get; private set; }
 
         public static ParticleSystem TeleportFlash { get; private set; }
@@ -40,6 +50,16 @@ namespace Hauntscope.Editor
         public static ParticleSystem ColdSpot { get; private set; }
 
         public static GameObject CaptureBeamRig { get; private set; }
+
+        // Ghosts can be rebuilt on their own: their trails then use the particle materials already on disk.
+        internal static void LoadMaterials()
+        {
+            _dot = _dot != null ? _dot : AssetDatabase.LoadAssetAtPath<Material>($"{MaterialFolder}/VfxDot.mat");
+            _ring = _ring != null ? _ring : AssetDatabase.LoadAssetAtPath<Material>($"{MaterialFolder}/VfxRing.mat");
+            _smoke = _smoke != null ? _smoke : AssetDatabase.LoadAssetAtPath<Material>($"{MaterialFolder}/VfxSmoke.mat");
+            _streak = _streak != null ? _streak : AssetDatabase.LoadAssetAtPath<Material>($"{MaterialFolder}/VfxStreak.mat");
+            _frost = _frost != null ? _frost : AssetDatabase.LoadAssetAtPath<Material>($"{MaterialFolder}/VfxFrost.mat");
+        }
 
         public static void BuildAll(float captureDuration)
         {
@@ -58,108 +78,6 @@ namespace Hauntscope.Editor
             BuildBeamNoise();
             CaptureBeamRig = BuildCaptureBeam();
             AssetDatabase.SaveAssets();
-        }
-
-        public static ParticleSystem AddGhostTrail(GameObject ghost, Mesh body)
-        {
-            var trail = CreateSystem("Trail", ghost.transform, _smoke, 60);
-            var main = trail.main;
-            main.loop = true;
-            main.playOnAwake = true;
-            main.duration = 1f;
-            main.startLifetime = new ParticleSystem.MinMaxCurve(1f, 1.8f);
-            main.startSpeed = 0f;
-            main.startSize = new ParticleSystem.MinMaxCurve(0.05f, 0.12f);
-            main.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
-
-            // Rate over distance is left at zero on purpose: a teleport would otherwise paint a streak across the room.
-            var emission = trail.emission;
-            emission.rateOverTime = 14f;
-
-            var shape = trail.shape;
-            shape.shapeType = ParticleSystemShapeType.Mesh;
-            shape.meshShapeType = ParticleSystemMeshShapeType.Triangle;
-            shape.mesh = body;
-
-            Drift(trail, 0.04f);
-            Noise(trail, 0.05f, 1.5f);
-            SizeOverLifetime(trail, Curve(0f, 0.5f, 1f, 1.3f));
-            AlphaOverLifetime(trail, 0f, 0.2f, 0.55f, 1f, 0f);
-            Spin(trail, 40f);
-
-            var motes = CreateSystem("Motes", trail.transform, _dot, 24);
-            var motesMain = motes.main;
-            motesMain.loop = true;
-            motesMain.playOnAwake = true;
-            motesMain.duration = 1f;
-            motesMain.startLifetime = new ParticleSystem.MinMaxCurve(0.8f, 1.4f);
-            motesMain.startSpeed = 0f;
-            motesMain.startSize = new ParticleSystem.MinMaxCurve(0.008f, 0.018f);
-            var motesEmission = motes.emission;
-            motesEmission.rateOverTime = 6f;
-            var motesShape = motes.shape;
-            motesShape.shapeType = ParticleSystemShapeType.Mesh;
-            motesShape.meshShapeType = ParticleSystemMeshShapeType.Vertex;
-            motesShape.mesh = body;
-            Drift(motes, 0.08f);
-            Noise(motes, 0.1f, 2f);
-            AlphaOverLifetime(motes, 0f, 0.15f, 1f, 0.6f, 0f);
-
-            AddAura(trail.transform);
-            return trail;
-        }
-
-        // Under the trail, so it appears and fades with the reveal: sparks circling the ghost and a soft halo that
-        // makes it glow against the camera feed.
-        private static void AddAura(Transform parent)
-        {
-            var orbit = CreateSystem("Aura", parent, _dot, 32);
-            var main = orbit.main;
-            main.loop = true;
-            main.playOnAwake = true;
-            main.duration = 1f;
-            main.simulationSpace = ParticleSystemSimulationSpace.Local;
-            main.startLifetime = new ParticleSystem.MinMaxCurve(1.6f, 2.6f);
-            main.startSpeed = 0f;
-            main.startSize = new ParticleSystem.MinMaxCurve(0.012f, 0.028f);
-            var emission = orbit.emission;
-            emission.rateOverTime = 10f;
-            var shape = orbit.shape;
-            shape.shapeType = ParticleSystemShapeType.Circle;
-            shape.radius = 0.32f;
-            shape.radiusThickness = 0.2f;
-            shape.rotation = new Vector3(90f, 0f, 0f);
-            shape.position = new Vector3(0f, 0.35f, 0f);
-            var velocity = orbit.velocityOverLifetime;
-            velocity.enabled = true;
-            velocity.space = ParticleSystemSimulationSpace.Local;
-            velocity.orbitalX = 0f;
-            velocity.orbitalY = 1.4f;
-            velocity.orbitalZ = 0f;
-            velocity.radial = 0f;
-            velocity.x = 0f;
-            velocity.y = 0.04f;
-            velocity.z = 0f;
-            Noise(orbit, 0.05f, 1.2f);
-            AlphaOverLifetime(orbit, 0f, 0.2f, 1f, 1f, 0f);
-            SizeOverLifetime(orbit, Curve(0f, 0.4f, 0.3f, 1f, 1f, 0.2f));
-
-            var halo = CreateSystem("Halo", parent, _dot, 3);
-            var haloMain = halo.main;
-            haloMain.loop = true;
-            haloMain.playOnAwake = true;
-            haloMain.duration = 1f;
-            haloMain.simulationSpace = ParticleSystemSimulationSpace.Local;
-            haloMain.startLifetime = 2.4f;
-            haloMain.startSpeed = 0f;
-            haloMain.startSize = new ParticleSystem.MinMaxCurve(0.9f, 1.15f);
-            var haloEmission = halo.emission;
-            haloEmission.rateOverTime = 1f;
-            var haloShape = halo.shape;
-            haloShape.shapeType = ParticleSystemShapeType.Sphere;
-            haloShape.radius = 0.01f;
-            haloShape.position = new Vector3(0f, 0.35f, 0f);
-            AlphaOverLifetime(halo, 0f, 0.5f, 0.14f, 1f, 0f);
         }
 
         // The lens pulls the ghost out of hiding: a ring snaps outwards and motes scatter.
@@ -311,7 +229,7 @@ namespace Hauntscope.Editor
             }
         }
 
-        private static void Looping(ParticleSystem system, float duration, float rate)
+        internal static void Looping(ParticleSystem system, float duration, float rate)
         {
             var main = system.main;
             main.loop = true;
@@ -749,7 +667,7 @@ namespace Hauntscope.Editor
         }
 
         // Emits from a disc lying on the floor rather than from a point.
-        private static void Flat(ParticleSystem system, float radius)
+        internal static void Flat(ParticleSystem system, float radius)
         {
             var shape = system.shape;
             shape.shapeType = ParticleSystemShapeType.Circle;
@@ -759,7 +677,7 @@ namespace Hauntscope.Editor
         }
 
         // Alpha as AlphaOverLifetime, but with a colour tint multiplied into the runtime colour.
-        private static void Tint(ParticleSystem system, Color tint, float start, float peakTime, float peak, float endTime, float end)
+        internal static void Tint(ParticleSystem system, Color tint, float start, float peakTime, float peak, float endTime, float end)
         {
             var gradient = new Gradient();
             gradient.SetKeys(
@@ -770,7 +688,7 @@ namespace Hauntscope.Editor
             color.color = new ParticleSystem.MinMaxGradient(gradient);
         }
 
-        private static GameObject CreateRoot(string name)
+        internal static GameObject CreateRoot(string name)
         {
             var root = new GameObject(name);
             var system = root.AddComponent<ParticleSystem>();
@@ -779,7 +697,7 @@ namespace Hauntscope.Editor
             return root;
         }
 
-        private static ParticleSystem CreateSystem(string name, Transform parent, Material material, int maxParticles)
+        internal static ParticleSystem CreateSystem(string name, Transform parent, Material material, int maxParticles)
         {
             var go = new GameObject(name);
             go.transform.SetParent(parent, false);
@@ -789,7 +707,7 @@ namespace Hauntscope.Editor
             return system;
         }
 
-        private static void ConfigureDefaults(ParticleSystem system, Material material, int maxParticles)
+        internal static void ConfigureDefaults(ParticleSystem system, Material material, int maxParticles)
         {
             var main = system.main;
             main.playOnAwake = false;
@@ -817,7 +735,7 @@ namespace Hauntscope.Editor
             renderer.reflectionProbeUsage = ReflectionProbeUsage.Off;
         }
 
-        private static void ConfigureOneShot(ParticleSystem system, float duration, ParticleSystem.MinMaxCurve lifetime,
+        internal static void ConfigureOneShot(ParticleSystem system, float duration, ParticleSystem.MinMaxCurve lifetime,
             ParticleSystem.MinMaxCurve speed, ParticleSystem.MinMaxCurve size)
         {
             var main = system.main;
@@ -827,13 +745,13 @@ namespace Hauntscope.Editor
             main.startSize = size;
         }
 
-        private static void Burst(ParticleSystem system, float time, short count)
+        internal static void Burst(ParticleSystem system, float time, short count)
         {
             var emission = system.emission;
             emission.SetBursts(new[] { new ParticleSystem.Burst(time, count) });
         }
 
-        private static void Sphere(ParticleSystem system, float radius, float thickness)
+        internal static void Sphere(ParticleSystem system, float radius, float thickness)
         {
             var shape = system.shape;
             shape.shapeType = ParticleSystemShapeType.Sphere;
@@ -841,7 +759,7 @@ namespace Hauntscope.Editor
             shape.radiusThickness = thickness;
         }
 
-        private static void Drift(ParticleSystem system, float upwardSpeed)
+        internal static void Drift(ParticleSystem system, float upwardSpeed)
         {
             var velocity = system.velocityOverLifetime;
             velocity.enabled = true;
@@ -851,7 +769,7 @@ namespace Hauntscope.Editor
             velocity.z = 0f;
         }
 
-        private static void Noise(ParticleSystem system, float strength, float frequency)
+        internal static void Noise(ParticleSystem system, float strength, float frequency)
         {
             var noise = system.noise;
             noise.enabled = true;
@@ -861,7 +779,7 @@ namespace Hauntscope.Editor
             noise.quality = ParticleSystemNoiseQuality.Medium;
         }
 
-        private static void Drag(ParticleSystem system, float dampen)
+        internal static void Drag(ParticleSystem system, float dampen)
         {
             var limit = system.limitVelocityOverLifetime;
             limit.enabled = true;
@@ -869,14 +787,14 @@ namespace Hauntscope.Editor
             limit.dampen = dampen;
         }
 
-        private static void Spin(ParticleSystem system, float degreesPerSecond)
+        internal static void Spin(ParticleSystem system, float degreesPerSecond)
         {
             var rotation = system.rotationOverLifetime;
             rotation.enabled = true;
             rotation.z = new ParticleSystem.MinMaxCurve(-degreesPerSecond * Mathf.Deg2Rad, degreesPerSecond * Mathf.Deg2Rad);
         }
 
-        private static void Stretch(ParticleSystem system, float velocityScale, float lengthScale)
+        internal static void Stretch(ParticleSystem system, float velocityScale, float lengthScale)
         {
             var renderer = system.GetComponent<ParticleSystemRenderer>();
             renderer.renderMode = ParticleSystemRenderMode.Stretch;
@@ -884,21 +802,21 @@ namespace Hauntscope.Editor
             renderer.lengthScale = lengthScale;
         }
 
-        private static void SizeOverLifetime(ParticleSystem system, AnimationCurve curve)
+        internal static void SizeOverLifetime(ParticleSystem system, AnimationCurve curve)
         {
             var size = system.sizeOverLifetime;
             size.enabled = true;
             size.size = new ParticleSystem.MinMaxCurve(1f, curve);
         }
 
-        private static void AlphaOverLifetime(ParticleSystem system, float start, float peakTime, float peak, float endTime, float end)
+        internal static void AlphaOverLifetime(ParticleSystem system, float start, float peakTime, float peak, float endTime, float end)
         {
             var color = system.colorOverLifetime;
             color.enabled = true;
             color.color = new ParticleSystem.MinMaxGradient(AlphaGradient(start, peakTime, peak, endTime, end));
         }
 
-        private static Gradient AlphaGradient(float start, float peakTime, float peak, float endTime, float end)
+        internal static Gradient AlphaGradient(float start, float peakTime, float peak, float endTime, float end)
         {
             var gradient = new Gradient();
             gradient.SetKeys(
@@ -907,7 +825,7 @@ namespace Hauntscope.Editor
             return gradient;
         }
 
-        private static AnimationCurve Curve(params float[] timeValuePairs)
+        internal static AnimationCurve Curve(params float[] timeValuePairs)
         {
             var keys = new Keyframe[timeValuePairs.Length / 2];
             for (var i = 0; i < keys.Length; i++)
@@ -919,7 +837,7 @@ namespace Hauntscope.Editor
             return curve;
         }
 
-        private static ParticleSystem SavePrefab(GameObject root)
+        internal static ParticleSystem SavePrefab(GameObject root)
         {
             Directory.CreateDirectory(Path.GetFullPath(PrefabFolder));
             var prefab = PrefabUtility.SaveAsPrefabAsset(root, $"{PrefabFolder}/{root.name}.prefab");

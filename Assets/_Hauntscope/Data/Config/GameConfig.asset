@@ -155,6 +155,9 @@ MonoBehaviour:
     _rewardVolume: 0.8
     _ghostStagger: {fileID: 8300000, guid: c33598961dad0af40b1a9f0794a87e3e, type: 3}
     _staggerVolume: 0.8
+    _captureCryVolume: 0.8
+    _staggerGruntVolume: 0.7
+    _screamVolume: 0.9
     _ghostSurge: {fileID: 8300000, guid: 6408032f7226b7b4d990c2b5656801d7, type: 3}
     _surgeVolume: 0.75
     _surgeHapticInterval: 0.12

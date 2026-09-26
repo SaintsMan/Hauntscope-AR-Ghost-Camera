@@ -1,3 +1,4 @@
+using Hauntscope.Gameplay.Ghosts;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -129,6 +130,40 @@ namespace Hauntscope.Tests.EditMode
             fixture.Ghost.Tick(0.02f);
 
             Assert.AreEqual(0.25f, fixture.Mover.SpeedScale, 1e-5f);
+        }
+    
+        [Test]
+        public void Tick_Calm_TellsTheViewItIsCalm()
+        {
+            _fixture.Ghost.Start();
+
+            _fixture.Ghost.Tick(0.1f);
+
+            Assert.AreEqual(GhostMood.Calm, _fixture.View.Mood);
+        }
+
+        [Test]
+        public void Tick_Noticed_TellsTheViewItIsAlert()
+        {
+            _fixture.Ghost.Start();
+            _fixture.Ghost.SetReveal(1f);
+
+            _fixture.Ghost.Tick(0.1f);
+
+            Assert.AreEqual(GhostMood.Alert, _fixture.View.Mood);
+        }
+
+        [Test]
+        public void Tick_UnderTheBeam_TellsTheViewItIsFleeing()
+        {
+            _fixture.Ghost.Start();
+            _fixture.Ghost.SetReveal(1f);
+            _fixture.Ghost.Tick(0.1f);
+            _fixture.Ghost.SetBeamed(true);
+
+            _fixture.Ghost.Tick(0.1f);
+
+            Assert.AreEqual(GhostMood.Fleeing, _fixture.View.Mood);
         }
     }
 }

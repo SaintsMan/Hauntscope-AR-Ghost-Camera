@@ -15,6 +15,8 @@ namespace Hauntscope.Editor
         private static readonly int RevealId = Shader.PropertyToID("_Reveal");
         private static readonly int RimColorId = Shader.PropertyToID("_RimColor");
         private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
+        private static readonly int NoiseSpeedId = Shader.PropertyToID("_NoiseSpeed");
+        private static readonly string[] StillProperties = { "_BreathAmplitude", "_HemFlutter", "_SwayAmplitude", "_WobbleAmplitude", "_Agitation" };
 
         public static Sprite Render(GameObject prefab, Color rimColor, string path)
         {
@@ -57,16 +59,29 @@ namespace Hauntscope.Editor
             var bounds = new Bounds(ghost.transform.position, Vector3.zero);
             foreach (var renderer in ghost.GetComponentsInChildren<MeshRenderer>())
             {
-                var material = new Material(renderer.sharedMaterial);
-                material.SetFloat(RevealId, 1f);
-                if (renderer.name == "Body")
+                var materials = renderer.sharedMaterials;
+                for (var i = 0; i < materials.Length; i++)
                 {
-                    material.SetColor(RimColorId, rimColor);
-                    var baseColor = material.GetColor(BaseColorId);
-                    material.SetColor(BaseColorId, new Color(rimColor.r, rimColor.g, rimColor.b, baseColor.a));
+                    var material = new Material(materials[i]);
+                    material.SetFloat(RevealId, 1f);
+                    // A still pose: the body's motion and smoke run on the clock, so every render would differ.
+                    foreach (var property in StillProperties)
+                        material.SetFloat(property, 0f);
+                    material.SetVector(NoiseSpeedId, Vector4.zero);
+                    // The app icon paints the ghost in its own colour; the body tint follows the rim unless it is fixed.
+                    if (i == 0 && renderer.name == "Body")
+                    {
+                        var baseColor = material.GetColor(BaseColorId);
+                        var tinted = baseColor.maxColorComponent > 0.2f;
+                        material.SetColor(RimColorId, rimColor);
+                        if (tinted)
+                            material.SetColor(BaseColorId, new Color(rimColor.r, rimColor.g, rimColor.b, baseColor.a));
+                    }
+
+                    materials[i] = material;
                 }
 
-                renderer.sharedMaterial = material;
+                renderer.sharedMaterials = materials;
                 bounds.Encapsulate(renderer.bounds);
             }
 

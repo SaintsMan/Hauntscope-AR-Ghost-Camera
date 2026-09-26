@@ -16,6 +16,19 @@ Shader "Hauntscope/Ghost"
         _DissolveEdgeColor ("Dissolve Edge Color", Color) = (1, 1, 1, 1)
         _DissolveEdgeWidth ("Dissolve Edge Width", Range(0.001, 0.3)) = 0.08
         _DepthReveal ("Depth Write From Reveal", Range(0, 1)) = 0.05
+        [Header(Living Body)]
+        _BodyBottom ("Body Bottom (object Y)", Float) = -0.5
+        _BodyTop ("Body Top (object Y)", Float) = 0.5
+        _BreathAmplitude ("Breath Amplitude", Float) = 0.008
+        _BreathSpeed ("Breath Speed", Float) = 1.3
+        _HemFlutter ("Hem Flutter", Float) = 0.03
+        _HemHeight ("Hem Height (0..1)", Range(0.01, 1)) = 0.35
+        _HemFrequency ("Hem Frequency", Float) = 3.5
+        _SwayAmplitude ("Sway Amplitude", Float) = 0.03
+        _SwaySpeed ("Sway Speed", Float) = 0.7
+        _Agitation ("Agitation", Range(0, 1)) = 0
+        _AgitationAmplitude ("Agitation Amplitude", Float) = 0.012
+        _Stretch ("Stretch (object space)", Vector) = (0, 0, 0, 0)
     }
 
     SubShader
@@ -46,6 +59,18 @@ Shader "Hauntscope/Ghost"
             half4 _DissolveEdgeColor;
             half _DissolveEdgeWidth;
             half _DepthReveal;
+            float _BodyBottom;
+            float _BodyTop;
+            float _BreathAmplitude;
+            float _BreathSpeed;
+            float _HemFlutter;
+            float _HemHeight;
+            float _HemFrequency;
+            float _SwayAmplitude;
+            float _SwaySpeed;
+            float _Agitation;
+            float _AgitationAmplitude;
+            float4 _Stretch;
         CBUFFER_END
 
         struct Attributes
@@ -97,12 +122,43 @@ Shader "Hauntscope/Ghost"
             return value / 0.875;
         }
 
+        // The body is alive: it breathes, the hem ripples like cloth in a draught, the head sways, it trembles when
+        // tense and trails behind itself when it moves fast. Everything but the breath and the wobble moves points by
+        // their position alone, so eyes built into the same mesh stay exactly on the face.
+        float3 Animate(float3 position, float3 normal)
+        {
+            float time = _Time.y;
+            float height = saturate((position.y - _BodyBottom) / max(0.001, _BodyTop - _BodyBottom));
+
+            float wobble = sin(time * _WobbleFrequency + position.y * TWO_PI) * _WobbleAmplitude;
+            float breath = sin(time * _BreathSpeed * TWO_PI * 0.25) * _BreathAmplitude * smoothstep(0.15, 0.7, height);
+            position += normal * (wobble + breath);
+
+            // The hem: strongest at the very bottom, gone above _HemHeight; two travelling waves around the body.
+            float hem = pow(saturate(1.0 - height / _HemHeight), 1.6);
+            float angle = atan2(position.z, position.x);
+            float ripple = sin(angle * 5.0 + time * _HemFrequency) * 0.6 + sin(angle * 3.0 - time * _HemFrequency * 0.7 + 1.3) * 0.4;
+            position.xz += normalize(position.xz + 1e-4) * ripple * _HemFlutter * hem;
+            position.y += ripple * _HemFlutter * 0.5 * hem;
+
+            // The upper body sways a little, the way something hanging in the air would.
+            float sway = height * height;
+            position.x += sin(time * _SwaySpeed * TWO_PI * 0.5) * _SwayAmplitude * sway;
+            position.z += sin(time * _SwaySpeed * TWO_PI * 0.37 + 0.8) * _SwayAmplitude * 0.6 * sway;
+
+            // Tension: a fast, fine shiver over the whole body.
+            float3 shiver = float3(sin(time * 41.0 + position.y * 23.0), sin(time * 37.0 + position.x * 19.0), sin(time * 43.0 + position.z * 29.0));
+            position += shiver * _AgitationAmplitude * _Agitation;
+
+            // Moving fast, the lower body lags behind: _Stretch is the lag at the hem, in object space.
+            position += _Stretch.xyz * pow(1.0 - height, 1.5);
+            return position;
+        }
+
         // Both passes must place every vertex identically, or the depth pass would hide slivers of the body.
         Varyings Vert(Attributes input)
         {
-            float3 position = input.positionOS.xyz;
-            float wobble = sin(_Time.y * _WobbleFrequency + position.y * TWO_PI) * _WobbleAmplitude;
-            position += input.normalOS * wobble;
+            float3 position = Animate(input.positionOS.xyz, input.normalOS);
 
             VertexPositionInputs positions = GetVertexPositionInputs(position);
             Varyings output;

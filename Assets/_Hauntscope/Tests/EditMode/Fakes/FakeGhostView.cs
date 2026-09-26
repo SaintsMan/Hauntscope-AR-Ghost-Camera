@@ -23,6 +23,8 @@ namespace Hauntscope.Tests.EditMode.Fakes
 
         public bool IsDespawned { get; private set; }
 
+        public GhostMood Mood { get; private set; }
+
         public void SetPose(Vector3 position, Quaternion rotation)
         {
             Position = position;
@@ -53,6 +55,11 @@ namespace Hauntscope.Tests.EditMode.Fakes
         public void SetPhotoFlash(bool lit)
         {
             IsFlashLit = lit;
+        }
+
+        public void SetMood(GhostMood mood)
+        {
+            Mood = mood;
         }
 
         public void Despawn()

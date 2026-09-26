@@ -19,7 +19,13 @@ MonoBehaviour:
   _rarity: 1
   _prefab: {fileID: 8551708143897949256, guid: 0f9df50a0a1b23c4e8e0343aa99c5eb5, type: 3}
   _rimColor: {r: 1, g: 0.23137255, b: 0.23137255, a: 1}
-  _whisperClip: {fileID: 8300000, guid: 48066c87d04bb1c49a7006a33b98e72a, type: 3}
+  _voice:
+    _whisper: {fileID: 8300000, guid: 60f30dd5ffef8c644996d5d6b2329391, type: 3}
+    _ability: {fileID: 0}
+    _scare: {fileID: 0}
+    _capture: {fileID: 0}
+    _escape: {fileID: 0}
+    _stagger: {fileID: 0}
   _canHide: 1
   _canScare: 1
   _nightOnly: 0

@@ -10,10 +10,14 @@ namespace Hauntscope.Gameplay.Ghosts
         private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
         private static readonly int RimIntensityId = Shader.PropertyToID("_RimIntensity");
         private static readonly int WobbleAmplitudeId = Shader.PropertyToID("_WobbleAmplitude");
+        private static readonly int AgitationId = Shader.PropertyToID("_Agitation");
+        private static readonly int StretchId = Shader.PropertyToID("_Stretch");
 
         [SerializeField] private Renderer[] _renderers;
         [SerializeField] private Renderer _body;
         [SerializeField] private ParticleSystem _trail;
+        // The negative keeps its dark body whatever its rim colour.
+        [SerializeField] private bool _keepBodyColor;
         [SerializeField, Range(0f, 1f)] private float _trailRevealThreshold = 0.25f;
         [SerializeField, Min(0f)] private float _struggleJitter = 0.025f;
         [SerializeField, Min(0f)] private float _struggleWobble = 5f;
@@ -21,6 +25,16 @@ namespace Hauntscope.Gameplay.Ghosts
         [SerializeField, Range(0f, 1f)] private float _staggerWhiten = 0.7f;
         [SerializeField, Min(0f)] private float _staggerRim = 1.5f;
         [SerializeField, Min(0f)] private float _flashRim = 2.5f;
+        [SerializeField, Range(0f, 1f)] private float _alertAgitation = 0.35f;
+        [SerializeField, Range(0f, 1f)] private float _fleeAgitation = 0.2f;
+        [SerializeField, Range(0f, 1f)] private float _surgeAgitation = 1f;
+        [SerializeField, Range(0f, 1f)] private float _scareAgitation = 0.8f;
+        [SerializeField, Min(0.1f)] private float _agitationResponse = 6f;
+        [SerializeField, Min(0f)] private float _stretchPerSpeed = 0.06f;
+        [SerializeField, Min(0f)] private float _maxStretch = 0.12f;
+        [SerializeField, Min(0.1f)] private float _stretchResponse = 5f;
+        // A jump this long in one frame is a teleport, not movement: it must not smear the body across the room.
+        [SerializeField, Min(0.1f)] private float _teleportDistance = 0.6f;
 
         private Material[] _materials;
         private Material _bodyMaterial;
@@ -32,20 +46,24 @@ namespace Hauntscope.Gameplay.Ghosts
         private float _stagger;
         private Color _rimColor;
         private bool _isFlashLit;
+        private float _agitation;
+        private Vector3 _velocity;
+        private Vector3 _lastPosition;
+        private bool _hasPosition;
 
         public void SetPose(Vector3 position, Quaternion rotation)
         {
+            TrackVelocity(position);
             transform.SetPositionAndRotation(position, rotation);
         }
 
         public void SetReveal(float reveal)
         {
             var visible = reveal > 0f;
-            for (var i = 0; i < _renderers.Length; i++)
-            {
-                _renderers[i].enabled = visible;
-                _materials[i].SetFloat(RevealId, reveal);
-            }
+            foreach (var renderer in _renderers)
+                renderer.enabled = visible;
+            foreach (var material in _materials)
+                material.SetFloat(RevealId, reveal);
 
             SetTrailing(reveal > _trailRevealThreshold);
         }
@@ -85,22 +103,33 @@ namespace Hauntscope.Gameplay.Ghosts
             _isFlashLit = lit;
             if (lit)
             {
-                for (var i = 0; i < _renderers.Length; i++)
-                {
-                    _renderers[i].enabled = true;
-                    _materials[i].SetFloat(RevealId, 1f);
-                }
+                foreach (var renderer in _renderers)
+                    renderer.enabled = true;
+                foreach (var material in _materials)
+                    material.SetFloat(RevealId, 1f);
             }
 
             ApplyRimIntensity();
+        }
+
+        // The mood sets how hard the body shivers; it eases in and out rather than snapping.
+        public void SetMood(GhostMood mood)
+        {
+            var target = AgitationOf(mood);
+            _agitation = Mathf.Lerp(_agitation, target, 1f - Mathf.Exp(-Time.deltaTime * _agitationResponse));
+            foreach (var material in _materials)
+                material.SetFloat(AgitationId, _agitation);
         }
 
         public void SetRimColor(Color color)
         {
             _rimColor = color;
             _bodyMaterial.SetColor(RimColorId, color);
-            var baseColor = _bodyMaterial.GetColor(BaseColorId);
-            _bodyMaterial.SetColor(BaseColorId, new Color(color.r, color.g, color.b, baseColor.a));
+            if (!_keepBodyColor)
+            {
+                var baseColor = _bodyMaterial.GetColor(BaseColorId);
+                _bodyMaterial.SetColor(BaseColorId, new Color(color.r, color.g, color.b, baseColor.a));
+            }
 
             foreach (var system in _trailSystems)
             {
@@ -114,6 +143,44 @@ namespace Hauntscope.Gameplay.Ghosts
             Destroy(gameObject);
         }
 
+        private float AgitationOf(GhostMood mood)
+        {
+            switch (mood)
+            {
+                case GhostMood.Alert:
+                    return _alertAgitation;
+                case GhostMood.Fleeing:
+                    return _fleeAgitation;
+                case GhostMood.Surging:
+                    return _surgeAgitation;
+                case GhostMood.Scaring:
+                    return _scareAgitation;
+                default:
+                    return 0f;
+            }
+        }
+
+        // Moving fast, the lower body trails behind: the lag is the smoothed velocity, turned into the body's frame.
+        private void TrackVelocity(Vector3 position)
+        {
+            var deltaTime = Time.deltaTime;
+            if (!_hasPosition || deltaTime <= 0f)
+            {
+                _hasPosition = true;
+                _lastPosition = position;
+                return;
+            }
+
+            var step = position - _lastPosition;
+            _lastPosition = position;
+            var raw = step.magnitude > _teleportDistance ? Vector3.zero : step / deltaTime;
+            _velocity = Vector3.Lerp(_velocity, raw, 1f - Mathf.Exp(-deltaTime * _stretchResponse));
+            var stretch = Vector3.ClampMagnitude(transform.InverseTransformDirection(-_velocity) * _stretchPerSpeed, _maxStretch);
+            var value = new Vector4(stretch.x, stretch.y, stretch.z, 0f);
+            foreach (var material in _materials)
+                material.SetVector(StretchId, value);
+        }
+
         private void ApplyRimIntensity()
         {
             var flash = _isFlashLit ? _flashRim : 0f;
@@ -122,15 +189,18 @@ namespace Hauntscope.Gameplay.Ghosts
 
         private void Awake()
         {
-            // Each ghost owns its material instance so _Reveal and _Dissolve don't leak into other ghosts.
-            _materials = new Material[_renderers.Length];
-            for (var i = 0; i < _renderers.Length; i++)
+            // Each ghost owns its material instances so _Reveal and _Dissolve don't leak into other ghosts. The body's
+            // first material is the skin; any others (the eyes) follow the same reveal, dissolve and body language.
+            var materials = new System.Collections.Generic.List<Material>();
+            foreach (var renderer in _renderers)
             {
-                _materials[i] = _renderers[i].material;
-                if (_renderers[i] == _body)
-                    _bodyMaterial = _materials[i];
+                var instances = renderer.materials;
+                if (renderer == _body)
+                    _bodyMaterial = instances[0];
+                materials.AddRange(instances);
             }
 
+            _materials = materials.ToArray();
             _baseRimIntensity = _bodyMaterial.GetFloat(RimIntensityId);
             _rimColor = _bodyMaterial.GetColor(RimColorId);
             _baseWobble = _bodyMaterial.GetFloat(WobbleAmplitudeId);

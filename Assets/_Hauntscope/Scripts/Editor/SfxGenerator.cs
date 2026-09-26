@@ -55,15 +55,6 @@ namespace Hauntscope.Editor
             Save(SfxFolder, "GhostStagger", GhostStagger(), -4f, false);
             Save(SfxFolder, "GhostSurge", GhostSurge(), -3f, false);
             Save(SfxFolder, "PhotoShutter", PhotoShutter(), -3f, false);
-            Save(SfxFolder, "WhisperWisp", Whisper(11, 1.25f, 0.12f, 0.25f, 0.08f, 0.3f, 0.35f, 1f, 0.3f, 1.2f), -6f, true);
-            Save(SfxFolder, "WhisperPoltergeist", Whisper(23, 1f, 0.08f, 0.18f, 0.05f, 0.15f, 0.2f, 2.2f, 0.25f, 1f), -6f, true);
-            Save(SfxFolder, "WhisperShade", Whisper(37, 0.8f, 0.35f, 0.8f, 0.3f, 0.8f, 0.08f, 1f, 0.5f, 1.35f), -6f, true);
-            // Wraith: clipped, breathless rasps; banshee: long high moans; mimic: an ordinary murmur that sounds almost human.
-            Save(SfxFolder, "WhisperWraith", Whisper(53, 0.9f, 0.05f, 0.12f, 0.03f, 0.12f, 0.45f, 2.6f, 0.2f, 1.1f), -6f, true);
-            Save(SfxFolder, "WhisperBanshee", Whisper(67, 1.45f, 0.45f, 1f, 0.25f, 0.7f, 0.1f, 1.4f, 0.6f, 1.4f), -6f, true);
-            Save(SfxFolder, "WhisperMimic", Whisper(79, 1.05f, 0.1f, 0.3f, 0.1f, 0.4f, 0.25f, 1.2f, 0.3f, 1.05f), -6f, true);
-            Save(SfxFolder, "WhisperLurker", Whisper(97, 0.72f, 0.45f, 1f, 0.35f, 0.9f, 0.4f, 1.6f, 0.6f, 1.4f), -6f, true);
-            Save(SfxFolder, "WhisperPhantomCat", PurrLoop(), -12f, true);
             Save(SfxFolder, "LurkerCreak", LurkerCreak(), -3f, false);
             Save(SfxFolder, "CatMeow", CatMeow(), -3f, false);
             Save(SfxFolder, "CatPurr", CatPurr(), -5f, false);
@@ -363,7 +354,7 @@ namespace Hauntscope.Editor
         }
 
         // Breath through vowel formants shaped into syllables, with occasional sibilants, in a reverberant space.
-        private static float[] Whisper(int seed, float formantScale, float syllableMin, float syllableMax, float gapMin,
+        internal static float[] Whisper(int seed, float formantScale, float syllableMin, float syllableMax, float gapMin,
             float gapMax, float sibilance, float drive, float reverbMix, float roomSize)
         {
             const float loopLength = 7f;
@@ -395,7 +386,7 @@ namespace Hauntscope.Editor
             return MakeLoop(samples, crossfade);
         }
 
-        private static float[] Syllable(float duration, Vector3 from, Vector3 to, int seed)
+        internal static float[] Syllable(float duration, Vector3 from, Vector3 to, int seed)
         {
             var noise = Noise(Mathf.CeilToInt(duration * SampleRate), seed);
             var length = noise.Length;
@@ -924,7 +915,7 @@ namespace Hauntscope.Editor
         }
 
         // The phantom cat's presence: a soft, endless purr instead of a whisper.
-        private static float[] PurrLoop()
+        internal static float[] PurrLoop()
         {
             const float loopLength = 6f;
             const float crossfade = 0.8f;
@@ -932,7 +923,7 @@ namespace Hauntscope.Editor
         }
 
         // Rumbling air pulsing about 26 times a second, breathing in and out, the out-breath deeper and louder.
-        private static float[] Purr(float length, int seed)
+        internal static float[] Purr(float length, int seed)
         {
             var noise = Filter(Noise(Mathf.CeilToInt(length * SampleRate), seed), FilterType.LowPass, 900f, 0.7f);
             var samples = Buffer(length);
@@ -954,7 +945,7 @@ namespace Hauntscope.Editor
             return samples;
         }
 
-        private static float[] Bell(float frequency, float duration, float ratio, float index, float decay)
+        internal static float[] Bell(float frequency, float duration, float ratio, float index, float decay)
         {
             var samples = Buffer(duration);
             for (var i = 0; i < samples.Length; i++)
@@ -967,7 +958,7 @@ namespace Hauntscope.Editor
             return samples;
         }
 
-        private static float[] Click(float duration, float highPass, int seed)
+        internal static float[] Click(float duration, float highPass, int seed)
         {
             var click = Filter(Noise(Mathf.CeilToInt(duration * SampleRate) + 64, seed), FilterType.HighPass, highPass, 0.7f);
             for (var i = 0; i < click.Length; i++)
@@ -990,7 +981,7 @@ namespace Hauntscope.Editor
             }
         }
 
-        private static float[] TrimTo(float[] samples, int length)
+        internal static float[] TrimTo(float[] samples, int length)
         {
             if (samples.Length == length)
                 return samples;
@@ -999,7 +990,7 @@ namespace Hauntscope.Editor
             return result;
         }
 
-        private static void Save(string folder, string name, float[] samples, float peakDb, bool loop)
+        internal static void Save(string folder, string name, float[] samples, float peakDb, bool loop)
         {
             if (!loop)
                 FadeOut(samples, 0.005f);

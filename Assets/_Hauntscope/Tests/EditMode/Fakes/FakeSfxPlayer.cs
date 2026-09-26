@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Hauntscope.Core.Services;
 using UnityEngine;
 
@@ -13,16 +14,20 @@ namespace Hauntscope.Tests.EditMode.Fakes
 
         public FakeSfxLoop LastLoop { get; private set; }
 
+        public List<AudioClip> Clips { get; } = new List<AudioClip>();
+
         public void Play2D(AudioClip clip, float volume, float pitch)
         {
             PlayCount++;
             LastPitch = pitch;
+            Clips.Add(clip);
         }
 
         public void Play3D(AudioClip clip, Vector3 position, float volume)
         {
             PlayCount++;
             LastPitch = 1f;
+            Clips.Add(clip);
         }
 
         public ISfxLoop PlayLoop(AudioClip clip, float volume, bool spatial)

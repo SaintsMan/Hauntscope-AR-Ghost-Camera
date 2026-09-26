@@ -19,6 +19,9 @@ namespace Hauntscope.Gameplay.Ghosts
         // The camera flash: for the captured frame the ghost is fully shown with a bright rim.
         void SetPhotoFlash(bool lit);
 
+        // Body language: calm, wary, running, fighting the beam or lunging.
+        void SetMood(GhostMood mood);
+
         void Despawn();
     }
 }

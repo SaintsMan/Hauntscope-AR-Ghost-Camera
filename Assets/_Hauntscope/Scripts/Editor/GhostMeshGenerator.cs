@@ -272,6 +272,51 @@ namespace Hauntscope.Editor
             });
         }
 
+        // Two emissive eyes as a second submesh of the body: in the same object space they move with the face as the
+        // shader breathes and sways the body. Ellipsoids with the given radii, centred left and right of the centre.
+        public static void AddEyes(Mesh mesh, Vector3 center, float spacing, Vector3 radii)
+        {
+            const int rings = 10;
+            const int sides = 16;
+            var vertices = new List<Vector3>(mesh.vertices);
+            var normals = new List<Vector3>(mesh.normals);
+            var body = mesh.GetTriangles(0);
+            var eyes = new List<int>();
+            foreach (var side in new[] { -1f, 1f })
+            {
+                var first = vertices.Count;
+                var eye = center + Vector3.right * (spacing * side);
+                for (var ring = 0; ring <= rings; ring++)
+                {
+                    var polar = Mathf.PI * ring / rings;
+                    for (var segment = 0; segment <= sides; segment++)
+                    {
+                        var azimuth = FullCircle * segment / sides;
+                        var direction = new Vector3(Mathf.Sin(polar) * Mathf.Cos(azimuth), Mathf.Cos(polar), Mathf.Sin(polar) * Mathf.Sin(azimuth));
+                        vertices.Add(eye + Vector3.Scale(direction, radii));
+                        normals.Add(new Vector3(direction.x / radii.x, direction.y / radii.y, direction.z / radii.z).normalized);
+                    }
+                }
+
+                for (var ring = 0; ring < rings; ring++)
+                {
+                    for (var segment = 0; segment < sides; segment++)
+                    {
+                        var a = first + ring * (sides + 1) + segment;
+                        Quad(eyes, a, a + sides + 1, a + 1, a + sides + 2);
+                    }
+                }
+            }
+
+            mesh.Clear();
+            mesh.SetVertices(vertices);
+            mesh.SetNormals(normals);
+            mesh.subMeshCount = 2;
+            mesh.SetTriangles(body, 0);
+            mesh.SetTriangles(eyes, 1);
+            mesh.RecalculateBounds();
+        }
+
         private static float Reach(float v, float angle, float direction)
         {
             var along = Mathf.Max(0f, Mathf.Cos(angle - direction));

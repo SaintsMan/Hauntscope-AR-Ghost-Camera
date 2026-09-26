@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LurkerEyes
+  m_Shader: {fileID: 4800000, guid: 9d4800160aff6da4ab4fc2a966d5766b, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2999
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Ints: []
+    m_Floats:
+    - _Agitation: 0
+    - _AgitationAmplitude: 0.012
+    - _BodyBottom: -1.025
+    - _BodyTop: 1.025
+    - _BreathAmplitude: 0
+    - _BreathSpeed: 1.3
+    - _DepthReveal: 0.05
+    - _Dissolve: 0
+    - _DissolveEdgeWidth: 0.08
+    - _HemFlutter: 0.03
+    - _HemFrequency: 3.5
+    - _HemHeight: 0.35
+    - _NoiseScale: 3
+    - _NoiseStrength: 0
+    - _Reveal: 0
+    - _RimIntensity: 0
+    - _RimPower: 2.5
+    - _SwayAmplitude: 0.03
+    - _SwaySpeed: 0.7
+    - _WobbleAmplitude: 0
+    - _WobbleFrequency: 2.5
+    m_Colors:
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 0.95}
+    - _DissolveEdgeColor: {r: 1, g: 1, b: 1, a: 1}
+    - _NoiseSpeed: {r: 0, g: 0.35, b: 0.1, a: 0}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 0.95}
+    - _Stretch: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

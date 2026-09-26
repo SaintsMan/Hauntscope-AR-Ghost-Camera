@@ -59,6 +59,8 @@ namespace Hauntscope.Gameplay.Feedback
 
         private Color RimColor => _session.GhostData != null ? _session.GhostData.RimColor : Color.cyan;
 
+        private GhostVoice Voice => _session.GhostData != null ? _session.GhostData.Voice : null;
+
         public void Start()
         {
             _session.Ghost.Changed += OnGhostChanged;
@@ -176,6 +178,7 @@ namespace Hauntscope.Gameplay.Feedback
             _whisper = null;
             StopBeam();
             _sfx.Play2D(_audio.CaptureSuccess, _audio.CaptureVolume, 1f);
+            PlayVoice(Voice?.Capture, _audio.CaptureCryVolume);
             _haptics.Play(HapticStrength.Heavy);
             _vfx.Play(VfxId.CaptureSpiral, _ghost.Position, RimColor);
         }
@@ -184,24 +187,24 @@ namespace Hauntscope.Gameplay.Feedback
         {
             _whisper?.Stop();
             _whisper = null;
-            _sfx.Play3D(_audio.GhostEscape, _ghost.Position, _audio.EscapeVolume);
+            _sfx.Play3D(Or(Voice?.Escape, _audio.GhostEscape), _ghost.Position, _audio.EscapeVolume);
         }
 
         private void OnTeleported(Vector3 from, Vector3 to)
         {
-            _sfx.Play3D(_audio.TeleportWhoosh, to, _audio.TeleportVolume);
+            _sfx.Play3D(Or(Voice?.Ability, _audio.TeleportWhoosh), to, _audio.TeleportVolume);
             _vfx.Play(VfxId.TeleportFlash, from, RimColor);
             _vfx.Play(VfxId.TeleportFlash, to, RimColor);
         }
 
         private void OnDashed(Vector3 from, Vector3 to)
         {
-            _sfx.Play3D(_audio.DashWhoosh, to, _audio.DashVolume);
+            _sfx.Play3D(Or(Voice?.Ability, _audio.DashWhoosh), to, _audio.DashVolume);
         }
 
         private void OnShrieked()
         {
-            _sfx.Play3D(_audio.Shriek, _ghost.Position, _audio.ShriekVolume);
+            _sfx.Play3D(Or(Voice?.Ability, _audio.Shriek), _ghost.Position, _audio.ShriekVolume);
             _haptics.Play(HapticStrength.Heavy);
         }
 
@@ -213,6 +216,7 @@ namespace Hauntscope.Gameplay.Feedback
                 return;
 
             _sfx.Play3D(_audio.GhostStagger, _ghost.Position, _audio.StaggerVolume);
+            PlayVoice(Voice?.Stagger, _audio.StaggerGruntVolume);
             _vfx.Play(VfxId.StaggerSparks, _ghost.Position, RimColor);
             _haptics.Play(HapticStrength.Medium);
         }
@@ -253,7 +257,23 @@ namespace Hauntscope.Gameplay.Feedback
         private void OnScared()
         {
             _sfx.Play2D(_audio.ScareSting, _audio.ScareVolume, 1f);
+            var scream = Voice?.Scare;
+            if (scream != null)
+                _sfx.Play2D(scream, _audio.ScreamVolume, 1f);
             _haptics.Play(HapticStrength.Heavy);
+        }
+
+        // The ghost's own cry on top of the shared effect, from where it is.
+        private void PlayVoice(AudioClip clip, float volume)
+        {
+            if (clip != null)
+                _sfx.Play3D(clip, _ghost.Position, volume);
+        }
+
+        // Unity's null check, not ??: an empty clip slot deserializes as a destroyed-looking object, not a plain null.
+        private static AudioClip Or(AudioClip clip, AudioClip fallback)
+        {
+            return clip != null ? clip : fallback;
         }
 
         private void OnLensChanged(bool active)

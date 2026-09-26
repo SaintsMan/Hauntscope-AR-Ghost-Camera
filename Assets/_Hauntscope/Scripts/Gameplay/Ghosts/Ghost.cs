@@ -441,6 +441,21 @@ namespace Hauntscope.Gameplay.Ghosts
             _view.SetDissolve(IsCaptured ? _capturedState.Progress : 0f);
             _view.SetStruggle(IsBeamed ? CaptureProgress : 0f);
             _view.SetStagger(_staggerWeight);
+            _view.SetMood(Mood);
+        }
+
+        private GhostMood Mood
+        {
+            get
+            {
+                if (IsScaring)
+                    return GhostMood.Scaring;
+                if (IsSurging)
+                    return GhostMood.Surging;
+                if (IsFleeing)
+                    return GhostMood.Fleeing;
+                return IsAlerted ? GhostMood.Alert : GhostMood.Calm;
+            }
         }
     }
 }

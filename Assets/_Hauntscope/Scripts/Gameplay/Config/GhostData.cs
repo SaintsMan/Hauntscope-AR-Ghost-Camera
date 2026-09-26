@@ -16,7 +16,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private GhostRarity _rarity;
         [SerializeField] private GhostView _prefab;
         [SerializeField] private Color _rimColor = Color.cyan;
-        [SerializeField] private AudioClip _whisperClip;
+        [SerializeField] private GhostVoice _voice = new GhostVoice();
         [SerializeField] private bool _canHide = true;
         [SerializeField] private bool _canScare = true;
         [SerializeField] private bool _nightOnly;
@@ -40,7 +40,9 @@ namespace Hauntscope.Gameplay.Config
 
         public Color RimColor => _rimColor;
 
-        public AudioClip WhisperClip => _whisperClip;
+        public GhostVoice Voice => _voice;
+
+        public AudioClip WhisperClip => _voice.Whisper;
 
         // The tutorial wisp never hides: the first hunt teaches the lens and the beam, not the room (GDD 5.28).
         public bool CanHide => _canHide;
