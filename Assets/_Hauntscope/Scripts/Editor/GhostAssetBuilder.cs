@@ -53,7 +53,9 @@ namespace Hauntscope.Editor
             }
 
             recipe.BuildMesh(mesh);
-            GhostMeshGenerator.AddEyes(mesh, recipe.EyeCenter, recipe.EyeSpacing, recipe.EyeScale);
+            var face = recipe.Face.Build();
+            GhostMeshGenerator.AddFace(mesh, face);
+            Object.DestroyImmediate(face);
             EditorUtility.SetDirty(mesh);
             return mesh;
         }

@@ -21,11 +21,11 @@ MonoBehaviour:
   _rimColor: {r: 0.30980393, g: 0.9607843, b: 0.9019608, a: 1}
   _voice:
     _whisper: {fileID: 8300000, guid: ea5d1f8238adb7644ada94ee8c2f1208, type: 3}
-    _ability: {fileID: 0}
+    _ability: {fileID: 8300000, guid: e682fe5bb32afc547a77208a56ddd903, type: 3}
     _scare: {fileID: 0}
-    _capture: {fileID: 0}
-    _escape: {fileID: 0}
-    _stagger: {fileID: 0}
+    _capture: {fileID: 8300000, guid: d576a2e6a30868b448af945c9043ebe7, type: 3}
+    _escape: {fileID: 8300000, guid: 60b1fea2a15fea64e8324c599d79409e, type: 3}
+    _stagger: {fileID: 8300000, guid: fb48df9c8bfbe7f47a0e7ebf0e3246cf, type: 3}
   _canHide: 0
   _canScare: 0
   _nightOnly: 0

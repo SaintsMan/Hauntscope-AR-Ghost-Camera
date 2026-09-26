@@ -22,10 +22,10 @@ MonoBehaviour:
   _voice:
     _whisper: {fileID: 8300000, guid: eff3f56b3cbff87428a3051066e631f3, type: 3}
     _ability: {fileID: 0}
-    _scare: {fileID: 0}
-    _capture: {fileID: 0}
-    _escape: {fileID: 0}
-    _stagger: {fileID: 0}
+    _scare: {fileID: 8300000, guid: a7e34ad843499234ab0e02e83e173be5, type: 3}
+    _capture: {fileID: 8300000, guid: 5d06c57e712a67c46a54d7118eb3839a, type: 3}
+    _escape: {fileID: 8300000, guid: 4f9b57dc7fa30c949b974268de25b370, type: 3}
+    _stagger: {fileID: 8300000, guid: 6925cc6e78200e741bedcced87d154d8, type: 3}
   _canHide: 0
   _canScare: 1
   _nightOnly: 0

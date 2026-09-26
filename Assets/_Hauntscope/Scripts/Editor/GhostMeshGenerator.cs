@@ -14,6 +14,8 @@ namespace Hauntscope.Editor
         private const int HornRings = 6;
         private const int HornSides = 14;
 
+        // A flickering drop of light: a round bulb thinning into a flame that curls back, with two stubby arms held
+        // out like a small child's and a second little flame licking up beside the first.
         public static void BuildWisp(Mesh mesh)
         {
             const float height = 0.55f;
@@ -41,9 +43,23 @@ namespace Hauntscope.Editor
                 position.z -= 0.16f * tailOffset;
                 position.x += 0.05f * tailOffset;
                 return position;
+            }, (vertices, triangles, surface) =>
+            {
+                foreach (var side in new[] { -1f, 1f })
+                {
+                    var root = surface(0.24f, Forward - side * 1.45f);
+                    var outward = new Vector3(side, 0f, 0f);
+                    AddTube(vertices, triangles, root - outward * 0.03f, root + outward * 0.035f + Vector3.down * 0.005f,
+                        root + outward * 0.065f + new Vector3(0f, -0.04f, 0.025f), 0.028f, 0.016f, 8, 12);
+                }
+
+                var flame = surface(0.58f, -Forward + 0.9f);
+                AddTube(vertices, triangles, flame - new Vector3(0f, 0.02f, 0f), flame + new Vector3(-0.035f, 0.07f, -0.02f),
+                    flame + new Vector3(-0.02f, 0.15f, -0.07f), 0.045f, 0f, 14, 12);
             });
         }
 
+        // A sheet thrown over something that isn't there: six pointed flaps at the hem, arms with mitten fingers.
         public static void BuildPoltergeist(Mesh mesh)
         {
             const float height = 1.2f;
@@ -65,14 +81,85 @@ namespace Hauntscope.Editor
                 }
 
                 var hem = Mathf.Pow(1f - v, 4f);
-                radius += hem * 0.04f * Mathf.Cos(6f * angle);
+                radius += hem * 0.035f * Mathf.Cos(6f * angle);
                 radius += Arm(v, angle, 0f) + Arm(v, angle, Mathf.PI);
 
-                var y = v * height + Mathf.Pow(1f - v, 6f) * 0.07f * Mathf.Sin(6f * angle);
+                var flap = Mathf.Pow(1f - Mathf.Abs(Mathf.Sin(3f * angle)), 2f);
+                var y = v * height - Mathf.Pow(1f - v, 7f) * 0.14f * flap;
                 return OnRing(radius, angle, y);
+            }, (vertices, triangles, surface) =>
+            {
+                foreach (var side in new[] { -1f, 1f })
+                {
+                    var tip = surface(0.5f, side > 0f ? 0f : Mathf.PI);
+                    var outward = new Vector3(side, 0f, 0f);
+                    for (var finger = -1; finger <= 1; finger++)
+                    {
+                        var root = tip - outward * 0.035f + new Vector3(0f, finger * 0.032f, 0.015f);
+                        var end = root + outward * 0.08f + new Vector3(0f, finger * 0.028f - 0.012f, 0.03f);
+                        AddTube(vertices, triangles, root, (root + end) * 0.5f + Vector3.up * 0.01f, end, 0.024f, 0.013f, 6, 10);
+                    }
+                }
             });
         }
 
+        // Tall and shredded, leaning into the chase: a hood with a brim, arms reaching ahead with long claws, rags
+        // streaming from the hem.
+        public static void BuildWraith(Mesh mesh)
+        {
+            const float height = 1.75f;
+            var profile = new[]
+            {
+                new Vector2(0f, 0.36f),
+                new Vector2(0.3f, 0.25f),
+                new Vector2(0.6f, 0.2f),
+                new Vector2(0.72f, 0.27f),
+                new Vector2(0.82f, 0.13f),
+                new Vector2(0.9f, 0.16f),
+                new Vector2(1f, 0f)
+            };
+
+            Lathe(mesh, height, (v, angle) =>
+            {
+                var radius = SampleProfile(profile, v);
+                var reach = Reach(v, angle, Forward - 1.05f) + Reach(v, angle, Forward + 1.05f);
+                radius += reach;
+
+                var shred = Mathf.Pow(1f - v, 7f);
+                var strands = Mathf.Pow(0.5f + 0.5f * Mathf.Sin(9f * angle + 0.7f * Mathf.Sin(4f * angle)), 3f);
+                // The arms slope down as they reach: grabbing, not a scarecrow's cross.
+                var position = OnRing(radius, angle, v * height - shred * 0.35f * strands - reach * 0.9f);
+                position.z += 0.14f * v * v;
+                return position;
+            }, (vertices, triangles, surface) =>
+            {
+                foreach (var side in new[] { -1f, 1f })
+                {
+                    var direction = Forward - side * 1.05f;
+                    var hand = surface(0.64f, direction);
+                    var outward = new Vector3(Mathf.Cos(direction), 0f, Mathf.Sin(direction));
+                    for (var claw = 0; claw < 4; claw++)
+                    {
+                        var spread = (claw - 1.5f) * 0.032f;
+                        var root = hand - outward * 0.04f + new Vector3(0f, spread, 0f);
+                        var tip = root + outward * 0.12f + new Vector3(0f, -0.13f + spread * 0.5f, 0.09f);
+                        AddTube(vertices, triangles, root, root + outward * 0.08f + new Vector3(0f, -0.02f, 0.03f), tip, 0.015f, 0f, 9, 8);
+                    }
+                }
+
+                for (var rag = 0; rag < 4; rag++)
+                {
+                    var angle = -Forward + (rag - 1.5f) * 0.5f;
+                    var root = surface(0.05f, angle);
+                    var back = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
+                    AddTube(vertices, triangles, root, root + back * 0.08f + Vector3.down * 0.16f,
+                        root + back * 0.24f + Vector3.down * 0.32f + Vector3.right * ((rag - 1.5f) * 0.03f), 0.032f, 0.006f, 12, 8);
+                }
+            });
+        }
+
+        // A hooded figure: cloak folds running down, a hood with a brim around a face lost in shadow, sleeves meeting
+        // over folded hands.
         public static void BuildShade(Mesh mesh)
         {
             const float height = 1.6f;
@@ -92,45 +179,30 @@ namespace Hauntscope.Editor
                 var radius = SampleProfile(profile, v);
                 var tatter = Mathf.Pow(1f - v, 5f);
                 radius += tatter * 0.05f * Mathf.Sin(7f * angle);
+                var folds = SmoothStep(0.05f, 0.35f, v) * (1f - SmoothStep(0.62f, 0.74f, v));
+                radius += folds * 0.014f * Mathf.Sin(14f * angle + 0.6f * Mathf.Sin(3f * angle));
 
                 var y = v * height + Mathf.Pow(1f - v, 8f) * 0.12f * (Mathf.Sin(5f * angle) + 0.5f * Mathf.Sin(11f * angle + 1f));
                 var position = OnRing(radius, angle, y);
-                // The hood leans slightly back so the silhouette reads as a cowl, not a bottle.
                 position.z -= 0.06f * Mathf.Max(0f, v - 0.8f) / 0.2f;
                 return position;
+            }, (vertices, triangles, surface) =>
+            {
+                var hands = surface(0.47f, Forward) + new Vector3(0f, 0f, 0.07f);
+                foreach (var side in new[] { -1f, 1f })
+                {
+                    var shoulder = surface(0.71f, Forward - side * 1.3f);
+                    AddTube(vertices, triangles, shoulder, shoulder + new Vector3(side * 0.13f, -0.26f, 0.06f),
+                        hands + new Vector3(side * 0.045f, 0f, 0f), 0.072f, 0.055f, 18, 12);
+                }
+
+                AddTube(vertices, triangles, hands + new Vector3(-0.03f, 0.01f, -0.02f), hands + new Vector3(0f, 0.02f, 0.02f),
+                    hands + new Vector3(0.03f, 0.01f, -0.02f), 0.035f, 0.035f, 8, 10);
             });
         }
 
-        public static void BuildWraith(Mesh mesh)
-        {
-            const float height = 1.75f;
-            var profile = new[]
-            {
-                new Vector2(0f, 0.36f),
-                new Vector2(0.3f, 0.25f),
-                new Vector2(0.6f, 0.2f),
-                new Vector2(0.72f, 0.27f),
-                new Vector2(0.82f, 0.13f),
-                new Vector2(0.9f, 0.16f),
-                new Vector2(1f, 0f)
-            };
-
-            Lathe(mesh, height, (v, angle) =>
-            {
-                var radius = SampleProfile(profile, v);
-                // Clawed arms reach out ahead and to the sides: the silhouette of something grabbing at the camera.
-                radius += Reach(v, angle, Forward - 1.05f) + Reach(v, angle, Forward + 1.05f);
-
-                // Long shredded strands hang below the hem instead of a clean edge.
-                var shred = Mathf.Pow(1f - v, 7f);
-                var strands = Mathf.Pow(0.5f + 0.5f * Mathf.Sin(9f * angle + 0.7f * Mathf.Sin(4f * angle)), 3f);
-                var position = OnRing(radius, angle, v * height - shred * 0.35f * strands);
-                // The upper body leans into the chase.
-                position.z += 0.14f * v * v;
-                return position;
-            });
-        }
-
+        // Long hair streaming down her back and over her shoulders, thin arms hanging with long fingers, her mouth
+        // open in a cry.
         public static void BuildBanshee(Mesh mesh)
         {
             const float height = 1.55f;
@@ -149,8 +221,6 @@ namespace Hauntscope.Editor
             Lathe(mesh, height, (v, angle) =>
             {
                 var radius = SampleProfile(profile, v);
-
-                // Long hair streams down her back and spills over both shoulders; the face stays clear.
                 var back = Mathf.Max(0f, -Mathf.Sin(angle));
                 var sides = Mathf.Pow(Mathf.Abs(Mathf.Cos(angle)), 2f);
                 var hair = SmoothStep(0.45f, 0.6f, v) * (1f - SmoothStep(0.92f, 1f, v));
@@ -159,9 +229,34 @@ namespace Hauntscope.Editor
 
                 var y = v * height + Mathf.Pow(1f - v, 5f) * 0.1f * Mathf.Sin(5f * angle + 1f);
                 return OnRing(radius, angle, y);
+            }, (vertices, triangles, surface) =>
+            {
+                foreach (var side in new[] { -1f, 1f })
+                {
+                    var shoulder = surface(0.72f, Forward - side * 1.2f);
+                    var elbow = shoulder + new Vector3(side * 0.13f, -0.27f, 0.05f);
+                    var hand = shoulder + new Vector3(side * 0.17f, -0.6f, 0.11f);
+                    AddTube(vertices, triangles, shoulder, elbow, hand, 0.034f, 0.02f, 16, 10);
+                    for (var finger = -1; finger <= 1; finger++)
+                    {
+                        var end = hand + new Vector3(side * 0.012f + finger * 0.014f, -0.12f, 0.02f + finger * 0.01f);
+                        AddTube(vertices, triangles, hand, (hand + end) * 0.5f + new Vector3(side * 0.01f, 0f, 0.01f), end, 0.011f, 0f, 7, 6);
+                    }
+                }
+
+                for (var strand = 0; strand < 6; strand++)
+                {
+                    var angle = -Forward + (strand - 2.5f) * 0.3f;
+                    var root = surface(0.92f, angle);
+                    var outward = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
+                    AddTube(vertices, triangles, root, root + outward * 0.11f + Vector3.down * 0.26f,
+                        root + outward * 0.07f + Vector3.down * 0.66f + Vector3.right * ((strand - 2.5f) * 0.025f), 0.022f, 0.005f, 16, 8);
+                }
             });
         }
 
+        // A squat, too-wide sheet: it copies the friendly shape and gets it slightly wrong. A crown of horns, one arm
+        // longer than the other, and a grin full of teeth.
         public static void BuildMimic(Mesh mesh)
         {
             const float height = 1f;
@@ -169,7 +264,6 @@ namespace Hauntscope.Editor
 
             Lathe(mesh, height, (v, angle) =>
             {
-                // A squat, too-wide sheet ghost: it copies the friendly shape and gets it slightly wrong.
                 var radius = v <= shoulder
                     ? 0.44f - 0.1f * v / shoulder
                     : 0.34f * Mathf.Sqrt(Mathf.Max(0f, 1f - Mathf.Pow((v - shoulder) / (1f - shoulder), 2f)));
@@ -178,12 +272,21 @@ namespace Hauntscope.Editor
                 var y = v * height + Mathf.Pow(1f - v, 6f) * 0.08f * (Mathf.Sin(7f * angle) + 0.6f * Mathf.Sin(3f * angle + 2f));
                 return OnRing(radius, angle, y);
             }, (vertices, triangles, surface) =>
+            {
                 AddHorns(vertices, triangles, surface, new HornCrown(count: 5, phase: Mathf.PI * 0.1f, v: 0.84f, length: 0.24f,
-                    radius: 0.05f, spread: 0.7f, bend: 0.06f)));
+                    radius: 0.05f, spread: 0.7f, bend: 0.06f));
+
+                var shortArm = surface(0.45f, 0.1f);
+                AddTube(vertices, triangles, shortArm - Vector3.right * 0.04f, shortArm + new Vector3(0.05f, 0.01f, 0.02f),
+                    shortArm + new Vector3(0.09f, -0.03f, 0.05f), 0.05f, 0.03f, 8, 12);
+                var longArm = surface(0.47f, Mathf.PI - 0.15f);
+                AddTube(vertices, triangles, longArm + Vector3.right * 0.04f, longArm + new Vector3(-0.14f, -0.02f, 0.06f),
+                    longArm + new Vector3(-0.2f, -0.2f, 0.14f), 0.045f, 0.018f, 14, 12);
+            });
         }
 
-        // The lurker: far too tall and thin, the head hanging forward, no legs, just a body thinning into a wisp, and
-        // long arms that hang past its hips ending in claws.
+        // The lurker: far too tall and thin, the head hanging forward over a hunched back, ribs showing, no legs, just
+        // a body thinning into a wisp, and long arms that hang past its hips ending in claws.
         public static void BuildLurker(Mesh mesh)
         {
             const float height = 2.05f;
@@ -202,14 +305,19 @@ namespace Hauntscope.Editor
             Lathe(mesh, height, (v, angle) =>
             {
                 var radius = SampleProfile(profile, v);
-                // Shoulders stick out sideways, a coat-hanger frame under the skin.
                 var shoulders = Mathf.Exp(-Mathf.Pow((v - 0.77f) / 0.035f, 2f)) * Mathf.Pow(Mathf.Abs(Mathf.Cos(angle)), 2f);
                 radius += 0.06f * shoulders;
+                var front = Mathf.Max(0f, Mathf.Sin(angle));
+                var back = Mathf.Max(0f, -Mathf.Sin(angle));
+                var ribs = SmoothStep(0.5f, 0.56f, v) * (1f - SmoothStep(0.7f, 0.74f, v)) * Mathf.Max(0f, Mathf.Sin(v * 170f));
+                radius += 0.012f * ribs * Mathf.Pow(front, 0.6f);
+                var spine = SmoothStep(0.4f, 0.5f, v) * (1f - SmoothStep(0.76f, 0.8f, v)) * Mathf.Pow(Mathf.Max(0f, Mathf.Sin(v * 120f)), 2f);
+                radius += 0.014f * spine * Mathf.Pow(back, 8f);
                 radius *= 1f + 0.04f * Mathf.Sin(5f * angle + v * 11f) * (1f - v);
 
                 var position = OnRing(radius, angle, v * height);
-                // The head droops forward and the tail end sways, so it never stands straight like a pillar.
                 position.z += 0.1f * SmoothStep(0.8f, 1f, v) + 0.03f * SmoothStep(0.5f, 0.8f, v);
+                position.z -= 0.035f * Mathf.Exp(-Mathf.Pow((v - 0.74f) / 0.06f, 2f)) * back;
                 position.x += 0.06f * Mathf.Pow(1f - v, 3f);
                 return position;
             }, (vertices, triangles, surface) =>
@@ -222,15 +330,15 @@ namespace Hauntscope.Editor
                     AddTube(vertices, triangles, shoulder, elbow, hand, 0.045f, 0.018f, 14, 10);
                     for (var finger = -1; finger <= 1; finger++)
                     {
-                        var spread = new Vector3(0.035f * finger * side + 0.01f * side, -0.07f, 0.04f + 0.02f * (1 - Mathf.Abs(finger)));
-                        AddTube(vertices, triangles, hand, hand + spread, hand + spread * 2.2f + new Vector3(0f, 0.02f, 0.03f), 0.013f, 0f, 5, 6);
+                        var spread = new Vector3(0.035f * finger * side + 0.01f * side, -0.08f, 0.04f + 0.02f * (1 - Mathf.Abs(finger)));
+                        AddTube(vertices, triangles, hand, hand + spread, hand + spread * 2.7f + new Vector3(0f, 0.025f, 0.035f), 0.013f, 0f, 6, 6);
                     }
                 }
             });
         }
 
-        // The phantom cat, sitting: haunches on the floor, a narrow chest, a round head with two ears, and a tail
-        // curled round its paws.
+        // The phantom cat, sitting: haunches on the floor, a narrow chest, a round head with two ears, whiskers,
+        // front paws together and a tail curled round them.
         public static void BuildPhantomCat(Mesh mesh)
         {
             const float height = 0.42f;
@@ -249,10 +357,8 @@ namespace Hauntscope.Editor
             {
                 var radius = SampleProfile(profile, v);
                 var position = OnRing(radius, angle, v * height);
-                // Haunches sit back, the chest pushes forward and the head leans out over the paws.
                 position.z += -0.05f * Mathf.Pow(1f - v, 2f) + 0.03f * Mathf.Exp(-Mathf.Pow((v - 0.45f) / 0.12f, 2f))
                     + 0.035f * SmoothStep(0.6f, 0.75f, v);
-                // A slightly flattened, wider face.
                 position.x *= 1f + 0.12f * SmoothStep(0.65f, 0.8f, v);
                 return position;
             }, (vertices, triangles, surface) =>
@@ -263,57 +369,46 @@ namespace Hauntscope.Editor
                     var outward = new Vector3(Mathf.Cos(Forward - side * 0.75f), 0f, Mathf.Sin(Forward - side * 0.75f));
                     var tip = root + Vector3.up * 0.1f + outward * 0.035f;
                     AddTube(vertices, triangles, root - Vector3.up * 0.02f, (root + tip) * 0.5f + outward * 0.01f, tip, 0.036f, 0f, 6, 10);
+
+                    var paw = surface(0.05f, Forward - side * 0.3f);
+                    AddTube(vertices, triangles, paw - new Vector3(0f, 0f, 0.025f), paw + new Vector3(side * 0.004f, 0.004f, 0.012f),
+                        paw + new Vector3(side * 0.006f, -0.004f, 0.035f), 0.02f, 0.017f, 6, 10);
+
+                    var muzzle = surface(0.74f, Forward - side * 0.3f);
+                    foreach (var whisker in new[] { -0.5f, 0.5f })
+                    {
+                        var end = muzzle + new Vector3(side * 0.13f, whisker * 0.03f + 0.004f, -0.015f);
+                        AddTube(vertices, triangles, muzzle, (muzzle + end) * 0.5f + new Vector3(0f, 0.01f, 0.012f), end, 0.0014f, 0.0004f, 8, 4);
+                    }
                 }
 
                 var tailRoot = surface(0.08f, -Forward) + new Vector3(0f, 0.01f, 0.02f);
                 var tailBend = tailRoot + new Vector3(0.2f, -0.02f, -0.02f);
                 var tailTip = tailRoot + new Vector3(0.21f, 0.03f, 0.22f);
-                AddTube(vertices, triangles, tailRoot, tailBend, tailTip, 0.03f, 0.012f, 16, 10);
+                AddTube(vertices, triangles, tailRoot, tailBend, tailTip, 0.03f, 0.018f, 16, 10);
             });
         }
 
-        // Two emissive eyes as a second submesh of the body: in the same object space they move with the face as the
-        // shader breathes and sways the body. Ellipsoids with the given radii, centred left and right of the centre.
-        public static void AddEyes(Mesh mesh, Vector3 center, float spacing, Vector3 radii)
+        // The glowing face (eyes, mouth, teeth) as the body's second submesh: in the same object space it moves with
+        // the face as the shader breathes and sways the body.
+        public static void AddFace(Mesh mesh, Mesh face)
         {
-            const int rings = 10;
-            const int sides = 16;
             var vertices = new List<Vector3>(mesh.vertices);
             var normals = new List<Vector3>(mesh.normals);
             var body = mesh.GetTriangles(0);
-            var eyes = new List<int>();
-            foreach (var side in new[] { -1f, 1f })
-            {
-                var first = vertices.Count;
-                var eye = center + Vector3.right * (spacing * side);
-                for (var ring = 0; ring <= rings; ring++)
-                {
-                    var polar = Mathf.PI * ring / rings;
-                    for (var segment = 0; segment <= sides; segment++)
-                    {
-                        var azimuth = FullCircle * segment / sides;
-                        var direction = new Vector3(Mathf.Sin(polar) * Mathf.Cos(azimuth), Mathf.Cos(polar), Mathf.Sin(polar) * Mathf.Sin(azimuth));
-                        vertices.Add(eye + Vector3.Scale(direction, radii));
-                        normals.Add(new Vector3(direction.x / radii.x, direction.y / radii.y, direction.z / radii.z).normalized);
-                    }
-                }
-
-                for (var ring = 0; ring < rings; ring++)
-                {
-                    for (var segment = 0; segment < sides; segment++)
-                    {
-                        var a = first + ring * (sides + 1) + segment;
-                        Quad(eyes, a, a + sides + 1, a + 1, a + sides + 2);
-                    }
-                }
-            }
+            var offset = vertices.Count;
+            vertices.AddRange(face.vertices);
+            normals.AddRange(face.normals);
+            var faceTriangles = face.triangles;
+            for (var i = 0; i < faceTriangles.Length; i++)
+                faceTriangles[i] += offset;
 
             mesh.Clear();
             mesh.SetVertices(vertices);
             mesh.SetNormals(normals);
             mesh.subMeshCount = 2;
             mesh.SetTriangles(body, 0);
-            mesh.SetTriangles(eyes, 1);
+            mesh.SetTriangles(faceTriangles, 1);
             mesh.RecalculateBounds();
         }
 

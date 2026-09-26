@@ -49,6 +49,10 @@ namespace Hauntscope.Editor
 
         public static ParticleSystem ColdSpot { get; private set; }
 
+        public static ParticleSystem DashStreak { get; private set; }
+
+        public static ParticleSystem ShriekWave { get; private set; }
+
         public static GameObject CaptureBeamRig { get; private set; }
 
         // Ghosts can be rebuilt on their own: their trails then use the particle materials already on disk.
@@ -75,6 +79,8 @@ namespace Hauntscope.Editor
             PickupBurst = BuildPickupBurst();
             StaggerSparks = BuildStaggerSparks();
             ColdSpot = BuildColdSpot();
+            DashStreak = BuildDashStreak();
+            ShriekWave = BuildShriekWave();
             BuildBeamNoise();
             CaptureBeamRig = BuildCaptureBeam();
             AssetDatabase.SaveAssets();
@@ -487,6 +493,79 @@ namespace Hauntscope.Editor
                 Drift(motes, 0.1f);
                 Noise(motes, 0.12f, 2f);
                 AlphaOverLifetime(motes, 1f, 0.5f, 0.8f, 1f, 0f);
+
+                return SavePrefab(root);
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+
+        // Left behind by the wraith's dash: streaks of torn air flung out flat, and a puff of its smoke hanging where it was.
+        private static ParticleSystem BuildDashStreak()
+        {
+            var root = CreateRoot("DashStreak");
+            try
+            {
+                var core = root.GetComponent<ParticleSystem>();
+                var coreRenderer = core.GetComponent<ParticleSystemRenderer>();
+                coreRenderer.sharedMaterial = _smoke;
+                ConfigureOneShot(core, 0.1f, new ParticleSystem.MinMaxCurve(0.7f, 1.1f), new ParticleSystem.MinMaxCurve(0.02f, 0.12f),
+                    new ParticleSystem.MinMaxCurve(0.2f, 0.4f));
+                var coreMain = core.main;
+                coreMain.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
+                Burst(core, 0f, 10);
+                Sphere(core, 0.18f, 1f);
+                Spin(core, 40f);
+                SizeOverLifetime(core, Curve(0f, 0.7f, 1f, 1.5f));
+                AlphaOverLifetime(core, 0f, 0.1f, 0.35f, 1f, 0f);
+
+                var streaks = CreateSystem("Streaks", root.transform, _streak, 40);
+                ConfigureOneShot(streaks, 0.1f, new ParticleSystem.MinMaxCurve(0.2f, 0.4f), new ParticleSystem.MinMaxCurve(2.5f, 5f),
+                    new ParticleSystem.MinMaxCurve(0.02f, 0.05f));
+                Burst(streaks, 0f, 30);
+                Flat(streaks, 0.1f);
+                Drag(streaks, 0.3f);
+                Stretch(streaks, 0.08f, 1.5f);
+                AlphaOverLifetime(streaks, 1f, 0.3f, 0.9f, 1f, 0f);
+
+                return SavePrefab(root);
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+
+        // The banshee's cry: three rings rolling out one after another, and dust blown off the floor by them.
+        private static ParticleSystem BuildShriekWave()
+        {
+            var root = CreateRoot("ShriekWave");
+            try
+            {
+                var core = root.GetComponent<ParticleSystem>();
+                var coreRenderer = core.GetComponent<ParticleSystemRenderer>();
+                coreRenderer.sharedMaterial = _ring;
+                ConfigureOneShot(core, 0.5f, 0.9f, 0f, 2.6f);
+                var emission = core.emission;
+                emission.SetBursts(new[]
+                {
+                    new ParticleSystem.Burst(0f, 1),
+                    new ParticleSystem.Burst(0.18f, 1),
+                    new ParticleSystem.Burst(0.36f, 1)
+                });
+                SizeOverLifetime(core, Curve(0f, 0.1f, 1f, 1f));
+                AlphaOverLifetime(core, 0.9f, 0.2f, 0.6f, 1f, 0f);
+
+                var dust = CreateSystem("Dust", root.transform, _dot, 48);
+                ConfigureOneShot(dust, 0.3f, new ParticleSystem.MinMaxCurve(0.6f, 1.1f), new ParticleSystem.MinMaxCurve(1.2f, 2.4f),
+                    new ParticleSystem.MinMaxCurve(0.012f, 0.03f));
+                Burst(dust, 0f, 36);
+                Flat(dust, 0.2f);
+                Drag(dust, 0.25f);
+                Noise(dust, 0.12f, 2f);
+                AlphaOverLifetime(dust, 1f, 0.3f, 0.8f, 1f, 0f);
 
                 return SavePrefab(root);
             }

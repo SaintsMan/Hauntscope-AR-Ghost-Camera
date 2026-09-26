@@ -172,12 +172,14 @@ MonoBehaviour:
     _purrVolume: 0.8
     _witchingHourDronePitch: 0.84
   _vfx:
-    _captureSpiral: {fileID: 0}
-    _teleportFlash: {fileID: 0}
-    _revealPulse: {fileID: 0}
-    _pickupBurst: {fileID: 0}
-    _staggerSparks: {fileID: 0}
-    _coldSpot: {fileID: 0}
+    _captureSpiral: {fileID: 3482571195191366530, guid: 6cc077c0fffe26544bbff774130ad3fc, type: 3}
+    _teleportFlash: {fileID: 9163850681629320366, guid: d281b30d52bb11d4fae5ccc1d73b5dcf, type: 3}
+    _revealPulse: {fileID: 7298845405034352830, guid: 100f08603d74b874a92e27dd76cbbfbb, type: 3}
+    _pickupBurst: {fileID: 4244323925081070652, guid: f489a33a572159443be892ff334deda2, type: 3}
+    _staggerSparks: {fileID: 6152194248836977993, guid: e355fba8f6cef23478fd53df8ea7a160, type: 3}
+    _coldSpot: {fileID: 2383050041594738201, guid: d91f2868fd632934ba29c6e8fe1ef839, type: 3}
+    _dashStreak: {fileID: 8416430064101701351, guid: 35ef5b8d6ac2332488d5a59548bd8cb9, type: 3}
+    _shriekWave: {fileID: 1191439139199968191, guid: a8d56733fcd08ba4bb5c18228c1ad607, type: 3}
     _coldSpotColor: {r: 0.9, g: 0.93, b: 0.95, a: 1}
     _beamOriginForward: 0.3
     _beamOriginDrop: 0.2

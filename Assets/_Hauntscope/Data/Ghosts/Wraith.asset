@@ -21,11 +21,11 @@ MonoBehaviour:
   _rimColor: {r: 0.9019608, g: 0.92941177, b: 0.9529412, a: 1}
   _voice:
     _whisper: {fileID: 8300000, guid: 25c1c68304fc245408974fe35f2e0847, type: 3}
-    _ability: {fileID: 0}
-    _scare: {fileID: 0}
-    _capture: {fileID: 0}
-    _escape: {fileID: 0}
-    _stagger: {fileID: 0}
+    _ability: {fileID: 8300000, guid: 54f48a86a411d7642b697818c669f415, type: 3}
+    _scare: {fileID: 8300000, guid: a620de09d3f3ff54e9f38e6f6a84254f, type: 3}
+    _capture: {fileID: 8300000, guid: e9e2a59170a166348a38c4da1b310315, type: 3}
+    _escape: {fileID: 8300000, guid: 56c786f58c4b4b2448a9e679a7320c30, type: 3}
+    _stagger: {fileID: 8300000, guid: f1865861006ce5644a6ce558e7a995c3, type: 3}
   _canHide: 1
   _canScare: 1
   _nightOnly: 0
@@ -34,8 +34,8 @@ MonoBehaviour:
     _fleeSpeed: 2.4
     _hoverHeightMin: 0.8
     _hoverHeightMax: 1.8
-    _bodyBottom: -1.2249999
-    _bodyTop: 0.87499994
+    _bodyBottom: -1.3398528
+    _bodyTop: 0.875
   _detection:
     _emfRange: 6
     _revealRange: 3

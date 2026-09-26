@@ -243,7 +243,7 @@ namespace Hauntscope.Editor
         }
 
         // Swept noise whoosh (up then down) with a zap at the moment of the jump.
-        private static float[] TeleportWhoosh()
+        internal static float[] TeleportWhoosh()
         {
             var samples = Buffer(0.6f);
             var swept = Filter(Noise(samples.Length, 21), FilterType.BandPass, i =>
@@ -272,7 +272,7 @@ namespace Hauntscope.Editor
 
         // Two ascending chimes like a camera saying "ready", with a warm pad underneath.
         // Wraith dash: a short, tight air rip rising in pitch, much quicker than the teleport's swell.
-        private static float[] DashWhoosh()
+        internal static float[] DashWhoosh()
         {
             const float length = 0.32f;
             var samples = Buffer(length);
@@ -828,7 +828,7 @@ namespace Hauntscope.Editor
 
         // A floorboard somewhere behind the player: stick-slip pulses speeding up and slowing down, ringing through two
         // wood resonances, with a soft thump as the weight shifts onto it.
-        private static float[] LurkerCreak()
+        internal static float[] LurkerCreak()
         {
             const float length = 0.85f;
             var random = new System.Random(173);
@@ -862,7 +862,7 @@ namespace Hauntscope.Editor
 
         // A ghostly meow: a voice gliding up and back down while its formants move from "ee" through "ah" to "oo",
         // a breath of air on it and a long, hollow tail.
-        private static float[] CatMeow()
+        internal static float[] CatMeow()
         {
             const float length = 0.75f;
             var voice = Buffer(length);

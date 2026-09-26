@@ -66,7 +66,11 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_tier").enumValueIndex = (int)recipe.Tier;
             serialized.FindProperty("_target").intValue = recipe.Target;
             serialized.FindProperty("_descriptionKey").stringValue = $"contract.{recipe.Id}";
-            serialized.FindProperty("_goal").managedReferenceValue = recipe.Goal;
+            // Reassigning an unchanged goal would only mint a new reference id: churn in the asset for nothing.
+            var goal = serialized.FindProperty("_goal");
+            var current = goal.managedReferenceValue;
+            if (current == null || current.GetType() != recipe.Goal.GetType() || JsonUtility.ToJson(current) != JsonUtility.ToJson(recipe.Goal))
+                goal.managedReferenceValue = recipe.Goal;
             serialized.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(contract);
             return contract;

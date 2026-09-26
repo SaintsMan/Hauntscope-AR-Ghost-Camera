@@ -200,11 +200,13 @@ namespace Hauntscope.Gameplay.Feedback
         private void OnDashed(Vector3 from, Vector3 to)
         {
             _sfx.Play3D(Or(Voice?.Ability, _audio.DashWhoosh), to, _audio.DashVolume);
+            _vfx.Play(VfxId.DashStreak, from, RimColor);
         }
 
         private void OnShrieked()
         {
             _sfx.Play3D(Or(Voice?.Ability, _audio.Shriek), _ghost.Position, _audio.ShriekVolume);
+            _vfx.Play(VfxId.ShriekWave, _ghost.Position, RimColor);
             _haptics.Play(HapticStrength.Heavy);
         }
 
@@ -223,7 +225,7 @@ namespace Hauntscope.Gameplay.Feedback
 
         private void OnCrept()
         {
-            _sfx.Play3D(_audio.LurkerCreak, _ghost.Position, _audio.CreakVolume);
+            _sfx.Play3D(Or(Voice?.Ability, _audio.LurkerCreak), _ghost.Position, _audio.CreakVolume);
         }
 
         // Behind the player the face-rush of a jump scare would go unseen, so the lunge is all sound and hand.
@@ -243,7 +245,7 @@ namespace Hauntscope.Gameplay.Feedback
 
         private void OnSettled()
         {
-            _sfx.Play3D(_audio.CatMeow, _ghost.Position, _audio.MeowVolume);
+            _sfx.Play3D(Or(Voice?.Ability, _audio.CatMeow), _ghost.Position, _audio.MeowVolume);
             _sfx.Play3D(_audio.CatPurr, _ghost.Position, _audio.PurrVolume);
             _haptics.Play(HapticStrength.Light);
         }

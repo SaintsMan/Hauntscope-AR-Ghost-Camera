@@ -27,23 +27,23 @@ Material:
     m_Floats:
     - _Agitation: 0
     - _AgitationAmplitude: 0.012
-    - _BodyBottom: -0.66999996
+    - _BodyBottom: -0.74
     - _BodyTop: 0.6
     - _BreathAmplitude: 0
-    - _BreathSpeed: 1.3
+    - _BreathSpeed: 1.4
     - _DepthReveal: 0.05
     - _Dissolve: 0
     - _DissolveEdgeWidth: 0.08
-    - _HemFlutter: 0.03
-    - _HemFrequency: 3.5
-    - _HemHeight: 0.35
+    - _HemFlutter: 0.045
+    - _HemFrequency: 3.2
+    - _HemHeight: 0.3
     - _NoiseScale: 3
     - _NoiseStrength: 0
     - _Reveal: 0
     - _RimIntensity: 0
     - _RimPower: 2.5
-    - _SwayAmplitude: 0.03
-    - _SwaySpeed: 0.7
+    - _SwayAmplitude: 0.035
+    - _SwaySpeed: 0.8
     - _WobbleAmplitude: 0
     - _WobbleFrequency: 2.5
     m_Colors:

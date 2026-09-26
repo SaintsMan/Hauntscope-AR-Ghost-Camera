@@ -7,6 +7,8 @@ namespace Hauntscope.Core.Services
         RevealPulse,
         PickupBurst,
         StaggerSparks,
-        ColdSpot
+        ColdSpot,
+        DashStreak,
+        ShriekWave
     }
 }

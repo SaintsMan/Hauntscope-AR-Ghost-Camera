@@ -52,11 +52,7 @@ namespace Hauntscope.Editor
 
         public bool NightOnly { get; private set; }
 
-        public Vector3 EyeCenter { get; private set; }
-
-        public float EyeSpacing { get; private set; }
-
-        public Vector3 EyeScale { get; private set; }
+        public GhostFace Face { get; private set; } = new GhostFace();
 
         public string AbilityPath { get; private set; }
 
@@ -96,9 +92,13 @@ namespace Hauntscope.Editor
 
         public GhostRecipe Eyes(Vector3 center, float spacing, Vector3 scale)
         {
-            EyeCenter = center;
-            EyeSpacing = spacing;
-            EyeScale = scale;
+            Face = new GhostFace().Eyes(center, spacing, scale);
+            return this;
+        }
+
+        public GhostRecipe Features(GhostFace face)
+        {
+            Face = face;
             return this;
         }
 

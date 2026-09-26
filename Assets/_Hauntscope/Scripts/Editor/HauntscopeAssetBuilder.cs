@@ -78,6 +78,8 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_vfx._pickupBurst").objectReferenceValue = VfxGenerator.PickupBurst;
             serialized.FindProperty("_vfx._staggerSparks").objectReferenceValue = VfxGenerator.StaggerSparks;
             serialized.FindProperty("_vfx._coldSpot").objectReferenceValue = VfxGenerator.ColdSpot;
+            serialized.FindProperty("_vfx._dashStreak").objectReferenceValue = VfxGenerator.DashStreak;
+            serialized.FindProperty("_vfx._shriekWave").objectReferenceValue = VfxGenerator.ShriekWave;
             serialized.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(config);
             AssetDatabase.SaveAssets();
