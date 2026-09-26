@@ -2,17 +2,19 @@ using System;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.UI.Common;
 using VContainer.Unity;
 
 namespace Hauntscope.UI.Menu
 {
     // The only listener of Android Back in the menu: screen presenters subscribing on their own would all react to
-    // the same press (Credits -> Settings -> Main in one tap). Order follows what is on top: launch prompt, then the
-    // menu screen stack, then the app itself.
+    // the same press (Credits -> Settings -> Main in one tap). Order follows what is on top: an open photo, the launch
+    // prompt, then the menu screen stack, then the app itself.
     public sealed class MenuBackHandler : IStartable, IDisposable
     {
         private readonly IBackButton _backButton;
         private readonly MenuNavigation _navigation;
+        private readonly PhotoViewer _viewer;
         private readonly HuntLauncher _launcher;
         private readonly ISystemNavigation _system;
         private readonly UiFeedback _ui;
@@ -20,12 +22,14 @@ namespace Hauntscope.UI.Menu
         public MenuBackHandler(
             IBackButton backButton,
             MenuNavigation navigation,
+            PhotoViewer viewer,
             HuntLauncher launcher,
             ISystemNavigation system,
             UiFeedback ui)
         {
             _backButton = backButton;
             _navigation = navigation;
+            _viewer = viewer;
             _launcher = launcher;
             _system = system;
             _ui = ui;
@@ -43,6 +47,13 @@ namespace Hauntscope.UI.Menu
 
         private void OnBackPressed()
         {
+            if (_viewer.IsOpen)
+            {
+                _ui.PlayBack();
+                _viewer.Close();
+                return;
+            }
+
             if (_launcher.CancelPrompt())
             {
                 _ui.PlayBack();

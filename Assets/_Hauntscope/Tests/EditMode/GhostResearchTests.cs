@@ -138,6 +138,21 @@ namespace Hauntscope.Tests.EditMode
             Assert.IsFalse(_research.WillDeclassify(_ghost, false, 5));
         }
 
+        [Test]
+        public void PhotoEvidence_BelowTheCap_CountsEveryPhoto()
+        {
+            _progress.AddPhotoEvidence("poltergeist", 1, 5);
+
+            Assert.AreEqual(1, _research.PhotoEvidence(_ghost));
+        }
+
+        [Test]
+        public void PhotoEvidence_BeyondTheCap_ReturnsTheCap()
+        {
+            _progress.AddPhotoEvidence("poltergeist", 5, 5);
+
+            Assert.AreEqual(2, _research.PhotoEvidence(_ghost));
+        }
 
         private void Capture(int times)
         {

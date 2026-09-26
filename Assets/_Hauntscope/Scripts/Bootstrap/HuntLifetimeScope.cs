@@ -106,8 +106,6 @@ namespace Hauntscope.Bootstrap
         {
             builder.Register<PhotoScorer>(Lifetime.Singleton);
             builder.Register<SpiritCamera>(Lifetime.Singleton);
-            builder.Register<PhotoTextures>(Lifetime.Singleton);
-            builder.Register<PhotoSharing>(Lifetime.Singleton);
             builder.Register<PhotoViewer>(Lifetime.Singleton);
             builder.RegisterComponentInHierarchy<PhotoFrameView>();
             builder.RegisterComponentInHierarchy<PhotoFlashView>();
@@ -119,6 +117,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<PhotoToastPresenter>();
             builder.RegisterComponentInHierarchy<PhotoViewerView>();
             builder.RegisterEntryPoint<PhotoViewerPresenter>();
+            builder.RegisterEntryPoint<PhotoViewerBackHandler>();
         }
 
         private static void RegisterArEnvironment(IContainerBuilder builder)

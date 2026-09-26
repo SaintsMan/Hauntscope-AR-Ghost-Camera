@@ -680,6 +680,28 @@ MonoBehaviour:
     m_Localized: WHOLE GHOST
     m_Metadata:
       m_Items: []
+  - m_Id: 415100688531456
+    m_Localized: EVIDENCE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085888
+    m_Localized: 'No photos on file yet. Shoot it with the spirit camera: a shot
+      with {0}+ stars becomes evidence (up to {1} per file).'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085889
+    m_Localized: 'Photos on file: {0}. Best shot: {1}/3 stars. Tap the print to open
+      it.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085890
+    m_Localized: 'Counted towards declassification: {0}/{1} (shots with {2}+ stars).'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085891
+    m_Localized: "\xD7{0}"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

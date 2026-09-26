@@ -112,7 +112,8 @@ namespace Hauntscope.Bootstrap
             builder.Register<GhostResearch>(Lifetime.Singleton);
         }
 
-        // The album is loaded once for the whole game: the hunt adds to it, the Bestiary shows its evidence.
+        // The album is loaded once for the whole game: the hunt adds to it, the Bestiary shows its evidence. Decoding
+        // and sharing work the same on every screen that shows a photo.
         private static void RegisterPhotos(IContainerBuilder builder)
         {
             builder.Register<FilePhotoStorage>(Lifetime.Singleton).As<IPhotoStorage>()
@@ -129,6 +130,8 @@ namespace Hauntscope.Bootstrap
                 album.Restore(resolver.Resolve<PhotoAlbumRepository>().Load());
                 return album;
             }, Lifetime.Singleton);
+            builder.Register<PhotoTextures>(Lifetime.Singleton);
+            builder.Register<PhotoSharing>(Lifetime.Singleton);
         }
 
         private static void RegisterLaunch(IContainerBuilder builder)

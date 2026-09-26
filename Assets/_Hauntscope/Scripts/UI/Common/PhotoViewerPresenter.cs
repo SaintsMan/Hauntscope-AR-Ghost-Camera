@@ -20,7 +20,6 @@ namespace Hauntscope.UI.Common
         private readonly PhotoSharing _sharing;
         private readonly ILocalizationService _localization;
         private readonly UiFeedback _ui;
-        private readonly IBackButton _back;
 
         private Texture2D _texture;
         private bool _saved;
@@ -31,10 +30,8 @@ namespace Hauntscope.UI.Common
             PhotoTextures textures,
             PhotoSharing sharing,
             ILocalizationService localization,
-            UiFeedback ui,
-            IBackButton back)
+            UiFeedback ui)
         {
-            _back = back;
             _view = view;
             _viewer = viewer;
             _textures = textures;
@@ -49,7 +46,6 @@ namespace Hauntscope.UI.Common
             _view.ShareClicked += OnShareClicked;
             _view.SaveClicked += OnSaveClicked;
             _view.CloseClicked += OnCloseClicked;
-            _back.Pressed += OnBackPressed;
             OnCurrentChanged(_viewer.Current.Value);
         }
 
@@ -59,7 +55,6 @@ namespace Hauntscope.UI.Common
             _view.ShareClicked -= OnShareClicked;
             _view.SaveClicked -= OnSaveClicked;
             _view.CloseClicked -= OnCloseClicked;
-            _back.Pressed -= OnBackPressed;
             PhotoTextures.Release(ref _texture);
         }
 
@@ -103,12 +98,6 @@ namespace Hauntscope.UI.Common
         {
             _ui.PlayBack();
             _viewer.Close();
-        }
-
-        private void OnBackPressed()
-        {
-            if (_viewer.IsOpen)
-                OnCloseClicked();
         }
 
         private void RenderSave(string key)

@@ -1,5 +1,6 @@
 using Hauntscope.Gameplay.Ads;
 using Hauntscope.Gameplay.Engagement;
+using Hauntscope.UI.Common;
 using Hauntscope.UI.Menu;
 using VContainer;
 using VContainer.Unity;
@@ -11,12 +12,15 @@ namespace Hauntscope.Bootstrap
         protected override void Configure(IContainerBuilder builder)
         {
             builder.Register<MenuNavigation>(Lifetime.Singleton);
+            builder.Register<PhotoViewer>(Lifetime.Singleton);
             builder.RegisterEntryPoint<MenuBackHandler>();
 
             builder.RegisterComponentInHierarchy<MainMenuView>();
             builder.RegisterEntryPoint<MainMenuPresenter>();
             builder.RegisterComponentInHierarchy<BestiaryView>();
             builder.RegisterEntryPoint<BestiaryPresenter>();
+            builder.RegisterComponentInHierarchy<PhotoViewerView>();
+            builder.RegisterEntryPoint<PhotoViewerPresenter>();
             builder.RegisterComponentInHierarchy<SettingsView>();
             builder.RegisterEntryPoint<SettingsPresenter>();
             builder.RegisterComponentInHierarchy<CreditsView>();

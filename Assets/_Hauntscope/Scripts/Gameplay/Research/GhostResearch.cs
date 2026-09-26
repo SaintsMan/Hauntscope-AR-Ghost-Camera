@@ -26,7 +26,7 @@ namespace Hauntscope.Gameplay.Research
         public ResearchLevel GetLevel(GhostData ghost)
         {
             var captures = _progress.GetCaptureCount(ghost.Id);
-            if (captures > 0 && Evidence(ghost.Id) >= _config.CapturesToDeclassify)
+            if (captures > 0 && Evidence(ghost) >= _config.CapturesToDeclassify)
                 return ResearchLevel.Declassified;
             if (captures > 0)
                 return ResearchLevel.Captured;
@@ -35,7 +35,13 @@ namespace Hauntscope.Gameplay.Research
 
         public int EvidenceLeft(GhostData ghost)
         {
-            return Mathf.Max(0, _config.CapturesToDeclassify - Evidence(ghost.Id));
+            return Mathf.Max(0, _config.CapturesToDeclassify - Evidence(ghost));
+        }
+
+        // Only the first few good photos count: past the cap, the file needs captures.
+        public int PhotoEvidence(GhostData ghost)
+        {
+            return Mathf.Min(_config.MaxPhotoEvidence, _progress.GetPhotoEvidence(ghost.Id));
         }
 
         public float RewardMultiplier(GhostData ghost)
@@ -54,9 +60,9 @@ namespace Hauntscope.Gameplay.Research
             return captures > 0 && captures + photos >= _config.CapturesToDeclassify;
         }
 
-        private int Evidence(string ghostId)
+        private int Evidence(GhostData ghost)
         {
-            return _progress.GetCaptureCount(ghostId) + Mathf.Min(_config.MaxPhotoEvidence, _progress.GetPhotoEvidence(ghostId));
+            return _progress.GetCaptureCount(ghost.Id) + PhotoEvidence(ghost);
         }
     }
 }

@@ -671,6 +671,26 @@ MonoBehaviour:
     m_Key: photo.criteria.framed
     m_Metadata:
       m_Items: []
+  - m_Id: 415100688531456
+    m_Key: bestiary.section.evidence
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085888
+    m_Key: bestiary.evidence.none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085889
+    m_Key: bestiary.evidence.photos
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085890
+    m_Key: bestiary.evidence.counted
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085891
+    m_Key: bestiary.evidence.pile
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

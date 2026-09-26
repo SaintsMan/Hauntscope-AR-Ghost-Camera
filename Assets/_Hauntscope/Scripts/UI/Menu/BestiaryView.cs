@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Hauntscope.Gameplay.Research;
 using Hauntscope.UI.Common;
 using TMPro;
@@ -27,6 +28,15 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private ScrollRect _detailsScroll;
         [SerializeField] private Button _detailsCloseButton;
         [SerializeField] private Typewriter _detailsLoreTypewriter;
+        [SerializeField] private RectTransform _evidence;
+        [SerializeField] private RawImage _evidenceImage;
+        [SerializeField] private StarRow _evidenceStars;
+        [SerializeField] private Button _evidenceButton;
+        [SerializeField] private GameObject[] _evidencePile;
+        [SerializeField] private GameObject _evidenceBadge;
+        [SerializeField] private TMP_Text _evidenceCount;
+        [SerializeField, Min(0f)] private float _evidenceDelay = 0.35f;
+        [SerializeField, Min(1f)] private float _evidenceDropScale = 1.6f;
         [SerializeField] private Color _silhouetteColor = new Color(0.01f, 0.015f, 0.025f, 0.95f);
         [SerializeField] private Color _unknownColor = new Color(0.49f, 0.55f, 0.6f, 1f);
         [SerializeField] private Color _sightedStampColor = new Color(1f, 0.71f, 0.28f, 1f);
@@ -44,6 +54,8 @@ namespace Hauntscope.UI.Menu
         public event Action BackClicked;
 
         public event Action DetailsCloseClicked;
+
+        public event Action EvidenceClicked;
 
         public void SetVisible(bool visible)
         {
@@ -89,11 +101,38 @@ namespace Hauntscope.UI.Menu
 
             _detailsScroll.verticalNormalizedPosition = 1f;
             _detailsLoreTypewriter.Play();
+            DropEvidence();
+        }
+
+        // The ghost's best photo pinned to its file, with the rest of the pile peeking out from under it.
+        public void SetEvidence(Texture photo, int stars, int count, string countText)
+        {
+            _evidence.gameObject.SetActive(photo != null);
+            PhotoCrop.Fill(_evidenceImage, photo);
+            if (photo == null)
+                return;
+
+            _evidenceStars.SetStars(stars);
+            for (var i = 0; i < _evidencePile.Length; i++)
+                _evidencePile[i].SetActive(i < count - 1);
+            _evidenceBadge.SetActive(count > 1);
+            _evidenceCount.text = countText;
         }
 
         public void HideDetails()
         {
             _details.SetActive(false);
+            _evidenceImage.texture = null;
+        }
+
+        private void DropEvidence()
+        {
+            if (!_evidence.gameObject.activeInHierarchy)
+                return;
+
+            _evidence.DOKill();
+            _evidence.localScale = Vector3.one * _evidenceDropScale;
+            _evidence.DOScale(1f, 0.4f).SetDelay(_evidenceDelay).SetEase(Ease.OutBack).Ui(gameObject);
         }
 
         private void SetThreat(int threat)
@@ -126,12 +165,14 @@ namespace Hauntscope.UI.Menu
         {
             _backButton.onClick.AddListener(OnBackClicked);
             _detailsCloseButton.onClick.AddListener(OnDetailsCloseClicked);
+            _evidenceButton.onClick.AddListener(OnEvidenceClicked);
         }
 
         private void OnDestroy()
         {
             _backButton.onClick.RemoveListener(OnBackClicked);
             _detailsCloseButton.onClick.RemoveListener(OnDetailsCloseClicked);
+            _evidenceButton.onClick.RemoveListener(OnEvidenceClicked);
         }
 
         private void OnBackClicked()
@@ -142,6 +183,11 @@ namespace Hauntscope.UI.Menu
         private void OnDetailsCloseClicked()
         {
             DetailsCloseClicked?.Invoke();
+        }
+
+        private void OnEvidenceClicked()
+        {
+            EvidenceClicked?.Invoke();
         }
 
 #if UNITY_EDITOR
@@ -165,6 +211,19 @@ namespace Hauntscope.UI.Menu
             _detailsLore = Find<TMP_Text>("Details/Card/Body/Viewport/Lore");
             _detailsLoreTypewriter = Find<Typewriter>("Details/Card/Body/Viewport/Lore");
             _detailsCloseButton = Find<Button>("Details/Card/CloseButton");
+            _evidence = Find<RectTransform>("Details/Card/Evidence");
+            _evidenceImage = Find<RawImage>("Details/Card/Evidence/Image");
+            _evidenceStars = Find<StarRow>("Details/Card/Evidence/Stars");
+            _evidenceButton = Find<Button>("Details/Card/Evidence");
+            _evidenceBadge = Find<Transform>("Details/Card/Evidence/Badge")?.gameObject;
+            _evidenceCount = Find<TMP_Text>("Details/Card/Evidence/Badge/Label");
+            var pile = transform.Find("Details/Card/Evidence/Pile");
+            if (pile == null)
+                return;
+
+            _evidencePile = new GameObject[pile.childCount];
+            for (var i = 0; i < pile.childCount; i++)
+                _evidencePile[i] = pile.GetChild(i).gameObject;
         }
 
         private T Find<T>(string path) where T : Component
