@@ -1,6 +1,10 @@
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Observables;
+using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Store;
+using Hauntscope.Gameplay.Tools;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -13,11 +17,17 @@ namespace Hauntscope.Gameplay.Hunt
         private readonly HuntPause _pause;
         private readonly SpareBatteries _spares;
         private readonly EmergencyConfig _config;
+        private readonly IAdsService _ads;
+        private readonly Battery _battery;
         private readonly ObservableValue<EmergencyState> _state = new ObservableValue<EmergencyState>(EmergencyState.Idle);
         private readonly ObservableValue<float> _timeLeft = new ObservableValue<float>();
 
-        public EmergencyCharge(HuntPause pause, SpareBatteries spares, EmergencyConfig config)
+        private bool _adUsed;
+
+        public EmergencyCharge(HuntPause pause, SpareBatteries spares, EmergencyConfig config, IAdsService ads, Battery battery)
         {
+            _ads = ads;
+            _battery = battery;
             _pause = pause;
             _spares = spares;
             _config = config;
@@ -34,11 +44,16 @@ namespace Hauntscope.Gameplay.Hunt
 
         public bool CanUseSpare => _spares.Count > 0;
 
+        // Once per hunt, so an ad never becomes the way to play.
+        public bool IsAdOffered => !_adUsed;
+
+        public bool CanWatchAd => IsAdOffered && _ads.IsRewardedReady;
+
         public bool TryOffer()
         {
             if (_state.Value != EmergencyState.Idle)
                 return true;
-            if (IsDeclined || !CanUseSpare)
+            if (IsDeclined || (!CanUseSpare && !CanWatchAd))
                 return false;
 
             _timeLeft.Value = _config.Countdown;
@@ -53,6 +68,29 @@ namespace Hauntscope.Gameplay.Hunt
                 Resolve();
         }
 
+        // The countdown stops while the ad plays; without a reward the card comes back with the time that was left.
+        public async UniTask<bool> WatchAdAsync(CancellationToken cancellationToken)
+        {
+            if (_state.Value != EmergencyState.Offered || !CanWatchAd)
+                return false;
+
+            _state.Value = EmergencyState.WatchingAd;
+            var rewarded = await _ads.ShowRewardedAsync(cancellationToken);
+            if (_state.Value != EmergencyState.WatchingAd)
+                return false;
+
+            if (!rewarded)
+            {
+                _state.Value = EmergencyState.Offered;
+                return false;
+            }
+
+            _adUsed = true;
+            _battery.Recharge(_config.AdCharge);
+            Resolve();
+            return true;
+        }
+
         public void GiveUp()
         {
             if (_state.Value == EmergencyState.Idle)
@@ -65,6 +103,7 @@ namespace Hauntscope.Gameplay.Hunt
         public void ResetForHunt()
         {
             IsDeclined = false;
+            _adUsed = false;
             if (_state.Value != EmergencyState.Idle)
                 Resolve();
         }

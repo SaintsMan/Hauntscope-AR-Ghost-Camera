@@ -235,3 +235,19 @@ MonoBehaviour:
   _emergency:
     _countdown: 8
     _adCharge: 0.5
+  _research:
+    _capturesToDeclassify: 5
+    _declassifiedBonus: 0.25
+  _ads:
+    _interstitialEveryHunts: 3
+    _interstitialMinInterval: 150
+    _interstitialMinSessions: 3
+    _fieldDropReward: 30
+    _fieldDropsPerDay: 3
+    _reloadDelay: 30
+    _editorAdsAvailable: 1
+    _editorAdDuration: 1
+  _adUnits:
+    _androidAppId: ca-app-pub-3940256099942544~3347511713
+    _rewardedUnitId: ca-app-pub-3940256099942544/5224354917
+    _interstitialUnitId: ca-app-pub-3940256099942544/1033173712

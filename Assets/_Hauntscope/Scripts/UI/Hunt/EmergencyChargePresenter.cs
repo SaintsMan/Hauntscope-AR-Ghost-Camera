@@ -1,4 +1,6 @@
 using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Feedback;
@@ -23,6 +25,8 @@ namespace Hauntscope.UI.Hunt
         private readonly AudioConfig _audio;
         private readonly UiFeedback _ui;
         private readonly Func<int, string> _formatSeconds;
+        private readonly IAdsService _ads;
+        private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         public EmergencyChargePresenter(
             EmergencyChargeView view,
@@ -32,8 +36,10 @@ namespace Hauntscope.UI.Hunt
             ISfxPlayer sfx,
             IHaptics haptics,
             AudioConfig audio,
-            UiFeedback ui)
+            UiFeedback ui,
+            IAdsService ads)
         {
+            _ads = ads;
             _view = view;
             _emergency = emergency;
             _spares = spares;
@@ -52,6 +58,8 @@ namespace Hauntscope.UI.Hunt
             _localization.Changed += Render;
             _view.SpareClicked += OnSpareClicked;
             _view.GiveUpClicked += OnGiveUpClicked;
+            _view.AdClicked += OnAdClicked;
+            _ads.AvailabilityChanged += Render;
             _view.SetVisible(false);
         }
 
@@ -62,6 +70,10 @@ namespace Hauntscope.UI.Hunt
             _localization.Changed -= Render;
             _view.SpareClicked -= OnSpareClicked;
             _view.GiveUpClicked -= OnGiveUpClicked;
+            _view.AdClicked -= OnAdClicked;
+            _ads.AvailabilityChanged -= Render;
+            _lifetime.Cancel();
+            _lifetime.Dispose();
         }
 
         private void OnStateChanged(EmergencyState state)
@@ -88,7 +100,7 @@ namespace Hauntscope.UI.Hunt
                 return;
 
             _view.SetSpare(_emergency.CanUseSpare, _localization.Get(LocalizationTable.Ui, SpareKey, _spares.Count));
-            _view.SetAd(false, false);
+            _view.SetAd(_emergency.IsAdOffered, _emergency.CanWatchAd && state == EmergencyState.Offered);
             RenderCountdown();
         }
 
@@ -106,6 +118,18 @@ namespace Hauntscope.UI.Hunt
         private void OnSpareClicked()
         {
             _emergency.UseSpare();
+        }
+
+        private void OnAdClicked()
+        {
+            _ui.PlayClick();
+            WatchAdAsync(_lifetime.Token).Forget();
+        }
+
+        private async UniTaskVoid WatchAdAsync(CancellationToken cancellationToken)
+        {
+            if (await _emergency.WatchAdAsync(cancellationToken))
+                _ui.PlayReward();
         }
 
         private void OnGiveUpClicked()

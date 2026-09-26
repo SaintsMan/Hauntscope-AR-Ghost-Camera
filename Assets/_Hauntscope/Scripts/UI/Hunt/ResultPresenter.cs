@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Ads;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Hunt;
 using UnityEngine;
@@ -31,14 +32,25 @@ namespace Hauntscope.UI.Hunt
         private readonly UiFeedback _ui;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
         private readonly Func<int, string> _formatReward;
+        private readonly RewardDoubler _doubler;
+        private readonly AdBreak _adBreak;
+        private readonly IAdsService _ads;
+
+        private bool _isLeaving;
 
         public ResultPresenter(
             ResultView view,
             HuntSession session,
             ILocalizationService localization,
             ISceneLoader sceneLoader,
-            UiFeedback ui)
+            UiFeedback ui,
+            RewardDoubler doubler,
+            AdBreak adBreak,
+            IAdsService ads)
         {
+            _doubler = doubler;
+            _adBreak = adBreak;
+            _ads = ads;
             _view = view;
             _session = session;
             _localization = localization;
@@ -53,6 +65,8 @@ namespace Hauntscope.UI.Hunt
             _localization.Changed += OnLanguageChanged;
             _view.HuntAgainClicked += OnHuntAgainClicked;
             _view.MenuClicked += OnMenuClicked;
+            _view.DoubleClicked += OnDoubleClicked;
+            _ads.AvailabilityChanged += RenderDouble;
             Render(_session.Result.Value);
         }
 
@@ -62,6 +76,8 @@ namespace Hauntscope.UI.Hunt
             _localization.Changed -= OnLanguageChanged;
             _view.HuntAgainClicked -= OnHuntAgainClicked;
             _view.MenuClicked -= OnMenuClicked;
+            _view.DoubleClicked -= OnDoubleClicked;
+            _ads.AvailabilityChanged -= RenderDouble;
             _lifetime.Cancel();
             _lifetime.Dispose();
         }
@@ -78,14 +94,57 @@ namespace Hauntscope.UI.Hunt
 
         private void OnHuntAgainClicked()
         {
+            if (_isLeaving)
+                return;
+
             _ui.PlayClick();
-            _session.RequestHuntAgain();
+            LeaveAsync(false, _lifetime.Token).Forget();
         }
 
         private void OnMenuClicked()
         {
+            if (_isLeaving)
+                return;
+
             _ui.PlayBack();
-            _sceneLoader.LoadAsync(SceneId.MainMenu, _lifetime.Token).Forget();
+            LeaveAsync(true, _lifetime.Token).Forget();
+        }
+
+        // An interstitial (when the policy allows one) plays on the way out of the card, never during a hunt.
+        private async UniTaskVoid LeaveAsync(bool toMenu, System.Threading.CancellationToken cancellationToken)
+        {
+            _isLeaving = true;
+            try
+            {
+                await _adBreak.TryShowAsync(cancellationToken);
+                if (toMenu)
+                    await _sceneLoader.LoadAsync(SceneId.MainMenu, cancellationToken);
+                else
+                    _session.RequestHuntAgain();
+            }
+            finally
+            {
+                _isLeaving = false;
+            }
+        }
+
+        private void OnDoubleClicked()
+        {
+            _ui.PlayClick();
+            DoubleAsync(_lifetime.Token).Forget();
+        }
+
+        private async UniTaskVoid DoubleAsync(System.Threading.CancellationToken cancellationToken)
+        {
+            RenderDouble();
+            if (await _doubler.DoubleAsync(cancellationToken))
+                _ui.PlayReward();
+            RenderDouble();
+        }
+
+        private void RenderDouble()
+        {
+            _view.SetDouble(_doubler.IsOffered, _doubler.CanDouble);
         }
 
         private string FormatReward(int amount)
@@ -136,6 +195,7 @@ namespace Hauntscope.UI.Hunt
             _view.SetGhostName(_localization.Get(LocalizationTable.Ghosts, result.Ghost.NameKey));
             _view.SetReward(result.Reward, _formatReward);
             _view.SetBreakdown(captured ? Breakdown(result) : string.Empty);
+            RenderDouble();
 
             var seconds = Mathf.FloorToInt(result.Duration);
             _view.SetTime(_localization.Get(LocalizationTable.Ui, TimeKey, seconds / SecondsPerMinute, seconds % SecondsPerMinute));

@@ -1,5 +1,6 @@
 using Hauntscope.AR;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Ads;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Feedback;
@@ -7,6 +8,7 @@ using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Research;
 using Hauntscope.Gameplay.Store;
+using Hauntscope.Infrastructure.Ads;
 using Hauntscope.Infrastructure.Audio;
 using Hauntscope.Infrastructure.Haptics;
 using Hauntscope.Infrastructure.Input;
@@ -17,6 +19,7 @@ using Hauntscope.Infrastructure.PlayStore;
 using Hauntscope.Infrastructure.Random;
 using Hauntscope.Infrastructure.Save;
 using Hauntscope.Infrastructure.Scenes;
+using Hauntscope.Infrastructure.Time;
 using Hauntscope.UI.Common;
 using UnityEngine;
 using VContainer;
@@ -48,6 +51,7 @@ namespace Hauntscope.Bootstrap
             RegisterProgress(builder);
             RegisterLaunch(builder);
             RegisterPlayStore(builder);
+            RegisterAds(builder);
 
             builder.RegisterEntryPoint<FrameRateInitializer>();
             builder.RegisterEntryPoint<LanguageSync>();
@@ -77,6 +81,8 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Pickups);
             builder.RegisterInstance(_gameConfig.Emergency);
             builder.RegisterInstance(_gameConfig.Research);
+            builder.RegisterInstance(_gameConfig.Ads);
+            builder.RegisterInstance(_gameConfig.AdUnits);
         }
 
         // Scene loads are decorated with the CRT transition; the overlay outlives every scene it covers.
@@ -130,6 +136,24 @@ namespace Hauntscope.Bootstrap
             builder.Register<NullInAppReview>(Lifetime.Singleton).As<IInAppReview>();
             builder.Register<NullAppUpdates>(Lifetime.Singleton).As<IAppUpdates>();
 #endif
+        }
+
+        // Placements talk to the paced decorator; the privacy form goes straight to the adapter that owns consent.
+        private static void RegisterAds(IContainerBuilder builder)
+        {
+            builder.Register<SystemClock>(Lifetime.Singleton).As<IClock>();
+            builder.Register<AdPacing>(Lifetime.Singleton);
+#if UNITY_ANDROID && !UNITY_EDITOR
+            builder.Register<AdMobAdsService>(Lifetime.Singleton).AsSelf().As<IAdPrivacy>();
+            builder.Register<IAdsService>(resolver => new PacedAdsService(resolver.Resolve<AdMobAdsService>(), resolver.Resolve<AdPacing>(),
+                resolver.Resolve<IClock>()), Lifetime.Singleton);
+#else
+            builder.Register<EditorAdsService>(Lifetime.Singleton).AsSelf().As<IAdPrivacy>();
+            builder.Register<IAdsService>(resolver => new PacedAdsService(resolver.Resolve<EditorAdsService>(), resolver.Resolve<AdPacing>(),
+                resolver.Resolve<IClock>()), Lifetime.Singleton);
+#endif
+            builder.Register<InterstitialPolicy>(Lifetime.Singleton);
+            builder.Register<AdBreak>(Lifetime.Singleton);
         }
 
         private static void RegisterHaptics(IContainerBuilder builder)

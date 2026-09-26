@@ -17,6 +17,8 @@ namespace Hauntscope.Gameplay.Progress
         [SerializeField] private bool _tutorialCompleted;
         [SerializeField] private int _reviewPromptedAtCaptures;
         [SerializeField] private List<string> _sighted = new List<string>();
+        [SerializeField] private int _fieldDropDay;
+        [SerializeField] private int _fieldDropsClaimed;
 
         // Required by JsonUtility, which creates DTOs through the parameterless constructor.
         public PlayerProgressDto()
@@ -31,9 +33,13 @@ namespace Hauntscope.Gameplay.Progress
             bool virtualRoomNoticeShown,
             bool tutorialCompleted,
             int reviewPromptedAtCaptures,
-            List<string> sighted)
+            List<string> sighted,
+            int fieldDropDay,
+            int fieldDropsClaimed)
         {
             _sighted = sighted;
+            _fieldDropDay = fieldDropDay;
+            _fieldDropsClaimed = fieldDropsClaimed;
             _version = version;
             _ectoplasm = ectoplasm;
             _captures = captures;
@@ -58,5 +64,9 @@ namespace Hauntscope.Gameplay.Progress
         public int ReviewPromptedAtCaptures => _reviewPromptedAtCaptures;
 
         public IReadOnlyList<string> Sighted => _sighted;
+
+        public int FieldDropDay => _fieldDropDay;
+
+        public int FieldDropsClaimed => _fieldDropsClaimed;
     }
 }

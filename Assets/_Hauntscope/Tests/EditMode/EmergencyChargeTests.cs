@@ -1,3 +1,4 @@
+using System.Threading;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Store;
@@ -15,15 +16,17 @@ namespace Hauntscope.Tests.EditMode
         private Battery _battery;
         private HuntPause _pause;
         private EmergencyCharge _emergency;
+        private FakeAdsService _ads;
 
         [SetUp]
         public void SetUp()
         {
             _store = new StoreFixture();
             _battery = new Battery(TestConfigs.Tools(batteryMax: 100f));
-            _pause = new HuntPause(new FakeTrackingStatus(), new FakeApplicationLifecycle(), new TrackingConfig(0.5f));
+            _ads = new FakeAdsService { IsRewardedReady = false };
+            _pause = new HuntPause(new FakeTrackingStatus(), new FakeApplicationLifecycle(), new TrackingConfig(0.5f), _ads);
             var spares = new SpareBatteries(_store.Inventory, _store.InventoryRepository, _store.Config, _battery);
-            _emergency = new EmergencyCharge(_pause, spares, new EmergencyConfig(Countdown, 0.5f));
+            _emergency = new EmergencyCharge(_pause, spares, new EmergencyConfig(Countdown, 0.5f), _ads, _battery);
             _battery.Drain(100f);
         }
 
@@ -107,6 +110,69 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.AreEqual(EmergencyState.Idle, _emergency.State.Value);
             Assert.IsFalse(_emergency.IsDeclined);
+        }
+
+        [Test]
+        public void TryOffer_NoSpareButAnAdReady_StillOffers()
+        {
+            _ads.IsRewardedReady = true;
+
+            Assert.IsTrue(_emergency.TryOffer());
+            Assert.IsTrue(_emergency.CanWatchAd);
+        }
+
+        [Test]
+        public void WatchAd_Rewarded_RechargesAndResumes()
+        {
+            _ads.IsRewardedReady = true;
+            _emergency.TryOffer();
+
+            var recharged = _emergency.WatchAdAsync(CancellationToken.None).GetAwaiter().GetResult();
+
+            Assert.IsTrue(recharged);
+            Assert.AreEqual(50f, _battery.Charge.Value, 1e-3f);
+            Assert.AreEqual(EmergencyState.Idle, _emergency.State.Value);
+            Assert.IsFalse(_pause.IsPaused);
+        }
+
+        [Test]
+        public void WatchAd_ClosedEarly_ReturnsToTheCard()
+        {
+            _ads.IsRewardedReady = true;
+            _ads.RewardEarned = false;
+            _emergency.TryOffer();
+
+            var recharged = _emergency.WatchAdAsync(CancellationToken.None).GetAwaiter().GetResult();
+
+            Assert.IsFalse(recharged);
+            Assert.AreEqual(EmergencyState.Offered, _emergency.State.Value);
+            Assert.AreEqual(0f, _battery.Charge.Value);
+        }
+
+        [Test]
+        public void TryOffer_AdAlreadyUsedThisHunt_OffersOnlyTheSpare()
+        {
+            _ads.IsRewardedReady = true;
+            _emergency.TryOffer();
+            _emergency.WatchAdAsync(CancellationToken.None).GetAwaiter().GetResult();
+            _battery.Drain(100f);
+
+            var offered = _emergency.TryOffer();
+
+            Assert.IsFalse(offered);
+            Assert.IsFalse(_emergency.IsAdOffered);
+        }
+
+        [Test]
+        public void ResetForHunt_AfterAnAd_OffersTheAdAgain()
+        {
+            _ads.IsRewardedReady = true;
+            _emergency.TryOffer();
+            _emergency.WatchAdAsync(CancellationToken.None).GetAwaiter().GetResult();
+
+            _emergency.ResetForHunt();
+
+            Assert.IsTrue(_emergency.CanWatchAd);
         }
     }
 }

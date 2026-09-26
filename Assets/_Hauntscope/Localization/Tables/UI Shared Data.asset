@@ -571,6 +571,46 @@ MonoBehaviour:
     m_Key: result.declassified
     m_Metadata:
       m_Items: []
+  - m_Id: 354300426846208
+    m_Key: splash.step.uplink
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594944
+    m_Key: splash.status.online
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594945
+    m_Key: splash.status.offline
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594946
+    m_Key: shop.drop.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594947
+    m_Key: shop.drop.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594948
+    m_Key: shop.drop.left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594949
+    m_Key: shop.drop.watch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594950
+    m_Key: shop.drop.empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594951
+    m_Key: result.double
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594952
+    m_Key: settings.privacy
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

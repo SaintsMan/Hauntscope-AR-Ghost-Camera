@@ -1,0 +1,32 @@
+// AdMob and Google UMP consent, called from C# through the Java bridge in src/ (Infrastructure/Ads).
+apply plugin: 'com.android.library'
+
+dependencies {
+    implementation 'com.google.android.gms:play-services-ads:24.4.0'
+    implementation 'com.google.android.ump:user-messaging-platform:3.2.0'
+}
+
+android {
+    namespace "com.pavko.hauntscope.ads"
+    // SDK levels and build tools follow what Unity writes to gradle.properties (and ships in its SDK),
+    // so an Editor upgrade needs no edit here.
+    compileSdk((project.findProperty('unity.compileSdkVersion') ?: '36').toString().toInteger())
+    buildToolsVersion = (project.findProperty('unity.buildToolsVersion') ?: '36.0.0').toString()
+
+    defaultConfig {
+        minSdk((project.findProperty('unity.minSdkVersion') ?: '25').toString().toInteger())
+        consumerProguardFiles 'proguard-rules.txt'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+        }
+    }
+}

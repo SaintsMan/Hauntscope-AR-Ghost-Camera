@@ -28,7 +28,7 @@ namespace Hauntscope.Tests.EditMode
             _session = new HuntSession();
             _session.Begin(_fixture.Ghost, null);
             _beam = new CaptureBeam(_session, _fixture.Camera, TestConfigs.Tools(), new HuntModifiers());
-            _pause = new HuntPause(new FakeTrackingStatus(), new FakeApplicationLifecycle(), new TrackingConfig(0.5f));
+            _pause = new HuntPause(new FakeTrackingStatus(), new FakeApplicationLifecycle(), new TrackingConfig(0.5f), new FakeAdsService());
             _view = new FakeBeamView();
             _config = new VfxConfig();
             _feedback = new BeamFeedback(_beam, _session, _pause, _fixture.Camera, _view, _config, new StoreFixture().CreateLoadout());

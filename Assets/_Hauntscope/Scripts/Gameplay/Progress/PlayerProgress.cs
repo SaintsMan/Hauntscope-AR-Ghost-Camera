@@ -22,8 +22,12 @@ namespace Hauntscope.Gameplay.Progress
             bool virtualRoomNoticeShown,
             bool tutorialCompleted = false,
             int reviewPromptedAtCaptures = 0,
-            IEnumerable<string> sighted = null)
+            IEnumerable<string> sighted = null,
+            int fieldDropDay = 0,
+            int fieldDropsClaimed = 0)
         {
+            FieldDropDay = fieldDropDay;
+            FieldDropsClaimed = fieldDropsClaimed;
             _ectoplasm = new ObservableValue<int>(ectoplasm);
             _captures = new Dictionary<string, int>();
             foreach (var pair in captures)
@@ -62,6 +66,28 @@ namespace Hauntscope.Gameplay.Progress
                     total += count;
                 return total;
             }
+        }
+
+        // Day key (yyyymmdd) of the last field drop claim and how many were claimed that day.
+        public int FieldDropDay { get; private set; }
+
+        public int FieldDropsClaimed { get; private set; }
+
+        public int FieldDropsClaimedOn(int day)
+        {
+            return day == FieldDropDay ? FieldDropsClaimed : 0;
+        }
+
+        public void ClaimFieldDrop(int day, int reward)
+        {
+            if (day != FieldDropDay)
+            {
+                FieldDropDay = day;
+                FieldDropsClaimed = 0;
+            }
+
+            FieldDropsClaimed++;
+            AddEctoplasm(reward);
         }
 
         // Ghosts revealed in the lens at least once, caught or not.

@@ -580,6 +580,46 @@ MonoBehaviour:
     m_Localized: DECLASSIFIED
     m_Metadata:
       m_Items: []
+  - m_Id: 354300426846208
+    m_Localized: UPLINK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594944
+    m_Localized: ONLINE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594945
+    m_Localized: OFFLINE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594946
+    m_Localized: FIELD DROP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594947
+    m_Localized: +{0} ectoplasm for a short video
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594948
+    m_Localized: '{0}/{1} TODAY'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594949
+    m_Localized: WATCH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594950
+    m_Localized: TOMORROW
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594951
+    m_Localized: "\xD72 CATCH"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594952
+    m_Localized: PRIVACY
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -13,6 +13,7 @@ namespace Hauntscope.Editor
     public static class ReleaseBuilder
     {
         public const string DefaultSigningPath = "Assets/_Hauntscope/Secrets/android-signing.json";
+        public const string DefaultAdMobPath = "Assets/_Hauntscope/Secrets/admob.json";
 
         private const string OutputFolder = "Build";
 
@@ -40,6 +41,7 @@ namespace Hauntscope.Editor
             var keystoreName = PlayerSettings.Android.keystoreName;
             var keyaliasName = PlayerSettings.Android.keyaliasName;
             var buildAppBundle = EditorUserBuildSettings.buildAppBundle;
+            var testAdUnits = SwapInAdUnits(DefaultAdMobPath);
             try
             {
                 PlayerSettings.Android.useCustomKeystore = true;
@@ -72,9 +74,56 @@ namespace Hauntscope.Editor
                 PlayerSettings.Android.keystoreName = keystoreName;
                 PlayerSettings.Android.keyaliasName = keyaliasName;
                 EditorUserBuildSettings.buildAppBundle = buildAppBundle;
+                RestoreAdUnits(testAdUnits);
                 // The build saves ProjectSettings with the signing applied; saving again writes the restored values.
                 AssetDatabase.SaveAssets();
             }
+        }
+
+        // Real AdMob IDs live only in the git-ignored Secrets folder: they are written into GameConfig for the build
+        // and the test IDs go back afterwards, like the signing passwords. Returns the IDs to restore, or null.
+        private static AdUnits SwapInAdUnits(string path)
+        {
+            if (!File.Exists(path))
+            {
+                Debug.LogWarning($"Hauntscope: '{path}' not found, the release build serves Google's TEST ads.");
+                return null;
+            }
+
+            var real = JsonUtility.FromJson<AdUnits>(File.ReadAllText(path));
+            if (real == null || string.IsNullOrEmpty(real.AndroidAppId) || string.IsNullOrEmpty(real.RewardedUnitId)
+                || string.IsNullOrEmpty(real.InterstitialUnitId))
+                throw new InvalidOperationException($"'{path}' must define _androidAppId, _rewardedUnitId and _interstitialUnitId.");
+
+            var test = ReadAdUnits();
+            WriteAdUnits(real);
+            return test;
+        }
+
+        private static void RestoreAdUnits(AdUnits test)
+        {
+            if (test != null)
+                WriteAdUnits(test);
+        }
+
+        private static AdUnits ReadAdUnits()
+        {
+            var serialized = new SerializedObject(AssetDatabase.LoadAssetAtPath<ScriptableObject>(HauntscopeAssetBuilder.GameConfigPath));
+            return new AdUnits(serialized.FindProperty("_adUnits._androidAppId").stringValue,
+                serialized.FindProperty("_adUnits._rewardedUnitId").stringValue,
+                serialized.FindProperty("_adUnits._interstitialUnitId").stringValue);
+        }
+
+        private static void WriteAdUnits(AdUnits units)
+        {
+            var config = AssetDatabase.LoadAssetAtPath<ScriptableObject>(HauntscopeAssetBuilder.GameConfigPath);
+            var serialized = new SerializedObject(config);
+            serialized.FindProperty("_adUnits._androidAppId").stringValue = units.AndroidAppId;
+            serialized.FindProperty("_adUnits._rewardedUnitId").stringValue = units.RewardedUnitId;
+            serialized.FindProperty("_adUnits._interstitialUnitId").stringValue = units.InterstitialUnitId;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(config);
+            AssetDatabase.SaveAssets();
         }
 
         private static AndroidSigning LoadSigning(string path)
@@ -101,6 +150,32 @@ namespace Hauntscope.Editor
             }
 
             return scenes.ToArray();
+        }
+
+        // Same key convention as the signing file: _androidAppId, _rewardedUnitId, _interstitialUnitId.
+        [Serializable]
+        private sealed class AdUnits
+        {
+            [SerializeField] private string _androidAppId;
+            [SerializeField] private string _rewardedUnitId;
+            [SerializeField] private string _interstitialUnitId;
+
+            public AdUnits()
+            {
+            }
+
+            public AdUnits(string androidAppId, string rewardedUnitId, string interstitialUnitId)
+            {
+                _androidAppId = androidAppId;
+                _rewardedUnitId = rewardedUnitId;
+                _interstitialUnitId = interstitialUnitId;
+            }
+
+            public string AndroidAppId => _androidAppId;
+
+            public string RewardedUnitId => _rewardedUnitId;
+
+            public string InterstitialUnitId => _interstitialUnitId;
         }
 
         // JsonUtility maps field names to keys, so the file uses them as-is: _keystore, _keystorePassword, _alias, _aliasPassword.

@@ -12,13 +12,15 @@ namespace Hauntscope.Tests.EditMode
         private FakeTrackingStatus _tracking;
         private FakeApplicationLifecycle _lifecycle;
         private HuntPause _pause;
+        private FakeAdsService _ads;
 
         [SetUp]
         public void SetUp()
         {
             _tracking = new FakeTrackingStatus();
             _lifecycle = new FakeApplicationLifecycle();
-            _pause = new HuntPause(_tracking, _lifecycle, new TrackingConfig(LostGrace));
+            _ads = new FakeAdsService();
+            _pause = new HuntPause(_tracking, _lifecycle, new TrackingConfig(LostGrace), _ads);
             _pause.Start();
         }
 
@@ -54,7 +56,7 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
-        public void ApplicationPaused_Always_PausesWithBackgroundReason()
+        public void ApplicationPaused_NoAdOnScreen_PausesWithBackgroundReason()
         {
             _lifecycle.Pause();
 
@@ -195,6 +197,28 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.IsTrue(_pause.IsMenuRequested);
             Assert.IsTrue(_pause.Has(PauseReason.TrackingLost));
+        }
+
+        [Test]
+        public void ApplicationPaused_ByAFullScreenAd_DoesNotOpenThePauseMenu()
+        {
+            _ads.IsShowing = true;
+
+            _lifecycle.Pause();
+
+            Assert.IsFalse(_pause.IsPaused);
+        }
+
+        [Test]
+        public void SetEmergency_OnAndOff_HoldsAndReleasesWithoutMenu()
+        {
+            _pause.SetEmergency(true);
+            var held = _pause.Has(PauseReason.Emergency) && !_pause.IsMenuRequested;
+
+            _pause.SetEmergency(false);
+
+            Assert.IsTrue(held);
+            Assert.IsFalse(_pause.IsPaused);
         }
     }
 }

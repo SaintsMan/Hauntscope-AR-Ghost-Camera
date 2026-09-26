@@ -16,13 +16,15 @@ namespace Hauntscope.Gameplay.Hunt
         private readonly ITrackingStatus _tracking;
         private readonly IApplicationLifecycle _lifecycle;
         private readonly TrackingConfig _config;
+        private readonly IAdsService _ads;
         private readonly ObservableValue<PauseReason> _reasons = new ObservableValue<PauseReason>(PauseReason.None);
 
         private bool _hasTracked;
         private float _untrackedTime;
 
-        public HuntPause(ITrackingStatus tracking, IApplicationLifecycle lifecycle, TrackingConfig config)
+        public HuntPause(ITrackingStatus tracking, IApplicationLifecycle lifecycle, TrackingConfig config, IAdsService ads)
         {
+            _ads = ads;
             _tracking = tracking;
             _lifecycle = lifecycle;
             _config = config;
@@ -108,6 +110,9 @@ namespace Hauntscope.Gameplay.Hunt
 
         private void OnApplicationPaused()
         {
+            if (_ads.IsShowing)
+                return;
+
             Add(PauseReason.Background);
         }
 

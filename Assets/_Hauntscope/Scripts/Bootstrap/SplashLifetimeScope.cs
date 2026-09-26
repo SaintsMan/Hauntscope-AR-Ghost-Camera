@@ -13,6 +13,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<ArchiveBootTask>(Lifetime.Singleton).As<IBootTask>();
             builder.Register<SensorsBootTask>(Lifetime.Singleton).As<IBootTask>();
             builder.Register<UpdateBootTask>(Lifetime.Singleton).As<IBootTask>();
+            builder.Register<AdsBootTask>(Lifetime.Singleton).As<IBootTask>();
             builder.RegisterEntryPoint<BootSequence>().AsSelf();
 
             builder.RegisterComponentInHierarchy<SplashView>();

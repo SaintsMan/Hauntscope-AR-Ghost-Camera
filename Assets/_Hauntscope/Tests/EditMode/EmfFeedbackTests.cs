@@ -26,7 +26,7 @@ namespace Hauntscope.Tests.EditMode
             _radar = new EmfRadar(new FakeCameraPose(), new FakeRandom(), config);
             _sfx = new FakeSfxPlayer();
             _haptics = new FakeHaptics();
-            _pause = new HuntPause(new FakeTrackingStatus(), new FakeApplicationLifecycle(), new TrackingConfig(0.5f));
+            _pause = new HuntPause(new FakeTrackingStatus(), new FakeApplicationLifecycle(), new TrackingConfig(0.5f), new FakeAdsService());
             _feedback = new EmfFeedback(_radar, _sfx, _haptics, config, _pause);
             _feedback.Start();
         }

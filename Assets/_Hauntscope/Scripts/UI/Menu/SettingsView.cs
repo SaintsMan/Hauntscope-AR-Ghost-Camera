@@ -18,12 +18,15 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private Button _languageButton;
         [SerializeField] private TMP_Text _languageLabel;
         [SerializeField] private Button _creditsButton;
+        [SerializeField] private Button _privacyButton;
 
         public event Action BackClicked;
 
         public event Action LanguageClicked;
 
         public event Action CreditsClicked;
+
+        public event Action PrivacyClicked;
 
         public event Action SoundClicked
         {
@@ -63,6 +66,12 @@ namespace Hauntscope.UI.Menu
             SetToggle(_jumpScaresToggle, _jumpScaresState, on, state);
         }
 
+        // Shown only where the consent rules require a way back to the choice.
+        public void SetPrivacyVisible(bool visible)
+        {
+            _privacyButton.gameObject.SetActive(visible);
+        }
+
         public void SetLanguage(string languageName)
         {
             _languageLabel.text = languageName;
@@ -79,6 +88,7 @@ namespace Hauntscope.UI.Menu
             _backButton.onClick.AddListener(OnBackClicked);
             _languageButton.onClick.AddListener(OnLanguageClicked);
             _creditsButton.onClick.AddListener(OnCreditsClicked);
+            _privacyButton.onClick.AddListener(OnPrivacyClicked);
         }
 
         private void OnDestroy()
@@ -86,6 +96,7 @@ namespace Hauntscope.UI.Menu
             _backButton.onClick.RemoveListener(OnBackClicked);
             _languageButton.onClick.RemoveListener(OnLanguageClicked);
             _creditsButton.onClick.RemoveListener(OnCreditsClicked);
+            _privacyButton.onClick.RemoveListener(OnPrivacyClicked);
         }
 
         private void OnBackClicked()
@@ -101,6 +112,11 @@ namespace Hauntscope.UI.Menu
         private void OnCreditsClicked()
         {
             CreditsClicked?.Invoke();
+        }
+
+        private void OnPrivacyClicked()
+        {
+            PrivacyClicked?.Invoke();
         }
     }
 }

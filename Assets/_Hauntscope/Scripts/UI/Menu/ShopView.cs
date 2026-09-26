@@ -26,6 +26,13 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private Color _tabOffColor = new Color(0.49f, 0.55f, 0.6f, 1f);
         [SerializeField, Range(0f, 1f)] private float _tabFillAlpha = 0.2f;
         [SerializeField, Min(0.05f)] private float _countDuration = 0.6f;
+        [SerializeField] private Button _dropButton;
+        [SerializeField] private CanvasGroup _dropGroup;
+        [SerializeField] private TMP_Text _dropBody;
+        [SerializeField] private TMP_Text _dropCounter;
+        [SerializeField] private TMP_Text _dropButtonLabel;
+        [SerializeField] private RectTransform _dropIcon;
+        [SerializeField, Range(0f, 1f)] private float _disabledAlpha = 0.45f;
 
         private int _shownBalance = -1;
 
@@ -33,9 +40,26 @@ namespace Hauntscope.UI.Menu
 
         public event Action<ShopTab> TabClicked;
 
+        public event Action FieldDropClicked;
+
         public void SetVisible(bool visible)
         {
             gameObject.SetActive(visible);
+        }
+
+        public void SetFieldDrop(string body, string counter, string buttonLabel, bool ready)
+        {
+            _dropBody.text = body;
+            _dropCounter.text = counter;
+            _dropButtonLabel.text = buttonLabel;
+            _dropButton.interactable = ready;
+            _dropGroup.alpha = ready ? 1f : _disabledAlpha;
+        }
+
+        public void PlayFieldDropClaimed()
+        {
+            _dropIcon.DOKill(true);
+            _dropIcon.DOPunchScale(Vector3.one * 0.4f, 0.5f, 6).Ui(gameObject);
         }
 
         public ShopItemView AddItem(ShopTab tab)
@@ -88,6 +112,7 @@ namespace Hauntscope.UI.Menu
             _backButton.onClick.AddListener(OnBackClicked);
             _lasersTab.onClick.AddListener(OnLasersClicked);
             _gearTab.onClick.AddListener(OnGearClicked);
+            _dropButton.onClick.AddListener(OnDropClicked);
         }
 
         private void OnDestroy()
@@ -95,6 +120,7 @@ namespace Hauntscope.UI.Menu
             _backButton.onClick.RemoveListener(OnBackClicked);
             _lasersTab.onClick.RemoveListener(OnLasersClicked);
             _gearTab.onClick.RemoveListener(OnGearClicked);
+            _dropButton.onClick.RemoveListener(OnDropClicked);
         }
 
         private void OnBackClicked()
@@ -112,6 +138,11 @@ namespace Hauntscope.UI.Menu
             TabClicked?.Invoke(ShopTab.Gear);
         }
 
+        private void OnDropClicked()
+        {
+            FieldDropClicked?.Invoke();
+        }
+
 #if UNITY_EDITOR
         private void Reset()
         {
@@ -127,6 +158,12 @@ namespace Hauntscope.UI.Menu
             _scroll = Find<ScrollRect>("Scroll");
             _lasersList = Find<RectTransform>("Scroll/Viewport/Lasers");
             _gearList = Find<RectTransform>("Scroll/Viewport/Gear");
+            _dropButton = Find<Button>("FieldDrop/Watch");
+            _dropGroup = Find<CanvasGroup>("FieldDrop/Watch");
+            _dropBody = Find<TMP_Text>("FieldDrop/Body");
+            _dropCounter = Find<TMP_Text>("FieldDrop/Counter");
+            _dropButtonLabel = Find<TMP_Text>("FieldDrop/Watch/Row/Label");
+            _dropIcon = Find<RectTransform>("FieldDrop/Icon");
         }
 
         private T Find<T>(string path) where T : Component

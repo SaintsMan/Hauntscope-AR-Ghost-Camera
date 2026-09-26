@@ -27,6 +27,9 @@ namespace Hauntscope.UI.Hunt
         [SerializeField, FormerlySerializedAs("_reasonLabel")] private TMP_Text _tipLabel;
         [SerializeField] private GameObject _newEntryBadge;
         [SerializeField] private TMP_Text _badgeLabel;
+        [SerializeField] private Button _doubleButton;
+        [SerializeField] private CanvasGroup _doubleGroup;
+        [SerializeField, Range(0f, 1f)] private float _disabledAlpha = 0.4f;
         [SerializeField] private GameObject _reward;
         [SerializeField] private RectTransform _rewardIcon;
         [SerializeField, Min(0f)] private float _countDelay = 0.45f;
@@ -40,6 +43,8 @@ namespace Hauntscope.UI.Hunt
         public event Action HuntAgainClicked;
 
         public event Action MenuClicked;
+
+        public event Action DoubleClicked;
 
         public void SetVisible(bool visible)
         {
@@ -93,11 +98,13 @@ namespace Hauntscope.UI.Hunt
                 return;
             }
 
+            // The first reward counts up from zero; a doubled one counts on from what is already shown.
+            var from = _rewardTarget > 0 ? _shownReward : 0;
             _rewardTarget = amount;
             if (amount <= 0)
                 return;
 
-            ShowReward(0);
+            ShowReward(from);
             DOTween.To(() => _shownReward, ShowReward, amount, _countDuration)
                 .SetDelay(_countDelay).SetEase(Ease.OutCubic).Ui(gameObject);
             _rewardIcon.localScale = Vector3.one;
@@ -111,6 +118,13 @@ namespace Hauntscope.UI.Hunt
             _breakdownLabel.text = text;
         }
 
+        public void SetDouble(bool visible, bool ready)
+        {
+            _doubleButton.gameObject.SetActive(visible);
+            _doubleButton.interactable = ready;
+            _doubleGroup.alpha = ready ? 1f : _disabledAlpha;
+        }
+
         public void SetTime(string text)
         {
             _timeLabel.text = text;
@@ -120,6 +134,7 @@ namespace Hauntscope.UI.Hunt
         {
             _huntAgainButton.onClick.AddListener(OnHuntAgainClicked);
             _menuButton.onClick.AddListener(OnMenuClicked);
+            _doubleButton.onClick.AddListener(OnDoubleClicked);
         }
 
         // A closed card forgets its reward, so the next catch counts up again even when it pays the same.
@@ -132,6 +147,7 @@ namespace Hauntscope.UI.Hunt
         {
             _huntAgainButton.onClick.RemoveListener(OnHuntAgainClicked);
             _menuButton.onClick.RemoveListener(OnMenuClicked);
+            _doubleButton.onClick.RemoveListener(OnDoubleClicked);
         }
 
         private void OnHuntAgainClicked()
@@ -142,6 +158,11 @@ namespace Hauntscope.UI.Hunt
         private void OnMenuClicked()
         {
             MenuClicked?.Invoke();
+        }
+
+        private void OnDoubleClicked()
+        {
+            DoubleClicked?.Invoke();
         }
 
         private void ShowReward(int amount)
@@ -165,6 +186,8 @@ namespace Hauntscope.UI.Hunt
             var badge = transform.Find("Card/NewEntry");
             _newEntryBadge = badge != null ? badge.gameObject : null;
             _badgeLabel = Find<TMP_Text>("Card/NewEntry/Label");
+            _doubleButton = Find<Button>("Card/DoubleButton");
+            _doubleGroup = Find<CanvasGroup>("Card/DoubleButton");
             _huntAgainButton = Find<Button>("Card/HuntAgainButton");
             _menuButton = Find<Button>("Card/MenuButton");
         }

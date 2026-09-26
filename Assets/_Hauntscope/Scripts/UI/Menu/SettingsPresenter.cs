@@ -1,4 +1,6 @@
 using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Progress;
@@ -18,6 +20,8 @@ namespace Hauntscope.UI.Menu
         private readonly SettingsRepository _repository;
         private readonly ILocalizationService _localization;
         private readonly UiFeedback _ui;
+        private readonly IAdPrivacy _privacy;
+        private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         public SettingsPresenter(
             SettingsView view,
@@ -25,8 +29,10 @@ namespace Hauntscope.UI.Menu
             GameSettings settings,
             SettingsRepository repository,
             ILocalizationService localization,
-            UiFeedback ui)
+            UiFeedback ui,
+            IAdPrivacy privacy)
         {
+            _privacy = privacy;
             _view = view;
             _navigation = navigation;
             _settings = settings;
@@ -45,6 +51,7 @@ namespace Hauntscope.UI.Menu
             _view.VibrationClicked += OnVibrationClicked;
             _view.JumpScaresClicked += OnJumpScaresClicked;
             _view.LanguageClicked += OnLanguageClicked;
+            _view.PrivacyClicked += OnPrivacyClicked;
 
             OnScreenChanged(_navigation.Current.Value);
             Render();
@@ -60,11 +67,17 @@ namespace Hauntscope.UI.Menu
             _view.VibrationClicked -= OnVibrationClicked;
             _view.JumpScaresClicked -= OnJumpScaresClicked;
             _view.LanguageClicked -= OnLanguageClicked;
+            _view.PrivacyClicked -= OnPrivacyClicked;
+            _lifetime.Cancel();
+            _lifetime.Dispose();
         }
 
         private void OnScreenChanged(MenuScreen screen)
         {
             _view.SetVisible(screen == MenuScreen.Settings);
+            // Consent status arrives after start-up, so it is checked each time the screen opens.
+            if (screen == MenuScreen.Settings)
+                _view.SetPrivacyVisible(_privacy.IsOptionsRequired);
         }
 
         private void OnSoundClicked()
@@ -132,6 +145,12 @@ namespace Hauntscope.UI.Menu
         private string State(bool on)
         {
             return _localization.Get(LocalizationTable.Ui, on ? OnKey : OffKey);
+        }
+
+        private void OnPrivacyClicked()
+        {
+            _ui.PlayClick();
+            _privacy.ShowOptionsAsync(_lifetime.Token).Forget();
         }
     }
 }

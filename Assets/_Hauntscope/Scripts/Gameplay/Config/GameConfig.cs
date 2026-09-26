@@ -25,6 +25,8 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private PickupConfig _pickups = new PickupConfig();
         [SerializeField] private EmergencyConfig _emergency = new EmergencyConfig();
         [SerializeField] private ResearchConfig _research = new ResearchConfig();
+        [SerializeField] private AdsConfig _ads = new AdsConfig();
+        [SerializeField] private AdUnitsConfig _adUnits = new AdUnitsConfig();
 
         public int TargetFrameRate => _targetFrameRate;
 
@@ -65,5 +67,9 @@ namespace Hauntscope.Gameplay.Config
         public EmergencyConfig Emergency => _emergency;
 
         public ResearchConfig Research => _research;
+
+        public AdsConfig Ads => _ads;
+
+        public AdUnitsConfig AdUnits => _adUnits;
     }
 }

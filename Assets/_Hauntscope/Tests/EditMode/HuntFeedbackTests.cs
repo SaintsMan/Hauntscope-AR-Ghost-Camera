@@ -34,7 +34,7 @@ namespace Hauntscope.Tests.EditMode
             _sfx = new FakeSfxPlayer();
             _haptics = new FakeHaptics();
             _vfx = new FakeVfxPlayer();
-            _pause = new HuntPause(new FakeTrackingStatus(), new FakeApplicationLifecycle(), new TrackingConfig(0.5f));
+            _pause = new HuntPause(new FakeTrackingStatus(), new FakeApplicationLifecycle(), new TrackingConfig(0.5f), new FakeAdsService());
             _feedback = new HuntFeedback(_session, _toolbelt, calibration, _sfx, _haptics, _vfx, new AudioConfig(), new VfxConfig(), _pause);
             _feedback.Start();
         }

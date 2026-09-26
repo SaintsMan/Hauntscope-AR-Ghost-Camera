@@ -36,7 +36,7 @@ namespace Hauntscope.Tests.EditMode
             _session = new HuntSession();
             _camera = new FakeCameraPose { Position = new Vector3(0f, 1.5f, 0f), Forward = Vector3.forward };
             _radar = new EmfRadar(_camera, new FakeRandom(), new EmfConfig(5, 0.6f, 0f, 0.2f, 1.2f, 0.1f, 1f, 1.3f, 4));
-            _pause = new HuntPause(new FakeTrackingStatus(), new FakeApplicationLifecycle(), new TrackingConfig(0.5f));
+            _pause = new HuntPause(new FakeTrackingStatus(), new FakeApplicationLifecycle(), new TrackingConfig(0.5f), new FakeAdsService());
             _options = new HuntLaunchOptions();
             _save = new FakeSaveService();
             _repository = new PlayerProgressRepository(_save);

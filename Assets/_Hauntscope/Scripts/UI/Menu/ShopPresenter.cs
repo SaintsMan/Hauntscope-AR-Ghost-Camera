@@ -1,6 +1,9 @@
 using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Ads;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Progress;
@@ -16,6 +19,10 @@ namespace Hauntscope.UI.Menu
         private const string EquippedKey = "shop.equipped";
         private const string MaxKey = "shop.max";
         private const string OwnedKey = "shop.owned";
+        private const string DropBodyKey = "shop.drop.body";
+        private const string DropLeftKey = "shop.drop.left";
+        private const string DropWatchKey = "shop.drop.watch";
+        private const string DropEmptyKey = "shop.drop.empty";
 
         private readonly ShopView _view;
         private readonly MenuNavigation _navigation;
@@ -30,6 +37,8 @@ namespace Hauntscope.UI.Menu
         private readonly List<GearData> _gear = new List<GearData>();
         private readonly List<Action> _handlers = new List<Action>();
         private readonly List<ShopItemView> _handled = new List<ShopItemView>();
+        private readonly FieldDrop _fieldDrop;
+        private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         public ShopPresenter(
             ShopView view,
@@ -39,8 +48,10 @@ namespace Hauntscope.UI.Menu
             PlayerInventory inventory,
             PlayerProgress progress,
             ILocalizationService localization,
-            UiFeedback ui)
+            UiFeedback ui,
+            FieldDrop fieldDrop)
         {
+            _fieldDrop = fieldDrop;
             _view = view;
             _navigation = navigation;
             _store = store;
@@ -78,6 +89,8 @@ namespace Hauntscope.UI.Menu
             _localization.Changed += Render;
             _view.BackClicked += OnBackClicked;
             _view.TabClicked += OnTabClicked;
+            _view.FieldDropClicked += OnFieldDropClicked;
+            _fieldDrop.Changed += RenderFieldDrop;
 
             OnScreenChanged(_navigation.Current.Value);
             _view.SetTab(_navigation.CurrentShopTab.Value);
@@ -97,6 +110,10 @@ namespace Hauntscope.UI.Menu
             _localization.Changed -= Render;
             _view.BackClicked -= OnBackClicked;
             _view.TabClicked -= OnTabClicked;
+            _view.FieldDropClicked -= OnFieldDropClicked;
+            _fieldDrop.Changed -= RenderFieldDrop;
+            _lifetime.Cancel();
+            _lifetime.Dispose();
         }
 
         private void Listen(ShopItemView card, Action handler)
@@ -137,6 +154,32 @@ namespace Hauntscope.UI.Menu
                 RenderLaser(_store.Lasers[i], _laserCards[i]);
             for (var i = 0; i < _gearCards.Count; i++)
                 RenderGear(_gear[i], _gearCards[i]);
+            RenderFieldDrop();
+        }
+
+        private void RenderFieldDrop()
+        {
+            var left = _fieldDrop.RemainingToday;
+            _view.SetFieldDrop(
+                _localization.Get(LocalizationTable.Ui, DropBodyKey, _fieldDrop.Reward),
+                _localization.Get(LocalizationTable.Ui, DropLeftKey, left, _fieldDrop.PerDay),
+                _localization.Get(LocalizationTable.Ui, left > 0 ? DropWatchKey : DropEmptyKey),
+                _fieldDrop.CanClaim);
+        }
+
+        private void OnFieldDropClicked()
+        {
+            _ui.PlayClick();
+            ClaimAsync(_lifetime.Token).Forget();
+        }
+
+        private async UniTaskVoid ClaimAsync(CancellationToken cancellationToken)
+        {
+            if (!await _fieldDrop.ClaimAsync(cancellationToken))
+                return;
+
+            _ui.PlayReward();
+            _view.PlayFieldDropClaimed();
         }
 
         private void RenderLaser(LaserData laser, ShopItemView card)

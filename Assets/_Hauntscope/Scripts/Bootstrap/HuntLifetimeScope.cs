@@ -1,4 +1,5 @@
 using Hauntscope.AR;
+using Hauntscope.Gameplay.Ads;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Ghosts;
@@ -51,6 +52,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<SpareBatteries>(Lifetime.Singleton);
             builder.Register<HuntSession>(Lifetime.Singleton);
             builder.Register<HuntLoot>(Lifetime.Singleton);
+            builder.Register<RewardDoubler>(Lifetime.Singleton);
             builder.Register<PickupFactory>(Lifetime.Singleton).As<IPickupFactory>();
             builder.Register<PickupSpotSelector>(Lifetime.Singleton);
             builder.Register<PickupField>(Lifetime.Singleton);
