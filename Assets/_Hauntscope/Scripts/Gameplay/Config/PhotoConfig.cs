@@ -10,7 +10,8 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Min(0f)] private float _shutterCooldown = 1f;
         [SerializeField, Range(0f, 1f)] private float _revealThreshold = 0.5f;
         [SerializeField, Range(0.01f, 0.5f)] private float _centerRadius = 0.2f;
-        [SerializeField, Min(0f)] private float _closeDistance = 1.5f;
+        [SerializeField, Range(0.05f, 1f)] private float _minFrameFill = 0.3f;
+        [SerializeField, Range(0f, 0.2f)] private float _frameMargin = 0.03f;
         [SerializeField] private int[] _starRewards = { 2, 4, 8 };
         [SerializeField, Range(1, 3)] private int _evidenceMinStars = 2;
         [SerializeField, Min(1)] private int _albumLimit = 40;
@@ -27,7 +28,8 @@ namespace Hauntscope.Gameplay.Config
             float shutterCooldown,
             float revealThreshold,
             float centerRadius,
-            float closeDistance,
+            float minFrameFill,
+            float frameMargin,
             int[] starRewards,
             int evidenceMinStars,
             int albumLimit)
@@ -36,7 +38,8 @@ namespace Hauntscope.Gameplay.Config
             _shutterCooldown = shutterCooldown;
             _revealThreshold = revealThreshold;
             _centerRadius = centerRadius;
-            _closeDistance = closeDistance;
+            _minFrameFill = minFrameFill;
+            _frameMargin = frameMargin;
             _starRewards = starRewards;
             _evidenceMinStars = evidenceMinStars;
             _albumLimit = albumLimit;
@@ -52,7 +55,11 @@ namespace Hauntscope.Gameplay.Config
         // Fraction of the screen width around the centre that counts as a well-framed shot.
         public float CenterRadius => _centerRadius;
 
-        public float CloseDistance => _closeDistance;
+        // The whole ghost must fit inside the frame (with this margin) and fill at least this share of its height:
+        // a ghost pressed against the lens is a white blur, one across the room is a speck.
+        public float MinFrameFill => _minFrameFill;
+
+        public float FrameMargin => _frameMargin;
 
         public int EvidenceMinStars => _evidenceMinStars;
 

@@ -23,11 +23,11 @@ namespace Hauntscope.UI.Hunt
 
         private Sequence _sequence;
 
-        public void Show(Texture photo, int stars, bool centered, bool close, bool moment)
+        public void Show(Texture photo, int stars, bool centered, bool framed, bool moment)
         {
             PhotoCrop.Fill(_photo, photo);
             SetCriterion(0, centered);
-            SetCriterion(1, close);
+            SetCriterion(1, framed);
             SetCriterion(2, moment);
 
             gameObject.SetActive(true);

@@ -636,10 +636,6 @@ MonoBehaviour:
     m_Localized: CENTERED
     m_Metadata:
       m_Items: []
-  - m_Id: 400948809039873
-    m_Localized: CLOSE-UP
-    m_Metadata:
-      m_Items: []
   - m_Id: 400948809039874
     m_Localized: MOMENT
     m_Metadata:
@@ -678,6 +674,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 400948809039883
     m_Localized: PHOTO +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 409467331411968
+    m_Localized: WHOLE GHOST
     m_Metadata:
       m_Items: []
   references:

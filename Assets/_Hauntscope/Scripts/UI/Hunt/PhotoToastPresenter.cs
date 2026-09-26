@@ -44,7 +44,7 @@ namespace Hauntscope.UI.Hunt
             PhotoTextures.Release(ref _texture);
             _texture = _textures.Load(shot.Record.FileName);
             var score = shot.Score;
-            _view.Show(_texture, score.Stars, score.IsCentered, score.IsClose, score.IsMoment);
+            _view.Show(_texture, score.Stars, score.IsCentered, score.IsFramed, score.IsMoment);
         }
 
         // The result card shows the best shot itself; the print must not linger over it.

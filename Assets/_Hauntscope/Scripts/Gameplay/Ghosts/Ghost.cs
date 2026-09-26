@@ -287,6 +287,14 @@ namespace Hauntscope.Gameplay.Ghosts
             _view.Despawn();
         }
 
+        // Only the view changes: the flash makes the ghost stand out in the picture, not easier to catch.
+        public void SetPhotoFlash(bool lit)
+        {
+            _view.SetPhotoFlash(lit);
+            if (!lit)
+                _view.SetReveal(VisibleReveal);
+        }
+
         // Abilities stay silent through the surge and a flickering ghost holds still in view: the last fight is
         // about the player's aim, not about luck.
         private void BeginSurge()

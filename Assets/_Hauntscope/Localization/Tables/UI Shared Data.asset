@@ -627,10 +627,6 @@ MonoBehaviour:
     m_Key: photo.criteria.center
     m_Metadata:
       m_Items: []
-  - m_Id: 400948809039873
-    m_Key: photo.criteria.close
-    m_Metadata:
-      m_Items: []
   - m_Id: 400948809039874
     m_Key: photo.criteria.moment
     m_Metadata:
@@ -669,6 +665,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 400948809039883
     m_Key: result.breakdown.photo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 409467331411968
+    m_Key: photo.criteria.framed
     m_Metadata:
       m_Items: []
   m_Metadata:

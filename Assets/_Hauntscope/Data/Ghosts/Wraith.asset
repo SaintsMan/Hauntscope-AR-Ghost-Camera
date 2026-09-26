@@ -25,12 +25,15 @@ MonoBehaviour:
     _fleeSpeed: 2.4
     _hoverHeightMin: 0.8
     _hoverHeightMax: 1.8
+    _bodyBottom: -1.2249999
+    _bodyTop: 0.87499994
   _detection:
     _emfRange: 6
     _revealRange: 3
   _capture:
     _resistance: 0.9
     _reward: 20
+    _surgeJerk: 0.3
   _dossier:
     _rumorKey: ghost.wraith.rumor
     _behaviorKey: ghost.wraith.behavior

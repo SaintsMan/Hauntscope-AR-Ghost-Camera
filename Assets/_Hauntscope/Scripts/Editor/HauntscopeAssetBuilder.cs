@@ -219,6 +219,9 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_whisperClip").objectReferenceValue = LoadClip(SfxFolder, "Whisper" + recipe.AssetName);
             serialized.FindProperty("_motion._moveSpeed").floatValue = recipe.MoveSpeed;
             serialized.FindProperty("_motion._fleeSpeed").floatValue = recipe.FleeSpeed;
+            var body = prefab.GetComponentInChildren<MeshFilter>().sharedMesh.bounds;
+            serialized.FindProperty("_motion._bodyBottom").floatValue = body.min.y;
+            serialized.FindProperty("_motion._bodyTop").floatValue = body.max.y;
             serialized.FindProperty("_capture._resistance").floatValue = recipe.Resistance;
             serialized.FindProperty("_capture._reward").intValue = recipe.Reward;
             serialized.FindProperty("_capture._surgeJerk").floatValue = recipe.SurgeJerk;

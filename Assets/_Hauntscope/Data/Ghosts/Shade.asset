@@ -25,12 +25,15 @@ MonoBehaviour:
     _fleeSpeed: 1.6
     _hoverHeightMin: 0.8
     _hoverHeightMax: 1.8
+    _bodyBottom: -0.9681137
+    _bodyTop: 0.8
   _detection:
     _emfRange: 6
     _revealRange: 3
   _capture:
     _resistance: 1
     _reward: 30
+    _surgeJerk: 0.3
   _dossier:
     _rumorKey: ghost.shade.rumor
     _behaviorKey: ghost.shade.behavior

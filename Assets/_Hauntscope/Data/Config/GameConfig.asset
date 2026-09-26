@@ -68,10 +68,10 @@ MonoBehaviour:
     _heavyAmplitude: 255
   _tools:
     _batteryMax: 100
-    _passiveDrain: 0.5
+    _passiveDrain: 0.3
     _lowBatteryThreshold: 0.2
-    _lensDrain: 3
-    _beamDrain: 4
+    _lensDrain: 1.5
+    _beamDrain: 2.5
     _revealAngle: 30
     _revealInTime: 0.4
     _revealOutTime: 0.8
@@ -281,7 +281,8 @@ MonoBehaviour:
     _shutterCooldown: 1
     _revealThreshold: 0.5
     _centerRadius: 0.2
-    _closeDistance: 1.5
+    _minFrameFill: 0.3
+    _frameMargin: 0.03
     _starRewards: 020000000400000008000000
     _evidenceMinStars: 2
     _albumLimit: 40

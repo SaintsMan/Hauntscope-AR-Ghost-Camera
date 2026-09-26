@@ -19,9 +19,12 @@ namespace Hauntscope.Tests.EditMode.Fakes
 
         public PhotoCaption LastCaption { get; private set; }
 
+        public Action OnCapture { get; set; }
+
         public UniTask<string> CaptureAsync(PhotoCaption caption, CancellationToken cancellationToken)
         {
             LastCaption = caption;
+            OnCapture?.Invoke();
             if (Fails)
                 throw new InvalidOperationException("disk full");
 

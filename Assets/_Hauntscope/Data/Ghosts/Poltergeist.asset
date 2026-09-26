@@ -25,12 +25,15 @@ MonoBehaviour:
     _fleeSpeed: 1.9
     _hoverHeightMin: 0.8
     _hoverHeightMax: 1.8
+    _bodyBottom: -0.66062176
+    _bodyTop: 0.6
   _detection:
     _emfRange: 6
     _revealRange: 3
   _capture:
     _resistance: 1
     _reward: 15
+    _surgeJerk: 0.3
   _dossier:
     _rumorKey: ghost.poltergeist.rumor
     _behaviorKey: ghost.poltergeist.behavior

@@ -88,9 +88,11 @@ namespace Hauntscope.Gameplay.Photo
             _film.Value--;
             ShutterReleased?.Invoke();
             var taken = _clock.UtcNow;
+            ghost.SetPhotoFlash(true);
             try
             {
                 var fileName = await _capture.CaptureAsync(new PhotoCaption(data, score.Stars, taken.ToLocalTime()), cancellationToken);
+                ghost.SetPhotoFlash(false);
                 ghost.Spook();
                 var record = new PhotoRecord(fileName, data.Id, score.Stars, new DateTimeOffset(taken).ToUnixTimeSeconds());
                 _album.Add(record);
@@ -111,6 +113,7 @@ namespace Hauntscope.Gameplay.Photo
             }
             finally
             {
+                ghost.SetPhotoFlash(false);
                 _isShooting = false;
                 _cooldown = _config.ShutterCooldown;
             }

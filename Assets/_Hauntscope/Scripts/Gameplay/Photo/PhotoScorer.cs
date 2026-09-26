@@ -28,7 +28,8 @@ namespace Hauntscope.Gameplay.Photo
             return viewport.z > 0f && viewport.x >= 0f && viewport.x <= 1f && viewport.y >= 0f && viewport.y <= 1f;
         }
 
-        // The "moment" star rewards catching the ghost doing something: winded, thrashing or lunging at the lens.
+        // Three stars, three habits of a good photographer: aim at it, fit all of it in, and catch it doing something
+        // (winded, thrashing or lunging at the lens).
         public PhotoScore Score(Ghost ghost)
         {
             var viewport = _camera.WorldToViewport(ghost.Position);
@@ -36,9 +37,23 @@ namespace Hauntscope.Gameplay.Photo
             var dy = (viewport.y - ViewportCenter) / _camera.Aspect;
             var radius = _config.CenterRadius;
             var isCentered = dx * dx + dy * dy <= radius * radius;
-            var isClose = Vector3.Distance(_camera.Position, ghost.Position) <= _config.CloseDistance;
             var isMoment = ghost.IsStaggered || ghost.IsSurging || ghost.IsScaring;
-            return new PhotoScore(isCentered, isClose, isMoment);
+            return new PhotoScore(isCentered, IsFramed(ghost), isMoment);
+        }
+
+        private bool IsFramed(Ghost ghost)
+        {
+            var motion = ghost.Context.Motion;
+            var bottom = _camera.WorldToViewport(ghost.Position + Vector3.up * motion.BodyBottom);
+            var top = _camera.WorldToViewport(ghost.Position + Vector3.up * motion.BodyTop);
+            return IsInside(bottom) && IsInside(top) && top.y - bottom.y >= _config.MinFrameFill;
+        }
+
+        private bool IsInside(Vector3 viewport)
+        {
+            var margin = _config.FrameMargin;
+            return viewport.z > 0f && viewport.x >= margin && viewport.x <= 1f - margin
+                && viewport.y >= margin && viewport.y <= 1f - margin;
         }
     }
 }

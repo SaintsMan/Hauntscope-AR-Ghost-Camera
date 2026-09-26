@@ -17,6 +17,8 @@ namespace Hauntscope.Tests.EditMode.Fakes
 
         public float Stagger { get; private set; }
 
+        public bool IsFlashLit { get; private set; }
+
         public int SetPoseCount { get; private set; }
 
         public bool IsDespawned { get; private set; }
@@ -46,6 +48,11 @@ namespace Hauntscope.Tests.EditMode.Fakes
         public void SetStagger(float stagger)
         {
             Stagger = stagger;
+        }
+
+        public void SetPhotoFlash(bool lit)
+        {
+            IsFlashLit = lit;
         }
 
         public void Despawn()

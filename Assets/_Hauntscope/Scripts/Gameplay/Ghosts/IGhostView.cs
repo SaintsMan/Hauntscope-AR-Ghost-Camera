@@ -16,6 +16,9 @@ namespace Hauntscope.Gameplay.Ghosts
         // 0 = normal, 1 = fully winded after an ability: the rim flares white so the player knows to strike.
         void SetStagger(float stagger);
 
+        // The camera flash: for the captured frame the ghost is fully shown with a bright rim.
+        void SetPhotoFlash(bool lit);
+
         void Despawn();
     }
 }

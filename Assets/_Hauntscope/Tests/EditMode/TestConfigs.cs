@@ -59,11 +59,12 @@ namespace Hauntscope.Tests.EditMode
             float shutterCooldown = 1f,
             float revealThreshold = 0.5f,
             float centerRadius = 0.2f,
-            float closeDistance = 1.5f,
+            float minFrameFill = 0.3f,
+            float frameMargin = 0.03f,
             int evidenceMinStars = 2,
             int albumLimit = 40)
         {
-            return new PhotoConfig(filmPerHunt, shutterCooldown, revealThreshold, centerRadius, closeDistance,
+            return new PhotoConfig(filmPerHunt, shutterCooldown, revealThreshold, centerRadius, minFrameFill, frameMargin,
                 new[] { 2, 4, 8 }, evidenceMinStars, albumLimit);
         }
     }

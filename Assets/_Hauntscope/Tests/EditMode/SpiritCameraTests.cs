@@ -130,7 +130,7 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void ShootAsync_CaptionCarriesTheScore()
         {
-            _fixture.Camera.Position = new Vector3(0f, 1.5f, -1f);
+            _fixture.Camera.Projection = point => new Vector3(0.5f, 0.5f + (point.y - 1.5f) * 0.4f, 1f);
             Arm();
 
             Shoot();
@@ -170,7 +170,7 @@ namespace Hauntscope.Tests.EditMode
         {
             Arm();
             Shoot();
-            _fixture.Camera.Position = new Vector3(0f, 1.5f, -1f);
+            _fixture.Camera.Projection = point => new Vector3(0.5f, 0.5f + (point.y - 1.5f) * 0.4f, 1f);
             _camera.Tick(Cooldown);
 
             Shoot();
@@ -204,6 +204,19 @@ namespace Hauntscope.Tests.EditMode
             Assert.IsNull(_camera.BestShot);
             Assert.AreEqual(0, _camera.EvidenceShots);
             Assert.AreEqual(Film, _camera.Film.Value);
+        }
+
+        [Test]
+        public void ShootAsync_Armed_FlashLightsTheGhostOnlyForThePicture()
+        {
+            var litDuringCapture = false;
+            _capture.OnCapture = () => litDuringCapture = _fixture.View.IsFlashLit;
+            Arm();
+
+            Shoot();
+
+            Assert.IsTrue(litDuringCapture);
+            Assert.IsFalse(_fixture.View.IsFlashLit);
         }
 
         private void Arm()

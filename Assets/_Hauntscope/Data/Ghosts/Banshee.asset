@@ -25,12 +25,15 @@ MonoBehaviour:
     _fleeSpeed: 1.5
     _hoverHeightMin: 0.8
     _hoverHeightMax: 1.8
+    _bodyBottom: -0.87488854
+    _bodyTop: 0.775
   _detection:
     _emfRange: 6
     _revealRange: 3
   _capture:
     _resistance: 1.1
     _reward: 35
+    _surgeJerk: 0.3
   _dossier:
     _rumorKey: ghost.banshee.rumor
     _behaviorKey: ghost.banshee.behavior

@@ -20,6 +20,7 @@ namespace Hauntscope.Gameplay.Ghosts
         [SerializeField, Min(0f)] private float _struggleRim = 1.2f;
         [SerializeField, Range(0f, 1f)] private float _staggerWhiten = 0.7f;
         [SerializeField, Min(0f)] private float _staggerRim = 1.5f;
+        [SerializeField, Min(0f)] private float _flashRim = 2.5f;
 
         private Material[] _materials;
         private Material _bodyMaterial;
@@ -30,6 +31,7 @@ namespace Hauntscope.Gameplay.Ghosts
         private float _struggle;
         private float _stagger;
         private Color _rimColor;
+        private bool _isFlashLit;
 
         public void SetPose(Vector3 position, Quaternion rotation)
         {
@@ -78,6 +80,21 @@ namespace Hauntscope.Gameplay.Ghosts
             ApplyRimIntensity();
         }
 
+        public void SetPhotoFlash(bool lit)
+        {
+            _isFlashLit = lit;
+            if (lit)
+            {
+                for (var i = 0; i < _renderers.Length; i++)
+                {
+                    _renderers[i].enabled = true;
+                    _materials[i].SetFloat(RevealId, 1f);
+                }
+            }
+
+            ApplyRimIntensity();
+        }
+
         public void SetRimColor(Color color)
         {
             _rimColor = color;
@@ -99,7 +116,8 @@ namespace Hauntscope.Gameplay.Ghosts
 
         private void ApplyRimIntensity()
         {
-            _bodyMaterial.SetFloat(RimIntensityId, _baseRimIntensity * (1f + _struggle * _struggleRim + _stagger * _staggerRim));
+            var flash = _isFlashLit ? _flashRim : 0f;
+            _bodyMaterial.SetFloat(RimIntensityId, _baseRimIntensity * (1f + _struggle * _struggleRim + _stagger * _staggerRim + flash));
         }
 
         private void Awake()
