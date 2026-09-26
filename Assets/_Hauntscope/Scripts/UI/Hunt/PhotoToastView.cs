@@ -13,7 +13,6 @@ namespace Hauntscope.UI.Hunt
         [SerializeField] private CanvasGroup _group;
         [SerializeField] private RectTransform _card;
         [SerializeField] private RawImage _photo;
-        [SerializeField] private AspectRatioFitter _photoFitter;
         [SerializeField] private StarRow _stars;
         [SerializeField] private TMP_Text[] _criteria;
         [SerializeField] private Graphic[] _criteriaMarks;
@@ -26,9 +25,7 @@ namespace Hauntscope.UI.Hunt
 
         public void Show(Texture photo, int stars, bool centered, bool close, bool moment)
         {
-            _photo.texture = photo;
-            if (photo != null)
-                _photoFitter.aspectRatio = photo.width / (float)photo.height;
+            PhotoCrop.Fill(_photo, photo);
             SetCriterion(0, centered);
             SetCriterion(1, close);
             SetCriterion(2, moment);
@@ -69,7 +66,6 @@ namespace Hauntscope.UI.Hunt
             _group = GetComponent<CanvasGroup>();
             _card = transform.Find("Card") as RectTransform;
             _photo = GetComponentInChildren<RawImage>(true);
-            _photoFitter = GetComponentInChildren<AspectRatioFitter>(true);
             _stars = GetComponentInChildren<StarRow>(true);
         }
 #endif

@@ -37,7 +37,6 @@ namespace Hauntscope.UI.Hunt
         [SerializeField] private TMP_Text _breakdownLabel;
         [SerializeField] private RectTransform _photo;
         [SerializeField] private RawImage _photoImage;
-        [SerializeField] private AspectRatioFitter _photoFitter;
         [SerializeField] private StarRow _photoStars;
         [SerializeField] private Button _photoButton;
         [SerializeField] private Button _shareButton;
@@ -144,11 +143,10 @@ namespace Hauntscope.UI.Hunt
         public void SetPhoto(Texture photo, int stars)
         {
             _photo.gameObject.SetActive(photo != null);
-            _photoImage.texture = photo;
+            PhotoCrop.Fill(_photoImage, photo);
             if (photo == null)
                 return;
 
-            _photoFitter.aspectRatio = photo.width / (float)photo.height;
             _photoStars.SetStars(stars, true);
             if (!isActiveAndEnabled)
                 return;
@@ -231,8 +229,7 @@ namespace Hauntscope.UI.Hunt
             _huntAgainButton = Find<Button>("Card/HuntAgainButton");
             _menuButton = Find<Button>("Card/MenuButton");
             _photo = Find<RectTransform>("Card/Photo");
-            _photoImage = Find<RawImage>("Card/Photo/Mask/Image");
-            _photoFitter = Find<AspectRatioFitter>("Card/Photo/Mask/Image");
+            _photoImage = Find<RawImage>("Card/Photo/Image");
             _photoStars = Find<StarRow>("Card/Photo/Stars");
             _photoButton = Find<Button>("Card/Photo");
             _shareButton = Find<Button>("Card/Photo/ShareButton");
