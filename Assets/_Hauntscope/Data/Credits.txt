@@ -1,32 +1,31 @@
-HAUNTSCOPE
-
-Game, code, art and sound: Pavko
-Code: MIT License
+<color=#4FF5E6><b>// HAUNTSCOPE</b></color>
+<b>Game, code, art and sound: Pavko</b>
+<color=#7D8B99>Code: MIT License
 Art and audio: © 2026 Pavko, all rights reserved
-Ghosts, UI sprites and sound effects are generated in code.
+Ghosts, UI sprites and sound effects are generated in code.</color>
 
-THIRD-PARTY
+<color=#4FF5E6><b>// THIRD-PARTY</b></color>
 
-IBM Plex Mono (Regular, Medium, Bold)
-IBM Corp.
-SIL Open Font License 1.1
+<b>IBM Plex Mono (Regular, Medium, Bold)</b>
+<color=#7D8B99>IBM Corp.
+SIL Open Font License 1.1</color>
 
-Press Start 2P
-CodeMan38 (The Press Start 2P Project Authors)
-SIL Open Font License 1.1
+<b>Press Start 2P</b>
+<color=#7D8B99>CodeMan38 (The Press Start 2P Project Authors)
+SIL Open Font License 1.1</color>
 
-Furniture Kit 2.0 (Virtual Room walls, floor and furniture)
-Kenney
-CC0 1.0
+<b>Furniture Kit 2.0 (Virtual Room walls, floor and furniture)</b>
+<color=#7D8B99>Kenney
+CC0 1.0</color>
 
-VContainer
-hadashiA
-MIT License
+<b>VContainer</b>
+<color=#7D8B99>hadashiA
+MIT License</color>
 
-UniTask
-Cysharp, Inc.
-MIT License
+<b>UniTask</b>
+<color=#7D8B99>Cysharp, Inc.
+MIT License</color>
 
-DOTween 1.3.030 (free, unmodified; `Assets/Plugins/Demigiant/DOTween`)
-Daniele Giardini - Demigiant
-DOTween license, verbatim redistribution with `readme.txt`
+<b>DOTween 1.3.030 (free, unmodified; Assets/Plugins/Demigiant/DOTween)</b>
+<color=#7D8B99>Daniele Giardini - Demigiant
+DOTween license, verbatim redistribution with readme.txt</color>
