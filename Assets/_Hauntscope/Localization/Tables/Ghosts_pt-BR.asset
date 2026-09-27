@@ -466,6 +466,67 @@ MonoBehaviour:
       o raio de longe."
     m_Metadata:
       m_Items: []
+  - m_Id: 704205389430784
+    m_Localized: "Spirit Box. Ele vaga e foge do raio, mas o r\xE1dio sempre sabe
+      para onde ele foi: siga a voz."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402304
+    m_Localized: 'Luz UV. Cada salto deixa uma mancha de ectoplasma onde ele caiu:
+      o brilho mostra para onde virar antes que ele se recupere.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402305
+    m_Localized: "Luz UV. Cada investida deixa manchas onde come\xE7ou e onde parou:
+      leia a dire\xE7\xE3o no ch\xE3o e espere no final."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402306
+    m_Localized: "C\xE2mera t\xE9rmica. Ele passa quase toda a ca\xE7ada escondido
+      nos m\xF3veis; na t\xE9rmica, o vulto frio aparece atrav\xE9s da porta do arm\xE1rio."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402307
+    m_Localized: "Luz UV. Entre as piscadas some, mas o rastro n\xE3o: siga as gotas
+      frescas at\xE9 onde vai reaparecer."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402308
+    m_Localized: "Vis\xE3o noturna. Voc\xEA v\xEA o vulto dela sem revel\xE1-la,
+      ent\xE3o ela n\xE3o grita: chegue perto primeiro e s\xF3 depois ligue a lente."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402309
+    m_Localized: "Spirit Box. Ele se aproxima por onde voc\xEA n\xE3o est\xE1 olhando,
+      e o r\xE1dio o entrega: assim que ouvir \u201CATR\xC1S DE VOC\xCA\u201D, vire-se."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402310
+    m_Localized: "Vis\xE3o noturna. No escuro voc\xEA o v\xEA sem revel\xE1-lo, ent\xE3o
+      ele continua se aproximando: espere ele sentar e s\xF3 ent\xE3o ligue a lente."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402311
+    m_Localized: "C\xE2mera t\xE9rmica. A lente nunca o mostra, mas a t\xE9rmica
+      revela a marca fria: enquadre-o ali e o obturador fica pronto."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402312
+    m_Localized: "Gravador EVP. Descubra com quem est\xE1 lidando antes de revel\xE1-lo:
+      se a fita disser o nome dele, afaste-se antes de ligar a lente e prepare-se
+      para acompanhar o pux\xE3o de lado."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402313
+    m_Localized: "Spirit Box. O medidor mente sobre onde ele est\xE1; o r\xE1dio
+      n\xE3o: ele ouve a voz real, n\xE3o a isca."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402314
+    m_Localized: "Vis\xE3o noturna. Infravermelho n\xE3o \xE9 luz, ent\xE3o n\xE3o
+      a atrai: encontre-a assim e s\xF3 ligue a lente quando ela estiver no anel."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

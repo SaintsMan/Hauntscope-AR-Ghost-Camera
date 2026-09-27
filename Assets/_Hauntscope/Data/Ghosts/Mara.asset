@@ -64,6 +64,7 @@ MonoBehaviour:
     _tacticsKey: ghost.mara.tactics
     _classifiedKey: ghost.mara.classified
     _tipKey: ghost.mara.tip
+    _bestToolKey: ghost.mara.best_tool
     _threat: 5
   _abilities:
   - {fileID: 11400000, guid: ef956068ead178f48955885f08b39c65, type: 2}

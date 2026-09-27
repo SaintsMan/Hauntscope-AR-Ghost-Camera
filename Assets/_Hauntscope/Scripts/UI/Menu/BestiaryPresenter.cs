@@ -36,6 +36,7 @@ namespace Hauntscope.UI.Menu
         private const string PileKey = "bestiary.evidence.pile";
         private const string EvpKey = "bestiary.evidence.evp";
         private const string NoEvpKey = "bestiary.evidence.evp_none";
+        private const string BestToolKey = "bestiary.best_tool";
         private const int Percent = 100;
 
         private static readonly string[] StampKeys = { "bestiary.unknown", "bestiary.sighted", "bestiary.captured", "bestiary.declassified" };
@@ -250,7 +251,7 @@ namespace Hauntscope.UI.Menu
             _sections.Add(Section("bestiary.section.rumor", Ghosts(dossier.RumorKey), false, string.Empty));
             _sections.Add(Section("bestiary.section.behavior", Ghosts(dossier.BehaviorKey), level < ResearchLevel.Sighted, sight));
             _sections.Add(Section("bestiary.section.notes", Ghosts(ghost.DescriptionKey), level < ResearchLevel.Captured, capture));
-            _sections.Add(Section("bestiary.section.tactics", Ghosts(dossier.TacticsKey), level < ResearchLevel.Captured, capture));
+            _sections.Add(Section("bestiary.section.tactics", Tactics(dossier), level < ResearchLevel.Captured, capture));
             _sections.Add(Section("bestiary.section.profile", Profile(ghost), level < ResearchLevel.Captured, capture));
             _sections.Add(Section(EvidenceKey, Evidence(ghost), level < ResearchLevel.Sighted, sight));
 
@@ -260,6 +261,15 @@ namespace Hauntscope.UI.Menu
                 : string.Empty;
             _sections.Add(Section("bestiary.section.classified", classified, !declassified,
                 Ui(LockedDeclassifyKey, _research.EvidenceLeft(ghost))));
+        }
+
+        private string Tactics(GhostDossier dossier)
+        {
+            var tactics = Ghosts(dossier.TacticsKey);
+            if (string.IsNullOrEmpty(dossier.BestToolKey))
+                return tactics;
+
+            return tactics + "\n\n<b>" + Ui(BestToolKey) + "</b> " + Ghosts(dossier.BestToolKey);
         }
 
         private string Profile(GhostData ghost)

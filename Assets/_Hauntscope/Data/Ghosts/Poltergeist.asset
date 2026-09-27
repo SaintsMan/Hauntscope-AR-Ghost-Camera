@@ -64,6 +64,7 @@ MonoBehaviour:
     _tacticsKey: ghost.poltergeist.tactics
     _classifiedKey: ghost.poltergeist.classified
     _tipKey: ghost.poltergeist.tip
+    _bestToolKey: ghost.poltergeist.best_tool
     _threat: 2
   _abilities:
   - {fileID: 11400000, guid: d29d346510b967a49bb4a78ff264916d, type: 2}

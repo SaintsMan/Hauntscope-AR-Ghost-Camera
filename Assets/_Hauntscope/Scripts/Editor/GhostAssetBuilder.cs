@@ -209,6 +209,7 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_dossier._rumorKey").stringValue = $"ghost.{recipe.Id}.rumor";
             serialized.FindProperty("_dossier._behaviorKey").stringValue = $"ghost.{recipe.Id}.behavior";
             serialized.FindProperty("_dossier._tacticsKey").stringValue = $"ghost.{recipe.Id}.tactics";
+            serialized.FindProperty("_dossier._bestToolKey").stringValue = $"ghost.{recipe.Id}.best_tool";
             serialized.FindProperty("_dossier._classifiedKey").stringValue = $"ghost.{recipe.Id}.classified";
             serialized.FindProperty("_dossier._tipKey").stringValue = $"ghost.{recipe.Id}.tip";
             serialized.FindProperty("_dossier._threat").intValue = recipe.Threat;

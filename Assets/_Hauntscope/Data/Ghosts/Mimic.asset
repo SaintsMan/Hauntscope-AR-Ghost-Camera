@@ -64,6 +64,7 @@ MonoBehaviour:
     _tacticsKey: ghost.mimic.tactics
     _classifiedKey: ghost.mimic.classified
     _tipKey: ghost.mimic.tip
+    _bestToolKey: ghost.mimic.best_tool
     _threat: 5
   _abilities:
   - {fileID: 11400000, guid: 2641c20cf7982ec4b9ba04db55da7657, type: 2}

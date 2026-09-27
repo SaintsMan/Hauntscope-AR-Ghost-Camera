@@ -351,6 +351,54 @@ MonoBehaviour:
     m_Key: ghost.mara.tip
     m_Metadata:
       m_Items: []
+  - m_Id: 704205389430784
+    m_Key: ghost.wisp.best_tool
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402304
+    m_Key: ghost.poltergeist.best_tool
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402305
+    m_Key: ghost.wraith.best_tool
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402306
+    m_Key: ghost.domovyk.best_tool
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402307
+    m_Key: ghost.shade.best_tool
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402308
+    m_Key: ghost.banshee.best_tool
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402309
+    m_Key: ghost.lurker.best_tool
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402310
+    m_Key: ghost.phantom_cat.best_tool
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402311
+    m_Key: ghost.negative.best_tool
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402312
+    m_Key: ghost.kaidannyk.best_tool
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402313
+    m_Key: ghost.mimic.best_tool
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402314
+    m_Key: ghost.mara.best_tool
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

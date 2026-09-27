@@ -461,6 +461,67 @@ MonoBehaviour:
       sinar dari jauh.'
     m_Metadata:
       m_Items: []
+  - m_Id: 704205389430784
+    m_Localized: 'Spirit Box. Ia melayang ke sana kemari dan kabur dari sinar, tapi
+      radio selalu tahu ke mana ia pergi: ikuti suaranya.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402304
+    m_Localized: 'Sinar UV. Setiap lompatan meninggalkan cipratan ektoplasma di tempat
+      ia mendarat: pendarannya menunjukkan ke mana harus menoleh sebelum ia pulih.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402305
+    m_Localized: 'Sinar UV. Setiap sergapan meninggalkan cipratan di titik awal dan
+      akhir: baca arahnya di lantai dan tunggu di ujungnya.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402306
+    m_Localized: Kamera termal. Hampir sepanjang perburuan ia bersembunyi di perabot;
+      di kamera termal sosok dinginnya terlihat menembus pintu lemari.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402307
+    m_Localized: 'Sinar UV. Di sela kedipannya ia menghilang, tapi jejaknya tidak:
+      ikuti tetesan segar ke tempat ia akan muncul lagi.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402308
+    m_Localized: 'Night vision. Kamu melihat sosok samarnya tanpa menampakkannya,
+      jadi ia tak menjerit: dekati dulu, baru nyalakan lensa.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402309
+    m_Localized: "Spirit Box. Ia mendekat dari arah yang tak kamu lihat, dan radio
+      membongkarnya: begitu terdengar \u201CDI BELAKANGMU\u201D, segera berbalik."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402310
+    m_Localized: 'Night vision. Dalam gelap kamu bisa melihatnya tanpa menampakkannya,
+      jadi ia terus mendekat: tunggu sampai ia duduk, lalu nyalakan lensa.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402311
+    m_Localized: 'Kamera termal. Lensa tak pernah menampakkannya, tapi kamera termal
+      menunjukkan jejak dinginnya: bingkai ia di sana dan rana siap.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402312
+    m_Localized: 'Perekam EVP. Ketahui siapa lawanmu sebelum menampakkannya: jika
+      pita menyebut namanya, mundur dulu sebelum menyalakan lensa dan bersiap mengikuti
+      sentakannya ke samping.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402313
+    m_Localized: 'Spirit Box. Pengukur berbohong soal letaknya, radio tidak: radio
+      mendengar suara aslinya, bukan umpannya.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402314
+    m_Localized: 'Night vision. Inframerah bukan cahaya, jadi tak memancingnya: temukan
+      ia dengan itu dan nyalakan lensa hanya saat ia sudah di dalam lingkaran.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

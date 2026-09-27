@@ -64,6 +64,7 @@ MonoBehaviour:
     _tacticsKey: ghost.shade.tactics
     _classifiedKey: ghost.shade.classified
     _tipKey: ghost.shade.tip
+    _bestToolKey: ghost.shade.best_tool
     _threat: 3
   _abilities:
   - {fileID: 11400000, guid: 09e689a5ad1633a46b9d226fe2732f9e, type: 2}

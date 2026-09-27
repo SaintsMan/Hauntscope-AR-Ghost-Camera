@@ -64,6 +64,7 @@ MonoBehaviour:
     _tacticsKey: ghost.domovyk.tactics
     _classifiedKey: ghost.domovyk.classified
     _tipKey: ghost.domovyk.tip
+    _bestToolKey: ghost.domovyk.best_tool
     _threat: 2
   _abilities:
   - {fileID: 11400000, guid: 5a4e4fbac157fe844ab65406a391acde, type: 2}

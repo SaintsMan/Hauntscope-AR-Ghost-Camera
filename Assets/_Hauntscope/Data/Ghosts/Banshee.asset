@@ -64,6 +64,7 @@ MonoBehaviour:
     _tacticsKey: ghost.banshee.tactics
     _classifiedKey: ghost.banshee.classified
     _tipKey: ghost.banshee.tip
+    _bestToolKey: ghost.banshee.best_tool
     _threat: 4
   _abilities:
   - {fileID: 11400000, guid: 697c040352c2ea3449d116d60c640314, type: 2}

@@ -467,6 +467,68 @@ MonoBehaviour:
       el rayo desde lejos.'
     m_Metadata:
       m_Items: []
+  - m_Id: 704205389430784
+    m_Localized: "Spirit Box. Vaga de un lado a otro y huye del rayo, pero la radio
+      siempre sabe hacia d\xF3nde fue: sigue la voz."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402304
+    m_Localized: "Luz UV. Cada salto deja una mancha de ectoplasma donde aterriz\xF3:
+      el brillo te muestra hacia d\xF3nde girar antes de que se recupere."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402305
+    m_Localized: "Luz UV. Cada embestida deja manchas donde empez\xF3 y donde se
+      detuvo: lee la direcci\xF3n en el suelo y espera al final."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402306
+    m_Localized: "C\xE1mara t\xE9rmica. Pasa casi toda la cacer\xEDa escondido en
+      los muebles; en la t\xE9rmica su silueta fr\xEDa se ve a trav\xE9s de la puerta
+      del armario."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402307
+    m_Localized: "Luz UV. Entre parpadeos desaparece, pero su rastro no: sigue las
+      gotas frescas hasta donde volver\xE1 a aparecer."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402308
+    m_Localized: "Visi\xF3n nocturna. Ves su silueta tenue sin revelarla, as\xED
+      que no grita: ac\xE9rcate primero y luego enciende la lente."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402309
+    m_Localized: "Spirit Box. Se acerca por donde no miras, y la radio lo delata:
+      en cuanto oigas \xABDETR\xC1S DE TI\xBB, date la vuelta."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402310
+    m_Localized: "Visi\xF3n nocturna. En la oscuridad lo ves sin revelarlo, as\xED
+      que sigue acerc\xE1ndose: espera a que se siente y entonces enciende la lente."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402311
+    m_Localized: "C\xE1mara t\xE9rmica. La lente nunca lo muestra, pero la t\xE9rmica
+      s\xED revela su huella fr\xEDa: encu\xE1dralo ah\xED y el obturador se arma."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402312
+    m_Localized: "Grabadora EVP. Descubre con qui\xE9n tratas antes de revelarlo:
+      si la cinta lo nombra, al\xE9jate antes de encender la lente y prep\xE1rate
+      para seguir su tir\xF3n de lado."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402313
+    m_Localized: "Spirit Box. El medidor miente sobre d\xF3nde est\xE1; la radio
+      no: oye la voz real, no el se\xF1uelo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402314
+    m_Localized: "Visi\xF3n nocturna. El infrarrojo no es luz, as\xED que no la atrae:
+      encu\xE9ntrala con ella y enciende la lente solo cuando est\xE9 en el anillo."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

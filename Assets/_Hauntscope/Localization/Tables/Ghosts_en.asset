@@ -451,6 +451,67 @@ MonoBehaviour:
       from a distance.'
     m_Metadata:
       m_Items: []
+  - m_Id: 704205389430784
+    m_Localized: 'Spirit Box. It drifts about and flees the beam, but the radio always
+      knows which way it went: follow the voice.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402304
+    m_Localized: 'UV light. Every jump leaves a splash of ectoplasm where it landed:
+      the glow shows you where to turn before it comes round.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402305
+    m_Localized: 'UV light. Each dash leaves a splash where it started and where
+      it stopped: read the direction on the floor and be waiting at the end.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402306
+    m_Localized: Thermal camera. He spends most of the hunt hiding in furniture;
+      on the thermal his cold shape shows right through the wardrobe door.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402307
+    m_Localized: 'UV light. It fades out between flickers, but its trail does not:
+      follow the fresh drips to where it will show up again.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402308
+    m_Localized: 'Night vision. You see her faint shape without revealing her, so
+      she never shrieks: walk up close first, then switch the lens on.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402309
+    m_Localized: "Spirit Box. It creeps up where you are not looking, and the radio
+      gives it away: the moment you hear \u201CBEHIND YOU\u201D, turn round."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402310
+    m_Localized: 'Night vision. You can track it in the dark without revealing it,
+      so it keeps coming closer: wait until it sits down, then switch the lens on.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402311
+    m_Localized: 'Thermal camera. The lens never shows it, but its cold imprint shows
+      on the thermal: frame it there and the shutter arms.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402312
+    m_Localized: 'EVP recorder. Learn who you are up against before you reveal him:
+      if the tape names him, back off before the lens goes on and be ready to follow
+      his yank sideways.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402313
+    m_Localized: 'Spirit Box. The meter lies about where it is, the radio does not:
+      it hears the real voice, not the decoy.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402314
+    m_Localized: 'Night vision. Infrared is not light, so it does not draw her in:
+      find her with it and switch the lens on only once she is in the ring.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

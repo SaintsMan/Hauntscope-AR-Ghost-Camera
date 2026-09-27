@@ -1218,6 +1218,10 @@ MonoBehaviour:
     m_Localized: SALIR
     m_Metadata:
       m_Items: []
+  - m_Id: 704206744190976
+    m_Localized: 'MEJOR HERRAMIENTA:'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

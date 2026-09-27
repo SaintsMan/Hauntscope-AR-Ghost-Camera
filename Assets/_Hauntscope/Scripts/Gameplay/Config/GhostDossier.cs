@@ -12,14 +12,17 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private string _tacticsKey;
         [SerializeField] private string _classifiedKey;
         [SerializeField] private string _tipKey;
+        [SerializeField] private string _bestToolKey;
         [SerializeField, Range(1, 5)] private int _threat = 1;
 
         public GhostDossier()
         {
         }
 
-        public GhostDossier(string rumorKey, string behaviorKey, string tacticsKey, string classifiedKey, string tipKey, int threat)
+        public GhostDossier(string rumorKey, string behaviorKey, string tacticsKey, string classifiedKey, string tipKey, int threat,
+            string bestToolKey = null)
         {
+            _bestToolKey = bestToolKey;
             _rumorKey = rumorKey;
             _behaviorKey = behaviorKey;
             _tacticsKey = tacticsKey;
@@ -41,5 +44,8 @@ namespace Hauntscope.Gameplay.Config
         public string TipKey => _tipKey;
 
         public int Threat => _threat;
+
+        // Which of the agency's tools works best on this ghost and why, closing the Tactics section (GDD 5.33).
+        public string BestToolKey => _bestToolKey;
     }
 }

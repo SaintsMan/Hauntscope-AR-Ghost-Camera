@@ -1191,6 +1191,10 @@ MonoBehaviour:
     m_Key: prank.exit
     m_Metadata:
       m_Items: []
+  - m_Id: 704206744190976
+    m_Key: bestiary.best_tool
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

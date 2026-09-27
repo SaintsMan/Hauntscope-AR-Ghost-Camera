@@ -1215,6 +1215,10 @@ MonoBehaviour:
     m_Localized: KELUAR
     m_Metadata:
       m_Items: []
+  - m_Id: 704206744190976
+    m_Localized: 'ALAT TERBAIK:'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -64,6 +64,7 @@ MonoBehaviour:
     _tacticsKey: ghost.phantom_cat.tactics
     _classifiedKey: ghost.phantom_cat.classified
     _tipKey: ghost.phantom_cat.tip
+    _bestToolKey: ghost.phantom_cat.best_tool
     _threat: 1
   _abilities:
   - {fileID: 11400000, guid: b59643db41ad47348a65db1d50815813, type: 2}

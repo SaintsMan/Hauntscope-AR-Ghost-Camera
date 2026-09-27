@@ -64,5 +64,6 @@ MonoBehaviour:
     _tacticsKey: ghost.wisp.tactics
     _classifiedKey: ghost.wisp.classified
     _tipKey: ghost.wisp.tip
+    _bestToolKey: ghost.wisp.best_tool
     _threat: 1
   _abilities: []

@@ -64,6 +64,7 @@ MonoBehaviour:
     _tacticsKey: ghost.negative.tactics
     _classifiedKey: ghost.negative.classified
     _tipKey: ghost.negative.tip
+    _bestToolKey: ghost.negative.best_tool
     _threat: 4
   _abilities:
   - {fileID: 11400000, guid: 19e25677cce114846b0ea44ea9bb7c53, type: 2}

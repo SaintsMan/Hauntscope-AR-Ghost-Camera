@@ -64,6 +64,7 @@ MonoBehaviour:
     _tacticsKey: ghost.lurker.tactics
     _classifiedKey: ghost.lurker.classified
     _tipKey: ghost.lurker.tip
+    _bestToolKey: ghost.lurker.best_tool
     _threat: 4
   _abilities:
   - {fileID: 11400000, guid: 073aef7da0b7cd54bb2032ba9960263b, type: 2}

@@ -464,6 +464,71 @@ MonoBehaviour:
       sie aus der Ferne mit dem Strahl.'
     m_Metadata:
       m_Items: []
+  - m_Id: 704205389430784
+    m_Localized: "Spirit Box. Es treibt umher und flieht vor dem Strahl, doch das
+      Radio wei\xDF immer, wohin es ist: Folge der Stimme."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402304
+    m_Localized: "UV-Licht. Jeder Sprung hinterl\xE4sst einen Ektoplasma-Fleck, wo
+      er gelandet ist: Das Leuchten zeigt, wohin du dich drehen musst, bevor er wieder
+      zu sich kommt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402305
+    m_Localized: "UV-Licht. Jeder Vorsto\xDF hinterl\xE4sst Flecken am Start und
+      am Ziel: Lies die Richtung am Boden ab und warte am Ende."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402306
+    m_Localized: "W\xE4rmebildkamera. Er versteckt sich fast die ganze Jagd in M\xF6beln;
+      auf dem W\xE4rmebild sieht man seinen kalten Umriss direkt durch die Schrankt\xFCr."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402307
+    m_Localized: 'UV-Licht. Zwischen dem Flackern ist nichts zu sehen, die Spur aber
+      bleibt: Folge den frischen Tropfen dorthin, wo er wieder auftaucht.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402308
+    m_Localized: 'Nachtsicht. Du siehst ihren blassen Umriss, ohne sie sichtbar zu
+      machen, also schreit sie nicht: Geh erst nah heran, dann schalte die Linse
+      ein.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402309
+    m_Localized: "Spirit Box. Er schleicht sich dorthin, wo du nicht hinsiehst, und
+      das Radio verr\xE4t ihn: Sobald du \u201EHINTER DIR\u201C h\xF6rst, dreh dich
+      um."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402310
+    m_Localized: "Nachtsicht. Im Dunkeln siehst du ihn, ohne ihn sichtbar zu machen,
+      also kommt er weiter n\xE4her: Warte, bis er sich setzt, dann schalte die Linse
+      ein."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402311
+    m_Localized: "W\xE4rmebildkamera. Die Linse zeigt ihn nie, das W\xE4rmebild aber
+      seinen kalten Abdruck: Nimm ihn dort ins Bild, und der Ausl\xF6ser ist bereit."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402312
+    m_Localized: "EVP-Rekorder. Finde heraus, mit wem du es zu tun hast, bevor du
+      ihn sichtbar machst: Nennt ihn das Band, geh auf Abstand, bevor du die Linse
+      einschaltest, und folge seinem Ruck seitw\xE4rts."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402313
+    m_Localized: "Spirit Box. Das Messger\xE4t l\xFCgt, wo er ist, das Radio nicht:
+      Es h\xF6rt die echte Stimme, nicht den K\xF6der."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704205410402314
+    m_Localized: 'Nachtsicht. Infrarot ist kein Licht, also lockt es sie nicht an:
+      Finde sie damit und schalte die Linse erst ein, wenn sie im Ring ist.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

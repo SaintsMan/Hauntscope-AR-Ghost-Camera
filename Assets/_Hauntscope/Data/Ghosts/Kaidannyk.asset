@@ -64,6 +64,7 @@ MonoBehaviour:
     _tacticsKey: ghost.kaidannyk.tactics
     _classifiedKey: ghost.kaidannyk.classified
     _tipKey: ghost.kaidannyk.tip
+    _bestToolKey: ghost.kaidannyk.best_tool
     _threat: 4
   _abilities:
   - {fileID: 11400000, guid: abb3bf7cf85238f489c7fd3ae4a49df3, type: 2}
