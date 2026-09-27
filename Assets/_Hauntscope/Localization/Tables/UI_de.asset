@@ -1064,6 +1064,55 @@ MonoBehaviour:
     m_Localized: TIPPS ERSCHEINEN WIEDER
     m_Metadata:
       m_Items: []
+  - m_Id: 668077995196416
+    m_Localized: SPIRIT BOX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078058110976
+    m_Localized: "\xBB{0}\xAB"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078058110977
+    m_Localized: " \xB7 "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305280
+    m_Localized: "\xB7 \xB7 \xB7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305281
+    m_Localized: VORN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305282
+    m_Localized: LINKS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305283
+    m_Localized: RECHTS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305284
+    m_Localized: HINTER DIR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305285
+    m_Localized: NAH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305286
+    m_Localized: WEIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305287
+    m_Localized: VERSTECKT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305288
+    m_Localized: "Die Agentur hat dir eine Spirit Box gegeben: Schalte sie ein und
+      h\xF6r zu. Die Stimme verr\xE4t, wo der Geist ist."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

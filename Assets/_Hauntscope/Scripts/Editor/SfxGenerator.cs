@@ -59,6 +59,12 @@ namespace Hauntscope.Editor
             Save(SfxFolder, "CatMeow", CatMeow(), -3f, false);
             Save(SfxFolder, "CatPurr", CatPurr(), -5f, false);
             Save(SfxFolder, "Knock", WoodKnock(), -3f, false);
+            Save(SfxFolder, "SpiritBoxSweep", SpiritBoxSweep(), -15f, true);
+            Save(SfxFolder, "SpiritBoxVoice1", SpiritBoxVoice(101, 118f, 3, 0), -3f, false);
+            Save(SfxFolder, "SpiritBoxVoice2", SpiritBoxVoice(103, 96f, 1, 4), -3f, false);
+            Save(SfxFolder, "SpiritBoxVoice3", SpiritBoxVoice(107, 142f, 4, 2), -3f, false);
+            Save(SfxFolder, "SpiritBoxCrackle", SpiritBoxCrackle(), -9f, false);
+            Save(SfxFolder, "SpiritBoxToggle", SpiritBoxToggle(), -6f, false);
             Save(AmbientFolder, "AmbientDrone", AmbientDrone(), -8f, true);
             Save(AmbientFolder, "AmbientStatic", AmbientStatic(), -10f, true);
         }
@@ -966,6 +972,124 @@ namespace Hauntscope.Editor
                 samples[i] = Mathf.Sin(TwoPi * frequency * t + modulator) * Envelope(t, 0.003f, decay);
             }
 
+            return samples;
+        }
+
+        // The Spirit Box sweep: the radio hops stations every ~0.1 s, each hop a slice of hiss, now and then a stray
+        // carrier tone or a scrap of a voice, with a click between hops.
+        private static float[] SpiritBoxSweep()
+        {
+            const float loop = 4f;
+            const float crossfade = 0.5f;
+            var samples = Buffer(loop + crossfade);
+            var random = new System.Random(71);
+            var hiss = Filter(Noise(samples.Length, 73), FilterType.BandPass, 1800f, 0.6f);
+            var t = 0f;
+            while (t < loop + crossfade)
+            {
+                var hop = 0.08f + 0.06f * (float)random.NextDouble();
+                var start = (int)(t * SampleRate);
+                var length = Mathf.Min((int)(hop * SampleRate), samples.Length - start);
+                var station = random.NextDouble();
+                var tone = 300f + 1500f * (float)random.NextDouble();
+                var level = 0.35f + 0.5f * (float)random.NextDouble();
+                for (var i = 0; i < length; i++)
+                {
+                    var local = (float)i / SampleRate;
+                    var gate = Mathf.Clamp01(local / 0.006f) * Mathf.Clamp01((hop - local) / 0.01f);
+                    var value = hiss[start + i] * level;
+                    if (station < 0.3)
+                        value += Mathf.Sin(TwoPi * tone * local) * 0.12f;
+                    samples[start + i] += value * gate;
+                }
+
+                if (station > 0.85)
+                {
+                    var scrap = Syllable(hop, Vowels[random.Next(Vowels.Length)], Vowels[random.Next(Vowels.Length)], random.Next());
+                    Add(samples, Filter(scrap, FilterType.BandPass, 1300f, 0.8f), start, 0.5f);
+                }
+
+                Add(samples, Click(0.002f, 2500f, random.Next()), start, 0.35f);
+                t += hop;
+            }
+
+            return MakeLoop(Saturate(samples, 1.6f), crossfade);
+        }
+
+        // A word caught in the static: a low buzzing voice through vowel formants, two gliding syllables, squeezed
+        // through a radio band and chopped by the sweep.
+        private static float[] SpiritBoxVoice(int seed, float pitch, int vowelFrom, int vowelTo)
+        {
+            const float length = 0.9f;
+            var samples = Buffer(length);
+            var count = samples.Length;
+            var breath = Noise(count, seed);
+            var buzz = new float[count];
+            var phase = 0f;
+            for (var i = 0; i < count; i++)
+            {
+                var t = Time(i);
+                var frequency = pitch * (1f + 0.1f * Mathf.Sin(TwoPi * 2.5f * t)) * Mathf.Lerp(1.12f, 0.82f, t / length);
+                phase += frequency / SampleRate;
+                buzz[i] = (phase - Mathf.Floor(phase)) * 2f - 1f + breath[i] * 0.35f;
+            }
+
+            var from = Vowels[vowelFrom] * 0.9f;
+            var to = Vowels[vowelTo] * 0.9f;
+            var voiced = new float[count];
+            for (var formant = 0; formant < 3; formant++)
+            {
+                var index = formant;
+                var band = Filter(buzz, FilterType.BandPass, i => Mathf.Lerp(from[index], to[index], Smooth((float)i / count)), 8f);
+                var weight = formant == 0 ? 1f : formant == 1 ? 0.65f : 0.3f;
+                for (var i = 0; i < count; i++)
+                    voiced[i] += band[i] * weight;
+            }
+
+            for (var i = 0; i < count; i++)
+            {
+                var t = Time(i);
+                voiced[i] *= Adsr(t - 0.05f, 0.32f, 0.04f, 0.12f) + 0.85f * Adsr(t - 0.45f, 0.38f, 0.05f, 0.2f);
+            }
+
+            voiced = Saturate(Filter(Filter(voiced, FilterType.HighPass, 350f, 0.7f), FilterType.LowPass, 3200f, 0.7f), 2.2f);
+            var hiss = Filter(Noise(count, seed + 1), FilterType.BandPass, 2000f, 0.5f);
+            for (var i = 0; i < count; i++)
+            {
+                var t = Time(i);
+                var chop = (int)(t / 0.07f) % 5 == 3 ? 0.25f : 1f;
+                samples[i] = voiced[i] * chop * 3f + hiss[i] * 0.08f * Adsr(t, length, 0.02f, 0.15f);
+            }
+
+            return FadeOut(TrimTo(Reverb(samples, 0.25f, 0.4f), count), 0.08f);
+        }
+
+        // The box listened and caught nothing: a burst of static with a few crackles.
+        private static float[] SpiritBoxCrackle()
+        {
+            var samples = Buffer(0.45f);
+            var hiss = Filter(Noise(samples.Length, 81), FilterType.BandPass, 2200f, 0.5f);
+            for (var i = 0; i < samples.Length; i++)
+                samples[i] = hiss[i] * Adsr(Time(i), 0.45f, 0.02f, 0.2f) * 0.6f;
+
+            var random = new System.Random(83);
+            for (var c = 0; c < 12; c++)
+            {
+                var click = Click(0.002f + 0.003f * (float)random.NextDouble(), 1500f + 2500f * (float)random.NextDouble(), random.Next());
+                Add(samples, click, random.Next(samples.Length - click.Length), 0.3f + 0.5f * (float)random.NextDouble());
+            }
+
+            return samples;
+        }
+
+        // The radio's switch: a hard click and a short swell of static tuning up.
+        private static float[] SpiritBoxToggle()
+        {
+            var samples = Buffer(0.3f);
+            Add(samples, Click(0.003f, 1200f, 91), 0, 0.9f);
+            var hiss = Filter(Noise(samples.Length, 93), FilterType.BandPass, i => Mathf.Lerp(900f, 3000f, (float)i / samples.Length), 1.2f);
+            for (var i = 0; i < samples.Length; i++)
+                samples[i] += hiss[i] * Adsr(Time(i) - 0.01f, 0.25f, 0.03f, 0.18f) * 0.5f;
             return samples;
         }
 

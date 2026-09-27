@@ -429,3 +429,27 @@ MonoBehaviour:
     _kaidannykGhostId: kaidannyk
     _maraGhostId: mara
     _contractsMarkAfter: 1
+  _spiritBox:
+    _unlockCaptures: 1
+    _drain: 0.4
+    _firstAnswerDelay: 1.2
+    _intervalMin: 3.5
+    _intervalMax: 5.5
+    _aheadAngle: 40
+    _behindAngle: 130
+    _closeDistance: 1.5
+    _farDistance: 4.5
+    _range: 9
+    _voiceOffset: 1.2
+    _answerShowTime: 2.5
+    _sweepClip: {fileID: 8300000, guid: 3d9edc0f46d01c047a429d54b60157e1, type: 3}
+    _sweepVolume: 0.3
+    _voiceClips:
+    - {fileID: 8300000, guid: 52ca31080b839f0488e7bb31f2daca8f, type: 3}
+    - {fileID: 8300000, guid: b51e377b21b79d14e929cb1adafe5a14, type: 3}
+    - {fileID: 8300000, guid: 34c19295ec876fb409ef4fc5b529505d, type: 3}
+    _voiceVolume: 0.9
+    _crackleClip: {fileID: 8300000, guid: 3f9226ed9c3599e4880993c52392dda7, type: 3}
+    _crackleVolume: 0.5
+    _toggleClip: {fileID: 8300000, guid: 53025b0bce8f4cf4fb1e624ff41cbee1, type: 3}
+    _toggleVolume: 0.6

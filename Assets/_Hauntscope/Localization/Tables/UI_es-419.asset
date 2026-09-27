@@ -1066,6 +1066,55 @@ MonoBehaviour:
     m_Localized: "LOS CONSEJOS VOLVER\xC1N A APARECER"
     m_Metadata:
       m_Items: []
+  - m_Id: 668077995196416
+    m_Localized: SPIRIT BOX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078058110976
+    m_Localized: "\xAB{0}\xBB"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078058110977
+    m_Localized: " \xB7 "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305280
+    m_Localized: "\xB7 \xB7 \xB7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305281
+    m_Localized: ADELANTE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305282
+    m_Localized: IZQUIERDA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305283
+    m_Localized: DERECHA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305284
+    m_Localized: "DETR\xC1S DE TI"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305285
+    m_Localized: CERCA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305286
+    m_Localized: LEJOS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305287
+    m_Localized: ESCONDIDO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305288
+    m_Localized: "La agencia te dio una Spirit Box: enci\xE9ndela y escucha. La voz
+      te dice d\xF3nde est\xE1 el fantasma."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

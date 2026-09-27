@@ -68,12 +68,14 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<EmergencyCharge>().AsSelf();
             builder.RegisterEntryPoint<HuntPause>().AsSelf();
             builder.Register<GhostLens>(Lifetime.Singleton);
+            builder.Register<SpiritBox>(Lifetime.Singleton);
             builder.Register<CaptureRateCalculator>(Lifetime.Singleton);
             builder.Register<CaptureBeam>(Lifetime.Singleton);
             builder.Register<Toolbelt>(Lifetime.Singleton);
             builder.Register<Battery>(Lifetime.Singleton);
             builder.Register<EmfRadar>(Lifetime.Singleton);
             builder.RegisterEntryPoint<EmfFeedback>();
+            builder.RegisterEntryPoint<SpiritBoxFeedback>();
             builder.RegisterEntryPoint<HuntFeedback>();
             builder.RegisterEntryPoint<ColdSpotFeedback>();
             builder.RegisterComponentInHierarchy<CaptureBeamView>().As<IBeamView>();
@@ -95,6 +97,8 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<ScanHudPresenter>();
             builder.RegisterComponentInHierarchy<HuntHudView>();
             builder.RegisterEntryPoint<HuntHudPresenter>();
+            builder.RegisterComponentInHierarchy<SpiritBoxView>();
+            builder.RegisterEntryPoint<SpiritBoxPresenter>();
             builder.RegisterComponentInHierarchy<SupplyHudView>();
             builder.RegisterEntryPoint<SupplyHudPresenter>();
             builder.RegisterComponentInHierarchy<EmergencyChargeView>();
@@ -130,6 +134,7 @@ namespace Hauntscope.Bootstrap
             RegisterGhostTip(builder, FieldTipId.Kaidannyk, tips => tips.KaidannykGhostId);
             RegisterGhostTip(builder, FieldTipId.Domovyk, tips => tips.DomovykGhostId);
             builder.Register<WitchingHourTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
+            builder.Register<SpiritBoxTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
             builder.Register<StaggerTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
             builder.Register<ColdSpotTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
             builder.Register<CloseInTipRule>(Lifetime.Singleton).As<IFieldTipRule>();

@@ -1047,6 +1047,54 @@ MonoBehaviour:
     m_Key: settings.tips_reset_done
     m_Metadata:
       m_Items: []
+  - m_Id: 668077995196416
+    m_Key: hud.spirit.button
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078058110976
+    m_Key: hud.spirit.answer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078058110977
+    m_Key: hud.spirit.separator
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305280
+    m_Key: hud.spirit.static
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305281
+    m_Key: hud.spirit.ahead
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305282
+    m_Key: hud.spirit.left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305283
+    m_Key: hud.spirit.right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305284
+    m_Key: hud.spirit.behind
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305285
+    m_Key: hud.spirit.close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305286
+    m_Key: hud.spirit.far
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305287
+    m_Key: hud.spirit.hiding
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305288
+    m_Key: tips.spirit_box
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -50,6 +50,7 @@ namespace Hauntscope.Editor
             BuildPhotoIcons();
             BuildShiftIcons();
             BuildRationIcons();
+            BuildSpiritBoxIcon();
         }
 
         private static void BuildFrame()
@@ -504,6 +505,27 @@ namespace Hauntscope.Editor
             SaveSprite("GearSalt", size, size, Max(
                 Shape(size, size, shaker, true, Line, Glow),
                 Shape(size, size, grains, false, 0f, Glow * 0.7f)), Vector4.zero);
+        }
+
+        // The Spirit Box: a pocket radio with a speaker grille, a tuning dial and an antenna, a wave leaving it.
+        private static void BuildSpiritBoxIcon()
+        {
+            const int size = 128;
+            Sdf body = p => RoundBox(p, new Vector2(60f, 54f), new Vector2(36f, 26f), 8f);
+            Sdf antenna = p => Mathf.Min(Segment(p, new Vector2(40f, 80f), new Vector2(26f, 112f)), Circle(p, new Vector2(26f, 112f), 3f));
+            Sdf grille = p =>
+            {
+                var distance = Mathf.Abs(Circle(p, new Vector2(46f, 54f), 13f));
+                for (var y = 46f; y <= 62f; y += 8f)
+                    distance = Mathf.Min(distance, Segment(p, new Vector2(38f, y), new Vector2(54f, y)));
+                return distance;
+            };
+            Sdf dial = p => Mathf.Min(Mathf.Abs(Circle(p, new Vector2(78f, 58f), 7f)), Segment(p, new Vector2(70f, 40f), new Vector2(86f, 40f)));
+            Sdf waves = p => Mathf.Min(Arc(p, new Vector2(98f, 88f), 10f, 45f, 40f), Arc(p, new Vector2(98f, 88f), 20f, 45f, 40f));
+            SaveSprite("SpiritBoxIcon", size, size, Max(
+                Max(Shape(size, size, body, true, Line, Glow), Shape(size, size, antenna, true, Line, Glow)),
+                Max(Max(Shape(size, size, grille, true, Line * 0.75f, Glow * 0.6f), Shape(size, size, dial, true, Line * 0.75f, Glow * 0.6f)),
+                    Shape(size, size, waves, true, Line, Glow))), Vector4.zero);
         }
 
         // Rewarded ads: a play triangle on a small screen, so the player knows the button starts a video.

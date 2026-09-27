@@ -1061,6 +1061,55 @@ MonoBehaviour:
     m_Localized: TIPS WILL SHOW AGAIN
     m_Metadata:
       m_Items: []
+  - m_Id: 668077995196416
+    m_Localized: SPIRIT BOX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078058110976
+    m_Localized: "\u201C{0}\u201D"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078058110977
+    m_Localized: " \xB7 "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305280
+    m_Localized: "\xB7 \xB7 \xB7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305281
+    m_Localized: AHEAD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305282
+    m_Localized: LEFT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305283
+    m_Localized: RIGHT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305284
+    m_Localized: BEHIND YOU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305285
+    m_Localized: CLOSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305286
+    m_Localized: FAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305287
+    m_Localized: HIDING
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668078062305288
+    m_Localized: 'The agency issued you a Spirit Box: switch it on and listen. The
+      voice tells you where the ghost is.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
