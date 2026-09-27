@@ -153,13 +153,14 @@ namespace Hauntscope.Gameplay.Hunt.States
             var data = _session.GhostData;
             var photo = _spiritCamera.BestShot;
             var evidence = _spiritCamera.EvidenceShots;
+            var evp = _toolbelt.Evp.HasEvidence;
             if (ghost.IsCaptureFinished)
                 _session.Finish(HuntOutcome.Captured, _progress.GetCaptureCount(data.Id) == 0, _loot.Ectoplasm.Value,
-                    _research.RewardMultiplier(data), _research.WillDeclassify(data, true, evidence), photo, _spiritCamera.Reward, evidence,
-                    _session.IsWitchingHour ? _witchingHour.NightRewardMultiplier : 1f, _shift.RewardMultiplier);
+                    _research.RewardMultiplier(data), _research.WillDeclassify(data, true, evidence, evp), photo, _spiritCamera.Reward, evidence,
+                    _session.IsWitchingHour ? _witchingHour.NightRewardMultiplier : 1f, _shift.RewardMultiplier, evp);
             else if (ghost.IsEscapeFinished)
                 _session.Finish(HuntOutcome.Escaped, false, _loot.Ectoplasm.Value, 1f,
-                    _research.WillDeclassify(data, false, evidence), photo, _spiritCamera.Reward, evidence);
+                    _research.WillDeclassify(data, false, evidence, evp), photo, _spiritCamera.Reward, evidence, evpEvidence: evp);
         }
     }
 }

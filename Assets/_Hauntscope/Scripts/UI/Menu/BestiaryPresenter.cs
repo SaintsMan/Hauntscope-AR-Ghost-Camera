@@ -13,7 +13,8 @@ using VContainer.Unity;
 namespace Hauntscope.UI.Menu
 {
     // The Bestiary as agency case files (GDD 5.24): every ghost can be opened, each research level declassifies more
-    // of its file, and the best photo of it is pinned to the file as evidence (GDD 5.26).
+    // of its file, the best photo of it is pinned to the file as evidence (GDD 5.26), and so is the tape with its
+    // voice (GDD 5.33.5).
     public sealed class BestiaryPresenter : IStartable, IDisposable
     {
         private const string CountKey = "bestiary.count";
@@ -33,6 +34,8 @@ namespace Hauntscope.UI.Menu
         private const string PhotosKey = "bestiary.evidence.photos";
         private const string CountedKey = "bestiary.evidence.counted";
         private const string PileKey = "bestiary.evidence.pile";
+        private const string EvpKey = "bestiary.evidence.evp";
+        private const string NoEvpKey = "bestiary.evidence.evp_none";
         private const int Percent = 100;
 
         private static readonly string[] StampKeys = { "bestiary.unknown", "bestiary.sighted", "bestiary.captured", "bestiary.declassified" };
@@ -49,6 +52,8 @@ namespace Hauntscope.UI.Menu
         private readonly PhotoViewer _viewer;
         private readonly ILocalizationService _localization;
         private readonly UiFeedback _ui;
+        private readonly ISfxPlayer _sfx;
+        private readonly EvpRecorderConfig _evp;
         private readonly List<BestiaryCardView> _cards = new List<BestiaryCardView>();
         private readonly List<Action> _cardHandlers = new List<Action>();
         private readonly List<DossierSection> _sections = new List<DossierSection>();
@@ -56,6 +61,7 @@ namespace Hauntscope.UI.Menu
         private int _openIndex = -1;
         private PhotoRecord _evidence;
         private Texture2D _evidenceTexture;
+        private AudioClip _tape;
 
         public BestiaryPresenter(
             BestiaryView view,
@@ -68,8 +74,12 @@ namespace Hauntscope.UI.Menu
             PhotoTextures textures,
             PhotoViewer viewer,
             ILocalizationService localization,
-            UiFeedback ui)
+            UiFeedback ui,
+            ISfxPlayer sfx,
+            EvpRecorderConfig evp)
         {
+            _sfx = sfx;
+            _evp = evp;
             _view = view;
             _navigation = navigation;
             _ghosts = ghosts;
@@ -101,6 +111,7 @@ namespace Hauntscope.UI.Menu
             _view.BackClicked += OnBackClicked;
             _view.DetailsCloseClicked += OnDetailsCloseClicked;
             _view.EvidenceClicked += OnEvidenceClicked;
+            _view.TapeClicked += OnTapeClicked;
 
             _view.HideDetails();
             OnScreenChanged(_navigation.Current.Value);
@@ -118,6 +129,7 @@ namespace Hauntscope.UI.Menu
             _view.BackClicked -= OnBackClicked;
             _view.DetailsCloseClicked -= OnDetailsCloseClicked;
             _view.EvidenceClicked -= OnEvidenceClicked;
+            _view.TapeClicked -= OnTapeClicked;
             ReleaseEvidence();
         }
 
@@ -177,6 +189,7 @@ namespace Hauntscope.UI.Menu
 
             BuildSections(ghost, level);
             RenderEvidence(ghost, level);
+            RenderTape(ghost, level);
             _view.ShowDetails(header, _sections, retype);
         }
 
@@ -195,6 +208,22 @@ namespace Hauntscope.UI.Menu
 
             var count = _album.CountFor(ghost.Id);
             _view.SetEvidence(_evidenceTexture, best != null ? best.Stars : 0, count, Ui(PileKey, count));
+        }
+
+        // Like the photo, the tape stays off the file until the agency knows whose voice it is.
+        private void RenderTape(GhostData ghost, ResearchLevel level)
+        {
+            _tape = level >= ResearchLevel.Sighted && _progress.HasEvpEvidence(ghost.Id) ? ghost.Voice.Evp : null;
+            _view.SetTape(_tape != null);
+        }
+
+        private void OnTapeClicked()
+        {
+            if (_tape == null)
+                return;
+
+            _sfx.Play2D(_tape, _evp.VoiceVolume, 1f);
+            _view.PlayTape(_tape.length);
         }
 
         private void ReleaseEvidence()
@@ -242,11 +271,19 @@ namespace Hauntscope.UI.Menu
         private string Evidence(GhostData ghost)
         {
             var best = _album.BestFor(ghost.Id);
-            if (best == null)
-                return Ui(NoPhotosKey, _photos.EvidenceMinStars, _research.MaxPhotoEvidence);
-
-            return Ui(PhotosKey, _album.CountFor(ghost.Id), best.Stars) + "\n"
+            var photos = best == null
+                ? Ui(NoPhotosKey, _photos.EvidenceMinStars, _research.MaxPhotoEvidence)
+                : Ui(PhotosKey, _album.CountFor(ghost.Id), best.Stars) + "\n"
                 + Ui(CountedKey, _research.PhotoEvidence(ghost), _research.MaxPhotoEvidence, _photos.EvidenceMinStars);
+            return photos + EvpLine(ghost);
+        }
+
+        // Only once the agency has issued the recorder does the file ask for a tape.
+        private string EvpLine(GhostData ghost)
+        {
+            if (_progress.HasEvpEvidence(ghost.Id))
+                return "\n\n" + Ui(EvpKey);
+            return _progress.TotalCaptures >= _evp.UnlockCaptures ? "\n\n" + Ui(NoEvpKey, _evp.Range) : string.Empty;
         }
 
         private DossierSection Section(string titleKey, string body, bool locked, string hint)

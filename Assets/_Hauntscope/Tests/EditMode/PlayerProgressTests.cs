@@ -134,5 +134,31 @@ namespace Hauntscope.Tests.EditMode
             Assert.IsFalse(progress.HasSeenTip("tip.stagger"));
             Assert.IsEmpty(progress.SeenTips);
         }
+
+        [Test]
+        public void AddEvpEvidence_FirstTake_FilesItAndNotifies()
+        {
+            var progress = new PlayerProgress();
+            var changes = 0;
+            progress.Changed += () => changes++;
+
+            progress.AddEvpEvidence("wisp");
+
+            Assert.IsTrue(progress.HasEvpEvidence("wisp"));
+            Assert.AreEqual(1, changes);
+        }
+
+        [Test]
+        public void AddEvpEvidence_SameGhostAgain_NoChange()
+        {
+            var progress = new PlayerProgress();
+            progress.AddEvpEvidence("wisp");
+            var changes = 0;
+            progress.Changed += () => changes++;
+
+            progress.AddEvpEvidence("wisp");
+
+            Assert.AreEqual(0, changes);
+        }
     }
 }

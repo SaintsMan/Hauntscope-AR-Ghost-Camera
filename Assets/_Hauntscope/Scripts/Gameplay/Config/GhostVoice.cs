@@ -13,13 +13,14 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private AudioClip _capture;
         [SerializeField] private AudioClip _escape;
         [SerializeField] private AudioClip _stagger;
+        [SerializeField] private AudioClip _evp;
 
         public GhostVoice()
         {
         }
 
         public GhostVoice(AudioClip whisper, AudioClip ability = null, AudioClip scare = null, AudioClip capture = null,
-            AudioClip escape = null, AudioClip stagger = null)
+            AudioClip escape = null, AudioClip stagger = null, AudioClip evp = null)
         {
             _whisper = whisper;
             _ability = ability;
@@ -27,6 +28,7 @@ namespace Hauntscope.Gameplay.Config
             _capture = capture;
             _escape = escape;
             _stagger = stagger;
+            _evp = evp;
         }
 
         // Looped, positioned at the ghost: how the player finds it by ear.
@@ -45,5 +47,8 @@ namespace Hauntscope.Gameplay.Config
 
         // Its grunt when it is left stunned.
         public AudioClip Stagger => _stagger;
+
+        // Its name, on tape: what the EVP recorder plays back (GDD 5.33.5).
+        public AudioClip Evp => _evp;
     }
 }

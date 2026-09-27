@@ -103,6 +103,18 @@ namespace Hauntscope.Tests.EditMode
                 trailCapacity);
         }
 
+        public static EvpRecorderConfig Evp(int unlockCaptures = 9, float cost = 0.03f, float recordTime = 4f, float playbackTime = 2.6f,
+            float cooldown = 8f, float range = 4f)
+        {
+            return new EvpRecorderConfig(unlockCaptures, cost, recordTime, playbackTime, cooldown, range);
+        }
+
+        public static EvpRecorder EvpTool(HuntSession session, ICameraPose camera, Battery battery = null, PlayerProgress progress = null,
+            EvpRecorderConfig config = null)
+        {
+            return new EvpRecorder(session, camera, battery ?? new Battery(Tools()), config ?? Evp(), progress ?? new PlayerProgress());
+        }
+
         public static ViewSelector Views(params IViewMode[] modes)
         {
             return new ViewSelector(modes);

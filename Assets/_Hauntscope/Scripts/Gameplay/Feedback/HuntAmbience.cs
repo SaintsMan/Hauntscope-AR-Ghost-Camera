@@ -30,6 +30,13 @@ namespace Hauntscope.Gameplay.Feedback
             _static = _sfx.PlayLoop(_config.AmbientStatic, _config.AmbientStaticVolume, false);
         }
 
+        // The EVP recorder hushes the room while its tape runs (GDD 5.33.5); 1 is full volume.
+        public void SetLevel(float share)
+        {
+            _drone?.SetVolume(_config.AmbientDroneVolume * share);
+            _static?.SetVolume(_config.AmbientStaticVolume * share);
+        }
+
         public void Dispose()
         {
             _drone?.Stop();

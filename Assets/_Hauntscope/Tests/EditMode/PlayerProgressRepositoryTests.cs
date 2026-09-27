@@ -57,6 +57,17 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Load_AfterSave_RestoresEvpEvidence()
+        {
+            var progress = new PlayerProgress();
+            progress.AddEvpEvidence("banshee");
+
+            _repository.Save(progress);
+
+            Assert.IsTrue(_repository.Load().HasEvpEvidence("banshee"));
+        }
+
+        [Test]
         public void Save_Always_WritesCurrentVersion()
         {
             _repository.Save(new PlayerProgress());

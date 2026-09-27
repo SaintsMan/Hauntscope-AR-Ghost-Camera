@@ -52,6 +52,8 @@ namespace Hauntscope.Gameplay.Hunt.States
             {
                 _progress.AddEctoplasm(result.Found + result.PhotoReward);
                 _progress.AddPhotoEvidence(result.Ghost.Id, result.PhotoEvidence, _research.MaxPhotoEvidence);
+                if (result.EvpEvidence)
+                    _progress.AddEvpEvidence(result.Ghost.Id);
             }
 
             _progressRepository.Save(_progress);

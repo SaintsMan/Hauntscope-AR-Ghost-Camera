@@ -35,6 +35,13 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private GameObject[] _evidencePile;
         [SerializeField] private GameObject _evidenceBadge;
         [SerializeField] private TMP_Text _evidenceCount;
+        [SerializeField] private RectTransform _tape;
+        [SerializeField] private Button _tapeButton;
+        [SerializeField] private RectTransform[] _tapeReels;
+        [SerializeField] private Graphic _tapePlay;
+        [SerializeField, Min(0.1f)] private float _reelTurnTime = 1.1f;
+        [SerializeField, Range(0f, 1f)] private float _playingAlpha = 0.35f;
+        [SerializeField, Min(0.05f)] private float _breathTime = 0.35f;
         [SerializeField, Min(0f)] private float _evidenceDelay = 0.35f;
         [SerializeField, Min(1f)] private float _evidenceDropScale = 1.6f;
         [SerializeField] private Color _silhouetteColor = new Color(0.01f, 0.015f, 0.025f, 0.95f);
@@ -56,6 +63,8 @@ namespace Hauntscope.UI.Menu
         public event Action DetailsCloseClicked;
 
         public event Action EvidenceClicked;
+
+        public event Action TapeClicked;
 
         public void SetVisible(bool visible)
         {
@@ -119,14 +128,59 @@ namespace Hauntscope.UI.Menu
             _evidenceCount.text = countText;
         }
 
+        // The EVP cassette pinned opposite the photo, when the ghost's voice is on file.
+        public void SetTape(bool onFile)
+        {
+            _tape.gameObject.SetActive(onFile);
+            if (!onFile)
+                StopTape();
+        }
+
+        // The reels turn and the play mark breathes for as long as the voice plays.
+        public void PlayTape(float seconds)
+        {
+            StopTape();
+            var turns = seconds / _reelTurnTime;
+            foreach (var reel in _tapeReels)
+            {
+                reel.DOLocalRotate(new Vector3(0f, 0f, -360f * turns), seconds, RotateMode.FastBeyond360).SetEase(Ease.Linear).Ui(gameObject);
+            }
+
+            // An even number of half-breaths, so the mark ends lit.
+            var breaths = Mathf.Max(1, Mathf.RoundToInt(seconds / (_breathTime * 2f)));
+            _tapePlay.DOFade(_playingAlpha, _breathTime).SetEase(Ease.InOutSine).SetLoops(breaths * 2, LoopType.Yoyo).Ui(gameObject);
+        }
+
         public void HideDetails()
         {
+            StopTape();
             _details.SetActive(false);
             _evidenceImage.texture = null;
         }
 
+        private void StopTape()
+        {
+            foreach (var reel in _tapeReels)
+            {
+                reel.DOKill();
+                reel.localRotation = Quaternion.identity;
+            }
+
+            _tapePlay.DOKill();
+            var color = _tapePlay.color;
+            color.a = 1f;
+            _tapePlay.color = color;
+        }
+
         private void DropEvidence()
         {
+            if (_tape.gameObject.activeInHierarchy)
+            {
+                _tape.DOKill();
+                _tape.localScale = Vector3.one * _evidenceDropScale;
+                _tape.DOScale(1f, 0.4f).SetDelay(_evidenceDelay * 1.6f).SetEase(Ease.OutBack).Ui(gameObject);
+            }
+
             if (!_evidence.gameObject.activeInHierarchy)
                 return;
 
@@ -166,6 +220,7 @@ namespace Hauntscope.UI.Menu
             _backButton.onClick.AddListener(OnBackClicked);
             _detailsCloseButton.onClick.AddListener(OnDetailsCloseClicked);
             _evidenceButton.onClick.AddListener(OnEvidenceClicked);
+            _tapeButton.onClick.AddListener(OnTapeClicked);
         }
 
         private void OnDestroy()
@@ -173,6 +228,7 @@ namespace Hauntscope.UI.Menu
             _backButton.onClick.RemoveListener(OnBackClicked);
             _detailsCloseButton.onClick.RemoveListener(OnDetailsCloseClicked);
             _evidenceButton.onClick.RemoveListener(OnEvidenceClicked);
+            _tapeButton.onClick.RemoveListener(OnTapeClicked);
         }
 
         private void OnBackClicked()
@@ -188,6 +244,11 @@ namespace Hauntscope.UI.Menu
         private void OnEvidenceClicked()
         {
             EvidenceClicked?.Invoke();
+        }
+
+        private void OnTapeClicked()
+        {
+            TapeClicked?.Invoke();
         }
 
 #if UNITY_EDITOR
@@ -217,6 +278,17 @@ namespace Hauntscope.UI.Menu
             _evidenceButton = Find<Button>("Details/Card/Evidence");
             _evidenceBadge = Find<Transform>("Details/Card/Evidence/Badge")?.gameObject;
             _evidenceCount = Find<TMP_Text>("Details/Card/Evidence/Badge/Label");
+            _tape = Find<RectTransform>("Details/Card/Tape");
+            _tapeButton = Find<Button>("Details/Card/Tape");
+            _tapePlay = Find<Graphic>("Details/Card/Tape/Play");
+            var reels = transform.Find("Details/Card/Tape/Reels");
+            if (reels != null)
+            {
+                _tapeReels = new RectTransform[reels.childCount];
+                for (var i = 0; i < reels.childCount; i++)
+                    _tapeReels[i] = (RectTransform)reels.GetChild(i);
+            }
+
             var pile = transform.Find("Details/Card/Evidence/Pile");
             if (pile == null)
                 return;

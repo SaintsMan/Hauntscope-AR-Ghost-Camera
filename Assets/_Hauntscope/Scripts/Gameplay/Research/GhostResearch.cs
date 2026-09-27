@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Hauntscope.Gameplay.Research
 {
     // How much the agency knows about a ghost (GDD 5.24): seen in the lens, caught, or studied enough to declassify.
-    // Evidence = captures plus a few good photos; a file still needs at least one capture to open at all.
+    // Evidence = captures plus a few good photos plus an EVP take; a file still needs at least one capture to open at all.
     public sealed class GhostResearch
     {
         private readonly PlayerProgress _progress;
@@ -50,19 +50,20 @@ namespace Hauntscope.Gameplay.Research
         }
 
         // Asked before a hunt's results are banked: will this catch and these photos declassify the file?
-        public bool WillDeclassify(GhostData ghost, bool captured, int photoEvidence)
+        public bool WillDeclassify(GhostData ghost, bool captured, int photoEvidence, bool evpEvidence = false)
         {
             if (GetLevel(ghost) == ResearchLevel.Declassified)
                 return false;
 
             var captures = _progress.GetCaptureCount(ghost.Id) + (captured ? 1 : 0);
             var photos = Mathf.Min(_config.MaxPhotoEvidence, _progress.GetPhotoEvidence(ghost.Id) + photoEvidence);
-            return captures > 0 && captures + photos >= _config.CapturesToDeclassify;
+            var evp = evpEvidence || _progress.HasEvpEvidence(ghost.Id) ? 1 : 0;
+            return captures > 0 && captures + photos + evp >= _config.CapturesToDeclassify;
         }
 
         private int Evidence(GhostData ghost)
         {
-            return _progress.GetCaptureCount(ghost.Id) + PhotoEvidence(ghost);
+            return _progress.GetCaptureCount(ghost.Id) + PhotoEvidence(ghost) + (_progress.HasEvpEvidence(ghost.Id) ? 1 : 0);
         }
     }
 }

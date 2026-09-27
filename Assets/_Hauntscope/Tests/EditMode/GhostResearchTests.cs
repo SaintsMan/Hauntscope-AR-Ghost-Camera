@@ -107,6 +107,42 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void GetLevel_EvpTakeFillsTheLastGap_IsDeclassified()
+        {
+            Capture(ToDeclassify - 1);
+            _progress.AddEvpEvidence("poltergeist");
+
+            Assert.AreEqual(ResearchLevel.Declassified, _research.GetLevel(_ghost));
+        }
+
+        [Test]
+        public void EvidenceLeft_SecondEvpTake_CountsOnce()
+        {
+            Capture(1);
+            _progress.AddEvpEvidence("poltergeist");
+            _progress.AddEvpEvidence("poltergeist");
+
+            Assert.AreEqual(ToDeclassify - 2, _research.EvidenceLeft(_ghost));
+        }
+
+        [Test]
+        public void WillDeclassify_EvpTakeThisHunt_IsTrue()
+        {
+            Capture(ToDeclassify - 2);
+
+            Assert.IsTrue(_research.WillDeclassify(_ghost, true, 0, true));
+        }
+
+        [Test]
+        public void WillDeclassify_EvpAlreadyFiled_CountsItOnce()
+        {
+            Capture(ToDeclassify - 2);
+            _progress.AddEvpEvidence("poltergeist");
+
+            Assert.IsFalse(_research.WillDeclassify(_ghost, false, 0, true));
+        }
+
+        [Test]
         public void GetLevel_PhotosWithoutAnyCapture_StaySighted()
         {
             _progress.MarkSighted("poltergeist");

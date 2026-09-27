@@ -35,7 +35,8 @@ namespace Hauntscope.Tests.EditMode
             var config = TestConfigs.Tools();
             _battery = new Battery(config);
             _toolbelt = new Toolbelt(new GhostLens(_session, _fixture.Camera, config, new HuntModifiers()), TestConfigs.Beam(_session, _fixture.Camera, config, new HuntModifiers()),
-                TestConfigs.SpiritBoxTool(_session, _fixture.Camera, config, new FakeRandom()), TestConfigs.Views());
+                TestConfigs.SpiritBoxTool(_session, _fixture.Camera, config, new FakeRandom()), TestConfigs.Views(),
+                TestConfigs.EvpTool(_session, _fixture.Camera, _battery));
             _progress = new PlayerProgress();
             _save = new FakeSaveService();
             _shift = new ShiftFixture();
@@ -186,6 +187,30 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.AreEqual(8, _progress.Ectoplasm.Value);
             Assert.AreEqual(1, _progress.GetPhotoEvidence("wisp"));
+        }
+
+        [Test]
+        public void Enter_EvpTakeThisHunt_FilesIt()
+        {
+            var data = CreateGhost("wisp");
+            _session.Begin(_fixture.Ghost, data);
+            _session.Finish(HuntOutcome.Escaped, evpEvidence: true);
+
+            _state.Enter();
+
+            Assert.IsTrue(_progress.HasEvpEvidence("wisp"));
+        }
+
+        [Test]
+        public void Enter_NoEvpTake_FilesNothing()
+        {
+            var data = CreateGhost("wisp");
+            _session.Begin(_fixture.Ghost, data);
+            _session.Finish(HuntOutcome.Captured);
+
+            _state.Enter();
+
+            Assert.IsFalse(_progress.HasEvpEvidence("wisp"));
         }
 
         [Test]

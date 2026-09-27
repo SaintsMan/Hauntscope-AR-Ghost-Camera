@@ -54,11 +54,11 @@ namespace Hauntscope.Gameplay.Hunt
 
         public void Finish(HuntOutcome outcome, bool isFirstCapture = false, int found = 0, float rewardMultiplier = 1f,
             bool isDeclassified = false, PhotoShot bestPhoto = null, int photoReward = 0, int photoEvidence = 0, float nightMultiplier = 1f,
-            float shiftMultiplier = 1f)
+            float shiftMultiplier = 1f, bool evpEvidence = false)
         {
             var captured = outcome == HuntOutcome.Captured;
             _result.Value = new HuntResult(outcome, GhostData, Elapsed, isFirstCapture && captured, found, rewardMultiplier, false,
-                isDeclassified, bestPhoto, photoReward, photoEvidence, nightMultiplier, shiftMultiplier);
+                isDeclassified, bestPhoto, photoReward, photoEvidence, nightMultiplier, shiftMultiplier, evpEvidence);
         }
 
         // The ghost was revealed in the lens during this hunt: its Bestiary file opens its behaviour section.

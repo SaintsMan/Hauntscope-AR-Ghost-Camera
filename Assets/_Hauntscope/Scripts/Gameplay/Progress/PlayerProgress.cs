@@ -11,6 +11,7 @@ namespace Hauntscope.Gameplay.Progress
         private readonly HashSet<string> _sighted = new HashSet<string>();
         private readonly Dictionary<string, int> _photoEvidence = new Dictionary<string, int>();
         private readonly HashSet<string> _seenTips = new HashSet<string>();
+        private readonly HashSet<string> _evpEvidence = new HashSet<string>();
 
         public PlayerProgress()
             : this(0, new Dictionary<string, int>(), 0, false)
@@ -30,8 +31,11 @@ namespace Hauntscope.Gameplay.Progress
             IReadOnlyDictionary<string, int> photoEvidence = null,
             int shiftsCompleted = 0,
             int bestShiftRound = 0,
-            IEnumerable<string> seenTips = null)
+            IEnumerable<string> seenTips = null,
+            IEnumerable<string> evpEvidence = null)
         {
+            if (evpEvidence != null)
+                _evpEvidence.UnionWith(evpEvidence);
             if (seenTips != null)
                 _seenTips.UnionWith(seenTips);
             ShiftsCompleted = shiftsCompleted;
@@ -158,6 +162,20 @@ namespace Hauntscope.Gameplay.Progress
 
             _photoEvidence[ghostId] = next;
             Changed?.Invoke();
+        }
+
+        // Ghosts whose voice is on tape (GDD 5.33.5): one piece of evidence each, never more.
+        public IReadOnlyCollection<string> EvpEvidence => _evpEvidence;
+
+        public bool HasEvpEvidence(string ghostId)
+        {
+            return _evpEvidence.Contains(ghostId);
+        }
+
+        public void AddEvpEvidence(string ghostId)
+        {
+            if (_evpEvidence.Add(ghostId))
+                Changed?.Invoke();
         }
 
         public int GetCaptureCount(string ghostId)

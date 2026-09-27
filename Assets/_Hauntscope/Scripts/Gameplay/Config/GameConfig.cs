@@ -37,6 +37,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private TipsConfig _tips = new TipsConfig();
         [SerializeField] private SpiritBoxConfig _spiritBox = new SpiritBoxConfig();
         [SerializeField] private ViewConfig _view = new ViewConfig();
+        [SerializeField] private EvpRecorderConfig _evp = new EvpRecorderConfig();
 
         public int TargetFrameRate => _targetFrameRate;
 
@@ -101,5 +102,7 @@ namespace Hauntscope.Gameplay.Config
         public SpiritBoxConfig SpiritBox => _spiritBox;
 
         public ViewConfig View => _view;
+
+        public EvpRecorderConfig Evp => _evp;
     }
 }

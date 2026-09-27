@@ -19,8 +19,10 @@ namespace Hauntscope.Gameplay.Hunt
             int photoReward = 0,
             int photoEvidence = 0,
             float nightMultiplier = 1f,
-            float shiftMultiplier = 1f)
+            float shiftMultiplier = 1f,
+            bool evpEvidence = false)
         {
+            EvpEvidence = evpEvidence;
             NightMultiplier = nightMultiplier;
             ShiftMultiplier = shiftMultiplier;
             BestPhoto = bestPhoto;
@@ -71,6 +73,9 @@ namespace Hauntscope.Gameplay.Hunt
         // Good shots that count towards declassifying the ghost's file.
         public int PhotoEvidence { get; }
 
+        // A take with the ghost's voice on it: evidence towards declassifying its file.
+        public bool EvpEvidence { get; }
+
         public int BaseReward => Outcome == HuntOutcome.Captured ? Ghost.Capture.Reward : 0;
 
         public int CaptureReward => Mathf.RoundToInt(BaseReward * RewardMultiplier * NightMultiplier * ShiftMultiplier) * Doubling;
@@ -90,7 +95,7 @@ namespace Hauntscope.Gameplay.Hunt
         public HuntResult WithDoubledCapture()
         {
             return new HuntResult(Outcome, Ghost, Duration, IsFirstCapture, Found, RewardMultiplier, true, IsDeclassified,
-                BestPhoto, PhotoReward, PhotoEvidence, NightMultiplier, ShiftMultiplier);
+                BestPhoto, PhotoReward, PhotoEvidence, NightMultiplier, ShiftMultiplier, EvpEvidence);
         }
     }
 }

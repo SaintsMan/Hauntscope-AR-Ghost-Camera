@@ -76,6 +76,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterComponentInHierarchy<UvTrailView>().As<IUvTrailView>();
             builder.RegisterEntryPoint<UvTrailFeedback>();
             builder.Register<ViewSelector>(Lifetime.Singleton);
+            builder.Register<EvpRecorder>(Lifetime.Singleton);
             builder.RegisterEntryPoint<UrpViewFilter>().As<IViewFilter>();
             builder.Register<CaptureRateCalculator>(Lifetime.Singleton);
             builder.Register<CaptureBeam>(Lifetime.Singleton);
@@ -84,12 +85,13 @@ namespace Hauntscope.Bootstrap
             builder.Register<EmfRadar>(Lifetime.Singleton);
             builder.RegisterEntryPoint<EmfFeedback>();
             builder.RegisterEntryPoint<SpiritBoxFeedback>();
+            builder.RegisterEntryPoint<EvpFeedback>();
             builder.RegisterEntryPoint<ViewModeFeedback>();
             builder.RegisterEntryPoint<HuntFeedback>();
             builder.RegisterEntryPoint<ColdSpotFeedback>();
             builder.RegisterComponentInHierarchy<CaptureBeamView>().As<IBeamView>();
             builder.RegisterEntryPoint<BeamFeedback>();
-            builder.RegisterEntryPoint<HuntAmbience>();
+            builder.RegisterEntryPoint<HuntAmbience>().AsSelf();
             builder.RegisterEntryPoint<PooledVfxPlayer>();
 
             builder.Register<ScanState>(Lifetime.Singleton);
@@ -108,6 +110,8 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<HuntHudPresenter>();
             builder.RegisterComponentInHierarchy<SpiritBoxView>();
             builder.RegisterEntryPoint<SpiritBoxPresenter>();
+            builder.RegisterComponentInHierarchy<EvpView>();
+            builder.RegisterEntryPoint<EvpPresenter>();
             builder.RegisterComponentInHierarchy<ViewModeView>();
             builder.RegisterEntryPoint<ViewModePresenter>();
             builder.RegisterComponentInHierarchy<SupplyHudView>();
@@ -149,6 +153,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<IFieldTipRule>(resolver => new ViewModeTipRule(FieldTipId.NightVision, resolver.Resolve<NightVision>()), Lifetime.Scoped);
             builder.Register<IFieldTipRule>(resolver => new ViewModeTipRule(FieldTipId.Thermal, resolver.Resolve<ThermalVision>()), Lifetime.Scoped);
             builder.Register<IFieldTipRule>(resolver => new ViewModeTipRule(FieldTipId.Uv, resolver.Resolve<UvFlashlight>()), Lifetime.Scoped);
+            builder.Register<EvpTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
             builder.Register<StaggerTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
             builder.Register<ColdSpotTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
             builder.Register<CloseInTipRule>(Lifetime.Singleton).As<IFieldTipRule>();

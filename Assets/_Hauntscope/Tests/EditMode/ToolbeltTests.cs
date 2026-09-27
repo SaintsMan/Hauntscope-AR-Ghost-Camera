@@ -19,6 +19,7 @@ namespace Hauntscope.Tests.EditMode
         private CaptureBeam _beam;
         private SpiritBox _box;
         private FakeViewMode _mode;
+        private EvpRecorder _evp;
         private PlayerProgress _progress;
         private Toolbelt _toolbelt;
 
@@ -36,7 +37,8 @@ namespace Hauntscope.Tests.EditMode
             _progress.AddCapture("wisp", 10);
             _box = TestConfigs.SpiritBoxTool(session, _fixture.Camera, config, new FakeRandom(), _progress, TestConfigs.SpiritBox(drain: BoxDrain));
             _mode = new FakeViewMode { DrainPerSecond = 0.7f };
-            _toolbelt = new Toolbelt(_lens, _beam, _box, TestConfigs.Views(_mode));
+            _evp = TestConfigs.EvpTool(session, _fixture.Camera, progress: _progress, config: TestConfigs.Evp(unlockCaptures: 1));
+            _toolbelt = new Toolbelt(_lens, _beam, _box, TestConfigs.Views(_mode), _evp);
         }
 
         [Test]
@@ -164,6 +166,25 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.IsNull(_toolbelt.Views.Current.Value);
             Assert.IsFalse(_mode.IsActive.Value);
+        }
+
+        [Test]
+        public void RecordEvp_Unlocked_StartsTakeWithoutDrainPerSecond()
+        {
+            _toolbelt.RecordEvp();
+
+            Assert.AreEqual(EvpPhase.Recording, _evp.Phase.Value);
+            Assert.AreEqual(0f, _toolbelt.TotalDrainPerSecond, 1e-5f);
+        }
+
+        [Test]
+        public void DeactivateAll_EvpRecording_CutsTheTake()
+        {
+            _toolbelt.RecordEvp();
+
+            _toolbelt.DeactivateAll();
+
+            Assert.IsFalse(_evp.IsActive.Value);
         }
 
         [Test]

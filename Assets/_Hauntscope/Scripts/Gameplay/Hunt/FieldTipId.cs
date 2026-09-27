@@ -17,6 +17,7 @@ namespace Hauntscope.Gameplay.Hunt
         SpiritBox,
         NightVision,
         Thermal,
-        Uv
+        Uv,
+        Evp
     }
 }
