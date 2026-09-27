@@ -17,7 +17,455 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: 59adea3bb3554c548b847491dbd6bc64, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 34469605408768
+    m_Localized: "Fogo-F\xE1tuo"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37744564109312
+    m_Localized: Poltergeist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37744606052352
+    m_Localized: Sombra
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55670524477440
+    m_Localized: "O lampejo perdido de algu\xE9m que esqueceu o caminho de casa.
+      Inofensivo, curioso e assustadi\xE7o. A primeira captura de todo agente."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55670549643264
+    m_Localized: "Barulhento, inquieto e impaciente. Quando encurralado, some, s\xF3
+      para reaparecer a alguns passos. Mantenha o raio firme."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55670549643265
+    m_Localized: "Ela vive entre os quadros. Sua lente s\xF3 a pega em lampejos.
+      Paci\xEAncia \xE9 a \xFAnica ferramenta que funciona."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991227760640
+    m_Localized: Espectro
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991269703680
+    m_Localized: "Ele nunca para de correr. Assim que seu raio o toca, ele dispara
+      para o lado, para fora do anel. Mire para onde ele vai, n\xE3o onde ele estava."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991273897984
+    m_Localized: Banshee
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991273897985
+    m_Localized: "O grito dela quebra a lente. Chegue perto demais enquanto ela est\xE1
+      vis\xEDvel e ela grita, e voc\xEA a perde. Mantenha dist\xE2ncia."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991273897986
+    m_Localized: Imitador
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991273897987
+    m_Localized: "Ele mente para os seus instrumentos. O EMF aponta para um lado
+      enquanto o sussurro vem de outro. Confie nos seus ouvidos at\xE9 a lente peg\xE1-lo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925186531328
+    m_Localized: "Enfermeiras do plant\xE3o noturno juram que uma luzinha passa pelo
+      corredor \xE0s 3 da manh\xE3 e foge de quem a chama."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308544
+    m_Localized: "Lento e inofensivo. Vaga pelo c\xF4modo sem pressa, foge do raio
+      e se acalma de novo depois de alguns segundos."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308545
+    m_Localized: "No momento em que nota voc\xEA, ele congela: \xE9 a\xED que voc\xEA
+      usa o raio. Chegue perto, porque de perto o raio morde mais forte, e aguente
+      a \xFAltima luta dele."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308546
+    m_Localized: "Arquivo 0-01 da ag\xEAncia: todo fogo-f\xE1tuo analisado at\xE9
+      agora carrega o mesmo sinal fraco, uma can\xE7\xE3o de ninar cantarolada a
+      432 Hz. Ningu\xE9m sabe de quem."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308547
+    m_Localized: "Ele congela quando nota voc\xEA: acerte o raio bem nessa hora,
+      de perto."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308548
+    m_Localized: "Pratos voam das prateleiras e portas batem em c\xF4modos vazios.
+      Os moradores dizem que o ponto frio nunca fica muito tempo no mesmo lugar."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308549
+    m_Localized: "Quando a captura passa de 40%, ele se teletransporta 2\u20133 m.
+      Precisa de uns 5 segundos antes de saltar de novo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308550
+    m_Localized: "Cada salto o deixa tonto por cerca de um segundo. Varra com a lente,
+      trave r\xE1pido e acerte o raio enquanto ele est\xE1 atordoado: a captura carrega
+      duas vezes mais r\xE1pido."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308551
+    m_Localized: "Poltergeists n\xE3o s\xE3o esp\xEDritos de mortos. Os dados da
+      ag\xEAncia sugerem que eles se alimentam de estresse: todos foram encontrados
+      em casas no meio de uma briga."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308552
+    m_Localized: 'Depois de se teletransportar ele fica tonto por um segundo: trave
+      na hora e o raio carrega em dobro.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308553
+    m_Localized: "Motoristas do velho anel vi\xE1rio veem uma figura p\xE1lida \xE0
+      beira da estrada, e juram que um instante depois ela estava do outro lado."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308554
+    m_Localized: "O corredor mais r\xE1pido dos arquivos. Sob o raio, ele dispara
+      1,5 m para o lado, cruzando sua linha de vis\xE3o, a cada 2 segundos."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308555
+    m_Localized: "Cada disparada termina com uma parada seca de uma fra\xE7\xE3o
+      de segundo. N\xE3o persiga a disparada: espere a parada e acerte nessa hora.
+      Um anel largo (W2 Holofote) ou um raio que prende (T3 Amarra) ajuda a n\xE3o
+      perd\xEA-lo de vista."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308556
+    m_Localized: "Espectros s\xE3o ecos de pessoas que morreram com pressa. N\xE3o
+      est\xE3o fugindo de voc\xEA; continuam correndo para aquilo em que estavam
+      atrasados."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308557
+    m_Localized: 'Depois de cada disparada o espectro para por um instante: ataque
+      bem nessa hora.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308558
+    m_Localized: "Ela aparece no canto de fotos antigas e v\xEDdeos caseiros, mas
+      nunca duas vezes no mesmo quadro."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308559
+    m_Localized: "Pisca: vis\xEDvel por 1,2 s a cada 2 s. O raio s\xF3 carrega enquanto
+      ela est\xE1 vis\xEDvel, e o progresso se desfaz nos intervalos."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308560
+    m_Localized: "Seu \xFAnico momento fraco \xE9 o primeiro: quando nota voc\xEA,
+      ela congela. Depois disso, segure o raio pelos intervalos sem mexer o anel.
+      A P4 Lan\xE7a de Fase a segura mesmo quando ela some."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308561
+    m_Localized: "Uma sombra n\xE3o \xE9 um esp\xEDrito, mas um \xFAnico instante:
+      o quadro que uma c\xE2mera perdeu. As fitas da ag\xEAncia mostram a mesma sombra
+      em casas a 900 km de dist\xE2ncia, na mesma noite."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308562
+    m_Localized: Ataque quando ela congelar pela primeira vez, depois mantenha o
+      anel parado durante as piscadas.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308563
+    m_Localized: "Vizinhos ouvem uma mulher chorando atrav\xE9s das paredes na noite
+      antes de algo dar errado. Quem foi ver n\xE3o fala sobre isso."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308564
+    m_Localized: "Chegue a menos de uns 2,3 m enquanto ela est\xE1 revelada e ela
+      grita: some da lente por 2 s e a revela\xE7\xE3o recome\xE7a. Ela precisa de
+      9 s para gritar de novo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308565
+    m_Localized: "Mantenha dist\xE2ncia at\xE9 ela gritar. Ela volta da est\xE1tica
+      exausta e n\xE3o grita de novo por 9 segundos: \xE9 a hora de correr para perto
+      e acertar o raio."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308566
+    m_Localized: "Toda grava\xE7\xE3o de banshee do arquivo, desacelerada 8 vezes,
+      cont\xE9m um nome. Nunca o mesmo. Os agentes s\xE3o aconselhados a n\xE3o ouvi-las
+      sozinhos."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308567
+    m_Localized: "Depois do grito ela volta exausta: corra at\xE9 ela e acerte o
+      raio."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308568
+    m_Localized: "Ele fala com a sua pr\xF3pria voz do c\xF4modo ao lado. Os medidores
+      EMF daquela casa nunca apontaram duas vezes para o mesmo lado."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308569
+    m_Localized: "O EMF mente: aponta para uma fonte falsa a pelo menos 2,5 m e a
+      move a cada 5 s. O sussurro vem de onde ele realmente est\xE1. Depois de revelado,
+      a mentira acaba."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308570
+    m_Localized: "Confie nos ouvidos, n\xE3o no medidor: vire-se para o sussurro
+      e depois varra com a lente. Exposto, ele fica atordoado por dois segundos,
+      sua melhor chance. Ele resiste muito, ent\xE3o leve baterias reserva."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308571
+    m_Localized: "O primeiro imitador da ag\xEAncia nunca foi capturado. O arquivo
+      dele ainda diz \u201CAgente de plant\xE3o: desconhecido\u201D, com uma letra
+      igual \xE0 de cada agente que o leu."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308572
+    m_Localized: "Siga o sussurro, n\xE3o o medidor. Revelado, ele fica atordoado
+      por 2 segundos: ataque."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211471343616
+    m_Localized: Espreitador
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286656
+    m_Localized: "Alto, magro e paciente. Nunca vem de frente: espera voc\xEA desviar
+      o olhar e se aproxima, um passo silencioso de cada vez."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286657
+    m_Localized: "Vigias noturnos relatam a mesma figura no fim do corredor, um pouco
+      mais perto cada vez que voltam a olhar o monitor. Ningu\xE9m a viu antes das
+      onze."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286658
+    m_Localized: "S\xF3 se move enquanto voc\xEA olha para outro lado: no momento
+      em que a c\xE2mera se vira para ele, congela. Ele chega por tr\xE1s e vai se
+      aproximando; se alcan\xE7ar suas costas, ele ataca. S\xF3 aparece entre 23:00
+      e 04:00."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286659
+    m_Localized: "Escute o ch\xE3o: um rangido quer dizer que ele voltou a andar.
+      Vire-se na hora e voc\xEA o pega no meio do passo, sem f\xF4lego por um instante.
+      Mantenha-o \xE0 vista enquanto acerta o raio: observado, ele n\xE3o consegue
+      fugir."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286660
+    m_Localized: "Todo arquivo de espreitador termina igual: a \xFAltima grava\xE7\xE3o
+      do agente \xE9 uma imagem das pr\xF3prias costas, feita logo acima da altura
+      da cabe\xE7a."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286661
+    m_Localized: "O Espreitador s\xF3 se move quando voc\xEA desvia o olhar: quando
+      o ch\xE3o ranger, vire-se na hora."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286662
+    m_Localized: Gato Fantasma
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286663
+    m_Localized: "Um esp\xEDrito pequeno e curioso que ainda acha que mora aqui.
+      Odeia movimentos bruscos e adora um colo tranquilo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286664
+    m_Localized: "Moradores ouvem ronronar vindo de uma poltrona vazia e de manh\xE3
+      encontram uma marca quentinha aos p\xE9s da cama. Ningu\xE9m no pr\xE9dio tem
+      gato."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286665
+    m_Localized: "Um passo brusco ou um giro r\xE1pido da c\xE2mera o faz fugir por
+      alguns segundos. Fique parado um momento e ele vem se sentar a uns 1,2 m. Ele
+      nunca assusta ningu\xE9m; ele mia."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286666
+    m_Localized: "Fique im\xF3vel e deixe que ele venha. Enquanto est\xE1 sentado
+      ronronando, fica totalmente vulner\xE1vel por at\xE9 3 segundos: acerte o raio
+      sem mexer o celular."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286667
+    m_Localized: "Gatos fantasmas n\xE3o s\xE3o esp\xEDritos de bichos de estima\xE7\xE3o.
+      S\xE3o o que uma casa lembra das noites em que foi feliz."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286668
+    m_Localized: "O gato foge de movimentos bruscos: fique parado e deixe que ele
+      venha se sentar perto de voc\xEA."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208654499840
+    m_Localized: Domovyk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248576
+    m_Localized: "O esp\xEDrito da pr\xF3pria casa: um velhinho rabugento que mora
+      atr\xE1s do fog\xE3o e odeia ser incomodado."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248577
+    m_Localized: "As av\xF3s ainda deixam para ele um pires de leite. Nos apartamentos
+      onde ningu\xE9m faz isso, chaves somem, batem nas portas \xE0 noite e as x\xEDcaras
+      tilintam sozinhas."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248578
+    m_Localized: "Assim que sabe que voc\xEA est\xE1 aqui, ele se esconde quase o
+      tempo todo, correndo de um esconderijo a outro e batendo de dentro dos m\xF3veis
+      a cada poucos segundos. Nunca avan\xE7a na c\xE2mera: se encurralado, em vez
+      disso a lou\xE7a chacoalha."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248579
+    m_Localized: "Siga as batidas e o ponto frio, chegue at\xE9 o esconderijo e encontre-o
+      com a lente: atra\xEDdo para fora, ele fica tonto por 2 segundos. Acerte o
+      raio nessa hora."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248580
+    m_Localized: "Os agentes que capturaram um domovyk dizem a mesma coisa: por uma
+      semana, a pr\xF3pria casa pareceu mais fria. Hoje a ag\xEAncia os deixa voltar
+      ao apartamento de onde vieram."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248581
+    m_Localized: 'O Domovyk se esconde e bate: siga o som, chegue perto e atraia-o
+      com a lente.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248582
+    m_Localized: Negativo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248583
+    m_Localized: "Uma figura que s\xF3 existe no filme. A lente n\xE3o mostra nada;
+      a c\xE2mera mostra tudo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248584
+    m_Localized: "Antigos laborat\xF3rios de fotos jogavam fora rolos inteiros por
+      causa da mesma figura atr\xE1s de cada fam\xEDlia, um quadro mais perto a cada
+      vez. Ela nunca estava l\xE1 quando a foto foi tirada."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248585
+    m_Localized: "A Lente Fantasma n\xE3o consegue v\xEA-lo, mas o EMF e o sussurro
+      sim. Uma foto com ele no quadro o revela por 5 segundos: s\xF3 ent\xE3o a lente
+      e o raio conseguem peg\xE1-lo. O obturador arma quando ele est\xE1 perto e
+      no quadro, mesmo sem ser visto."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248586
+    m_Localized: "Aqui o filme decide tudo. Aproxime-se pelo EMF e pelo sussurro,
+      fotografe assim que o obturador armar e acerte o raio na hora, enquanto ele
+      est\xE1 revelado. Cada nova foto d\xE1 mais 5 segundos."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248587
+    m_Localized: "A ag\xEAncia guarda todo rolo em que um negativo apareceu. Revelados
+      uma segunda vez, nenhum mostra a mesma imagem."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248588
+    m_Localized: "A lente n\xE3o v\xEA o Negativo: fotografe-o e acerte o raio enquanto
+      ele est\xE1 revelado."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248589
+    m_Localized: Acorrentado
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248590
+    m_Localized: "Um condenado alto e encapuzado que ainda arrasta as correntes com
+      que morreu. Lento, pesado e muito dif\xEDcil de segurar."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248591
+    m_Localized: "Vigias da velha pris\xE3o ouvem correntes arrastadas pelo corredor
+      onde ficavam as celas. O corredor \xE9 um estacionamento h\xE1 quarenta anos."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248592
+    m_Localized: "Lento, mas o fantasma mais dif\xEDcil de segurar: sob o raio, ele
+      puxa as correntes para o lado duas vezes, aos 40% e aos 70% da captura. Se
+      o anel o perder no fim do pux\xE3o, a captura cai 25%. D\xE1 para ouvir as
+      correntes do outro lado do c\xF4modo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248593
+    m_Localized: "Mantenha dist\xE2ncia para que um pux\xE3o n\xE3o o jogue para
+      fora do anel, e siga-o para o lado assim que as correntes chacoalharem. Um
+      laser com anel mais largo facilita muito."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248594
+    m_Localized: "Ningu\xE9m sabe por que ele foi condenado. Todo agente que perguntou
+      ouviu a mesma resposta entre o chacoalhar: \u201Cpor nada\u201D."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248595
+    m_Localized: 'O Acorrentado puxa as correntes aos 40% e aos 70%: mantenha-o no
+      anel.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248596
+    m_Localized: Mara
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248597
+    m_Localized: "Um pesadelo velado atra\xEDdo pela luz. Ligue a lente e ela vem
+      atr\xE1s de voc\xEA."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248598
+    m_Localized: "Ela senta no peito de quem dorme com o abajur aceso. Eles acordam
+      com o celular descarregado, a lanterna sem pilha e nenhuma lembran\xE7a da
+      noite."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248599
+    m_Localized: "Enquanto sua lente est\xE1 ligada, ela anda na sua dire\xE7\xE3o;
+      no escuro, recua e se esconde. Chegue a menos de 1,3 m dela com a lente ligada
+      e ela ataca, arrancando 20% da sua bateria, e depois salta para longe, exausta
+      por 1,2 segundo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248600
+    m_Localized: "Use a lente em disparos curtos de longe, s\xF3 quando ela j\xE1
+      estiver no anel, e acerte o raio na hora. Se ela atacar, castigue-a enquanto
+      est\xE1 exausta."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248601
+    m_Localized: "Todo arquivo de mara guarda a foto de um quarto vazio com o abajur
+      aceso. A ag\xEAncia nunca descobriu quem as tira."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248602
+    m_Localized: "A Mara vem at\xE9 a luz: ligue a lente por um instante e acerte
+      o raio de longe."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

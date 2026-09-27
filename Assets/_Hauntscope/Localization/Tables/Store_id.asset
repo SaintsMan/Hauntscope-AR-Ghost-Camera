@@ -17,7 +17,75 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: 2866b66d97950fe4a88f0cb2dddde093, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 1129709568
+    m_Localized: M1 STANDAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486784
+    m_Localized: Perlengkapan standar agensi. Andal, tidak lebih.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486785
+    m_Localized: W2 SOROT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486786
+    m_Localized: Lingkaran lebar yang memaafkan tangan gemetar. Tangkapan memudar
+      dua kali lebih lambat.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486787
+    m_Localized: T3 PENGIKAT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486788
+    m_Localized: 'Mencengkeram hantu: setengah kecepatan di dalam sinar, tangkapan
+      +20%.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486789
+    m_Localized: P4 TOMBAK FASE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486790
+    m_Localized: Menangkap 60% lebih cepat dan menahan hantu yang menghilang. Lingkaran
+      sempit.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486791
+    m_Localized: BATERAI CADANGAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486792
+    m_Localized: +50% daya. Pasang kapan saja saat berburu, atau saat baterai habis.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486793
+    m_Localized: PENGUAT EMF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486794
+    m_Localized: EMF menjangkau 50% lebih jauh dan panah menunjuk ke sumbernya. Satu
+      perburuan.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486795
+    m_Localized: LENSA FOKUS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486796
+    m_Localized: Lensa Hantu hanya menguras setengah baterai. Satu perburuan.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486797
+    m_Localized: GARIS GARAM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486798
+    m_Localized: Hantu bergerak 35% lebih lambat di atas lantai bergaram. Satu perburuan.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

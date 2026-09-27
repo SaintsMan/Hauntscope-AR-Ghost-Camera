@@ -22,6 +22,1048 @@ MonoBehaviour:
     m_Localized: Hauntscope
     m_Metadata:
       m_Items: []
+  - m_Id: 11247262498816
+    m_Localized: RAUM WIRD KALIBRIERT {0}%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11247321219072
+    m_Localized: RAUM KALIBRIERT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11247321219073
+    m_Localized: Richte die Kamera auf den Boden
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11247321219074
+    m_Localized: Bewege dein Handy langsam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19432002158592
+    m_Localized: EMF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19432052490240
+    m_Localized: LVL {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27153795514368
+    m_Localized: LINSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32511440060416
+    m_Localized: STRAHL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470955974656
+    m_Localized: GEFANGEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529088
+    m_Localized: ENTKOMMEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529089
+    m_Localized: +{0} EKTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529090
+    m_Localized: ZEIT {0:00}:{1:00}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529091
+    m_Localized: NOCH MAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529092
+    m_Localized: "MEN\xDC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50212896112640
+    m_Localized: REC
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50212933861376
+    m_Localized: '{0:00}:{1:00}:{2:00}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671858266112
+    m_Localized: HAUNTSCOPE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671900209152
+    m_Localized: paranormale Kamera
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597760
+    m_Localized: JAGD STARTEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597761
+    m_Localized: BESTIARIUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597762
+    m_Localized: EINSTELLUNGEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597763
+    m_Localized: v{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597764
+    m_Localized: "ZUR\xDCCK"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597765
+    m_Localized: SCHLIESSEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597766
+    m_Localized: AN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597767
+    m_Localized: AUS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597768
+    m_Localized: BESTIARIUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597769
+    m_Localized: '{0} / {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597770
+    m_Localized: x{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597771
+    m_Localized: GEFANGEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597772
+    m_Localized: UNBEKANNT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597773
+    m_Localized: ???
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597774
+    m_Localized: EINSTELLUNGEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597775
+    m_Localized: Ton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597776
+    m_Localized: Vibration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597777
+    m_Localized: Jumpscares
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597778
+    m_Localized: Sprache
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597779
+    m_Localized: CREDITS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597780
+    m_Localized: CREDITS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597781
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597782
+    m_Localized: "\u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597783
+    m_Localized: "Espa\xF1ol"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597784
+    m_Localized: "Portugu\xEAs"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597785
+    m_Localized: Deutsch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597786
+    m_Localized: Bahasa Indonesia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994196037632
+    m_Localized: PAUSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174976
+    m_Localized: WEITER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174977
+    m_Localized: EINSTELLUNGEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174978
+    m_Localized: "ZUM MEN\xDC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174979
+    m_Localized: TRACKING VERLOREN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174980
+    m_Localized: Bewege dich langsam und mach mehr Licht.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174981
+    m_Localized: Verdeckung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804563591168
+    m_Localized: KAMERAZUGRIFF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534208
+    m_Localized: Hauntscope braucht die Kamera, um Geister in deinem Zimmer zu zeigen.
+      Ohne sie jagst du im virtuellen Raum.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534209
+    m_Localized: "Der Kamerazugriff ist aus. \xD6ffne die App-Einstellungen und erlaube
+      unter Berechtigungen die Kamera. Ohne sie jagst du im virtuellen Raum."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534210
+    m_Localized: KAMERA ERLAUBEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534211
+    m_Localized: "EINSTELLUNGEN \xD6FFNEN"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534212
+    m_Localized: IM VIRTUELLEN RAUM SPIELEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534213
+    m_Localized: "AR NICHT VERF\xDCGBAR"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534214
+    m_Localized: "Dein Ger\xE4t unterst\xFCtzt kein AR. Du jagst im virtuellen Raum."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534215
+    m_Localized: OK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 111728735420416
+    m_Localized: "Hauntscope ist ein Spiel, das nur der Unterhaltung dient. Es erkennt
+      keine echten paranormalen Aktivit\xE4ten."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992666406912
+    m_Localized: TRAINING {0}/{1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572736
+    m_Localized: Zieh auf der linken Seite, um zu gehen. Wisch auf der rechten Seite,
+      um dich umzusehen.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572737
+    m_Localized: "Hier ist ein Geist, aber unsichtbar. Folge dem EMF-Messger\xE4t:
+      Je n\xE4her er ist, desto schneller piept es."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572738
+    m_Localized: Tippe auf LINSE und dreh dich langsam. Die Linse macht den Geist
+      sichtbar, verbraucht aber Akku.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572739
+    m_Localized: "Er ist erstarrt! Halte den STRAHL gedr\xFCckt und behalte ihn im
+      Ring."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880640503808
+    m_Localized: STANDBY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880674058240
+    m_Localized: "L\xC4DT {0}%"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880674058241
+    m_Localized: FALLAKTEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880674058242
+    m_Localized: AR-SENSOREN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252544
+    m_Localized: FIRMWARE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252545
+    m_Localized: OK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252546
+    m_Localized: NEUER AGENT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252547
+    m_Localized: AR BEREIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252548
+    m_Localized: "ARCORE N\xD6TIG"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252549
+    m_Localized: VIRTUELLER RAUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252550
+    m_Localized: AKTUELL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252551
+    m_Localized: "UPDATE L\xC4UFT"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252552
+    m_Localized: "\xDCBERSPRUNGEN"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252553
+    m_Localized: FEHLER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 159025523458048
+    m_Localized: '{0:dd.MM.yyyy}  {0:HH'':''mm'':''ss}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529468858368
+    m_Localized: KAMERA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412800
+    m_Localized: VIRTUELL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412801
+    m_Localized: Geister in deinem echten Zimmer, durch die Kamera
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412802
+    m_Localized: 'Ohne Kamera: Jagd in einer verlassenen Wohnung'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412803
+    m_Localized: "AR wird hier nicht unterst\xFCtzt: nur virtueller Raum"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412805
+    m_Localized: NEUER EINTRAG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 173894771539968
+    m_Localized: 'Spar Akku: Die Linse zieht Strom'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883303100416
+    m_Localized: LADEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849152
+    m_Localized: AGENTUR-LAGER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849153
+    m_Localized: LASER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849154
+    m_Localized: "AUSR\xDCSTUNG"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849155
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849156
+    m_Localized: "W\xC4HLEN"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849157
+    m_Localized: AKTIV
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849158
+    m_Localized: MAX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849159
+    m_Localized: "\xD7{0}/{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849160
+    m_Localized: KRAFT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849161
+    m_Localized: HALT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849162
+    m_Localized: EFFIZIENZ
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849163
+    m_Localized: "\xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118767570944
+    m_Localized: +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319680
+    m_Localized: +{0} EKTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319681
+    m_Localized: +{1}% LADUNG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319682
+    m_Localized: "ERSATZZELLE IN DER N\xC4HE"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319683
+    m_Localized: AKKU LEER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319684
+    m_Localized: Der Geist entwischt. Lade auf, um weiterzujagen.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319685
+    m_Localized: "ERSATZ \xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319686
+    m_Localized: +50% LADUNG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319687
+    m_Localized: AUFGEBEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319688
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319689
+    m_Localized: FANG +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319690
+    m_Localized: FORSCHUNG +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319691
+    m_Localized: FUNDE +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319692
+    m_Localized: "  \xB7  "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926537097216
+    m_Localized: GESICHTET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845952
+    m_Localized: FREIGEGEBEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845953
+    m_Localized: "AKTE #{0:00} \xB7 {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845954
+    m_Localized: "GEW\xD6HNLICH"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845955
+    m_Localized: SELTEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845956
+    m_Localized: "LEGEND\xC4R"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845957
+    m_Localized: GEFAHR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845958
+    m_Localized: ZEUGENAUSSAGEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845959
+    m_Localized: VERHALTEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845960
+    m_Localized: AKTENNOTIZEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845961
+    m_Localized: TAKTIK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845962
+    m_Localized: PROFIL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845963
+    m_Localized: STRENG GEHEIM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845964
+    m_Localized: Mach ihn in der Linse sichtbar, um die Akte freizugeben.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845965
+    m_Localized: Fang ihn, um die Akte freizugeben.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845966
+    m_Localized: 'Bis zur Freigabe fehlen noch Beweise: {0}.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845967
+    m_Localized: "Forschungszuschuss: +{0}% Ektoplasma f\xFCr jeden Fang."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845968
+    m_Localized: TEMPO      {0:0.0} m/s
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845969
+    m_Localized: FLUCHT     {0:0.0} m/s
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845970
+    m_Localized: "WIDERSTAND \xD7{0:0.0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845971
+    m_Localized: BELOHNUNG  {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845972
+    m_Localized: FREIGEGEBEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300426846208
+    m_Localized: VERBINDUNG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594944
+    m_Localized: ONLINE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594945
+    m_Localized: OFFLINE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594946
+    m_Localized: FELDLIEFERUNG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594947
+    m_Localized: "+{0} Ektoplasma f\xFCr ein kurzes Video"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594948
+    m_Localized: '{0}/{1} HEUTE'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594949
+    m_Localized: ANSEHEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594950
+    m_Localized: MORGEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594951
+    m_Localized: "\xD72 FANG"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594952
+    m_Localized: DATENSCHUTZ
+    m_Metadata:
+      m_Items: []
+  - m_Id: 393287816314880
+    m_Localized: FOKUS {0:0.0}M
+    m_Metadata:
+      m_Items: []
+  - m_Id: 393287862452224
+    m_Localized: VERWUNDBAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948767096832
+    m_Localized: FOTO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039872
+    m_Localized: MITTIG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039874
+    m_Localized: MOMENT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039875
+    m_Localized: "AKTE #{0:00} \xB7 {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039876
+    m_Localized: "HAUNTSCOPE \xB7 AR-GEISTERKAMERA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039877
+    m_Localized: TEILEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039878
+    m_Localized: IN GALERIE SPEICHERN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039879
+    m_Localized: IN GALERIE GESPEICHERT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039880
+    m_Localized: SPEICHERN FEHLGESCHLAGEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039881
+    m_Localized: 'Ein Geist in meinem Zimmer: {0}! Mit Hauntscope vor die Kamera
+      bekommen. {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039882
+    m_Localized: Teile den Beweis
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039883
+    m_Localized: FOTO +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 409467331411968
+    m_Localized: GANZER GEIST
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100688531456
+    m_Localized: BEWEISE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085888
+    m_Localized: 'Noch keine Fotos in der Akte. Fotografiere ihn mit der Geisterkamera:
+      Ein Foto mit {0}+ Sternen wird zum Beweis (bis zu {1} pro Akte).'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085889
+    m_Localized: "Fotos in der Akte: {0}. Bestes Foto: {1}/3 Sterne. Tippe auf den
+      Abzug, um es zu \xF6ffnen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085890
+    m_Localized: "Z\xE4hlt zur Freigabe: {0}/{1} (Fotos mit {2}+ Sternen)."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085891
+    m_Localized: "\xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212909989888
+    m_Localized: GEISTERSTUNDE +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155712
+    m_Localized: GEISTERSTUNDE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155713
+    m_Localized: GEISTERSTUNDE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155714
+    m_Localized: CH-01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155715
+    m_Localized: CH-13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606227529728
+    m_Localized: "NACHTSCHICHT \xB7 3 GEISTER"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278464
+    m_Localized: "Verf\xFCgbar nach {0} Jagden"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278465
+    m_Localized: 'Rekord: {0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278466
+    m_Localized: "SCHICHT {0}/{1} \xB7 \xD7{2:0.#}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278467
+    m_Localized: WEITER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278468
+    m_Localized: NEUE SCHICHT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278469
+    m_Localized: "SCHICHT \xD7{0:0.#} +{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278470
+    m_Localized: "NACHTSCHICHT {0}/{1} \xB7 SCHICHT GESAMT +{2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278471
+    m_Localized: "SCHICHT BEENDET {0}/{0} \xB7 SCHICHT GESAMT +{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278472
+    m_Localized: "SCHICHT ABGEBROCHEN BEI {0}/{1} \xB7 SCHICHT GESAMT +{2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278473
+    m_Localized: SCHICHTBONUS +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278474
+    m_Localized: SCHICHTBONUS +{0} UND {1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278475
+    m_Localized: "PAUSE \xB7 SCHICHT {0}/{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278476
+    m_Localized: "W\xE4hle eins. Boni gelten bis zum Schichtende und addieren sich."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278477
+    m_Localized: "Akku {0}% \xB7 n\xE4chster Geist ist z\xE4her, Fang \xD7{1:0.#}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278478
+    m_Localized: IN DIESER SCHICHT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278479
+    m_Localized: Kalte Linse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278480
+    m_Localized: Die Linse verbraucht nur halb so viel Akku.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278481
+    m_Localized: "Verst\xE4rkte Antenne"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278482
+    m_Localized: Das EMF reicht 50% weiter und zeigt auf den Geist.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278483
+    m_Localized: Harte Hand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278484
+    m_Localized: "Der Strahl f\xE4ngt 25% schneller."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278485
+    m_Localized: Breiter Strahl
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278486
+    m_Localized: Der Fangring ist 30% breiter.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278487
+    m_Localized: Salz in der Tasche
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278488
+    m_Localized: Geister bewegen sich 20% langsamer.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278489
+    m_Localized: Frischer Akku
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278490
+    m_Localized: +40% Ladung sofort.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278491
+    m_Localized: Ersatzkassette
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278492
+    m_Localized: +2 Bilder Film in jeder restlichen Jagd der Schicht.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669652905984
+    m_Localized: "AUFTR\xC4GE"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460416
+    m_Localized: "AGENTUR-AUFTR\xC4GE"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460417
+    m_Localized: AUFTRAG #{0:0000}-{1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460418
+    m_Localized: LEICHT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460419
+    m_Localized: MITTEL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460420
+    m_Localized: SCHWER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460421
+    m_Localized: '{0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460422
+    m_Localized: +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460423
+    m_Localized: "{0} \xD7{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460424
+    m_Localized: bezahlt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460425
+    m_Localized: ABHOLEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460426
+    m_Localized: TAUSCHEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460427
+    m_Localized: ERLEDIGT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460428
+    m_Localized: BEZAHLT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460429
+    m_Localized: "Neue Auftr\xE4ge in {0:00}:{1:00}:{2:00}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460430
+    m_Localized: "Ein Tausch pro Tag ist gratis, ein weiterer gegen Werbung. Erledigte,
+      aber nicht abgeholte Auftr\xE4ge werden um Mitternacht trotzdem bezahlt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460431
+    m_Localized: AUFTRAG ERLEDIGT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460432
+    m_Localized: "AUFTR\xC4GE ERLEDIGT: {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460433
+    m_Localized: "Die Belohnung wartet unter AUFTR\xC4GE"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460434
+    m_Localized: "Fange Geister \xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460435
+    m_Localized: "Sammle Funde im Raum \xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460436
+    m_Localized: "Mach Fotos mit 1 Stern oder mehr \xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460437
+    m_Localized: "Halte den Strahl auf einen bet\xE4ubten Geist \xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460438
+    m_Localized: Mach ein 3-Sterne-Foto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460439
+    m_Localized: Treib einen Geist aus seinem Versteck
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460440
+    m_Localized: Fange einen Geist aus weniger als 1 m
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460441
+    m_Localized: Heb einen verfluchten Koffer auf (nur in der Linse)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460442
+    m_Localized: Fange einen Geist ohne Ersatzakku und Booster
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460443
+    m_Localized: Fange einen Geist mit 50% Ladung oder mehr
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460444
+    m_Localized: Erreiche den 3. Geist einer Nachtschicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460445
+    m_Localized: 'Fange: {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460446
+    m_Localized: Fange einen Geist in 1:30 oder schneller
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155494588416
+    m_Localized: TAGESRATION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142848
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142849
+    m_Localized: Bild {0} von {1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142850
+    m_Localized: "Ein verpasster Tag spult das Band nie zur\xFCck"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142851
+    m_Localized: "Das n\xE4chste Bild gibt es morgen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142852
+    m_Localized: ABHOLEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142853
+    m_Localized: ABGEHOLT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142854
+    m_Localized: "\xD7{0} F\xDCR WERBUNG"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142855
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142856
+    m_Localized: "\xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465765972443136
+    m_Localized: "Er rei\xDFt sich los! Behalte ihn im Ring, lass nicht los."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997568
+    m_Localized: AGENTEN-TIPP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997569
+    m_Localized: "Sein Trick hat ihn bet\xE4ubt: Triff ihn jetzt mit dem Strahl!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997570
+    m_Localized: "Geh n\xE4her ran: Aus der N\xE4he l\xE4dt der Strahl viel schneller."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997571
+    m_Localized: "Er ist in der Linse: Mach ein Foto f\xFCr seine Akte."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997572
+    m_Localized: "Kalter Fleck: Er versteckt sich in der N\xE4he. Geh um die M\xF6bel
+      herum und komm n\xE4her."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997573
+    m_Localized: 'Beweg dich nicht: Sie kommt von selbst zu dir.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997574
+    m_Localized: "Geisterstunde: Seltene Geister kommen \xF6fter und jeder Fang bringt
+      mehr."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997575
+    m_Localized: "Jeder Bonus gilt bis zum Schichtende und addiert sich mit den anderen.
+      W\xE4hle f\xFCr den n\xE4chsten Geist."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997576
+    m_Localized: NEU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997577
+    m_Localized: "TIPPS ZUR\xDCCKSETZEN"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997578
+    m_Localized: TIPPS ERSCHEINEN WIEDER
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

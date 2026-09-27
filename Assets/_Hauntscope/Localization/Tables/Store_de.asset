@@ -17,7 +17,74 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: 2866b66d97950fe4a88f0cb2dddde093, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 1129709568
+    m_Localized: M1 STANDARD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486784
+    m_Localized: "Standardausr\xFCstung der Agentur. Zuverl\xE4ssig, mehr nicht."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486785
+    m_Localized: W2 FLUTLICHT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486786
+    m_Localized: Ein breiter Ring, der eine zittrige Hand verzeiht. Der Fang verblasst
+      halb so schnell.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486787
+    m_Localized: T3 LEINE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486788
+    m_Localized: "H\xE4lt den Geist fest: halbes Tempo im Strahl, Fang +20%."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486789
+    m_Localized: P4 PHASENLANZE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486790
+    m_Localized: "F\xE4ngt 60% schneller und h\xE4lt Geister, die verschwinden. Schmaler
+      Ring."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486791
+    m_Localized: ERSATZAKKU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486792
+    m_Localized: "+50% Ladung. Jederzeit w\xE4hrend der Jagd einsetzbar oder wenn
+      der Akku leer ist."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486793
+    m_Localized: "EMF-VERST\xC4RKER"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486794
+    m_Localized: Das EMF reicht 50% weiter und ein Pfeil zeigt zur Quelle. Eine Jagd.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486795
+    m_Localized: FOKUSLINSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486796
+    m_Localized: Die Geisterlinse verbraucht nur halb so viel Akku. Eine Jagd.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486797
+    m_Localized: SALZLINIE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486798
+    m_Localized: "\xDCber gesalztem Boden sind Geister 35% langsamer. Eine Jagd."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

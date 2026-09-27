@@ -22,6 +22,1047 @@ MonoBehaviour:
     m_Localized: Hauntscope
     m_Metadata:
       m_Items: []
+  - m_Id: 11247262498816
+    m_Localized: KALIBRASI RUANGAN {0}%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11247321219072
+    m_Localized: RUANGAN TERKALIBRASI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11247321219073
+    m_Localized: Arahkan ke lantai
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11247321219074
+    m_Localized: Gerakkan ponselmu perlahan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19432002158592
+    m_Localized: EMF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19432052490240
+    m_Localized: LVL {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27153795514368
+    m_Localized: LENSA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32511440060416
+    m_Localized: SINAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470955974656
+    m_Localized: TERTANGKAP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529088
+    m_Localized: KABUR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529089
+    m_Localized: +{0} EKTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529090
+    m_Localized: WAKTU {0:00}:{1:00}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529091
+    m_Localized: BURU LAGI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529092
+    m_Localized: MENU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50212896112640
+    m_Localized: REC
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50212933861376
+    m_Localized: '{0:00}:{1:00}:{2:00}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671858266112
+    m_Localized: HAUNTSCOPE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671900209152
+    m_Localized: kamera paranormal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597760
+    m_Localized: MULAI BERBURU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597761
+    m_Localized: BESTIARI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597762
+    m_Localized: PENGATURAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597763
+    m_Localized: v{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597764
+    m_Localized: KEMBALI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597765
+    m_Localized: TUTUP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597766
+    m_Localized: AKTIF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597767
+    m_Localized: MATI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597768
+    m_Localized: BESTIARI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597769
+    m_Localized: '{0} / {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597770
+    m_Localized: x{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597771
+    m_Localized: TERTANGKAP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597772
+    m_Localized: TAK DIKENAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597773
+    m_Localized: ???
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597774
+    m_Localized: PENGATURAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597775
+    m_Localized: Suara
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597776
+    m_Localized: Getaran
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597777
+    m_Localized: Jumpscare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597778
+    m_Localized: Bahasa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597779
+    m_Localized: KREDIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597780
+    m_Localized: KREDIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597781
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597782
+    m_Localized: "\u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597783
+    m_Localized: "Espa\xF1ol"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597784
+    m_Localized: "Portugu\xEAs"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597785
+    m_Localized: Deutsch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597786
+    m_Localized: Bahasa Indonesia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994196037632
+    m_Localized: JEDA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174976
+    m_Localized: LANJUTKAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174977
+    m_Localized: PENGATURAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174978
+    m_Localized: KE MENU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174979
+    m_Localized: PELACAKAN HILANG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174980
+    m_Localized: Bergeraklah perlahan dan tambah cahaya.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174981
+    m_Localized: Oklusi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804563591168
+    m_Localized: AKSES KAMERA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534208
+    m_Localized: Hauntscope butuh kamera untuk menampilkan hantu di kamarmu. Tanpa
+      kamera, kamu akan berburu di Ruang Virtual.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534209
+    m_Localized: Akses kamera dimatikan. Buka pengaturan aplikasi dan izinkan Kamera
+      di bagian Izin. Tanpa kamera, kamu akan berburu di Ruang Virtual.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534210
+    m_Localized: IZINKAN KAMERA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534211
+    m_Localized: BUKA PENGATURAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534212
+    m_Localized: MAIN DI RUANG VIRTUAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534213
+    m_Localized: AR TIDAK TERSEDIA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534214
+    m_Localized: Perangkatmu tidak mendukung AR. Kamu akan berburu di Ruang Virtual.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534215
+    m_Localized: OK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 111728735420416
+    m_Localized: Hauntscope adalah game untuk hiburan semata. Game ini tidak mendeteksi
+      aktivitas paranormal sungguhan.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992666406912
+    m_Localized: LATIHAN {0}/{1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572736
+    m_Localized: Geser di sisi kiri untuk berjalan. Usap di sisi kanan untuk melihat
+      sekeliling.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572737
+    m_Localized: 'Ada hantu di sini, tapi tak terlihat. Ikuti meteran EMF: makin
+      dekat, makin cepat bunyinya.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572738
+    m_Localized: Ketuk LENSA dan berputarlah perlahan. Lensa menampakkan hantu, tapi
+      menguras baterai.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572739
+    m_Localized: Ia membeku! Tahan SINAR dan jaga ia tetap di dalam lingkaran.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880640503808
+    m_Localized: SIAGA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880674058240
+    m_Localized: MEMUAT {0}%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880674058241
+    m_Localized: BERKAS KASUS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880674058242
+    m_Localized: SENSOR AR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252544
+    m_Localized: FIRMWARE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252545
+    m_Localized: OK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252546
+    m_Localized: AGEN BARU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252547
+    m_Localized: AR SIAP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252548
+    m_Localized: PERLU ARCORE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252549
+    m_Localized: RUANG VIRTUAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252550
+    m_Localized: TERBARU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252551
+    m_Localized: MEMPERBARUI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252552
+    m_Localized: DILEWATI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252553
+    m_Localized: GALAT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 159025523458048
+    m_Localized: '{0:dd.MM.yyyy}  {0:HH'':''mm'':''ss}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529468858368
+    m_Localized: KAMERA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412800
+    m_Localized: VIRTUAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412801
+    m_Localized: Hantu di kamarmu yang asli, lewat kamera
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412802
+    m_Localized: 'Tanpa kamera: berburu di apartemen terbengkalai'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412803
+    m_Localized: 'AR tidak didukung di sini: hanya ruang virtual'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412805
+    m_Localized: ENTRI BARU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 173894771539968
+    m_Localized: 'Hemat daya: lensa menguras baterai'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883303100416
+    m_Localized: TOKO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849152
+    m_Localized: GUDANG AGENSI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849153
+    m_Localized: LASER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849154
+    m_Localized: PERLENGKAPAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849155
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849156
+    m_Localized: PAKAI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849157
+    m_Localized: DIPEGANG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849158
+    m_Localized: MAKS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849159
+    m_Localized: "\xD7{0}/{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849160
+    m_Localized: DAYA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849161
+    m_Localized: CENGKERAM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849162
+    m_Localized: HEMAT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849163
+    m_Localized: "\xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118767570944
+    m_Localized: +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319680
+    m_Localized: +{0} EKTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319681
+    m_Localized: +{1}% DAYA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319682
+    m_Localized: SEL CADANGAN DI DEKAT SINI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319683
+    m_Localized: BATERAI HABIS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319684
+    m_Localized: Hantunya mulai lolos. Isi ulang daya untuk terus berburu.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319685
+    m_Localized: "CADANGAN \xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319686
+    m_Localized: +50% DAYA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319687
+    m_Localized: MENYERAH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319688
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319689
+    m_Localized: TANGKAPAN +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319690
+    m_Localized: RISET +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319691
+    m_Localized: TEMUAN +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319692
+    m_Localized: "  \xB7  "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926537097216
+    m_Localized: TERLIHAT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845952
+    m_Localized: DIBUKA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845953
+    m_Localized: "BERKAS #{0:00} \xB7 {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845954
+    m_Localized: BIASA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845955
+    m_Localized: LANGKA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845956
+    m_Localized: LEGENDARIS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845957
+    m_Localized: BAHAYA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845958
+    m_Localized: KESAKSIAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845959
+    m_Localized: PERILAKU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845960
+    m_Localized: CATATAN KASUS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845961
+    m_Localized: TAKTIK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845962
+    m_Localized: PROFIL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845963
+    m_Localized: SANGAT RAHASIA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845964
+    m_Localized: Tampakkan ia di lensa untuk membuka berkasnya.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845965
+    m_Localized: Tangkap ia untuk membuka berkasnya.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845966
+    m_Localized: 'Bukti yang masih dibutuhkan untuk membuka berkas: {0}.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845967
+    m_Localized: 'Dana riset: +{0}% ektoplasma untuk setiap tangkapan.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845968
+    m_Localized: KECEPATAN  {0:0.0} m/s
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845969
+    m_Localized: KABUR      {0:0.0} m/s
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845970
+    m_Localized: "KETAHANAN  \xD7{0:0.0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845971
+    m_Localized: HADIAH     {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845972
+    m_Localized: DIBUKA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300426846208
+    m_Localized: KONEKSI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594944
+    m_Localized: ONLINE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594945
+    m_Localized: OFFLINE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594946
+    m_Localized: KIRIMAN LAPANGAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594947
+    m_Localized: +{0} ektoplasma untuk video singkat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594948
+    m_Localized: '{0}/{1} HARI INI'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594949
+    m_Localized: TONTON
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594950
+    m_Localized: BESOK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594951
+    m_Localized: "\xD72 TANGKAPAN"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594952
+    m_Localized: PRIVASI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 393287816314880
+    m_Localized: FOKUS {0:0.0}M
+    m_Metadata:
+      m_Items: []
+  - m_Id: 393287862452224
+    m_Localized: RENTAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948767096832
+    m_Localized: FOTO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039872
+    m_Localized: DI TENGAH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039874
+    m_Localized: MOMEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039875
+    m_Localized: "KASUS #{0:00} \xB7 {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039876
+    m_Localized: "HAUNTSCOPE \xB7 KAMERA HANTU AR"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039877
+    m_Localized: BAGIKAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039878
+    m_Localized: SIMPAN KE GALERI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039879
+    m_Localized: TERSIMPAN DI GALERI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039880
+    m_Localized: GAGAL MENYIMPAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039881
+    m_Localized: 'Ada hantu di kamarku: {0}! Tertangkap kamera dengan Hauntscope.
+      {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039882
+    m_Localized: Bagikan buktinya
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039883
+    m_Localized: FOTO +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 409467331411968
+    m_Localized: HANTU UTUH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100688531456
+    m_Localized: BUKTI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085888
+    m_Localized: 'Belum ada foto di berkas. Potret ia dengan kamera arwah: foto dengan
+      {0}+ bintang menjadi bukti (hingga {1} per berkas).'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085889
+    m_Localized: 'Foto di berkas: {0}. Foto terbaik: {1}/3 bintang. Ketuk cetakan
+      foto untuk membukanya.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085890
+    m_Localized: 'Dihitung untuk membuka berkas: {0}/{1} (foto dengan {2}+ bintang).'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085891
+    m_Localized: "\xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212909989888
+    m_Localized: JAM KERAMAT +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155712
+    m_Localized: JAM KERAMAT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155713
+    m_Localized: JAM KERAMAT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155714
+    m_Localized: CH-01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155715
+    m_Localized: CH-13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606227529728
+    m_Localized: "JAGA MALAM \xB7 3 HANTU"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278464
+    m_Localized: Terbuka setelah {0} perburuan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278465
+    m_Localized: 'Rekor: {0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278466
+    m_Localized: "JAGA {0}/{1} \xB7 \xD7{2:0.#}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278467
+    m_Localized: BERIKUTNYA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278468
+    m_Localized: JAGA BARU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278469
+    m_Localized: "JAGA \xD7{0:0.#} +{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278470
+    m_Localized: "JAGA MALAM {0}/{1} \xB7 TOTAL JAGA +{2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278471
+    m_Localized: "JAGA TUNTAS {0}/{0} \xB7 TOTAL JAGA +{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278472
+    m_Localized: "JAGA BERAKHIR DI {0}/{1} \xB7 TOTAL JAGA +{2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278473
+    m_Localized: BONUS JAGA +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278474
+    m_Localized: BONUS JAGA +{0} DAN {1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278475
+    m_Localized: "ISTIRAHAT \xB7 JAGA {0}/{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278476
+    m_Localized: Pilih satu. Bonus berlaku sampai jaga selesai dan saling menumpuk.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278477
+    m_Localized: "Baterai {0}% \xB7 hantu berikutnya lebih tangguh, tangkapan \xD7{1:0.#}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278478
+    m_Localized: DI JAGA INI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278479
+    m_Localized: Lensa Dingin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278480
+    m_Localized: Lensa menguras baterai dua kali lebih lambat.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278481
+    m_Localized: Antena Super
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278482
+    m_Localized: EMF menjangkau 50% lebih jauh dan menunjuk ke hantu.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278483
+    m_Localized: Tangan Berat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278484
+    m_Localized: Sinar menangkap 25% lebih cepat.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278485
+    m_Localized: Sinar Lebar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278486
+    m_Localized: Lingkaran tangkap 30% lebih lebar.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278487
+    m_Localized: Garam di Saku
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278488
+    m_Localized: Hantu bergerak 20% lebih lambat.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278489
+    m_Localized: Baterai Segar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278490
+    m_Localized: +40% daya saat ini juga.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278491
+    m_Localized: Kaset Cadangan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278492
+    m_Localized: +2 bingkai film di setiap perburuan yang tersisa dalam jaga ini.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669652905984
+    m_Localized: TUGAS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460416
+    m_Localized: TUGAS AGENSI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460417
+    m_Localized: TUGAS #{0:0000}-{1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460418
+    m_Localized: MUDAH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460419
+    m_Localized: SEDANG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460420
+    m_Localized: SULIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460421
+    m_Localized: '{0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460422
+    m_Localized: +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460423
+    m_Localized: "{0} \xD7{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460424
+    m_Localized: dibayar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460425
+    m_Localized: KLAIM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460426
+    m_Localized: GANTI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460427
+    m_Localized: SELESAI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460428
+    m_Localized: DIBAYAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460429
+    m_Localized: Tugas baru dalam {0:00}:{1:00}:{2:00}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460430
+    m_Localized: Satu penggantian gratis per hari, dan satu lagi dengan iklan. Tugas
+      yang selesai tapi belum diklaim tetap dibayar tengah malam.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460431
+    m_Localized: TUGAS SELESAI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460432
+    m_Localized: 'TUGAS SELESAI: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460433
+    m_Localized: Bayaranmu menunggu di TUGAS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460434
+    m_Localized: "Tangkap hantu \xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460435
+    m_Localized: "Kumpulkan temuan di ruangan \xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460436
+    m_Localized: "Ambil foto 1 bintang atau lebih \xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460437
+    m_Localized: "Tahan sinar pada hantu yang linglung \xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460438
+    m_Localized: Ambil foto 3 bintang
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460439
+    m_Localized: Usir hantu dari tempat persembunyiannya
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460440
+    m_Localized: Tangkap hantu dari jarak kurang dari 1 m
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460441
+    m_Localized: Ambil koper terkutuk (hanya lewat lensa)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460442
+    m_Localized: Tangkap hantu tanpa baterai cadangan atau penguat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460443
+    m_Localized: Tangkap hantu dengan sisa daya 50% atau lebih
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460444
+    m_Localized: Capai hantu ke-3 dalam jaga malam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460445
+    m_Localized: 'Tangkap: {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460446
+    m_Localized: Tangkap hantu dalam 1:30 atau kurang
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155494588416
+    m_Localized: JATAH HARIAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142848
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142849
+    m_Localized: Bingkai {0} dari {1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142850
+    m_Localized: Hari yang terlewat tak pernah memutar ulang pita
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142851
+    m_Localized: Bingkai berikutnya datang besok
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142852
+    m_Localized: AMBIL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142853
+    m_Localized: DIAMBIL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142854
+    m_Localized: "\xD7{0} DENGAN IKLAN"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142855
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142856
+    m_Localized: "\xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465765972443136
+    m_Localized: Ia mau lepas! Jaga ia di lingkaran, jangan lepaskan.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997568
+    m_Localized: TIPS AGEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997569
+    m_Localized: 'Triknya membuatnya linglung: tembak dengan sinar sekarang!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997570
+    m_Localized: 'Mendekatlah: dari dekat, sinar terisi jauh lebih cepat.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997571
+    m_Localized: 'Ia ada di lensa: ambil foto untuk berkasnya.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997572
+    m_Localized: 'Titik dingin: ia bersembunyi di dekat sini. Kelilingi perabot dan
+      mendekatlah.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997573
+    m_Localized: 'Jangan bergerak: ia akan datang sendiri kepadamu.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997574
+    m_Localized: 'Jam keramat: hantu langka lebih sering muncul dan setiap tangkapan
+      bernilai lebih.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997575
+    m_Localized: Setiap bonus berlaku sampai jaga selesai dan menumpuk dengan yang
+      lain. Pilih untuk hantu berikutnya.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997576
+    m_Localized: BARU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997577
+    m_Localized: ATUR ULANG TIPS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997578
+    m_Localized: TIPS AKAN MUNCUL LAGI
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

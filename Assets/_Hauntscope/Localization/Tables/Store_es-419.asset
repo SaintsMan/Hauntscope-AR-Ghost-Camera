@@ -17,7 +17,76 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: 2866b66d97950fe4a88f0cb2dddde093, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 1129709568
+    m_Localized: "M1 EST\xC1NDAR"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486784
+    m_Localized: "Equipo est\xE1ndar de la agencia. Confiable, y nada m\xE1s."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486785
+    m_Localized: W2 REFLECTOR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486786
+    m_Localized: Un anillo ancho que perdona el pulso tembloroso. La captura se desvanece
+      a la mitad de velocidad.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486787
+    m_Localized: T3 AMARRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486788
+    m_Localized: 'Sujeta al fantasma: mitad de velocidad en el rayo, captura +20%.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486789
+    m_Localized: P4 LANZA DE FASE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486790
+    m_Localized: "Captura un 60% m\xE1s r\xE1pido y retiene a los fantasmas que desaparecen.
+      Anillo estrecho."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486791
+    m_Localized: "BATER\xCDA DE REPUESTO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486792
+    m_Localized: "+50% de carga. \xDAsala en cualquier momento de la cacer\xEDa o
+      cuando se agote la bater\xEDa."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486793
+    m_Localized: AMPLIFICADOR EMF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486794
+    m_Localized: "El EMF llega un 50% m\xE1s lejos y una flecha se\xF1ala la fuente.
+      Una cacer\xEDa."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486795
+    m_Localized: LENTE DE ENFOQUE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486796
+    m_Localized: "La Lente Fantasma gasta la mitad de bater\xEDa. Una cacer\xEDa."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486797
+    m_Localized: "L\xCDNEA DE SAL"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486798
+    m_Localized: "Los fantasmas se mueven un 35% m\xE1s lento sobre el piso con sal.
+      Una cacer\xEDa."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

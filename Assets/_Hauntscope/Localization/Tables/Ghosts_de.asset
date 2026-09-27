@@ -17,7 +17,453 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: 59adea3bb3554c548b847491dbd6bc64, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 34469605408768
+    m_Localized: Irrlicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37744564109312
+    m_Localized: Poltergeist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37744606052352
+    m_Localized: Schemen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55670524477440
+    m_Localized: Ein verlorenes Flackern von jemandem, der den Heimweg vergessen
+      hat. Harmlos, neugierig und schreckhaft. Der erste Fang jedes Agenten.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55670549643264
+    m_Localized: Laut, rastlos und ungeduldig. In die Enge getrieben verschwindet
+      er, nur um ein paar Schritte weiter wieder aufzutauchen. Halte den Strahl ruhig.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55670549643265
+    m_Localized: Er lebt zwischen den Bildern. Deine Linse erwischt ihn nur in Blitzen.
+      Geduld ist das einzige Werkzeug, das funktioniert.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991227760640
+    m_Localized: "Wiederg\xE4nger"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991269703680
+    m_Localized: "Er h\xF6rt nie auf zu rennen. Sobald dein Strahl ihn ber\xFChrt,
+      rei\xDFt er sich seitlich aus dem Ring. Ziel dorthin, wo er hinl\xE4uft, nicht
+      wo er war."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991273897984
+    m_Localized: Banshee
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991273897985
+    m_Localized: "Ihr Schrei zerschmettert die Linse. Kommst du ihr zu nahe, w\xE4hrend
+      sie sichtbar ist, schreit sie auf, und du verlierst sie. Halte Abstand."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991273897986
+    m_Localized: Nachahmer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991273897987
+    m_Localized: "Er bel\xFCgt deine Instrumente. Das EMF zeigt in eine Richtung,
+      sein Fl\xFCstern kommt aus einer anderen. Vertrau deinen Ohren, bis die Linse
+      ihn erwischt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925186531328
+    m_Localized: "Nachtschwestern schw\xF6ren, dass um drei Uhr nachts ein kleines
+      Licht durch den Flur schwebt und vor jedem flieht, der es anspricht."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308544
+    m_Localized: "Langsam und harmlos. Es treibt gem\xE4chlich durch den Raum, flieht
+      vor dem Strahl und beruhigt sich nach ein paar Sekunden wieder."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308545
+    m_Localized: "Sobald es dich bemerkt, erstarrt es: Genau dann triffst du es mit
+      dem Strahl. Geh nah ran, denn aus der N\xE4he bei\xDFt der Strahl h\xE4rter,
+      und halte durch, wenn es sich ein letztes Mal wehrt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308546
+    m_Localized: "Agenturakte 0-01: Jedes bisher untersuchte Irrlicht tr\xE4gt dasselbe
+      schwache Signal, ein Wiegenlied, gesummt auf 432 Hz. Niemand wei\xDF, von wem."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308547
+    m_Localized: "Es erstarrt, wenn es dich bemerkt: Triff es genau dann mit dem
+      Strahl, aus der N\xE4he."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308548
+    m_Localized: "Teller fliegen aus den Regalen, T\xFCren knallen in leeren Zimmern.
+      Die Mieter sagen, der kalte Fleck bleibt nie lange an einem Ort."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308549
+    m_Localized: "Sobald der Fang 40% \xFCberschreitet, teleportiert er sich 2\u20133
+      m weit. Er braucht etwa 5 Sekunden, bevor er wieder springen kann."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308550
+    m_Localized: "Nach jedem Sprung ist er etwa eine Sekunde benommen. Schwenk die
+      Linse, fixier ihn schnell und triff ihn, solange er bet\xE4ubt ist: Dann l\xE4dt
+      der Fang doppelt so schnell."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308551
+    m_Localized: "Poltergeister sind keine Geister von Toten. Laut Agenturdaten n\xE4hren
+      sie sich von Stress: Jeder wurde in einem Zuhause mitten in einem Streit gefunden."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308552
+    m_Localized: "Nach einem Teleport ist er eine Sekunde benommen: Fixier ihn sofort,
+      dann l\xE4dt der Strahl doppelt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308553
+    m_Localized: "Autofahrer auf der alten Umgehungsstra\xDFe sehen eine blasse Gestalt
+      am Stra\xDFenrand und schw\xF6ren, dass sie einen Herzschlag sp\xE4ter auf
+      der anderen Seite stand."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308554
+    m_Localized: "Der schnellste L\xE4ufer in den Akten. Unter dem Strahl sprintet
+      er alle 2 Sekunden 1,5 m seitw\xE4rts quer durch dein Blickfeld."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308555
+    m_Localized: 'Jeder Sprint endet mit einem kurzen Stillstand. Jag nicht dem Sprint
+      hinterher: Warte auf den Halt und triff ihn dann. Ein breiter Ring (W2 Flutlicht)
+      oder ein haltender Strahl (T3 Leine) hilft, ihn im Blick zu behalten.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308556
+    m_Localized: "Wiederg\xE4nger sind Echos von Menschen, die in Eile gestorben
+      sind. Sie laufen nicht vor dir weg; sie laufen immer noch dorthin, wo sie zu
+      sp\xE4t kamen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308557
+    m_Localized: "Nach jedem Sprint h\xE4lt der Wiederg\xE4nger kurz an: Schlag genau
+      dann zu."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308558
+    m_Localized: Er taucht in der Ecke alter Fotos und Heimvideos auf, aber nie zweimal
+      im selben Bild.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308559
+    m_Localized: "Flackert an und aus: sichtbar f\xFCr 1,2 s von jeweils 2 s. Der
+      Strahl l\xE4dt nur, solange er sichtbar ist, und der Fortschritt verblasst
+      in den L\xFCcken."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308560
+    m_Localized: "Sein einziger schwacher Moment ist der erste: Wenn er dich bemerkt,
+      erstarrt er. Danach halte den Strahl durch die L\xFCcken, ohne den Ring zu
+      bewegen. Die P4 Phasenlanze h\xE4lt ihn auch fest, w\xE4hrend er weg ist."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308561
+    m_Localized: "Ein Schemen ist kein Geist, sondern ein einzelner Moment: das Bild,
+      das eine Kamera verpasst hat. Agenturb\xE4nder zeigen denselben Schemen in
+      H\xE4usern, die 900 km auseinanderliegen, in derselben Nacht."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308562
+    m_Localized: Schlag zu, wenn er zum ersten Mal erstarrt, dann halte den Ring
+      durch sein Flackern still.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308563
+    m_Localized: "Nachbarn h\xF6ren in der Nacht, bevor etwas schiefgeht, eine Frau
+      durch die W\xE4nde weinen. Wer nachsehen ging, spricht nicht dar\xFCber."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308564
+    m_Localized: "Kommst du ihr n\xE4her als etwa 2,3 m, w\xE4hrend sie sichtbar
+      ist, schreit sie: Sie verschwindet f\xFCr 2 s aus der Linse, und die Sichtbarkeit
+      beginnt von vorn. Sie braucht 9 s bis zum n\xE4chsten Schrei."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308565
+    m_Localized: "Halte Abstand, bis sie schreit. Sie kommt ersch\xF6pft aus dem
+      Rauschen zur\xFCck und schreit 9 Sekunden lang nicht mehr: Das ist der Moment,
+      nah heranzust\xFCrmen und sie mit dem Strahl zu treffen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308566
+    m_Localized: "Jede Banshee-Aufnahme im Archiv enth\xE4lt, achtfach verlangsamt,
+      einen Namen. Nie denselben. Agenten wird geraten, sie nicht allein anzuh\xF6ren."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308567
+    m_Localized: "Nach ihrem Schrei kommt sie ersch\xF6pft zur\xFCck: St\xFCrm dann
+      heran und triff sie mit dem Strahl."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308568
+    m_Localized: "Er spricht mit deiner eigenen Stimme aus dem Nebenzimmer. Die EMF-Messger\xE4te
+      in jenem Haus zeigten nie zweimal in dieselbe Richtung."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308569
+    m_Localized: "Das EMF l\xFCgt: Es zeigt auf eine falsche Quelle mindestens 2,5
+      m entfernt und versetzt sie alle 5 s. Das Fl\xFCstern kommt von dort, wo er
+      wirklich ist. Sobald er sichtbar ist, h\xF6rt die L\xFCge auf."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308570
+    m_Localized: "Vertrau deinen Ohren, nicht dem Messger\xE4t: Dreh dich zum Fl\xFCstern
+      und schwenk dann die Linse. Entlarvt ist er zwei Sekunden bet\xE4ubt, dein
+      bestes Zeitfenster. Er wehrt sich hart, also nimm Ersatzakkus mit."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308571
+    m_Localized: "Der erste Nachahmer der Agentur wurde nie gefangen. In seiner Akte
+      steht bis heute \xBBDiensthabender Agent: unbekannt\xAB, in einer Handschrift,
+      die zu jedem Agenten passt, der sie gelesen hat."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308572
+    m_Localized: "Folge dem Fl\xFCstern, nicht dem Messger\xE4t. Sichtbar ist er
+      2 Sekunden bet\xE4ubt: Schlag zu."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211471343616
+    m_Localized: Schleicher
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286656
+    m_Localized: "Gro\xDF, d\xFCnn und geduldig. Er kommt nie direkt auf dich zu:
+      Er wartet, bis du wegsiehst, und n\xE4hert sich lautlos, Schritt f\xFCr Schritt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286657
+    m_Localized: "Nachtw\xE4chter berichten alle von derselben Gestalt am Ende des
+      Flurs, jedes Mal ein St\xFCck n\xE4her, wenn sie wieder auf den Monitor schauen.
+      Vor elf Uhr hat sie niemand gesehen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286658
+    m_Localized: "Bewegt sich nur, w\xE4hrend du wegsiehst: Sobald die Kamera sich
+      ihm zuwendet, erstarrt er. Er schleicht sich hinter dich und r\xFCckt n\xE4her;
+      erreicht er deinen R\xFCcken, springt er dich an. Er kommt nur zwischen 23:00
+      und 04:00 heraus."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286659
+    m_Localized: "H\xF6r auf den Boden: Ein Knarren hei\xDFt, er ist wieder unterwegs.
+      Dreh dich sofort um, dann erwischst du ihn mitten im Schritt, kurz au\xDFer
+      Atem. Behalte ihn im Blick, w\xE4hrend du ihn mit dem Strahl triffst: Beobachtet
+      kann er nicht fliehen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286660
+    m_Localized: "Jede Schleicher-Akte endet gleich: Die letzte Aufnahme des Agenten
+      zeigt seinen eigenen R\xFCcken, knapp \xFCber Kopfh\xF6he aufgenommen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286661
+    m_Localized: 'Der Schleicher bewegt sich nur, wenn du wegsiehst: Knarrt der Boden,
+      dreh dich sofort um.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286662
+    m_Localized: Geisterkatze
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286663
+    m_Localized: "Ein kleiner, neugieriger Geist, der glaubt, noch hier zu wohnen.
+      Sie hasst pl\xF6tzliche Bewegungen und liebt einen ruhigen Scho\xDF."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286664
+    m_Localized: "Mieter h\xF6ren Schnurren aus einem leeren Sessel und finden morgens
+      eine warme Kuhle am Fu\xDFende des Bettes. Niemand im Haus hat eine Katze."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286665
+    m_Localized: "Ein pl\xF6tzlicher Schritt oder eine schnelle Drehung der Kamera
+      jagt sie f\xFCr ein paar Sekunden davon. Steh einen Moment still, dann kommt
+      sie und setzt sich etwa 1,2 m entfernt hin. Sie erschreckt niemanden; sie miaut."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286666
+    m_Localized: "Erstarre und lass sie zu dir kommen. Solange sie sitzt und schnurrt,
+      ist sie bis zu 3 Sekunden v\xF6llig schutzlos: Triff sie mit dem Strahl, ohne
+      das Handy zu bewegen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286667
+    m_Localized: "Geisterkatzen sind keine Geister von Haustieren. Sie sind das,
+      woran sich ein Zuhause von den Abenden erinnert, an denen es gl\xFCcklich war."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286668
+    m_Localized: "Die Katze flieht vor pl\xF6tzlichen Bewegungen: Steh still und
+      lass sie kommen und sich zu dir setzen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208654499840
+    m_Localized: Domovyk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248576
+    m_Localized: "Der Geist des Hauses selbst: ein m\xFCrrisches kleines M\xE4nnlein,
+      das hinter dem Ofen wohnt und nicht gest\xF6rt werden will."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248577
+    m_Localized: "Gro\xDFm\xFCtter stellen ihm immer noch ein Sch\xE4lchen Milch
+      hin. In Wohnungen, wo das niemand tut, verschwinden Schl\xFCssel, nachts klopft
+      es an T\xFCren und die Tassen klirren von selbst."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248578
+    m_Localized: "Sobald er wei\xDF, dass du da bist, versteckt er sich fast die
+      ganze Zeit, huscht von Versteck zu Versteck und klopft alle paar Sekunden aus
+      dem Inneren der M\xF6bel. Er springt nie auf die Kamera zu: In die Enge getrieben,
+      klappert stattdessen das Geschirr."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248579
+    m_Localized: 'Folge dem Klopfen und dem kalten Fleck, geh direkt an sein Versteck
+      heran und finde ihn mit der Linse: Hervorgelockt ist er 2 Sekunden benommen.
+      Dann triff ihn mit dem Strahl.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248580
+    m_Localized: "Agenten, die einen Domovyk gefangen haben, sagen alle dasselbe:
+      Eine Woche lang f\xFChlte sich ihr eigenes Zuhause k\xE4lter an. Inzwischen
+      l\xE4sst die Agentur sie in die Wohnung zur\xFCckkehren, aus der sie kamen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248581
+    m_Localized: "Der Domovyk versteckt sich und klopft: Folge dem Ger\xE4usch, komm
+      n\xE4her und lock ihn mit der Linse hervor."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248582
+    m_Localized: Negativ
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248583
+    m_Localized: Eine Gestalt, die nur auf Film existiert. Die Linse zeigt nichts;
+      die Kamera zeigt alles.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248584
+    m_Localized: "Alte Fotolabore warfen ganze Filmrollen weg, wegen derselben Gestalt
+      hinter jeder Familie, jedes Bild ein St\xFCck n\xE4her. Beim Fotografieren
+      war sie nie da."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248585
+    m_Localized: "Die Geisterlinse kann es nicht sehen, aber das EMF und sein Fl\xFCstern
+      schon. Ein Foto, auf dem es im Bild ist, entwickelt es f\xFCr 5 Sekunden: Nur
+      dann k\xF6nnen Linse und Strahl es packen. Der Ausl\xF6ser ist bereit, wenn
+      es nah und im Bild ist, auch ungesehen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248586
+    m_Localized: "Hier entscheidet der Film alles. Komm per EMF und Fl\xFCstern n\xE4her,
+      dr\xFCck ab, sobald der Ausl\xF6ser bereit ist, und triff es sofort mit dem
+      Strahl, solange es entwickelt ist. Jedes neue Foto gibt dir weitere 5 Sekunden."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248587
+    m_Localized: Die Agentur bewahrt jede Filmrolle auf, auf der ein Negativ erschienen
+      ist. Ein zweites Mal entwickelt, zeigt keine davon dasselbe Bild.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248588
+    m_Localized: 'Die Linse sieht das Negativ nicht: Fotografiere es und triff es
+      mit dem Strahl, solange es entwickelt ist.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248589
+    m_Localized: Gefesselter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248590
+    m_Localized: "Ein gro\xDFer Str\xE4fling mit Kapuze, der noch immer die Ketten
+      schleppt, in denen er starb. Langsam, wuchtig und kaum zu halten."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248591
+    m_Localized: "Nachtw\xE4chter im alten Gef\xE4ngnis h\xF6ren Ketten \xFCber den
+      Flur schleifen, wo fr\xFCher die Zellen waren. Der Flur ist seit vierzig Jahren
+      ein Parkplatz."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248592
+    m_Localized: "Langsam, aber der am schwersten zu haltende Geist: Unter dem Strahl
+      rei\xDFt er zweimal seitlich an seinen Ketten, bei 40% und 70% des Fangs. Hat
+      der Ring ihn am Ende des Rucks verloren, sinkt der Fang um 25%. Seine Ketten
+      h\xF6rst du quer durch den Raum."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248593
+    m_Localized: "Halte Abstand, damit ein Ruck ihn nicht aus dem Ring wirft, und
+      folge ihm seitw\xE4rts, sobald die Ketten rasseln. Ein Laser mit breiterem
+      Ring macht es dir viel leichter."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248594
+    m_Localized: "Niemand wei\xDF, wof\xFCr er verurteilt wurde. Jeder Agent, der
+      fragte, h\xF6rte durch das Rasseln dieselbe Antwort: \xBBf\xFCr nichts\xAB."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248595
+    m_Localized: "Der Gefesselte rei\xDFt bei 40% und 70% an seinen Ketten: Halte
+      ihn im Ring."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248596
+    m_Localized: Mara
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248597
+    m_Localized: Ein verschleierter Albtraum, den das Licht anzieht. Schalte die
+      Linse ein, und sie kommt dich holen.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248598
+    m_Localized: Sie sitzt auf der Brust derer, die bei Licht schlafen. Sie wachen
+      mit leerem Handy, leerer Taschenlampe und ohne Erinnerung an die Nacht auf.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248599
+    m_Localized: "Solange deine Linse an ist, kommt sie auf dich zu; im Dunkeln weicht
+      sie zur\xFCck und versteckt sich. Kommst du ihr mit eingeschalteter Linse n\xE4her
+      als 1,3 m, springt sie dich an, bei\xDFt 20% von deinem Akku ab und springt
+      dann weg, 1,2 Sekunden lang ersch\xF6pft."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248600
+    m_Localized: "Nutz die Linse in kurzen St\xF6\xDFen aus der Ferne, erst wenn
+      sie schon im Ring ist, und triff sie sofort mit dem Strahl. Springt sie dich
+      an, bestraf sie, solange sie ersch\xF6pft ist."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248601
+    m_Localized: In jeder Mara-Akte liegt ein Foto eines leeren Schlafzimmers mit
+      brennender Lampe. Die Agentur hat nie herausgefunden, wer sie macht.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248602
+    m_Localized: 'Die Mara kommt zum Licht: Lass die Linse kurz aufblitzen und triff
+      sie aus der Ferne mit dem Strahl.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

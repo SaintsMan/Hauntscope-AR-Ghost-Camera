@@ -17,7 +17,75 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: 2866b66d97950fe4a88f0cb2dddde093, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 1129709568
+    m_Localized: "M1 PADR\xC3O"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486784
+    m_Localized: "Equipamento padr\xE3o da ag\xEAncia. Confi\xE1vel, e s\xF3."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486785
+    m_Localized: W2 HOLOFOTE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486786
+    m_Localized: "Um anel largo que perdoa a m\xE3o tr\xEAmula. A captura se desfaz
+      na metade da velocidade."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486787
+    m_Localized: T3 AMARRA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486788
+    m_Localized: 'Prende o fantasma: metade da velocidade no raio, captura +20%.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486789
+    m_Localized: "P4 LAN\xC7A DE FASE"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486790
+    m_Localized: "Captura 60% mais r\xE1pido e segura fantasmas que somem. Anel estreito."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486791
+    m_Localized: BATERIA RESERVA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486792
+    m_Localized: "+50% de carga. Troque a qualquer momento da ca\xE7ada ou quando
+      a bateria acabar."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486793
+    m_Localized: AMPLIFICADOR EMF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486794
+    m_Localized: "O EMF alcan\xE7a 50% mais longe e uma seta aponta para a fonte.
+      Uma ca\xE7ada."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486795
+    m_Localized: LENTE DE FOCO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486796
+    m_Localized: "A Lente Fantasma gasta metade da bateria. Uma ca\xE7ada."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486797
+    m_Localized: LINHA DE SAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1146486798
+    m_Localized: "Fantasmas se movem 35% mais devagar sobre ch\xE3o com sal. Uma
+      ca\xE7ada."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

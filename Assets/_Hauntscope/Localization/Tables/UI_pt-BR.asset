@@ -22,6 +22,1050 @@ MonoBehaviour:
     m_Localized: Hauntscope
     m_Metadata:
       m_Items: []
+  - m_Id: 11247262498816
+    m_Localized: "CALIBRANDO C\xD4MODO {0}%"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11247321219072
+    m_Localized: "C\xD4MODO CALIBRADO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11247321219073
+    m_Localized: "Aponte para o ch\xE3o"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11247321219074
+    m_Localized: Mova o celular devagar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19432002158592
+    m_Localized: EMF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19432052490240
+    m_Localized: "N\xCDV {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27153795514368
+    m_Localized: LENTE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32511440060416
+    m_Localized: RAIO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470955974656
+    m_Localized: CAPTURADO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529088
+    m_Localized: ESCAPOU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529089
+    m_Localized: +{0} ECTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529090
+    m_Localized: TEMPO {0:00}:{1:00}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529091
+    m_Localized: DE NOVO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34470989529092
+    m_Localized: MENU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50212896112640
+    m_Localized: REC
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50212933861376
+    m_Localized: '{0:00}:{1:00}:{2:00}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671858266112
+    m_Localized: HAUNTSCOPE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671900209152
+    m_Localized: "c\xE2mera paranormal"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597760
+    m_Localized: "COME\xC7AR CA\xC7ADA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597761
+    m_Localized: "BESTI\xC1RIO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597762
+    m_Localized: AJUSTES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597763
+    m_Localized: v{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597764
+    m_Localized: VOLTAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597765
+    m_Localized: FECHAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597766
+    m_Localized: SIM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597767
+    m_Localized: "N\xC3O"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597768
+    m_Localized: "BESTI\xC1RIO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597769
+    m_Localized: '{0} / {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597770
+    m_Localized: x{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597771
+    m_Localized: CAPTURADO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597772
+    m_Localized: DESCONHECIDO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597773
+    m_Localized: ???
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597774
+    m_Localized: AJUSTES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597775
+    m_Localized: Som
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597776
+    m_Localized: "Vibra\xE7\xE3o"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597777
+    m_Localized: Sustos
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597778
+    m_Localized: Idioma
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597779
+    m_Localized: "CR\xC9DITOS"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597780
+    m_Localized: "CR\xC9DITOS"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597781
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597782
+    m_Localized: "\u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597783
+    m_Localized: "Espa\xF1ol"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597784
+    m_Localized: "Portugu\xEAs"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597785
+    m_Localized: Deutsch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55671908597786
+    m_Localized: Bahasa Indonesia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994196037632
+    m_Localized: PAUSADO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174976
+    m_Localized: CONTINUAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174977
+    m_Localized: AJUSTES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174978
+    m_Localized: SAIR PARA O MENU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174979
+    m_Localized: RASTREAMENTO PERDIDO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174980
+    m_Localized: Mova-se devagar e acenda uma luz.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70994242174981
+    m_Localized: "Oclus\xE3o"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804563591168
+    m_Localized: "ACESSO \xC0 C\xC2MERA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534208
+    m_Localized: "O Hauntscope precisa da c\xE2mera para mostrar fantasmas no seu
+      c\xF4modo. Sem ela, voc\xEA vai ca\xE7ar na Sala Virtual."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534209
+    m_Localized: "O acesso \xE0 c\xE2mera est\xE1 desligado. Abra as configura\xE7\xF5es
+      do app e permita a C\xE2mera em Permiss\xF5es. Sem ela, voc\xEA vai ca\xE7ar
+      na Sala Virtual."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534210
+    m_Localized: "PERMITIR C\xC2MERA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534211
+    m_Localized: "ABRIR CONFIGURA\xC7\xD5ES"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534212
+    m_Localized: JOGAR NA SALA VIRTUAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534213
+    m_Localized: "AR INDISPON\xCDVEL"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534214
+    m_Localized: "Seu aparelho n\xE3o \xE9 compat\xEDvel com AR. Voc\xEA vai ca\xE7ar
+      na Sala Virtual."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94804605534215
+    m_Localized: OK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 111728735420416
+    m_Localized: "Hauntscope \xE9 um jogo apenas para entretenimento. Ele n\xE3o
+      detecta atividade paranormal real."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992666406912
+    m_Localized: TREINO {0}/{1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572736
+    m_Localized: Arraste no lado esquerdo para andar. Deslize no lado direito para
+      olhar em volta.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572737
+    m_Localized: "H\xE1 um fantasma aqui, mas invis\xEDvel. Siga o medidor EMF: quanto
+      mais perto, mais r\xE1pido ele apita."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572738
+    m_Localized: Toque em LENTE e gire devagar. A lente revela o fantasma, mas gasta
+      a bateria.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123992691572739
+    m_Localized: Ele congelou! Segure o RAIO e mantenha-o dentro do anel.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880640503808
+    m_Localized: EM ESPERA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880674058240
+    m_Localized: CARREGANDO {0}%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880674058241
+    m_Localized: ARQUIVOS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880674058242
+    m_Localized: SENSORES AR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252544
+    m_Localized: FIRMWARE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252545
+    m_Localized: OK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252546
+    m_Localized: NOVO AGENTE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252547
+    m_Localized: AR PRONTO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252548
+    m_Localized: PRECISA DO ARCORE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252549
+    m_Localized: SALA VIRTUAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252550
+    m_Localized: ATUALIZADO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252551
+    m_Localized: ATUALIZANDO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252552
+    m_Localized: PULADO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149880678252553
+    m_Localized: ERRO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 159025523458048
+    m_Localized: '{0:dd.MM.yyyy}  {0:HH'':''mm'':''ss}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529468858368
+    m_Localized: "C\xC2MERA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412800
+    m_Localized: VIRTUAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412801
+    m_Localized: "Fantasmas no seu c\xF4modo real, pela c\xE2mera"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412802
+    m_Localized: "Sem c\xE2mera: cace em um apartamento abandonado"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412803
+    m_Localized: "AR n\xE3o \xE9 compat\xEDvel aqui: s\xF3 sala virtual"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 166529502412805
+    m_Localized: NOVO REGISTRO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 173894771539968
+    m_Localized: 'Poupe carga: a lente gasta a bateria'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883303100416
+    m_Localized: LOJA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849152
+    m_Localized: "DEP\xD3SITO DA AG\xCANCIA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849153
+    m_Localized: LASERS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849154
+    m_Localized: EQUIPAMENTO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849155
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849156
+    m_Localized: EQUIPAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849157
+    m_Localized: "NA M\xC3O"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849158
+    m_Localized: "M\xC1X"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849159
+    m_Localized: "\xD7{0}/{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849160
+    m_Localized: "POT\xCANCIA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849161
+    m_Localized: PEGADA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849162
+    m_Localized: ECONOMIA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341883340849163
+    m_Localized: "\xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118767570944
+    m_Localized: +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319680
+    m_Localized: +{0} ECTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319681
+    m_Localized: +{1}% CARGA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319682
+    m_Localized: PILHA RESERVA POR PERTO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319683
+    m_Localized: BATERIA ESGOTADA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319684
+    m_Localized: "O fantasma est\xE1 escapando. Recarregue para continuar ca\xE7ando."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319685
+    m_Localized: "RESERVA \xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319686
+    m_Localized: +50% CARGA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319687
+    m_Localized: DESISTIR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319688
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319689
+    m_Localized: CAPTURA +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319690
+    m_Localized: PESQUISA +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319691
+    m_Localized: ACHADOS +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347118805319692
+    m_Localized: "  \xB7  "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926537097216
+    m_Localized: AVISTADO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845952
+    m_Localized: DESCLASSIFICADO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845953
+    m_Localized: "ARQUIVO #{0:00} \xB7 {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845954
+    m_Localized: COMUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845955
+    m_Localized: RARO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845956
+    m_Localized: "LEND\xC1RIO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845957
+    m_Localized: "AMEA\xC7A"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845958
+    m_Localized: TESTEMUNHOS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845959
+    m_Localized: COMPORTAMENTO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845960
+    m_Localized: NOTAS DO CASO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845961
+    m_Localized: "T\xC1TICAS"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845962
+    m_Localized: PERFIL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845963
+    m_Localized: ULTRASSECRETO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845964
+    m_Localized: Revele-o na lente para desclassificar.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845965
+    m_Localized: Capture-o para desclassificar.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845966
+    m_Localized: 'Provas que faltam para desclassificar: {0}.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845967
+    m_Localized: 'Bolsa de pesquisa: +{0}% de ectoplasma a cada captura.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845968
+    m_Localized: VELOCIDADE {0:0.0} m/s
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845969
+    m_Localized: FUGA       {0:0.0} m/s
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845970
+    m_Localized: "DUREZA     \xD7{0:0.0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845971
+    m_Localized: RECOMPENSA {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350926574845972
+    m_Localized: DESCLASSIFICADO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300426846208
+    m_Localized: "CONEX\xC3O"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594944
+    m_Localized: ONLINE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594945
+    m_Localized: OFFLINE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594946
+    m_Localized: ENTREGA DE CAMPO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594947
+    m_Localized: "+{0} de ectoplasma por um v\xEDdeo curto"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594948
+    m_Localized: '{0}/{1} HOJE'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594949
+    m_Localized: ASSISTIR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594950
+    m_Localized: "AMANH\xC3"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594951
+    m_Localized: "\xD72 CAPTURA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354300464594952
+    m_Localized: PRIVACIDADE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 393287816314880
+    m_Localized: FOCO {0:0.0}M
+    m_Metadata:
+      m_Items: []
+  - m_Id: 393287862452224
+    m_Localized: "VULNER\xC1VEL"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948767096832
+    m_Localized: FOTO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039872
+    m_Localized: CENTRALIZADO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039874
+    m_Localized: MOMENTO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039875
+    m_Localized: "CASO #{0:00} \xB7 {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039876
+    m_Localized: "HAUNTSCOPE \xB7 C\xC2MERA DE FANTASMAS AR"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039877
+    m_Localized: COMPARTILHAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039878
+    m_Localized: SALVAR NA GALERIA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039879
+    m_Localized: SALVO NA GALERIA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039880
+    m_Localized: "N\xC3O FOI POSS\xCDVEL SALVAR"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039881
+    m_Localized: "Um fantasma no meu quarto: {0}! Flagrado na c\xE2mera com o Hauntscope.
+      {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039882
+    m_Localized: Compartilhe a prova
+    m_Metadata:
+      m_Items: []
+  - m_Id: 400948809039883
+    m_Localized: FOTO +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 409467331411968
+    m_Localized: FANTASMA INTEIRO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100688531456
+    m_Localized: PROVAS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085888
+    m_Localized: "Ainda n\xE3o h\xE1 fotos no arquivo. Fotografe-o com a c\xE2mera
+      espiritual: uma foto com {0}+ estrelas vira prova (at\xE9 {1} por arquivo)."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085889
+    m_Localized: 'Fotos no arquivo: {0}. Melhor foto: {1}/3 estrelas. Toque na foto
+      para abri-la.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085890
+    m_Localized: 'Contam para desclassificar: {0}/{1} (fotos com {2}+ estrelas).'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 415100722085891
+    m_Localized: "\xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212909989888
+    m_Localized: HORA DAS BRUXAS +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155712
+    m_Localized: HORA DAS BRUXAS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155713
+    m_Localized: HORA DAS BRUXAS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155714
+    m_Localized: CH-01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438212935155715
+    m_Localized: CH-13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606227529728
+    m_Localized: "TURNO DA NOITE \xB7 3 FANTASMAS"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278464
+    m_Localized: "Libera ap\xF3s {0} ca\xE7adas"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278465
+    m_Localized: 'Recorde: {0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278466
+    m_Localized: "TURNO {0}/{1} \xB7 \xD7{2:0.#}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278467
+    m_Localized: "PR\xD3XIMO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278468
+    m_Localized: NOVO TURNO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278469
+    m_Localized: "TURNO \xD7{0:0.#} +{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278470
+    m_Localized: "TURNO DA NOITE {0}/{1} \xB7 TOTAL DO TURNO +{2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278471
+    m_Localized: "TURNO FECHADO {0}/{0} \xB7 TOTAL DO TURNO +{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278472
+    m_Localized: "TURNO ENCERRADO EM {0}/{1} \xB7 TOTAL DO TURNO +{2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278473
+    m_Localized: "B\xD4NUS DO TURNO +{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278474
+    m_Localized: "B\xD4NUS DO TURNO +{0} E {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278475
+    m_Localized: "PAUSA \xB7 TURNO {0}/{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278476
+    m_Localized: "Escolha um. Os b\xF4nus duram at\xE9 o fim do turno e se acumulam."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278477
+    m_Localized: "Bateria {0}% \xB7 o pr\xF3ximo fantasma \xE9 mais duro, captura
+      \xD7{1:0.#}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278478
+    m_Localized: NESTE TURNO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278479
+    m_Localized: Lente Fria
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278480
+    m_Localized: A lente gasta a bateria na metade da velocidade.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278481
+    m_Localized: Antena Turbinada
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278482
+    m_Localized: "O EMF alcan\xE7a 50% mais longe e aponta para o fantasma."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278483
+    m_Localized: "M\xE3o Pesada"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278484
+    m_Localized: "O raio captura 25% mais r\xE1pido."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278485
+    m_Localized: Raio Largo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278486
+    m_Localized: O anel de captura fica 30% mais largo.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278487
+    m_Localized: Sal no Bolso
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278488
+    m_Localized: Os fantasmas se movem 20% mais devagar.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278489
+    m_Localized: Bateria Nova
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278490
+    m_Localized: +40% de carga agora mesmo.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278491
+    m_Localized: Fita Reserva
+    m_Metadata:
+      m_Items: []
+  - m_Id: 448606265278492
+    m_Localized: "+2 quadros de filme em cada ca\xE7ada restante do turno."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669652905984
+    m_Localized: ORDENS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460416
+    m_Localized: "ORDENS DA AG\xCANCIA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460417
+    m_Localized: ORDEM #{0:0000}-{1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460418
+    m_Localized: "F\xC1CIL"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460419
+    m_Localized: "M\xC9DIA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460420
+    m_Localized: "DIF\xCDCIL"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460421
+    m_Localized: '{0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460422
+    m_Localized: +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460423
+    m_Localized: "{0} \xD7{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460424
+    m_Localized: paga
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460425
+    m_Localized: RECEBER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460426
+    m_Localized: TROCAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460427
+    m_Localized: FEITA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460428
+    m_Localized: PAGA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460429
+    m_Localized: Novas ordens em {0:00}:{1:00}:{2:00}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460430
+    m_Localized: "Uma troca gr\xE1tis por dia e mais uma por um an\xFAncio. Ordens
+      cumpridas e n\xE3o recebidas s\xE3o pagas mesmo assim \xE0 meia-noite."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460431
+    m_Localized: ORDEM CUMPRIDA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460432
+    m_Localized: 'ORDENS CUMPRIDAS: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460433
+    m_Localized: O pagamento espera em ORDENS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460434
+    m_Localized: "Capture fantasmas \xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460435
+    m_Localized: "Colete achados no c\xF4modo \xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460436
+    m_Localized: "Tire fotos de 1 estrela ou mais \xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460437
+    m_Localized: "Mantenha o raio em um fantasma atordoado \xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460438
+    m_Localized: Tire uma foto de 3 estrelas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460439
+    m_Localized: Tire um fantasma do esconderijo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460440
+    m_Localized: Capture um fantasma a menos de 1 m
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460441
+    m_Localized: "Pegue uma maleta amaldi\xE7oada (s\xF3 com a lente)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460442
+    m_Localized: "Capture um fantasma sem bateria reserva nem refor\xE7os"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460443
+    m_Localized: Capture um fantasma com 50% de carga ou mais
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460444
+    m_Localized: "Chegue ao 3\xBA fantasma de um turno da noite"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460445
+    m_Localized: 'Capture: {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457669686460446
+    m_Localized: Capture um fantasma em 1:30 ou menos
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155494588416
+    m_Localized: "RA\xC7\xC3O DI\xC1RIA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142848
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142849
+    m_Localized: Quadro {0} de {1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142850
+    m_Localized: Um dia perdido nunca rebobina a fita
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142851
+    m_Localized: "O pr\xF3ximo quadro chega amanh\xE3"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142852
+    m_Localized: PEGAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142853
+    m_Localized: PEGO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142854
+    m_Localized: "\xD7{0} POR UM AN\xDANCIO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142855
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 462155528142856
+    m_Localized: "\xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465765972443136
+    m_Localized: "Ele est\xE1 se soltando! Mantenha-o no anel, n\xE3o solte."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997568
+    m_Localized: DICA DE AGENTE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997569
+    m_Localized: 'O truque o deixou atordoado: acerte o raio agora!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997570
+    m_Localized: "Chegue mais perto: de perto o raio carrega muito mais r\xE1pido."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997571
+    m_Localized: "Ele est\xE1 na lente: tire uma foto para o arquivo dele."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997572
+    m_Localized: "Ponto frio: ele est\xE1 escondido por perto. Contorne os m\xF3veis
+      e chegue perto."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997573
+    m_Localized: "N\xE3o se mexa: ele vai vir at\xE9 voc\xEA sozinho."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997574
+    m_Localized: 'Hora das bruxas: fantasmas raros aparecem mais e cada captura rende
+      mais.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997575
+    m_Localized: "Cada b\xF4nus dura at\xE9 o fim do turno e se soma aos outros.
+      Escolha pensando no pr\xF3ximo fantasma."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997576
+    m_Localized: NOVO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997577
+    m_Localized: REDEFINIR DICAS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465766005997578
+    m_Localized: "AS DICAS V\xC3O APARECER DE NOVO"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

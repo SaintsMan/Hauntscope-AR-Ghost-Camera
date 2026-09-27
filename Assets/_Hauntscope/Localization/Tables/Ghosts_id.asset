@@ -17,7 +17,450 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: 59adea3bb3554c548b847491dbd6bc64, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 34469605408768
+    m_Localized: Kunang Arwah
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37744564109312
+    m_Localized: Poltergeist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37744606052352
+    m_Localized: Bayangan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55670524477440
+    m_Localized: Kerlip tersesat dari seseorang yang lupa jalan pulang. Tak berbahaya,
+      penasaran, dan mudah kaget. Tangkapan pertama setiap agen.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55670549643264
+    m_Localized: Berisik, gelisah, dan tak sabaran. Saat terpojok, ia menghilang,
+      lalu muncul lagi beberapa langkah jauhnya. Jaga sinarmu tetap stabil.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55670549643265
+    m_Localized: Ia hidup di antara bingkai. Lensamu hanya menangkapnya sekilas-sekilas.
+      Kesabaran adalah satu-satunya alat yang ampuh.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991227760640
+    m_Localized: Arwah Gentayangan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991269703680
+    m_Localized: Ia tak pernah berhenti berlari. Begitu sinarmu menyentuhnya, ia
+      melesat ke samping keluar dari lingkaran. Bidik ke arah tujuannya, bukan tempat
+      ia tadi.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991273897984
+    m_Localized: Banshee
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991273897985
+    m_Localized: Jeritannya memecahkan lensa. Terlalu dekat saat ia terlihat dan
+      ia menjerit, lalu kamu kehilangannya. Jaga jarak.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991273897986
+    m_Localized: Peniru
+    m_Metadata:
+      m_Items: []
+  - m_Id: 123991273897987
+    m_Localized: Ia membohongi alat-alatmu. EMF menunjuk ke satu arah, sementara
+      bisikannya datang dari arah lain. Percayai telingamu sampai lensa menangkapnya.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925186531328
+    m_Localized: Perawat jaga malam bersumpah ada cahaya kecil yang melayang di lorong
+      pukul 3 pagi dan kabur dari siapa pun yang memanggilnya.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308544
+    m_Localized: Lambat dan tak berbahaya. Ia melayang santai di ruangan, kabur dari
+      sinar, lalu tenang lagi setelah beberapa detik.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308545
+    m_Localized: 'Begitu menyadarimu, ia membeku: saat itulah tembakkan sinar. Mendekatlah,
+      karena dari dekat sinar menggigit lebih keras, dan bertahanlah saat ia meronta
+      untuk terakhir kali.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308546
+    m_Localized: 'Berkas agensi 0-01: setiap kunang arwah yang pernah dianalisis
+      membawa sinyal samar yang sama, lagu nina bobo yang disenandungkan pada 432
+      Hz. Tak ada yang tahu milik siapa.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308547
+    m_Localized: 'Ia membeku saat menyadarimu: tembakkan sinar tepat saat itu, dari
+      dekat.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308548
+    m_Localized: Piring beterbangan dari rak dan pintu terbanting di kamar kosong.
+      Para penghuni bilang titik dinginnya tak pernah lama di satu tempat.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308549
+    m_Localized: "Begitu tangkapan melewati 40%, ia berteleportasi sejauh 2\u20133
+      m. Ia butuh sekitar 5 detik sebelum bisa melompat lagi."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308550
+    m_Localized: 'Setiap lompatan membuatnya linglung sekitar satu detik. Sapukan
+      lensa, kunci dengan cepat, dan tembak dengan sinar selagi ia linglung: tangkapan
+      terisi dua kali lebih cepat.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308551
+    m_Localized: 'Poltergeist bukan arwah orang mati. Data agensi menunjukkan mereka
+      memakan stres: semuanya ditemukan di rumah yang sedang dilanda pertengkaran.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308552
+    m_Localized: 'Setelah berteleportasi ia linglung sedetik: kunci segera dan sinar
+      terisi dua kali lipat.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308553
+    m_Localized: Para pengemudi di jalan lingkar lama melihat sosok pucat di tepi
+      jalan, dan bersumpah sedetik kemudian ia sudah ada di seberang.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308554
+    m_Localized: Pelari tercepat dalam berkas. Di bawah sinar, ia melesat 1,5 m ke
+      samping memotong pandanganmu, setiap 2 detik.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308555
+    m_Localized: 'Setiap lesatan berakhir dengan berhenti mendadak sepersekian detik.
+      Jangan kejar lesatannya: tunggu ia berhenti, lalu tembak. Lingkaran lebar (W2
+      Sorot) atau sinar pengikat (T3 Pengikat) membantu menjaganya tetap terlihat.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308556
+    m_Localized: Arwah gentayangan adalah gema orang yang mati terburu-buru. Mereka
+      tidak lari darimu; mereka masih berlari menuju apa pun yang membuat mereka
+      terlambat.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308557
+    m_Localized: 'Setelah tiap lesatan, arwah gentayangan berhenti sejenak: serang
+      tepat saat itu.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308558
+    m_Localized: Ia muncul di sudut foto lama dan video rumahan, tapi tak pernah
+      dua kali di bingkai yang sama.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308559
+    m_Localized: 'Berkedip muncul dan hilang: terlihat 1,2 detik dari setiap 2 detik.
+      Sinar hanya terisi saat ia terlihat, dan progres memudar di sela-selanya.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308560
+    m_Localized: 'Satu-satunya saat lemahnya adalah yang pertama: ketika menyadarimu,
+      ia membeku. Setelah itu, tahan sinar melewati sela-sela tanpa menggeser lingkaran.
+      P4 Tombak Fase tetap mencengkeramnya meski ia menghilang.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308561
+    m_Localized: 'Bayangan bukan arwah, melainkan satu momen: bingkai yang terlewat
+      oleh kamera. Rekaman agensi menunjukkan bayangan yang sama di rumah-rumah yang
+      terpisah 900 km, pada malam yang sama.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308562
+    m_Localized: Serang saat ia pertama kali membeku, lalu jaga lingkaran tetap diam
+      selama ia berkedip.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308563
+    m_Localized: Tetangga mendengar tangisan perempuan menembus dinding pada malam
+      sebelum sesuatu yang buruk terjadi. Mereka yang pergi melihat tak mau membicarakannya.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308564
+    m_Localized: 'Dekati ia kurang dari sekitar 2,3 m saat ia tampak dan ia menjerit:
+      ia hilang dari lensa selama 2 detik dan penampakan diulang dari awal. Ia butuh
+      9 detik untuk menjerit lagi.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308565
+    m_Localized: 'Jaga jarak sampai ia menjerit. Ia kembali dari desis statis dalam
+      keadaan lelah dan tak akan menjerit lagi selama 9 detik: saat itulah terjang
+      mendekat dan tembak dengan sinar.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308566
+    m_Localized: "Setiap rekaman banshee di arsip, bila diperlambat 8\xD7, berisi
+      sebuah nama. Tak pernah sama. Agen disarankan tidak mendengarkannya sendirian."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308567
+    m_Localized: 'Setelah menjerit ia kembali kelelahan: terjang dan tembak dengan
+      sinar saat itu.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308568
+    m_Localized: Ia berbicara dengan suaramu sendiri dari kamar sebelah. Meteran
+      EMF di rumah itu tak pernah menunjuk ke arah yang sama dua kali.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308569
+    m_Localized: 'EMF berbohong: ia menunjuk sumber palsu minimal 2,5 m jauhnya dan
+      memindahkannya setiap 5 detik. Bisikan datang dari tempat ia sebenarnya. Begitu
+      ia tampak, kebohongan berhenti.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308570
+    m_Localized: 'Percayai telingamu, bukan meteran: berbaliklah ke arah bisikan,
+      lalu sapukan lensa. Begitu terbongkar, ia linglung dua detik, kesempatan terbaikmu.
+      Ia melawan keras, jadi bawa baterai cadangan.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308571
+    m_Localized: "Peniru pertama agensi tak pernah tertangkap. Berkasnya masih bertuliskan
+      \u201CAgen bertugas: tak diketahui\u201D, dengan tulisan tangan yang cocok
+      dengan setiap agen yang membacanya."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 350925203308572
+    m_Localized: 'Ikuti bisikan, bukan meteran. Begitu tampak, ia linglung 2 detik:
+      serang.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211471343616
+    m_Localized: Pengintai
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286656
+    m_Localized: 'Tinggi, kurus, dan sabar. Ia tak pernah datang dari depan: ia menunggu
+      kamu berpaling, lalu mendekat selangkah demi selangkah tanpa suara.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286657
+    m_Localized: Para penjaga malam melaporkan sosok yang sama di ujung lorong, sedikit
+      lebih dekat setiap kali mereka kembali menatap monitor. Tak ada yang melihatnya
+      sebelum pukul sebelas.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286658
+    m_Localized: 'Hanya bergerak saat kamu berpaling: begitu kamera menghadapnya,
+      ia membeku. Ia mengendap di belakangmu dan terus mendekat; biarkan ia mencapai
+      punggungmu dan ia menerkam. Ia hanya keluar antara pukul 23.00 dan 04.00.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286659
+    m_Localized: 'Dengarkan lantai: derit berarti ia mulai bergerak lagi. Segera
+      berbalik dan kamu menangkapnya di tengah langkah, terengah sesaat. Jaga ia
+      tetap terlihat saat kamu menembaknya dengan sinar: selama diawasi, ia tak bisa
+      kabur.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286660
+    m_Localized: 'Setiap berkas pengintai berakhir sama: rekaman terakhir sang agen
+      adalah gambar punggungnya sendiri, diambil tepat dari atas kepalanya.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286661
+    m_Localized: 'Pengintai hanya bergerak saat kamu berpaling: saat lantai berderit,
+      segera berbalik.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286662
+    m_Localized: Kucing Hantu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286663
+    m_Localized: Arwah kecil yang penasaran dan masih mengira ia tinggal di sini.
+      Ia benci gerakan mendadak dan suka pangkuan yang tenang.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286664
+    m_Localized: Penghuni mendengar dengkuran dari kursi kosong dan paginya menemukan
+      cekungan hangat di ujung kasur. Tak ada yang memelihara kucing di gedung itu.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286665
+    m_Localized: Langkah mendadak atau putaran kamera yang cepat membuatnya kabur
+      beberapa detik. Diamlah sebentar, maka ia datang dan duduk sekitar 1,2 m darimu.
+      Ia tak pernah menakuti siapa pun; ia mengeong.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286666
+    m_Localized: 'Diam saja dan biarkan ia datang. Selagi ia duduk mendengkur, ia
+      benar-benar terbuka hingga 3 detik: tembak dengan sinar tanpa menggerakkan
+      ponsel.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286667
+    m_Localized: Kucing hantu bukan arwah hewan peliharaan. Mereka adalah kenangan
+      sebuah rumah tentang malam-malam saat rumah itu bahagia.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438211513286668
+    m_Localized: 'Kucing kabur dari gerakan mendadak: diamlah dan biarkan ia datang
+      dan duduk di dekatmu.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208654499840
+    m_Localized: Domovyk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248576
+    m_Localized: 'Roh rumah itu sendiri: kakek kecil yang pemarah, tinggal di balik
+      tungku dan benci diganggu.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248577
+    m_Localized: Para nenek masih menyiapkan sepiring kecil susu untuknya. Di apartemen
+      yang tidak melakukannya, kunci hilang, pintu diketuk tengah malam, dan cangkir
+      bergemerincing sendiri.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248578
+    m_Localized: 'Begitu tahu kamu ada di sini, ia bersembunyi hampir sepanjang waktu,
+      berpindah cepat dari satu tempat sembunyi ke tempat lain dan mengetuk dari
+      dalam perabot setiap beberapa detik. Ia tak pernah menerkam kamera: bila terpojok,
+      piring-piringlah yang bergemeretak.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248579
+    m_Localized: 'Ikuti ketukan dan titik dingin, dekati tempat sembunyinya, dan
+      temukan ia dengan lensa: begitu terpancing keluar, ia linglung 2 detik. Tembak
+      dengan sinar saat itu.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248580
+    m_Localized: 'Agen yang pernah menangkap domovyk mengatakan hal yang sama: selama
+      seminggu rumah mereka sendiri terasa lebih dingin. Kini agensi membiarkan mereka
+      kembali ke apartemen asal mereka.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248581
+    m_Localized: 'Domovyk bersembunyi dan mengetuk: ikuti suaranya, mendekatlah,
+      dan pancing ia keluar dengan lensa.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248582
+    m_Localized: Negatif
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248583
+    m_Localized: Sosok yang hanya ada di film. Lensa tak menunjukkan apa pun; kamera
+      menunjukkan segalanya.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248584
+    m_Localized: Studio foto lama membuang seluruh gulungan film gara-gara sosok
+      yang sama di belakang setiap keluarga, satu bingkai lebih dekat setiap kalinya.
+      Ia tak pernah ada saat foto diambil.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248585
+    m_Localized: 'Lensa Hantu tak bisa melihatnya, tapi EMF dan bisikannya bisa.
+      Foto yang memuatnya di bingkai membuatnya tampak selama 5 detik: hanya saat
+      itu lensa dan sinar bisa meraihnya. Rana siap saat ia dekat dan ada di bingkai,
+      meski tak terlihat.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248586
+    m_Localized: Di sini film menentukan segalanya. Dekati lewat EMF dan bisikan,
+      jepret begitu rana siap, lalu segera tembak dengan sinar selagi ia tampak.
+      Setiap foto baru memberimu 5 detik lagi.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248587
+    m_Localized: Agensi menyimpan setiap gulungan film tempat negatif pernah muncul.
+      Saat dicuci untuk kedua kalinya, tak satu pun menunjukkan gambar yang sama.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248588
+    m_Localized: 'Lensa tak bisa melihat Negatif: potret ia, lalu tembak dengan sinar
+      selagi ia tampak.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248589
+    m_Localized: Terbelenggu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248590
+    m_Localized: Narapidana jangkung bertudung yang masih menyeret rantai tempat
+      ia mati. Lambat, berat, dan sangat sulit ditahan.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248591
+    m_Localized: Penjaga malam di penjara tua mendengar rantai diseret di lorong
+      tempat sel-sel dulu berada. Lorong itu sudah jadi tempat parkir selama empat
+      puluh tahun.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248592
+    m_Localized: 'Lambat, tapi hantu yang paling sulit ditahan: di bawah sinar ia
+      menyentak rantainya ke samping dua kali, pada 40% dan 70% tangkapan. Jika lingkaran
+      kehilangannya saat sentakan berakhir, tangkapan turun 25%. Rantainya terdengar
+      dari seberang ruangan.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248593
+    m_Localized: Jaga jarak supaya sentakan tak melemparnya keluar lingkaran, dan
+      ikuti ia ke samping begitu rantai bergemerincing. Laser dengan lingkaran lebih
+      lebar membuatnya jauh lebih mudah.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248594
+    m_Localized: "Tak ada yang tahu atas kejahatan apa ia dihukum. Setiap agen yang
+      bertanya mendengar jawaban yang sama di balik gemerincing: \u201Ctanpa alasan\u201D."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248595
+    m_Localized: 'Terbelenggu menyentak rantainya pada 40% dan 70%: jaga ia di dalam
+      lingkaran.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248596
+    m_Localized: Mara
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248597
+    m_Localized: Mimpi buruk bercadar yang tertarik pada cahaya. Nyalakan lensa dan
+      ia datang menjemputmu.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248598
+    m_Localized: Ia duduk di dada orang yang tidur dengan lampu menyala. Mereka bangun
+      dengan ponsel mati, senter kehabisan baterai, dan tanpa ingatan tentang malam
+      itu.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248599
+    m_Localized: Selama lensamu menyala, ia berjalan ke arahmu; dalam gelap, ia mundur
+      dan bersembunyi. Dekati ia kurang dari 1,3 m dengan lensa menyala dan ia menerkam,
+      menggigit 20% baterai, lalu melompat menjauh, kelelahan selama 1,2 detik.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248600
+    m_Localized: Gunakan lensa sebentar-sebentar dari jauh, hanya saat ia sudah di
+      dalam lingkaran, lalu segera tembak dengan sinar. Jika ia menerkam, hukum ia
+      selagi kelelahan.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248601
+    m_Localized: Setiap berkas mara menyimpan foto kamar tidur kosong dengan lampu
+      menyala. Agensi tak pernah tahu siapa yang memotretnya.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496208692248602
+    m_Localized: 'Mara datang ke cahaya: nyalakan lensa sekejap dan tembak dengan
+      sinar dari jauh.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
