@@ -1146,6 +1146,41 @@ MonoBehaviour:
       brillante muestra por d\xF3nde fue el fantasma. Sigue el rastro."
     m_Metadata:
       m_Items: []
+  - m_Id: 692094043029504
+    m_Localized: EVP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361152
+    m_Localized: "REC \xB7 EVP {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361153
+    m_Localized: "EVP: \xAB\u2026{0}\u2026\xBB"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361154
+    m_Localized: ???
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361155
+    m_Localized: "EVP: SOLO EST\xC1TICA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361156
+    m_Localized: "La agencia te dio una grabadora EVP: toca EVP cerca del fantasma.
+      En la cinta, su voz dice su nombre y la grabaci\xF3n va a su expediente."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361157
+    m_Localized: 'EVP en el expediente: su voz en cinta. Toca el casete para escucharla.
+      Cuenta para desclasificar.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361158
+    m_Localized: "A\xFAn no hay EVP. Graba al fantasma a menos de {0} m: su voz en
+      cinta cuenta como prueba."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

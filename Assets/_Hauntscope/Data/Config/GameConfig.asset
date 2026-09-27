@@ -490,3 +490,20 @@ MonoBehaviour:
       _onVolume: 0.6
     _offClip: {fileID: 8300000, guid: aca19670ebab37545a4db2509ad0c111, type: 3}
     _offVolume: 0.5
+  _evp:
+    _unlockCaptures: 9
+    _cost: 0.03
+    _recordTime: 4
+    _playbackTime: 2.6
+    _cooldown: 8
+    _range: 4
+    _ambientDuck: 0.35
+    _startClip: {fileID: 8300000, guid: 6eacec6e46e3a9b48a88c52a9be5fcbc, type: 3}
+    _startVolume: 0.7
+    _tapeClip: {fileID: 8300000, guid: fe3dd5413fb42574daf60b331d38f240, type: 3}
+    _tapeVolume: 0.35
+    _staticClip: {fileID: 8300000, guid: bdeadbbd09822b04fb26e1115ad13a26, type: 3}
+    _staticVolume: 0.6
+    _voiceVolume: 1
+    _stopClip: {fileID: 8300000, guid: b29421f5b70e2f1418cc03bc108dfe34, type: 3}
+    _stopVolume: 0.6

@@ -26,6 +26,7 @@ MonoBehaviour:
     _capture: {fileID: 8300000, guid: 7e78f8393081df543b1e98080d7aa4d1, type: 3}
     _escape: {fileID: 8300000, guid: fe14abfe766940143b379de45e2a0c08, type: 3}
     _stagger: {fileID: 8300000, guid: e7d35ecf5c1782b4180fae4be49b4def, type: 3}
+    _evp: {fileID: 8300000, guid: f91f942b5d3d00b459f49bbe148b9f1c, type: 3}
   _canHide: 1
   _canScare: 0
   _nightOnly: 0

@@ -1,6 +1,7 @@
 using static Hauntscope.Editor.AudioDsp;
 using static Hauntscope.Editor.GhostClanks;
 using static Hauntscope.Editor.GhostCries;
+using static Hauntscope.Editor.GhostEvp;
 using Mathf = UnityEngine.Mathf;
 
 namespace Hauntscope.Editor
@@ -17,7 +18,8 @@ namespace Hauntscope.Editor
                     () => Reverb(Voice(0.55f, t => 560f - 480f * t, U, O, 6f, 0.03f, 0.3f, 1.2f, 0.01f, 0.3f, 1.3f, 111), 0.3f, 0.8f, 0.3f),
                     () => Mix(Sucked(Moan(1.2f, 600f, 1150f, O, I, 0.04f, 0.25f, 0.9f, 112, 1.3f)), SfxGenerator.Bell(2600f, 0.6f, 3.01f, 2f, 0.2f), 0.4f, 0.3f),
                     () => Laugh(5, 820f, 0.09f, 0.05f, 0.25f, E, 113, 1.35f),
-                    () => Grunt(0.2f, 900f, I, 0.3f, 114, 1.35f));
+                    () => Grunt(0.2f, 900f, I, 0.3f, 114, 1.35f))
+                .WithEvp(() => Name(311, 330f, 1.25f, 0.55f, S(Onset.None, U, I, 0.2f), S(Onset.Hiss, I, 0.26f), S(Onset.Stop, U, 0.12f)));
         }
 
         // A prankster: plates crash where it lands, a growling "bwah", a cackle, an "oof".
@@ -29,7 +31,8 @@ namespace Hauntscope.Editor
                     () => Scream(0.8f, 200f, 320f, 140f, 0.35f, 122),
                     () => Sucked(Moan(1.5f, 340f, 620f, O, U, 0.05f, 0.3f, 1.1f, 123)),
                     () => Laugh(6, 360f, 0.11f, 0.05f, 0.35f, A, 124),
-                    () => Grunt(0.28f, 230f, U, 0.35f, 125));
+                    () => Grunt(0.28f, 230f, U, 0.35f, 125))
+                .WithEvp(() => Name(312, 150f, 1f, 0.45f, S(Onset.Stop, O, 0.24f), S(Onset.Stop, E, 0.2f), S(Onset.Stop, A, I, 0.32f), S(Onset.Hiss, I, 0.12f)));
         }
 
         // Breathless and fast: its dash tears the air, it screams in rasps and hisses away.
@@ -41,7 +44,8 @@ namespace Hauntscope.Editor
                     () => Scream(0.9f, 500f, 1400f, 700f, 0.8f, 132),
                     () => Sucked(Scream(1.3f, 900f, 1500f, 300f, 0.7f, 133)),
                     () => Hiss(1f, 1800f, 134),
-                    () => Mix(Grunt(0.3f, 180f, A, 0.2f, 135), Hiss(0.25f, 2400f, 136), 0.5f));
+                    () => Mix(Grunt(0.3f, 180f, A, 0.2f, 135), Hiss(0.25f, 2400f, 136), 0.5f))
+                .WithEvp(() => Name(313, 170f, 1.1f, 0.75f, S(Onset.None, U, A, 0.18f), S(Onset.None, A, I, 0.36f), S(Onset.Hiss, I, 0.14f)));
         }
 
         // Deep and slow, from far inside the hood: a roar, a groan that sinks, a sigh that echoes away.
@@ -52,7 +56,8 @@ namespace Hauntscope.Editor
                     () => Scream(1.1f, 90f, 150f, 70f, 0.3f, 141, 0.7f),
                     () => Sucked(Moan(1.8f, 130f, 60f, O, U, 0.03f, 0.2f, 1.6f, 142, 0.75f)),
                     () => Echo(Moan(1.2f, 110f, 90f, U, O, 0.02f, 0.5f, 1.8f, 143, 0.75f), 0.25f, 0.5f, 2000f, 4),
-                    () => Grunt(0.4f, 105f, O, 0.2f, 144, 0.75f));
+                    () => Grunt(0.4f, 105f, O, 0.2f, 144, 0.75f))
+                .WithEvp(() => Name(314, 85f, 0.8f, 0.5f, S(Onset.Hush, E, I, 0.5f), S(Onset.Stop, U, 0.14f)));
         }
 
         // Mournful and high: her own keening cry, a piercing scream, a wail that breaks, and sobbing.
@@ -65,7 +70,8 @@ namespace Hauntscope.Editor
                     () => Sucked(Reverb(Voice(1.9f, t => t < 0.6f ? 800f + 800f * Smooth(t / 0.6f) : 1600f - 1200f * ((t - 0.6f) / 1.3f),
                         O, U, 6f, 0.05f, 0.3f, 1.8f, 0.05f, 0.8f, 1.2f, 153), 0.45f, 1.4f, 0.8f)),
                     () => Laugh(3, 700f, 0.22f, 0.12f, 0.3f, U, 154, 1.2f),
-                    () => Grunt(0.3f, 780f, U, 0.4f, 155, 1.2f));
+                    () => Grunt(0.3f, 780f, U, 0.4f, 155, 1.2f))
+                .WithEvp(() => Name(315, 420f, 1.4f, 0.5f, S(Onset.Stop, A, 0.26f), S(Onset.Hum, A, 0.12f), S(Onset.Hush, I, 0.5f)));
         }
 
         // Almost human, and that is what is wrong with it: every cry comes out in several stolen voices at once.
@@ -78,7 +84,9 @@ namespace Hauntscope.Editor
                     () => Sucked(Chorus(scale => Moan(1.6f, 320f * scale, 480f * scale, O, A, 0.04f, 0.3f, 1.2f, 162), 0.55f, 1f, 1.6f)),
                     () => Mix(Laugh(6, 480f, 0.1f, 0.05f, 0.2f, A, 163), Reversed(Laugh(6, 520f, 0.1f, 0.05f, 0.2f, E, 164)), 0.5f, 0.1f),
                     () => Mix(Mix(Grunt(0.12f, 380f, E, 0.1f, 165), Grunt(0.12f, 380f, E, 0.1f, 165), 0.8f, 0.07f), Grunt(0.2f, 380f, E, 0.3f, 166),
-                        0.7f, 0.15f));
+                        0.7f, 0.15f))
+                .WithEvp(() => Mix(Name(316, 220f, 1.05f, 0.4f, S(Onset.Hum, I, 0.2f), S(Onset.Hum, I, 0.22f), S(Onset.Stop, I, 0.16f)),
+                    Name(317, 340f, 1.3f, 0.5f, S(Onset.Hum, I, 0.2f), S(Onset.Hum, I, 0.22f), S(Onset.Stop, I, 0.16f)), 0.6f, 0.03f));
         }
 
         // Dry and patient: the floor creaks and its claws click; its scream is a rasp full of clicking.
@@ -90,7 +98,8 @@ namespace Hauntscope.Editor
                     () => Mix(Scream(0.8f, 300f, 900f, 200f, 0.9f, 172, 0.8f), Rattle(0.5f, 30f, 60f, 3500f, 173), 0.6f),
                     () => Mix(Sucked(Moan(1.8f, 160f, 90f, U, O, 0.02f, 0.6f, 1.4f, 174, 0.8f)), Rattle(1.5f, 12f, 40f, 3000f, 175), 0.5f),
                     () => Rattle(1.2f, 25f, 6f, 2800f, 176),
-                    () => Rattle(0.35f, 40f, 40f, 4000f, 177));
+                    () => Rattle(0.35f, 40f, 40f, 4000f, 177))
+                .WithEvp(() => Name(318, 95f, 0.8f, 0.7f, S(Onset.None, U, 0.28f), S(Onset.Stop, E, U, 0.36f)));
         }
 
         // A grumpy old man of the house: he mutters to himself, knocks from inside the wardrobe, answers a scare by
@@ -104,7 +113,8 @@ namespace Hauntscope.Editor
                     () => Sucked(Mix(Voice(0.45f, t => 170f - 60f * t, O, I, 5f, 0.03f, 0.3f, 2f, 0.02f, 0.4f, 0.85f, 213),
                         Voice(0.7f, t => 160f - 70f * t, O, U, 5f, 0.04f, 0.3f, 2f, 0.02f, 0.4f, 0.85f, 214), 1f, 0.5f)),
                     () => Mix(Laugh(4, 150f, 0.12f, 0.08f, 0.3f, O, 215, 0.85f), Rattle(0.8f, 12f, 6f, 1800f, 216), 0.4f),
-                    () => Grunt(0.28f, 130f, U, 0.35f, 217, 0.85f));
+                    () => Grunt(0.28f, 130f, U, 0.35f, 217, 0.85f))
+                .WithEvp(() => Name(319, 125f, 0.85f, 0.35f, S(Onset.Stop, O, 0.2f), S(Onset.Hum, O, 0.22f), S(Onset.None, U, I, 0.3f), S(Onset.Stop, I, 0.1f)));
         }
 
         // Everything about it runs backwards, like a reel spooled the wrong way: its whisper, its cries, its escape.
@@ -116,7 +126,8 @@ namespace Hauntscope.Editor
                     () => Reversed(Scream(1f, 500f, 1300f, 400f, 0.5f, 222)),
                     () => Sucked(Reversed(Moan(1.6f, 280f, 420f, O, A, 0.04f, 0.4f, 1.3f, 223))),
                     () => Mix(Rattle(1f, 40f, 8f, 3800f, 224), Reversed(Hiss(0.8f, 2400f, 225)), 0.5f),
-                    () => Reversed(Grunt(0.3f, 260f, E, 0.3f, 226)));
+                    () => Reversed(Grunt(0.3f, 260f, E, 0.3f, 226)))
+                .WithEvp(() => NameReversed(320, 200f, 1.1f, 0.5f, S(Onset.Hum, E, 0.22f), S(Onset.Stop, A, 0.22f), S(Onset.Stop, I, 0.24f), S(Onset.Hiss, U, 0.12f)));
         }
 
         // Iron first, voice second: chains clink with every move, the yank cracks like a whip, he roars from deep in the
@@ -129,7 +140,9 @@ namespace Hauntscope.Editor
                     () => Mix(Scream(1.1f, 85f, 160f, 70f, 0.6f, 234, 0.7f), Clank(0.8f, 10, 235), 0.6f, 0.1f),
                     () => Mix(Sucked(Moan(2f, 110f, 55f, U, O, 0.02f, 0.3f, 1.6f, 236, 0.7f)), Clank(1.4f, 12, 237), 0.7f, 0.4f),
                     () => Mix(Echo(Moan(1.2f, 95f, 80f, O, U, 0.02f, 0.4f, 1.5f, 238, 0.7f), 0.3f, 0.4f, 1800f, 3), Clank(1.6f, 14, 239), 0.6f),
-                    () => Mix(Grunt(0.4f, 95f, A, 0.25f, 240, 0.7f), Clank(0.3f, 4, 241), 0.7f));
+                    () => Mix(Grunt(0.4f, 95f, A, 0.25f, 240, 0.7f), Clank(0.3f, 4, 241), 0.7f))
+                .WithEvp(() => Mix(Name(321, 80f, 0.7f, 0.45f, S(Onset.Stop, A, I, 0.3f), S(Onset.Stop, A, 0.22f), S(Onset.Hum, I, 0.2f), S(Onset.Stop, I, 0.1f)),
+                    Clank(0.5f, 5, 322), 0.35f, 1.9f));
         }
 
         // A breath held too long: she sighs close to the ear, screams high and thin as she lunges, wails as she is
@@ -143,7 +156,8 @@ namespace Hauntscope.Editor
                     () => Sucked(Reverb(Voice(2f, t => 900f + 500f * Mathf.Sin(Mathf.PI * t / 2f), I, U, 6f, 0.05f, 0.5f, 1.5f, 0.05f, 0.9f,
                         1.3f, 253), 0.5f, 1.4f, 0.8f)),
                     () => Echo(Moan(1.4f, 520f, 300f, A, U, 0.03f, 0.7f, 1f, 254, 1.3f), 0.28f, 0.5f, 2200f, 4),
-                    () => Voice(0.35f, t => 700f + 400f * t, A, I, 20f, 0.05f, 0.9f, 1f, 0.01f, 0.2f, 1.3f, 255));
+                    () => Voice(0.35f, t => 700f + 400f * t, A, I, 20f, 0.05f, 0.9f, 1f, 0.01f, 0.2f, 1.3f, 255))
+                .WithEvp(() => Name(323, 380f, 1.3f, 0.8f, S(Onset.Hum, A, 0.32f), S(Onset.None, A, U, 0.5f)));
         }
 
         // A cat through and through: it purrs, meows when it sits, trills when startled, hisses on its way out and
@@ -157,7 +171,8 @@ namespace Hauntscope.Editor
                     () => Reverb(Voice(1.4f, t => 600f + 300f * UnityEngine.Mathf.Sin(UnityEngine.Mathf.PI * t / 1.4f), I, U, 6f, 0.03f, 0.3f, 1.3f,
                         0.05f, 0.6f, 1.4f, 181), 0.35f, 1f, 0.5f),
                     () => Hiss(0.8f, 3200f, 182),
-                    () => Voice(0.22f, t => 420f + 200f * t, U, O, 25f, 0.08f, 0.25f, 1.4f, 0.01f, 0.12f, 1.3f, 183));
+                    () => Voice(0.22f, t => 420f + 200f * t, U, O, 25f, 0.08f, 0.25f, 1.4f, 0.01f, 0.12f, 1.3f, 183))
+                .WithEvp(() => Name(324, 520f, 1.4f, 0.35f, S(Onset.Hiss, A, 0.24f), S(Onset.Hum, O, 0.2f), S(Onset.Stop, A, U, 0.34f)));
         }
     }
 }

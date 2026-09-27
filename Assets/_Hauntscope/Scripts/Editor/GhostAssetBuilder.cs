@@ -190,6 +190,7 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_voice._capture").objectReferenceValue = voice.Capture;
             serialized.FindProperty("_voice._escape").objectReferenceValue = voice.Escape;
             serialized.FindProperty("_voice._stagger").objectReferenceValue = voice.Stagger;
+            serialized.FindProperty("_voice._evp").objectReferenceValue = voice.Evp;
             serialized.FindProperty("_canHide").boolValue = recipe.CanHide;
             serialized.FindProperty("_canScare").boolValue = recipe.CanScare;
             serialized.FindProperty("_nightOnly").boolValue = recipe.NightOnly;

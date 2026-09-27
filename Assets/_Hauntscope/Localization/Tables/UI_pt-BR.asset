@@ -1146,6 +1146,41 @@ MonoBehaviour:
       O ectoplasma brilhante mostra por onde o fantasma passou. Siga o rastro."
     m_Metadata:
       m_Items: []
+  - m_Id: 692094043029504
+    m_Localized: EVP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361152
+    m_Localized: "REC \xB7 EVP {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361153
+    m_Localized: "EVP: \u201C\u2026{0}\u2026\u201D"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361154
+    m_Localized: ???
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361155
+    m_Localized: "EVP: S\xD3 EST\xC1TICA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361156
+    m_Localized: "A ag\xEAncia te deu um gravador EVP: toque em EVP perto do fantasma.
+      Na fita, a voz dele diz o pr\xF3prio nome, e a grava\xE7\xE3o vai para o arquivo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361157
+    m_Localized: 'EVP no arquivo: a voz dele em fita. Toque na fita cassete para
+      ouvir. Conta para desclassificar.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361158
+    m_Localized: 'Ainda sem EVP. Grave o fantasma a menos de {0} m: a voz dele em
+      fita conta como prova.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

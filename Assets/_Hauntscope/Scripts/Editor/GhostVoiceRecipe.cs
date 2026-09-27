@@ -26,9 +26,18 @@ namespace Hauntscope.Editor
 
         public Func<float[]> Stagger { get; private set; }
 
+        // Its name on an EVP tape (GDD 5.33.5).
+        public Func<float[]> Evp { get; private set; }
+
         public GhostVoiceRecipe WithAbility(Func<float[]> ability)
         {
             Ability = ability;
+            return this;
+        }
+
+        public GhostVoiceRecipe WithEvp(Func<float[]> evp)
+        {
+            Evp = evp;
             return this;
         }
 

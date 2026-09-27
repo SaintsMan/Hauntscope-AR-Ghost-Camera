@@ -1141,6 +1141,41 @@ MonoBehaviour:
       Glowing ectoplasm shows where the ghost went. Follow the trail.'
     m_Metadata:
       m_Items: []
+  - m_Id: 692094043029504
+    m_Localized: EVP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361152
+    m_Localized: "REC \xB7 EVP {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361153
+    m_Localized: "EVP: \u201C\u2026{0}\u2026\u201D"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361154
+    m_Localized: ???
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361155
+    m_Localized: 'EVP: ONLY STATIC'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361156
+    m_Localized: 'The agency issued you an EVP recorder: tap EVP near the ghost.
+      On the tape its voice says its name, and the recording goes into its case file.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361157
+    m_Localized: 'EVP on file: its voice on tape. Tap the cassette to listen. Counts
+      towards declassification.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361158
+    m_Localized: 'No EVP yet. Record the ghost within {0} m: its voice on tape counts
+      as evidence.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

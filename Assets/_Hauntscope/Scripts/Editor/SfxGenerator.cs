@@ -69,6 +69,10 @@ namespace Hauntscope.Editor
             Save(SfxFolder, "ViewModeOff", ViewModeOff(), -8f, false);
             Save(SfxFolder, "ThermalOn", ThermalOn(), -7f, false);
             Save(SfxFolder, "UvOn", UvOn(), -7f, false);
+            Save(SfxFolder, "EvpStart", EvpStart(), -5f, false);
+            Save(SfxFolder, "EvpTape", EvpTape(), -16f, true);
+            Save(SfxFolder, "EvpStop", EvpStop(), -6f, false);
+            Save(SfxFolder, "EvpStatic", GhostEvp.Static(331), -6f, false);
             Save(AmbientFolder, "AmbientDrone", AmbientDrone(), -8f, true);
             Save(AmbientFolder, "AmbientStatic", AmbientStatic(), -10f, true);
         }
@@ -1155,6 +1159,65 @@ namespace Hauntscope.Editor
             }
 
             return Saturate(samples, 1.4f);
+        }
+
+        // A cassette recorder's REC key going down: the heavy clunk of the keys, the pinch roller closing, and the motor
+        // spinning up with a short rising whir.
+        private static float[] EvpStart()
+        {
+            const float length = 0.55f;
+            var samples = Buffer(length);
+            Add(samples, Filter(Click(0.008f, 300f, 151), FilterType.LowPass, 2500f, 0.7f), 0, 1f);
+            Add(samples, Click(0.004f, 900f, 153), (int)(0.05f * SampleRate), 0.6f);
+            Add(samples, Click(0.003f, 1800f, 155), (int)(0.11f * SampleRate), 0.4f);
+            var phase = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var spin = Smooth(Mathf.Clamp01((t - 0.1f) / 0.3f));
+                phase += TwoPi * Mathf.Lerp(40f, 95f, spin) / SampleRate;
+                var whir = Mathf.Sin(phase) * 0.3f + Mathf.Sin(phase * 3f) * 0.08f;
+                samples[i] += whir * Adsr(t - 0.1f, length - 0.1f, 0.15f, 0.2f);
+            }
+
+            return Saturate(samples, 1.3f);
+        }
+
+        // Tape running under the take: soft hiss, the capstan motor's hum and a slow wobble, looped seamlessly.
+        private static float[] EvpTape()
+        {
+            const float loop = 4f;
+            const float crossfade = 0.5f;
+            var samples = Buffer(loop + crossfade);
+            var hiss = Filter(Noise(samples.Length, 161), FilterType.BandPass, 4500f, 0.4f);
+            var rumble = Filter(Noise(samples.Length, 163), FilterType.LowPass, 110f, 0.7f);
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var wobble = 1f + 0.15f * Mathf.Sin(TwoPi * 0.5f * t);
+                var motor = Mathf.Sin(TwoPi * 95f * t) * 0.05f + Mathf.Sin(TwoPi * 190f * t) * 0.02f;
+                samples[i] = hiss[i] * 0.6f * wobble + rumble[i] * 0.8f + motor;
+            }
+
+            return MakeLoop(samples, crossfade);
+        }
+
+        // The STOP key: a hard clack and the motor running down.
+        private static float[] EvpStop()
+        {
+            const float length = 0.4f;
+            var samples = Buffer(length);
+            Add(samples, Filter(Click(0.006f, 400f, 171), FilterType.LowPass, 3000f, 0.7f), 0, 1f);
+            Add(samples, Click(0.003f, 1500f, 173), (int)(0.03f * SampleRate), 0.5f);
+            var phase = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                phase += TwoPi * Mathf.Lerp(95f, 30f, Mathf.Clamp01(t / length)) / SampleRate;
+                samples[i] += Mathf.Sin(phase) * 0.2f * Envelope(t, 0.01f, 0.18f);
+            }
+
+            return samples;
         }
 
         // Back to the plain picture: a dry relay click with a short falling tick.

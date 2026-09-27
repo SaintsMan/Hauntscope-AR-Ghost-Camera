@@ -85,6 +85,10 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_view._thermal._filter").objectReferenceValue = ViewFilterAssetBuilder.Thermal;
             SetClip(serialized, "_view._uv._onClip", SfxFolder, "UvOn");
             serialized.FindProperty("_view._uv._filter").objectReferenceValue = ViewFilterAssetBuilder.Uv;
+            SetClip(serialized, "_evp._startClip", SfxFolder, "EvpStart");
+            SetClip(serialized, "_evp._tapeClip", SfxFolder, "EvpTape");
+            SetClip(serialized, "_evp._stopClip", SfxFolder, "EvpStop");
+            SetClip(serialized, "_evp._staticClip", SfxFolder, "EvpStatic");
             serialized.FindProperty("_vfx._captureSpiral").objectReferenceValue = VfxGenerator.CaptureSpiral;
             serialized.FindProperty("_vfx._teleportFlash").objectReferenceValue = VfxGenerator.TeleportFlash;
             serialized.FindProperty("_vfx._revealPulse").objectReferenceValue = VfxGenerator.RevealPulse;

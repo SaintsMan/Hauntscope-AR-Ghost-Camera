@@ -1145,6 +1145,42 @@ MonoBehaviour:
       UV-LICHT. Leuchtendes Ektoplasma zeigt, wohin der Geist ging. Folge der Spur.'
     m_Metadata:
       m_Items: []
+  - m_Id: 692094043029504
+    m_Localized: EVP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361152
+    m_Localized: "REC \xB7 EVP {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361153
+    m_Localized: "EVP: \xBB\u2026{0}\u2026\xAB"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361154
+    m_Localized: ???
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361155
+    m_Localized: 'EVP: NUR RAUSCHEN'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361156
+    m_Localized: "Die Agentur hat dir einen EVP-Rekorder gegeben: Tippe in der N\xE4he
+      des Geistes auf EVP. Auf dem Band nennt seine Stimme den eigenen Namen \u2013
+      die Aufnahme kommt in die Akte."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361157
+    m_Localized: "EVP in der Akte: seine Stimme auf Band. Tippe auf die Kassette,
+      um sie zu h\xF6ren. Z\xE4hlt zur Freigabe."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361158
+    m_Localized: "Noch kein EVP. Nimm den Geist aus h\xF6chstens {0} m auf: Seine
+      Stimme auf Band z\xE4hlt als Beweis."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

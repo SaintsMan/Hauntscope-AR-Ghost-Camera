@@ -1143,6 +1143,41 @@ MonoBehaviour:
       yang berpendar menunjukkan ke mana hantu pergi. Ikuti jejaknya.'
     m_Metadata:
       m_Items: []
+  - m_Id: 692094043029504
+    m_Localized: EVP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361152
+    m_Localized: "REC \xB7 EVP {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361153
+    m_Localized: "EVP: \u201C\u2026{0}\u2026\u201D"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361154
+    m_Localized: ???
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361155
+    m_Localized: 'EVP: HANYA DERAU'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361156
+    m_Localized: 'Agensi memberimu perekam EVP: ketuk EVP di dekat hantu. Di pita,
+      suaranya menyebut namanya sendiri, dan rekamannya masuk ke berkas kasus.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361157
+    m_Localized: 'EVP di berkas: suaranya di pita. Ketuk kaset untuk mendengarkan.
+      Dihitung untuk membuka berkas.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361158
+    m_Localized: 'Belum ada EVP. Rekam hantu dari jarak {0} m atau kurang: suaranya
+      di pita dihitung sebagai bukti.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

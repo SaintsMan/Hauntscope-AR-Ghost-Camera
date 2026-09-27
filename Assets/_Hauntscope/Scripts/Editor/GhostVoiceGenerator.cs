@@ -20,7 +20,8 @@ namespace Hauntscope.Editor
                 Write(folder, "Scare", recipe.Scare, CryPeak, false),
                 Write(folder, "Capture", recipe.Capture, CryPeak, false),
                 Write(folder, "Escape", recipe.Escape, CryPeak, false),
-                Write(folder, "Stagger", recipe.Stagger, CryPeak, false));
+                Write(folder, "Stagger", recipe.Stagger, CryPeak, false),
+                Write(folder, "Evp", recipe.Evp, CryPeak, false));
         }
 
         private static AudioClip Write(string folder, string name, Func<float[]> synthesise, float peakDb, bool loop)

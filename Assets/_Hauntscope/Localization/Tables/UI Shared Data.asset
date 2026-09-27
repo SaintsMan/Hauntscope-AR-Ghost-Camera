@@ -1123,6 +1123,38 @@ MonoBehaviour:
     m_Key: tips.uv
     m_Metadata:
       m_Items: []
+  - m_Id: 692094043029504
+    m_Key: hud.evp.button
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361152
+    m_Key: hud.evp.recording
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361153
+    m_Key: hud.evp.voice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361154
+    m_Key: hud.evp.unknown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361155
+    m_Key: hud.evp.static
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361156
+    m_Key: tips.evp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361157
+    m_Key: bestiary.evidence.evp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692094093361158
+    m_Key: bestiary.evidence.evp_none
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

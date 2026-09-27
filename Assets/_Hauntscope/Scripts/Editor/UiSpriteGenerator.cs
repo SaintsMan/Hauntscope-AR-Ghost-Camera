@@ -52,6 +52,7 @@ namespace Hauntscope.Editor
             BuildRationIcons();
             BuildSpiritBoxIcon();
             BuildViewModeIcon();
+            BuildEvpIcons();
         }
 
         private static void BuildFrame()
@@ -551,6 +552,54 @@ namespace Hauntscope.Editor
             SaveSprite("ViewModeIcon", size, size, Max(
                 Max(Shape(size, size, corners, true, Line, Glow), Shape(size, size, eye, true, Line, Glow)),
                 Shape(size, size, p => Circle(p, center, 9f), false, 0f, Glow)), Vector4.zero);
+        }
+
+        // The EVP recorder (GDD 5.33.5): a cassette on the rail; in the Bestiary a bigger cassette pinned to the file, its
+        // reels drawn apart so they can turn while the tape plays, and a play mark for its label.
+        private static void BuildEvpIcons()
+        {
+            const int icon = 128;
+            Sdf shell = p => RoundBox(p, new Vector2(64f, 62f), new Vector2(46f, 31f), 8f);
+            Sdf window = p => RoundBox(p, new Vector2(64f, 68f), new Vector2(31f, 13f), 6f);
+            Sdf reels = p => Mathf.Min(Circle(p, new Vector2(46f, 68f), 8.5f), Circle(p, new Vector2(82f, 68f), 8.5f));
+            Sdf head = p => Polygon(p, new[] { new Vector2(44f, 31f), new Vector2(84f, 31f), new Vector2(77f, 45f), new Vector2(51f, 45f) });
+            SaveSprite("EvpIcon", icon, icon, Max(
+                Max(Shape(icon, icon, shell, true, Line, Glow), Shape(icon, icon, window, true, Line * 0.75f, Glow * 0.6f)),
+                Max(Shape(icon, icon, reels, true, Line * 0.75f, Glow * 0.6f), Shape(icon, icon, head, true, Line * 0.75f, Glow * 0.6f))), Vector4.zero);
+
+            const int width = 256;
+            const int height = 160;
+            Sdf body = p => RoundBox(p, new Vector2(128f, 80f), new Vector2(114f, 70f), 14f);
+            Sdf label = p => RoundBox(p, new Vector2(128f, 121f), new Vector2(94f, 21f), 6f);
+            Sdf tapeWindow = p => RoundBox(p, new Vector2(128f, 72f), new Vector2(72f, 21f), 10f);
+            Sdf tapeHead = p => Polygon(p, new[] { new Vector2(80f, 10f), new Vector2(176f, 10f), new Vector2(164f, 36f), new Vector2(92f, 36f) });
+            Sdf screws = p => Mathf.Min(Mathf.Min(Circle(p, new Vector2(28f, 24f), 3.5f), Circle(p, new Vector2(228f, 24f), 3.5f)),
+                Circle(p, new Vector2(128f, 22f), 3f));
+            SaveSprite("EvpCassette", width, height, Max(
+                Max(Shape(width, height, body, true, Line, Glow), Shape(width, height, label, true, Line * 0.75f, Glow * 0.6f)),
+                Max(Max(Shape(width, height, tapeWindow, true, Line * 0.75f, Glow * 0.6f), Shape(width, height, tapeHead, true, Line * 0.75f, Glow * 0.6f)),
+                    Shape(width, height, screws, false, 0f, Glow * 0.5f))), Vector4.zero);
+
+            const int reel = 64;
+            var center = Center(reel, reel);
+            Sdf spool = p => Circle(p, center, 22f);
+            Sdf hub = p =>
+            {
+                var distance = Mathf.Abs(Circle(p, center, 8f));
+                for (var i = 0; i < 6; i++)
+                {
+                    var angle = i * Mathf.PI / 3f;
+                    var direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+                    distance = Mathf.Min(distance, Segment(p, center + direction * 8f, center + direction * 15f));
+                }
+
+                return distance;
+            };
+            SaveSprite("EvpReel", reel, reel, Max(Shape(reel, reel, spool, true, Line * 0.6f, Glow * 0.5f), Shape(reel, reel, hub, true, Line * 0.75f, Glow * 0.5f)),
+                Vector4.zero);
+
+            SaveSprite("EvpPlay", reel, reel, Shape(reel, reel,
+                p => Polygon(p, new[] { new Vector2(22f, 16f), new Vector2(22f, 48f), new Vector2(49f, 32f) }), false, 0f, 6f), Vector4.zero);
         }
 
         // Rewarded ads: a play triangle on a small screen, so the player knows the button starts a video.
