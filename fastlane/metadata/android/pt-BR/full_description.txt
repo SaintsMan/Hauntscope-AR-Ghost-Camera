@@ -1,30 +1,33 @@
-Hauntscope é um jogo detector de fantasmas que transforma seu celular em uma câmera de fantasmas paranormal. Escaneie sua casa com o detector EMF, sintonize a Spirit Box e capture fantasmas no seu próprio quarto em realidade aumentada.
+Hauntscope é um jogo detector de fantasmas que transforma seu celular em uma câmera de fantasmas paranormal. Escaneie sua casa com o detector EMF, ouça a Spirit Box e capture fantasmas no seu próprio quarto em realidade aumentada.
 
-Todo agente recebe um kit completo de caçador de fantasmas, bem a tempo do Halloween. Siga os sinais, descubra onde o fantasma se esconde e prenda-o antes que a bateria acabe.
+Siga os sinais, descubra onde o fantasma se esconde e prenda-o antes que a bateria acabe. A cada poucas capturas, a agência te dá uma nova ferramenta de caçador de fantasmas.
 
 COMO FUNCIONA O DETECTOR DE FANTASMAS
 1. Escaneie o seu quarto e deixe o detector de fantasmas captar um sinal.
-2. Siga o radar EMF, as vozes da Spirit Box e as suas gravações EVP para chegar mais perto.
+2. Siga o radar EMF e as vozes da Spirit Box para chegar mais perto.
 3. Procure o esconderijo com a câmera térmica, a visão noturna ou a lanterna UV.
 4. Revele o fantasma com a lente e capture-o com o raio.
-5. Tire uma foto para o arquivo dele, como um verdadeiro caçador de fantasmas.
+5. Tire uma foto e grave um EVP para o arquivo dele, como um verdadeiro caçador de fantasmas.
 
 FERRAMENTAS PARA A CAÇA AOS FANTASMAS
 • Detector EMF e radar de fantasmas: quanto mais perto o fantasma, mais rápido ele apita.
-• Spirit Box: varra a estática do rádio até uma voz dizer onde ele está: à esquerda, atrás de você, perto.
-• Gravador EVP: grave o silêncio do cômodo, ouça de novo e descubra o que o fantasma sussurrou.
-• Câmera térmica: fantasmas aparecem como pontos frios no mapa de calor.
-• Visão noturna: mude para a visão verde de filmadora e veja vultos no escuro.
-• Lanterna UV: revele rastros brilhantes que levam ao esconderijo do fantasma.
+• Spirit Box: ligue e uma voz no meio da estática diz onde ele está: à esquerda, atrás de você, perto. Com fones de ouvido, você ouve de que lado ela vem.
+• Gravador EVP: grave perto do fantasma e ouça a fita: ele sussurra o próprio nome. A gravação vai para o arquivo dele.
+• Câmera térmica: fantasmas aparecem como pontos frios no mapa de calor, até atrás dos móveis.
+• Visão noturna: mude para a visão verde de filmadora e veja um vulto no escuro sem que o fantasma perceba você.
+• Lanterna UV: ectoplasma brilhante e marcas de mãos mostram por onde o fantasma passou.
 • Lente: veja o fantasma com os próprios olhos, se a bateria aguentar.
 • Raio de captura: mantenha o fantasma dentro do anel até a armadilha fechar.
 
 UMA CÂMERA DE FANTASMAS PARA PROVAS E PEGADINHAS
-• Câmera espiritual: tire fotos como prova de cada fantasma e compartilhe as melhores.
-• Pegadinha de fantasma: coloque um fantasma em qualquer lugar do seu quarto, tire a foto e assuste seus amigos.
+• Câmera espiritual: tire fotos como prova, ganhe até três estrelas por um bom clique e compartilhe as melhores.
+• Pegadinha de fantasma: coloque no seu quarto qualquer fantasma que você já capturou, mova, gire e mude o tamanho, tire a foto e assuste seus amigos.
 
 12 FANTASMAS, 12 JEITOS DE CAÇAR
-Do tímido Fogo-Fátuo à lendária Mara que vem atrás da luz, cada fantasma tem sua aparência, sua voz e seu truque. O Poltergeist se teletransporta, a Banshee grita, o Imitador engana o seu detector EMF, o Negativo só existe no filme e o Espreitador só se move quando você desvia o olhar. Cada fantasma pede sua própria tática de caça.
+Do tímido Fogo-Fátuo à lendária Mara que vem atrás da luz, cada fantasma tem sua aparência, sua voz e seu truque. O Poltergeist se teletransporta, a Banshee grita e some da sua lente, o Imitador engana o seu detector EMF, o Negativo só existe no filme, o Espreitador só se move quando você desvia o olhar e o Gato Fantasma só chega perto se você ficar parado. Cada fantasma pede sua própria tática de caça.
+
+UMA HISTÓRIA DE FANTASMAS EM FITAS
+Você é o agente mais novo do Escritório Noturno, um serviço discreto que desde 1987 captura o que vive em apartamentos comuns. Sua câmera era da agente Ida Vale, que sumiu no Halloween, em 31 de outubro, no meio de um caso. As fitas dela aparecem no arquivo conforme seus casos avançam. São 12 arquivos, mas 13 números.
 
 MAIS ATIVIDADE PARANORMAL
 • Arquivos do Bestiário: testemunhos, táticas e notas ultrassecretas para desclassificar.
@@ -32,6 +35,7 @@ MAIS ATIVIDADE PARANORMAL
 • Ordens da agência e uma ração diária de recompensas.
 • Hora das bruxas: das 23:00 às 04:00 aparecem fantasmas raros e cada captura rende mais.
 • Lasers e equipamentos do depósito da agência.
+• Uma trilha sonora original de sintetizador que cresce conforme você se aproxima do fantasma.
 
 SEM AR? CACE EM UM APARTAMENTO ASSOMBRADO
 Se o seu celular não é compatível com ARCore ou você prefere não usar a câmera, cace na Sala Virtual: um apartamento abandonado e assombrado, cheio de esconderijos.

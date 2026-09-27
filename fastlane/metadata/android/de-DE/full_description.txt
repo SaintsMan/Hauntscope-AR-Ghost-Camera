@@ -1,30 +1,33 @@
-Hauntscope ist ein Geister Detektor Spiel, das dein Handy in eine paranormale Geisterkamera verwandelt. Scanne dein Zuhause mit dem EMF-Detektor, stimme die Spirit Box ab und fang Geister direkt in deinem Zimmer – in Augmented Reality.
+Hauntscope ist ein Geister-Detektor-Spiel, das dein Handy in eine paranormale Geisterkamera verwandelt. Scanne dein Zuhause mit dem EMF-Detektor, hör der Spirit Box zu und fang Geister direkt in deinem Zimmer – in Augmented Reality.
 
-Jeder Agent bekommt eine komplette Ausrüstung für die Geisterjagd – rechtzeitig zu Halloween. Folge den Signalen, finde das Versteck des Geistes und fang ihn, bevor der Akku leer ist.
+Folge den Signalen, finde das Versteck des Geistes und fang ihn, bevor der Akku leer ist. Alle paar Fänge gibt dir die Agentur ein neues Werkzeug für die Geisterjagd.
 
 SO FUNKTIONIERT DER GEISTERDETEKTOR
 1. Scanne dein Zimmer und lass den Geisterdetektor ein Signal auffangen.
-2. Folge dem EMF-Radar, den Stimmen der Spirit Box und deinen EVP-Aufnahmen, um näher heranzukommen.
+2. Folge dem EMF-Radar und den Stimmen der Spirit Box, um näher heranzukommen.
 3. Finde das Versteck mit Wärmebildkamera, Nachtsicht oder UV-Taschenlampe.
 4. Mach den Geist mit der Linse sichtbar und fang ihn mit dem Fangstrahl.
-5. Mach ein Foto für seine Akte – wie bei einer echten Geisterjagd.
+5. Mach ein Foto und eine EVP-Aufnahme für seine Akte – wie bei einer echten Geisterjagd.
 
 WERKZEUGE FÜR DIE GEISTERJAGD
 • EMF-Detektor und Geisterradar: Je näher der Geist, desto schneller piept es.
-• Spirit Box: Durchsuche das Radiorauschen, bis eine Stimme verrät, wo der Geist ist: links, hinter dir, ganz nah.
-• EVP-Rekorder: Nimm die Stille im Raum auf, spiel sie ab und hör, was der Geist geflüstert hat.
-• Wärmebildkamera: Geister erscheinen als kalte Flecken auf der Wärmekarte.
-• Nachtsicht: Wechsle in die grüne Camcorder-Ansicht und entdecke schwache Umrisse im Dunkeln.
-• UV-Taschenlampe: Leuchtende Spuren führen zum Versteck des Geistes.
+• Spirit Box: Schalte sie ein, und eine Stimme im Radiorauschen verrät, wo der Geist ist: links, hinter dir, ganz nah. Mit Kopfhörern hörst du, von welcher Seite sie kommt.
+• EVP-Rekorder: Nimm in der Nähe des Geistes auf und spiel das Band ab – er flüstert seinen eigenen Namen. Die Aufnahme kommt in seine Akte.
+• Wärmebildkamera: Geister erscheinen als kalte Flecken auf der Wärmekarte, sogar hinter Möbeln.
+• Nachtsicht: Wechsle in die grüne Camcorder-Ansicht und entdecke einen schwachen Umriss im Dunkeln, ohne dass der Geist dich bemerkt.
+• UV-Taschenlampe: Leuchtendes Ektoplasma und Handabdrücke zeigen, wohin der Geist gegangen ist.
 • Linse: Sieh den Geist mit eigenen Augen, solange der Akku reicht.
 • Fangstrahl: Halte den Geist im Ring, bis die Falle zuschnappt.
 
 EINE GEISTERKAMERA FÜR BEWEISE UND STREICHE
-• Geisterkamera: Mach Beweisfotos von jedem Geist und teile deine besten Aufnahmen.
-• Geister-Streich: Platziere einen Geist irgendwo in deinem Zimmer, mach das Foto und erschrecke deine Freunde.
+• Geisterkamera: Mach Beweisfotos, hol dir bis zu drei Sterne für ein gutes Bild und teile die besten.
+• Geister-Streich: Platziere einen gefangenen Geist in deinem Zimmer, verschiebe, drehe und skaliere ihn, mach das Foto und erschrecke deine Freunde.
 
 12 GEISTER, 12 ARTEN ZU JAGEN
-Vom scheuen Irrlicht bis zur legendären Mara, die zum Licht kommt: Jeder Geist hat sein eigenes Aussehen, seine Stimme und seinen Trick. Der Poltergeist teleportiert sich, die Banshee schreit, der Nachahmer täuscht deinen EMF-Detektor, das Negativ existiert nur auf Film und der Schleicher bewegt sich nur, wenn du wegsiehst. Jeder Geist braucht seine eigene Taktik für die Geisterjagd.
+Vom scheuen Irrlicht bis zur legendären Mara, die zum Licht kommt: Jeder Geist hat sein eigenes Aussehen, seine Stimme und seinen Trick. Der Poltergeist teleportiert sich, die Banshee schreit und verschwindet aus deiner Linse, der Nachahmer täuscht deinen EMF-Detektor, das Negativ existiert nur auf Film, der Schleicher bewegt sich nur, wenn du wegsiehst, und die Geisterkatze kommt nur näher, wenn du stillhältst. Jeder Geist braucht seine eigene Taktik für die Geisterjagd.
+
+EINE GEISTERGESCHICHTE AUF BAND
+Du bist der neueste Agent des Nachtbüros, eines stillen Dienstes, der seit 1987 fängt, was in ganz normalen Wohnungen lebt. Deine Kamera gehörte Agentin Ida Vale, die an Halloween, dem 31. Oktober, mitten in einem Fall verschwand. Ihre Bänder tauchen im Archiv auf, während deine Fälle wachsen. Es gibt 12 Akten, aber 13 Nummern.
 
 NOCH MEHR PARANORMALES
 • Akten im Bestiarium: Zeugenaussagen, Taktiken und streng geheime Notizen zum Freigeben.
@@ -32,6 +35,7 @@ NOCH MEHR PARANORMALES
 • Agentur-Aufträge und eine Tagesration an Belohnungen.
 • Geisterstunde: Von 23:00 bis 04:00 kommen seltene Geister heraus und jeder Fang bringt mehr.
 • Laser und Ausrüstung aus dem Agentur-Lager.
+• Ein eigener Synth-Soundtrack, der sich steigert, je näher du dem Geist kommst.
 
 KEIN AR? JAGE IN EINER SPUKWOHNUNG
 Wenn dein Handy ARCore nicht unterstützt oder du die Kamera nicht nutzen möchtest, jagst du im virtuellen Raum: einer verlassenen Spukwohnung voller Verstecke.

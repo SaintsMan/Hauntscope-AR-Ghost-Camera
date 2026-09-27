@@ -1,30 +1,33 @@
-Hauntscope adalah game pendeteksi hantu yang mengubah ponselmu menjadi kamera hantu paranormal. Pindai rumahmu dengan detektor EMF, setel Spirit Box, dan tangkap hantu langsung di kamarmu dalam augmented reality.
+Hauntscope adalah game pendeteksi hantu yang mengubah ponselmu menjadi kamera hantu paranormal. Pindai rumahmu dengan detektor EMF, dengarkan Spirit Box, dan tangkap hantu langsung di kamarmu dalam augmented reality.
 
-Setiap agen mendapat perlengkapan pemburu hantu yang lengkap, pas untuk Halloween. Ikuti sinyalnya, temukan tempat hantu bersembunyi, dan tangkap sebelum baterai habis.
+Ikuti sinyalnya, temukan tempat hantu bersembunyi, dan tangkap sebelum baterai habis. Setiap beberapa tangkapan, agensi memberimu alat pemburu hantu yang baru.
 
 CARA KERJA PENDETEKSI HANTU
 1. Pindai kamarmu dan biarkan pendeteksi hantu menangkap sinyal.
-2. Ikuti radar EMF, suara Spirit Box, dan rekaman EVP untuk mendekat.
+2. Ikuti radar EMF dan suara Spirit Box untuk mendekat.
 3. Cari tempat sembunyinya dengan kamera termal, night vision, atau senter UV.
 4. Tampakkan hantu dengan lensa dan tangkap dengan sinar penangkap.
-5. Ambil foto untuk berkasnya, layaknya pemburu hantu sungguhan.
+5. Ambil foto dan rekam EVP untuk berkasnya, layaknya pemburu hantu sungguhan.
 
 ALAT BERBURU HANTU
 • Detektor EMF & radar hantu: makin dekat hantunya, makin cepat bunyinya.
-• Spirit Box: sapu desis radio sampai sebuah suara memberi tahu posisi hantu: kiri, di belakangmu, dekat.
-• Perekam EVP: rekam keheningan kamar, putar ulang, dan dengar apa yang dibisikkan hantu.
-• Kamera termal: hantu tampak sebagai titik dingin di peta panas.
-• Night vision: beralih ke tampilan hijau kamera video dan temukan sosok samar dalam gelap.
-• Senter UV: jejak bercahaya menuntun ke tempat persembunyian hantu.
+• Spirit Box: nyalakan, dan sebuah suara di balik desis radio memberi tahu posisi hantu: kiri, di belakangmu, dekat. Pakai headset, kamu bisa dengar dari sisi mana suaranya.
+• Perekam EVP: rekam di dekat hantu lalu putar ulang pitanya: ia membisikkan namanya sendiri. Rekamannya masuk ke berkas kasus.
+• Kamera termal: hantu tampak sebagai titik dingin di peta panas, bahkan di balik perabot.
+• Night vision: beralih ke tampilan hijau kamera video dan temukan sosok samar dalam gelap tanpa disadari hantu.
+• Senter UV: ektoplasma yang berpendar dan jejak tangan menunjukkan ke mana hantu pergi.
 • Lensa: lihat hantu dengan mata kepala sendiri, selama baterai masih kuat.
 • Sinar penangkap: jaga hantu di dalam lingkaran sampai perangkap tertutup.
 
 KAMERA HANTU UNTUK BUKTI DAN PRANK
-• Kamera arwah: ambil foto bukti setiap hantu dan bagikan jepretan terbaikmu.
-• Prank hantu: taruh hantu di mana saja di kamarmu, potret, lalu takut-takuti teman-temanmu.
+• Kamera arwah: ambil foto bukti, raih sampai tiga bintang untuk jepretan bagus, dan bagikan yang terbaik.
+• Prank hantu: taruh hantu yang sudah kamu tangkap di kamarmu, geser, putar, dan ubah ukurannya, potret, lalu takut-takuti teman-temanmu.
 
 12 HANTU, 12 CARA BERBURU
-Dari Kunang Arwah yang pemalu sampai Mara legendaris yang datang ke cahaya, setiap hantu punya wujud, suara, dan triknya sendiri. Poltergeist berteleportasi, Banshee menjerit, Peniru mengelabui detektor EMF-mu, Negatif hanya ada di film, dan Pengintai hanya bergerak saat kamu berpaling. Setiap hantu butuh taktik berburu hantu yang berbeda.
+Dari Kunang Arwah yang pemalu sampai Mara legendaris yang datang ke cahaya, setiap hantu punya wujud, suara, dan triknya sendiri. Poltergeist berteleportasi, Banshee menjerit lalu lenyap dari lensamu, Peniru mengelabui detektor EMF-mu, Negatif hanya ada di film, Pengintai hanya bergerak saat kamu berpaling, dan Kucing Hantu hanya mendekat kalau kamu diam. Setiap hantu butuh taktik berburu hantu yang berbeda.
+
+CERITA HANTU DI DALAM KASET
+Kamu adalah agen terbaru Biro Malam, dinas senyap yang sejak 1987 menangkap apa yang tinggal di rumah-rumah biasa. Kameramu dulu milik Agen Ida Vale, yang menghilang saat Halloween, 31 Oktober, di tengah sebuah kasus. Kasetnya muncul di arsip seiring kasus-kasusmu. Ada 12 berkas, tapi 13 nomor.
 
 LEBIH BANYAK AKTIVITAS PARANORMAL
 • Berkas Bestiari: kesaksian, taktik, dan catatan sangat rahasia untuk dibuka.
@@ -32,6 +35,7 @@ LEBIH BANYAK AKTIVITAS PARANORMAL
 • Tugas agensi dan jatah harian berisi hadiah.
 • Jam keramat: pukul 23.00 sampai 04.00 hantu langka muncul dan setiap tangkapan bernilai lebih.
 • Laser dan perlengkapan dari gudang agensi.
+• Soundtrack synth orisinal yang makin intens saat kamu mendekati hantu.
 
 TIDAK ADA AR? BERBURU DI APARTEMEN BERHANTU
 Jika ponselmu tidak mendukung ARCore atau kamu tak ingin memakai kamera, berburulah di Ruang Virtual: apartemen terbengkalai berhantu yang penuh tempat sembunyi.
