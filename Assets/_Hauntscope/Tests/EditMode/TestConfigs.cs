@@ -96,6 +96,13 @@ namespace Hauntscope.Tests.EditMode
             return new ThermalVisionConfig(unlockCaptures, drain, range, fadeTime);
         }
 
+        public static UvFlashlightConfig Uv(int unlockCaptures = 6, float drain = 0.8f, float range = 3f, float coneAngle = 28f,
+            float coneSoftness = 6f, float trailSpacing = 0.45f, float trailLifetime = 20f, float fadeStart = 0.6f, int trailCapacity = 16)
+        {
+            return new UvFlashlightConfig(unlockCaptures, drain, range, coneAngle, coneSoftness, trailSpacing, trailLifetime, fadeStart,
+                trailCapacity);
+        }
+
         public static ViewSelector Views(params IViewMode[] modes)
         {
             return new ViewSelector(modes);

@@ -16,6 +16,7 @@ namespace Hauntscope.Gameplay.Hunt
         Mara,
         SpiritBox,
         NightVision,
-        Thermal
+        Thermal,
+        Uv
     }
 }

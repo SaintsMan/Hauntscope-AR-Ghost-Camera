@@ -21,6 +21,8 @@ namespace Hauntscope.Tests.EditMode
         private FakeCameraPose _camera;
         private FakePickupFactory _factory;
         private GhostLens _lens;
+        private FakeRevealingLight _light;
+        private IRevealingLight[] _lights;
         private Battery _battery;
         private HuntLoot _loot;
 
@@ -32,6 +34,8 @@ namespace Hauntscope.Tests.EditMode
             _camera = new FakeCameraPose { Position = new Vector3(0f, 1.5f, 0f), Forward = Vector3.forward };
             _factory = new FakePickupFactory(_random);
             _lens = new GhostLens(new HuntSession(), _camera, TestConfigs.Tools(), new HuntModifiers());
+            _light = new FakeRevealingLight();
+            _lights = new IRevealingLight[] { _light };
             _battery = new Battery(TestConfigs.Tools(batteryMax: 100f));
             _loot = new HuntLoot();
         }
@@ -150,6 +154,19 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Tick_LensOnlyUnderTheUvBeam_BecomesVisible()
+        {
+            var field = CreateField(new PickupSpawn(Vial(20, 20, lensOnly: true), PickupTrigger.HuntStart, 1f, 1, 1));
+            field.Begin();
+            var pickup = field.Active[0];
+            _light.IsLit = true;
+
+            field.Tick(FadeTime);
+
+            Assert.AreEqual(1f, pickup.Visibility, 1e-4f);
+        }
+
+        [Test]
         public void Tick_ChargePickupCollected_RechargesTheBattery()
         {
             var field = CreateField(new PickupSpawn(Cell(0.35f), PickupTrigger.HuntStart, 1f, 1, 1));
@@ -209,7 +226,7 @@ namespace Hauntscope.Tests.EditMode
             var config = new PickupConfig(spawns, collectRadius: CollectRadius, collectDuration: CollectDuration,
                 spawnMinDistance: 1f, spawnMaxDistance: 3f, minSpacing: 0.5f, fadeTime: FadeTime);
             var spots = new PickupSpotSelector(_planes, new FakeRandomWalk(), config);
-            return new PickupField(_factory, spots, config, _random, _camera, _lens, _battery, _loot);
+            return new PickupField(_factory, spots, config, _random, _camera, _lens, _lights, _battery, _loot);
         }
 
         private static EctoplasmPickupData Vial(int min, int max, bool lensOnly = false)

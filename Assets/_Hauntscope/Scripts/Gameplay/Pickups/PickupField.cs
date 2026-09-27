@@ -19,6 +19,7 @@ namespace Hauntscope.Gameplay.Pickups
         private readonly IRandom _random;
         private readonly ICameraPose _camera;
         private readonly GhostLens _lens;
+        private readonly IReadOnlyList<IRevealingLight> _lights;
         private readonly Battery _battery;
         private readonly HuntLoot _loot;
         private readonly List<Pickup> _active = new List<Pickup>();
@@ -31,6 +32,7 @@ namespace Hauntscope.Gameplay.Pickups
             IRandom random,
             ICameraPose camera,
             GhostLens lens,
+            IReadOnlyList<IRevealingLight> lights,
             Battery battery,
             HuntLoot loot)
         {
@@ -40,6 +42,7 @@ namespace Hauntscope.Gameplay.Pickups
             _random = random;
             _camera = camera;
             _lens = lens;
+            _lights = lights;
             _battery = battery;
             _loot = loot;
         }
@@ -121,7 +124,7 @@ namespace Hauntscope.Gameplay.Pickups
 
         private void TickOnFloor(Pickup pickup, float deltaTime)
         {
-            var shown = !pickup.Data.LensOnly || IsInLens(pickup.Position);
+            var shown = !pickup.Data.LensOnly || IsInLens(pickup.Position) || IsLit(pickup.Position);
             var step = deltaTime / _config.FadeTime;
             pickup.SetVisibility(pickup.Visibility + (shown ? step : -step));
 
@@ -139,6 +142,18 @@ namespace Hauntscope.Gameplay.Pickups
             pickup.TickCollect(pickup.CollectProgress + deltaTime / _config.CollectDuration, target);
             if (pickup.IsGone)
                 Remove(index);
+        }
+
+        // The cursed case also shows under the UV beam (GDD 5.33.4).
+        private bool IsLit(Vector3 position)
+        {
+            for (var i = 0; i < _lights.Count; i++)
+            {
+                if (_lights[i].Lights(position))
+                    return true;
+            }
+
+            return false;
         }
 
         private bool IsInLens(Vector3 position)
