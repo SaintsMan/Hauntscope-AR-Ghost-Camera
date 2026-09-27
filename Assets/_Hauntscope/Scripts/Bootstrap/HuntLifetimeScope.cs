@@ -13,6 +13,7 @@ using Hauntscope.Gameplay.Pickups;
 using Hauntscope.Gameplay.Shift;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
+using Hauntscope.Infrastructure.Rendering;
 using Hauntscope.Infrastructure.Vfx;
 using Hauntscope.UI.Common;
 using Hauntscope.UI.Hunt;
@@ -69,6 +70,9 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<HuntPause>().AsSelf();
             builder.Register<GhostLens>(Lifetime.Singleton);
             builder.Register<SpiritBox>(Lifetime.Singleton);
+            builder.Register<NightVision>(Lifetime.Singleton).As<IViewMode>().AsSelf();
+            builder.Register<ViewSelector>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<UrpViewFilter>().As<IViewFilter>();
             builder.Register<CaptureRateCalculator>(Lifetime.Singleton);
             builder.Register<CaptureBeam>(Lifetime.Singleton);
             builder.Register<Toolbelt>(Lifetime.Singleton);
@@ -76,6 +80,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<EmfRadar>(Lifetime.Singleton);
             builder.RegisterEntryPoint<EmfFeedback>();
             builder.RegisterEntryPoint<SpiritBoxFeedback>();
+            builder.RegisterEntryPoint<ViewModeFeedback>();
             builder.RegisterEntryPoint<HuntFeedback>();
             builder.RegisterEntryPoint<ColdSpotFeedback>();
             builder.RegisterComponentInHierarchy<CaptureBeamView>().As<IBeamView>();
@@ -99,6 +104,8 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<HuntHudPresenter>();
             builder.RegisterComponentInHierarchy<SpiritBoxView>();
             builder.RegisterEntryPoint<SpiritBoxPresenter>();
+            builder.RegisterComponentInHierarchy<ViewModeView>();
+            builder.RegisterEntryPoint<ViewModePresenter>();
             builder.RegisterComponentInHierarchy<SupplyHudView>();
             builder.RegisterEntryPoint<SupplyHudPresenter>();
             builder.RegisterComponentInHierarchy<EmergencyChargeView>();
@@ -135,6 +142,7 @@ namespace Hauntscope.Bootstrap
             RegisterGhostTip(builder, FieldTipId.Domovyk, tips => tips.DomovykGhostId);
             builder.Register<WitchingHourTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
             builder.Register<SpiritBoxTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
+            builder.Register<IFieldTipRule>(resolver => new ViewModeTipRule(FieldTipId.NightVision, resolver.Resolve<NightVision>()), Lifetime.Scoped);
             builder.Register<StaggerTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
             builder.Register<ColdSpotTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
             builder.Register<CloseInTipRule>(Lifetime.Singleton).As<IFieldTipRule>();

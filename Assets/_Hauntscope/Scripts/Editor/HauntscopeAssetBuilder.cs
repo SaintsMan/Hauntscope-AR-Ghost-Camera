@@ -29,6 +29,7 @@ namespace Hauntscope.Editor
             ShiftAssetBuilder.Build();
             ContractAssetBuilder.Build();
             LoginAssetBuilder.Build();
+            ViewFilterAssetBuilder.Build();
             WireConfig(config);
         }
 
@@ -73,6 +74,13 @@ namespace Hauntscope.Editor
             SetClip(serialized, "_audio._catMeow", SfxFolder, "CatMeow");
             SetClip(serialized, "_audio._catPurr", SfxFolder, "CatPurr");
             SetClip(serialized, "_audio._knock", SfxFolder, "Knock");
+            SetClip(serialized, "_spiritBox._sweepClip", SfxFolder, "SpiritBoxSweep");
+            SetClip(serialized, "_spiritBox._crackleClip", SfxFolder, "SpiritBoxCrackle");
+            SetClip(serialized, "_spiritBox._toggleClip", SfxFolder, "SpiritBoxToggle");
+            SetClips(serialized, "_spiritBox._voiceClips", SfxFolder, "SpiritBoxVoice1", "SpiritBoxVoice2", "SpiritBoxVoice3");
+            SetClip(serialized, "_view._offClip", SfxFolder, "ViewModeOff");
+            SetClip(serialized, "_view._nightVision._onClip", SfxFolder, "NightVisionOn");
+            serialized.FindProperty("_view._nightVision._filter").objectReferenceValue = ViewFilterAssetBuilder.NightShot;
             serialized.FindProperty("_vfx._captureSpiral").objectReferenceValue = VfxGenerator.CaptureSpiral;
             serialized.FindProperty("_vfx._teleportFlash").objectReferenceValue = VfxGenerator.TeleportFlash;
             serialized.FindProperty("_vfx._revealPulse").objectReferenceValue = VfxGenerator.RevealPulse;
@@ -91,6 +99,14 @@ namespace Hauntscope.Editor
         private static void SetClip(SerializedObject serialized, string property, string folder, string name)
         {
             serialized.FindProperty(property).objectReferenceValue = LoadClip(folder, name);
+        }
+
+        private static void SetClips(SerializedObject serialized, string property, string folder, params string[] names)
+        {
+            var list = serialized.FindProperty(property);
+            list.arraySize = names.Length;
+            for (var i = 0; i < names.Length; i++)
+                list.GetArrayElementAtIndex(i).objectReferenceValue = LoadClip(folder, names[i]);
         }
 
         private static AudioClip LoadClip(string folder, string name)

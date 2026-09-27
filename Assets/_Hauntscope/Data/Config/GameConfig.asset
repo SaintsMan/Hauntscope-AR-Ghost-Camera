@@ -453,3 +453,17 @@ MonoBehaviour:
     _crackleVolume: 0.5
     _toggleClip: {fileID: 8300000, guid: 53025b0bce8f4cf4fb1e624ff41cbee1, type: 3}
     _toggleVolume: 0.6
+  _view:
+    _nightVision:
+      _unlockCaptures: 2
+      _drain: 0.3
+      _range: 5
+      _glimpse: 0.2
+      _farGlimpseScale: 0.5
+      _fadeTime: 0.35
+      _labelKey: hud.view.night
+      _filter: {fileID: 2100000, guid: f131fc7e3f49e2c499ed775171476e02, type: 2}
+      _onClip: {fileID: 8300000, guid: 4fa0583fdab654040b90b21bcaeb0a8b, type: 3}
+      _onVolume: 0.6
+    _offClip: {fileID: 8300000, guid: aca19670ebab37545a4db2509ad0c111, type: 3}
+    _offVolume: 0.5

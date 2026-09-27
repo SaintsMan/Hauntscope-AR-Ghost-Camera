@@ -51,6 +51,7 @@ namespace Hauntscope.Editor
             BuildShiftIcons();
             BuildRationIcons();
             BuildSpiritBoxIcon();
+            BuildViewModeIcon();
         }
 
         private static void BuildFrame()
@@ -526,6 +527,30 @@ namespace Hauntscope.Editor
                 Max(Shape(size, size, body, true, Line, Glow), Shape(size, size, antenna, true, Line, Glow)),
                 Max(Max(Shape(size, size, grille, true, Line * 0.75f, Glow * 0.6f), Shape(size, size, dial, true, Line * 0.75f, Glow * 0.6f)),
                     Shape(size, size, waves, true, Line, Glow))), Vector4.zero);
+        }
+
+        // MODE: an eye inside viewfinder corners — how the camera sees, not what it points at.
+        private static void BuildViewModeIcon()
+        {
+            const int size = 128;
+            var center = Center(size, size);
+            Sdf corners = p =>
+            {
+                var distance = float.MaxValue;
+                foreach (var sx in new[] { -1f, 1f })
+                foreach (var sy in new[] { -1f, 1f })
+                {
+                    var corner = center + new Vector2(sx * 40f, sy * 32f);
+                    distance = Mathf.Min(distance, Segment(p, corner, corner - new Vector2(sx * 14f, 0f)));
+                    distance = Mathf.Min(distance, Segment(p, corner, corner - new Vector2(0f, sy * 12f)));
+                }
+
+                return distance;
+            };
+            Sdf eye = p => Mathf.Min(Arc(p, center + new Vector2(0f, -30f), 42f, 90f, 42f), Arc(p, center + new Vector2(0f, 30f), 42f, -90f, 42f));
+            SaveSprite("ViewModeIcon", size, size, Max(
+                Max(Shape(size, size, corners, true, Line, Glow), Shape(size, size, eye, true, Line, Glow)),
+                Shape(size, size, p => Circle(p, center, 9f), false, 0f, Glow)), Vector4.zero);
         }
 
         // Rewarded ads: a play triangle on a small screen, so the player knows the button starts a video.

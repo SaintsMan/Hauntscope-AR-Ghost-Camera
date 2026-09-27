@@ -1,7 +1,17 @@
 {
     "name": "Hauntscope.Infrastructure",
     "rootNamespace": "Hauntscope.Infrastructure",
-    "references": ["Hauntscope.Core", "Hauntscope.Gameplay", "VContainer", "UniTask", "Unity.Localization", "Unity.ResourceManager", "Unity.InputSystem"],
+    "references": [
+        "Hauntscope.Core",
+        "Hauntscope.Gameplay",
+        "VContainer",
+        "UniTask",
+        "Unity.Localization",
+        "Unity.ResourceManager",
+        "Unity.InputSystem",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.RenderPipelines.Core.Runtime"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -65,6 +65,8 @@ namespace Hauntscope.Editor
             Save(SfxFolder, "SpiritBoxVoice3", SpiritBoxVoice(107, 142f, 4, 2), -3f, false);
             Save(SfxFolder, "SpiritBoxCrackle", SpiritBoxCrackle(), -9f, false);
             Save(SfxFolder, "SpiritBoxToggle", SpiritBoxToggle(), -6f, false);
+            Save(SfxFolder, "NightVisionOn", NightVisionOn(), -7f, false);
+            Save(SfxFolder, "ViewModeOff", ViewModeOff(), -8f, false);
             Save(AmbientFolder, "AmbientDrone", AmbientDrone(), -8f, true);
             Save(AmbientFolder, "AmbientStatic", AmbientStatic(), -10f, true);
         }
@@ -1090,6 +1092,42 @@ namespace Hauntscope.Editor
             var hiss = Filter(Noise(samples.Length, 93), FilterType.BandPass, i => Mathf.Lerp(900f, 3000f, (float)i / samples.Length), 1.2f);
             for (var i = 0; i < samples.Length; i++)
                 samples[i] += hiss[i] * Adsr(Time(i) - 0.01f, 0.25f, 0.03f, 0.18f) * 0.5f;
+            return samples;
+        }
+
+        // An image intensifier powering up: a relay click, then the tube's high whine rising and settling, with a hiss.
+        private static float[] NightVisionOn()
+        {
+            const float length = 0.9f;
+            var samples = Buffer(length);
+            Add(samples, Click(0.004f, 900f, 111), 0, 0.8f);
+            var hiss = Filter(Noise(samples.Length, 113), FilterType.HighPass, 5000f, 0.7f);
+            var phase = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var rise = Smooth(Mathf.Clamp01(t / 0.55f));
+                phase += TwoPi * Mathf.Lerp(1800f, 9200f, rise) / SampleRate;
+                var envelope = Adsr(t - 0.02f, length - 0.02f, 0.08f, 0.35f);
+                samples[i] += (Mathf.Sin(phase) * 0.35f + Mathf.Sin(phase * 2.01f) * 0.08f) * envelope + hiss[i] * 0.12f * envelope;
+            }
+
+            return samples;
+        }
+
+        // Back to the plain picture: a dry relay click with a short falling tick.
+        private static float[] ViewModeOff()
+        {
+            var samples = Buffer(0.25f);
+            Add(samples, Click(0.003f, 1400f, 121), 0, 0.9f);
+            var phase = 0f;
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                phase += TwoPi * Mathf.Lerp(2600f, 900f, Mathf.Clamp01(t / 0.12f)) / SampleRate;
+                samples[i] += Mathf.Sin(phase) * 0.25f * Envelope(t, 0.002f, 0.04f);
+            }
+
             return samples;
         }
 

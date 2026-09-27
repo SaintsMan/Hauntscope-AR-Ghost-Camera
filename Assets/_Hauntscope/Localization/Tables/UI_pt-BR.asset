@@ -1115,6 +1115,19 @@ MonoBehaviour:
       o fantasma est\xE1."
     m_Metadata:
       m_Items: []
+  - m_Id: 674327017422848
+    m_Localized: MODO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 674327084531712
+    m_Localized: "VIS\xC3O NOTURNA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 674327084531713
+    m_Localized: "A ag\xEAncia te deu vis\xE3o noturna: toque em MODO. Voc\xEA v\xEA
+      o vulto do fantasma sem revel\xE1-lo, e ele n\xE3o percebe voc\xEA."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

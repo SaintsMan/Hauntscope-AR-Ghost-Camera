@@ -1110,6 +1110,19 @@ MonoBehaviour:
       voice tells you where the ghost is.'
     m_Metadata:
       m_Items: []
+  - m_Id: 674327017422848
+    m_Localized: MODE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 674327084531712
+    m_Localized: NIGHT VISION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 674327084531713
+    m_Localized: 'The agency issued you night vision: tap MODE. You see a faint shape
+      of the ghost without revealing it, and it won''t notice you.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -1112,6 +1112,19 @@ MonoBehaviour:
       tahu di mana hantu berada.'
     m_Metadata:
       m_Items: []
+  - m_Id: 674327017422848
+    m_Localized: MODE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 674327084531712
+    m_Localized: NIGHT VISION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 674327084531713
+    m_Localized: 'Agensi memberimu night vision: ketuk MODE. Kamu melihat sosok samar
+      hantu tanpa menampakkannya, dan ia tak menyadarimu.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

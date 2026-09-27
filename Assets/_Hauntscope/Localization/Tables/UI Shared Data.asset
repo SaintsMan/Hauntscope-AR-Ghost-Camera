@@ -1095,6 +1095,18 @@ MonoBehaviour:
     m_Key: tips.spirit_box
     m_Metadata:
       m_Items: []
+  - m_Id: 674327017422848
+    m_Key: hud.view.button
+    m_Metadata:
+      m_Items: []
+  - m_Id: 674327084531712
+    m_Key: hud.view.night
+    m_Metadata:
+      m_Items: []
+  - m_Id: 674327084531713
+    m_Key: tips.night_vision
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

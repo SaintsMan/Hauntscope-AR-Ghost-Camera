@@ -1115,6 +1115,19 @@ MonoBehaviour:
       te dice d\xF3nde est\xE1 el fantasma."
     m_Metadata:
       m_Items: []
+  - m_Id: 674327017422848
+    m_Localized: MODO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 674327084531712
+    m_Localized: "VISI\xD3N NOCTURNA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 674327084531713
+    m_Localized: "La agencia te dio visi\xF3n nocturna: toca MODO. Ver\xE1s la silueta
+      tenue del fantasma sin revelarlo, y no te notar\xE1."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

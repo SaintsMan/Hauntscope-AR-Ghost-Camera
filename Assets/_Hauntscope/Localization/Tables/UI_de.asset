@@ -1113,6 +1113,19 @@ MonoBehaviour:
       h\xF6r zu. Die Stimme verr\xE4t, wo der Geist ist."
     m_Metadata:
       m_Items: []
+  - m_Id: 674327017422848
+    m_Localized: MODUS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 674327084531712
+    m_Localized: NACHTSICHT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 674327084531713
+    m_Localized: 'Die Agentur hat dir Nachtsicht gegeben: Tippe auf MODUS. Du siehst
+      den Geist schwach, ohne ihn sichtbar zu machen, und er bemerkt dich nicht.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
