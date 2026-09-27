@@ -31,8 +31,6 @@ namespace Hauntscope.UI.Menu
         [SerializeField, Range(0f, 1f)] private float _ledUnlitAlpha = 0.15f;
         [SerializeField, Range(0f, 1f)] private float _equippedFillAlpha = 0.22f;
         [SerializeField, Range(0f, 1f)] private float _glowAlpha = 0.3f;
-        [SerializeField, Min(0f)] private float _descriptionHeight = 100f;
-        [SerializeField, Min(0f)] private float _descriptionTallHeight = 170f;
 
         private Color _accent = Color.white;
 
@@ -53,17 +51,16 @@ namespace Hauntscope.UI.Menu
         public void SetStats(int power, int hold, int economy)
         {
             _stats.SetActive(true);
-            SetDescriptionHeight(_descriptionHeight);
             SetLeds(_powerLeds, power);
             SetLeds(_holdLeds, hold);
             SetLeds(_economyLeds, economy);
         }
 
-        // Gear has no ratings, so its description takes the space the LED rows would use.
+        // Gear has no ratings. Its description keeps the same box as a laser's: the price button sits where the LED
+        // rows would be, and the text shrinks to fit rather than running into it.
         public void HideStats()
         {
             _stats.SetActive(false);
-            SetDescriptionHeight(_descriptionTallHeight);
         }
 
         public void SetCount(string text)
@@ -100,12 +97,6 @@ namespace Hauntscope.UI.Menu
         {
             _actionButton.transform.DOKill(true);
             _actionButton.transform.DOShakePosition(0.35f, new Vector3(14f, 0f, 0f), 18, 0f).Ui(gameObject);
-        }
-
-        private void SetDescriptionHeight(float height)
-        {
-            var rect = _descriptionLabel.rectTransform;
-            rect.sizeDelta = new Vector2(rect.sizeDelta.x, height);
         }
 
         private void SetLeds(Image[] leds, int lit)

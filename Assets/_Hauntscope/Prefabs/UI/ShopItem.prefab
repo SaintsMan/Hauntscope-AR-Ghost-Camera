@@ -2433,8 +2433,6 @@ MonoBehaviour:
   _ledUnlitAlpha: 0.15
   _equippedFillAlpha: 0.22
   _glowAlpha: 0.3
-  _descriptionHeight: 100
-  _descriptionTallHeight: 170
 --- !u!1 &6042011221057608131
 GameObject:
   m_ObjectHideFlags: 0
@@ -3520,7 +3518,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 262, y: -100}
-  m_SizeDelta: {x: 612, y: 100}
+  m_SizeDelta: {x: 596, y: 84}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &9035115222765306974
 CanvasRenderer:
@@ -3580,9 +3578,9 @@ MonoBehaviour:
   m_fontSize: 27
   m_fontSizeBase: 27
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 27
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
