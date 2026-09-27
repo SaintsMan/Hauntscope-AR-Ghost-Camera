@@ -431,7 +431,7 @@ MonoBehaviour:
     _contractsMarkAfter: 1
   _spiritBox:
     _unlockCaptures: 1
-    _drain: 0.4
+    _drain: 0.3
     _firstAnswerDelay: 1.2
     _intervalMin: 3.5
     _intervalMax: 5.5

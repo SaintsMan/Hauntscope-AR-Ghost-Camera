@@ -8,7 +8,7 @@ namespace Hauntscope.Gameplay.Config
     public sealed class SpiritBoxConfig
     {
         [SerializeField, Min(0)] private int _unlockCaptures = 1;
-        [SerializeField, Min(0f)] private float _drain = 0.4f;
+        [SerializeField, Min(0f)] private float _drain = 0.3f;
         [SerializeField, Min(0f)] private float _firstAnswerDelay = 1.2f;
         [SerializeField, Min(0.1f)] private float _intervalMin = 3.5f;
         [SerializeField, Min(0.1f)] private float _intervalMax = 5.5f;
