@@ -1132,6 +1132,15 @@ MonoBehaviour:
       Ghosts show as cold shapes, even behind furniture.'
     m_Metadata:
       m_Items: []
+  - m_Id: 683306913234944
+    m_Localized: UV LIGHT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 683307118755840
+    m_Localized: 'The agency issued you a UV flashlight: tap MODE until UV LIGHT.
+      Glowing ectoplasm shows where the ghost went. Follow the trail.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

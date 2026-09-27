@@ -1137,6 +1137,15 @@ MonoBehaviour:
       T\xC9RMICA. Fantasmas aparecem como vultos frios, at\xE9 atr\xE1s dos m\xF3veis."
     m_Metadata:
       m_Items: []
+  - m_Id: 683306913234944
+    m_Localized: LUZ UV
+    m_Metadata:
+      m_Items: []
+  - m_Id: 683307118755840
+    m_Localized: "A ag\xEAncia te deu uma lanterna UV: toque em MODO at\xE9 LUZ UV.
+      O ectoplasma brilhante mostra por onde o fantasma passou. Siga o rastro."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

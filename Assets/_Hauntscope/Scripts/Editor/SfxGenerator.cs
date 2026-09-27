@@ -68,6 +68,7 @@ namespace Hauntscope.Editor
             Save(SfxFolder, "NightVisionOn", NightVisionOn(), -7f, false);
             Save(SfxFolder, "ViewModeOff", ViewModeOff(), -8f, false);
             Save(SfxFolder, "ThermalOn", ThermalOn(), -7f, false);
+            Save(SfxFolder, "UvOn", UvOn(), -7f, false);
             Save(AmbientFolder, "AmbientDrone", AmbientDrone(), -8f, true);
             Save(AmbientFolder, "AmbientStatic", AmbientStatic(), -10f, true);
         }
@@ -1135,6 +1136,25 @@ namespace Hauntscope.Editor
             }
 
             return samples;
+        }
+
+        // A UV tube striking: two stuttering ticks of the starter, then the ballast's buzz settling into a steady hum.
+        private static float[] UvOn()
+        {
+            const float length = 0.85f;
+            var samples = Buffer(length);
+            Add(samples, Click(0.003f, 2500f, 141), 0, 0.7f);
+            Add(samples, Click(0.003f, 2800f, 143), (int)(0.07f * SampleRate), 0.6f);
+            Add(samples, Click(0.004f, 2200f, 145), (int)(0.16f * SampleRate), 0.8f);
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var flicker = t < 0.2f ? (Mathf.Sin(TwoPi * 30f * t) > 0.2f ? 1f : 0.2f) : 1f;
+                var buzz = Mathf.Sin(TwoPi * 100f * t) * 0.5f + Mathf.Sin(TwoPi * 200f * t) * 0.3f + Mathf.Sin(TwoPi * 300f * t) * 0.15f;
+                samples[i] += buzz * 0.22f * flicker * Adsr(t - 0.05f, length - 0.05f, 0.1f, 0.3f);
+            }
+
+            return Saturate(samples, 1.4f);
         }
 
         // Back to the plain picture: a dry relay click with a short falling tick.

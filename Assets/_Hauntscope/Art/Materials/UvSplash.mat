@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ViewThermal
-  m_Shader: {fileID: 4800000, guid: 5e58a02c813461b4b9c0d5bd8f762a83, type: 3}
+  m_Name: UvSplash
+  m_Shader: {fileID: 4800000, guid: f1789232c7628ac4fa6b03d7bc62bee5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -22,21 +22,16 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: f3e3845097d1cdc429119616a3647bec, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Gain: 1.7
-    - _Halo: 0.55
-    - _HaloCells: 3
-    - _Lift: 0.03
-    - _MarkerSoftness: 0.3
-    - _MarkerThreshold: 0.5
-    - _Noise: 0.035
-    - _Pixel: 5
-    - _RoomMin: 0.22
-    - _Vignette: 0.55
+    - _Alpha: 1
+    - _Pulse: 0.18
     m_Colors:
-    - _Ice: {r: 0.7, g: 0.97999996, b: 1, a: 1}
-    - _IceDeep: {r: 0.049999982, g: 0.34999996, b: 0.95, a: 1}
+    - _Color: {r: 0.079999976, g: 1, b: 0.29999998, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

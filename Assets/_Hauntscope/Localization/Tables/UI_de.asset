@@ -1136,6 +1136,15 @@ MonoBehaviour:
       M\xF6beln."
     m_Metadata:
       m_Items: []
+  - m_Id: 683306913234944
+    m_Localized: UV-LICHT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 683307118755840
+    m_Localized: 'Die Agentur hat dir eine UV-Lampe gegeben: Tippe auf MODUS bis
+      UV-LICHT. Leuchtendes Ektoplasma zeigt, wohin der Geist ging. Folge der Spur.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

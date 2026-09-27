@@ -1134,6 +1134,15 @@ MonoBehaviour:
       tampak sebagai sosok dingin, bahkan di balik perabot.'
     m_Metadata:
       m_Items: []
+  - m_Id: 683306913234944
+    m_Localized: SINAR UV
+    m_Metadata:
+      m_Items: []
+  - m_Id: 683307118755840
+    m_Localized: 'Agensi memberimu senter UV: ketuk MODE sampai SINAR UV. Ektoplasma
+      yang berpendar menunjukkan ke mana hantu pergi. Ikuti jejaknya.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

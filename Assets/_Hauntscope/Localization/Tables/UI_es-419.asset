@@ -1137,6 +1137,15 @@ MonoBehaviour:
       Los fantasmas se ven como siluetas fr\xEDas, incluso detr\xE1s de los muebles."
     m_Metadata:
       m_Items: []
+  - m_Id: 683306913234944
+    m_Localized: LUZ UV
+    m_Metadata:
+      m_Items: []
+  - m_Id: 683307118755840
+    m_Localized: "La agencia te dio una linterna UV: toca MODO hasta LUZ UV. El ectoplasma
+      brillante muestra por d\xF3nde fue el fantasma. Sigue el rastro."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
