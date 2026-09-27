@@ -6,6 +6,7 @@ namespace Hauntscope.Gameplay.Progress
     public sealed class GameSettings
     {
         private readonly ObservableValue<bool> _sound;
+        private readonly ObservableValue<bool> _music;
         private readonly ObservableValue<bool> _vibration;
         private readonly ObservableValue<bool> _jumpScares;
         private readonly ObservableValue<bool> _occlusion;
@@ -18,8 +19,9 @@ namespace Hauntscope.Gameplay.Progress
         }
 
         public GameSettings(bool sound, bool vibration, bool jumpScares, bool occlusion, string language,
-            HuntEnvironment environment = HuntEnvironment.Ar)
+            HuntEnvironment environment = HuntEnvironment.Ar, bool music = true)
         {
+            _music = new ObservableValue<bool>(music);
             _environment = new ObservableValue<HuntEnvironment>(environment);
             _sound = new ObservableValue<bool>(sound);
             _vibration = new ObservableValue<bool>(vibration);
@@ -29,6 +31,9 @@ namespace Hauntscope.Gameplay.Progress
         }
 
         public IReadOnlyObservableValue<bool> Sound => _sound;
+
+        // The soundtrack only; SFX follow Sound.
+        public IReadOnlyObservableValue<bool> Music => _music;
 
         public IReadOnlyObservableValue<bool> Vibration => _vibration;
 
@@ -45,6 +50,11 @@ namespace Hauntscope.Gameplay.Progress
         public void SetSound(bool enabled)
         {
             _sound.Value = enabled;
+        }
+
+        public void SetMusic(bool enabled)
+        {
+            _music.Value = enabled;
         }
 
         public void SetVibration(bool enabled)

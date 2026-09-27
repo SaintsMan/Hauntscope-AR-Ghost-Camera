@@ -1,5 +1,6 @@
 using Hauntscope.Gameplay.Ads;
 using Hauntscope.Gameplay.Engagement;
+using Hauntscope.Gameplay.Feedback;
 using Hauntscope.UI.Common;
 using Hauntscope.UI.Menu;
 using VContainer;
@@ -19,6 +20,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<MainMenuPresenter>();
             builder.RegisterComponentInHierarchy<PrankLaunchView>();
             builder.RegisterEntryPoint<PrankLaunchPresenter>();
+            builder.RegisterEntryPoint<MenuMusic>();
             builder.RegisterComponentInHierarchy<BestiaryView>();
             builder.RegisterEntryPoint<BestiaryPresenter>();
             builder.RegisterComponentInHierarchy<PhotoViewerView>();

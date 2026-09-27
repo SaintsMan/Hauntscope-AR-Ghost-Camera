@@ -48,6 +48,7 @@ namespace Hauntscope.Bootstrap
             RegisterScenes(builder);
             builder.Register<UnityLocalizationService>(Lifetime.Singleton).As<ILocalizationService>();
             builder.RegisterEntryPoint<PooledSfxPlayer>();
+            builder.RegisterEntryPoint<LayeredMusicPlayer>().As<IMusicPlayer>();
             builder.RegisterComponentOnNewGameObject<UnityApplicationLifecycle>(Lifetime.Singleton, nameof(UnityApplicationLifecycle))
                 .DontDestroyOnLoad()
                 .As<IApplicationLifecycle>();
@@ -105,6 +106,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.View.Uv);
             builder.RegisterInstance(_gameConfig.Evp);
             builder.RegisterInstance(_gameConfig.Prank);
+            builder.RegisterInstance(_gameConfig.Music);
         }
 
         // Scene loads are decorated with the CRT transition; the overlay outlives every scene it covers.

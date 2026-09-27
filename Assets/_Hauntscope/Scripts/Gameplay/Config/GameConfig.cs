@@ -39,6 +39,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private ViewConfig _view = new ViewConfig();
         [SerializeField] private EvpRecorderConfig _evp = new EvpRecorderConfig();
         [SerializeField] private PrankPhotoConfig _prank = new PrankPhotoConfig();
+        [SerializeField] private MusicConfig _music = new MusicConfig();
 
         public int TargetFrameRate => _targetFrameRate;
 
@@ -107,5 +108,7 @@ namespace Hauntscope.Gameplay.Config
         public EvpRecorderConfig Evp => _evp;
 
         public PrankPhotoConfig Prank => _prank;
+
+        public MusicConfig Music => _music;
     }
 }

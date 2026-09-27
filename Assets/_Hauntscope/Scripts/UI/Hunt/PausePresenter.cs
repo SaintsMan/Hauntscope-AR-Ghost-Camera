@@ -62,6 +62,7 @@ namespace Hauntscope.UI.Hunt
             _view.QuitClicked += OnQuitClicked;
             _view.BackClicked += OnBackClicked;
             _view.SoundClicked += OnSoundClicked;
+            _view.MusicClicked += OnMusicClicked;
             _view.VibrationClicked += OnVibrationClicked;
             _view.JumpScaresClicked += OnJumpScaresClicked;
             _view.OcclusionClicked += OnOcclusionClicked;
@@ -80,6 +81,7 @@ namespace Hauntscope.UI.Hunt
             _view.QuitClicked -= OnQuitClicked;
             _view.BackClicked -= OnBackClicked;
             _view.SoundClicked -= OnSoundClicked;
+            _view.MusicClicked -= OnMusicClicked;
             _view.VibrationClicked -= OnVibrationClicked;
             _view.JumpScaresClicked -= OnJumpScaresClicked;
             _view.OcclusionClicked -= OnOcclusionClicked;
@@ -154,6 +156,12 @@ namespace Hauntscope.UI.Hunt
             SaveAndRender();
         }
 
+        private void OnMusicClicked()
+        {
+            _settings.SetMusic(!_settings.Music.Value);
+            SaveAndRender();
+        }
+
         private void OnVibrationClicked()
         {
             _settings.SetVibration(!_settings.Vibration.Value);
@@ -182,6 +190,7 @@ namespace Hauntscope.UI.Hunt
         private void RenderSettings()
         {
             _view.SetSound(_settings.Sound.Value, State(_settings.Sound.Value));
+            _view.SetMusic(_settings.Music.Value, State(_settings.Music.Value));
             _view.SetVibration(_settings.Vibration.Value, State(_settings.Vibration.Value));
             _view.SetJumpScares(_settings.JumpScares.Value, State(_settings.JumpScares.Value));
             _view.SetOcclusion(_settings.Occlusion.Value, State(_settings.Occlusion.Value));

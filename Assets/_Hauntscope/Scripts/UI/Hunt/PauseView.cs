@@ -16,6 +16,8 @@ namespace Hauntscope.UI.Hunt
         [SerializeField] private Button _backButton;
         [SerializeField] private ToggleButton _soundToggle;
         [SerializeField] private TMP_Text _soundState;
+        [SerializeField] private ToggleButton _musicToggle;
+        [SerializeField] private TMP_Text _musicState;
         [SerializeField] private ToggleButton _vibrationToggle;
         [SerializeField] private TMP_Text _vibrationState;
         [SerializeField] private ToggleButton _jumpScaresToggle;
@@ -36,6 +38,12 @@ namespace Hauntscope.UI.Hunt
         {
             add => _soundToggle.Clicked += value;
             remove => _soundToggle.Clicked -= value;
+        }
+
+        public event Action MusicClicked
+        {
+            add => _musicToggle.Clicked += value;
+            remove => _musicToggle.Clicked -= value;
         }
 
         public event Action VibrationClicked
@@ -70,6 +78,11 @@ namespace Hauntscope.UI.Hunt
         public void SetSound(bool on, string state)
         {
             SetToggle(_soundToggle, _soundState, on, state);
+        }
+
+        public void SetMusic(bool on, string state)
+        {
+            SetToggle(_musicToggle, _musicState, on, state);
         }
 
         public void SetVibration(bool on, string state)
@@ -145,6 +158,8 @@ namespace Hauntscope.UI.Hunt
             _backButton = Find<Button>("Settings/BackButton");
             _soundToggle = Find<ToggleButton>("Settings/Rows/SoundRow/Toggle");
             _soundState = Find<TMP_Text>("Settings/Rows/SoundRow/Toggle/Label");
+            _musicToggle = Find<ToggleButton>("Settings/Rows/MusicRow/Toggle");
+            _musicState = Find<TMP_Text>("Settings/Rows/MusicRow/Toggle/Label");
             _vibrationToggle = Find<ToggleButton>("Settings/Rows/VibrationRow/Toggle");
             _vibrationState = Find<TMP_Text>("Settings/Rows/VibrationRow/Toggle/Label");
             _jumpScaresToggle = Find<ToggleButton>("Settings/Rows/JumpScaresRow/Toggle");

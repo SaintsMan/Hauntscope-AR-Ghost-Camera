@@ -92,6 +92,8 @@ namespace Hauntscope.Bootstrap
             builder.RegisterComponentInHierarchy<CaptureBeamView>().As<IBeamView>();
             builder.RegisterEntryPoint<BeamFeedback>();
             builder.RegisterEntryPoint<HuntAmbience>().AsSelf();
+            builder.Register<HuntMusicMix>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<HuntMusic>();
             builder.RegisterEntryPoint<PooledVfxPlayer>();
 
             builder.Register<ScanState>(Lifetime.Singleton);

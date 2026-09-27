@@ -11,6 +11,8 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private Button _backButton;
         [SerializeField] private ToggleButton _soundToggle;
         [SerializeField] private TMP_Text _soundState;
+        [SerializeField] private ToggleButton _musicToggle;
+        [SerializeField] private TMP_Text _musicState;
         [SerializeField] private ToggleButton _vibrationToggle;
         [SerializeField] private TMP_Text _vibrationState;
         [SerializeField] private ToggleButton _jumpScaresToggle;
@@ -40,6 +42,12 @@ namespace Hauntscope.UI.Menu
             remove => _soundToggle.Clicked -= value;
         }
 
+        public event Action MusicClicked
+        {
+            add => _musicToggle.Clicked += value;
+            remove => _musicToggle.Clicked -= value;
+        }
+
         public event Action VibrationClicked
         {
             add => _vibrationToggle.Clicked += value;
@@ -60,6 +68,11 @@ namespace Hauntscope.UI.Menu
         public void SetSound(bool on, string state)
         {
             SetToggle(_soundToggle, _soundState, on, state);
+        }
+
+        public void SetMusic(bool on, string state)
+        {
+            SetToggle(_musicToggle, _musicState, on, state);
         }
 
         public void SetVibration(bool on, string state)

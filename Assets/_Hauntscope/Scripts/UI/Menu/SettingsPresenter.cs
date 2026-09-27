@@ -56,6 +56,7 @@ namespace Hauntscope.UI.Menu
             _view.BackClicked += OnBackClicked;
             _view.CreditsClicked += OnCreditsClicked;
             _view.SoundClicked += OnSoundClicked;
+            _view.MusicClicked += OnMusicClicked;
             _view.VibrationClicked += OnVibrationClicked;
             _view.JumpScaresClicked += OnJumpScaresClicked;
             _view.LanguageClicked += OnLanguageClicked;
@@ -73,6 +74,7 @@ namespace Hauntscope.UI.Menu
             _view.BackClicked -= OnBackClicked;
             _view.CreditsClicked -= OnCreditsClicked;
             _view.SoundClicked -= OnSoundClicked;
+            _view.MusicClicked -= OnMusicClicked;
             _view.VibrationClicked -= OnVibrationClicked;
             _view.JumpScaresClicked -= OnJumpScaresClicked;
             _view.LanguageClicked -= OnLanguageClicked;
@@ -104,6 +106,12 @@ namespace Hauntscope.UI.Menu
         private void OnSoundClicked()
         {
             _settings.SetSound(!_settings.Sound.Value);
+            SaveAndRender();
+        }
+
+        private void OnMusicClicked()
+        {
+            _settings.SetMusic(!_settings.Music.Value);
             SaveAndRender();
         }
 
@@ -158,6 +166,7 @@ namespace Hauntscope.UI.Menu
         private void Render()
         {
             _view.SetSound(_settings.Sound.Value, State(_settings.Sound.Value));
+            _view.SetMusic(_settings.Music.Value, State(_settings.Music.Value));
             _view.SetVibration(_settings.Vibration.Value, State(_settings.Vibration.Value));
             _view.SetJumpScares(_settings.JumpScares.Value, State(_settings.JumpScares.Value));
             _view.SetLanguage(_localization.Get(LocalizationTable.Ui, LanguageNameKeyPrefix + _localization.CurrentLanguage));

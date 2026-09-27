@@ -14,6 +14,8 @@ namespace Hauntscope.Gameplay.Progress
         [SerializeField] private string _language;
         // Added without a version bump: older saves read 0, which is HuntEnvironment.Ar.
         [SerializeField] private int _environment;
+        // Added without a version bump too; the initialiser keeps the music on for saves written before it.
+        [SerializeField] private bool _music = true;
 
         // Required by JsonUtility, which creates DTOs through the parameterless constructor.
         public GameSettingsDto()
@@ -21,8 +23,9 @@ namespace Hauntscope.Gameplay.Progress
         }
 
         public GameSettingsDto(int version, bool sound, bool vibration, bool jumpScares, bool occlusion, string language,
-            int environment)
+            int environment, bool music)
         {
+            _music = music;
             _environment = environment;
             _version = version;
             _sound = sound;
@@ -45,5 +48,7 @@ namespace Hauntscope.Gameplay.Progress
         public string Language => _language;
 
         public int Environment => _environment;
+
+        public bool Music => _music;
     }
 }

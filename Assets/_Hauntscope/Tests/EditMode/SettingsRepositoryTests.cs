@@ -81,6 +81,27 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Load_SaveWithoutMusic_KeepsTheMusicOn()
+        {
+            _save.SetRaw("settings", "{\"_version\":1,\"_sound\":true}");
+
+            var loaded = _repository.Load();
+
+            Assert.IsTrue(loaded.Music.Value);
+        }
+
+        [Test]
+        public void Load_AfterMusicTurnedOff_RestoresIt()
+        {
+            var settings = new GameSettings();
+            settings.SetMusic(false);
+
+            _repository.Save(settings);
+
+            Assert.IsFalse(_repository.Load().Music.Value);
+        }
+
+        [Test]
         public void Load_SaveWithoutMode_DefaultsToCamera()
         {
             _save.SetRaw("settings", "{\"_version\":1,\"_sound\":true}");
