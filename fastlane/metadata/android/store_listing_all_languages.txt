@@ -1,0 +1,353 @@
+HAUNTSCOPE: AR GHOST CAMERA - GOOGLE PLAY STORE LISTING, ALL LANGUAGES
+Package: com.pavko.hauntscope
+Default language: en-US
+Languages: en-US, uk, es-419, pt-BR, de-DE, id
+
+Each language has three fields: App name (title, max 30 characters), Short description (max 80 characters)
+and Full description (max 4000 characters). The source of truth is <language>/title.txt,
+short_description.txt and full_description.txt next to this file.
+
+========================================================================
+LANGUAGE: English (United States) [en-US]
+========================================================================
+
+App name (29/30):
+Ghost Detector: EMF Camera AR
+
+Short description (77/80):
+Ghost hunter game: spirit box, EMF radar, thermal & night vision ghost camera
+
+Full description (3449/4000):
+Hauntscope is a ghost detector game that turns your phone into a paranormal ghost camera. Scan your home with the EMF detector, listen to the Spirit Box and catch ghosts right in your room in augmented reality.
+
+Follow the signals, find where the ghost hides and trap it before your battery dies. Every few catches, the agency issues you a new ghost hunting tool.
+
+HOW THE GHOST DETECTOR WORKS
+1. Scan your room and let the ghost detector pick up a signal.
+2. Follow the EMF radar and the Spirit Box voices to close in.
+3. Find its hiding place with the thermal camera, night vision or UV flashlight.
+4. Reveal it with the Ghost Lens and trap it with the Capture Beam.
+5. Snap a photo and record an EVP for its case file, like a real ghost hunter.
+
+GHOST HUNTING TOOLS
+• EMF detector & ghost radar: the closer the ghost, the faster the meter beeps.
+• Spirit Box (ghost box): switch it on and a voice in the static tells you where the ghost is: left, behind you, close. With headphones you hear which side it comes from.
+• EVP recorder: record near the ghost and play the tape back: it whispers its own name. The recording goes into its case file.
+• Thermal camera: ghosts show up as cold spots on the heat map, even behind furniture.
+• Night vision: switch to the green camcorder view and spot a faint shape in the dark without the ghost noticing you.
+• UV flashlight: glowing ectoplasm trails and handprints show where the ghost went.
+• Ghost Lens: see the ghost with your own eyes, if your battery lasts.
+• Capture Beam: hold the ghost in the ring until the trap closes.
+
+A GHOST CAMERA FOR EVIDENCE AND PRANKS
+• Spirit camera: snap evidence photos, earn up to three stars for a good shot and share the best ones.
+• Ghost prank photos: place any ghost you have caught in your room, move, turn and resize it, take the picture and scare your friends.
+
+12 GHOSTS, 12 WAYS TO HUNT
+From the shy Wisp to the legendary Mara who comes for your light, every ghost has its own look, voice and trick. The Poltergeist teleports, the Banshee shrieks and vanishes from your lens, the Mimic fools your EMF detector, the Negative exists only on film, the Lurker moves only when you look away and the Phantom Cat comes close only if you keep still. Every ghost needs its own ghost hunting tactic.
+
+A GHOST STORY ON TAPE
+You are the newest agent of the Night Bureau, a quiet service that has caught what lives in ordinary flats since 1987. Your camera belonged to Agent Ida Vale, who vanished on Halloween, the 31st of October, in the middle of a case. Her tapes surface in the archive as your cases grow. There are 12 case files, but 13 numbers.
+
+MORE PARANORMAL ACTIVITY
+• Bestiary case files: witness reports, tactics and top-secret notes to declassify.
+• Night Shift: three ghosts in a row, with perks that stack.
+• Agency orders and a daily ration of rewards.
+• Witching hour: from 23:00 to 04:00 rare ghosts come out and every catch pays more.
+• Lasers and gear from the agency supply depot.
+• An original synth soundtrack that builds as you close in on the ghost.
+
+NO AR? HUNT IN A HAUNTED FLAT
+If your phone doesn't support ARCore, or you'd rather not use the camera, hunt in the Virtual Room: a haunted, abandoned flat full of hiding spots.
+
+The ghost detector and ghost camera for Halloween night, sleepovers and every ghost hunter who loves a good scare.
+
+Hauntscope is a game for entertainment purposes only. It does not detect real paranormal activity.
+
+========================================================================
+LANGUAGE: Ukrainian [uk]
+========================================================================
+
+App name (29/30):
+Детектор привидів: EMF камера
+
+Short description (72/80):
+Полювання на привидів: Spirit Box, EMF-радар, тепловізор і нічне бачення
+
+Full description (3288/4000):
+Hauntscope — гра-детектор привидів, що перетворює телефон на паранормальну камеру привидів. Скануй дім EMF-детектором, слухай Spirit Box і лови привидів просто у своїй кімнаті, у доповненій реальності.
+
+Іди за сигналами, знайди, де ховається привид, і злови його, доки не сіла батарея. Кожні кілька уловів агенція видає новий прилад мисливця на привидів.
+
+ЯК ПРАЦЮЄ ДЕТЕКТОР ПРИВИДІВ
+1. Скануй кімнату, і детектор привидів упіймає сигнал.
+2. Іди за EMF-радаром і голосами Spirit Box, щоб підібратися ближче.
+3. Шукай схованку в тепловізорі, у нічному баченні чи з УФ-ліхтариком.
+4. Прояви привида лінзою й злови променем.
+5. Зроби фото й запиши EVP для справи, як справжній мисливець на привидів.
+
+ІНСТРУМЕНТИ ДЛЯ ПОЛЮВАННЯ НА ПРИВИДІВ
+• EMF-детектор і радар привидів: що ближче привид, то частіше пищить.
+• Spirit Box (спіріт бокс): увімкни — і голос крізь радіошум підкаже, де привид: ліворуч, позаду, близько. У навушниках чути, з якого боку він звучить.
+• EVP-рекордер: запиши плівку поруч із привидом і прослухай — він прошепоче своє ім'я. Запис піде в його справу.
+• Тепловізор: привиди видно як холодні плями на тепловій карті, навіть за меблями.
+• Нічне бачення: зелений режим відеокамери, у якому в темряві проступає блідий силует, а привид тебе не помічає.
+• УФ-ліхтарик: світна ектоплазма й відбитки долонь показують, куди пішов привид.
+• Лінза: побач привида на власні очі, якщо вистачить батареї.
+• Промінь: тримай привида в кільці, доки пастка не закриється.
+
+КАМЕРА ПРИВИДІВ ДЛЯ ДОКАЗІВ І ПРАНКІВ
+• Камера духів: знімай докази, отримуй до трьох зірок за вдалий кадр і ділися найкращими.
+• Пранк-фото з привидом: постав будь-якого спійманого привида у своїй кімнаті, посунь, поверни чи зміни розмір, сфотографуй і налякай друзів.
+
+12 ПРИВИДІВ — 12 СПОСОБІВ ПОЛЮВАННЯ
+Від боязкого Вогника до легендарної Мари, що йде на світло: у кожного привида свій вигляд, голос і хитрість. Полтергейст телепортується, Банші кричить і зникає з лінзи, Мімік обманює EMF-детектор, Негатив існує лише на плівці, Той, хто позаду, рухається, тільки коли ти відвертаєшся, а Примарний кіт підходить, лише коли ти завмер. Кожен привид потребує своєї тактики полювання.
+
+ІСТОРІЯ ПРО ПРИВИДІВ НА КАСЕТАХ
+Ти — новий агент Нічного бюро, тихої служби, що з 1987 року ловить те, що живе у звичайних квартирах. Твоя камера належала агентці Іді Вейл, яка зникла на Хелловін, 31 жовтня, посеред справи. Її касети з'являються в архіві разом із твоїми справами. Справ 12, а номерів — 13.
+
+ЩЕ БІЛЬШЕ ПАРАНОРМАЛЬНОГО
+• Справи Бестіарію: свідчення, тактика й цілком таємні нотатки, які треба розсекретити.
+• Нічна зміна: три привиди поспіль і підсилення, що складаються.
+• Накази агенції та щоденний пайок.
+• Відьомська година: з 23:00 до 04:00 виходять рідкісні привиди, а кожен улов дорожчий.
+• Лазери й спорядження зі складу агенції.
+• Власний синт-саундтрек, що наростає, коли ти наближаєшся до привида.
+
+НЕМАЄ AR? ПОЛЮЙ У КВАРТИРІ З ПРИВИДАМИ
+Якщо телефон не підтримує ARCore або ти не хочеш вмикати камеру, полюй у Віртуальній кімнаті — покинутій квартирі з привидами, повній схованок.
+
+Детектор привидів і камера привидів для Хелловіну, нічних посиденьок і кожного мисливця на привидів, який любить гарний переляк.
+
+Hauntscope — гра лише для розваги. Вона не виявляє справжньої паранормальної активності.
+
+========================================================================
+LANGUAGE: Spanish (Latin America) [es-419]
+========================================================================
+
+App name (30/30):
+Detector de Fantasmas y Cámara
+
+Short description (74/80):
+Caza de fantasmas: spirit box, radar EMF, cámara térmica y visión nocturna
+
+Full description (3817/4000):
+Hauntscope es un juego detector de fantasmas que convierte tu teléfono en una cámara de fantasmas paranormal. Escanea tu casa con el detector EMF, escucha la Spirit Box y atrapa fantasmas en tu propio cuarto con realidad aumentada.
+
+Sigue las señales, encuentra dónde se esconde el fantasma y atrápalo antes de que se agote la batería. Cada pocas capturas, la agencia te da una nueva herramienta de cazador de fantasmas.
+
+CÓMO FUNCIONA EL DETECTOR DE FANTASMAS
+1. Escanea tu cuarto y deja que el detector de fantasmas capte una señal.
+2. Sigue el radar EMF y las voces de la Spirit Box para acercarte.
+3. Busca su escondite con la cámara térmica, la visión nocturna o la linterna UV.
+4. Revélalo con la lente y atrápalo con el rayo de captura.
+5. Toma una foto y graba un EVP para su expediente, como un verdadero cazador de fantasmas.
+
+HERRAMIENTAS PARA LA CAZA DE FANTASMAS
+• Detector EMF y radar de fantasmas: cuanto más cerca está el fantasma, más rápido pita.
+• Spirit Box: enciéndela y una voz entre la estática te dice dónde está el fantasma: a la izquierda, detrás de ti, cerca. Con audífonos oyes de qué lado viene.
+• Grabadora EVP: graba cerca del fantasma y reproduce la cinta: susurra su propio nombre. La grabación va a su expediente.
+• Cámara térmica: los fantasmas aparecen como puntos fríos en el mapa de calor, incluso detrás de los muebles.
+• Visión nocturna: cambia a la vista verde de videocámara y descubre una silueta tenue en la oscuridad sin que el fantasma te note.
+• Linterna UV: el ectoplasma brillante y las huellas de manos muestran por dónde fue el fantasma.
+• Lente: ve al fantasma con tus propios ojos, si te alcanza la batería.
+• Rayo de captura: mantén al fantasma dentro del anillo hasta que se cierre la trampa.
+
+UNA CÁMARA DE FANTASMAS PARA PRUEBAS Y BROMAS
+• Cámara espiritual: toma fotos como prueba, gana hasta tres estrellas por una buena toma y comparte las mejores.
+• Bromas de fantasmas: coloca en tu cuarto cualquier fantasma que hayas atrapado, muévelo, gíralo y cambia su tamaño, toma la foto y asusta a tus amigos.
+
+12 FANTASMAS, 12 FORMAS DE CAZAR
+Desde el tímido Fuego Fatuo hasta la legendaria Mara que va hacia la luz, cada fantasma tiene su propio aspecto, voz y truco. El Poltergeist se teletransporta, la Banshee chilla y desaparece de tu lente, el Imitador engaña a tu detector EMF, el Negativo solo existe en la película, el Acechador solo se mueve cuando apartas la mirada y el Gato Fantasma solo se acerca si te quedas quieto. Cada fantasma pide su propia táctica de caza.
+
+UNA HISTORIA DE FANTASMAS EN CINTAS
+Eres el agente más nuevo de la Oficina Nocturna, un servicio discreto que desde 1987 atrapa lo que vive en departamentos comunes. Tu cámara era de la agente Ida Vale, que desapareció en Halloween, el 31 de octubre, en medio de un caso. Sus cintas aparecen en el archivo a medida que avanzan tus casos. Hay 12 expedientes, pero 13 números.
+
+MÁS ACTIVIDAD PARANORMAL
+• Expedientes del Bestiario: testimonios, tácticas y notas de alto secreto por desclasificar.
+• Turno nocturno: tres fantasmas seguidos, con mejoras que se acumulan.
+• Órdenes de la agencia y una ración diaria de recompensas.
+• Hora bruja: de 23:00 a 04:00 salen fantasmas raros y cada captura paga más.
+• Láseres y equipo del almacén de la agencia.
+• Una banda sonora original de sintetizador que crece a medida que te acercas al fantasma.
+
+¿SIN AR? CAZA EN UN DEPARTAMENTO EMBRUJADO
+Si tu teléfono no es compatible con ARCore o prefieres no usar la cámara, caza en el Cuarto Virtual: un departamento abandonado y embrujado, lleno de escondites.
+
+El detector de fantasmas y la cámara de fantasmas ideales para Halloween, las pijamadas y todo cazador de fantasmas al que le gusta un buen susto.
+
+Hauntscope es un juego solo para entretenimiento. No detecta actividad paranormal real.
+
+========================================================================
+LANGUAGE: Portuguese (Brazil) [pt-BR]
+========================================================================
+
+App name (30/30):
+Detector de Fantasmas e Câmera
+
+Short description (73/80):
+Caça aos fantasmas: spirit box, radar EMF, câmera térmica e visão noturna
+
+Full description (3700/4000):
+Hauntscope é um jogo detector de fantasmas que transforma seu celular em uma câmera de fantasmas paranormal. Escaneie sua casa com o detector EMF, ouça a Spirit Box e capture fantasmas no seu próprio quarto em realidade aumentada.
+
+Siga os sinais, descubra onde o fantasma se esconde e prenda-o antes que a bateria acabe. A cada poucas capturas, a agência te dá uma nova ferramenta de caçador de fantasmas.
+
+COMO FUNCIONA O DETECTOR DE FANTASMAS
+1. Escaneie o seu quarto e deixe o detector de fantasmas captar um sinal.
+2. Siga o radar EMF e as vozes da Spirit Box para chegar mais perto.
+3. Procure o esconderijo com a câmera térmica, a visão noturna ou a lanterna UV.
+4. Revele o fantasma com a lente e capture-o com o raio.
+5. Tire uma foto e grave um EVP para o arquivo dele, como um verdadeiro caçador de fantasmas.
+
+FERRAMENTAS PARA A CAÇA AOS FANTASMAS
+• Detector EMF e radar de fantasmas: quanto mais perto o fantasma, mais rápido ele apita.
+• Spirit Box: ligue e uma voz no meio da estática diz onde ele está: à esquerda, atrás de você, perto. Com fones de ouvido, você ouve de que lado ela vem.
+• Gravador EVP: grave perto do fantasma e ouça a fita: ele sussurra o próprio nome. A gravação vai para o arquivo dele.
+• Câmera térmica: fantasmas aparecem como pontos frios no mapa de calor, até atrás dos móveis.
+• Visão noturna: mude para a visão verde de filmadora e veja um vulto no escuro sem que o fantasma perceba você.
+• Lanterna UV: ectoplasma brilhante e marcas de mãos mostram por onde o fantasma passou.
+• Lente: veja o fantasma com os próprios olhos, se a bateria aguentar.
+• Raio de captura: mantenha o fantasma dentro do anel até a armadilha fechar.
+
+UMA CÂMERA DE FANTASMAS PARA PROVAS E PEGADINHAS
+• Câmera espiritual: tire fotos como prova, ganhe até três estrelas por um bom clique e compartilhe as melhores.
+• Pegadinha de fantasma: coloque no seu quarto qualquer fantasma que você já capturou, mova, gire e mude o tamanho, tire a foto e assuste seus amigos.
+
+12 FANTASMAS, 12 JEITOS DE CAÇAR
+Do tímido Fogo-Fátuo à lendária Mara que vem atrás da luz, cada fantasma tem sua aparência, sua voz e seu truque. O Poltergeist se teletransporta, a Banshee grita e some da sua lente, o Imitador engana o seu detector EMF, o Negativo só existe no filme, o Espreitador só se move quando você desvia o olhar e o Gato Fantasma só chega perto se você ficar parado. Cada fantasma pede sua própria tática de caça.
+
+UMA HISTÓRIA DE FANTASMAS EM FITAS
+Você é o agente mais novo do Escritório Noturno, um serviço discreto que desde 1987 captura o que vive em apartamentos comuns. Sua câmera era da agente Ida Vale, que sumiu no Halloween, em 31 de outubro, no meio de um caso. As fitas dela aparecem no arquivo conforme seus casos avançam. São 12 arquivos, mas 13 números.
+
+MAIS ATIVIDADE PARANORMAL
+• Arquivos do Bestiário: testemunhos, táticas e notas ultrassecretas para desclassificar.
+• Turno da noite: três fantasmas seguidos, com bônus que se acumulam.
+• Ordens da agência e uma ração diária de recompensas.
+• Hora das bruxas: das 23:00 às 04:00 aparecem fantasmas raros e cada captura rende mais.
+• Lasers e equipamentos do depósito da agência.
+• Uma trilha sonora original de sintetizador que cresce conforme você se aproxima do fantasma.
+
+SEM AR? CACE EM UM APARTAMENTO ASSOMBRADO
+Se o seu celular não é compatível com ARCore ou você prefere não usar a câmera, cace na Sala Virtual: um apartamento abandonado e assombrado, cheio de esconderijos.
+
+O detector de fantasmas e a câmera de fantasmas ideais para o Halloween, festas do pijama e todo caçador de fantasmas que adora um bom susto.
+
+Hauntscope é um jogo apenas para entretenimento. Ele não detecta atividade paranormal real.
+
+========================================================================
+LANGUAGE: German (Germany) [de-DE]
+========================================================================
+
+App name (28/30):
+Geister-Detektor: EMF-Kamera
+
+Short description (77/80):
+Geisterjagd mit Spirit Box, EMF-Radar, Wärmebild und Nachtsicht-Geisterkamera
+
+Full description (3789/4000):
+Hauntscope ist ein Geister-Detektor-Spiel, das dein Handy in eine paranormale Geisterkamera verwandelt. Scanne dein Zuhause mit dem EMF-Detektor, hör der Spirit Box zu und fang Geister direkt in deinem Zimmer – in Augmented Reality.
+
+Folge den Signalen, finde das Versteck des Geistes und fang ihn, bevor der Akku leer ist. Alle paar Fänge gibt dir die Agentur ein neues Werkzeug für die Geisterjagd.
+
+SO FUNKTIONIERT DER GEISTERDETEKTOR
+1. Scanne dein Zimmer und lass den Geisterdetektor ein Signal auffangen.
+2. Folge dem EMF-Radar und den Stimmen der Spirit Box, um näher heranzukommen.
+3. Finde das Versteck mit Wärmebildkamera, Nachtsicht oder UV-Taschenlampe.
+4. Mach den Geist mit der Linse sichtbar und fang ihn mit dem Fangstrahl.
+5. Mach ein Foto und eine EVP-Aufnahme für seine Akte – wie bei einer echten Geisterjagd.
+
+WERKZEUGE FÜR DIE GEISTERJAGD
+• EMF-Detektor und Geisterradar: Je näher der Geist, desto schneller piept es.
+• Spirit Box: Schalte sie ein, und eine Stimme im Radiorauschen verrät, wo der Geist ist: links, hinter dir, ganz nah. Mit Kopfhörern hörst du, von welcher Seite sie kommt.
+• EVP-Rekorder: Nimm in der Nähe des Geistes auf und spiel das Band ab – er flüstert seinen eigenen Namen. Die Aufnahme kommt in seine Akte.
+• Wärmebildkamera: Geister erscheinen als kalte Flecken auf der Wärmekarte, sogar hinter Möbeln.
+• Nachtsicht: Wechsle in die grüne Camcorder-Ansicht und entdecke einen schwachen Umriss im Dunkeln, ohne dass der Geist dich bemerkt.
+• UV-Taschenlampe: Leuchtendes Ektoplasma und Handabdrücke zeigen, wohin der Geist gegangen ist.
+• Linse: Sieh den Geist mit eigenen Augen, solange der Akku reicht.
+• Fangstrahl: Halte den Geist im Ring, bis die Falle zuschnappt.
+
+EINE GEISTERKAMERA FÜR BEWEISE UND STREICHE
+• Geisterkamera: Mach Beweisfotos, hol dir bis zu drei Sterne für ein gutes Bild und teile die besten.
+• Geister-Streich: Platziere einen gefangenen Geist in deinem Zimmer, verschiebe, drehe und skaliere ihn, mach das Foto und erschrecke deine Freunde.
+
+12 GEISTER, 12 ARTEN ZU JAGEN
+Vom scheuen Irrlicht bis zur legendären Mara, die zum Licht kommt: Jeder Geist hat sein eigenes Aussehen, seine Stimme und seinen Trick. Der Poltergeist teleportiert sich, die Banshee schreit und verschwindet aus deiner Linse, der Nachahmer täuscht deinen EMF-Detektor, das Negativ existiert nur auf Film, der Schleicher bewegt sich nur, wenn du wegsiehst, und die Geisterkatze kommt nur näher, wenn du stillhältst. Jeder Geist braucht seine eigene Taktik für die Geisterjagd.
+
+EINE GEISTERGESCHICHTE AUF BAND
+Du bist der neueste Agent des Nachtbüros, eines stillen Dienstes, der seit 1987 fängt, was in ganz normalen Wohnungen lebt. Deine Kamera gehörte Agentin Ida Vale, die an Halloween, dem 31. Oktober, mitten in einem Fall verschwand. Ihre Bänder tauchen im Archiv auf, während deine Fälle wachsen. Es gibt 12 Akten, aber 13 Nummern.
+
+NOCH MEHR PARANORMALES
+• Akten im Bestiarium: Zeugenaussagen, Taktiken und streng geheime Notizen zum Freigeben.
+• Nachtschicht: drei Geister hintereinander, mit Boni, die sich addieren.
+• Agentur-Aufträge und eine Tagesration an Belohnungen.
+• Geisterstunde: Von 23:00 bis 04:00 kommen seltene Geister heraus und jeder Fang bringt mehr.
+• Laser und Ausrüstung aus dem Agentur-Lager.
+• Ein eigener Synth-Soundtrack, der sich steigert, je näher du dem Geist kommst.
+
+KEIN AR? JAGE IN EINER SPUKWOHNUNG
+Wenn dein Handy ARCore nicht unterstützt oder du die Kamera nicht nutzen möchtest, jagst du im virtuellen Raum: einer verlassenen Spukwohnung voller Verstecke.
+
+Der Geisterdetektor und die Geisterkamera für Halloween, Pyjamapartys und alle, die bei der Geisterjagd gern einen Schreck bekommen.
+
+Hauntscope ist ein Spiel, das nur der Unterhaltung dient. Es erkennt keine echten paranormalen Aktivitäten.
+
+========================================================================
+LANGUAGE: Indonesian [id]
+========================================================================
+
+App name (28/30):
+Pendeteksi Hantu: Kamera EMF
+
+Short description (71/80):
+Game pemburu hantu: spirit box, radar EMF, kamera termal & night vision
+
+Full description (3536/4000):
+Hauntscope adalah game pendeteksi hantu yang mengubah ponselmu menjadi kamera hantu paranormal. Pindai rumahmu dengan detektor EMF, dengarkan Spirit Box, dan tangkap hantu langsung di kamarmu dalam augmented reality.
+
+Ikuti sinyalnya, temukan tempat hantu bersembunyi, dan tangkap sebelum baterai habis. Setiap beberapa tangkapan, agensi memberimu alat pemburu hantu yang baru.
+
+CARA KERJA PENDETEKSI HANTU
+1. Pindai kamarmu dan biarkan pendeteksi hantu menangkap sinyal.
+2. Ikuti radar EMF dan suara Spirit Box untuk mendekat.
+3. Cari tempat sembunyinya dengan kamera termal, night vision, atau senter UV.
+4. Tampakkan hantu dengan lensa dan tangkap dengan sinar penangkap.
+5. Ambil foto dan rekam EVP untuk berkasnya, layaknya pemburu hantu sungguhan.
+
+ALAT BERBURU HANTU
+• Detektor EMF & radar hantu: makin dekat hantunya, makin cepat bunyinya.
+• Spirit Box: nyalakan, dan sebuah suara di balik desis radio memberi tahu posisi hantu: kiri, di belakangmu, dekat. Pakai headset, kamu bisa dengar dari sisi mana suaranya.
+• Perekam EVP: rekam di dekat hantu lalu putar ulang pitanya: ia membisikkan namanya sendiri. Rekamannya masuk ke berkas kasus.
+• Kamera termal: hantu tampak sebagai titik dingin di peta panas, bahkan di balik perabot.
+• Night vision: beralih ke tampilan hijau kamera video dan temukan sosok samar dalam gelap tanpa disadari hantu.
+• Senter UV: ektoplasma yang berpendar dan jejak tangan menunjukkan ke mana hantu pergi.
+• Lensa: lihat hantu dengan mata kepala sendiri, selama baterai masih kuat.
+• Sinar penangkap: jaga hantu di dalam lingkaran sampai perangkap tertutup.
+
+KAMERA HANTU UNTUK BUKTI DAN PRANK
+• Kamera arwah: ambil foto bukti, raih sampai tiga bintang untuk jepretan bagus, dan bagikan yang terbaik.
+• Prank hantu: taruh hantu yang sudah kamu tangkap di kamarmu, geser, putar, dan ubah ukurannya, potret, lalu takut-takuti teman-temanmu.
+
+12 HANTU, 12 CARA BERBURU
+Dari Kunang Arwah yang pemalu sampai Mara legendaris yang datang ke cahaya, setiap hantu punya wujud, suara, dan triknya sendiri. Poltergeist berteleportasi, Banshee menjerit lalu lenyap dari lensamu, Peniru mengelabui detektor EMF-mu, Negatif hanya ada di film, Pengintai hanya bergerak saat kamu berpaling, dan Kucing Hantu hanya mendekat kalau kamu diam. Setiap hantu butuh taktik berburu hantu yang berbeda.
+
+CERITA HANTU DI DALAM KASET
+Kamu adalah agen terbaru Biro Malam, dinas senyap yang sejak 1987 menangkap apa yang tinggal di rumah-rumah biasa. Kameramu dulu milik Agen Ida Vale, yang menghilang saat Halloween, 31 Oktober, di tengah sebuah kasus. Kasetnya muncul di arsip seiring kasus-kasusmu. Ada 12 berkas, tapi 13 nomor.
+
+LEBIH BANYAK AKTIVITAS PARANORMAL
+• Berkas Bestiari: kesaksian, taktik, dan catatan sangat rahasia untuk dibuka.
+• Jaga Malam: tiga hantu berturut-turut, dengan bonus yang saling menumpuk.
+• Tugas agensi dan jatah harian berisi hadiah.
+• Jam keramat: pukul 23.00 sampai 04.00 hantu langka muncul dan setiap tangkapan bernilai lebih.
+• Laser dan perlengkapan dari gudang agensi.
+• Soundtrack synth orisinal yang makin intens saat kamu mendekati hantu.
+
+TIDAK ADA AR? BERBURU DI APARTEMEN BERHANTU
+Jika ponselmu tidak mendukung ARCore atau kamu tak ingin memakai kamera, berburulah di Ruang Virtual: apartemen terbengkalai berhantu yang penuh tempat sembunyi.
+
+Pendeteksi hantu dan kamera hantu untuk malam Halloween, menginap bareng teman, dan setiap pemburu hantu yang suka dibuat merinding.
+
+Hauntscope adalah game untuk hiburan semata. Game ini tidak mendeteksi aktivitas paranormal sungguhan.
+
+========================================================================
+END
