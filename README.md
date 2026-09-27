@@ -174,5 +174,6 @@ The signing is applied only for the build and cleared afterwards, so `ProjectSet
 - Code: [MIT](LICENSE) © 2026 Pavko.
 - Original art and audio: © 2026 Pavko, all rights reserved.
 - Third-party assets and packages: see [CREDITS.md](CREDITS.md).
+- Privacy policy: [saintsman.github.io/Hauntscope-AR-Ghost-Camera/privacy-policy.html](https://saintsman.github.io/Hauntscope-AR-Ghost-Camera/privacy-policy.html) (source: the `gh-pages` branch).
 
 Hauntscope is a game for entertainment purposes only. It does not detect real paranormal activity.
