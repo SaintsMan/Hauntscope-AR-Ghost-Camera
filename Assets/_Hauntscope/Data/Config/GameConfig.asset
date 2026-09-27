@@ -282,7 +282,7 @@ MonoBehaviour:
     _interstitialMinInterval: 150
     _interstitialMinSessions: 3
     _fieldDropReward: 30
-    _fieldDropsPerDay: 3
+    _fieldDropsPerDay: 5
     _reloadDelay: 30
     _editorAdsAvailable: 1
     _editorAdDuration: 1

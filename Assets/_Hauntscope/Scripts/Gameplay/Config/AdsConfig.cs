@@ -10,7 +10,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Min(0f)] private float _interstitialMinInterval = 150f;
         [SerializeField, Min(0)] private int _interstitialMinSessions = 3;
         [SerializeField, Min(0)] private int _fieldDropReward = 30;
-        [SerializeField, Min(0)] private int _fieldDropsPerDay = 3;
+        [SerializeField, Min(0)] private int _fieldDropsPerDay = 5;
         [SerializeField, Min(1f)] private float _reloadDelay = 30f;
         [SerializeField] private bool _editorAdsAvailable = true;
         [SerializeField, Min(0f)] private float _editorAdDuration = 1f;
