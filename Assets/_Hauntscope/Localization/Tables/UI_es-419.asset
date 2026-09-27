@@ -1181,6 +1181,43 @@ MonoBehaviour:
       cinta cuenta como prueba."
     m_Metadata:
       m_Items: []
+  - m_Id: 698086138970112
+    m_Localized: FOTO BROMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244800
+    m_Localized: FOTO BROMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244801
+    m_Localized: Pon un fantasma atrapado en tu foto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244802
+    m_Localized: Se abre tras tu primera captura
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244803
+    m_Localized: Apunta al suelo donde debe estar el fantasma y toca COLOCAR.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244804
+    m_Localized: "Arrastra para mover \xB7 dos dedos para girar y escalar \xB7 luego
+      dispara."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244805
+    m_Localized: COLOCAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244806
+    m_Localized: MOVER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244807
+    m_Localized: SALIR
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

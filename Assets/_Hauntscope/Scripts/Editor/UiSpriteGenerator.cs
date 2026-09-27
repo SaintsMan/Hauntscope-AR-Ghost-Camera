@@ -53,6 +53,7 @@ namespace Hauntscope.Editor
             BuildSpiritBoxIcon();
             BuildViewModeIcon();
             BuildEvpIcons();
+            BuildPrankIcon();
         }
 
         private static void BuildFrame()
@@ -600,6 +601,30 @@ namespace Hauntscope.Editor
 
             SaveSprite("EvpPlay", reel, reel, Shape(reel, reel,
                 p => Polygon(p, new[] { new Vector2(22f, 16f), new Vector2(22f, 48f), new Vector2(49f, 32f) }), false, 0f, 6f), Vector4.zero);
+        }
+
+        // PRANK PHOTO: a camera with a little ghost looking out of its lens and a spark of the flash.
+        private static void BuildPrankIcon()
+        {
+            const int size = 128;
+            Sdf body = p => Mathf.Min(RoundBox(p, new Vector2(64f, 56f), new Vector2(46f, 30f), 9f),
+                RoundBox(p, new Vector2(44f, 88f), new Vector2(13f, 6f), 3f));
+            Sdf lens = p => Circle(p, new Vector2(66f, 56f), 21f);
+            Sdf ghost = p =>
+            {
+                var head = Circle(p, new Vector2(66f, 60f), 9f);
+                var skirt = RoundBox(p, new Vector2(66f, 53f), new Vector2(9f, 7f), 1f);
+                var hem = p.y < 48f ? 4f * Mathf.Abs(Mathf.Sin((p.x - 57f) * Mathf.PI / 6f)) - (p.y - 44f) : -1f;
+                return Mathf.Max(Mathf.Min(head, skirt), hem);
+            };
+            Sdf eyes = p => Mathf.Min(Circle(p, new Vector2(62f, 61f), 2f), Circle(p, new Vector2(70f, 61f), 2f));
+            Sdf spark = p => Mathf.Min(Segment(p, new Vector2(100f, 84f), new Vector2(100f, 104f)), Segment(p, new Vector2(90f, 94f), new Vector2(110f, 94f)));
+            var pixels = Max(Max(Shape(size, size, body, true, Line, Glow), Shape(size, size, lens, true, Line * 0.75f, Glow * 0.6f)),
+                Max(Shape(size, size, ghost, false, 0f, Glow * 0.6f), Shape(size, size, spark, true, Line * 0.75f, Glow * 0.6f)));
+            var holes = Shape(size, size, eyes, false, 0f, 0f);
+            for (var i = 0; i < pixels.Length; i++)
+                pixels[i].a = (byte)Mathf.Max(0, pixels[i].a - holes[i].a);
+            SaveSprite("PrankIcon", size, size, pixels, Vector4.zero);
         }
 
         // Rewarded ads: a play triangle on a small screen, so the player knows the button starts a video.

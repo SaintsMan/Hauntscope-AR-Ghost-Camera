@@ -1176,6 +1176,42 @@ MonoBehaviour:
       as evidence.'
     m_Metadata:
       m_Items: []
+  - m_Id: 698086138970112
+    m_Localized: PRANK PHOTO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244800
+    m_Localized: PRANK PHOTO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244801
+    m_Localized: Put a caught ghost in your photo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244802
+    m_Localized: Opens after your first catch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244803
+    m_Localized: Point at the floor where the ghost should stand and tap PLACE.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244804
+    m_Localized: "Drag to move \xB7 two fingers to turn and resize \xB7 then shoot."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244805
+    m_Localized: PLACE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244806
+    m_Localized: MOVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244807
+    m_Localized: EXIT
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

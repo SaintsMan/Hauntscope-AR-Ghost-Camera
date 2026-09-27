@@ -1155,6 +1155,42 @@ MonoBehaviour:
     m_Key: bestiary.evidence.evp_none
     m_Metadata:
       m_Items: []
+  - m_Id: 698086138970112
+    m_Key: menu.prank.button
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244800
+    m_Key: prank.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244801
+    m_Key: menu.prank.caption
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244802
+    m_Key: menu.prank.locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244803
+    m_Key: prank.hint.aim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244804
+    m_Key: prank.hint.adjust
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244805
+    m_Key: prank.place
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244806
+    m_Key: prank.lift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244807
+    m_Key: prank.exit
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

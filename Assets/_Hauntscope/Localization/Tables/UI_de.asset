@@ -1181,6 +1181,44 @@ MonoBehaviour:
       Stimme auf Band z\xE4hlt als Beweis."
     m_Metadata:
       m_Items: []
+  - m_Id: 698086138970112
+    m_Localized: PRANK-FOTO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244800
+    m_Localized: PRANK-FOTO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244801
+    m_Localized: Setz einen gefangenen Geist ins Bild
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244802
+    m_Localized: "\xD6ffnet nach deinem ersten Fang"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244803
+    m_Localized: Richte die Kamera auf den Boden, wo der Geist stehen soll, und tippe
+      auf PLATZIEREN.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244804
+    m_Localized: "Ziehen zum Verschieben \xB7 zwei Finger zum Drehen und Skalieren
+      \xB7 dann ausl\xF6sen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244805
+    m_Localized: PLATZIEREN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244806
+    m_Localized: VERSETZEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244807
+    m_Localized: BEENDEN
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

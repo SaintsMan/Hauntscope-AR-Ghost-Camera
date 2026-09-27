@@ -507,3 +507,11 @@ MonoBehaviour:
     _voiceVolume: 1
     _stopClip: {fileID: 8300000, guid: b29421f5b70e2f1418cc03bc108dfe34, type: 3}
     _stopVolume: 0.6
+  _prank:
+    _unlockCaptures: 1
+    _minDistance: 2
+    _maxDistance: 4
+    _aimDistance: 2.8
+    _minScale: 0.5
+    _maxScale: 1.6
+    _dragGain: 2

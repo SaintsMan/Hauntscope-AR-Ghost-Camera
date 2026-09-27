@@ -1181,6 +1181,43 @@ MonoBehaviour:
       fita conta como prova.'
     m_Metadata:
       m_Items: []
+  - m_Id: 698086138970112
+    m_Localized: FOTO PEGADINHA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244800
+    m_Localized: FOTO PEGADINHA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244801
+    m_Localized: Coloque um fantasma capturado na foto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244802
+    m_Localized: "Abre ap\xF3s sua primeira captura"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244803
+    m_Localized: "Aponte para o ch\xE3o onde o fantasma deve ficar e toque em POSICIONAR."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244804
+    m_Localized: "Arraste para mover \xB7 dois dedos para girar e redimensionar \xB7
+      depois fotografe."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244805
+    m_Localized: POSICIONAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244806
+    m_Localized: MOVER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244807
+    m_Localized: SAIR
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

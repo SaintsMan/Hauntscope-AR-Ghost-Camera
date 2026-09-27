@@ -1178,6 +1178,43 @@ MonoBehaviour:
       di pita dihitung sebagai bukti.'
     m_Metadata:
       m_Items: []
+  - m_Id: 698086138970112
+    m_Localized: FOTO PRANK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244800
+    m_Localized: FOTO PRANK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244801
+    m_Localized: Taruh hantu tangkapanmu di foto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244802
+    m_Localized: Terbuka setelah tangkapan pertamamu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244803
+    m_Localized: Arahkan ke lantai tempat hantu akan berdiri, lalu ketuk TARUH.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244804
+    m_Localized: "Seret untuk memindah \xB7 dua jari untuk memutar dan mengubah ukuran
+      \xB7 lalu potret."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244805
+    m_Localized: TARUH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244806
+    m_Localized: PINDAH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698086231244807
+    m_Localized: KELUAR
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
