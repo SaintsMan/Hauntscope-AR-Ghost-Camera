@@ -1,0 +1,24 @@
+Hauntscope turns your phone into a paranormal camcorder. Point it at your room, follow the EMF radar and catch the ghosts hiding in your home, right there through the camera in augmented reality.
+
+HOW THE HUNT WORKS
+• EMF radar: the closer the ghost, the faster it beeps.
+• Ghost Lens: reveal what the naked eye can't see, but watch your battery.
+• Capture Beam: hold the ghost inside the ring until it's trapped.
+• Spirit Camera: snap evidence photos and share your best shots.
+
+12 GHOSTS, 12 WAYS TO HUNT
+From the shy Wisp to the legendary Mara who comes for your light, every ghost has its own body, voice and trick. The Poltergeist teleports, the Banshee shrieks, the Mimic lies to your EMF meter, the Negative exists only on film and the Lurker moves only when you look away.
+
+MORE TO DO
+• Bestiary case files: witness reports, tactics and top-secret notes to declassify.
+• Night Shift: three ghosts in a row, with perks that stack.
+• Agency orders and a daily ration keep the rewards coming.
+• Witching hour: from 23:00 to 04:00 rare ghosts come out and every catch pays more.
+• Lasers and gear from the agency supply depot.
+
+NO AR? NO PROBLEM
+If your phone doesn't support ARCore, or you'd rather not use the camera, hunt in the Virtual Room: an abandoned flat full of hiding spots.
+
+A ghost hunter game in English, Ukrainian, Spanish, Portuguese, German and Indonesian.
+
+Hauntscope is a game for entertainment purposes only. It does not detect real paranormal activity.
