@@ -1230,6 +1230,10 @@ MonoBehaviour:
     m_Localized: '{0} fantasmas seguidos'
     m_Metadata:
       m_Items: []
+  - m_Id: 731142312820736
+    m_Localized: "M\xFAsica"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

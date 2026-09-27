@@ -1203,6 +1203,10 @@ MonoBehaviour:
     m_Key: menu.shift.length
     m_Metadata:
       m_Items: []
+  - m_Id: 731142312820736
+    m_Key: settings.music
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

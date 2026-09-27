@@ -515,3 +515,27 @@ MonoBehaviour:
     _minScale: 0.5
     _maxScale: 1.6
     _dragGain: 2
+  _music:
+    _menuTheme: {fileID: 8300000, guid: 1c7ec9e47a909e144b321dd83ea90b75, type: 3}
+    _menuVolume: 0.6
+    _huntLayers:
+    - {fileID: 8300000, guid: 7237e7b239585294189669b277158fa2, type: 3}
+    - {fileID: 8300000, guid: e4c85fc1f9b633a4eb431ce3dbfb2b78, type: 3}
+    - {fileID: 8300000, guid: c96721a11ab9ba246a2f2c62005b181e, type: 3}
+    - {fileID: 8300000, guid: d9f2ef939dfd6414682ef07b4f6a4600, type: 3}
+    - {fileID: 8300000, guid: 97b77e1f18e135f4bbabf3b52ed381b8, type: 3}
+    _huntVolume: 0.7
+    _capturedStinger: {fileID: 8300000, guid: 7926576192757424f92c203e7c6714ab, type: 3}
+    _escapedStinger: {fileID: 8300000, guid: f5165e959d0e10748b1e5fec4836b492, type: 3}
+    _surgeStinger: {fileID: 8300000, guid: 87abcccb9a98be6429c64d4f045bea0e, type: 3}
+    _stingerVolume: 0.8
+    _fadeTime: 1.2
+    _witchingHourPitch: 0.94
+    _scanDrone: 0.6
+    _searchPulse: 0.35
+    _heartFrom: 0.6
+    _resultDrone: 0.45
+    _pauseDuck: 0.35
+    _recordingDuck: 0.2
+    _prankPulse: 0.3
+    _prankArp: 0.35

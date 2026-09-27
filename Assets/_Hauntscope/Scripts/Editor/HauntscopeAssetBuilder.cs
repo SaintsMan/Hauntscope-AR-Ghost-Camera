@@ -17,6 +17,7 @@ namespace Hauntscope.Editor
             UiSpriteGenerator.BuildAll();
             TutorialCueGenerator.BuildAll();
             SfxGenerator.BuildAll();
+            MusicGenerator.Build();
             FontAssetGenerator.BuildAll();
             CreditsExporter.Export();
             var config = AssetDatabase.LoadAssetAtPath<GameConfig>(GameConfigPath);
@@ -85,6 +86,7 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_view._thermal._filter").objectReferenceValue = ViewFilterAssetBuilder.Thermal;
             SetClip(serialized, "_view._uv._onClip", SfxFolder, "UvOn");
             serialized.FindProperty("_view._uv._filter").objectReferenceValue = ViewFilterAssetBuilder.Uv;
+            WireMusic(serialized);
             SetClip(serialized, "_evp._startClip", SfxFolder, "EvpStart");
             SetClip(serialized, "_evp._tapeClip", SfxFolder, "EvpTape");
             SetClip(serialized, "_evp._stopClip", SfxFolder, "EvpStop");
@@ -102,6 +104,19 @@ namespace Hauntscope.Editor
             serialized.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(config);
             AssetDatabase.SaveAssets();
+        }
+
+        // The soundtrack from MusicGenerator: the menu theme, the hunt's layers in HuntMusicLayer order and its stingers.
+        internal static void WireMusic(SerializedObject serialized)
+        {
+            serialized.FindProperty("_music._menuTheme").objectReferenceValue = MusicGenerator.Load("MenuTheme");
+            var layers = serialized.FindProperty("_music._huntLayers");
+            layers.arraySize = MusicGenerator.HuntLayers.Length;
+            for (var i = 0; i < MusicGenerator.HuntLayers.Length; i++)
+                layers.GetArrayElementAtIndex(i).objectReferenceValue = MusicGenerator.Load(MusicGenerator.HuntLayers[i]);
+            serialized.FindProperty("_music._capturedStinger").objectReferenceValue = MusicGenerator.Load("StingerCaptured");
+            serialized.FindProperty("_music._escapedStinger").objectReferenceValue = MusicGenerator.Load("StingerEscaped");
+            serialized.FindProperty("_music._surgeStinger").objectReferenceValue = MusicGenerator.Load("StingerSurge");
         }
 
         private static void SetClip(SerializedObject serialized, string property, string folder, string name)
