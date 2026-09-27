@@ -109,7 +109,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 262, y: -34}
+  m_AnchoredPosition: {x: 262, y: -46}
   m_SizeDelta: {x: 440, y: 44}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &8742025598731688378
@@ -1154,7 +1154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 262, y: 26}
+  m_AnchoredPosition: {x: 262, y: 40}
   m_SizeDelta: {x: 340, y: 96}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &7304998537081417078
@@ -2363,7 +2363,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 900, y: 290}
+  m_SizeDelta: {x: 900, y: 320}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5178602706504892198
 MonoBehaviour:
@@ -2381,7 +2381,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: 900
-  m_PreferredHeight: 290
+  m_PreferredHeight: 320
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -3189,7 +3189,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -24, y: 24}
+  m_AnchoredPosition: {x: -40, y: 40}
   m_SizeDelta: {x: 250, y: 96}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &2845177596410646058
@@ -3519,7 +3519,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 262, y: -90}
+  m_AnchoredPosition: {x: 262, y: -100}
   m_SizeDelta: {x: 612, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &9035115222765306974
@@ -3873,7 +3873,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -30, y: -28}
+  m_AnchoredPosition: {x: -44, y: -44}
   m_SizeDelta: {x: 200, y: 48}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &6291675450969070430

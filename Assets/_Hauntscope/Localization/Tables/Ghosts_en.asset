@@ -19,15 +19,15 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 34469605408768
-    m_Localized: WISP
+    m_Localized: Wisp
     m_Metadata:
       m_Items: []
   - m_Id: 37744564109312
-    m_Localized: POLTERGEIST
+    m_Localized: Poltergeist
     m_Metadata:
       m_Items: []
   - m_Id: 37744606052352
-    m_Localized: SHADE
+    m_Localized: Shade
     m_Metadata:
       m_Items: []
   - m_Id: 55670524477440
@@ -46,7 +46,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 123991227760640
-    m_Localized: WRAITH
+    m_Localized: Wraith
     m_Metadata:
       m_Items: []
   - m_Id: 123991269703680
@@ -55,7 +55,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 123991273897984
-    m_Localized: BANSHEE
+    m_Localized: Banshee
     m_Metadata:
       m_Items: []
   - m_Id: 123991273897985
@@ -64,7 +64,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 123991273897986
-    m_Localized: MIMIC
+    m_Localized: Mimic
     m_Metadata:
       m_Items: []
   - m_Id: 123991273897987
