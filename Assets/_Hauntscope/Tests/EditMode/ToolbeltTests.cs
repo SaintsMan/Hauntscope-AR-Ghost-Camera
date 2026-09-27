@@ -18,6 +18,7 @@ namespace Hauntscope.Tests.EditMode
         private GhostLens _lens;
         private CaptureBeam _beam;
         private SpiritBox _box;
+        private FakeViewMode _mode;
         private PlayerProgress _progress;
         private Toolbelt _toolbelt;
 
@@ -34,7 +35,8 @@ namespace Hauntscope.Tests.EditMode
             _progress = new PlayerProgress();
             _progress.AddCapture("wisp", 10);
             _box = TestConfigs.SpiritBoxTool(session, _fixture.Camera, config, new FakeRandom(), _progress, TestConfigs.SpiritBox(drain: BoxDrain));
-            _toolbelt = new Toolbelt(_lens, _beam, _box);
+            _mode = new FakeViewMode { DrainPerSecond = 0.7f };
+            _toolbelt = new Toolbelt(_lens, _beam, _box, TestConfigs.Views(_mode));
         }
 
         [Test]
@@ -143,6 +145,25 @@ namespace Hauntscope.Tests.EditMode
             _toolbelt.DeactivateAll();
 
             Assert.IsFalse(_box.IsActive.Value);
+        }
+
+        [Test]
+        public void CycleView_ModeIssued_AddsItsDrain()
+        {
+            _toolbelt.CycleView();
+
+            Assert.AreEqual(0.7f, _toolbelt.TotalDrainPerSecond, 1e-5f);
+        }
+
+        [Test]
+        public void DeactivateAll_ModeOn_BackToPlainPicture()
+        {
+            _toolbelt.CycleView();
+
+            _toolbelt.DeactivateAll();
+
+            Assert.IsNull(_toolbelt.Views.Current.Value);
+            Assert.IsFalse(_mode.IsActive.Value);
         }
 
         [Test]

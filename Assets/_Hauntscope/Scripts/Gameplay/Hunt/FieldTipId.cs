@@ -14,6 +14,7 @@ namespace Hauntscope.Gameplay.Hunt
         Negative,
         Kaidannyk,
         Mara,
-        SpiritBox
+        SpiritBox,
+        NightVision
     }
 }

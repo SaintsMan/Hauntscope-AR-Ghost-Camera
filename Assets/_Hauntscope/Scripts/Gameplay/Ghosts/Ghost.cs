@@ -140,6 +140,9 @@ namespace Hauntscope.Gameplay.Ghosts
 
         public float VisibleReveal => IsScaring ? 1f : IsVisible ? Reveal : 0f;
 
+        // A faint shape seen through night vision. Only the view shows it; nothing that reads the reveal sees it.
+        public float Glimpse { get; private set; }
+
         public float CaptureProgress { get; private set; }
 
         public bool IsBeamed { get; private set; }
@@ -192,6 +195,11 @@ namespace Hauntscope.Gameplay.Ghosts
         {
             if (!IsLeaving)
                 Reveal = Mathf.Clamp01(reveal);
+        }
+
+        public void SetGlimpse(float glimpse)
+        {
+            Glimpse = Mathf.Clamp01(glimpse);
         }
 
         public void SetBeamed(bool beamed)
@@ -461,7 +469,7 @@ namespace Hauntscope.Gameplay.Ghosts
         {
             _view.SetPhotoFlash(lit);
             if (!lit)
-                _view.SetReveal(VisibleReveal);
+                _view.SetReveal(ShownReveal);
         }
 
         // Only a ghost that knows it has been seen hides, and never while the lens or the beam is already on it.
@@ -514,12 +522,14 @@ namespace Hauntscope.Gameplay.Ghosts
             var mover = Context.Mover;
             var sag = Vector3.down * (Context.CaptureConfig.StaggerSink * _staggerWeight);
             _view.SetPose(mover.VisualPosition + sag, Quaternion.LookRotation(mover.Facing));
-            _view.SetReveal(VisibleReveal);
+            _view.SetReveal(ShownReveal);
             _view.SetDissolve(IsCaptured ? _capturedState.Progress : 0f);
             _view.SetStruggle(IsBeamed ? CaptureProgress : 0f);
             _view.SetStagger(_staggerWeight);
             _view.SetMood(Mood);
         }
+
+        private float ShownReveal => Mathf.Max(VisibleReveal, Glimpse);
 
         private GhostMood Mood
         {

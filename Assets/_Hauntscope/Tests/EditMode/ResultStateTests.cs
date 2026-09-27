@@ -35,7 +35,7 @@ namespace Hauntscope.Tests.EditMode
             var config = TestConfigs.Tools();
             _battery = new Battery(config);
             _toolbelt = new Toolbelt(new GhostLens(_session, _fixture.Camera, config, new HuntModifiers()), TestConfigs.Beam(_session, _fixture.Camera, config, new HuntModifiers()),
-                TestConfigs.SpiritBoxTool(_session, _fixture.Camera, config, new FakeRandom()));
+                TestConfigs.SpiritBoxTool(_session, _fixture.Camera, config, new FakeRandom()), TestConfigs.Views());
             _progress = new PlayerProgress();
             _save = new FakeSaveService();
             _shift = new ShiftFixture();

@@ -80,6 +80,22 @@ namespace Hauntscope.Tests.EditMode
             return new SpiritBox(session, camera, config ?? SpiritBox(), tools, random, progress ?? new PlayerProgress());
         }
 
+        public static NightVisionConfig NightVision(
+            int unlockCaptures = 2,
+            float drain = 0.3f,
+            float range = 5f,
+            float glimpse = 0.2f,
+            float farGlimpseScale = 0.5f,
+            float fadeTime = 0.35f)
+        {
+            return new NightVisionConfig(unlockCaptures, drain, range, glimpse, farGlimpseScale, fadeTime);
+        }
+
+        public static ViewSelector Views(params IViewMode[] modes)
+        {
+            return new ViewSelector(modes);
+        }
+
         public static PhotoConfig Photo(
             int filmPerHunt = 3,
             float shutterCooldown = 1f,
