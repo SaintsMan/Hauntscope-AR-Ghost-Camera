@@ -77,6 +77,7 @@ namespace Hauntscope.UI.Hunt
             _toolbelt.Beam.IsLocked.Changed += OnBeamLockChanged;
             _calibration.Progress.Changed += OnCalibrationChanged;
             _session.Result.Changed += OnResultChanged;
+            _session.Ghost.Changed += OnGhostChanged;
             _session.Scared += OnScared;
             _localization.Changed += OnLanguageChanged;
             _view.LensClicked += OnLensClicked;
@@ -129,6 +130,7 @@ namespace Hauntscope.UI.Hunt
             _toolbelt.Beam.IsLocked.Changed -= OnBeamLockChanged;
             _calibration.Progress.Changed -= OnCalibrationChanged;
             _session.Result.Changed -= OnResultChanged;
+            _session.Ghost.Changed -= OnGhostChanged;
             _session.Scared -= OnScared;
             _localization.Changed -= OnLanguageChanged;
             _view.LensClicked -= OnLensClicked;
@@ -202,9 +204,15 @@ namespace Hauntscope.UI.Hunt
             UpdateVisibility();
         }
 
+        private void OnGhostChanged(Ghost ghost)
+        {
+            UpdateVisibility();
+        }
+
+        // Only while a ghost is hunted: a prank photo has the room scanned but nothing to hunt.
         private void UpdateVisibility()
         {
-            _view.SetVisible(_calibration.IsComplete && _session.Result.Value == null);
+            _view.SetVisible(_calibration.IsComplete && _session.Ghost.Value != null && _session.Result.Value == null);
         }
 
         private void OnLanguageChanged()

@@ -17,6 +17,8 @@ namespace Hauntscope.Bootstrap
 
             builder.RegisterComponentInHierarchy<MainMenuView>();
             builder.RegisterEntryPoint<MainMenuPresenter>();
+            builder.RegisterComponentInHierarchy<PrankLaunchView>();
+            builder.RegisterEntryPoint<PrankLaunchPresenter>();
             builder.RegisterComponentInHierarchy<BestiaryView>();
             builder.RegisterEntryPoint<BestiaryPresenter>();
             builder.RegisterComponentInHierarchy<PhotoViewerView>();

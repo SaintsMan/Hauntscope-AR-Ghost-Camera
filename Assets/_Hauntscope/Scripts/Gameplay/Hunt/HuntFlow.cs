@@ -20,12 +20,15 @@ namespace Hauntscope.Gameplay.Hunt
             ResultState resultState,
             ShiftBreakState shiftBreakState,
             NightShift shift,
-            HuntPause pause)
+            HuntPause pause,
+            PrankState prankState,
+            HuntLaunchOptions options)
         {
             _scanState = scanState;
             _pause = pause;
 
-            _stateMachine.AddTransition(scanState, huntingState, () => calibration.IsComplete);
+            _stateMachine.AddTransition(scanState, huntingState, () => calibration.IsComplete && options.Mode != HuntMode.Prank);
+            _stateMachine.AddTransition(scanState, prankState, () => calibration.IsComplete && options.Mode == HuntMode.Prank);
             _stateMachine.AddTransition(huntingState, resultState, () => session.Result.Value != null);
             // Mid-shift the result card's NEXT leads to the perk break, never back to the scan: the room is known.
             _stateMachine.AddTransition(resultState, shiftBreakState,

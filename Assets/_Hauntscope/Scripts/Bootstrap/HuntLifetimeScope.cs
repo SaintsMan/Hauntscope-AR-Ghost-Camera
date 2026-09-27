@@ -182,7 +182,7 @@ namespace Hauntscope.Bootstrap
         private static void RegisterPhotos(IContainerBuilder builder)
         {
             builder.Register<PhotoScorer>(Lifetime.Singleton);
-            builder.Register<SpiritCamera>(Lifetime.Singleton);
+            builder.Register<SpiritCamera>(Lifetime.Singleton).As<IShutter>().AsSelf();
             builder.Register<PhotoViewer>(Lifetime.Singleton);
             builder.RegisterComponentInHierarchy<PhotoFrameView>();
             builder.RegisterComponentInHierarchy<PhotoFlashView>();
@@ -195,6 +195,17 @@ namespace Hauntscope.Bootstrap
             builder.RegisterComponentInHierarchy<PhotoViewerView>();
             builder.RegisterEntryPoint<PhotoViewerPresenter>();
             builder.RegisterEntryPoint<PhotoViewerBackHandler>();
+            RegisterPrank(builder);
+        }
+
+        // The prank photo (GDD 5.33.6): the same camera and photo frame, a posed ghost instead of a hunted one.
+        private static void RegisterPrank(IContainerBuilder builder)
+        {
+            builder.Register<GhostViewSpawner>(Lifetime.Singleton).As<IGhostViewSpawner>();
+            builder.Register<PrankPhotoMode>(Lifetime.Singleton).As<IShutter>().AsSelf();
+            builder.Register<PrankState>(Lifetime.Singleton);
+            builder.RegisterComponentInHierarchy<PrankPhotoView>();
+            builder.RegisterEntryPoint<PrankPhotoPresenter>();
         }
 
         private static void RegisterArEnvironment(IContainerBuilder builder)

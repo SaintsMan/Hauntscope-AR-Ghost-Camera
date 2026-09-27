@@ -32,6 +32,13 @@ namespace Hauntscope.Tests.EditMode.Fakes
             SetPoseCount++;
         }
 
+        public float Scale { get; private set; } = 1f;
+
+        public void SetScale(float scale)
+        {
+            Scale = scale;
+        }
+
         public void SetReveal(float reveal)
         {
             Reveal = reveal;

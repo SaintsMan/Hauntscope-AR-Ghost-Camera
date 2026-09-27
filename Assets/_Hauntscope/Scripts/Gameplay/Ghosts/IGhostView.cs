@@ -6,6 +6,9 @@ namespace Hauntscope.Gameplay.Ghosts
     {
         void SetPose(Vector3 position, Quaternion rotation);
 
+        // Only a prank photo resizes a ghost; hunted ghosts stay at 1.
+        void SetScale(float scale);
+
         void SetReveal(float reveal);
 
         void SetDissolve(float dissolve);

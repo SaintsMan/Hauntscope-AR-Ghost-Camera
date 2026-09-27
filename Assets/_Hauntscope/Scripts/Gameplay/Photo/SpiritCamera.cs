@@ -11,7 +11,7 @@ namespace Hauntscope.Gameplay.Photo
 {
     // The camcorder's still shutter: a few frames of film per hunt, a score for every shot, and a flash that
     // spooks the ghost, so "photo first or catch first" is the player's call.
-    public sealed class SpiritCamera
+    public sealed class SpiritCamera : IShutter
     {
         private readonly HuntSession _session;
         private readonly PhotoScorer _scorer;

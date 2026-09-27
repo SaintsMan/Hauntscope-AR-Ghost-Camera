@@ -60,6 +60,11 @@ namespace Hauntscope.Gameplay.Ghosts
             transform.SetPositionAndRotation(position, rotation);
         }
 
+        public void SetScale(float scale)
+        {
+            transform.localScale = Vector3.one * scale;
+        }
+
         public void SetReveal(float reveal)
         {
             _reveal = reveal;
