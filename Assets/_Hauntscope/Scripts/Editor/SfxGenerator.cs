@@ -67,6 +67,7 @@ namespace Hauntscope.Editor
             Save(SfxFolder, "SpiritBoxToggle", SpiritBoxToggle(), -6f, false);
             Save(SfxFolder, "NightVisionOn", NightVisionOn(), -7f, false);
             Save(SfxFolder, "ViewModeOff", ViewModeOff(), -8f, false);
+            Save(SfxFolder, "ThermalOn", ThermalOn(), -7f, false);
             Save(AmbientFolder, "AmbientDrone", AmbientDrone(), -8f, true);
             Save(AmbientFolder, "AmbientStatic", AmbientStatic(), -10f, true);
         }
@@ -1110,6 +1111,27 @@ namespace Hauntscope.Editor
                 phase += TwoPi * Mathf.Lerp(1800f, 9200f, rise) / SampleRate;
                 var envelope = Adsr(t - 0.02f, length - 0.02f, 0.08f, 0.35f);
                 samples[i] += (Mathf.Sin(phase) * 0.35f + Mathf.Sin(phase * 2.01f) * 0.08f) * envelope + hiss[i] * 0.12f * envelope;
+            }
+
+            return samples;
+        }
+
+        // A thermal core coming up: the calibration shutter clacks twice, then a low cooler hum swells in under a
+        // soft two-note chirp that says the sensor is ready.
+        private static float[] ThermalOn()
+        {
+            const float length = 0.9f;
+            var samples = Buffer(length);
+            Add(samples, Click(0.005f, 600f, 131), 0, 0.9f);
+            Add(samples, Click(0.004f, 800f, 133), (int)(0.09f * SampleRate), 0.7f);
+            var hum = Filter(Noise(samples.Length, 137), FilterType.LowPass, 180f, 0.9f);
+            for (var i = 0; i < samples.Length; i++)
+            {
+                var t = Time(i);
+                var swell = Adsr(t - 0.12f, length - 0.12f, 0.3f, 0.3f);
+                samples[i] += (Mathf.Sin(TwoPi * 110f * t) * 0.18f + hum[i] * 0.5f) * swell;
+                var note = t < 0.62f ? 1320f : 1760f;
+                samples[i] += Mathf.Sin(TwoPi * note * t) * 0.12f * Adsr(t - 0.5f, 0.3f, 0.01f, 0.08f);
             }
 
             return samples;

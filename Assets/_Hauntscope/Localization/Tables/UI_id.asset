@@ -1125,6 +1125,15 @@ MonoBehaviour:
       hantu tanpa menampakkannya, dan ia tak menyadarimu.'
     m_Metadata:
       m_Items: []
+  - m_Id: 678718378213376
+    m_Localized: TERMAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 678718466293760
+    m_Localized: 'Agensi memberimu kamera termal: ketuk MODE sampai TERMAL. Hantu
+      tampak sebagai sosok dingin, bahkan di balik perabot.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

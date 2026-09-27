@@ -44,6 +44,7 @@ Material:
     - _RimPower: 2.4
     - _SwayAmplitude: 0.012
     - _SwaySpeed: 0.4
+    - _Thermal: 0
     - _WobbleAmplitude: 0.02
     - _WobbleFrequency: 2.5
     m_Colors:
@@ -52,5 +53,6 @@ Material:
     - _NoiseSpeed: {r: 0, g: 0.35, b: 0.1, a: 0}
     - _RimColor: {r: 0.30980393, g: 0.9607843, b: 0.9019608, a: 1}
     - _Stretch: {r: 0, g: 0, b: 0, a: 0}
+    - _ThermalColor: {r: 0, g: 0, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

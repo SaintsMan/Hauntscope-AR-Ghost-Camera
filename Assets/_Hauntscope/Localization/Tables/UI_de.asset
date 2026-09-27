@@ -1126,6 +1126,16 @@ MonoBehaviour:
       den Geist schwach, ohne ihn sichtbar zu machen, und er bemerkt dich nicht.'
     m_Metadata:
       m_Items: []
+  - m_Id: 678718378213376
+    m_Localized: "W\xC4RMEBILD"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 678718466293760
+    m_Localized: "Die Agentur hat dir eine W\xE4rmebildkamera gegeben: Tippe auf
+      MODUS bis W\xC4RMEBILD. Geister zeigen sich als kalte Umrisse, sogar hinter
+      M\xF6beln."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

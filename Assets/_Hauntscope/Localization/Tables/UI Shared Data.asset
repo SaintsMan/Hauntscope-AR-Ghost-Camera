@@ -1107,6 +1107,14 @@ MonoBehaviour:
     m_Key: tips.night_vision
     m_Metadata:
       m_Items: []
+  - m_Id: 678718378213376
+    m_Key: hud.view.thermal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 678718466293760
+    m_Key: tips.thermal
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

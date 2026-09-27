@@ -77,7 +77,7 @@ namespace Hauntscope.Editor
                     .Features(new GhostFace().Eyes(new Vector3(0f, 0.126f, 0.125f), 0.042f, new Vector3(0.006f, 0.02f, 0.008f))
                         .Oval(new Vector3(0f, 0.098f, 0.14f), new Vector3(0.009f, 0.006f, 0.006f)))
                     .Ability<SkittishAbilityConfig>(Abilities + "PhantomCatSkittish.asset")
-                    .Looks(new GhostLook().Body(0.26f, 2.2f, 1.7f).Hem(0.005f, 0.1f, 2f).Motion(0.01f, 2.4f, 0.008f, 0.9f))
+                    .Looks(new GhostLook().Body(0.26f, 2.2f, 1.7f).Hem(0.005f, 0.1f, 2f).Motion(0.01f, 2.4f, 0.008f, 0.9f).Warm())
                     .Leaves(new GhostVfxProfile().WithTrail(TrailLook.Dust, 8f, 0.01f, 0.025f, 0.8f, 1.2f, 0.08f).WithMotes(6f, 0.06f)
                         .WithAura(8f, 0.2f, 0.5f, 1.6f).WithHalo(0.6f, 0.14f))
                     .Sounds(GhostVoices.PhantomCat()),

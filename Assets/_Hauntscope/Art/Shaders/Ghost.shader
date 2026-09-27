@@ -16,6 +16,8 @@ Shader "Hauntscope/Ghost"
         _DissolveEdgeColor ("Dissolve Edge Color", Color) = (1, 1, 1, 1)
         _DissolveEdgeWidth ("Dissolve Edge Width", Range(0.001, 0.3)) = 0.08
         _DepthReveal ("Depth Write From Reveal", Range(0, 1)) = 0.05
+        _Thermal ("Thermal Sight", Range(0, 1)) = 0
+        _ThermalColor ("Thermal Color (blue = cold marker)", Color) = (0, 0, 1, 1)
         [Header(Living Body)]
         _BodyBottom ("Body Bottom (object Y)", Float) = -0.5
         _BodyTop ("Body Top (object Y)", Float) = 0.5
@@ -58,6 +60,8 @@ Shader "Hauntscope/Ghost"
             half _Dissolve;
             half4 _DissolveEdgeColor;
             half _DissolveEdgeWidth;
+            half _Thermal;
+            half4 _ThermalColor;
             half _DepthReveal;
             float _BodyBottom;
             float _BodyTop;
@@ -237,6 +241,39 @@ Shader "Hauntscope/Ghost"
                 half3 color = _BaseColor.rgb * body + _RimColor.rgb * rim + _DissolveEdgeColor.rgb * edge;
                 half alpha = saturate(body + rim * _RimColor.a + edge);
                 return half4(color * _Reveal, alpha * _Reveal);
+            }
+            ENDHLSL
+        }
+
+        // Thermal camera (GDD 5.33.3): the ghost's shape through furniture, walls and AR depth, so it ignores the depth
+        // test. A cold ghost is drawn in a marker colour (saturated blue) that the thermal filter turns into ice; a warm
+        // one (the cat) is drawn in a hot colour and simply reads as heat.
+        Pass
+        {
+            Name "GhostThermal"
+            Tags { "LightMode" = "UniversalForwardOnly" }
+
+            Blend One OneMinusSrcAlpha
+            ZWrite Off
+            ZTest Always
+            Cull Back
+
+            HLSLPROGRAM
+            #pragma vertex Vert
+            #pragma fragment FragThermal
+
+            half4 FragThermal(Varyings input) : SV_Target
+            {
+                clip(_Thermal - 0.001h);
+                clip(DissolveNoise(input) - _Dissolve);
+                float3 normal = normalize(input.normalWS);
+                float3 viewDirection = GetWorldSpaceNormalizeViewDir(input.positionWS);
+                half facing = saturate(dot(normal, viewDirection));
+                float smoke = Fbm(input.noisePosition + _Time.y * _NoiseSpeed.xyz);
+                // Fully opaque, so the filter reads the marker cleanly; its strength carries the shape instead: coldest
+                // where the body faces the camera, milder at the outline, with the smoke drifting through it.
+                half core = lerp(0.62h, 1.0h, facing * facing) * lerp(0.88h, 1.0h, smoke);
+                return half4(_ThermalColor.rgb * core * _Thermal, _Thermal);
             }
             ENDHLSL
         }

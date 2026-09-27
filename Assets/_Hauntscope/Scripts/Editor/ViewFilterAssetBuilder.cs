@@ -10,9 +10,12 @@ namespace Hauntscope.Editor
 
         public static Material NightShot => AssetDatabase.LoadAssetAtPath<Material>($"{Folder}/ViewNightShot.mat");
 
+        public static Material Thermal => AssetDatabase.LoadAssetAtPath<Material>($"{Folder}/ViewThermal.mat");
+
         public static void Build()
         {
             Ensure("ViewNightShot", "Hauntscope/ViewNightShot");
+            Ensure("ViewThermal", "Hauntscope/ViewThermal");
             AssetDatabase.SaveAssets();
         }
 

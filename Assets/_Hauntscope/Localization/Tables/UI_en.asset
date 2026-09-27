@@ -1123,6 +1123,15 @@ MonoBehaviour:
       of the ghost without revealing it, and it won''t notice you.'
     m_Metadata:
       m_Items: []
+  - m_Id: 678718378213376
+    m_Localized: THERMAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 678718466293760
+    m_Localized: 'The agency issued you a thermal camera: tap MODE until THERMAL.
+      Ghosts show as cold shapes, even behind furniture.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

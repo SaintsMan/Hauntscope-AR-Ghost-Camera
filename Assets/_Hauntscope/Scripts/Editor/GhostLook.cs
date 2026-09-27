@@ -42,6 +42,9 @@ namespace Hauntscope.Editor
         // Normally the body is tinted with the rim colour; a set body colour stays as it is (the negative's dark body).
         public Color? BodyColor { get; private set; }
 
+        // What the thermal camera draws: the cold marker by default, a hot colour for a warm ghost.
+        public Color ThermalColor { get; private set; } = new Color(0f, 0f, 1f, 1f);
+
         public GhostLook Body(float baseAlpha, float rimPower, float rimIntensity, float noiseStrength = 0.55f, float noiseScale = 3f)
         {
             BaseAlpha = baseAlpha;
@@ -77,6 +80,13 @@ namespace Hauntscope.Editor
             return this;
         }
 
+        // The cat is warm on the thermal camera: a surprise among the cold ones (GDD 5.33.3).
+        public GhostLook Warm()
+        {
+            ThermalColor = new Color(1f, 0.85f, 0.45f, 1f);
+            return this;
+        }
+
         public GhostLook Colored(Color body)
         {
             BodyColor = body;
@@ -94,6 +104,8 @@ namespace Hauntscope.Editor
             material.SetFloat("_NoiseScale", NoiseScale);
             material.SetFloat("_WobbleAmplitude", Wobble);
             material.SetFloat("_Reveal", 0f);
+            material.SetFloat("_Thermal", 0f);
+            material.SetColor("_ThermalColor", ThermalColor);
             ApplyMotion(material, body);
         }
 
@@ -106,6 +118,8 @@ namespace Hauntscope.Editor
             material.SetFloat("_NoiseStrength", 0f);
             material.SetFloat("_WobbleAmplitude", 0f);
             material.SetFloat("_Reveal", 0f);
+            material.SetFloat("_Thermal", 0f);
+            material.SetColor("_ThermalColor", ThermalColor);
             ApplyMotion(material, body);
             material.SetFloat("_BreathAmplitude", 0f);
         }

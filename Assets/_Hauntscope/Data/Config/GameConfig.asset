@@ -465,5 +465,14 @@ MonoBehaviour:
       _filter: {fileID: 2100000, guid: f131fc7e3f49e2c499ed775171476e02, type: 2}
       _onClip: {fileID: 8300000, guid: 4fa0583fdab654040b90b21bcaeb0a8b, type: 3}
       _onVolume: 0.6
+    _thermal:
+      _unlockCaptures: 4
+      _drain: 0.8
+      _range: 4
+      _fadeTime: 0.25
+      _labelKey: hud.view.thermal
+      _filter: {fileID: 2100000, guid: d19a41a53066b964abf933fbfd54bdce, type: 2}
+      _onClip: {fileID: 8300000, guid: 967933237e9afba478ad62f2d4b7c989, type: 3}
+      _onVolume: 0.6
     _offClip: {fileID: 8300000, guid: aca19670ebab37545a4db2509ad0c111, type: 3}
     _offVolume: 0.5

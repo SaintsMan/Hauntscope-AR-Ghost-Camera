@@ -1128,6 +1128,15 @@ MonoBehaviour:
       tenue del fantasma sin revelarlo, y no te notar\xE1."
     m_Metadata:
       m_Items: []
+  - m_Id: 678718378213376
+    m_Localized: "T\xC9RMICA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 678718466293760
+    m_Localized: "La agencia te dio una c\xE1mara t\xE9rmica: toca MODO hasta T\xC9RMICA.
+      Los fantasmas se ven como siluetas fr\xEDas, incluso detr\xE1s de los muebles."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

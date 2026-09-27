@@ -1128,6 +1128,15 @@ MonoBehaviour:
       o vulto do fantasma sem revel\xE1-lo, e ele n\xE3o percebe voc\xEA."
     m_Metadata:
       m_Items: []
+  - m_Id: 678718378213376
+    m_Localized: "T\xC9RMICA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 678718466293760
+    m_Localized: "A ag\xEAncia te deu uma c\xE2mera t\xE9rmica: toque em MODO at\xE9
+      T\xC9RMICA. Fantasmas aparecem como vultos frios, at\xE9 atr\xE1s dos m\xF3veis."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

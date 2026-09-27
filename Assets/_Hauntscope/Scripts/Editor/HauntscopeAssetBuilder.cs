@@ -81,6 +81,8 @@ namespace Hauntscope.Editor
             SetClip(serialized, "_view._offClip", SfxFolder, "ViewModeOff");
             SetClip(serialized, "_view._nightVision._onClip", SfxFolder, "NightVisionOn");
             serialized.FindProperty("_view._nightVision._filter").objectReferenceValue = ViewFilterAssetBuilder.NightShot;
+            SetClip(serialized, "_view._thermal._onClip", SfxFolder, "ThermalOn");
+            serialized.FindProperty("_view._thermal._filter").objectReferenceValue = ViewFilterAssetBuilder.Thermal;
             serialized.FindProperty("_vfx._captureSpiral").objectReferenceValue = VfxGenerator.CaptureSpiral;
             serialized.FindProperty("_vfx._teleportFlash").objectReferenceValue = VfxGenerator.TeleportFlash;
             serialized.FindProperty("_vfx._revealPulse").objectReferenceValue = VfxGenerator.RevealPulse;
