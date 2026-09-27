@@ -1,6 +1,8 @@
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
+using Hauntscope.Tests.EditMode.Fakes;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -10,10 +12,13 @@ namespace Hauntscope.Tests.EditMode
     {
         private const float LensDrain = 2f;
         private const float BeamDrain = 3f;
+        private const float BoxDrain = 0.5f;
 
         private GhostFixture _fixture;
         private GhostLens _lens;
         private CaptureBeam _beam;
+        private SpiritBox _box;
+        private PlayerProgress _progress;
         private Toolbelt _toolbelt;
 
         [SetUp]
@@ -26,7 +31,10 @@ namespace Hauntscope.Tests.EditMode
             var config = TestConfigs.Tools(lensDrain: LensDrain, beamDrain: BeamDrain);
             _lens = new GhostLens(session, _fixture.Camera, config, new HuntModifiers());
             _beam = TestConfigs.Beam(session, _fixture.Camera, config, new HuntModifiers());
-            _toolbelt = new Toolbelt(_lens, _beam);
+            _progress = new PlayerProgress();
+            _progress.AddCapture("wisp", 10);
+            _box = TestConfigs.SpiritBoxTool(session, _fixture.Camera, config, new FakeRandom(), _progress, TestConfigs.SpiritBox(drain: BoxDrain));
+            _toolbelt = new Toolbelt(_lens, _beam, _box);
         }
 
         [Test]
@@ -98,6 +106,43 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.IsFalse(_lens.IsActive.Value);
             Assert.IsFalse(_beam.IsActive.Value);
+        }
+
+        [Test]
+        public void ToggleSpiritBox_Unlocked_ActivatesBox()
+        {
+            _toolbelt.ToggleSpiritBox();
+
+            Assert.IsTrue(_box.IsActive.Value);
+        }
+
+        [Test]
+        public void ToggleSpiritBox_WhenOn_DeactivatesBox()
+        {
+            _toolbelt.ToggleSpiritBox();
+
+            _toolbelt.ToggleSpiritBox();
+
+            Assert.IsFalse(_box.IsActive.Value);
+        }
+
+        [Test]
+        public void TotalDrainPerSecond_SpiritBoxAndLens_SumsBoth()
+        {
+            _toolbelt.ToggleSpiritBox();
+            _toolbelt.ToggleLens();
+
+            Assert.AreEqual(LensDrain + BoxDrain, _toolbelt.TotalDrainPerSecond, 1e-5f);
+        }
+
+        [Test]
+        public void DeactivateAll_SpiritBoxOn_TurnsItOff()
+        {
+            _toolbelt.ToggleSpiritBox();
+
+            _toolbelt.DeactivateAll();
+
+            Assert.IsFalse(_box.IsActive.Value);
         }
 
         [Test]

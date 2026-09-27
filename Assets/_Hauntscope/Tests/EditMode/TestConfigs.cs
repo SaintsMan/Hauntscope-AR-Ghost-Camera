@@ -1,6 +1,8 @@
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
+using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 
@@ -52,6 +54,30 @@ namespace Hauntscope.Tests.EditMode
         {
             capture ??= Capture();
             return new CaptureBeam(session, camera, tools, modifiers, new CaptureRateCalculator(tools, capture, modifiers), capture);
+        }
+
+        public static SpiritBoxConfig SpiritBox(
+            int unlockCaptures = 1,
+            float drain = 0.4f,
+            float firstAnswerDelay = 1f,
+            float intervalMin = 4f,
+            float intervalMax = 4f,
+            float aheadAngle = 40f,
+            float behindAngle = 130f,
+            float closeDistance = 1.5f,
+            float farDistance = 4.5f,
+            float range = 9f,
+            float voiceOffset = 1f)
+        {
+            return new SpiritBoxConfig(unlockCaptures, drain, firstAnswerDelay, intervalMin, intervalMax, aheadAngle, behindAngle,
+                closeDistance, farDistance, range, voiceOffset);
+        }
+
+        // A Spirit Box that is still locked (no captures yet) unless the caller passes progress with some.
+        public static SpiritBox SpiritBoxTool(HuntSession session, ICameraPose camera, ToolsConfig tools, IRandom random,
+            PlayerProgress progress = null, SpiritBoxConfig config = null)
+        {
+            return new SpiritBox(session, camera, config ?? SpiritBox(), tools, random, progress ?? new PlayerProgress());
         }
 
         public static PhotoConfig Photo(

@@ -4,18 +4,22 @@ namespace Hauntscope.Gameplay.Tools
     {
         private readonly GhostLens _lens;
         private readonly CaptureBeam _beam;
+        private readonly SpiritBox _spiritBox;
         private readonly ITool[] _tools;
 
-        public Toolbelt(GhostLens lens, CaptureBeam beam)
+        public Toolbelt(GhostLens lens, CaptureBeam beam, SpiritBox spiritBox)
         {
             _lens = lens;
             _beam = beam;
-            _tools = new ITool[] { lens, beam };
+            _spiritBox = spiritBox;
+            _tools = new ITool[] { lens, beam, spiritBox };
         }
 
         public GhostLens Lens => _lens;
 
         public CaptureBeam Beam => _beam;
+
+        public SpiritBox SpiritBox => _spiritBox;
 
         public float TotalDrainPerSecond
         {
@@ -38,6 +42,14 @@ namespace Hauntscope.Gameplay.Tools
                 _lens.Deactivate();
             else
                 _lens.Activate();
+        }
+
+        public void ToggleSpiritBox()
+        {
+            if (_spiritBox.IsActive.Value)
+                _spiritBox.Deactivate();
+            else
+                _spiritBox.Activate();
         }
 
         public void StartBeam()

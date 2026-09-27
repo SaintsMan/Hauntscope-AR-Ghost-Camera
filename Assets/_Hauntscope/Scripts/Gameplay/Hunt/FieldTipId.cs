@@ -13,6 +13,7 @@ namespace Hauntscope.Gameplay.Hunt
         Domovyk,
         Negative,
         Kaidannyk,
-        Mara
+        Mara,
+        SpiritBox
     }
 }

@@ -98,6 +98,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Contracts);
             builder.RegisterInstance(_gameConfig.Login);
             builder.RegisterInstance(_gameConfig.Tips);
+            builder.RegisterInstance(_gameConfig.SpiritBox);
         }
 
         // Scene loads are decorated with the CRT transition; the overlay outlives every scene it covers.

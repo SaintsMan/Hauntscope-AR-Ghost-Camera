@@ -31,7 +31,8 @@ namespace Hauntscope.Tests.EditMode
             _fixture.Ghost.Start();
             _session = new HuntSession();
             var config = TestConfigs.Tools();
-            _toolbelt = new Toolbelt(new GhostLens(_session, _fixture.Camera, config, new HuntModifiers()), TestConfigs.Beam(_session, _fixture.Camera, config, new HuntModifiers()));
+            _toolbelt = new Toolbelt(new GhostLens(_session, _fixture.Camera, config, new HuntModifiers()), TestConfigs.Beam(_session, _fixture.Camera, config, new HuntModifiers()),
+                TestConfigs.SpiritBoxTool(_session, _fixture.Camera, config, new FakeRandom()));
             var calibration = new RoomCalibration(new FakePlaneProvider(), new RoomConfig(2f, 1.5f, 0.3f, 2f, 5f));
             _sfx = new FakeSfxPlayer();
             _haptics = new FakeHaptics();
