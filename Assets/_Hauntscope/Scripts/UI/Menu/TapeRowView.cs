@@ -9,6 +9,7 @@ namespace Hauntscope.UI.Menu
 {
     // One tape on the archive shelf: its number and title, and what it takes to surface while it is locked. A tape not yet
     // heard glows amber with a pulsing NEW chip; a heard one settles to the HUD's colour; a locked one is a padlock.
+    // The three lines sit in a vertical layout, so hiding the status re-centres the number and the title in the card.
     public sealed class TapeRowView : MonoBehaviour
     {
         [SerializeField] private Button _button;
@@ -16,7 +17,7 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private TMP_Text _title;
         [SerializeField] private TMP_Text _status;
         [SerializeField] private Image _icon;
-        [SerializeField] private Graphic _border;
+        [SerializeField] private ButtonJuice _juice;
         [SerializeField] private Graphic _play;
         [SerializeField] private RectTransform _newMark;
         [SerializeField] private Sprite _tapeSprite;
@@ -55,7 +56,7 @@ namespace Hauntscope.UI.Menu
             _title.color = state == TapeRowState.Locked ? _lockedColor : _textColor;
             var border = accent;
             border.a = _borderAlpha;
-            _border.color = border;
+            _juice.SetFrameColor(border);
             _play.gameObject.SetActive(state != TapeRowState.Locked);
             _play.color = accent;
             SetMark(state == TapeRowState.New);
@@ -102,11 +103,11 @@ namespace Hauntscope.UI.Menu
         private void Reset()
         {
             _button = GetComponent<Button>();
-            _code = transform.Find("Code")?.GetComponent<TMP_Text>();
-            _title = transform.Find("Title")?.GetComponent<TMP_Text>();
-            _status = transform.Find("Status")?.GetComponent<TMP_Text>();
+            _code = transform.Find("Text/Code")?.GetComponent<TMP_Text>();
+            _title = transform.Find("Text/Title")?.GetComponent<TMP_Text>();
+            _status = transform.Find("Text/Status")?.GetComponent<TMP_Text>();
             _icon = transform.Find("Icon")?.GetComponent<Image>();
-            _border = transform.Find("Border")?.GetComponent<Graphic>();
+            _juice = GetComponent<ButtonJuice>();
             _play = transform.Find("Play")?.GetComponent<Graphic>();
             _newMark = transform.Find("NewMark") as RectTransform;
         }

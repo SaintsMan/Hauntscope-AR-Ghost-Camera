@@ -23,6 +23,19 @@ namespace Hauntscope.UI.Common
         private bool _captured;
         private Tween _breath;
 
+        // A view that recolours the frame by state sets its resting colour here, so the flare and OnDisable return to
+        // that colour instead of the one the frame had when the button was first enabled.
+        public void SetFrameColor(Color color)
+        {
+            Capture();
+            _frameColor = color;
+            if (_frame == null)
+                return;
+
+            _frame.DOKill();
+            _frame.color = color;
+        }
+
         public void OnPointerDown(PointerEventData eventData)
         {
             transform.DOKill();
