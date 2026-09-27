@@ -1187,7 +1187,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 698086231244801
-    m_Localized: Taruh hantu tangkapanmu di foto
+    m_Localized: Hantu di foto
     m_Metadata:
       m_Items: []
   - m_Id: 698086231244802
@@ -1217,6 +1217,14 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 704206744190976
     m_Localized: 'ALAT TERBAIK:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 719312148365312
+    m_Localized: JAGA MALAM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 719312198696960
+    m_Localized: '{0} hantu beruntun'
     m_Metadata:
       m_Items: []
   references:

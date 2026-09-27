@@ -1190,7 +1190,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 698086231244801
-    m_Localized: Coloque um fantasma capturado na foto
+    m_Localized: Fantasma na foto
     m_Metadata:
       m_Items: []
   - m_Id: 698086231244802
@@ -1220,6 +1220,14 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 704206744190976
     m_Localized: 'MELHOR EQUIPAMENTO:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 719312148365312
+    m_Localized: TURNO DA NOITE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 719312198696960
+    m_Localized: '{0} fantasmas seguidos'
     m_Metadata:
       m_Items: []
   references:

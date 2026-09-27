@@ -54,6 +54,7 @@ namespace Hauntscope.Editor
             BuildViewModeIcon();
             BuildEvpIcons();
             BuildPrankIcon();
+            BuildMenuIcons();
         }
 
         private static void BuildFrame()
@@ -601,6 +602,64 @@ namespace Hauntscope.Editor
 
             SaveSprite("EvpPlay", reel, reel, Shape(reel, reel,
                 p => Polygon(p, new[] { new Vector2(22f, 16f), new Vector2(22f, 48f), new Vector2(49f, 32f) }), false, 0f, 6f), Vector4.zero);
+        }
+
+        // The main menu's dock and corner: a supply crate (shop), a case file with a ghost on it (Bestiary), a clipboard
+        // of orders (contracts) and a gear (settings), all in the HUD's line weight.
+        private static void BuildMenuIcons()
+        {
+            const int size = 128;
+            Sdf crate = p => Mathf.Min(RoundBox(p, new Vector2(64f, 48f), new Vector2(38f, 28f), 5f), RoundBox(p, new Vector2(64f, 86f), new Vector2(46f, 9f), 4f));
+            Sdf planks = p => Mathf.Min(Mathf.Min(Segment(p, new Vector2(46f, 24f), new Vector2(46f, 72f)), Segment(p, new Vector2(82f, 24f), new Vector2(82f, 72f))),
+                RoundBox(p, new Vector2(64f, 58f), new Vector2(8f, 5f), 2f));
+            SaveSprite("ShopIcon", size, size, Max(Shape(size, size, crate, true, Line, Glow), Shape(size, size, planks, true, Line * 0.75f, Glow * 0.6f)), Vector4.zero);
+
+            Sdf folder = p => Mathf.Min(RoundBox(p, new Vector2(64f, 54f), new Vector2(44f, 32f), 6f),
+                RoundBox(p, new Vector2(40f, 88f), new Vector2(18f, 6f), 3f));
+            Sdf ghost = p =>
+            {
+                var head = Circle(p, new Vector2(64f, 58f), 11f);
+                var skirt = RoundBox(p, new Vector2(64f, 50f), new Vector2(11f, 8f), 1f);
+                var hem = p.y < 44f ? 4f * Mathf.Abs(Mathf.Sin((p.x - 53f) * Mathf.PI / 7.3f)) - (p.y - 40f) : -1f;
+                return Mathf.Max(Mathf.Min(head, skirt), hem);
+            };
+            Sdf eyes = p => Mathf.Min(Circle(p, new Vector2(60f, 59f), 2.2f), Circle(p, new Vector2(68f, 59f), 2.2f));
+            var file = Max(Shape(size, size, folder, true, Line, Glow), Shape(size, size, ghost, false, 0f, Glow * 0.6f));
+            var holes = Shape(size, size, eyes, false, 0f, 0f);
+            for (var i = 0; i < file.Length; i++)
+                file[i].a = (byte)Mathf.Max(0, file[i].a - holes[i].a);
+            SaveSprite("BestiaryIcon", size, size, file, Vector4.zero);
+
+            Sdf board = p => Mathf.Min(RoundBox(p, new Vector2(64f, 56f), new Vector2(34f, 42f), 6f), RoundBox(p, new Vector2(64f, 100f), new Vector2(14f, 6f), 3f));
+            Sdf lines = p =>
+            {
+                var distance = float.MaxValue;
+                for (var row = 0; row < 3; row++)
+                {
+                    var y = 78f - row * 18f;
+                    distance = Mathf.Min(distance, Segment(p, new Vector2(56f, y), new Vector2(84f, y)));
+                    distance = Mathf.Min(distance, Mathf.Min(Segment(p, new Vector2(40f, y), new Vector2(44f, y - 4f)), Segment(p, new Vector2(44f, y - 4f), new Vector2(50f, y + 4f))));
+                }
+
+                return distance;
+            };
+            SaveSprite("ContractsIcon", size, size, Max(Shape(size, size, board, true, Line, Glow), Shape(size, size, lines, true, Line * 0.75f, Glow * 0.6f)), Vector4.zero);
+
+            var center = Center(size, size);
+            Sdf gear = p =>
+            {
+                var distance = Circle(p, center, 26f);
+                for (var i = 0; i < 8; i++)
+                {
+                    var angle = i * Mathf.PI / 4f;
+                    var direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+                    distance = Mathf.Min(distance, Segment(p, center + direction * 22f, center + direction * 36f) - 7f);
+                }
+
+                return distance;
+            };
+            Sdf hub = p => Circle(p, center, 10f);
+            SaveSprite("SettingsIcon", size, size, Max(Shape(size, size, gear, true, Line, Glow), Shape(size, size, hub, true, Line * 0.75f, Glow * 0.6f)), Vector4.zero);
         }
 
         // PRANK PHOTO: a camera with a little ghost looking out of its lens and a spark of the flash.

@@ -156,7 +156,7 @@ namespace Hauntscope.UI.Menu
             _statusDot.color = witchingHour ? _witchingHourColor : _standbyDotColor;
         }
 
-        // Locked, the shift button stays in view but dimmed, with how many hunts it takes to open it.
+        // Locked, the shift tile stays in view but dimmed, with how many hunts it takes to open it.
         public void SetShift(bool unlocked, string caption)
         {
             _shiftGroup.alpha = unlocked ? 1f : _lockedAlpha;
@@ -257,18 +257,18 @@ namespace Hauntscope.UI.Menu
         private void Reset()
         {
             _startButton = Find<Button>("Buttons/StartButton");
-            _shiftButton = Find<Button>("Buttons/ShiftButton");
-            _shiftGroup = Find<CanvasGroup>("Buttons/ShiftButton");
-            _shiftCaption = Find<TMP_Text>("Buttons/ShiftButton/Caption");
-            _bestiaryButton = Find<Button>("Buttons/Row/BestiaryButton");
-            _settingsButton = Find<Button>("Buttons/Row2/SettingsButton");
-            _contractsButton = Find<Button>("Buttons/Row2/ContractsButton");
-            var badge = transform.Find("Buttons/Row2/ContractsButton/Badge");
+            _shiftButton = Find<Button>("Buttons/Modes/ShiftButton");
+            _shiftGroup = Find<CanvasGroup>("Buttons/Modes/ShiftButton");
+            _shiftCaption = Find<TMP_Text>("Buttons/Modes/ShiftButton/Caption");
+            _bestiaryButton = Find<Button>("Dock/BestiaryButton");
+            _settingsButton = Find<Button>("SettingsButton");
+            _contractsButton = Find<Button>("Dock/ContractsButton");
+            var badge = transform.Find("Dock/ContractsButton/Badge");
             _contractsBadge = badge != null ? badge.gameObject : null;
-            _contractsBadgeLabel = Find<TMP_Text>("Buttons/Row2/ContractsButton/Badge/Label");
-            _shiftMark = Find<RectTransform>("Buttons/ShiftButton/NewMark");
-            _contractsMark = Find<RectTransform>("Buttons/Row2/ContractsButton/NewMark");
-            _shopButton = Find<Button>("Buttons/Row/ShopButton");
+            _contractsBadgeLabel = Find<TMP_Text>("Dock/ContractsButton/Badge/Label");
+            _shiftMark = Find<RectTransform>("Buttons/Modes/ShiftButton/NewMark");
+            _contractsMark = Find<RectTransform>("Dock/ContractsButton/NewMark");
+            _shopButton = Find<Button>("Dock/ShopButton");
             _ectoplasmLabel = Find<TMP_Text>("Ectoplasm/Amount");
             _versionLabel = Find<TMP_Text>("Version");
             _timestampLabel = Find<TMP_Text>("Timestamp");

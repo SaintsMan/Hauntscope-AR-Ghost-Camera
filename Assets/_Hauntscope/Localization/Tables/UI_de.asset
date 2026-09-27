@@ -1190,7 +1190,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 698086231244801
-    m_Localized: Setz einen gefangenen Geist ins Bild
+    m_Localized: Geist im Bild
     m_Metadata:
       m_Items: []
   - m_Id: 698086231244802
@@ -1221,6 +1221,14 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 704206744190976
     m_Localized: "BESTES GER\xC4T:"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 719312148365312
+    m_Localized: NACHTSCHICHT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 719312198696960
+    m_Localized: "{0} Geister am St\xFCck"
     m_Metadata:
       m_Items: []
   references:

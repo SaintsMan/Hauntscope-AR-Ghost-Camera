@@ -28,6 +28,7 @@ namespace Hauntscope.UI.Menu
         private const string NightChannelKey = "menu.channel.night";
         private const string ShiftLockedKey = "menu.shift.locked";
         private const string ShiftRecordKey = "menu.shift.record";
+        private const string ShiftLengthKey = "menu.shift.length";
 
         private readonly MainMenuView _view;
         private readonly MenuNavigation _navigation;
@@ -201,7 +202,8 @@ namespace Hauntscope.UI.Menu
 
         private bool IsShiftUnlocked => _progress.TotalSessions >= _shiftConfig.UnlockHunts;
 
-        // The best round so far once there is one; before the shift opens, how many hunts it still takes.
+        // The best round so far once there is one, until then how many ghosts a shift is; before the shift opens, how many
+        // hunts it still takes.
         private void RenderShift()
         {
             if (!IsShiftUnlocked)
@@ -211,7 +213,9 @@ namespace Hauntscope.UI.Menu
             }
 
             var best = _progress.BestShiftRound;
-            _view.SetShift(true, best > 0 ? _localization.Get(LocalizationTable.Ui, ShiftRecordKey, best, _shiftConfig.Length) : string.Empty);
+            _view.SetShift(true, best > 0
+                ? _localization.Get(LocalizationTable.Ui, ShiftRecordKey, best, _shiftConfig.Length)
+                : _localization.Get(LocalizationTable.Ui, ShiftLengthKey, _shiftConfig.Length));
         }
 
         private void OnShiftClicked()
