@@ -6,79 +6,113 @@ using UnityEngine;
 
 namespace Hauntscope.Editor
 {
-    // The launcher icon speaks the game's visual language: the poltergeist rendered with the real ghost shader in
-    // ghost cyan, framed by the viewfinder's focus brackets and a REC dot, on the camcorder's dark scanlined glass.
+    // The launcher and store icon: the poltergeist rendered with the real ghost shader, big, with red eyes and a black
+    // mouth, glowing on the camcorder's dark scanlined glass, with two focus brackets and a REC dot. One design, laid out
+    // in "master" units (0..1 across the store icon, v up), is drawn at a scale per target: 1 for the full square store
+    // and legacy icons, smaller for the adaptive layers so the ghost stays inside the launcher's mask.
     public static class AppIconGenerator
     {
         private const string Folder = "Assets/_Hauntscope/Art/Sprites/Icon";
         private const string SquarePath = Folder + "/AppIcon.png";
         private const string BackgroundPath = Folder + "/AppIconBackground.png";
         private const string ForegroundPath = Folder + "/AppIconForeground.png";
+        private const string StoreFolder = "fastlane/metadata/android";
         private const string GhostPrefabPath = "Assets/_Hauntscope/Prefabs/Ghosts/Poltergeist.prefab";
         private const int Size = 1024;
+        private const int StoreSize = 512;
+        private const int GhostRender = 1024;
+        private const int GhostPad = 256;
 
-        // Adaptive icons can be masked down to a circle of 66% of the layer, so every element stays inside it.
-        private const float FrameHalf = 0.215f;
-        private const float BracketArm = 0.085f;
-        private const float BracketWidth = 0.016f;
-        private const float BracketGlow = 0.018f;
-        private const float GhostScale = 0.46f;
-        private const float GhostCenterY = 0.48f;
-        private const float HaloRadius = 0.26f;
-        private const float HaloStrength = 0.24f;
-        private const float RecRadius = 0.021f;
-        private const float RecGlow = 0.022f;
-        private const float VignetteStart = 0.15f;
-        private const float VignetteEnd = 0.75f;
+        // Adaptive layers are 108 dp and launchers keep a 66 dp circle: at this scale the ghost fits that circle.
+        private const float AdaptiveScale = 0.6f;
+        private const float GhostHeight = 0.762f;
+        private const float GhostTop = 0.854f;
+        private const float MouthSplit = 0.55f;
+        private const float BackgroundRadius = 0.72f;
+        private const float BodyGlowSigma = 50f / Size;
+        private const float BodyGlowStrength = 0.5f;
+        private const float EyeGlowSigma = 22f / Size;
+        private const float EyeGlowStrength = 1.3f;
+        private const float BracketHalf = 0.43f;
+        private const float BracketArm = 0.10f;
+        private const float BracketWidth = 0.02f;
+        private const float BracketGlow = 0.014f;
+        private const float RecRadius = 0.028f;
+        private const float RecGlow = 1.8f;
+        private const float GrainAmount = 5f / 255f;
+        private const int GrainSeed = 7;
         private const int ScanlinePeriod = 6;
         private const int ScanlineThickness = 2;
         private const float ScanlineDarkening = 0.14f;
-        private const float LegacyCornerRadius = 0.18f;
-        // The visible part of an adaptive layer (72 of 108 dp): legacy icons are cropped to it, so they aren't mostly margin.
-        private const float AdaptiveVisibleArea = 72f / 108f;
 
         private static readonly Vector2 Center = new Vector2(0.5f, 0.5f);
-        private static readonly Vector2 RecCenter = new Vector2(0.335f, 0.665f);
+        private static readonly Vector2 RecCenter = new Vector2(0.855f, 0.86f);
+        private static readonly Vector2[] BracketCorners = { new Vector2(-1f, 1f), new Vector2(1f, -1f) };
 
         [MenuItem("Hauntscope/Build App Icon")]
         public static void Build()
         {
-            var ghostCyan = Hex("#4FF5E6");
-            var background = BuildBackground(Hex("#141B24"), Hex("#0B0F14"), Hex("#E6EDF3"), ghostCyan);
-            var foreground = BuildForeground(ghostCyan, Hex("#FF3B3B"));
-            var composite = Over(background, foreground);
+            var ghost = new GhostLayer(Hex("#3DFF6E"), Hex("#FF463C"), Hex("#05080A"));
+            var colors = new Palette
+            {
+                Inner = Hex("#0E2C30"),
+                Outer = Hex("#06090C"),
+                Bracket = Hex("#E6EDF3"),
+                Glow = Hex("#4FF5E6"),
+                Rec = Hex("#FF3B3B")
+            };
+
+            var square = Over(BuildBackground(1f, colors), BuildForeground(1f, ghost, colors));
+            var background = BuildBackground(AdaptiveScale, colors);
+            var foreground = BuildForeground(AdaptiveScale, ghost, colors);
 
             Directory.CreateDirectory(Path.GetFullPath(Folder));
             var backgroundTexture = Save(BackgroundPath, background);
             var foregroundTexture = Save(ForegroundPath, foreground);
-            var legacyTexture = Save(SquarePath, Mask(Crop(composite, AdaptiveVisibleArea), LegacyCornerRadius));
+            var legacyTexture = Save(SquarePath, square);
             Assign(backgroundTexture, foregroundTexture, legacyTexture);
+            SaveStoreIcon(Half(square));
             Debug.Log("Hauntscope: built app icon.");
         }
 
-        private static Color[] BuildBackground(Color panel, Color bg, Color bracket, Color glow)
+        private struct Palette
+        {
+            public Color Inner;
+            public Color Outer;
+            public Color Bracket;
+            public Color Glow;
+            public Color Rec;
+        }
+
+        // Master coordinates of a layer pixel at the given scale: the master square shrinks around the centre.
+        private static Vector2 Master(int x, int y, float scale)
+        {
+            return Center + (new Vector2((x + 0.5f) / Size, (y + 0.5f) / Size) - Center) / scale;
+        }
+
+        private static Color[] BuildBackground(float scale, Palette colors)
         {
             var pixels = new Color[Size * Size];
-            var ghostCenter = new Vector2(0.5f, GhostCenterY);
+            var random = new System.Random(GrainSeed);
+            var pixel = scale * Size;
             for (var y = 0; y < Size; y++)
             {
                 for (var x = 0; x < Size; x++)
                 {
-                    var p = new Vector2((x + 0.5f) / Size, (y + 0.5f) / Size);
-                    var color = Color.Lerp(panel, bg, Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(VignetteStart, VignetteEnd, (p - Center).magnitude)));
-
-                    // A soft halo behind the ghost, as if its glow lit the lens.
-                    var halo = (p - ghostCenter).magnitude / HaloRadius;
-                    color += glow * (HaloStrength * Mathf.Exp(-halo * halo));
+                    var p = Master(x, y, scale);
+                    var t = Mathf.Clamp01((p - Center).magnitude / BackgroundRadius);
+                    var color = Color.Lerp(colors.Inner, colors.Outer, t * t * (3f - 2f * t));
+                    color = Grain(color, random);
+                    color = Scanline(color, y);
 
                     var distance = Brackets(p);
-                    var line = Coverage(distance - BracketWidth * 0.5f);
+                    var line = Coverage(distance - BracketWidth * 0.5f, pixel);
                     var outer = Mathf.Max(0f, distance - BracketWidth * 0.5f) / BracketGlow;
-                    var bracketAlpha = Mathf.Max(line, 0.35f * Mathf.Exp(-outer * outer));
-                    color = Color.Lerp(color, bracket, bracketAlpha);
+                    color = Color.Lerp(color, colors.Bracket, Mathf.Max(line, 0.45f * Mathf.Exp(-outer * outer)) * 0.95f);
 
-                    if (y % ScanlinePeriod < ScanlineThickness)
-                        color *= 1f - ScanlineDarkening;
+                    var rec = (p - RecCenter).magnitude - RecRadius;
+                    var recOuter = Mathf.Max(0f, rec) / (RecRadius * RecGlow);
+                    color = Color.Lerp(color, colors.Rec, Mathf.Max(Coverage(rec, pixel), 0.55f * Mathf.Exp(-recOuter * recOuter)));
 
                     color.a = 1f;
                     pixels[y * Size + x] = color;
@@ -88,52 +122,222 @@ namespace Hauntscope.Editor
             return pixels;
         }
 
-        private static Color[] BuildForeground(Color ghostColor, Color recColor)
+        private static Color[] BuildForeground(float scale, GhostLayer ghost, Palette colors)
         {
             var pixels = new Color[Size * Size];
-            var ghostSize = Mathf.RoundToInt(Size * GhostScale);
-            var ghost = GhostIconGenerator.RenderPixels(AssetDatabase.LoadAssetAtPath<GameObject>(GhostPrefabPath), ghostColor, ghostSize);
-            var originX = (Size - ghostSize) / 2;
-            var originY = Mathf.RoundToInt(Size * GhostCenterY) - ghostSize / 2;
-            for (var y = 0; y < ghostSize; y++)
-            {
-                for (var x = 0; x < ghostSize; x++)
-                    pixels[(originY + y) * Size + originX + x] = ghost[y * ghostSize + x];
-            }
-
+            var random = new System.Random(GrainSeed + 1);
             for (var y = 0; y < Size; y++)
             {
                 for (var x = 0; x < Size; x++)
                 {
-                    var p = new Vector2((x + 0.5f) / Size, (y + 0.5f) / Size);
-                    var distance = (p - RecCenter).magnitude - RecRadius;
-                    var outer = Mathf.Max(0f, distance) / RecGlow;
-                    var alpha = Mathf.Max(Coverage(distance), 0.55f * Mathf.Exp(-outer * outer));
-                    if (alpha <= 0f)
-                        continue;
+                    var p = Master(x, y, scale);
+                    var color = new Color(colors.Glow.r, colors.Glow.g, colors.Glow.b, Mathf.Clamp01(ghost.BodyGlow(p) * BodyGlowStrength));
+                    color = Blend(color, ghost.Body(p));
+                    color = Blend(color, new Color(colors.Rec.r, colors.Rec.g, colors.Rec.b, Mathf.Clamp01(ghost.EyeGlow(p) * EyeGlowStrength)));
+                    if (color.a > 0f)
+                    {
+                        var alpha = color.a;
+                        color = Scanline(Grain(color, random), y);
+                        color.a = alpha;
+                    }
 
-                    var index = y * Size + x;
-                    pixels[index] = Blend(pixels[index], new Color(recColor.r, recColor.g, recColor.b, alpha));
+                    pixels[y * Size + x] = color;
                 }
             }
 
             return pixels;
         }
 
+        private static Color Grain(Color color, System.Random random)
+        {
+            // Box-Muller: film grain is normally distributed, and a fixed seed keeps every build identical.
+            var u1 = 1.0 - random.NextDouble();
+            var u2 = random.NextDouble();
+            var noise = (float)(System.Math.Sqrt(-2.0 * System.Math.Log(u1)) * System.Math.Cos(2.0 * System.Math.PI * u2)) * GrainAmount;
+            return new Color(color.r + noise, color.g + noise, color.b + noise, color.a);
+        }
+
+        private static Color Scanline(Color color, int y)
+        {
+            if (y % ScanlinePeriod < ScanlineThickness)
+                color *= 1f - ScanlineDarkening;
+            return color;
+        }
+
         private static float Brackets(Vector2 p)
         {
             var distance = float.MaxValue;
-            for (var sx = -1; sx <= 1; sx += 2)
+            foreach (var side in BracketCorners)
             {
-                for (var sy = -1; sy <= 1; sy += 2)
-                {
-                    var corner = Center + new Vector2(sx * FrameHalf, sy * FrameHalf);
-                    distance = Mathf.Min(distance, Segment(p, corner, corner - new Vector2(sx * BracketArm, 0f)));
-                    distance = Mathf.Min(distance, Segment(p, corner, corner - new Vector2(0f, sy * BracketArm)));
-                }
+                var corner = Center + side * BracketHalf;
+                distance = Mathf.Min(distance, Segment(p, corner, corner - new Vector2(side.x * BracketArm, 0f)));
+                distance = Mathf.Min(distance, Segment(p, corner, corner - new Vector2(0f, side.y * BracketArm)));
             }
 
             return distance;
+        }
+
+        // The rendered poltergeist with its face recoloured, plus its blurred glows, all sampled in master coordinates.
+        private sealed class GhostLayer
+        {
+            private const int Canvas = GhostRender + 2 * GhostPad;
+
+            private readonly Color[] _body = new Color[Canvas * Canvas];
+            private readonly float[] _bodyGlow = new float[Canvas * Canvas];
+            private readonly float[] _eyeGlow;
+            private readonly float _left;
+            private readonly float _bottom;
+            private readonly float _width;
+            private readonly float _texLeft;
+            private readonly float _texBottom;
+            private readonly float _texWidth;
+            private readonly float _texHeight;
+
+            public GhostLayer(Color rim, Color eyes, Color mouth)
+            {
+                var render = GhostIconGenerator.RenderPixels(AssetDatabase.LoadAssetAtPath<GameObject>(GhostPrefabPath), rim, GhostRender);
+                int minX = GhostRender, maxX = -1, minY = GhostRender, maxY = -1;
+                int faceLow = GhostRender, faceHigh = -1;
+                for (var y = 0; y < GhostRender; y++)
+                {
+                    for (var x = 0; x < GhostRender; x++)
+                    {
+                        var c = render[y * GhostRender + x];
+                        if (c.a > 8)
+                        {
+                            minX = Mathf.Min(minX, x);
+                            maxX = Mathf.Max(maxX, x);
+                            minY = Mathf.Min(minY, y);
+                            maxY = Mathf.Max(maxY, y);
+                        }
+
+                        if (IsFace(c))
+                        {
+                            faceLow = Mathf.Min(faceLow, y);
+                            faceHigh = Mathf.Max(faceHigh, y);
+                        }
+                    }
+                }
+
+                // The white face splits into eyes above and a mouth below: eyes burn red, the mouth becomes a hole.
+                var split = faceHigh - (faceHigh - faceLow) * MouthSplit;
+                var eyeMask = new float[Canvas * Canvas];
+                for (var y = 0; y < GhostRender; y++)
+                {
+                    for (var x = 0; x < GhostRender; x++)
+                    {
+                        Color c = render[y * GhostRender + x];
+                        var index = (y + GhostPad) * Canvas + x + GhostPad;
+                        if (IsFace(render[y * GhostRender + x]))
+                        {
+                            var isEye = y > split;
+                            var tint = isEye ? eyes : mouth;
+                            c = new Color(tint.r, tint.g, tint.b, c.a);
+                            if (isEye)
+                                eyeMask[index] = 1f;
+                        }
+
+                        _body[index] = c;
+                        _bodyGlow[index] = c.a;
+                    }
+                }
+
+                _texLeft = minX + GhostPad;
+                _texBottom = minY + GhostPad;
+                _texWidth = maxX - minX + 1;
+                _texHeight = maxY - minY + 1;
+                _width = GhostHeight * _texWidth / _texHeight;
+                _left = 0.5f - _width * 0.5f;
+                _bottom = GhostTop - GhostHeight;
+
+                // Glow radii are set in master units, the blur runs in texture pixels.
+                var texelsPerMaster = _texHeight / GhostHeight;
+                Blur.Gaussian(_bodyGlow, Canvas, BodyGlowSigma * texelsPerMaster);
+                Blur.Gaussian(eyeMask, Canvas, EyeGlowSigma * texelsPerMaster);
+                _eyeGlow = eyeMask;
+            }
+
+            public Color Body(Vector2 p)
+            {
+                return TryTexel(p, out var x, out var y) ? SampleColor(x, y) : Color.clear;
+            }
+
+            public float BodyGlow(Vector2 p)
+            {
+                return TryTexel(p, out var x, out var y) ? SampleFloat(_bodyGlow, x, y) : 0f;
+            }
+
+            public float EyeGlow(Vector2 p)
+            {
+                return TryTexel(p, out var x, out var y) ? SampleFloat(_eyeGlow, x, y) : 0f;
+            }
+
+            private static bool IsFace(Color32 c)
+            {
+                return c.a > 150 && Mathf.Min(c.r, Mathf.Min(c.g, c.b)) > 190;
+            }
+
+            private bool TryTexel(Vector2 p, out float x, out float y)
+            {
+                x = _texLeft + (p.x - _left) / _width * _texWidth - 0.5f;
+                y = _texBottom + (p.y - _bottom) / GhostHeight * _texHeight - 0.5f;
+                return x >= 0f && y >= 0f && x < Canvas - 1 && y < Canvas - 1;
+            }
+
+            private Color SampleColor(float fx, float fy)
+            {
+                int x0 = (int)fx, y0 = (int)fy;
+                float tx = fx - x0, ty = fy - y0;
+                // Straight alpha: colours are weighted by coverage, or the ghost's edge would bleed dark.
+                var a = Premultiply(_body[y0 * Canvas + x0]) * (1 - tx) * (1 - ty) + Premultiply(_body[y0 * Canvas + x0 + 1]) * tx * (1 - ty)
+                    + Premultiply(_body[(y0 + 1) * Canvas + x0]) * (1 - tx) * ty + Premultiply(_body[(y0 + 1) * Canvas + x0 + 1]) * tx * ty;
+                return a.a > 0f ? new Color(a.r / a.a, a.g / a.a, a.b / a.a, a.a) : Color.clear;
+            }
+
+            private static Color Premultiply(Color c)
+            {
+                return new Color(c.r * c.a, c.g * c.a, c.b * c.a, c.a);
+            }
+
+            private static float SampleFloat(float[] data, float fx, float fy)
+            {
+                int x0 = (int)fx, y0 = (int)fy;
+                float tx = fx - x0, ty = fy - y0;
+                return Mathf.Lerp(Mathf.Lerp(data[y0 * Canvas + x0], data[y0 * Canvas + x0 + 1], tx),
+                    Mathf.Lerp(data[(y0 + 1) * Canvas + x0], data[(y0 + 1) * Canvas + x0 + 1], tx), ty);
+            }
+        }
+
+        private static class Blur
+        {
+            // Three box passes each way approximate a Gaussian closely enough for a glow.
+            public static void Gaussian(float[] data, int size, float sigma)
+            {
+                var radius = Mathf.Max(1, Mathf.RoundToInt((Mathf.Sqrt(12f * sigma * sigma / 3f + 1f) - 1f) * 0.5f));
+                var buffer = new float[data.Length];
+                for (var pass = 0; pass < 3; pass++)
+                {
+                    Box(data, buffer, size, radius, 1, size);
+                    Box(buffer, data, size, radius, size, 1);
+                }
+            }
+
+            private static void Box(float[] source, float[] target, int size, int radius, int step, int lineStep)
+            {
+                var norm = 1f / (2 * radius + 1);
+                for (var line = 0; line < size; line++)
+                {
+                    var start = line * lineStep;
+                    var sum = 0f;
+                    for (var i = -radius; i <= radius; i++)
+                        sum += source[start + Mathf.Clamp(i, 0, size - 1) * step];
+                    for (var i = 0; i < size; i++)
+                    {
+                        target[start + i * step] = sum * norm;
+                        sum += source[start + Mathf.Min(i + radius + 1, size - 1) * step] - source[start + Mathf.Max(i - radius, 0) * step];
+                    }
+                }
+            }
         }
 
         private static Color[] Over(Color[] bottom, Color[] top)
@@ -145,49 +349,15 @@ namespace Hauntscope.Editor
             return result;
         }
 
-        private static Color[] Crop(Color[] pixels, float area)
+        private static Color[] Half(Color[] pixels)
         {
-            var result = new Color[pixels.Length];
-            var offset = (1f - area) * 0.5f;
-            for (var y = 0; y < Size; y++)
+            var result = new Color[StoreSize * StoreSize];
+            for (var y = 0; y < StoreSize; y++)
             {
-                for (var x = 0; x < Size; x++)
-                    result[y * Size + x] = Sample(pixels, offset + (x + 0.5f) / Size * area, offset + (y + 0.5f) / Size * area);
-            }
-
-            return result;
-        }
-
-        private static Color Sample(Color[] pixels, float u, float v)
-        {
-            var fx = u * Size - 0.5f;
-            var fy = v * Size - 0.5f;
-            var x0 = Mathf.Clamp(Mathf.FloorToInt(fx), 0, Size - 1);
-            var y0 = Mathf.Clamp(Mathf.FloorToInt(fy), 0, Size - 1);
-            var x1 = Mathf.Min(x0 + 1, Size - 1);
-            var y1 = Mathf.Min(y0 + 1, Size - 1);
-            var tx = fx - Mathf.Floor(fx);
-            var ty = fy - Mathf.Floor(fy);
-            var bottom = Color.Lerp(pixels[y0 * Size + x0], pixels[y0 * Size + x1], tx);
-            var top = Color.Lerp(pixels[y1 * Size + x0], pixels[y1 * Size + x1], tx);
-            return Color.Lerp(bottom, top, ty);
-        }
-
-        // Legacy launchers show the bitmap as-is, so that version carries its own rounded edge.
-        private static Color[] Mask(Color[] pixels, float cornerRadius)
-        {
-            var result = new Color[pixels.Length];
-            var half = new Vector2(0.5f, 0.5f);
-            for (var y = 0; y < Size; y++)
-            {
-                for (var x = 0; x < Size; x++)
+                for (var x = 0; x < StoreSize; x++)
                 {
-                    var p = new Vector2((x + 0.5f) / Size, (y + 0.5f) / Size);
-                    var q = new Vector2(Mathf.Abs(p.x - Center.x), Mathf.Abs(p.y - Center.y)) - half + new Vector2(cornerRadius, cornerRadius);
-                    var distance = new Vector2(Mathf.Max(q.x, 0f), Mathf.Max(q.y, 0f)).magnitude + Mathf.Min(Mathf.Max(q.x, q.y), 0f) - cornerRadius;
-                    var color = pixels[y * Size + x];
-                    color.a *= Coverage(distance);
-                    result[y * Size + x] = color;
+                    var i = y * 2 * Size + x * 2;
+                    result[y * StoreSize + x] = (pixels[i] + pixels[i + 1] + pixels[i + Size] + pixels[i + Size + 1]) * 0.25f;
                 }
             }
 
@@ -205,9 +375,9 @@ namespace Hauntscope.Editor
             return color;
         }
 
-        private static float Coverage(float distance)
+        private static float Coverage(float distance, float pixelsPerUnit)
         {
-            return Mathf.Clamp01(0.5f - distance * Size);
+            return Mathf.Clamp01(0.5f - distance * pixelsPerUnit);
         }
 
         private static float Segment(Vector2 p, Vector2 a, Vector2 b)
@@ -218,20 +388,24 @@ namespace Hauntscope.Editor
             return (pa - ba * h).magnitude;
         }
 
-        private static Texture2D Save(string path, Color[] pixels)
+        private static byte[] EncodePng(Color[] pixels, int size)
         {
-            var texture = new Texture2D(Size, Size, TextureFormat.RGBA32, false);
+            var texture = new Texture2D(size, size, TextureFormat.RGBA32, false);
             try
             {
                 texture.SetPixels(pixels);
                 texture.Apply();
-                File.WriteAllBytes(Path.GetFullPath(path), texture.EncodeToPNG());
+                return texture.EncodeToPNG();
             }
             finally
             {
                 Object.DestroyImmediate(texture);
             }
+        }
 
+        private static Texture2D Save(string path, Color[] pixels)
+        {
+            File.WriteAllBytes(Path.GetFullPath(path), EncodePng(pixels, Size));
             AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
             var importer = (TextureImporter)AssetImporter.GetAtPath(path);
             importer.textureType = TextureImporterType.Default;
@@ -240,6 +414,22 @@ namespace Hauntscope.Editor
             importer.textureCompression = TextureImporterCompression.Uncompressed;
             importer.SaveAndReimport();
             return AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+        }
+
+        // Google Play wants a full square 512 icon and rounds it itself; every listing language gets the same one.
+        private static void SaveStoreIcon(Color[] pixels)
+        {
+            var png = EncodePng(pixels, StoreSize);
+            var root = Path.GetFullPath(StoreFolder);
+            if (!Directory.Exists(root))
+                return;
+
+            foreach (var locale in Directory.GetDirectories(root))
+            {
+                var images = Path.Combine(locale, "images");
+                Directory.CreateDirectory(images);
+                File.WriteAllBytes(Path.Combine(images, "icon.png"), png);
+            }
         }
 
         private static void Assign(Texture2D background, Texture2D foreground, Texture2D legacy)
