@@ -1,24 +1,41 @@
-Hauntscope macht dein Handy zur paranormalen Kamera. Richte sie auf dein Zimmer, folge dem EMF-Radar und fang die Geister, die sich bei dir zu Hause verstecken – direkt durch die Kamera, in Augmented Reality.
+Hauntscope ist ein Geister Detektor Spiel, das dein Handy in eine paranormale Geisterkamera verwandelt. Scanne dein Zuhause mit dem EMF-Detektor, stimme die Spirit Box ab und fang Geister direkt in deinem Zimmer – in Augmented Reality.
 
-SO LÄUFT DIE JAGD
-• EMF-Radar: Je näher der Geist, desto schneller piept es.
-• Linse: Zeigt, was das Auge nicht sieht, aber sie zieht Akku.
-• Fangstrahl: Halte den Geist im Ring, bis er gefangen ist.
-• Geisterkamera: Mach Beweisfotos und teile deine besten Aufnahmen.
+Jeder Agent bekommt eine komplette Ausrüstung für die Geisterjagd – rechtzeitig zu Halloween. Folge den Signalen, finde das Versteck des Geistes und fang ihn, bevor der Akku leer ist.
+
+SO FUNKTIONIERT DER GEISTERDETEKTOR
+1. Scanne dein Zimmer und lass den Geisterdetektor ein Signal auffangen.
+2. Folge dem EMF-Radar, den Stimmen der Spirit Box und deinen EVP-Aufnahmen, um näher heranzukommen.
+3. Finde das Versteck mit Wärmebildkamera, Nachtsicht oder UV-Taschenlampe.
+4. Mach den Geist mit der Linse sichtbar und fang ihn mit dem Fangstrahl.
+5. Mach ein Foto für seine Akte – wie bei einer echten Geisterjagd.
+
+WERKZEUGE FÜR DIE GEISTERJAGD
+• EMF-Detektor und Geisterradar: Je näher der Geist, desto schneller piept es.
+• Spirit Box: Durchsuche das Radiorauschen, bis eine Stimme verrät, wo der Geist ist: links, hinter dir, ganz nah.
+• EVP-Rekorder: Nimm die Stille im Raum auf, spiel sie ab und hör, was der Geist geflüstert hat.
+• Wärmebildkamera: Geister erscheinen als kalte Flecken auf der Wärmekarte.
+• Nachtsicht: Wechsle in die grüne Camcorder-Ansicht und entdecke schwache Umrisse im Dunkeln.
+• UV-Taschenlampe: Leuchtende Spuren führen zum Versteck des Geistes.
+• Linse: Sieh den Geist mit eigenen Augen, solange der Akku reicht.
+• Fangstrahl: Halte den Geist im Ring, bis die Falle zuschnappt.
+
+EINE GEISTERKAMERA FÜR BEWEISE UND STREICHE
+• Geisterkamera: Mach Beweisfotos von jedem Geist und teile deine besten Aufnahmen.
+• Geister-Streich: Platziere einen Geist irgendwo in deinem Zimmer, mach das Foto und erschrecke deine Freunde.
 
 12 GEISTER, 12 ARTEN ZU JAGEN
-Vom scheuen Irrlicht bis zur legendären Mara, die zum Licht kommt: Jeder Geist hat seinen eigenen Körper, seine Stimme und seinen Trick. Der Poltergeist teleportiert sich, die Banshee schreit, der Nachahmer belügt dein EMF-Messgerät, das Negativ existiert nur auf Film und der Schleicher bewegt sich nur, wenn du wegsiehst.
+Vom scheuen Irrlicht bis zur legendären Mara, die zum Licht kommt: Jeder Geist hat sein eigenes Aussehen, seine Stimme und seinen Trick. Der Poltergeist teleportiert sich, die Banshee schreit, der Nachahmer täuscht deinen EMF-Detektor, das Negativ existiert nur auf Film und der Schleicher bewegt sich nur, wenn du wegsiehst. Jeder Geist braucht seine eigene Taktik für die Geisterjagd.
 
-UND NOCH MEHR
+NOCH MEHR PARANORMALES
 • Akten im Bestiarium: Zeugenaussagen, Taktiken und streng geheime Notizen zum Freigeben.
 • Nachtschicht: drei Geister hintereinander, mit Boni, die sich addieren.
 • Agentur-Aufträge und eine Tagesration an Belohnungen.
 • Geisterstunde: Von 23:00 bis 04:00 kommen seltene Geister heraus und jeder Fang bringt mehr.
 • Laser und Ausrüstung aus dem Agentur-Lager.
 
-KEIN AR? KEIN PROBLEM
-Wenn dein Handy ARCore nicht unterstützt oder du die Kamera nicht nutzen möchtest, jagst du im virtuellen Raum: einer verlassenen Wohnung voller Verstecke.
+KEIN AR? JAGE IN EINER SPUKWOHNUNG
+Wenn dein Handy ARCore nicht unterstützt oder du die Kamera nicht nutzen möchtest, jagst du im virtuellen Raum: einer verlassenen Spukwohnung voller Verstecke.
 
-Ein Geisterjäger-Spiel auf Englisch, Ukrainisch, Spanisch, Portugiesisch, Deutsch und Indonesisch.
+Der Geisterdetektor und die Geisterkamera für Halloween, Pyjamapartys und alle, die bei der Geisterjagd gern einen Schreck bekommen.
 
 Hauntscope ist ein Spiel, das nur der Unterhaltung dient. Es erkennt keine echten paranormalen Aktivitäten.

@@ -1,24 +1,41 @@
-Hauntscope convierte tu teléfono en una cámara paranormal. Apunta a tu cuarto, sigue el radar EMF y atrapa a los fantasmas que se esconden en tu casa, ahí mismo, a través de la cámara, en realidad aumentada.
+Hauntscope es un juego detector de fantasmas que convierte tu teléfono en una cámara de fantasmas paranormal. Escanea tu casa con el detector EMF, sintoniza la Spirit Box y atrapa fantasmas en tu propio cuarto con realidad aumentada.
 
-ASÍ ES LA CACERÍA
-• Radar EMF: cuanto más cerca está el fantasma, más rápido pita.
-• Lente: revela lo que el ojo no ve, pero cuida tu batería.
-• Rayo de captura: mantén al fantasma dentro del anillo hasta atraparlo.
-• Cámara espiritual: toma fotos como prueba y comparte las mejores.
+Cada agente recibe un equipo completo de cazador de fantasmas, justo a tiempo para Halloween. Sigue las señales, encuentra dónde se esconde el fantasma y atrápalo antes de que se agote la batería.
+
+CÓMO FUNCIONA EL DETECTOR DE FANTASMAS
+1. Escanea tu cuarto y deja que el detector de fantasmas capte una señal.
+2. Sigue el radar EMF, las voces de la Spirit Box y tus grabaciones EVP para acercarte.
+3. Busca su escondite con la cámara térmica, la visión nocturna o la linterna UV.
+4. Revélalo con la lente y atrápalo con el rayo de captura.
+5. Toma una foto para su expediente, como un verdadero cazador de fantasmas.
+
+HERRAMIENTAS PARA LA CAZA DE FANTASMAS
+• Detector EMF y radar de fantasmas: cuanto más cerca está el fantasma, más rápido pita.
+• Spirit Box: recorre la estática de radio hasta que una voz te diga dónde está: a la izquierda, detrás de ti, cerca.
+• Grabadora EVP: graba el silencio del cuarto, reprodúcelo y escucha lo que susurró el fantasma.
+• Cámara térmica: los fantasmas aparecen como puntos fríos en el mapa de calor.
+• Visión nocturna: cambia a la vista verde de videocámara y descubre siluetas en la oscuridad.
+• Linterna UV: revela rastros brillantes que llevan al escondite del fantasma.
+• Lente: ve al fantasma con tus propios ojos, si te alcanza la batería.
+• Rayo de captura: mantén al fantasma dentro del anillo hasta que se cierre la trampa.
+
+UNA CÁMARA DE FANTASMAS PARA PRUEBAS Y BROMAS
+• Cámara espiritual: toma fotos como prueba de cada fantasma y comparte las mejores.
+• Bromas de fantasmas: coloca un fantasma en cualquier parte de tu cuarto, toma la foto y asusta a tus amigos.
 
 12 FANTASMAS, 12 FORMAS DE CAZAR
-Desde el tímido Fuego Fatuo hasta la legendaria Mara que va hacia la luz, cada fantasma tiene su propio cuerpo, voz y truco. El Poltergeist se teletransporta, la Banshee chilla, el Imitador engaña a tu medidor EMF, el Negativo solo existe en la película y el Acechador solo se mueve cuando apartas la mirada.
+Desde el tímido Fuego Fatuo hasta la legendaria Mara que va hacia la luz, cada fantasma tiene su propio aspecto, voz y truco. El Poltergeist se teletransporta, la Banshee chilla, el Imitador engaña a tu detector EMF, el Negativo solo existe en la película y el Acechador solo se mueve cuando apartas la mirada. Cada fantasma pide su propia táctica de caza.
 
-Y MUCHO MÁS
+MÁS ACTIVIDAD PARANORMAL
 • Expedientes del Bestiario: testimonios, tácticas y notas de alto secreto por desclasificar.
 • Turno nocturno: tres fantasmas seguidos, con mejoras que se acumulan.
 • Órdenes de la agencia y una ración diaria de recompensas.
 • Hora bruja: de 23:00 a 04:00 salen fantasmas raros y cada captura paga más.
 • Láseres y equipo del almacén de la agencia.
 
-¿SIN AR? NO HAY PROBLEMA
-Si tu teléfono no es compatible con ARCore o prefieres no usar la cámara, caza en el Cuarto Virtual: un departamento abandonado lleno de escondites.
+¿SIN AR? CAZA EN UN DEPARTAMENTO EMBRUJADO
+Si tu teléfono no es compatible con ARCore o prefieres no usar la cámara, caza en el Cuarto Virtual: un departamento abandonado y embrujado, lleno de escondites.
 
-Un juego de cazafantasmas en inglés, ucraniano, español, portugués, alemán e indonesio.
+El detector de fantasmas y la cámara de fantasmas ideales para Halloween, las pijamadas y todo cazador de fantasmas al que le gusta un buen susto.
 
 Hauntscope es un juego solo para entretenimiento. No detecta actividad paranormal real.

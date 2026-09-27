@@ -1,24 +1,41 @@
-Hauntscope turns your phone into a paranormal camcorder. Point it at your room, follow the EMF radar and catch the ghosts hiding in your home, right there through the camera in augmented reality.
+Hauntscope is a ghost detector game that turns your phone into a paranormal ghost camera. Scan your home with the EMF detector, tune the Spirit Box and catch ghosts right in your room in augmented reality.
 
-HOW THE HUNT WORKS
-• EMF radar: the closer the ghost, the faster it beeps.
-• Ghost Lens: reveal what the naked eye can't see, but watch your battery.
-• Capture Beam: hold the ghost inside the ring until it's trapped.
-• Spirit Camera: snap evidence photos and share your best shots.
+Every agent gets a full ghost hunting kit, just in time for Halloween. Follow the signals, find where the ghost hides and trap it before your battery dies.
+
+HOW THE GHOST DETECTOR WORKS
+1. Scan your room and let the ghost detector pick up a signal.
+2. Follow the EMF radar, the Spirit Box voices and your EVP recordings to close in.
+3. Use the thermal camera, night vision or UV flashlight to find its hiding place.
+4. Reveal it with the Ghost Lens and trap it with the Capture Beam.
+5. Snap a photo for its case file, like a real ghost hunter.
+
+GHOST HUNTING TOOLS
+• EMF detector & ghost radar: the closer the ghost, the faster the meter beeps.
+• Spirit Box: sweep the radio static until a voice tells you where the ghost is: left, behind you, close.
+• EVP recorder: record the silence of the room, play it back and hear what the ghost whispered.
+• Thermal camera: ghosts show up as cold spots on the heat map.
+• Night vision: switch to the green camcorder view and spot faint shapes in the dark.
+• UV flashlight: reveal glowing traces that lead to the ghost's hiding place.
+• Ghost Lens: see the ghost with your own eyes, if your battery lasts.
+• Capture Beam: hold the ghost in the ring until the trap closes.
+
+A GHOST CAMERA FOR EVIDENCE AND PRANKS
+• Spirit camera: snap evidence photos of every ghost and share your best shots.
+• Ghost prank photos: place a ghost anywhere in your room, take the picture and scare your friends.
 
 12 GHOSTS, 12 WAYS TO HUNT
-From the shy Wisp to the legendary Mara who comes for your light, every ghost has its own body, voice and trick. The Poltergeist teleports, the Banshee shrieks, the Mimic lies to your EMF meter, the Negative exists only on film and the Lurker moves only when you look away.
+From the shy Wisp to the legendary Mara who comes for your light, every ghost has its own look, voice and trick. The Poltergeist teleports, the Banshee shrieks, the Mimic fools your EMF detector, the Negative exists only on film and the Lurker moves only when you look away. Every ghost needs its own ghost hunting tactic.
 
-MORE TO DO
+MORE PARANORMAL ACTIVITY
 • Bestiary case files: witness reports, tactics and top-secret notes to declassify.
 • Night Shift: three ghosts in a row, with perks that stack.
-• Agency orders and a daily ration keep the rewards coming.
+• Agency orders and a daily ration of rewards.
 • Witching hour: from 23:00 to 04:00 rare ghosts come out and every catch pays more.
 • Lasers and gear from the agency supply depot.
 
-NO AR? NO PROBLEM
-If your phone doesn't support ARCore, or you'd rather not use the camera, hunt in the Virtual Room: an abandoned flat full of hiding spots.
+NO AR? HUNT IN A HAUNTED FLAT
+If your phone doesn't support ARCore, or you'd rather not use the camera, hunt in the Virtual Room: a haunted, abandoned flat full of hiding spots.
 
-A ghost hunter game in English, Ukrainian, Spanish, Portuguese, German and Indonesian.
+The ghost detector and ghost camera for Halloween night, sleepovers and every ghost hunter who loves a good scare.
 
 Hauntscope is a game for entertainment purposes only. It does not detect real paranormal activity.

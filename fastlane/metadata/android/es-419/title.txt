@@ -1,1 +1,1 @@
-Hauntscope: Detector Fantasmas
+Detector de Fantasmas y Cámara
