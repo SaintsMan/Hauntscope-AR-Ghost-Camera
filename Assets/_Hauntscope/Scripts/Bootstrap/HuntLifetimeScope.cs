@@ -130,6 +130,8 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<ShiftHudPresenter>();
             builder.RegisterComponentInHierarchy<ContractToastView>();
             builder.RegisterEntryPoint<ContractToastPresenter>();
+            builder.RegisterComponentInHierarchy<TapeToastView>();
+            builder.RegisterEntryPoint<TapeToastPresenter>();
             builder.RegisterComponentInHierarchy<TrackingLostView>();
             builder.RegisterEntryPoint<TrackingLostPresenter>();
             builder.RegisterComponentInHierarchy<PauseView>();

@@ -34,6 +34,11 @@ namespace Hauntscope.Bootstrap
             builder.RegisterComponentInHierarchy<VirtualRoomNoticeView>();
             builder.RegisterEntryPoint<VirtualRoomNoticePresenter>();
             builder.Register<FieldDrop>(Lifetime.Singleton);
+            // The briefing is enqueued before the daily ration, so a new agent hears who they work for first.
+            builder.RegisterComponentInHierarchy<TapePlayerView>();
+            builder.RegisterEntryPoint<TapePlayerPresenter>().AsSelf();
+            builder.RegisterComponentInHierarchy<ArchiveView>();
+            builder.RegisterEntryPoint<ArchivePresenter>();
             builder.RegisterComponentInHierarchy<ShopView>();
             builder.RegisterEntryPoint<ShopPresenter>();
             builder.RegisterComponentInHierarchy<ContractsView>();

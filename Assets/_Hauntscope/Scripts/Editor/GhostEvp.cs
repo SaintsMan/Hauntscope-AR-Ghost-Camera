@@ -99,7 +99,7 @@ namespace Hauntscope.Editor
             return Reverb(voice, 0.3f, 0.9f, 0.5f);
         }
 
-        private static float[] Consonant(Onset onset, float formantScale, int seed)
+        internal static float[] Consonant(Onset onset, float formantScale, int seed)
         {
             switch (onset)
             {

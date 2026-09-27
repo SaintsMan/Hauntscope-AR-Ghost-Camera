@@ -1234,6 +1234,194 @@ MonoBehaviour:
     m_Localized: "M\xFAsica"
     m_Metadata:
       m_Items: []
+  - m_Id: 750341642911744
+    m_Localized: "FITA RECEBIDA \xB7 ESCRIT\xD3RIO NOTURNO \xB7 CONFIDENCIAL"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129472
+    m_Localized: "Agente, bem-vindo. A partir de hoje voc\xEA trabalha para o Escrit\xF3rio
+      Noturno.\n\nExistimos desde 1987 e fazemos uma coisa s\xF3: capturamos o que
+      vive em apartamentos comuns e n\xE3o tem o direito de estar l\xE1."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129473
+    m_Localized: "Seu equipamento \xE9 a c\xE2mera Hauntscope. Ela v\xEA o que o
+      olho n\xE3o v\xEA, e grava tudo.\n\nA \xFAltima dona, a agente Ida Vale, sumiu
+      em 31 de outubro no meio de um caso. A c\xE2mera voltou sozinha ao Escrit\xF3rio.
+      As fitas dela est\xE3o no arquivo. Ou\xE7a cada uma quando aparecer: ela sabia
+      mais do que n\xF3s."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129474
+    m_Localized: "Seu primeiro caso \xE9 o seu pr\xF3prio apartamento. O medidor
+      mostra atividade. Encontre, revele, capture.\n\nE, agente\u2026 se a c\xE2mera
+      algum dia mostrar algo que n\xE3o est\xE1 em nenhum arquivo nosso, avise a
+      mim primeiro.\n\n\u2014 O Curador"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129475
+    m_Localized: "PR\xD3XIMO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129476
+    m_Localized: ACEITAR O CASO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129477
+    m_Localized: PULAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129478
+    m_Localized: '{0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129479
+    m_Localized: ARQUIVO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129480
+    m_Localized: ARQUIVO DE FITAS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129481
+    m_Localized: 'Fitas: {0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129482
+    m_Localized: "VALE \xB7 {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129483
+    m_Localized: "ESCRIT\xD3RIO \xB7 00"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129484
+    m_Localized: "Instru\xE7\xF5es"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129485
+    m_Localized: FECHAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129486
+    m_Localized: "As fitas de Vale aparecem conforme seus casos avan\xE7am."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129487
+    m_Localized: NOVA FITA NO ARQUIVO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129488
+    m_Localized: "{0}: \u201C{1}\u201D"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129489
+    m_Localized: "Ou\xE7a no menu: ARQUIVO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129490
+    m_Localized: A primeira luz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129491
+    m_Localized: "Abre ap\xF3s sua primeira captura"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129492
+    m_Localized: "Fita um. Peguei o meu primeiro hoje: uma luzinha no banheiro. O
+      Curador diz que s\xE3o os f\xE1ceis.\n\nNotei uma coisa: assim que ele te v\xEA,
+      congela por um instante. \xC9 a\xED que voc\xEA ataca. E cuide da bateria:
+      a lente a consome mais r\xE1pido do que parece."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129493
+    m_Localized: Cada vez mais
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129494
+    m_Localized: "Abre ap\xF3s {0} capturas"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129495
+    m_Localized: "O terceiro nesta semana. Antes o Escrit\xF3rio recebia um chamado
+      por m\xEAs. Agora \xE9 toda noite. Algo est\xE1 ficando fino, e eles passam
+      com mais facilidade.\n\nO poltergeist salta, mas depois de cada salto fica
+      atordoado por um segundo. Estou aprendendo a l\xEA-los."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129496
+    m_Localized: A hora das bruxas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129497
+    m_Localized: "Abre ap\xF3s {0} capturas"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129498
+    m_Localized: "Entre as onze e as quatro eles s\xE3o diferentes. Mais fortes.
+      E aparecem os que nunca se veem de dia: aquele que fica atr\xE1s de voc\xEA
+      at\xE9 voc\xEA se virar.\n\nSe o ch\xE3o ranger, vire-se na hora. N\xE3o pergunte
+      como eu sei."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129499
+    m_Localized: O selo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129500
+    m_Localized: "Abre ap\xF3s seu primeiro arquivo desclassificado"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129501
+    m_Localized: "Hoje desclassifiquei meu primeiro arquivo. No fim de cada um h\xE1
+      um par\xE1grafo que n\xE3o est\xE1 em nenhum manual.\n\nContei os arquivos
+      do acervo. S\xE3o doze. Mas os n\xFAmeros v\xE3o at\xE9 treze. A pasta treze
+      est\xE1 vazia. O Curador diz que \xE9 erro de impress\xE3o."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129502
+    m_Localized: Turno da noite
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129503
+    m_Localized: "Abre ap\xF3s seu primeiro turno da noite"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129504
+    m_Localized: "Tr\xEAs fantasmas seguidos, no mesmo apartamento. Isso n\xE3o acontece.\n\nEu
+      conferi. Eles n\xE3o vinham para o endere\xE7o. Vinham para a c\xE2mera. A
+      Hauntscope n\xE3o s\xF3 os v\xEA. Ela os chama."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129505
+    m_Localized: Meu nome
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129506
+    m_Localized: "Abre ap\xF3s {0} capturas"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129507
+    m_Localized: "Deixei o EVP gravando a noite toda para pegar a mara. Na fita,
+      uma voz disse um nome. O meu. E era a minha voz.\n\nOuvi de novo. Agora s\xF3
+      tem chiado. Amanh\xE3 \xE9 31 de outubro. O \xFAltimo chamado eu atendo sozinha."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129508
+    m_Localized: Arquivo treze
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341785518080
+    m_Localized: "Abre quando voc\xEA capturar {0} fantasmas diferentes"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341785518081
+    m_Localized: "Se voc\xEA est\xE1 ouvindo isto, a c\xE2mera voltou a funcionar
+      e tem um novo agente. Ou\xE7a com aten\xE7\xE3o.\n\nEu n\xE3o sumi. Estou na
+      fita, entre os quadros. Quando o sil\xEAncio de um c\xF4modo ficar certinho
+      demais, sou eu.\n\nO arquivo treze \xE9 meu. Abra-o. Me liberte. Ou me capture."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

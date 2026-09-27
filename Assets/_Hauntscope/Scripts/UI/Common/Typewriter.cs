@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -17,13 +18,18 @@ namespace Hauntscope.UI.Common
 
         private Tween _typing;
 
+        // Every time the whole text is out: typed to the end, completed early or shown at once.
+        public event Action Finished;
+
+        public bool IsTyping => _typing != null;
+
         public void Play()
         {
             _typing?.Kill();
             // A tween on an inactive object would be killed at once and leave the text hidden.
             if (!isActiveAndEnabled)
             {
-                ShowAll();
+                Finish();
                 return;
             }
 
@@ -34,14 +40,31 @@ namespace Hauntscope.UI.Common
                     count / _charactersPerSecond)
                 .SetDelay(_delay)
                 .SetEase(Ease.Linear)
-                .OnComplete(ShowAll)
+                .OnComplete(Finish)
                 .Ui(gameObject);
+        }
+
+        // A tap on a text that is still typing shows the rest at once.
+        public void Complete()
+        {
+            if (_typing == null)
+                return;
+
+            _typing.Kill();
+            Finish();
         }
 
         private void OnDisable()
         {
             _typing = null;
             ShowAll();
+        }
+
+        private void Finish()
+        {
+            _typing = null;
+            ShowAll();
+            Finished?.Invoke();
         }
 
         private void ShowAll()

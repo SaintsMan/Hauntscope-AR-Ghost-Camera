@@ -1228,6 +1228,223 @@ MonoBehaviour:
     m_Localized: Music
     m_Metadata:
       m_Items: []
+  - m_Id: 750341642911744
+    m_Localized: "INCOMING TAPE \xB7 NIGHT BUREAU \xB7 CLASSIFIED"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129472
+    m_Localized: 'Agent, welcome. From tonight you work for the Night Bureau.
+
+
+      We
+      have been around since 1987 and we do one thing: we catch what lives in ordinary
+      flats and has no right to be there.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129473
+    m_Localized: 'Your kit is the Hauntscope camera. It sees what the eye cannot,
+      and it records everything.
+
+
+      Its last owner, Agent Ida Vale, vanished
+      on the 31st of October in the middle of a case. The camera came back to the
+      Bureau on its own. Her tapes are in the archive. Listen to them as they surface:
+      she knew more than we do.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129474
+    m_Localized: "Your first case is your own flat. The meter shows activity. Find
+      it, reveal it, catch it.\n\nAnd, agent\u2026 if the camera ever shows you something
+      that is in none of our files, tell me first.\n\n\u2014 The Curator"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129475
+    m_Localized: NEXT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129476
+    m_Localized: ACCEPT THE CASE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129477
+    m_Localized: SKIP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129478
+    m_Localized: '{0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129479
+    m_Localized: ARCHIVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129480
+    m_Localized: TAPE ARCHIVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129481
+    m_Localized: 'Tapes: {0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129482
+    m_Localized: "VALE \xB7 {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129483
+    m_Localized: "BUREAU \xB7 00"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129484
+    m_Localized: Briefing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129485
+    m_Localized: CLOSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129486
+    m_Localized: Vale's tapes surface as your cases do.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129487
+    m_Localized: NEW TAPE IN THE ARCHIVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129488
+    m_Localized: "{0}: \u201C{1}\u201D"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129489
+    m_Localized: 'Listen in the menu: ARCHIVE'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129490
+    m_Localized: First light
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129491
+    m_Localized: Opens after your first catch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129492
+    m_Localized: 'Tape one. Caught my first tonight: a little light in the bathroom.
+      The Curator says they are the easy ones.
+
+
+      One thing I noticed: the moment
+      it sees you, it freezes. Strike then. And mind the battery. The lens eats it
+      faster than you think.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129493
+    m_Localized: More of them
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129494
+    m_Localized: Opens after {0} catches
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129495
+    m_Localized: 'The third this week. The Bureau used to get one call a month. Now
+      it is every night. Something is wearing thin, and they get through more easily.
+
+
+      The
+      poltergeist jumps, but after each jump it is dazed for a second. I am learning
+      to read them.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129496
+    m_Localized: The witching hour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129497
+    m_Localized: Opens after {0} catches
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129498
+    m_Localized: 'Between eleven and four they are different. Stronger. And the ones
+      you never see by day come out: the one that stands behind you until you turn.
+
+
+      If
+      the floor creaks, turn at once. Do not ask me how I know.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129499
+    m_Localized: The seal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129500
+    m_Localized: Opens after your first declassified file
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129501
+    m_Localized: 'Declassified my first file today. At the end of each one there
+      is a paragraph that is not in any training manual.
+
+
+      I counted the files
+      in the archive. There are twelve. But the numbers go up to thirteen. Folder
+      thirteen is empty. The Curator says it is a misprint.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129502
+    m_Localized: Night shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129503
+    m_Localized: Opens after your first night shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129504
+    m_Localized: 'Three ghosts in a row, in one flat. That does not happen.
+
+
+      I
+      checked. They were not coming to the address. They were coming to the camera.
+      The Hauntscope does not just see them. It calls them.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129505
+    m_Localized: My name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129506
+    m_Localized: Opens after {0} catches
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129507
+    m_Localized: 'I left the EVP running overnight to catch the mara. On the tape
+      a voice said a name. Mine. And it was my voice.
+
+
+      I played it again.
+      Now there is only static. Tomorrow is the 31st of October. I am taking the
+      last call alone.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129508
+    m_Localized: File thirteen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341785518080
+    m_Localized: Opens when you have caught {0} different ghosts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341785518081
+    m_Localized: 'If you can hear this, the camera is working again, and it has a
+      new agent. Listen carefully.
+
+
+      I did not vanish. I am in the tape, between
+      the frames. When the silence in a room goes too even, that is me.
+
+
+      File
+      thirteen is mine. Open it. Set me free. Or catch me.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

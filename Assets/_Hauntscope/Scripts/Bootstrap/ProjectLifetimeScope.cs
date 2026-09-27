@@ -13,6 +13,7 @@ using Hauntscope.Gameplay.Photo;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Research;
 using Hauntscope.Gameplay.Store;
+using Hauntscope.Gameplay.Story;
 using Hauntscope.Infrastructure.Ads;
 using Hauntscope.Infrastructure.Audio;
 using Hauntscope.Infrastructure.Haptics;
@@ -107,6 +108,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Evp);
             builder.RegisterInstance(_gameConfig.Prank);
             builder.RegisterInstance(_gameConfig.Music);
+            builder.RegisterInstance(_gameConfig.Story);
         }
 
         // Scene loads are decorated with the CRT transition; the overlay outlives every scene it covers.
@@ -134,6 +136,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<ContractGenerator>(Lifetime.Singleton);
             builder.Register<ContractBoard>(Lifetime.Singleton);
             builder.Register<LoginCalendar>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<TapeArchive>().AsSelf();
         }
 
         // The album is loaded once for the whole game: the hunt adds to it, the Bestiary shows its evidence. Decoding

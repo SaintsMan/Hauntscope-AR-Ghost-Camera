@@ -10,6 +10,7 @@ using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Progress;
+using Hauntscope.Gameplay.Story;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -44,6 +45,7 @@ namespace Hauntscope.UI.Menu
         private readonly ShiftConfig _shiftConfig;
         private readonly ContractBoard _contracts;
         private readonly MenuCoachMarks _marks;
+        private readonly TapeArchive _archive;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         private int _shownSecond = -1;
@@ -64,8 +66,10 @@ namespace Hauntscope.UI.Menu
             HuntLaunchOptions options,
             ShiftConfig shiftConfig,
             ContractBoard contracts,
-            MenuCoachMarks marks)
+            MenuCoachMarks marks,
+            TapeArchive archive)
         {
+            _archive = archive;
             _marks = marks;
             _contracts = contracts;
             _options = options;
@@ -92,10 +96,12 @@ namespace Hauntscope.UI.Menu
             _view.ShiftClicked += OnShiftClicked;
             _progress.Changed += RenderShift;
             _progress.Changed += RenderMarks;
+            _progress.Changed += RenderArchive;
             _view.BestiaryClicked += OnBestiaryClicked;
             _view.SettingsClicked += OnSettingsClicked;
             _view.ShopClicked += OnShopClicked;
             _view.ContractsClicked += OnContractsClicked;
+            _view.ArchiveClicked += OnArchiveClicked;
             _contracts.Changed += RenderContracts;
             _view.ArModeClicked += OnArModeClicked;
             _view.VirtualModeClicked += OnVirtualModeClicked;
@@ -108,11 +114,24 @@ namespace Hauntscope.UI.Menu
             OnLanguageChanged();
             RenderContracts();
             RenderMarks();
+            RenderArchive();
         }
 
         private void RenderMarks()
         {
-            _view.SetMarks(_marks.IsMarked(CoachMark.Shift), _marks.IsMarked(CoachMark.Contracts));
+            _view.SetMarks(_marks.IsMarked(CoachMark.Shift), _marks.IsMarked(CoachMark.Contracts), _marks.IsMarked(CoachMark.Bestiary),
+                _marks.IsMarked(CoachMark.Shop));
+        }
+
+        private void RenderArchive()
+        {
+            _view.SetArchiveBadge(_archive.UnheardCount);
+        }
+
+        private void OnArchiveClicked()
+        {
+            _ui.PlayClick();
+            _navigation.Show(MenuScreen.Archive);
         }
 
         private void RenderContracts()
@@ -158,10 +177,12 @@ namespace Hauntscope.UI.Menu
             _view.ShiftClicked -= OnShiftClicked;
             _progress.Changed -= RenderShift;
             _progress.Changed -= RenderMarks;
+            _progress.Changed -= RenderArchive;
             _view.BestiaryClicked -= OnBestiaryClicked;
             _view.SettingsClicked -= OnSettingsClicked;
             _view.ShopClicked -= OnShopClicked;
             _view.ContractsClicked -= OnContractsClicked;
+            _view.ArchiveClicked -= OnArchiveClicked;
             _contracts.Changed -= RenderContracts;
             _view.ArModeClicked -= OnArModeClicked;
             _view.VirtualModeClicked -= OnVirtualModeClicked;
@@ -285,12 +306,14 @@ namespace Hauntscope.UI.Menu
         private void OnBestiaryClicked()
         {
             _ui.PlayClick();
+            _marks.Dismiss(CoachMark.Bestiary);
             _navigation.Show(MenuScreen.Bestiary);
         }
 
         private void OnShopClicked()
         {
             _ui.PlayClick();
+            _marks.Dismiss(CoachMark.Shop);
             _navigation.ShowShop(ShopTab.Lasers);
         }
 

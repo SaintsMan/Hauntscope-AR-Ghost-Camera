@@ -8,6 +8,7 @@ namespace Hauntscope.UI.Menu
         Settings,
         Credits,
         Shop,
-        Contracts
+        Contracts,
+        Archive
     }
 }

@@ -1235,6 +1235,199 @@ MonoBehaviour:
     m_Localized: Musik
     m_Metadata:
       m_Items: []
+  - m_Id: 750341642911744
+    m_Localized: "EINGEHENDES BAND \xB7 NACHTB\xDCRO \xB7 GEHEIM"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129472
+    m_Localized: "Agent, willkommen. Ab heute Nacht arbeitest du f\xFCr das Nachtb\xFCro.\n\nUns
+      gibt es seit 1987, und wir tun nur eins: Wir fangen, was in ganz normalen Wohnungen
+      lebt und dort nichts zu suchen hat."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129473
+    m_Localized: "Deine Ausr\xFCstung ist die Kamera Hauntscope. Sie sieht, was das
+      Auge nicht sieht, und zeichnet alles auf.\n\nIhre letzte Besitzerin, Agentin
+      Ida Vale, verschwand am 31. Oktober mitten in einem Fall. Die Kamera kam von
+      selbst ins B\xFCro zur\xFCck. Ihre B\xE4nder liegen im Archiv. H\xF6r sie dir
+      an, sobald sie auftauchen: Sie wusste mehr als wir."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129474
+    m_Localized: "Dein erster Fall ist deine eigene Wohnung. Das Messger\xE4t zeigt
+      Aktivit\xE4t. Finde es, mach es sichtbar, fang es.\n\nUnd, Agent \u2026 falls
+      die Kamera dir je etwas zeigt, das in keiner unserer Akten steht, sag es zuerst
+      mir.\n\n\u2014 Der Kurator"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129475
+    m_Localized: WEITER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129476
+    m_Localized: FALL ANNEHMEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129477
+    m_Localized: "\xDCBERSPRINGEN"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129478
+    m_Localized: '{0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129479
+    m_Localized: ARCHIV
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129480
+    m_Localized: BANDARCHIV
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129481
+    m_Localized: "B\xE4nder: {0}/{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129482
+    m_Localized: "VALE \xB7 {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129483
+    m_Localized: "B\xDCRO \xB7 00"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129484
+    m_Localized: Einweisung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129485
+    m_Localized: SCHLIESSEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129486
+    m_Localized: "Vales B\xE4nder tauchen mit deinen F\xE4llen auf."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129487
+    m_Localized: NEUES BAND IM ARCHIV
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129488
+    m_Localized: "{0}: \u201E{1}\u201C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129489
+    m_Localized: "Anh\xF6ren im Men\xFC: ARCHIV"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129490
+    m_Localized: Erstes Licht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129491
+    m_Localized: "\xD6ffnet nach deinem ersten Fang"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129492
+    m_Localized: "Band eins. Heute Nacht meinen ersten gefangen: ein kleines Licht
+      im Bad. Der Kurator sagt, das sind die leichten.\n\nEins ist mir aufgefallen:
+      Sobald es dich sieht, erstarrt es f\xFCr einen Moment. Dann zuschlagen. Und
+      spar Akku. Die Linse frisst ihn schneller, als man denkt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129493
+    m_Localized: Es werden mehr
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129494
+    m_Localized: "\xD6ffnet nach {0} F\xE4ngen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129495
+    m_Localized: "Der dritte diese Woche. Fr\xFCher bekam das B\xFCro einen Anruf
+      im Monat. Jetzt jede Nacht. Irgendetwas wird d\xFCnn, und sie kommen leichter
+      durch.\n\nDer Poltergeist springt, aber nach jedem Sprung ist er eine Sekunde
+      benommen. Ich lerne, sie zu lesen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129496
+    m_Localized: Die Geisterstunde
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129497
+    m_Localized: "\xD6ffnet nach {0} F\xE4ngen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129498
+    m_Localized: "Zwischen elf und vier sind sie anders. St\xE4rker. Und es kommen
+      die, die man tags\xFCber nie sieht: der, der hinter dir steht, bis du dich
+      umdrehst.\n\nWenn der Boden knarrt, dreh dich sofort um. Frag nicht, woher
+      ich das wei\xDF."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129499
+    m_Localized: Das Siegel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129500
+    m_Localized: "\xD6ffnet nach deiner ersten freigegebenen Akte"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129501
+    m_Localized: "Heute meine erste Akte freigegeben. Am Ende jeder steht ein Absatz,
+      der in keinem Handbuch vorkommt.\n\nIch habe die Akten im Archiv gez\xE4hlt.
+      Es sind zw\xF6lf. Aber die Nummern gehen bis dreizehn. Ordner dreizehn ist
+      leer. Der Kurator sagt, ein Druckfehler."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129502
+    m_Localized: Nachtschicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129503
+    m_Localized: "\xD6ffnet nach deiner ersten Nachtschicht"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129504
+    m_Localized: 'Drei Geister hintereinander, in einer Wohnung. Das gibt es nicht.
+
+
+      Ich
+      habe nachgesehen. Sie kamen nicht zur Adresse. Sie kamen zur Kamera. Die Hauntscope
+      sieht sie nicht nur. Sie ruft sie.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129505
+    m_Localized: Mein Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129506
+    m_Localized: "\xD6ffnet nach {0} F\xE4ngen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129507
+    m_Localized: "Ich habe das EVP \xFCber Nacht laufen lassen, um die Mara aufzunehmen.
+      Auf dem Band sagte eine Stimme einen Namen. Meinen. Und es war meine Stimme.\n\nIch
+      habe es noch einmal abgespielt. Jetzt ist nur noch Rauschen darauf. Morgen
+      ist der 31. Oktober. Den letzten Einsatz \xFCbernehme ich allein."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129508
+    m_Localized: Akte dreizehn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341785518080
+    m_Localized: "\xD6ffnet, wenn du {0} verschiedene Geister gefangen hast"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341785518081
+    m_Localized: "Wenn du das h\xF6rst, funktioniert die Kamera wieder, und sie hat
+      einen neuen Agenten. H\xF6r genau zu.\n\nIch bin nicht verschwunden. Ich bin
+      im Band, zwischen den Bildern. Wenn die Stille in einem Raum zu gleichm\xE4\xDFig
+      wird, bin ich das.\n\nAkte dreizehn geh\xF6rt mir. \xD6ffne sie. Befreie mich.
+      Oder fang mich."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -429,6 +429,8 @@ MonoBehaviour:
     _kaidannykGhostId: kaidannyk
     _maraGhostId: mara
     _contractsMarkAfter: 1
+    _bestiaryMarkAfterCaptures: 1
+    _shopMarkAfter: 2
   _spiritBox:
     _unlockCaptures: 1
     _drain: 0.3
@@ -539,3 +541,59 @@ MonoBehaviour:
     _recordingDuck: 0.2
     _prankPulse: 0.3
     _prankArp: 0.35
+  _story:
+    _introPages:
+    - story.intro.1
+    - story.intro.2
+    - story.intro.3
+    _tapes:
+    - _number: 1
+      _trigger: 0
+      _threshold: 1
+      _titleKey: story.tape1.title
+      _lockKey: story.tape1.lock
+      _textKey: story.tape1.text
+    - _number: 2
+      _trigger: 0
+      _threshold: 3
+      _titleKey: story.tape2.title
+      _lockKey: story.tape2.lock
+      _textKey: story.tape2.text
+    - _number: 3
+      _trigger: 0
+      _threshold: 5
+      _titleKey: story.tape3.title
+      _lockKey: story.tape3.lock
+      _textKey: story.tape3.text
+    - _number: 4
+      _trigger: 2
+      _threshold: 1
+      _titleKey: story.tape4.title
+      _lockKey: story.tape4.lock
+      _textKey: story.tape4.text
+    - _number: 5
+      _trigger: 3
+      _threshold: 1
+      _titleKey: story.tape5.title
+      _lockKey: story.tape5.lock
+      _textKey: story.tape5.text
+    - _number: 6
+      _trigger: 0
+      _threshold: 9
+      _titleKey: story.tape6.title
+      _lockKey: story.tape6.lock
+      _textKey: story.tape6.text
+    - _number: 7
+      _trigger: 1
+      _threshold: 8
+      _titleKey: story.tape7.title
+      _lockKey: story.tape7.lock
+      _textKey: story.tape7.text
+    _curatorVoice: {fileID: 8300000, guid: 37bfcf07788f07e42bf48fead8e15885, type: 3}
+    _valeVoice: {fileID: 8300000, guid: 45755209f7b2c6a49b3c713c31c259ff, type: 3}
+    _voiceVolume: 0.35
+    _tapeLoop: {fileID: 8300000, guid: fe3dd5413fb42574daf60b331d38f240, type: 3}
+    _tapeVolume: 0.25
+    _tapeStart: {fileID: 8300000, guid: 6eacec6e46e3a9b48a88c52a9be5fcbc, type: 3}
+    _tapeStop: {fileID: 8300000, guid: b29421f5b70e2f1418cc03bc108dfe34, type: 3}
+    _keyVolume: 0.6

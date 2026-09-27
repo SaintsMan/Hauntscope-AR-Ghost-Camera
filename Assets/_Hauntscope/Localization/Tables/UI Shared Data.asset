@@ -1207,6 +1207,166 @@ MonoBehaviour:
     m_Key: settings.music
     m_Metadata:
       m_Items: []
+  - m_Id: 750341642911744
+    m_Key: story.header
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129472
+    m_Key: story.intro.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129473
+    m_Key: story.intro.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129474
+    m_Key: story.intro.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129475
+    m_Key: story.next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129476
+    m_Key: story.accept
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129477
+    m_Key: story.skip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129478
+    m_Key: story.page
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129479
+    m_Key: menu.archive
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129480
+    m_Key: archive.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129481
+    m_Key: archive.count
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129482
+    m_Key: archive.vale
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129483
+    m_Key: archive.bureau
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129484
+    m_Key: archive.briefing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129485
+    m_Key: archive.close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129486
+    m_Key: archive.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129487
+    m_Key: result.tape.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129488
+    m_Key: result.tape.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129489
+    m_Key: result.tape.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129490
+    m_Key: story.tape1.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129491
+    m_Key: story.tape1.lock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129492
+    m_Key: story.tape1.text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129493
+    m_Key: story.tape2.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129494
+    m_Key: story.tape2.lock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129495
+    m_Key: story.tape2.text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129496
+    m_Key: story.tape3.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129497
+    m_Key: story.tape3.lock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129498
+    m_Key: story.tape3.text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129499
+    m_Key: story.tape4.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129500
+    m_Key: story.tape4.lock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129501
+    m_Key: story.tape4.text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129502
+    m_Key: story.tape5.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129503
+    m_Key: story.tape5.lock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129504
+    m_Key: story.tape5.text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129505
+    m_Key: story.tape6.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129506
+    m_Key: story.tape6.lock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129507
+    m_Key: story.tape6.text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129508
+    m_Key: story.tape7.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341785518080
+    m_Key: story.tape7.lock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341785518081
+    m_Key: story.tape7.text
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

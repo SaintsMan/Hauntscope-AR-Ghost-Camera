@@ -1231,6 +1231,225 @@ MonoBehaviour:
     m_Localized: Musik
     m_Metadata:
       m_Items: []
+  - m_Id: 750341642911744
+    m_Localized: "KASET MASUK \xB7 BIRO MALAM \xB7 RAHASIA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129472
+    m_Localized: 'Agen, selamat datang. Mulai malam ini kamu bekerja untuk Biro Malam.
+
+
+      Kami
+      ada sejak 1987 dan hanya melakukan satu hal: menangkap apa yang tinggal di
+      rumah biasa dan tak berhak berada di sana.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129473
+    m_Localized: 'Perlengkapanmu adalah kamera Hauntscope. Ia melihat yang tak terlihat
+      mata, dan merekam semuanya.
+
+
+      Pemilik terakhirnya, Agen Ida Vale, menghilang
+      pada 31 Oktober di tengah sebuah kasus. Kamera itu kembali sendiri ke Biro.
+      Kaset-kasetnya ada di arsip. Dengarkan saat muncul: ia tahu lebih banyak dari
+      kami.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129474
+    m_Localized: "Kasus pertamamu adalah rumahmu sendiri. Alat pengukur menunjukkan
+      aktivitas. Temukan, tampakkan, tangkap.\n\nDan, agen\u2026 jika kamera suatu
+      saat menunjukkan sesuatu yang tak ada di berkas mana pun, beri tahu aku lebih
+      dulu.\n\n\u2014 Sang Kurator"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129475
+    m_Localized: LANJUT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129476
+    m_Localized: TERIMA KASUS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129477
+    m_Localized: LEWATI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129478
+    m_Localized: '{0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129479
+    m_Localized: ARSIP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129480
+    m_Localized: ARSIP KASET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129481
+    m_Localized: 'Kaset: {0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129482
+    m_Localized: "VALE \xB7 {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129483
+    m_Localized: "BIRO \xB7 00"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129484
+    m_Localized: Pengarahan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129485
+    m_Localized: TUTUP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129486
+    m_Localized: Kaset Vale muncul seiring kasus-kasusmu.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129487
+    m_Localized: KASET BARU DI ARSIP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129488
+    m_Localized: "{0}: \u201C{1}\u201D"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129489
+    m_Localized: 'Dengarkan di menu: ARSIP'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129490
+    m_Localized: Cahaya pertama
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129491
+    m_Localized: Terbuka setelah tangkapan pertamamu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129492
+    m_Localized: 'Kaset satu. Malam ini aku menangkap yang pertama: cahaya kecil
+      di kamar mandi. Kurator bilang itu yang mudah.
+
+
+      Satu hal kuperhatikan:
+      begitu ia melihatmu, ia membeku sejenak. Saat itulah menyerang. Dan hemat baterai.
+      Lensa menghabiskannya lebih cepat dari dugaanmu.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129493
+    m_Localized: Makin banyak
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129494
+    m_Localized: Terbuka setelah {0} tangkapan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129495
+    m_Localized: 'Yang ketiga minggu ini. Dulu Biro menerima satu panggilan sebulan.
+      Sekarang setiap malam. Ada yang menipis, dan mereka lebih mudah menembus.
+
+
+      Poltergeist
+      melompat, tapi setelah tiap lompatan ia linglung sedetik. Aku mulai bisa membaca
+      mereka.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129496
+    m_Localized: Jam penyihir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129497
+    m_Localized: Terbuka setelah {0} tangkapan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129498
+    m_Localized: 'Antara pukul sebelas dan empat mereka berbeda. Lebih kuat. Dan
+      muncul yang tak pernah terlihat siang hari: yang berdiri di belakangmu sampai
+      kamu berbalik.
+
+
+      Jika lantai berderit, segera berbalik. Jangan tanya
+      bagaimana aku tahu.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129499
+    m_Localized: Segel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129500
+    m_Localized: Terbuka setelah berkas pertamamu dibuka
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129501
+    m_Localized: 'Hari ini aku membuka berkas pertamaku. Di akhir setiap berkas ada
+      satu paragraf yang tak ada di buku panduan mana pun.
+
+
+      Aku menghitung
+      berkas di arsip. Ada dua belas. Tapi nomornya sampai tiga belas. Map ketiga
+      belas kosong. Kurator bilang itu salah cetak.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129502
+    m_Localized: Jaga malam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129503
+    m_Localized: Terbuka setelah jaga malam pertamamu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129504
+    m_Localized: 'Tiga hantu berturut-turut, di satu rumah. Itu tak pernah terjadi.
+
+
+      Aku
+      memeriksanya. Mereka tidak datang ke alamat itu. Mereka datang ke kamera. Hauntscope
+      bukan hanya melihat mereka. Ia memanggil mereka.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129505
+    m_Localized: Namaku
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129506
+    m_Localized: Terbuka setelah {0} tangkapan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129507
+    m_Localized: 'Aku membiarkan EVP merekam semalaman untuk menangkap mara. Di pita,
+      sebuah suara menyebut nama. Namaku. Dan itu suaraku sendiri.
+
+
+      Aku memutarnya
+      lagi. Sekarang hanya derau. Besok 31 Oktober. Panggilan terakhir kuambil sendiri.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129508
+    m_Localized: Berkas tiga belas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341785518080
+    m_Localized: Terbuka saat kamu menangkap {0} hantu berbeda
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341785518081
+    m_Localized: 'Jika kamu mendengar ini, kamera itu bekerja lagi, dan punya agen
+      baru. Dengarkan baik-baik.
+
+
+      Aku tidak menghilang. Aku ada di dalam pita,
+      di antara bingkai-bingkai. Saat keheningan di sebuah ruangan terasa terlalu
+      rata, itu aku.
+
+
+      Berkas tiga belas milikku. Bukalah. Bebaskan aku. Atau
+      tangkap aku.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

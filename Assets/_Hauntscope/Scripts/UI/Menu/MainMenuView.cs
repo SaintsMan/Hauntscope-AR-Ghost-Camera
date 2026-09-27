@@ -16,8 +16,13 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private Button _contractsButton;
         [SerializeField] private GameObject _contractsBadge;
         [SerializeField] private TMP_Text _contractsBadgeLabel;
+        [SerializeField] private Button _archiveButton;
+        [SerializeField] private GameObject _archiveBadge;
+        [SerializeField] private TMP_Text _archiveBadgeLabel;
         [SerializeField] private RectTransform _shiftMark;
         [SerializeField] private RectTransform _contractsMark;
+        [SerializeField] private RectTransform _bestiaryMark;
+        [SerializeField] private RectTransform _shopMark;
         [SerializeField] private float _markPulseScale = 1.12f;
         [SerializeField, Min(0.1f)] private float _markPulsePeriod = 0.9f;
         [SerializeField] private Button _shiftButton;
@@ -64,6 +69,8 @@ namespace Hauntscope.UI.Menu
 
         public event Action ContractsClicked;
 
+        public event Action ArchiveClicked;
+
         public event Action ArModeClicked;
 
         public event Action VirtualModeClicked;
@@ -74,10 +81,12 @@ namespace Hauntscope.UI.Menu
         }
 
         // A NEW tag that pulses until its button is first pressed.
-        public void SetMarks(bool shift, bool contracts)
+        public void SetMarks(bool shift, bool contracts, bool bestiary, bool shop)
         {
             SetMark(_shiftMark, shift);
             SetMark(_contractsMark, contracts);
+            SetMark(_bestiaryMark, bestiary);
+            SetMark(_shopMark, shop);
         }
 
         private void SetMark(RectTransform mark, bool visible)
@@ -97,6 +106,13 @@ namespace Hauntscope.UI.Menu
         {
             _contractsBadge.SetActive(count > 0);
             _contractsBadgeLabel.text = count.ToString();
+        }
+
+        // How many tapes in the archive have not been played yet.
+        public void SetArchiveBadge(int count)
+        {
+            _archiveBadge.SetActive(count > 0);
+            _archiveBadgeLabel.text = count.ToString();
         }
 
         // The balance counts up to a new value, so ectoplasm earned in a hunt is noticed on the way back.
@@ -182,6 +198,7 @@ namespace Hauntscope.UI.Menu
             _settingsButton.onClick.AddListener(OnSettingsClicked);
             _shopButton.onClick.AddListener(OnShopClicked);
             _contractsButton.onClick.AddListener(OnContractsClicked);
+            _archiveButton.onClick.AddListener(OnArchiveClicked);
             _arModeButton.onClick.AddListener(OnArModeClicked);
             _virtualModeButton.onClick.AddListener(OnVirtualModeClicked);
         }
@@ -194,6 +211,7 @@ namespace Hauntscope.UI.Menu
             _settingsButton.onClick.RemoveListener(OnSettingsClicked);
             _shopButton.onClick.RemoveListener(OnShopClicked);
             _contractsButton.onClick.RemoveListener(OnContractsClicked);
+            _archiveButton.onClick.RemoveListener(OnArchiveClicked);
             _arModeButton.onClick.RemoveListener(OnArModeClicked);
             _virtualModeButton.onClick.RemoveListener(OnVirtualModeClicked);
         }
@@ -226,6 +244,11 @@ namespace Hauntscope.UI.Menu
         private void OnContractsClicked()
         {
             ContractsClicked?.Invoke();
+        }
+
+        private void OnArchiveClicked()
+        {
+            ArchiveClicked?.Invoke();
         }
 
         private void OnArModeClicked()
@@ -268,6 +291,12 @@ namespace Hauntscope.UI.Menu
             _contractsBadgeLabel = Find<TMP_Text>("Dock/ContractsButton/Badge/Label");
             _shiftMark = Find<RectTransform>("Buttons/Modes/ShiftButton/NewMark");
             _contractsMark = Find<RectTransform>("Dock/ContractsButton/NewMark");
+            _bestiaryMark = Find<RectTransform>("Dock/BestiaryButton/NewMark");
+            _shopMark = Find<RectTransform>("Dock/ShopButton/NewMark");
+            _archiveButton = Find<Button>("Dock/ArchiveButton");
+            var archiveBadge = transform.Find("Dock/ArchiveButton/Badge");
+            _archiveBadge = archiveBadge != null ? archiveBadge.gameObject : null;
+            _archiveBadgeLabel = Find<TMP_Text>("Dock/ArchiveButton/Badge/Label");
             _shopButton = Find<Button>("Dock/ShopButton");
             _ectoplasmLabel = Find<TMP_Text>("Ectoplasm/Amount");
             _versionLabel = Find<TMP_Text>("Version");

@@ -1234,6 +1234,195 @@ MonoBehaviour:
     m_Localized: "M\xFAsica"
     m_Metadata:
       m_Items: []
+  - m_Id: 750341642911744
+    m_Localized: "CINTA ENTRANTE \xB7 OFICINA NOCTURNA \xB7 CLASIFICADO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129472
+    m_Localized: "Agente, bienvenido. Desde esta noche trabajas para la Oficina Nocturna.\n\nExistimos
+      desde 1987 y hacemos una sola cosa: atrapamos lo que vive en departamentos
+      comunes y no tiene derecho a estar ah\xED."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129473
+    m_Localized: "Tu equipo es la c\xE1mara Hauntscope. Ve lo que el ojo no ve, y
+      lo graba todo.\n\nSu \xFAltima due\xF1a, la agente Ida Vale, desapareci\xF3
+      el 31 de octubre en medio de un caso. La c\xE1mara volvi\xF3 sola a la Oficina.
+      Sus cintas est\xE1n en el archivo. Esc\xFAchalas cuando aparezcan: ella sab\xEDa
+      m\xE1s que nosotros."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129474
+    m_Localized: "Tu primer caso es tu propio departamento. El medidor marca actividad.
+      Encu\xE9ntralo, rev\xE9lalo, atr\xE1palo.\n\nY, agente\u2026 si la c\xE1mara
+      alguna vez te muestra algo que no est\xE1 en ning\xFAn expediente nuestro,
+      av\xEDsame primero a m\xED.\n\n\u2014 El Curador"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129475
+    m_Localized: SIGUIENTE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129476
+    m_Localized: ACEPTAR EL CASO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129477
+    m_Localized: OMITIR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129478
+    m_Localized: '{0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129479
+    m_Localized: ARCHIVO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129480
+    m_Localized: ARCHIVO DE CINTAS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129481
+    m_Localized: 'Cintas: {0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129482
+    m_Localized: "VALE \xB7 {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129483
+    m_Localized: "OFICINA \xB7 00"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129484
+    m_Localized: Instrucciones
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129485
+    m_Localized: CERRAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129486
+    m_Localized: Las cintas de Vale aparecen a medida que avanzan tus casos.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129487
+    m_Localized: NUEVA CINTA EN EL ARCHIVO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129488
+    m_Localized: "{0}: \xAB{1}\xBB"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129489
+    m_Localized: "Esc\xFAchala en el men\xFA: ARCHIVO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129490
+    m_Localized: La primera luz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129491
+    m_Localized: Se abre tras tu primera captura
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129492
+    m_Localized: "Cinta uno. Esta noche atrap\xE9 al primero: una lucecita en el
+      ba\xF1o. El Curador dice que son los f\xE1ciles.\n\nNot\xE9 algo: en cuanto
+      te ve, se congela un instante. Ah\xED golpeas. Y cuida la bater\xEDa: la lente
+      se la come m\xE1s r\xE1pido de lo que crees."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129493
+    m_Localized: "Cada vez m\xE1s"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129494
+    m_Localized: Se abre tras {0} capturas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129495
+    m_Localized: "El tercero esta semana. Antes la Oficina recib\xEDa una llamada
+      al mes. Ahora, cada noche. Algo se est\xE1 adelgazando y les cuesta menos pasar.\n\nEl
+      poltergeist salta, pero tras cada salto queda aturdido un segundo. Estoy aprendiendo
+      a leerlos."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129496
+    m_Localized: La hora bruja
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129497
+    m_Localized: Se abre tras {0} capturas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129498
+    m_Localized: "Entre las once y las cuatro son distintos. M\xE1s fuertes. Y salen
+      los que nunca ves de d\xEDa: el que se queda detr\xE1s de ti hasta que te das
+      vuelta.\n\nSi cruje el piso, date vuelta en el acto. No me preguntes c\xF3mo
+      lo s\xE9."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129499
+    m_Localized: El sello
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129500
+    m_Localized: Se abre tras tu primer expediente desclasificado
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129501
+    m_Localized: "Hoy desclasifiqu\xE9 mi primer expediente. Al final de cada uno
+      hay un p\xE1rrafo que no aparece en ning\xFAn manual.\n\nCont\xE9 los expedientes
+      del archivo. Son doce. Pero los n\xFAmeros llegan a trece. La carpeta trece
+      est\xE1 vac\xEDa. El Curador dice que es un error de imprenta."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129502
+    m_Localized: Turno nocturno
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129503
+    m_Localized: Se abre tras tu primer turno nocturno
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129504
+    m_Localized: "Tres fantasmas seguidos, en un mismo departamento. Eso no pasa.\n\nLo
+      revis\xE9. No ven\xEDan a la direcci\xF3n. Ven\xEDan a la c\xE1mara. La Hauntscope
+      no solo los ve. Los llama."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129505
+    m_Localized: Mi nombre
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129506
+    m_Localized: Se abre tras {0} capturas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129507
+    m_Localized: "Dej\xE9 el EVP grabando toda la noche para captar a la mara. En
+      la cinta, una voz dijo un nombre. El m\xEDo. Y era mi voz.\n\nLa volv\xED a
+      escuchar. Ahora solo hay est\xE1tica. Ma\xF1ana es 31 de octubre. El \xFAltimo
+      llamado lo tomo sola."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341777129508
+    m_Localized: Expediente trece
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341785518080
+    m_Localized: Se abre cuando atrapes {0} fantasmas distintos
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750341785518081
+    m_Localized: "Si escuchas esto, la c\xE1mara vuelve a funcionar y tiene un nuevo
+      agente. Escucha bien.\n\nNo desaparec\xED. Estoy en la cinta, entre los cuadros.
+      Cuando el silencio de un cuarto se vuelva demasiado parejo, soy yo.\n\nEl expediente
+      trece es m\xEDo. \xC1brelo. Lib\xE9rame. O atr\xE1pame."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

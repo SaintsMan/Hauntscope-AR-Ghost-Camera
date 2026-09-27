@@ -660,6 +660,35 @@ namespace Hauntscope.Editor
             };
             Sdf hub = p => Circle(p, center, 10f);
             SaveSprite("SettingsIcon", size, size, Max(Shape(size, size, gear, true, Line, Glow), Shape(size, size, hub, true, Line * 0.75f, Glow * 0.6f)), Vector4.zero);
+
+            BuildArchiveIcons(size);
+        }
+
+        // The tape archive (GDD 5.35): a cassette in front of the edge of another, so it reads as a pile of tapes rather than
+        // the EVP recorder's single one; and a padlock for the tapes that have not surfaced yet.
+        private static void BuildArchiveIcons(int size)
+        {
+            Sdf front = p => RoundBox(p, new Vector2(60f, 50f), new Vector2(40f, 27f), 7f);
+            Sdf back = p => RoundBox(p, new Vector2(60f, 50f), new Vector2(47f, 34f), 12f) < 0f
+                ? float.MaxValue
+                : RoundBox(p, new Vector2(72f, 66f), new Vector2(40f, 27f), 7f);
+            Sdf window = p => RoundBox(p, new Vector2(60f, 55f), new Vector2(25f, 10f), 5f);
+            Sdf reels = p => Mathf.Min(Circle(p, new Vector2(45f, 55f), 6.5f), Circle(p, new Vector2(75f, 55f), 6.5f));
+            Sdf head = p => Polygon(p, new[] { new Vector2(42f, 23f), new Vector2(78f, 23f), new Vector2(72f, 34f), new Vector2(48f, 34f) });
+            SaveSprite("ArchiveIcon", size, size, Max(
+                Max(Shape(size, size, front, true, Line, Glow), Shape(size, size, back, true, Line * 0.75f, Glow * 0.6f)),
+                Max(Max(Shape(size, size, window, true, Line * 0.75f, Glow * 0.6f), Shape(size, size, reels, true, Line * 0.75f, Glow * 0.6f)),
+                    Shape(size, size, head, true, Line * 0.75f, Glow * 0.6f))), Vector4.zero);
+
+            Sdf body = p => RoundBox(p, new Vector2(64f, 48f), new Vector2(32f, 26f), 7f);
+            Sdf shackle = p =>
+            {
+                var arc = p.y >= 80f ? Mathf.Abs(Vector2.Distance(p, new Vector2(64f, 80f)) - 18f) : float.MaxValue;
+                return Mathf.Min(arc, Mathf.Min(Segment(p, new Vector2(46f, 80f), new Vector2(46f, 74f)), Segment(p, new Vector2(82f, 80f), new Vector2(82f, 74f))));
+            };
+            Sdf keyhole = p => Mathf.Min(Circle(p, new Vector2(64f, 54f), 5f), RoundBox(p, new Vector2(64f, 44f), new Vector2(2.5f, 8f), 1f));
+            SaveSprite("LockIcon", size, size, Max(Max(Shape(size, size, body, true, Line, Glow), Shape(size, size, shackle, true, Line, Glow)),
+                Shape(size, size, keyhole, false, 0f, Glow * 0.5f)), Vector4.zero);
         }
 
         // PRANK PHOTO: a camera with a little ghost looking out of its lens and a spark of the flash.

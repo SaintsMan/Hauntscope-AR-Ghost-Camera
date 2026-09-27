@@ -18,6 +18,7 @@ namespace Hauntscope.Editor
             TutorialCueGenerator.BuildAll();
             SfxGenerator.BuildAll();
             MusicGenerator.Build();
+            StoryVoiceGenerator.Build();
             FontAssetGenerator.BuildAll();
             CreditsExporter.Export();
             var config = AssetDatabase.LoadAssetAtPath<GameConfig>(GameConfigPath);
@@ -87,6 +88,7 @@ namespace Hauntscope.Editor
             SetClip(serialized, "_view._uv._onClip", SfxFolder, "UvOn");
             serialized.FindProperty("_view._uv._filter").objectReferenceValue = ViewFilterAssetBuilder.Uv;
             WireMusic(serialized);
+            WireStory(serialized);
             SetClip(serialized, "_evp._startClip", SfxFolder, "EvpStart");
             SetClip(serialized, "_evp._tapeClip", SfxFolder, "EvpTape");
             SetClip(serialized, "_evp._stopClip", SfxFolder, "EvpStop");
@@ -117,6 +119,16 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_music._capturedStinger").objectReferenceValue = MusicGenerator.Load("StingerCaptured");
             serialized.FindProperty("_music._escapedStinger").objectReferenceValue = MusicGenerator.Load("StingerEscaped");
             serialized.FindProperty("_music._surgeStinger").objectReferenceValue = MusicGenerator.Load("StingerSurge");
+        }
+
+        // The tapes (GDD 5.35) run on the EVP recorder's deck: its keys and hiss, with the story's own two voices.
+        internal static void WireStory(SerializedObject serialized)
+        {
+            SetClip(serialized, "_story._curatorVoice", SfxFolder, "StoryCurator");
+            SetClip(serialized, "_story._valeVoice", SfxFolder, "StoryVale");
+            SetClip(serialized, "_story._tapeLoop", SfxFolder, "EvpTape");
+            SetClip(serialized, "_story._tapeStart", SfxFolder, "EvpStart");
+            SetClip(serialized, "_story._tapeStop", SfxFolder, "EvpStop");
         }
 
         private static void SetClip(SerializedObject serialized, string property, string folder, string name)
