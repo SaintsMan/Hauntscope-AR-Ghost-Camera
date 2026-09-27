@@ -143,6 +143,9 @@ namespace Hauntscope.Gameplay.Ghosts
         // A faint shape seen through night vision. Only the view shows it; nothing that reads the reveal sees it.
         public float Glimpse { get; private set; }
 
+        // The thermal camera's cold shape, through furniture and hiding places. Also view-only.
+        public float ThermalSight { get; private set; }
+
         public float CaptureProgress { get; private set; }
 
         public bool IsBeamed { get; private set; }
@@ -200,6 +203,11 @@ namespace Hauntscope.Gameplay.Ghosts
         public void SetGlimpse(float glimpse)
         {
             Glimpse = Mathf.Clamp01(glimpse);
+        }
+
+        public void SetThermalSight(float sight)
+        {
+            ThermalSight = Mathf.Clamp01(sight);
         }
 
         public void SetBeamed(bool beamed)
@@ -524,6 +532,7 @@ namespace Hauntscope.Gameplay.Ghosts
             _view.SetPose(mover.VisualPosition + sag, Quaternion.LookRotation(mover.Facing));
             _view.SetReveal(ShownReveal);
             _view.SetDissolve(IsCaptured ? _capturedState.Progress : 0f);
+            _view.SetThermal(ThermalSight);
             _view.SetStruggle(IsBeamed ? CaptureProgress : 0f);
             _view.SetStagger(_staggerWeight);
             _view.SetMood(Mood);

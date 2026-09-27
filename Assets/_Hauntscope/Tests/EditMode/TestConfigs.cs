@@ -91,6 +91,11 @@ namespace Hauntscope.Tests.EditMode
             return new NightVisionConfig(unlockCaptures, drain, range, glimpse, farGlimpseScale, fadeTime);
         }
 
+        public static ThermalVisionConfig Thermal(int unlockCaptures = 4, float drain = 0.8f, float range = 4f, float fadeTime = 0.25f)
+        {
+            return new ThermalVisionConfig(unlockCaptures, drain, range, fadeTime);
+        }
+
         public static ViewSelector Views(params IViewMode[] modes)
         {
             return new ViewSelector(modes);

@@ -71,6 +71,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<GhostLens>(Lifetime.Singleton);
             builder.Register<SpiritBox>(Lifetime.Singleton);
             builder.Register<NightVision>(Lifetime.Singleton).As<IViewMode>().AsSelf();
+            builder.Register<ThermalVision>(Lifetime.Singleton).As<IViewMode>().AsSelf();
             builder.Register<ViewSelector>(Lifetime.Singleton);
             builder.RegisterEntryPoint<UrpViewFilter>().As<IViewFilter>();
             builder.Register<CaptureRateCalculator>(Lifetime.Singleton);
@@ -143,6 +144,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<WitchingHourTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
             builder.Register<SpiritBoxTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
             builder.Register<IFieldTipRule>(resolver => new ViewModeTipRule(FieldTipId.NightVision, resolver.Resolve<NightVision>()), Lifetime.Scoped);
+            builder.Register<IFieldTipRule>(resolver => new ViewModeTipRule(FieldTipId.Thermal, resolver.Resolve<ThermalVision>()), Lifetime.Scoped);
             builder.Register<StaggerTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
             builder.Register<ColdSpotTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
             builder.Register<CloseInTipRule>(Lifetime.Singleton).As<IFieldTipRule>();

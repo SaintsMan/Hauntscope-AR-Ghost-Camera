@@ -8,10 +8,13 @@ namespace Hauntscope.Gameplay.Config
     public sealed class ViewConfig
     {
         [SerializeField] private NightVisionConfig _nightVision = new NightVisionConfig();
+        [SerializeField] private ThermalVisionConfig _thermal = new ThermalVisionConfig();
         [SerializeField] private AudioClip _offClip;
         [SerializeField, Range(0f, 1f)] private float _offVolume = 0.5f;
 
         public NightVisionConfig NightVision => _nightVision;
+
+        public ThermalVisionConfig Thermal => _thermal;
 
         // Back to the plain picture.
         public AudioClip OffClip => _offClip;

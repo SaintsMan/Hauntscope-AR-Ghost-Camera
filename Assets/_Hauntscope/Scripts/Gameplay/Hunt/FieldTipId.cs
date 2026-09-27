@@ -15,6 +15,7 @@ namespace Hauntscope.Gameplay.Hunt
         Kaidannyk,
         Mara,
         SpiritBox,
-        NightVision
+        NightVision,
+        Thermal
     }
 }

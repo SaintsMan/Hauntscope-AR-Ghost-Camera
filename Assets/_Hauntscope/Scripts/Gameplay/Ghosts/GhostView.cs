@@ -12,6 +12,7 @@ namespace Hauntscope.Gameplay.Ghosts
         private static readonly int WobbleAmplitudeId = Shader.PropertyToID("_WobbleAmplitude");
         private static readonly int AgitationId = Shader.PropertyToID("_Agitation");
         private static readonly int StretchId = Shader.PropertyToID("_Stretch");
+        private static readonly int ThermalId = Shader.PropertyToID("_Thermal");
 
         [SerializeField] private Renderer[] _renderers;
         [SerializeField] private Renderer _body;
@@ -50,6 +51,8 @@ namespace Hauntscope.Gameplay.Ghosts
         private Vector3 _velocity;
         private Vector3 _lastPosition;
         private bool _hasPosition;
+        private float _reveal;
+        private float _thermal;
 
         public void SetPose(Vector3 position, Quaternion rotation)
         {
@@ -59,13 +62,31 @@ namespace Hauntscope.Gameplay.Ghosts
 
         public void SetReveal(float reveal)
         {
-            var visible = reveal > 0f;
-            foreach (var renderer in _renderers)
-                renderer.enabled = visible;
+            _reveal = reveal;
+            ApplyEnabled();
             foreach (var material in _materials)
                 material.SetFloat(RevealId, reveal);
 
             SetTrailing(reveal > _trailRevealThreshold);
+        }
+
+        public void SetThermal(float thermal)
+        {
+            if (Mathf.Approximately(thermal, _thermal))
+                return;
+
+            _thermal = thermal;
+            ApplyEnabled();
+            foreach (var material in _materials)
+                material.SetFloat(ThermalId, thermal);
+        }
+
+        // An unrevealed ghost is switched off to save the draw calls, unless the thermal camera still shows its shape.
+        private void ApplyEnabled()
+        {
+            var visible = _reveal > 0f || _thermal > 0f || _isFlashLit;
+            foreach (var renderer in _renderers)
+                renderer.enabled = visible;
         }
 
         public void SetDissolve(float dissolve)

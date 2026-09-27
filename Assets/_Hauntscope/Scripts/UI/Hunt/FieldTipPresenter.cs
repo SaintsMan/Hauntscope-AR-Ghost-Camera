@@ -11,7 +11,7 @@ namespace Hauntscope.UI.Hunt
         private static readonly string[] Keys =
         {
             null, "tips.stagger", "tips.close_in", "tips.photo", "tips.cold_spot", "tips.cat", "tips.witching_hour", "tips.shift_break",
-            null, null, null, null, "tips.spirit_box", "tips.night_vision"
+            null, null, null, null, "tips.spirit_box", "tips.night_vision", "tips.thermal"
         };
 
         private readonly FieldTips _tips;

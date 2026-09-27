@@ -42,6 +42,13 @@ namespace Hauntscope.Tests.EditMode.Fakes
             Dissolve = dissolve;
         }
 
+        public float Thermal { get; private set; }
+
+        public void SetThermal(float thermal)
+        {
+            Thermal = thermal;
+        }
+
         public void SetStruggle(float struggle)
         {
             Struggle = struggle;
