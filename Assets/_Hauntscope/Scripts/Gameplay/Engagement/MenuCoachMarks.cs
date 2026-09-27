@@ -3,11 +3,12 @@ using Hauntscope.Gameplay.Progress;
 
 namespace Hauntscope.Gameplay.Engagement
 {
-    // One-off NEW marks in the menu (GDD 5.31): on the night shift once it opens, on CONTRACTS after the first hunt.
-    // A mark goes for good the first time its button is pressed; "Reset tips" brings it back.
+    // One-off NEW marks in the menu (GDD 5.31): on the night shift once it opens, on CONTRACTS after the first hunt, on the
+    // BESTIARY once there is a file in it, on the SHOP once a few hunts have paid for something. A mark goes for good the
+    // first time its button is pressed; "Reset tips" brings it back.
     public sealed class MenuCoachMarks
     {
-        private static readonly string[] Keys = { "coach.shift", "coach.contracts" };
+        private static readonly string[] Keys = { "coach.shift", "coach.contracts", "coach.bestiary", "coach.shop" };
 
         private readonly PlayerProgress _progress;
         private readonly PlayerProgressRepository _repository;
@@ -24,7 +25,7 @@ namespace Hauntscope.Gameplay.Engagement
 
         public bool IsMarked(CoachMark mark)
         {
-            return _progress.TotalSessions >= HuntsToOpen(mark) && !_progress.HasSeenTip(Keys[(int)mark]);
+            return IsDue(mark) && !_progress.HasSeenTip(Keys[(int)mark]);
         }
 
         public void Dismiss(CoachMark mark)
@@ -36,9 +37,19 @@ namespace Hauntscope.Gameplay.Engagement
             _repository.Save(_progress);
         }
 
-        private int HuntsToOpen(CoachMark mark)
+        private bool IsDue(CoachMark mark)
         {
-            return mark == CoachMark.Shift ? _shift.UnlockHunts : _tips.ContractsMarkAfter;
+            switch (mark)
+            {
+                case CoachMark.Shift:
+                    return _progress.TotalSessions >= _shift.UnlockHunts;
+                case CoachMark.Bestiary:
+                    return _progress.TotalCaptures >= _tips.BestiaryMarkAfterCaptures;
+                case CoachMark.Shop:
+                    return _progress.TotalSessions >= _tips.ShopMarkAfter;
+                default:
+                    return _progress.TotalSessions >= _tips.ContractsMarkAfter;
+            }
         }
     }
 }

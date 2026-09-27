@@ -75,6 +75,40 @@ namespace Hauntscope.Tests.EditMode
             Assert.IsTrue(_marks.IsMarked(CoachMark.Contracts));
         }
 
+        [Test]
+        public void IsMarked_HuntWithoutACatch_BestiaryStaysQuiet()
+        {
+            _progress.RegisterSession();
+
+            Assert.IsFalse(_marks.IsMarked(CoachMark.Bestiary));
+        }
+
+        [Test]
+        public void IsMarked_OneHuntLessThanNeeded_ShopStaysQuiet()
+        {
+            Play(new TipsConfig().ShopMarkAfter - 1);
+
+            Assert.IsFalse(_marks.IsMarked(CoachMark.Shop));
+        }
+
+        [Test]
+        public void IsMarked_FirstCatch_MarksTheBestiary()
+        {
+            _progress.RegisterSession();
+
+            _progress.AddCapture("wisp", 10);
+
+            Assert.IsTrue(_marks.IsMarked(CoachMark.Bestiary));
+        }
+
+        [Test]
+        public void IsMarked_AFewHuntsPlayed_MarksTheShop()
+        {
+            Play(new TipsConfig().ShopMarkAfter);
+
+            Assert.IsTrue(_marks.IsMarked(CoachMark.Shop));
+        }
+
         private void Play(int hunts)
         {
             for (var i = 0; i < hunts; i++)

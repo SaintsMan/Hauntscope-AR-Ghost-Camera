@@ -18,6 +18,8 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private string _kaidannykGhostId = "kaidannyk";
         [SerializeField] private string _maraGhostId = "mara";
         [SerializeField, Min(0)] private int _contractsMarkAfter = 1;
+        [SerializeField, Min(1)] private int _bestiaryMarkAfterCaptures = 1;
+        [SerializeField, Min(0)] private int _shopMarkAfter = 2;
 
         public TipsConfig()
         {
@@ -59,5 +61,11 @@ namespace Hauntscope.Gameplay.Config
 
         // Hunts played before CONTRACTS gets its NEW mark.
         public int ContractsMarkAfter => _contractsMarkAfter;
+
+        // Catches before the BESTIARY gets its NEW mark: the first file is the reason to open it.
+        public int BestiaryMarkAfterCaptures => _bestiaryMarkAfterCaptures;
+
+        // Hunts played before the SHOP gets its NEW mark, when there is enough ectoplasm to buy something.
+        public int ShopMarkAfter => _shopMarkAfter;
     }
 }
