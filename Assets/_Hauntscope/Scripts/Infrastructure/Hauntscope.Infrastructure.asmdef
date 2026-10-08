@@ -10,7 +10,9 @@
         "Unity.ResourceManager",
         "Unity.InputSystem",
         "Unity.RenderPipelines.Universal.Runtime",
-        "Unity.RenderPipelines.Core.Runtime"
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.Notifications.Android",
+        "Unity.Purchasing"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

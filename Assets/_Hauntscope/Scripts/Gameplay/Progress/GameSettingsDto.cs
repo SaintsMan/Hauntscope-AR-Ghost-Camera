@@ -16,6 +16,10 @@ namespace Hauntscope.Gameplay.Progress
         [SerializeField] private int _environment;
         // Added without a version bump too; the initialiser keeps the music on for saves written before it.
         [SerializeField] private bool _music = true;
+        // Added without a version bump, like music: older saves get notifications on and the card still to come.
+        [SerializeField] private bool _notifications = true;
+        [SerializeField] private bool _notificationsPrompted;
+        [SerializeField] private string _pushLanguage;
 
         // Required by JsonUtility, which creates DTOs through the parameterless constructor.
         public GameSettingsDto()
@@ -23,8 +27,11 @@ namespace Hauntscope.Gameplay.Progress
         }
 
         public GameSettingsDto(int version, bool sound, bool vibration, bool jumpScares, bool occlusion, string language,
-            int environment, bool music)
+            int environment, bool music, bool notifications, bool notificationsPrompted, string pushLanguage)
         {
+            _notifications = notifications;
+            _notificationsPrompted = notificationsPrompted;
+            _pushLanguage = pushLanguage;
             _music = music;
             _environment = environment;
             _version = version;
@@ -50,5 +57,8 @@ namespace Hauntscope.Gameplay.Progress
         public int Environment => _environment;
 
         public bool Music => _music;
+        public bool Notifications => _notifications;
+        public bool NotificationsPrompted => _notificationsPrompted;
+        public string PushLanguage => _pushLanguage;
     }
 }

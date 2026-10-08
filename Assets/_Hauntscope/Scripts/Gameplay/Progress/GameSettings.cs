@@ -12,6 +12,7 @@ namespace Hauntscope.Gameplay.Progress
         private readonly ObservableValue<bool> _occlusion;
         private readonly ObservableValue<string> _language;
         private readonly ObservableValue<HuntEnvironment> _environment;
+        private readonly ObservableValue<bool> _notifications;
 
         public GameSettings()
             : this(true, true, true, true, string.Empty)
@@ -19,8 +20,12 @@ namespace Hauntscope.Gameplay.Progress
         }
 
         public GameSettings(bool sound, bool vibration, bool jumpScares, bool occlusion, string language,
-            HuntEnvironment environment = HuntEnvironment.Ar, bool music = true)
+            HuntEnvironment environment = HuntEnvironment.Ar, bool music = true, bool notifications = true,
+            bool notificationsPrompted = false, string pushLanguage = "")
         {
+            _notifications = new ObservableValue<bool>(notifications);
+            NotificationsPrompted = notificationsPrompted;
+            PushLanguage = pushLanguage ?? string.Empty;
             _music = new ObservableValue<bool>(music);
             _environment = new ObservableValue<HuntEnvironment>(environment);
             _sound = new ObservableValue<bool>(sound);
@@ -46,6 +51,30 @@ namespace Hauntscope.Gameplay.Progress
 
         // Where START HUNT goes: through the camera, or into the Virtual Room without one.
         public IReadOnlyObservableValue<HuntEnvironment> Environment => _environment;
+
+        // The player's wish; the system permission is the other half (NotificationOptIn).
+        public IReadOnlyObservableValue<bool> Notifications => _notifications;
+
+        // The opt-in card has been answered (or skipped where Android needs no permission).
+        public bool NotificationsPrompted { get; private set; }
+
+        // The language whose push topic this device is subscribed to; empty when it is subscribed to none.
+        public string PushLanguage { get; private set; }
+
+        public void SetNotifications(bool enabled)
+        {
+            _notifications.Value = enabled;
+        }
+
+        public void MarkNotificationsPrompted()
+        {
+            NotificationsPrompted = true;
+        }
+
+        public void SetPushLanguage(string languageCode)
+        {
+            PushLanguage = languageCode ?? string.Empty;
+        }
 
         public void SetSound(bool enabled)
         {

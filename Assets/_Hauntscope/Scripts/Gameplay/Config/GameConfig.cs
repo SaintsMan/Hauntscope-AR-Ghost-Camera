@@ -42,6 +42,8 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private MusicConfig _music = new MusicConfig();
         [SerializeField] private StoryConfig _story = new StoryConfig();
         [SerializeField] private RookieConfig _rookie = new RookieConfig();
+        [SerializeField] private IapConfig _iap = new IapConfig();
+        [SerializeField] private NotificationConfig _notifications = new NotificationConfig();
 
         public int TargetFrameRate => _targetFrameRate;
 
@@ -116,5 +118,9 @@ namespace Hauntscope.Gameplay.Config
         public StoryConfig Story => _story;
 
         public RookieConfig Rookie => _rookie;
+
+        public IapConfig Iap => _iap;
+
+        public NotificationConfig Notifications => _notifications;
     }
 }

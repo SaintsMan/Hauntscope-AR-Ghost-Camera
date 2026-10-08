@@ -9,6 +9,7 @@ using Hauntscope.Gameplay.Engagement;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Iap;
 using Hauntscope.Gameplay.Photo;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Research;
@@ -20,9 +21,11 @@ using Hauntscope.Infrastructure.Haptics;
 using Hauntscope.Infrastructure.Input;
 using Hauntscope.Infrastructure.Lifecycle;
 using Hauntscope.Infrastructure.Localization;
+using Hauntscope.Infrastructure.Notifications;
 using Hauntscope.Infrastructure.Permissions;
 using Hauntscope.Infrastructure.Photos;
 using Hauntscope.Infrastructure.PlayStore;
+using Hauntscope.Infrastructure.Purchases;
 using Hauntscope.Infrastructure.Random;
 using Hauntscope.Infrastructure.Save;
 using Hauntscope.Infrastructure.Scenes;
@@ -59,7 +62,9 @@ namespace Hauntscope.Bootstrap
             RegisterProgress(builder);
             RegisterLaunch(builder);
             RegisterPlayStore(builder);
+            RegisterPurchases(builder);
             RegisterAds(builder);
+            RegisterNotifications(builder);
             RegisterPhotos(builder);
 
             builder.RegisterEntryPoint<FrameRateInitializer>();
@@ -110,6 +115,8 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Music);
             builder.RegisterInstance(_gameConfig.Story);
             builder.RegisterInstance(_gameConfig.Rookie);
+            builder.RegisterInstance(_gameConfig.Iap);
+            builder.RegisterInstance(_gameConfig.Notifications);
         }
 
         // Scene loads are decorated with the CRT transition; the overlay outlives every scene it covers.
@@ -195,7 +202,8 @@ namespace Hauntscope.Bootstrap
 #endif
         }
 
-        // Placements talk to the paced decorator; the privacy form goes straight to the adapter that owns consent.
+        // Placements talk to the outer decorator: the full version skips ads and grants video rewards outright, and every
+        // ad that does play is paced. The privacy form goes straight to the adapter that owns consent.
         private static void RegisterAds(IContainerBuilder builder)
         {
             builder.Register<SystemClock>(Lifetime.Singleton).As<IClock>();
@@ -203,15 +211,45 @@ namespace Hauntscope.Bootstrap
             builder.Register<AdPacing>(Lifetime.Singleton);
 #if UNITY_ANDROID && !UNITY_EDITOR
             builder.Register<AdMobAdsService>(Lifetime.Singleton).AsSelf().As<IAdPrivacy>();
-            builder.Register<IAdsService>(resolver => new PacedAdsService(resolver.Resolve<AdMobAdsService>(), resolver.Resolve<AdPacing>(),
-                resolver.Resolve<IClock>()), Lifetime.Singleton);
+            builder.Register<IAdsService>(resolver => new PremiumAdsService(new PacedAdsService(resolver.Resolve<AdMobAdsService>(),
+                resolver.Resolve<AdPacing>(), resolver.Resolve<IClock>()), resolver.Resolve<PurchaseHistory>()), Lifetime.Singleton);
 #else
             builder.Register<EditorAdsService>(Lifetime.Singleton).AsSelf().As<IAdPrivacy>();
-            builder.Register<IAdsService>(resolver => new PacedAdsService(resolver.Resolve<EditorAdsService>(), resolver.Resolve<AdPacing>(),
-                resolver.Resolve<IClock>()), Lifetime.Singleton);
+            builder.Register<IAdsService>(resolver => new PremiumAdsService(new PacedAdsService(resolver.Resolve<EditorAdsService>(),
+                resolver.Resolve<AdPacing>(), resolver.Resolve<IClock>()), resolver.Resolve<PurchaseHistory>()), Lifetime.Singleton);
 #endif
             builder.Register<InterstitialPolicy>(Lifetime.Singleton);
             builder.Register<AdBreak>(Lifetime.Singleton);
+        }
+
+        private static void RegisterPurchases(IContainerBuilder builder)
+        {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            builder.Register<UnityIapStore>(Lifetime.Singleton).As<IIapStore>();
+#else
+            builder.Register<EditorIapStore>(Lifetime.Singleton).As<IIapStore>();
+#endif
+            builder.Register<PurchaseHistoryRepository>(Lifetime.Singleton);
+            builder.Register(resolver => resolver.Resolve<PurchaseHistoryRepository>().Load(), Lifetime.Singleton);
+            builder.Register<IapGrant>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<PaidStore>().AsSelf();
+            builder.Register<StarterOffer>(Lifetime.Singleton);
+            builder.Register<PremiumOffer>(Lifetime.Singleton);
+        }
+
+        private static void RegisterNotifications(IContainerBuilder builder)
+        {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            builder.Register<AndroidLocalNotifications>(Lifetime.Singleton).As<ILocalNotifications>();
+            builder.Register<FirebasePushMessaging>(Lifetime.Singleton).As<IPushMessaging>();
+#else
+            builder.Register<EditorLocalNotifications>(Lifetime.Singleton).As<ILocalNotifications>();
+            builder.Register<NullPushMessaging>(Lifetime.Singleton).As<IPushMessaging>();
+#endif
+            builder.Register<NotificationOptIn>(Lifetime.Singleton);
+            builder.Register<ReminderPlanner>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<Reminders>();
+            builder.RegisterEntryPoint<PushTopics>();
         }
 
         private static void RegisterHaptics(IContainerBuilder builder)
