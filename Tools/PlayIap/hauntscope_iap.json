@@ -1,0 +1,327 @@
+{
+  "package": "com.pavko.hauntscope",
+  "default_language": "en-US",
+  "languages": ["en-US", "uk", "es-419", "pt-BR", "de-DE", "id"],
+  "game_languages": ["en", "uk", "es-419", "pt-BR", "de", "id"],
+  "game_name_max": 24,
+  "game_description_max": 90,
+  "purchase_option_id": "buy",
+  "banned": "ghostbuster|ouija|phasmophobia|cazafantasma|caça-?fantasma|proton pack|real ghost|справжн\\w* привид|fantasmas? reales|fantasmas? reais|echte geister|hantu (sungguhan|nyata|asli)",
+  "expect_ids_in": "../../Assets/_Hauntscope/Scripts/Editor/IapAssetBuilder.cs",
+  "regional_factors": "regional_factors.json",
+  "show_regions": ["US", "GB", "DE", "UA", "BR", "MX", "AR", "CO", "ID", "IN"],
+  "products": [
+    {
+      "id": "full_version",
+      "type": "non-consumable",
+      "price_usd": "4.99",
+      "listings": {
+        "en-US": {
+          "title": "Full Version: Bureau Pass",
+          "description": "No ads between hunts. Every video reward is granted instantly, no video to watch. Plus 1,500 ectoplasm and the exclusive gold laser A0 AURUM."
+        },
+        "uk": {
+          "title": "Повна версія: перепустка бюро",
+          "description": "Без реклами між полюваннями. Кожну нагороду за відео отримуєш одразу, без перегляду. А ще 1 500 ектоплазми й ексклюзивний золотий лазер A0 AURUM."
+        },
+        "es-419": {
+          "title": "Versión completa: Pase de la Oficina",
+          "description": "Sin anuncios entre cacerías. Cada recompensa por video llega al instante, sin ver el video. Además, 1500 de ectoplasma y el láser dorado exclusivo A0 AURUM."
+        },
+        "pt-BR": {
+          "title": "Versão completa: Passe do Escritório",
+          "description": "Sem anúncios entre as caçadas. Toda recompensa por vídeo chega na hora, sem assistir ao vídeo. E mais 1.500 de ectoplasma e o laser dourado exclusivo A0 AURUM."
+        },
+        "de-DE": {
+          "title": "Vollversion: Büro-Pass",
+          "description": "Keine Werbung zwischen den Jagden. Jede Video-Belohnung bekommst du sofort, ganz ohne Video. Dazu 1.500 Ektoplasma und der exklusive goldene Laser A0 AURUM."
+        },
+        "id": {
+          "title": "Versi Lengkap: Kartu Pas Biro",
+          "description": "Tanpa iklan di antara perburuan. Setiap hadiah video langsung kamu terima tanpa menonton video. Plus 1.500 ektoplasma dan laser emas eksklusif A0 AURUM."
+        }
+      },
+      "game": {
+        "en": {"name": "FULL VERSION", "description": "No ads, instant video rewards, +1,500 ectoplasm and the gold laser A0 AURUM."},
+        "uk": {"name": "ПОВНА ВЕРСІЯ", "description": "Без реклами, нагороди за відео одразу, +1 500 ектоплазми й золотий лазер A0 AURUM."},
+        "es-419": {"name": "VERSIÓN COMPLETA", "description": "Sin anuncios, premios de video al instante, +1500 de ectoplasma y láser dorado A0 AURUM."},
+        "pt-BR": {"name": "VERSÃO COMPLETA", "description": "Sem anúncios, recompensas de vídeo na hora, +1.500 de ectoplasma e laser dourado A0 AURUM."},
+        "de": {"name": "VOLLVERSION", "description": "Keine Werbung, Video-Belohnungen sofort, +1.500 Ektoplasma und goldener Laser A0 AURUM."},
+        "id": {"name": "VERSI LENGKAP", "description": "Tanpa iklan, hadiah video langsung, +1.500 ektoplasma, dan laser emas A0 AURUM."}
+      }
+    },
+    {
+      "id": "starter_pack",
+      "type": "non-consumable",
+      "price_usd": "1.99",
+      "listings": {
+        "en-US": {
+          "title": "Rookie Kit",
+          "description": "A one-time offer for new agents: 1,000 ectoplasm, the T3 TETHER laser, 3 each of EMF amplifier, focus lens and salt line, and 3 spare batteries."
+        },
+        "uk": {
+          "title": "Набір новобранця",
+          "description": "Разова пропозиція для нових агентів: 1 000 ектоплазми, лазер T3 ПРИВ’ЯЗЬ, по 3 EMF-підсилювачі, фокусні лінзи й соляні лінії та 3 запасні батареї."
+        },
+        "es-419": {
+          "title": "Kit de novato",
+          "description": "Oferta única para agentes nuevos: 1000 de ectoplasma, el láser T3 AMARRE, 3 amplificadores EMF, 3 lentes de enfoque, 3 líneas de sal y 3 baterías de repuesto."
+        },
+        "pt-BR": {
+          "title": "Kit de novato",
+          "description": "Oferta única para novos agentes: 1.000 de ectoplasma, o laser T3 AMARRA, 3 amplificadores EMF, 3 lentes de foco, 3 linhas de sal e 3 baterias reserva."
+        },
+        "de-DE": {
+          "title": "Rekruten-Set",
+          "description": "Einmaliges Angebot für neue Agenten: 1.000 Ektoplasma, der Laser T3 LEINE, je 3 EMF-Verstärker, Fokuslinsen und Salzlinien sowie 3 Ersatzakkus."
+        },
+        "id": {
+          "title": "Paket Agen Baru",
+          "description": "Penawaran sekali untuk agen baru: 1.000 ektoplasma, laser T3 PENGIKAT, masing-masing 3 penguat EMF, lensa fokus, dan garis garam, plus 3 baterai cadangan."
+        }
+      },
+      "game": {
+        "en": {"name": "ROOKIE KIT", "description": "1,000 ectoplasm, the T3 TETHER laser, 3 of each booster and 3 spare batteries."},
+        "uk": {"name": "НАБІР НОВОБРАНЦЯ", "description": "1 000 ектоплазми, лазер T3 ПРИВ’ЯЗЬ, по 3 кожного бустера й 3 запасні батареї."},
+        "es-419": {"name": "KIT DE NOVATO", "description": "1000 de ectoplasma, láser T3 AMARRE, 3 de cada potenciador y 3 baterías de repuesto."},
+        "pt-BR": {"name": "KIT DE NOVATO", "description": "1.000 de ectoplasma, laser T3 AMARRA, 3 de cada reforço e 3 baterias reserva."},
+        "de": {"name": "REKRUTEN-SET", "description": "1.000 Ektoplasma, Laser T3 LEINE, jeden Booster 3× und 3 Ersatzakkus."},
+        "id": {"name": "PAKET AGEN BARU", "description": "1.000 ektoplasma, laser T3 PENGIKAT, 3 tiap penguat, dan 3 baterai cadangan."}
+      }
+    },
+    {
+      "id": "ecto_vial",
+      "type": "consumable",
+      "price_usd": "0.99",
+      "listings": {
+        "en-US": {
+          "title": "Vial of Ectoplasm: 500",
+          "description": "500 ectoplasm for lasers and gear from the agency supply depot."
+        },
+        "uk": {
+          "title": "Колба ектоплазми: 500",
+          "description": "500 ектоплазми на лазери й спорядження зі складу агенції."
+        },
+        "es-419": {
+          "title": "Frasco de ectoplasma: 500",
+          "description": "500 de ectoplasma para láseres y equipo del almacén de la agencia."
+        },
+        "pt-BR": {
+          "title": "Frasco de ectoplasma: 500",
+          "description": "500 de ectoplasma para lasers e equipamentos do depósito da agência."
+        },
+        "de-DE": {
+          "title": "Ektoplasma-Phiole: 500",
+          "description": "500 Ektoplasma für Laser und Ausrüstung aus dem Agentur-Lager."
+        },
+        "id": {
+          "title": "Tabung Ektoplasma: 500",
+          "description": "500 ektoplasma untuk laser dan perlengkapan dari gudang agensi."
+        }
+      },
+      "game": {
+        "en": {"name": "VIAL OF ECTOPLASM", "description": "500 ectoplasm for lasers and gear."},
+        "uk": {"name": "КОЛБА ЕКТОПЛАЗМИ", "description": "500 ектоплазми на лазери й спорядження."},
+        "es-419": {"name": "FRASCO DE ECTOPLASMA", "description": "500 de ectoplasma para láseres y equipo."},
+        "pt-BR": {"name": "FRASCO DE ECTOPLASMA", "description": "500 de ectoplasma para lasers e equipamentos."},
+        "de": {"name": "EKTOPLASMA-PHIOLE", "description": "500 Ektoplasma für Laser und Ausrüstung."},
+        "id": {"name": "TABUNG EKTOPLASMA", "description": "500 ektoplasma untuk laser dan perlengkapan."}
+      }
+    },
+    {
+      "id": "ecto_jar",
+      "type": "consumable",
+      "price_usd": "2.99",
+      "listings": {
+        "en-US": {
+          "title": "Jar of Ectoplasm: 1,800",
+          "description": "1,800 ectoplasm, a +20% bonus included. Spend it on lasers and gear from the agency supply depot."
+        },
+        "uk": {
+          "title": "Банка ектоплазми: 1 800",
+          "description": "1 800 ектоплазми, бонус +20% уже враховано. На лазери й спорядження зі складу агенції."
+        },
+        "es-419": {
+          "title": "Tarro de ectoplasma: 1800",
+          "description": "1800 de ectoplasma con un bono del +20% incluido. Para láseres y equipo del almacén de la agencia."
+        },
+        "pt-BR": {
+          "title": "Pote de ectoplasma: 1.800",
+          "description": "1.800 de ectoplasma com bônus de +20% incluso. Para lasers e equipamentos do depósito da agência."
+        },
+        "de-DE": {
+          "title": "Ektoplasma-Glas: 1.800",
+          "description": "1.800 Ektoplasma inklusive +20% Bonus. Für Laser und Ausrüstung aus dem Agentur-Lager."
+        },
+        "id": {
+          "title": "Toples Ektoplasma: 1.800",
+          "description": "1.800 ektoplasma, sudah termasuk bonus +20%. Untuk laser dan perlengkapan dari gudang agensi."
+        }
+      },
+      "game": {
+        "en": {"name": "JAR OF ECTOPLASM", "description": "1,800 ectoplasm, +20% bonus included."},
+        "uk": {"name": "БАНКА ЕКТОПЛАЗМИ", "description": "1 800 ектоплазми, бонус +20% уже враховано."},
+        "es-419": {"name": "TARRO DE ECTOPLASMA", "description": "1800 de ectoplasma, bono del +20% incluido."},
+        "pt-BR": {"name": "POTE DE ECTOPLASMA", "description": "1.800 de ectoplasma, bônus de +20% incluso."},
+        "de": {"name": "EKTOPLASMA-GLAS", "description": "1.800 Ektoplasma inklusive +20% Bonus."},
+        "id": {"name": "TOPLES EKTOPLASMA", "description": "1.800 ektoplasma, sudah termasuk bonus +20%."}
+      }
+    },
+    {
+      "id": "ecto_barrel",
+      "type": "consumable",
+      "price_usd": "4.99",
+      "listings": {
+        "en-US": {
+          "title": "Barrel of Ectoplasm: 3,500",
+          "description": "3,500 ectoplasm, a +40% bonus included. Spend it on lasers and gear from the agency supply depot."
+        },
+        "uk": {
+          "title": "Бочка ектоплазми: 3 500",
+          "description": "3 500 ектоплазми, бонус +40% уже враховано. На лазери й спорядження зі складу агенції."
+        },
+        "es-419": {
+          "title": "Barril de ectoplasma: 3500",
+          "description": "3500 de ectoplasma con un bono del +40% incluido. Para láseres y equipo del almacén de la agencia."
+        },
+        "pt-BR": {
+          "title": "Barril de ectoplasma: 3.500",
+          "description": "3.500 de ectoplasma com bônus de +40% incluso. Para lasers e equipamentos do depósito da agência."
+        },
+        "de-DE": {
+          "title": "Ektoplasma-Fass: 3.500",
+          "description": "3.500 Ektoplasma inklusive +40% Bonus. Für Laser und Ausrüstung aus dem Agentur-Lager."
+        },
+        "id": {
+          "title": "Tong Ektoplasma: 3.500",
+          "description": "3.500 ektoplasma, sudah termasuk bonus +40%. Untuk laser dan perlengkapan dari gudang agensi."
+        }
+      },
+      "game": {
+        "en": {"name": "BARREL OF ECTOPLASM", "description": "3,500 ectoplasm, +40% bonus included."},
+        "uk": {"name": "БОЧКА ЕКТОПЛАЗМИ", "description": "3 500 ектоплазми, бонус +40% уже враховано."},
+        "es-419": {"name": "BARRIL DE ECTOPLASMA", "description": "3500 de ectoplasma, bono del +40% incluido."},
+        "pt-BR": {"name": "BARRIL DE ECTOPLASMA", "description": "3.500 de ectoplasma, bônus de +40% incluso."},
+        "de": {"name": "EKTOPLASMA-FASS", "description": "3.500 Ektoplasma inklusive +40% Bonus."},
+        "id": {"name": "TONG EKTOPLASMA", "description": "3.500 ektoplasma, sudah termasuk bonus +40%."}
+      }
+    },
+    {
+      "id": "ecto_vault",
+      "type": "consumable",
+      "price_usd": "9.99",
+      "listings": {
+        "en-US": {
+          "title": "Vault of Ectoplasm: 8,000",
+          "description": "8,000 ectoplasm, a +60% bonus included. The best value in the agency supply depot."
+        },
+        "uk": {
+          "title": "Сховище ектоплазми: 8 000",
+          "description": "8 000 ектоплазми, бонус +60% уже враховано. Найвигідніша пропозиція на складі агенції."
+        },
+        "es-419": {
+          "title": "Bóveda de ectoplasma: 8000",
+          "description": "8000 de ectoplasma con un bono del +60% incluido. La opción más conveniente del almacén de la agencia."
+        },
+        "pt-BR": {
+          "title": "Cofre de ectoplasma: 8.000",
+          "description": "8.000 de ectoplasma com bônus de +60% incluso. A melhor oferta do depósito da agência."
+        },
+        "de-DE": {
+          "title": "Ektoplasma-Tresor: 8.000",
+          "description": "8.000 Ektoplasma inklusive +60% Bonus. Das beste Angebot im Agentur-Lager."
+        },
+        "id": {
+          "title": "Brankas Ektoplasma: 8.000",
+          "description": "8.000 ektoplasma, sudah termasuk bonus +60%. Penawaran paling hemat di gudang agensi."
+        }
+      },
+      "game": {
+        "en": {"name": "VAULT OF ECTOPLASM", "description": "8,000 ectoplasm, +60% bonus included. Best value."},
+        "uk": {"name": "СХОВИЩЕ ЕКТОПЛАЗМИ", "description": "8 000 ектоплазми, бонус +60% уже враховано. Найвигідніше."},
+        "es-419": {"name": "BÓVEDA DE ECTOPLASMA", "description": "8000 de ectoplasma, bono del +60% incluido. La mejor opción."},
+        "pt-BR": {"name": "COFRE DE ECTOPLASMA", "description": "8.000 de ectoplasma, bônus de +60% incluso. A melhor oferta."},
+        "de": {"name": "EKTOPLASMA-TRESOR", "description": "8.000 Ektoplasma inklusive +60% Bonus. Bestes Angebot."},
+        "id": {"name": "BRANKAS EKTOPLASMA", "description": "8.000 ektoplasma, sudah termasuk bonus +60%. Paling hemat."}
+      }
+    },
+    {
+      "id": "field_kit",
+      "type": "consumable",
+      "price_usd": "1.99",
+      "listings": {
+        "en-US": {
+          "title": "Field Kit",
+          "description": "3 each of EMF amplifier, focus lens and salt line, plus 3 spare batteries. A booster lasts one hunt; a battery adds +50% charge."
+        },
+        "uk": {
+          "title": "Польовий набір",
+          "description": "По 3 EMF-підсилювачі, фокусні лінзи й соляні лінії та 3 запасні батареї. Бустер діє одне полювання, батарея додає +50% заряду."
+        },
+        "es-419": {
+          "title": "Kit de campo",
+          "description": "3 amplificadores EMF, 3 lentes de enfoque, 3 líneas de sal y 3 baterías de repuesto. Cada potenciador dura una cacería; cada batería da +50% de carga."
+        },
+        "pt-BR": {
+          "title": "Kit de campo",
+          "description": "3 amplificadores EMF, 3 lentes de foco, 3 linhas de sal e 3 baterias reserva. Cada reforço dura uma caçada; cada bateria dá +50% de carga."
+        },
+        "de-DE": {
+          "title": "Feld-Set",
+          "description": "Je 3 EMF-Verstärker, Fokuslinsen und Salzlinien plus 3 Ersatzakkus. Ein Booster hält eine Jagd lang, ein Akku bringt +50% Ladung."
+        },
+        "id": {
+          "title": "Paket Lapangan",
+          "description": "Masing-masing 3 penguat EMF, lensa fokus, dan garis garam, plus 3 baterai cadangan. Penguat berlaku satu perburuan, baterai menambah +50% daya."
+        }
+      },
+      "game": {
+        "en": {"name": "FIELD KIT", "description": "3 of each booster (EMF amplifier, focus lens, salt line) and 3 spare batteries."},
+        "uk": {"name": "ПОЛЬОВИЙ НАБІР", "description": "По 3 кожного бустера (EMF-підсилювач, лінза, соляна лінія) і 3 запасні батареї."},
+        "es-419": {"name": "KIT DE CAMPO", "description": "3 de cada potenciador (amplificador EMF, lente, línea de sal) y 3 baterías de repuesto."},
+        "pt-BR": {"name": "KIT DE CAMPO", "description": "3 de cada reforço (amplificador EMF, lente, linha de sal) e 3 baterias reserva."},
+        "de": {"name": "FELD-SET", "description": "Jeden Booster 3× (EMF-Verstärker, Fokuslinse, Salzlinie) und 3 Ersatzakkus."},
+        "id": {"name": "PAKET LAPANGAN", "description": "3 tiap penguat (penguat EMF, lensa fokus, garis garam) dan 3 baterai cadangan."}
+      }
+    },
+    {
+      "id": "laser_spectre",
+      "type": "non-consumable",
+      "price_usd": "1.99",
+      "listings": {
+        "en-US": {
+          "title": "S5 SPECTRE Laser",
+          "description": "Exclusive laser: a ghost-white beam that locks in cyan. Captures 30% faster and slows down the ghost you hold in the beam."
+        },
+        "uk": {
+          "title": "Лазер S5 ФАНТОМ",
+          "description": "Ексклюзивний лазер: примарно-білий промінь, що спалахує бірюзовим, коли тримає ціль. Захоплює на 30% швидше й сповільнює привида в промені."
+        },
+        "es-419": {
+          "title": "Láser S5 ESPECTRO",
+          "description": "Láser exclusivo: un rayo blanco fantasmal que se vuelve cian al fijar el blanco. Captura un 30% más rápido y frena al fantasma que sujetas."
+        },
+        "pt-BR": {
+          "title": "Laser S5 ESPECTRO",
+          "description": "Laser exclusivo: um raio branco fantasmagórico que fica ciano ao travar no alvo. Captura 30% mais rápido e deixa mais lento o fantasma preso no raio."
+        },
+        "de-DE": {
+          "title": "Laser S5 GESPENST",
+          "description": "Exklusiver Laser: ein geisterweißer Strahl, der beim Erfassen cyan leuchtet. Fängt 30% schneller und bremst den Geist, den du im Strahl hältst."
+        },
+        "id": {
+          "title": "Laser S5 ARWAH",
+          "description": "Laser eksklusif: sinar putih pucat yang berubah sian saat mengunci target. Menangkap 30% lebih cepat dan memperlambat hantu yang tertahan di sinar."
+        }
+      },
+      "game": {
+        "en": {"name": "S5 SPECTRE", "description": "Ghost-white beam that locks in cyan. Captures 30% faster, slows a held ghost."},
+        "uk": {"name": "S5 ФАНТОМ", "description": "Білий промінь, що на цілі стає бірюзовим. Захоплює на 30% швидше, гальмує привида."},
+        "es-419": {"name": "S5 ESPECTRO", "description": "Rayo blanco que se vuelve cian al fijar. Captura un 30% más rápido y frena al fantasma."},
+        "pt-BR": {"name": "S5 ESPECTRO", "description": "Raio branco que fica ciano ao travar. Captura 30% mais rápido e freia o fantasma."},
+        "de": {"name": "S5 GESPENST", "description": "Weißer Strahl, der beim Erfassen cyan wird. Fängt 30% schneller, bremst den Geist."},
+        "id": {"name": "S5 ARWAH", "description": "Sinar putih yang jadi sian saat mengunci. Menangkap 30% lebih cepat, memperlambat hantu."}
+      }
+    }
+  ]
+}

@@ -1,0 +1,1663 @@
+{
+ "generated": "2026-10-08",
+ "formula": "factor = clamp(PLI + (1 - PLI) * min(1, GDPpc / 60000), 0.3, 1); PLI = PPP private consumption (PA.NUS.PRVT.PP) / exchange rate (PA.NUS.FCRF), same year",
+ "sources": [
+  "https://data.worldbank.org/indicator/PA.NUS.PRVT.PP",
+  "https://data.worldbank.org/indicator/PA.NUS.FCRF",
+  "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD"
+ ],
+ "factors": {
+  "AD": {
+   "factor": 0.977,
+   "pli": 0.756,
+   "pli_year": 2021,
+   "gdp_per_capita": 54292,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "AE": {
+   "factor": 0.949,
+   "pli": 0.688,
+   "pli_year": 2025,
+   "gdp_per_capita": 50274,
+   "gdp_year": 2024,
+   "source": "worldbank"
+  },
+  "AF": {
+   "factor": 0.3,
+   "pli": 0.206,
+   "pli_year": 2020,
+   "gdp_per_capita": 417,
+   "gdp_year": 2024,
+   "source": "worldbank"
+  },
+  "AG": {
+   "factor": 0.89,
+   "pli": 0.812,
+   "pli_year": 2025,
+   "gdp_per_capita": 24819,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "AL": {
+   "factor": 0.602,
+   "pli": 0.492,
+   "pli_year": 2024,
+   "gdp_per_capita": 12998,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "AM": {
+   "factor": 0.503,
+   "pli": 0.41,
+   "pli_year": 2025,
+   "gdp_per_capita": 9474,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "AO": {
+   "factor": 0.431,
+   "pli": 0.399,
+   "pli_year": 2025,
+   "gdp_per_capita": 3129,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "AR": {
+   "factor": 0.588,
+   "pli": 0.453,
+   "pli_year": 2021,
+   "gdp_per_capita": 14898,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "AS": {
+   "factor": 0.932,
+   "pli": 0.903,
+   "pli_year": 2021,
+   "gdp_per_capita": 18017,
+   "gdp_year": 2022,
+   "source": "worldbank"
+  },
+  "AT": {
+   "factor": 1.0,
+   "pli": 0.848,
+   "pli_year": 2025,
+   "gdp_per_capita": 62930,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "AU": {
+   "factor": 1.0,
+   "pli": 0.944,
+   "pli_year": 2025,
+   "gdp_per_capita": 65130,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "AW": {
+   "factor": 0.945,
+   "pli": 0.845,
+   "pli_year": 2021,
+   "gdp_per_capita": 38591,
+   "gdp_year": 2024,
+   "source": "worldbank"
+  },
+  "AZ": {
+   "factor": 0.403,
+   "pli": 0.319,
+   "pli_year": 2025,
+   "gdp_per_capita": 7411,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "BA": {
+   "factor": 0.539,
+   "pli": 0.443,
+   "pli_year": 2025,
+   "gdp_per_capita": 10382,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "BB": {
+   "factor": 1.0,
+   "pli": 1.319,
+   "pli_year": 2021,
+   "gdp_per_capita": 28365,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "BD": {
+   "factor": 0.317,
+   "pli": 0.287,
+   "pli_year": 2025,
+   "gdp_per_capita": 2597,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "BE": {
+   "factor": 1.0,
+   "pli": 0.872,
+   "pli_year": 2025,
+   "gdp_per_capita": 60750,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "BF": {
+   "factor": 0.345,
+   "pli": 0.332,
+   "pli_year": 2025,
+   "gdp_per_capita": 1148,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "BG": {
+   "factor": 0.497,
+   "pli": 0.239,
+   "pli_year": 2025,
+   "gdp_per_capita": 20328,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "BH": {
+   "factor": 0.749,
+   "pli": 0.488,
+   "pli_year": 2025,
+   "gdp_per_capita": 30597,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "BI": {
+   "factor": 0.459,
+   "pli": 0.457,
+   "pli_year": 2025,
+   "gdp_per_capita": 234,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "BJ": {
+   "factor": 0.355,
+   "pli": 0.337,
+   "pli_year": 2025,
+   "gdp_per_capita": 1658,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "BM": {
+   "factor": 1.0,
+   "pli": 1.441,
+   "pli_year": 2021,
+   "gdp_per_capita": 142250,
+   "gdp_year": 2024,
+   "source": "worldbank"
+  },
+  "BN": {
+   "factor": 0.724,
+   "pli": 0.403,
+   "pli_year": 2025,
+   "gdp_per_capita": 32235,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "BO": {
+   "factor": 0.443,
+   "pli": 0.391,
+   "pli_year": 2025,
+   "gdp_per_capita": 5148,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "BR": {
+   "factor": 0.558,
+   "pli": 0.462,
+   "pli_year": 2025,
+   "gdp_per_capita": 10713,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "BS": {
+   "factor": 1.0,
+   "pli": 1.107,
+   "pli_year": 2024,
+   "gdp_per_capita": 39455,
+   "gdp_year": 2024,
+   "source": "worldbank"
+  },
+  "BT": {
+   "factor": 0.3,
+   "pli": 0.242,
+   "pli_year": 2025,
+   "gdp_per_capita": 4493,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "BW": {
+   "factor": 0.472,
+   "pli": 0.393,
+   "pli_year": 2025,
+   "gdp_per_capita": 7778,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "BY": {
+   "factor": 0.4,
+   "pli": 0.276,
+   "pli_year": 2025,
+   "gdp_per_capita": 10279,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "BZ": {
+   "factor": 0.604,
+   "pli": 0.544,
+   "pli_year": 2025,
+   "gdp_per_capita": 7865,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "CA": {
+   "factor": 0.993,
+   "pli": 0.902,
+   "pli_year": 2025,
+   "gdp_per_capita": 55698,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "CD": {
+   "factor": 0.474,
+   "pli": 0.467,
+   "pli_year": 2021,
+   "gdp_per_capita": 807,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "CF": {
+   "factor": 0.45,
+   "pli": 0.445,
+   "pli_year": 2025,
+   "gdp_per_capita": 556,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "CG": {
+   "factor": 0.423,
+   "pli": 0.397,
+   "pli_year": 2025,
+   "gdp_per_capita": 2515,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "CH": {
+   "factor": 1.0,
+   "pli": 1.282,
+   "pli_year": 2025,
+   "gdp_per_capita": 114769,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "CI": {
+   "factor": 0.423,
+   "pli": 0.392,
+   "pli_year": 2025,
+   "gdp_per_capita": 3050,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "CL": {
+   "factor": 0.658,
+   "pli": 0.512,
+   "pli_year": 2025,
+   "gdp_per_capita": 17995,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "CM": {
+   "factor": 0.38,
+   "pli": 0.359,
+   "pli_year": 2025,
+   "gdp_per_capita": 1972,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "CN": {
+   "factor": 0.601,
+   "pli": 0.481,
+   "pli_year": 2025,
+   "gdp_per_capita": 13862,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "CO": {
+   "factor": 0.495,
+   "pli": 0.411,
+   "pli_year": 2025,
+   "gdp_per_capita": 8562,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "CR": {
+   "factor": 0.75,
+   "pli": 0.625,
+   "pli_year": 2025,
+   "gdp_per_capita": 19970,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "CV": {
+   "factor": 0.586,
+   "pli": 0.541,
+   "pli_year": 2025,
+   "gdp_per_capita": 5796,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "CW": {
+   "factor": 0.868,
+   "pli": 0.787,
+   "pli_year": 2021,
+   "gdp_per_capita": 22833,
+   "gdp_year": 2024,
+   "source": "worldbank"
+  },
+  "CY": {
+   "factor": 0.9,
+   "pli": 0.669,
+   "pli_year": 2025,
+   "gdp_per_capita": 41783,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "CZ": {
+   "factor": 0.867,
+   "pli": 0.67,
+   "pli_year": 2025,
+   "gdp_per_capita": 35917,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "DE": {
+   "factor": 1.0,
+   "pli": 0.812,
+   "pli_year": 2025,
+   "gdp_per_capita": 60496,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "DJ": {
+   "factor": 0.531,
+   "pli": 0.498,
+   "pli_year": 2025,
+   "gdp_per_capita": 3906,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "DK": {
+   "factor": 1.0,
+   "pli": 1.045,
+   "pli_year": 2025,
+   "gdp_per_capita": 76970,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "DM": {
+   "factor": 0.654,
+   "pli": 0.577,
+   "pli_year": 2025,
+   "gdp_per_capita": 10989,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "DO": {
+   "factor": 0.498,
+   "pli": 0.384,
+   "pli_year": 2025,
+   "gdp_per_capita": 11059,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "DZ": {
+   "factor": 0.386,
+   "pli": 0.317,
+   "pli_year": 2025,
+   "gdp_per_capita": 6051,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "EC": {
+   "factor": 0.508,
+   "pli": 0.442,
+   "pli_year": 2025,
+   "gdp_per_capita": 7125,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "EE": {
+   "factor": 0.897,
+   "pli": 0.759,
+   "pli_year": 2025,
+   "gdp_per_capita": 34418,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "EG": {
+   "factor": 0.3,
+   "pli": 0.157,
+   "pli_year": 2025,
+   "gdp_per_capita": 3086,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "ES": {
+   "factor": 0.888,
+   "pli": 0.687,
+   "pli_year": 2025,
+   "gdp_per_capita": 38627,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "ET": {
+   "factor": 0.307,
+   "pli": 0.297,
+   "pli_year": 2024,
+   "gdp_per_capita": 933,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "FI": {
+   "factor": 0.994,
+   "pli": 0.906,
+   "pli_year": 2025,
+   "gdp_per_capita": 56149,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "FJ": {
+   "factor": 0.455,
+   "pli": 0.387,
+   "pli_year": 2025,
+   "gdp_per_capita": 6642,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "FM": {
+   "factor": 0.932,
+   "pli": 0.927,
+   "pli_year": 2022,
+   "gdp_per_capita": 4414,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "FO": {
+   "factor": 1.0,
+   "pli": 1.039,
+   "pli_year": 2021,
+   "gdp_per_capita": 74175,
+   "gdp_year": 2024,
+   "source": "worldbank"
+  },
+  "FR": {
+   "factor": 0.968,
+   "pli": 0.828,
+   "pli_year": 2025,
+   "gdp_per_capita": 48986,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "GA": {
+   "factor": 0.554,
+   "pli": 0.483,
+   "pli_year": 2025,
+   "gdp_per_capita": 8263,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "GB": {
+   "factor": 0.997,
+   "pli": 0.924,
+   "pli_year": 2025,
+   "gdp_per_capita": 57602,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "GD": {
+   "factor": 0.695,
+   "pli": 0.618,
+   "pli_year": 2025,
+   "gdp_per_capita": 12107,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "GE": {
+   "factor": 0.494,
+   "pli": 0.397,
+   "pli_year": 2025,
+   "gdp_per_capita": 9692,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "GH": {
+   "factor": 0.45,
+   "pli": 0.418,
+   "pli_year": 2025,
+   "gdp_per_capita": 3257,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "GL": {
+   "factor": 0.997,
+   "pli": 0.873,
+   "pli_year": 2021,
+   "gdp_per_capita": 58499,
+   "gdp_year": 2023,
+   "source": "worldbank"
+  },
+  "GM": {
+   "factor": 0.3,
+   "pli": 0.287,
+   "pli_year": 2024,
+   "gdp_per_capita": 919,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "GN": {
+   "factor": 0.344,
+   "pli": 0.323,
+   "pli_year": 2020,
+   "gdp_per_capita": 1877,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "GQ": {
+   "factor": 0.515,
+   "pli": 0.455,
+   "pli_year": 2024,
+   "gdp_per_capita": 6615,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "GR": {
+   "factor": 0.81,
+   "pli": 0.655,
+   "pli_year": 2025,
+   "gdp_per_capita": 26948,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "GT": {
+   "factor": 0.508,
+   "pli": 0.447,
+   "pli_year": 2025,
+   "gdp_per_capita": 6598,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "GU": {
+   "factor": 1.0,
+   "pli": 1.112,
+   "pli_year": 2021,
+   "gdp_per_capita": 41833,
+   "gdp_year": 2022,
+   "source": "worldbank"
+  },
+  "GW": {
+   "factor": 0.398,
+   "pli": 0.386,
+   "pli_year": 2025,
+   "gdp_per_capita": 1124,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "GY": {
+   "factor": 0.756,
+   "pli": 0.469,
+   "pli_year": 2025,
+   "gdp_per_capita": 32414,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "HK": {
+   "factor": 0.987,
+   "pli": 0.74,
+   "pli_year": 2025,
+   "gdp_per_capita": 56983,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "HN": {
+   "factor": 0.517,
+   "pli": 0.486,
+   "pli_year": 2025,
+   "gdp_per_capita": 3598,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "HR": {
+   "factor": 0.774,
+   "pli": 0.588,
+   "pli_year": 2025,
+   "gdp_per_capita": 27104,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "HT": {
+   "factor": 1.0,
+   "pli": 1.022,
+   "pli_year": 2025,
+   "gdp_per_capita": 2694,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "HU": {
+   "factor": 0.761,
+   "pli": 0.579,
+   "pli_year": 2025,
+   "gdp_per_capita": 25907,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "ID": {
+   "factor": 0.366,
+   "pli": 0.307,
+   "pli_year": 2025,
+   "gdp_per_capita": 5060,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "IE": {
+   "factor": 1.0,
+   "pli": 1.021,
+   "pli_year": 2025,
+   "gdp_per_capita": 131592,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "IL": {
+   "factor": 1.0,
+   "pli": 1.059,
+   "pli_year": 2025,
+   "gdp_per_capita": 60337,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "IN": {
+   "factor": 0.3,
+   "pli": 0.228,
+   "pli_year": 2025,
+   "gdp_per_capita": 2702,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "IQ": {
+   "factor": 0.481,
+   "pli": 0.43,
+   "pli_year": 2024,
+   "gdp_per_capita": 5410,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "IR": {
+   "factor": 1.0,
+   "pli": 2.109,
+   "pli_year": 2023,
+   "gdp_per_capita": 3924,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "IS": {
+   "factor": 1.0,
+   "pli": 1.297,
+   "pli_year": 2025,
+   "gdp_per_capita": 98323,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "IT": {
+   "factor": 0.925,
+   "pli": 0.729,
+   "pli_year": 2025,
+   "gdp_per_capita": 43309,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "JM": {
+   "factor": 0.669,
+   "pli": 0.617,
+   "pli_year": 2025,
+   "gdp_per_capita": 8003,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "JO": {
+   "factor": 0.497,
+   "pli": 0.448,
+   "pli_year": 2025,
+   "gdp_per_capita": 5348,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "JP": {
+   "factor": 0.876,
+   "pli": 0.69,
+   "pli_year": 2025,
+   "gdp_per_capita": 35951,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "KE": {
+   "factor": 0.374,
+   "pli": 0.348,
+   "pli_year": 2025,
+   "gdp_per_capita": 2363,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "KG": {
+   "factor": 0.354,
+   "pli": 0.319,
+   "pli_year": 2024,
+   "gdp_per_capita": 3081,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "KH": {
+   "factor": 0.397,
+   "pli": 0.367,
+   "pli_year": 2025,
+   "gdp_per_capita": 2872,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "KI": {
+   "factor": 0.633,
+   "pli": 0.617,
+   "pli_year": 2024,
+   "gdp_per_capita": 2559,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "KM": {
+   "factor": 0.597,
+   "pli": 0.583,
+   "pli_year": 2025,
+   "gdp_per_capita": 2056,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "KN": {
+   "factor": 0.881,
+   "pli": 0.795,
+   "pli_year": 2023,
+   "gdp_per_capita": 25223,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "KR": {
+   "factor": 0.849,
+   "pli": 0.619,
+   "pli_year": 2025,
+   "gdp_per_capita": 36227,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "KW": {
+   "factor": 0.814,
+   "pli": 0.598,
+   "pli_year": 2025,
+   "gdp_per_capita": 32312,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "KY": {
+   "factor": 1.0,
+   "pli": 1.401,
+   "pli_year": 2021,
+   "gdp_per_capita": 104293,
+   "gdp_year": 2024,
+   "source": "worldbank"
+  },
+  "KZ": {
+   "factor": 0.522,
+   "pli": 0.367,
+   "pli_year": 2025,
+   "gdp_per_capita": 14692,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "LA": {
+   "factor": 0.305,
+   "pli": 0.277,
+   "pli_year": 2024,
+   "gdp_per_capita": 2325,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "LB": {
+   "factor": 0.679,
+   "pli": 0.653,
+   "pli_year": 2025,
+   "gdp_per_capita": 4473,
+   "gdp_year": 2024,
+   "source": "worldbank"
+  },
+  "LC": {
+   "factor": 0.691,
+   "pli": 0.591,
+   "pli_year": 2025,
+   "gdp_per_capita": 14746,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "LK": {
+   "factor": 0.337,
+   "pli": 0.276,
+   "pli_year": 2023,
+   "gdp_per_capita": 5002,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "LR": {
+   "factor": 0.3,
+   "pli": 0.003,
+   "pli_year": 2024,
+   "gdp_per_capita": 915,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "LS": {
+   "factor": 0.36,
+   "pli": 0.348,
+   "pli_year": 2025,
+   "gdp_per_capita": 1089,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "LT": {
+   "factor": 0.829,
+   "pli": 0.621,
+   "pli_year": 2025,
+   "gdp_per_capita": 32959,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "LU": {
+   "factor": 1.0,
+   "pli": 0.986,
+   "pli_year": 2025,
+   "gdp_per_capita": 147252,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "LV": {
+   "factor": 0.789,
+   "pli": 0.624,
+   "pli_year": 2025,
+   "gdp_per_capita": 26312,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "LY": {
+   "factor": 0.409,
+   "pli": 0.338,
+   "pli_year": 2025,
+   "gdp_per_capita": 6449,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "MA": {
+   "factor": 0.468,
+   "pli": 0.423,
+   "pli_year": 2025,
+   "gdp_per_capita": 4672,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "MD": {
+   "factor": 0.576,
+   "pli": 0.505,
+   "pli_year": 2025,
+   "gdp_per_capita": 8622,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "ME": {
+   "factor": 0.62,
+   "pli": 0.495,
+   "pli_year": 2025,
+   "gdp_per_capita": 14817,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "MG": {
+   "factor": 0.3,
+   "pli": 0.29,
+   "pli_year": 2025,
+   "gdp_per_capita": 599,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "MH": {
+   "factor": 0.959,
+   "pli": 0.952,
+   "pli_year": 2021,
+   "gdp_per_capita": 8489,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "MK": {
+   "factor": 0.513,
+   "pli": 0.41,
+   "pli_year": 2025,
+   "gdp_per_capita": 10490,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "ML": {
+   "factor": 0.346,
+   "pli": 0.332,
+   "pli_year": 2025,
+   "gdp_per_capita": 1193,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "MM": {
+   "factor": 0.332,
+   "pli": 0.315,
+   "pli_year": 2020,
+   "gdp_per_capita": 1489,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "MN": {
+   "factor": 0.412,
+   "pli": 0.333,
+   "pli_year": 2025,
+   "gdp_per_capita": 7108,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "MO": {
+   "factor": 1.0,
+   "pli": 0.616,
+   "pli_year": 2025,
+   "gdp_per_capita": 75902,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "MP": {
+   "factor": 0.962,
+   "pli": 0.937,
+   "pli_year": 2021,
+   "gdp_per_capita": 23786,
+   "gdp_year": 2022,
+   "source": "worldbank"
+  },
+  "MR": {
+   "factor": 0.364,
+   "pli": 0.339,
+   "pli_year": 2023,
+   "gdp_per_capita": 2198,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "MT": {
+   "factor": 0.937,
+   "pli": 0.69,
+   "pli_year": 2025,
+   "gdp_per_capita": 47907,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "MU": {
+   "factor": 0.559,
+   "pli": 0.437,
+   "pli_year": 2025,
+   "gdp_per_capita": 12991,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "MV": {
+   "factor": 0.713,
+   "pli": 0.621,
+   "pli_year": 2025,
+   "gdp_per_capita": 14615,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "MW": {
+   "factor": 0.344,
+   "pli": 0.337,
+   "pli_year": 2023,
+   "gdp_per_capita": 672,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "MX": {
+   "factor": 0.683,
+   "pli": 0.588,
+   "pli_year": 2025,
+   "gdp_per_capita": 13889,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "MY": {
+   "factor": 0.48,
+   "pli": 0.334,
+   "pli_year": 2025,
+   "gdp_per_capita": 13125,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "MZ": {
+   "factor": 0.399,
+   "pli": 0.393,
+   "pli_year": 2024,
+   "gdp_per_capita": 627,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "NA": {
+   "factor": 0.46,
+   "pli": 0.413,
+   "pli_year": 2025,
+   "gdp_per_capita": 4876,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "NC": {
+   "factor": 1.0,
+   "pli": 1.151,
+   "pli_year": 2021,
+   "gdp_per_capita": 29213,
+   "gdp_year": 2024,
+   "source": "worldbank"
+  },
+  "NE": {
+   "factor": 0.351,
+   "pli": 0.343,
+   "pli_year": 2025,
+   "gdp_per_capita": 775,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "NG": {
+   "factor": 0.3,
+   "pli": 0.209,
+   "pli_year": 2025,
+   "gdp_per_capita": 1224,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "NI": {
+   "factor": 0.403,
+   "pli": 0.37,
+   "pli_year": 2025,
+   "gdp_per_capita": 3173,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "NL": {
+   "factor": 1.0,
+   "pli": 0.867,
+   "pli_year": 2025,
+   "gdp_per_capita": 73684,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "NO": {
+   "factor": 1.0,
+   "pli": 0.962,
+   "pli_year": 2025,
+   "gdp_per_capita": 94594,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "NP": {
+   "factor": 0.3,
+   "pli": 0.254,
+   "pli_year": 2025,
+   "gdp_per_capita": 1536,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "NR": {
+   "factor": 0.893,
+   "pli": 0.859,
+   "pli_year": 2021,
+   "gdp_per_capita": 14640,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "NZ": {
+   "factor": 0.981,
+   "pli": 0.889,
+   "pli_year": 2025,
+   "gdp_per_capita": 49591,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "OM": {
+   "factor": 0.648,
+   "pli": 0.473,
+   "pli_year": 2025,
+   "gdp_per_capita": 19947,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "PA": {
+   "factor": 0.663,
+   "pli": 0.497,
+   "pli_year": 2025,
+   "gdp_per_capita": 19790,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "PE": {
+   "factor": 0.614,
+   "pli": 0.54,
+   "pli_year": 2025,
+   "gdp_per_capita": 9684,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "PF": {
+   "factor": 1.0,
+   "pli": 1.01,
+   "pli_year": 2021,
+   "gdp_per_capita": 22440,
+   "gdp_year": 2024,
+   "source": "worldbank"
+  },
+  "PG": {
+   "factor": 0.687,
+   "pli": 0.67,
+   "pli_year": 2025,
+   "gdp_per_capita": 3020,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "PH": {
+   "factor": 0.402,
+   "pli": 0.357,
+   "pli_year": 2025,
+   "gdp_per_capita": 4171,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "PK": {
+   "factor": 0.3,
+   "pli": 0.233,
+   "pli_year": 2025,
+   "gdp_per_capita": 1596,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "PL": {
+   "factor": 0.762,
+   "pli": 0.549,
+   "pli_year": 2025,
+   "gdp_per_capita": 28420,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "PR": {
+   "factor": 0.967,
+   "pli": 0.897,
+   "pli_year": 2021,
+   "gdp_per_capita": 40620,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "PT": {
+   "factor": 0.837,
+   "pli": 0.649,
+   "pli_year": 2025,
+   "gdp_per_capita": 32082,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "PW": {
+   "factor": 0.975,
+   "pli": 0.963,
+   "pli_year": 2025,
+   "gdp_per_capita": 19532,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "PY": {
+   "factor": 0.453,
+   "pli": 0.381,
+   "pli_year": 2025,
+   "gdp_per_capita": 7027,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "QA": {
+   "factor": 1.0,
+   "pli": 0.757,
+   "pli_year": 2024,
+   "gdp_per_capita": 72525,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "RO": {
+   "factor": 0.68,
+   "pli": 0.488,
+   "pli_year": 2025,
+   "gdp_per_capita": 22538,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "RS": {
+   "factor": 0.634,
+   "pli": 0.509,
+   "pli_year": 2025,
+   "gdp_per_capita": 15262,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "RU": {
+   "factor": 0.515,
+   "pli": 0.314,
+   "pli_year": 2024,
+   "gdp_per_capita": 17547,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "RW": {
+   "factor": 0.3,
+   "pli": 0.261,
+   "pli_year": 2025,
+   "gdp_per_capita": 1124,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "SA": {
+   "factor": 0.787,
+   "pli": 0.499,
+   "pli_year": 2025,
+   "gdp_per_capita": 34537,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "SB": {
+   "factor": 0.921,
+   "pli": 0.918,
+   "pli_year": 2025,
+   "gdp_per_capita": 2086,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "SC": {
+   "factor": 0.712,
+   "pli": 0.574,
+   "pli_year": 2025,
+   "gdp_per_capita": 19449,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "SD": {
+   "factor": 0.422,
+   "pli": 0.41,
+   "pli_year": 2022,
+   "gdp_per_capita": 1165,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "SE": {
+   "factor": 1.0,
+   "pli": 0.905,
+   "pli_year": 2025,
+   "gdp_per_capita": 63133,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "SG": {
+   "factor": 1.0,
+   "pli": 0.783,
+   "pli_year": 2025,
+   "gdp_per_capita": 98814,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "SI": {
+   "factor": 0.876,
+   "pli": 0.67,
+   "pli_year": 2025,
+   "gdp_per_capita": 37376,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "SK": {
+   "factor": 0.811,
+   "pli": 0.639,
+   "pli_year": 2025,
+   "gdp_per_capita": 28544,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "SL": {
+   "factor": 0.3,
+   "pli": 0.249,
+   "pli_year": 2023,
+   "gdp_per_capita": 846,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "SM": {
+   "factor": 1.0,
+   "pli": 0.83,
+   "pli_year": 2025,
+   "gdp_per_capita": 59871,
+   "gdp_year": 2023,
+   "source": "worldbank"
+  },
+  "SN": {
+   "factor": 0.409,
+   "pli": 0.389,
+   "pli_year": 2025,
+   "gdp_per_capita": 1955,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "SR": {
+   "factor": 0.488,
+   "pli": 0.419,
+   "pli_year": 2025,
+   "gdp_per_capita": 7070,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "ST": {
+   "factor": 0.628,
+   "pli": 0.6,
+   "pli_year": 2024,
+   "gdp_per_capita": 4084,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "SV": {
+   "factor": 0.52,
+   "pli": 0.469,
+   "pli_year": 2025,
+   "gdp_per_capita": 5767,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "SX": {
+   "factor": 0.96,
+   "pli": 0.859,
+   "pli_year": 2021,
+   "gdp_per_capita": 42978,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "SY": {
+   "factor": 0.414,
+   "pli": 0.404,
+   "pli_year": 2021,
+   "gdp_per_capita": 1057,
+   "gdp_year": 2022,
+   "source": "worldbank"
+  },
+  "SZ": {
+   "factor": 0.458,
+   "pli": 0.419,
+   "pli_year": 2021,
+   "gdp_per_capita": 4108,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "TC": {
+   "factor": 1.0,
+   "pli": 1.317,
+   "pli_year": 2021,
+   "gdp_per_capita": 37507,
+   "gdp_year": 2024,
+   "source": "worldbank"
+  },
+  "TD": {
+   "factor": 0.393,
+   "pli": 0.383,
+   "pli_year": 2025,
+   "gdp_per_capita": 1022,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "TG": {
+   "factor": 0.39,
+   "pli": 0.375,
+   "pli_year": 2025,
+   "gdp_per_capita": 1384,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "TH": {
+   "factor": 0.414,
+   "pli": 0.323,
+   "pli_year": 2025,
+   "gdp_per_capita": 8057,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "TJ": {
+   "factor": 0.304,
+   "pli": 0.285,
+   "pli_year": 2021,
+   "gdp_per_capita": 1637,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "TL": {
+   "factor": 0.458,
+   "pli": 0.446,
+   "pli_year": 2025,
+   "gdp_per_capita": 1341,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "TN": {
+   "factor": 0.362,
+   "pli": 0.308,
+   "pli_year": 2024,
+   "gdp_per_capita": 4657,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "TO": {
+   "factor": 0.803,
+   "pli": 0.779,
+   "pli_year": 2025,
+   "gdp_per_capita": 6547,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "TR": {
+   "factor": 0.62,
+   "pli": 0.45,
+   "pli_year": 2025,
+   "gdp_per_capita": 18599,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "TT": {
+   "factor": 0.705,
+   "pli": 0.569,
+   "pli_year": 2025,
+   "gdp_per_capita": 18967,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "TV": {
+   "factor": 0.975,
+   "pli": 0.972,
+   "pli_year": 2021,
+   "gdp_per_capita": 6041,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "TZ": {
+   "factor": 0.3,
+   "pli": 0.253,
+   "pli_year": 2024,
+   "gdp_per_capita": 1319,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "UA": {
+   "factor": 0.355,
+   "pli": 0.285,
+   "pli_year": 2025,
+   "gdp_per_capita": 5866,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "UG": {
+   "factor": 0.384,
+   "pli": 0.371,
+   "pli_year": 2025,
+   "gdp_per_capita": 1206,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "US": {
+   "factor": 1.0,
+   "pli": 1.0,
+   "pli_year": 2025,
+   "gdp_per_capita": 90027,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "UY": {
+   "factor": 0.84,
+   "pli": 0.725,
+   "pli_year": 2025,
+   "gdp_per_capita": 25216,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "UZ": {
+   "factor": 0.331,
+   "pli": 0.284,
+   "pli_year": 2025,
+   "gdp_per_capita": 3968,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "VC": {
+   "factor": 0.701,
+   "pli": 0.622,
+   "pli_year": 2025,
+   "gdp_per_capita": 12562,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "VI": {
+   "factor": 1.0,
+   "pli": 1.01,
+   "pli_year": 2021,
+   "gdp_per_capita": 44321,
+   "gdp_year": 2022,
+   "source": "worldbank"
+  },
+  "VN": {
+   "factor": 0.356,
+   "pli": 0.296,
+   "pli_year": 2024,
+   "gdp_per_capita": 5066,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "VU": {
+   "factor": 1.0,
+   "pli": 1.047,
+   "pli_year": 2024,
+   "gdp_per_capita": 4039,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "WS": {
+   "factor": 0.706,
+   "pli": 0.674,
+   "pli_year": 2025,
+   "gdp_per_capita": 5873,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "XK": {
+   "factor": 0.484,
+   "pli": 0.406,
+   "pli_year": 2022,
+   "gdp_per_capita": 7899,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "ZA": {
+   "factor": 0.495,
+   "pli": 0.433,
+   "pli_year": 2025,
+   "gdp_per_capita": 6598,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "ZM": {
+   "factor": 0.347,
+   "pli": 0.332,
+   "pli_year": 2025,
+   "gdp_per_capita": 1318,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "ZW": {
+   "factor": 0.3,
+   "pli": 0.0,
+   "pli_year": 2021,
+   "gdp_per_capita": 3021,
+   "gdp_year": 2025,
+   "source": "worldbank"
+  },
+  "SO": {
+   "factor": 0.3,
+   "source": "no price data; low income, floor"
+  },
+  "TM": {
+   "factor": 0.3,
+   "source": "no price data; low income, floor"
+  },
+  "VE": {
+   "factor": 0.3,
+   "source": "no price data; low income, floor"
+  },
+  "YE": {
+   "factor": 0.3,
+   "source": "no price data; low income, floor"
+  },
+  "ER": {
+   "factor": 0.3,
+   "source": "no price data; low income, floor"
+  },
+  "TW": {
+   "factor": 0.8,
+   "source": "estimate: no World Bank data; high income, price level below US"
+  },
+  "GI": {
+   "factor": 1.0,
+   "source": "no data; high-income territory, base price"
+  },
+  "LI": {
+   "factor": 1.0,
+   "source": "no data; high-income territory, base price"
+  },
+  "MC": {
+   "factor": 1.0,
+   "source": "no data; high-income territory, base price"
+  },
+  "VA": {
+   "factor": 1.0,
+   "source": "no data; base price"
+  },
+  "VG": {
+   "factor": 1.0,
+   "source": "no data; high-income territory, base price"
+  }
+ }
+}
