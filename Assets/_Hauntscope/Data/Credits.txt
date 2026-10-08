@@ -1,8 +1,7 @@
 <color=#4FF5E6><b>// HAUNTSCOPE</b></color>
 <b>Game, code, art and sound: Pavko</b>
 <color=#7D8B99>Code: MIT License
-Art and audio: © 2026 Pavko, all rights reserved
-Ghosts, UI sprites and sound effects are generated in code.</color>
+Art and audio: © 2026 Pavko, all rights reserved</color>
 
 <color=#4FF5E6><b>// THIRD-PARTY</b></color>
 
@@ -25,7 +24,3 @@ MIT License</color>
 <b>UniTask</b>
 <color=#7D8B99>Cysharp, Inc.
 MIT License</color>
-
-<b>DOTween 1.3.030 (free, unmodified; Assets/Plugins/Demigiant/DOTween)</b>
-<color=#7D8B99>Daniele Giardini - Demigiant
-DOTween license, verbatim redistribution with readme.txt</color>

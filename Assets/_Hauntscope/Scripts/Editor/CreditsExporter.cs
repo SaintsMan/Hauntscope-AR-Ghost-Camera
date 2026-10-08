@@ -19,8 +19,7 @@ namespace Hauntscope.Editor
             Heading(builder, "HAUNTSCOPE");
             Entry(builder, "Game, code, art and sound: Pavko",
                 "Code: MIT License",
-                "Art and audio: © 2026 Pavko, all rights reserved",
-                "Ghosts, UI sprites and sound effects are generated in code.");
+                "Art and audio: © 2026 Pavko, all rights reserved");
             builder.AppendLine();
             Heading(builder, "THIRD-PARTY");
 
