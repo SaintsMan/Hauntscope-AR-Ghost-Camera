@@ -45,7 +45,7 @@ namespace Hauntscope.Gameplay.Tools
                 return;
 
             var revealing = _isActive.Value && IsInView(ghost.Position, ghost.RevealRange);
-            var rate = revealing ? deltaTime / _config.RevealInTime : -deltaTime / _config.RevealOutTime;
+            var rate = revealing ? deltaTime / _config.RevealInTime : -deltaTime / (_config.RevealOutTime * _modifiers.RevealFade);
             ghost.SetReveal(ghost.Reveal + rate);
         }
 

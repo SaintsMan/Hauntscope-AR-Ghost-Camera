@@ -57,6 +57,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<HuntModifiers>(Lifetime.Singleton);
             RegisterShift(builder);
             builder.Register<HuntLoadout>(Lifetime.Singleton);
+            builder.Register<RookieAssist>(Lifetime.Singleton);
             builder.Register<SpareBatteries>(Lifetime.Singleton);
             builder.Register<HuntSession>(Lifetime.Singleton);
             builder.Register<HuntLoot>(Lifetime.Singleton);

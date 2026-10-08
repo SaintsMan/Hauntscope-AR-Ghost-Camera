@@ -30,5 +30,30 @@ namespace Hauntscope.Tests.EditMode
             Assert.AreEqual(1f, modifiers.LensDrain);
             Assert.IsFalse(modifiers.LocksHiddenGhosts);
         }
+
+        [Test]
+        public void Scaled_HalfStrength_MovesEachMultiplierHalfwayToOne()
+        {
+            var set = new HuntModifierSet(captureRate: 2f, lensDrain: 0.5f, revealFade: 3f, showsEmfDirection: true);
+
+            var half = set.Scaled(0.5f);
+
+            Assert.AreEqual(1.5f, half.CaptureRate, 1e-4f);
+            Assert.AreEqual(0.75f, half.LensDrain, 1e-4f);
+            Assert.AreEqual(2f, half.RevealFade, 1e-4f);
+            Assert.IsTrue(half.ShowsEmfDirection);
+        }
+
+        [Test]
+        public void Scaled_ZeroStrength_IsNeutral()
+        {
+            var set = new HuntModifierSet(captureRate: 2f, passiveDrain: 0.5f, locksHiddenGhosts: true);
+
+            var none = set.Scaled(0f);
+
+            Assert.AreEqual(1f, none.CaptureRate);
+            Assert.AreEqual(1f, none.PassiveDrain);
+            Assert.IsFalse(none.LocksHiddenGhosts);
+        }
     }
 }

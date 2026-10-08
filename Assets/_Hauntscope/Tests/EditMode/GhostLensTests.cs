@@ -96,6 +96,19 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Tick_RevealFadeModifier_StretchesFadeOut()
+        {
+            var modifiers = new HuntModifiers();
+            modifiers.Apply(new HuntModifierSet(revealFade: 2f));
+            var lens = new GhostLens(_session, _fixture.Camera, TestConfigs.Tools(lensDrain: LensDrain, revealAngle: RevealAngle, revealInTime: RevealInTime, revealOutTime: RevealOutTime), modifiers);
+            _fixture.Ghost.SetReveal(1f);
+
+            lens.Tick(RevealOutTime / 2f);
+
+            Assert.AreEqual(0.75f, _fixture.Ghost.Reveal, 1e-5f);
+        }
+
+        [Test]
         public void Tick_NoGhostInSession_DoesNothing()
         {
             var lens = new GhostLens(new HuntSession(), _fixture.Camera, TestConfigs.Tools(lensDrain: LensDrain, revealAngle: RevealAngle, revealInTime: RevealInTime, revealOutTime: RevealOutTime), new HuntModifiers());

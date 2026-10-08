@@ -23,6 +23,10 @@ namespace Hauntscope.Gameplay.Store
 
         public bool ShowsEmfDirection { get; private set; }
 
+        public float PassiveDrain { get; private set; } = 1f;
+
+        public float RevealFade { get; private set; } = 1f;
+
         public void Reset()
         {
             CaptureRate = 1f;
@@ -35,6 +39,8 @@ namespace Hauntscope.Gameplay.Store
             BeamedGhostSpeed = 1f;
             LocksHiddenGhosts = false;
             ShowsEmfDirection = false;
+            PassiveDrain = 1f;
+            RevealFade = 1f;
         }
 
         public void Apply(HuntModifierSet set)
@@ -49,6 +55,8 @@ namespace Hauntscope.Gameplay.Store
             BeamedGhostSpeed *= set.BeamedGhostSpeed;
             LocksHiddenGhosts |= set.LocksHiddenGhosts;
             ShowsEmfDirection |= set.ShowsEmfDirection;
+            PassiveDrain *= set.PassiveDrain;
+            RevealFade *= set.RevealFade;
         }
     }
 }

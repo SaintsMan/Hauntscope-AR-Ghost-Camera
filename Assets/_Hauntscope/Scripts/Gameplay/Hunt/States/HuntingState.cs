@@ -35,6 +35,7 @@ namespace Hauntscope.Gameplay.Hunt.States
         private readonly NightShift _shift;
         private readonly HuntReportBuilder _report;
         private readonly FieldTips _tips;
+        private readonly RookieAssist _rookie;
 
         public HuntingState(
             HuntSession session,
@@ -57,8 +58,10 @@ namespace Hauntscope.Gameplay.Hunt.States
             WitchingHour witchingHour,
             NightShift shift,
             HuntReportBuilder report,
-            FieldTips tips)
+            FieldTips tips,
+            RookieAssist rookie)
         {
+            _rookie = rookie;
             _tips = tips;
             _report = report;
             _shift = shift;
@@ -93,6 +96,7 @@ namespace Hauntscope.Gameplay.Hunt.States
             _progress.RegisterSession();
             _loot.Reset();
             _loadout.Begin(consumeBoosters);
+            _rookie.Apply();
             // Before the ghost is made: its speed is read from the modifiers when it spawns.
             _shift.ApplyRound();
             _emergency.ResetForHunt();
@@ -112,7 +116,7 @@ namespace Hauntscope.Gameplay.Hunt.States
         {
             var ghost = _session.Ghost.Value;
 
-            _battery.Drain((_config.PassiveDrain + _toolbelt.TotalDrainPerSecond) * deltaTime);
+            _battery.Drain((_config.PassiveDrain * _modifiers.PassiveDrain + _toolbelt.TotalDrainPerSecond) * deltaTime);
             if (_battery.IsDepleted && !ghost.IsCaptured && !ghost.IsEscaped)
             {
                 // The emergency card pauses the hunt; the ghost only gets away once there is no way to recharge.
