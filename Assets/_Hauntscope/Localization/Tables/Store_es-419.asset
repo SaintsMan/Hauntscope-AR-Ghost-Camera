@@ -87,6 +87,92 @@ MonoBehaviour:
       Una cacer\xEDa."
     m_Metadata:
       m_Items: []
+  - m_Id: 4473458026479616
+    m_Localized: "VERSI\xD3N COMPLETA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451136
+    m_Localized: "Sin anuncios, premios de video al instante, +1500 de ectoplasma
+      y l\xE1ser dorado A0 AURUM."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451137
+    m_Localized: KIT DE NOVATO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451138
+    m_Localized: "1000 de ectoplasma, l\xE1ser T3 AMARRE, 3 de cada potenciador y
+      3 bater\xEDas de repuesto."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451139
+    m_Localized: FRASCO DE ECTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451140
+    m_Localized: "500 de ectoplasma para l\xE1seres y equipo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451141
+    m_Localized: TARRO DE ECTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451142
+    m_Localized: 1800 de ectoplasma, bono del +20% incluido.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451143
+    m_Localized: BARRIL DE ECTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451144
+    m_Localized: 3500 de ectoplasma, bono del +40% incluido.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451145
+    m_Localized: "B\xD3VEDA DE ECTOPLASMA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451146
+    m_Localized: "8000 de ectoplasma, bono del +60% incluido. La mejor opci\xF3n."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451147
+    m_Localized: KIT DE CAMPO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451148
+    m_Localized: "3 de cada potenciador (amplificador EMF, lente, l\xEDnea de sal)
+      y 3 bater\xEDas de repuesto."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451149
+    m_Localized: S5 ESPECTRO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451150
+    m_Localized: "Rayo blanco que se vuelve cian al fijar. Captura un 30% m\xE1s
+      r\xE1pido y frena al fantasma."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451151
+    m_Localized: S5 ESPECTRO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451152
+    m_Localized: "Rayo blanco que se fija en cian. Captura un 30% m\xE1s r\xE1pido
+      y frena al fantasma atrapado."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451153
+    m_Localized: A0 AURUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451154
+    m_Localized: "El rayo dorado de la versi\xF3n completa: captura un 35% m\xE1s
+      r\xE1pido, aro m\xE1s ancho, cae m\xE1s lento."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

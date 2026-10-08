@@ -83,6 +83,92 @@ MonoBehaviour:
     m_Localized: Ghosts move 35% slower over a salted floor. One hunt.
     m_Metadata:
       m_Items: []
+  - m_Id: 4473458026479616
+    m_Localized: FULL VERSION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451136
+    m_Localized: No ads, instant video rewards, +1,500 ectoplasm and the gold laser
+      A0 AURUM.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451137
+    m_Localized: ROOKIE KIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451138
+    m_Localized: 1,000 ectoplasm, the T3 TETHER laser, 3 of each booster and 3 spare
+      batteries.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451139
+    m_Localized: VIAL OF ECTOPLASM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451140
+    m_Localized: 500 ectoplasm for lasers and gear.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451141
+    m_Localized: JAR OF ECTOPLASM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451142
+    m_Localized: 1,800 ectoplasm, +20% bonus included.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451143
+    m_Localized: BARREL OF ECTOPLASM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451144
+    m_Localized: 3,500 ectoplasm, +40% bonus included.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451145
+    m_Localized: VAULT OF ECTOPLASM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451146
+    m_Localized: 8,000 ectoplasm, +60% bonus included. Best value.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451147
+    m_Localized: FIELD KIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451148
+    m_Localized: 3 of each booster (EMF amplifier, focus lens, salt line) and 3 spare
+      batteries.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451149
+    m_Localized: S5 SPECTRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451150
+    m_Localized: Ghost-white beam that locks in cyan. Captures 30% faster, slows
+      a held ghost.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451151
+    m_Localized: S5 SPECTRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451152
+    m_Localized: Ghost-white beam that locks in cyan. Captures 30% faster and slows
+      a held ghost.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451153
+    m_Localized: A0 AURUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451154
+    m_Localized: 'The full version''s gold beam: captures 35% faster, a wider ring,
+      a slower fade.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

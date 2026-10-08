@@ -17,6 +17,8 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private TMP_Text _vibrationState;
         [SerializeField] private ToggleButton _jumpScaresToggle;
         [SerializeField] private TMP_Text _jumpScaresState;
+        [SerializeField] private ToggleButton _notificationsToggle;
+        [SerializeField] private TMP_Text _notificationsState;
         [SerializeField] private Button _languageButton;
         [SerializeField] private TMP_Text _languageLabel;
         [SerializeField] private Button _creditsButton;
@@ -60,6 +62,12 @@ namespace Hauntscope.UI.Menu
             remove => _jumpScaresToggle.Clicked -= value;
         }
 
+        public event Action NotificationsClicked
+        {
+            add => _notificationsToggle.Clicked += value;
+            remove => _notificationsToggle.Clicked -= value;
+        }
+
         public void SetVisible(bool visible)
         {
             gameObject.SetActive(visible);
@@ -83,6 +91,11 @@ namespace Hauntscope.UI.Menu
         public void SetJumpScares(bool on, string state)
         {
             SetToggle(_jumpScaresToggle, _jumpScaresState, on, state);
+        }
+
+        public void SetNotifications(bool on, string state)
+        {
+            SetToggle(_notificationsToggle, _notificationsState, on, state);
         }
 
         // Shown only where the consent rules require a way back to the choice.

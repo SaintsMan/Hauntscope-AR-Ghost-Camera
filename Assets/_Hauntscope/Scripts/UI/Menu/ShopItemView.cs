@@ -74,9 +74,10 @@ namespace Hauntscope.UI.Menu
             _actionLabel.text = label;
             _priceIcon.SetActive(state == ShopItemState.Buy || state == ShopItemState.CantAfford);
 
-            var active = state == ShopItemState.Buy || state == ShopItemState.Equip;
+            var forSale = state == ShopItemState.Buy || state == ShopItemState.Paid || state == ShopItemState.FullVersionOnly;
+            var active = forSale || state == ShopItemState.Equip;
             _actionLabel.color = state == ShopItemState.Equipped ? _accent : active ? _textColor : _dimColor;
-            _actionBorder.color = state == ShopItemState.Buy || state == ShopItemState.Equipped ? _accent : active ? _textColor : _idleBorderColor;
+            _actionBorder.color = forSale || state == ShopItemState.Equipped ? _accent : active ? _textColor : _idleBorderColor;
             var fill = _accent;
             fill.a = state == ShopItemState.Equipped ? _equippedFillAlpha : 0f;
             _actionFill.color = fill;

@@ -1450,6 +1450,194 @@ MonoBehaviour:
       tangkap aku.'
     m_Metadata:
       m_Items: []
+  - m_Id: 4815341336526848
+    m_Localized: PREMIUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858496
+    m_Localized: PREMIUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858497
+    m_Localized: "\u2014"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858498
+    m_Localized: BERAKHIR DALAM {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858499
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858500
+    m_Localized: +{0}%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858501
+    m_Localized: PALING HEMAT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858502
+    m_Localized: POPULER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858503
+    m_Localized: "\u201340%"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858504
+    m_Localized: EKTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858505
+    m_Localized: PAKET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858506
+    m_Localized: DIMILIKI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858507
+    m_Localized: NANTI SAJA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858508
+    m_Localized: AKTIF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858509
+    m_Localized: Sekali beli. Milikmu selamanya.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858510
+    m_Localized: "<color=#FFD166>\u2022</color> Tanpa iklan di antara perburuan\n<color=#FFD166>\u2022</color>
+      Hadiah video langsung, tanpa video\n<color=#FFD166>\u2022</color> +{0} ektoplasma
+      langsung\n<color=#FFD166>\u2022</color> Laser emas A0 AURUM"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858511
+    m_Localized: '{0}
+
+
+      Sekali beli. Milikmu selamanya.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858512
+    m_Localized: '{0}
+
+
+      Penawaran sekali untuk agen baru. Saat waktunya habis,
+      penawaran ini hilang.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858513
+    m_Localized: VERSI LENGKAP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858514
+    m_Localized: Notifikasi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858515
+    m_Localized: RADIO BIRO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858516
+    m_Localized: 'Izinkan Biro Malam menghubungimu: kami kabari saat jatah harianmu
+      siap dan saat hantu bergerak di alamatmu. Tidak pernah di malam hari.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858517
+    m_Localized: AKTIFKAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858518
+    m_Localized: NANTI SAJA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858519
+    m_Localized: Pengingat Biro
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858520
+    m_Localized: Jatah harian dan pengingat lapangan dari Biro Malam.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858521
+    m_Localized: Berita Biro
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858522
+    m_Localized: Acara dan berita dari Biro Malam.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858523
+    m_Localized: Jatahmu sudah siap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858524
+    m_Localized: Biro Malam meninggalkan ektoplasma dan perlengkapan untukmu. Ambil
+      sebelum perburuan berikutnya.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858525
+    m_Localized: Kiriman di markas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858526
+    m_Localized: Jatah hari ini menunggu, dan tugas agensi baru sudah datang.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858527
+    m_Localized: EMF melonjak di alamatmu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858528
+    m_Localized: Ada sesuatu yang menetap di kamarmu selama kamu pergi. Ambil kameranya.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858529
+    m_Localized: Biro menelepon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858530
+    m_Localized: Tiga malam tanpa laporan, agen. Hantu-hantu makin berani.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858531
+    m_Localized: Berkas kasus masih terbuka
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858532
+    m_Localized: Seminggu tanpa kabar. Biro butuh agennya kembali di sif malam.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858533
+    m_Localized: Kaset-kaset menunggu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858534
+    m_Localized: Kaset Agen Vale masih ada di arsip. Kembalilah dan ikuti jejaknya.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858535
+    m_Localized: Paket Agen Baru segera berakhir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858536
+    m_Localized: 'Tinggal beberapa jam: ektoplasma, laser, dan perlengkapan dengan
+      harga sekali.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858537
+    m_Localized: Panggilan terakhir, agen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858538
+    m_Localized: Penawaran Paket Agen Baru berakhir dalam 3 jam dan tidak akan kembali.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

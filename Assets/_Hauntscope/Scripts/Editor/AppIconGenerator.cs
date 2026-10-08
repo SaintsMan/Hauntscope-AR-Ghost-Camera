@@ -14,6 +14,7 @@ namespace Hauntscope.Editor
     {
         private const string Folder = "Assets/_Hauntscope/Art/Sprites/Icon";
         private const string SquarePath = Folder + "/AppIcon.png";
+        internal const string SquareIconPath = SquarePath;
         private const string BackgroundPath = Folder + "/AppIconBackground.png";
         private const string ForegroundPath = Folder + "/AppIconForeground.png";
         private const string StoreFolder = "fastlane/metadata/android";

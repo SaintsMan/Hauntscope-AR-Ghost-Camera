@@ -1428,6 +1428,192 @@ MonoBehaviour:
       Oder fang mich."
     m_Metadata:
       m_Items: []
+  - m_Id: 4815341336526848
+    m_Localized: PREMIUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858496
+    m_Localized: PREMIUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858497
+    m_Localized: "\u2014"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858498
+    m_Localized: ENDET IN {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858499
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858500
+    m_Localized: +{0}%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858501
+    m_Localized: BESTER WERT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858502
+    m_Localized: BELIEBT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858503
+    m_Localized: "\u201340%"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858504
+    m_Localized: EKTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858505
+    m_Localized: SETS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858506
+    m_Localized: GEKAUFT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858507
+    m_Localized: NICHT JETZT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858508
+    m_Localized: AKTIV
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858509
+    m_Localized: "Ein Kauf. F\xFCr immer deiner."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858510
+    m_Localized: "<color=#FFD166>\u2022</color> Keine Werbung zwischen den Jagden\n<color=#FFD166>\u2022</color>
+      Video-Belohnungen sofort, ohne Video\n<color=#FFD166>\u2022</color> +{0} Ektoplasma
+      sofort\n<color=#FFD166>\u2022</color> Goldener Laser A0 AURUM"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858511
+    m_Localized: "{0}\n\nEin Kauf. F\xFCr immer deiner."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858512
+    m_Localized: "{0}\n\nEin einmaliges Angebot f\xFCr neue Agenten. L\xE4uft die
+      Zeit ab, ist es weg."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858513
+    m_Localized: VOLLVERSION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858514
+    m_Localized: Mitteilungen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858515
+    m_Localized: "FUNK DES NACHTB\xDCROS"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858516
+    m_Localized: "Lass das Nachtb\xFCro dich erreichen: Wir sagen dir, wann deine
+      Tagesration bereit ist und wann sich bei dir Geister regen. Nie nachts."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858517
+    m_Localized: EINSCHALTEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858518
+    m_Localized: NICHT JETZT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858519
+    m_Localized: "Erinnerungen des Nachtb\xFCros"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858520
+    m_Localized: "Tagesration und Einsatz-Erinnerungen des Nachtb\xFCros."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858521
+    m_Localized: "Nachrichten des Nachtb\xFCros"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858522
+    m_Localized: "Events und Neuigkeiten des Nachtb\xFCros."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858523
+    m_Localized: Deine Ration ist da
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858524
+    m_Localized: "Das Nachtb\xFCro hat dir Ektoplasma und Ausr\xFCstung hinterlegt.
+      Hol sie vor der n\xE4chsten Jagd ab."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858525
+    m_Localized: Lieferung im Hauptquartier
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858526
+    m_Localized: "Deine heutige Ration wartet, und neue Agentur-Auftr\xE4ge sind
+      da."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858527
+    m_Localized: "EMF schl\xE4gt bei dir aus"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858528
+    m_Localized: "W\xE4hrend du weg warst, hat sich etwas in deinem Zimmer eingenistet.
+      Schnapp dir die Kamera."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858529
+    m_Localized: "Das Nachtb\xFCro ruft an"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858530
+    m_Localized: "Drei N\xE4chte ohne Bericht, Agent. Die Geister werden dreister."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858531
+    m_Localized: Die Akte ist noch offen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858532
+    m_Localized: "Eine Woche Funkstille. Das Nachtb\xFCro braucht seinen Agenten
+      in der Nachtschicht."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858533
+    m_Localized: "Die B\xE4nder warten"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858534
+    m_Localized: "Die B\xE4nder von Agentin Vale liegen noch im Archiv. Komm zur\xFCck
+      und folge ihrer Spur."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858535
+    m_Localized: Das Rekruten-Set endet bald
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858536
+    m_Localized: "Nur noch ein paar Stunden: Ektoplasma, ein Laser und Ausr\xFCstung
+      zum einmaligen Preis."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858537
+    m_Localized: Letzter Aufruf, Agent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858538
+    m_Localized: Das Rekruten-Set-Angebot endet in 3 Stunden und kommt nicht wieder.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -86,6 +86,92 @@ MonoBehaviour:
       ca\xE7ada."
     m_Metadata:
       m_Items: []
+  - m_Id: 4473458026479616
+    m_Localized: "VERS\xC3O COMPLETA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451136
+    m_Localized: "Sem an\xFAncios, recompensas de v\xEDdeo na hora, +1.500 de ectoplasma
+      e laser dourado A0 AURUM."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451137
+    m_Localized: KIT DE NOVATO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451138
+    m_Localized: "1.000 de ectoplasma, laser T3 AMARRA, 3 de cada refor\xE7o e 3
+      baterias reserva."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451139
+    m_Localized: FRASCO DE ECTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451140
+    m_Localized: 500 de ectoplasma para lasers e equipamentos.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451141
+    m_Localized: POTE DE ECTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451142
+    m_Localized: "1.800 de ectoplasma, b\xF4nus de +20% incluso."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451143
+    m_Localized: BARRIL DE ECTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451144
+    m_Localized: "3.500 de ectoplasma, b\xF4nus de +40% incluso."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451145
+    m_Localized: COFRE DE ECTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451146
+    m_Localized: "8.000 de ectoplasma, b\xF4nus de +60% incluso. A melhor oferta."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451147
+    m_Localized: KIT DE CAMPO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451148
+    m_Localized: "3 de cada refor\xE7o (amplificador EMF, lente, linha de sal) e
+      3 baterias reserva."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451149
+    m_Localized: S5 ESPECTRO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451150
+    m_Localized: "Raio branco que fica ciano ao travar. Captura 30% mais r\xE1pido
+      e freia o fantasma."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451151
+    m_Localized: S5 ESPECTRO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451152
+    m_Localized: "Feixe branco que trava em ciano. Captura 30% mais r\xE1pido e freia
+      o fantasma preso."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451153
+    m_Localized: A0 AURUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451154
+    m_Localized: "O feixe dourado da vers\xE3o completa: captura 35% mais r\xE1pido,
+      anel mais largo, queda mais lenta."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

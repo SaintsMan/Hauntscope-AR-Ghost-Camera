@@ -21,7 +21,12 @@ namespace Hauntscope.Editor
             new LaserRecipe("tether", "LaserTether", 350, "#3DFF6E", "#4FF5E6", 3, 4, 3,
                 new Modifiers { CaptureRate = 1.2f, BeamedGhostSpeed = 0.5f }),
             new LaserRecipe("phase", "LaserPhase", 700, "#9B5CFF", "#4FF5E6", 5, 3, 4,
-                new Modifiers { CaptureRate = 1.6f, ReticleRadius = 0.85f, BeamDrain = 0.85f, LocksHiddenGhosts = true })
+                new Modifiers { CaptureRate = 1.6f, ReticleRadius = 0.85f, BeamDrain = 0.85f, LocksHiddenGhosts = true }),
+            // Sold for money (IapAssetBuilder), never for ectoplasm: price 0 here, the paid product owns them.
+            new LaserRecipe("aurum", "LaserAurum", 0, "#FFD166", "#E6EDF3", 4, 4, 4,
+                new Modifiers { CaptureRate = 1.35f, ReticleRadius = 1.15f, DecayRate = 0.7f, BeamDrain = 0.9f }),
+            new LaserRecipe("spectre", "LaserSpectre", 0, "#E6EDF3", "#4FF5E6", 4, 4, 3,
+                new Modifiers { CaptureRate = 1.3f, ReticleRadius = 1.05f, BeamedGhostSpeed = 0.7f })
         };
 
         private static readonly GearRecipe[] Boosters =
@@ -122,6 +127,8 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_modifiers._beamedGhostSpeed").floatValue = modifiers.BeamedGhostSpeed;
             serialized.FindProperty("_modifiers._locksHiddenGhosts").boolValue = modifiers.LocksHiddenGhosts;
             serialized.FindProperty("_modifiers._showsEmfDirection").boolValue = modifiers.ShowsEmfDirection;
+            serialized.FindProperty("_modifiers._passiveDrain").floatValue = 1f;
+            serialized.FindProperty("_modifiers._revealFade").floatValue = 1f;
         }
 
         private static void Register(LaserData[] lasers, SpareBatteryData battery, BoosterData[] boosters)

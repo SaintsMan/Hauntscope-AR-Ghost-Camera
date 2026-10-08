@@ -79,6 +79,86 @@ MonoBehaviour:
     m_Key: gear.salt_line.description
     m_Metadata:
       m_Items: []
+  - m_Id: 4473458026479616
+    m_Key: iap.full_version.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451136
+    m_Key: iap.full_version.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451137
+    m_Key: iap.starter_pack.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451138
+    m_Key: iap.starter_pack.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451139
+    m_Key: iap.ecto_vial.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451140
+    m_Key: iap.ecto_vial.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451141
+    m_Key: iap.ecto_jar.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451142
+    m_Key: iap.ecto_jar.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451143
+    m_Key: iap.ecto_barrel.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451144
+    m_Key: iap.ecto_barrel.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451145
+    m_Key: iap.ecto_vault.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451146
+    m_Key: iap.ecto_vault.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451147
+    m_Key: iap.field_kit.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451148
+    m_Key: iap.field_kit.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451149
+    m_Key: iap.laser_spectre.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451150
+    m_Key: iap.laser_spectre.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451151
+    m_Key: laser.spectre.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451152
+    m_Key: laser.spectre.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451153
+    m_Key: laser.aurum.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451154
+    m_Key: laser.aurum.description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

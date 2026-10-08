@@ -1423,6 +1423,196 @@ MonoBehaviour:
       trece es m\xEDo. \xC1brelo. Lib\xE9rame. O atr\xE1pame."
     m_Metadata:
       m_Items: []
+  - m_Id: 4815341336526848
+    m_Localized: PREMIUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858496
+    m_Localized: PREMIUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858497
+    m_Localized: "\u2014"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858498
+    m_Localized: TERMINA EN {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858499
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858500
+    m_Localized: +{0}%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858501
+    m_Localized: MEJOR PRECIO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858502
+    m_Localized: POPULAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858503
+    m_Localized: "\u201340%"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858504
+    m_Localized: ECTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858505
+    m_Localized: KITS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858506
+    m_Localized: COMPRADO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858507
+    m_Localized: AHORA NO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858508
+    m_Localized: ACTIVA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858509
+    m_Localized: Una sola compra. Tuya para siempre.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858510
+    m_Localized: "<color=#FFD166>\u2022</color> Sin anuncios entre cacer\xEDas\n<color=#FFD166>\u2022</color>
+      Premios de video al instante, sin video\n<color=#FFD166>\u2022</color> +{0}
+      de ectoplasma al momento\n<color=#FFD166>\u2022</color> L\xE1ser dorado A0
+      AURUM"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858511
+    m_Localized: '{0}
+
+
+      Una sola compra. Tuya para siempre.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858512
+    m_Localized: "{0}\n\nUna oferta \xFAnica para agentes nuevos. Cuando se acabe
+      el tiempo, desaparece."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858513
+    m_Localized: "VERSI\xD3N COMPLETA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858514
+    m_Localized: Notificaciones
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858515
+    m_Localized: RADIO DE LA OFICINA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858516
+    m_Localized: "Deja que la Oficina Nocturna te avise: te diremos cu\xE1ndo est\xE1
+      lista tu raci\xF3n diaria y cu\xE1ndo se agitan los fantasmas en tu casa. Nunca
+      de noche."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858517
+    m_Localized: ACTIVAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858518
+    m_Localized: AHORA NO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858519
+    m_Localized: Recordatorios de la Oficina
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858520
+    m_Localized: "Raci\xF3n diaria y avisos de campo de la Oficina Nocturna."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858521
+    m_Localized: Noticias de la Oficina
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858522
+    m_Localized: Eventos y noticias de la Oficina Nocturna.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858523
+    m_Localized: "Tu raci\xF3n est\xE1 lista"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858524
+    m_Localized: "La Oficina Nocturna te dej\xF3 ectoplasma y equipo. Rec\xF3gelos
+      antes de la pr\xF3xima cacer\xEDa."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858525
+    m_Localized: "Env\xEDo en la central"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858526
+    m_Localized: "Tu raci\xF3n de hoy te espera y llegaron \xF3rdenes nuevas de la
+      agencia."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858527
+    m_Localized: El EMF se dispara en tu casa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858528
+    m_Localized: "Algo se instal\xF3 en tu cuarto mientras no estabas. Toma la c\xE1mara."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858529
+    m_Localized: La Oficina te llama
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858530
+    m_Localized: "Tres noches sin informe, agente. Los fantasmas se est\xE1n envalentonando."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858531
+    m_Localized: El expediente sigue abierto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858532
+    m_Localized: Una semana de silencio. La Oficina necesita a su agente en el turno
+      de noche.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858533
+    m_Localized: Las cintas te esperan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858534
+    m_Localized: Las cintas de la agente Vale siguen en el archivo. Vuelve y sigue
+      su rastro.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858535
+    m_Localized: El kit de novato termina pronto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858536
+    m_Localized: "Quedan pocas horas: ectoplasma, un l\xE1ser y equipo a un precio
+      \xFAnico."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858537
+    m_Localized: "\xDAltima llamada, agente"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858538
+    m_Localized: "La oferta del kit de novato termina en 3 horas y no volver\xE1."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

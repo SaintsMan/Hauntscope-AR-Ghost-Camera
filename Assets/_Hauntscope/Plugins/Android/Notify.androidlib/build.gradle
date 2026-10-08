@@ -1,0 +1,21 @@
+// The notification accent colour, named by the FCM default in the main manifest (Infrastructure/Notifications).
+apply plugin: 'com.android.library'
+
+android {
+    namespace "com.pavko.hauntscope.notify"
+    // SDK levels and build tools follow what Unity writes to gradle.properties (and ships in its SDK),
+    // so an Editor upgrade needs no edit here.
+    compileSdk((project.findProperty('unity.compileSdkVersion') ?: '36').toString().toInteger())
+    buildToolsVersion = (project.findProperty('unity.buildToolsVersion') ?: '36.0.0').toString()
+
+    defaultConfig {
+        minSdk((project.findProperty('unity.minSdkVersion') ?: '25').toString().toInteger())
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            res.srcDirs = ['res']
+        }
+    }
+}

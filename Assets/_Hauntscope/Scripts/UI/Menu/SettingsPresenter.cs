@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Engagement;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Progress;
 using VContainer.Unity;
@@ -25,6 +26,7 @@ namespace Hauntscope.UI.Menu
         private readonly IAdPrivacy _privacy;
         private readonly PlayerProgress _progress;
         private readonly PlayerProgressRepository _progressRepository;
+        private readonly NotificationOptIn _notifications;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         public SettingsPresenter(
@@ -36,8 +38,10 @@ namespace Hauntscope.UI.Menu
             UiFeedback ui,
             IAdPrivacy privacy,
             PlayerProgress progress,
-            PlayerProgressRepository progressRepository)
+            PlayerProgressRepository progressRepository,
+            NotificationOptIn notifications)
         {
+            _notifications = notifications;
             _progress = progress;
             _progressRepository = progressRepository;
             _privacy = privacy;
@@ -59,6 +63,8 @@ namespace Hauntscope.UI.Menu
             _view.MusicClicked += OnMusicClicked;
             _view.VibrationClicked += OnVibrationClicked;
             _view.JumpScaresClicked += OnJumpScaresClicked;
+            _view.NotificationsClicked += OnNotificationsClicked;
+            _notifications.Changed += Render;
             _view.LanguageClicked += OnLanguageClicked;
             _view.PrivacyClicked += OnPrivacyClicked;
             _view.ResetTipsClicked += OnResetTipsClicked;
@@ -77,6 +83,8 @@ namespace Hauntscope.UI.Menu
             _view.MusicClicked -= OnMusicClicked;
             _view.VibrationClicked -= OnVibrationClicked;
             _view.JumpScaresClicked -= OnJumpScaresClicked;
+            _view.NotificationsClicked -= OnNotificationsClicked;
+            _notifications.Changed -= Render;
             _view.LanguageClicked -= OnLanguageClicked;
             _view.PrivacyClicked -= OnPrivacyClicked;
             _view.ResetTipsClicked -= OnResetTipsClicked;
@@ -127,6 +135,13 @@ namespace Hauntscope.UI.Menu
             SaveAndRender();
         }
 
+        // Turning it on may show the system dialog or open the app settings; the switch follows the answer.
+        private void OnNotificationsClicked()
+        {
+            _ui.PlayClick();
+            _notifications.SetEnabledAsync(!_notifications.IsActive, _lifetime.Token).Forget();
+        }
+
         private void OnLanguageClicked()
         {
             var languages = _localization.AvailableLanguages;
@@ -169,6 +184,7 @@ namespace Hauntscope.UI.Menu
             _view.SetMusic(_settings.Music.Value, State(_settings.Music.Value));
             _view.SetVibration(_settings.Vibration.Value, State(_settings.Vibration.Value));
             _view.SetJumpScares(_settings.JumpScares.Value, State(_settings.JumpScares.Value));
+            _view.SetNotifications(_notifications.IsActive, State(_notifications.IsActive));
             _view.SetLanguage(_localization.Get(LocalizationTable.Ui, LanguageNameKeyPrefix + _localization.CurrentLanguage));
         }
 

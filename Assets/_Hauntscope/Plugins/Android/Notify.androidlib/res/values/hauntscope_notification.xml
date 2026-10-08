@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ghost_cyan (GDD 3.2): the small icon and app name in a pushed notification. -->
+    <color name="hauntscope_notification">#4FF5E6</color>
+</resources>

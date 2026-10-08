@@ -16,7 +16,7 @@ namespace Hauntscope.Editor
         private const float GlowStrength = 0.55f;
         private const float Pad = 20f;
 
-        private delegate float Sdf(Vector2 p);
+        internal delegate float Sdf(Vector2 p);
 
         public static void BuildAll()
         {
@@ -418,6 +418,10 @@ namespace Hauntscope.Editor
                 Mathf.Min(Segment(p, new Vector2(74f, 64f), new Vector2(108f, 88f)), Segment(p, new Vector2(74f, 64f), new Vector2(108f, 40f))),
                 Segment(p, new Vector2(108f, 40f), new Vector2(108f, 88f))));
             SaveLaser("LaserTether", p => Mathf.Min(Wave(p, 74f, 104f, 64f, 9f, 1.5f), Circle(p, new Vector2(106f, 64f), 6f)));
+            // The two lasers sold for money: a gold beam crowned with a four-point star, and a ghost-white beam that
+            // splits into two twisting strands.
+            SaveLaser("LaserAurum", p => Mathf.Min(Segment(p, new Vector2(74f, 64f), new Vector2(98f, 64f)), Sparkle(p, new Vector2(106f, 64f), 13f)));
+            SaveLaser("LaserSpectre", p => Mathf.Min(Wave(p, 74f, 110f, 64f, 8f, 1.25f), Wave(p, 74f, 110f, 64f, -8f, 1.25f)));
             SaveLaser("LaserPhase", p =>
             {
                 var distance = float.MaxValue;
@@ -889,14 +893,14 @@ namespace Hauntscope.Editor
         }
 
         // A four-pointed glint.
-        private static float Sparkle(Vector2 p, Vector2 center, float radius)
+        internal static float Sparkle(Vector2 p, Vector2 center, float radius)
         {
             var d = p - center;
             var q = new Vector2(Mathf.Abs(d.x), Mathf.Abs(d.y));
             return Mathf.Pow(Mathf.Pow(q.x / radius, 0.5f) + Mathf.Pow(q.y / radius, 0.5f), 2f) * radius * 0.5f - radius * 0.5f;
         }
 
-        private static float Wave(Vector2 p, float fromX, float toX, float y, float amplitude, float periods)
+        internal static float Wave(Vector2 p, float fromX, float toX, float y, float amplitude, float periods)
         {
             const int steps = 48;
             var distance = float.MaxValue;
@@ -913,7 +917,7 @@ namespace Hauntscope.Editor
         }
 
         // Unsigned distance to an arc of the given radius spanning +-halfAngle degrees around centerAngle.
-        private static float Arc(Vector2 p, Vector2 center, float radius, float centerAngle, float halfAngle)
+        internal static float Arc(Vector2 p, Vector2 center, float radius, float centerAngle, float halfAngle)
         {
             var offset = p - center;
             var angle = Mathf.DeltaAngle(centerAngle, Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg);
@@ -928,7 +932,7 @@ namespace Hauntscope.Editor
         }
 
         // Signed distance to a simple polygon (negative inside).
-        private static float Polygon(Vector2 p, Vector2[] vertices)
+        internal static float Polygon(Vector2 p, Vector2[] vertices)
         {
             var distance = Vector2.Dot(p - vertices[0], p - vertices[0]);
             var sign = 1f;
@@ -948,7 +952,7 @@ namespace Hauntscope.Editor
             return sign * Mathf.Sqrt(distance);
         }
 
-        private static Color32[] Radial(int size, float start, float end, float power, float strength)
+        internal static Color32[] Radial(int size, float start, float end, float power, float strength)
         {
             var pixels = new Color32[size * size];
             for (var y = 0; y < size; y++)
@@ -966,7 +970,7 @@ namespace Hauntscope.Editor
             return pixels;
         }
 
-        private static Color32[] Shape(int width, int height, Sdf sdf, bool outline, float line, float glow)
+        internal static Color32[] Shape(int width, int height, Sdf sdf, bool outline, float line, float glow)
         {
             var pixels = new Color32[width * height];
             for (var y = 0; y < height; y++)
@@ -991,7 +995,7 @@ namespace Hauntscope.Editor
             return pixels;
         }
 
-        private static Color32[] Max(Color32[] a, Color32[] b)
+        internal static Color32[] Max(Color32[] a, Color32[] b)
         {
             var result = new Color32[a.Length];
             for (var i = 0; i < a.Length; i++)
@@ -1010,14 +1014,14 @@ namespace Hauntscope.Editor
             return new Vector4(value, value, value, value);
         }
 
-        private static float RoundBox(Vector2 p, Vector2 center, Vector2 half, float radius)
+        internal static float RoundBox(Vector2 p, Vector2 center, Vector2 half, float radius)
         {
             var q = new Vector2(Mathf.Abs(p.x - center.x), Mathf.Abs(p.y - center.y)) - half + new Vector2(radius, radius);
             var outside = new Vector2(Mathf.Max(q.x, 0f), Mathf.Max(q.y, 0f)).magnitude;
             return outside + Mathf.Min(Mathf.Max(q.x, q.y), 0f) - radius;
         }
 
-        private static float RoundCone(Vector2 p, float bottomRadius, float topRadius, float height)
+        internal static float RoundCone(Vector2 p, float bottomRadius, float topRadius, float height)
         {
             p.x = Mathf.Abs(p.x);
             var b = (bottomRadius - topRadius) / height;
@@ -1030,12 +1034,12 @@ namespace Hauntscope.Editor
             return Vector2.Dot(p, new Vector2(a, b)) - bottomRadius;
         }
 
-        private static float Circle(Vector2 p, Vector2 center, float radius)
+        internal static float Circle(Vector2 p, Vector2 center, float radius)
         {
             return (p - center).magnitude - radius;
         }
 
-        private static float Segment(Vector2 p, Vector2 a, Vector2 b)
+        internal static float Segment(Vector2 p, Vector2 a, Vector2 b)
         {
             var pa = p - a;
             var ba = b - a;
@@ -1043,7 +1047,7 @@ namespace Hauntscope.Editor
             return (pa - ba * h).magnitude;
         }
 
-        private static void SaveSprite(string name, int width, int height, Color32[] pixels, Vector4 border,
+        internal static void SaveSprite(string name, int width, int height, Color32[] pixels, Vector4 border,
             Vector2? pivot = null, bool repeat = false)
         {
             var path = $"{Folder}/{name}.png";

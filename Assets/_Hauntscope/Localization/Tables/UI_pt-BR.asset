@@ -1422,6 +1422,195 @@ MonoBehaviour:
       demais, sou eu.\n\nO arquivo treze \xE9 meu. Abra-o. Me liberte. Ou me capture."
     m_Metadata:
       m_Items: []
+  - m_Id: 4815341336526848
+    m_Localized: PREMIUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858496
+    m_Localized: PREMIUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858497
+    m_Localized: "\u2014"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858498
+    m_Localized: TERMINA EM {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858499
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858500
+    m_Localized: +{0}%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858501
+    m_Localized: MELHOR VALOR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858502
+    m_Localized: POPULAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858503
+    m_Localized: "\u201340%"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858504
+    m_Localized: ECTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858505
+    m_Localized: KITS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858506
+    m_Localized: COMPRADO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858507
+    m_Localized: "AGORA N\xC3O"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858508
+    m_Localized: ATIVA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858509
+    m_Localized: "Uma compra s\xF3. Sua para sempre."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858510
+    m_Localized: "<color=#FFD166>\u2022</color> Sem an\xFAncios entre as ca\xE7adas\n<color=#FFD166>\u2022</color>
+      Pr\xEAmios de v\xEDdeo na hora, sem v\xEDdeo\n<color=#FFD166>\u2022</color>
+      +{0} de ectoplasma na hora\n<color=#FFD166>\u2022</color> Laser dourado A0
+      AURUM"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858511
+    m_Localized: "{0}\n\nUma compra s\xF3. Sua para sempre."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858512
+    m_Localized: "{0}\n\nUma oferta \xFAnica para agentes novos. Quando o tempo acabar,
+      ela some."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858513
+    m_Localized: "VERS\xC3O COMPLETA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858514
+    m_Localized: "Notifica\xE7\xF5es"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858515
+    m_Localized: "R\xC1DIO DO ESCRIT\xD3RIO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858516
+    m_Localized: "Deixe o Escrit\xF3rio Noturno avisar voc\xEA: diremos quando sua
+      ra\xE7\xE3o di\xE1ria estiver pronta e quando os fantasmas se agitarem no seu
+      endere\xE7o. Nunca \xE0 noite."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858517
+    m_Localized: ATIVAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858518
+    m_Localized: "AGORA N\xC3O"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858519
+    m_Localized: "Lembretes do Escrit\xF3rio"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858520
+    m_Localized: "Ra\xE7\xE3o di\xE1ria e avisos de campo do Escrit\xF3rio Noturno."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858521
+    m_Localized: "Not\xEDcias do Escrit\xF3rio"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858522
+    m_Localized: "Eventos e not\xEDcias do Escrit\xF3rio Noturno."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858523
+    m_Localized: "Sua ra\xE7\xE3o est\xE1 pronta"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858524
+    m_Localized: "O Escrit\xF3rio Noturno deixou ectoplasma e equipamento para voc\xEA.
+      Pegue antes da pr\xF3xima ca\xE7ada."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858525
+    m_Localized: Entrega na central
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858526
+    m_Localized: "A ra\xE7\xE3o de hoje est\xE1 esperando e chegaram ordens novas
+      da ag\xEAncia."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858527
+    m_Localized: "O EMF disparou no seu endere\xE7o"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858528
+    m_Localized: "Algo se instalou no seu c\xF4modo enquanto voc\xEA estava fora.
+      Pegue a c\xE2mera."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858529
+    m_Localized: "O Escrit\xF3rio est\xE1 ligando"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858530
+    m_Localized: "Tr\xEAs noites sem relat\xF3rio, agente. Os fantasmas est\xE3o
+      ficando ousados."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858531
+    m_Localized: O caso continua aberto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858532
+    m_Localized: "Uma semana de sil\xEAncio. O Escrit\xF3rio precisa do seu agente
+      no turno da noite."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858533
+    m_Localized: "As fitas est\xE3o esperando"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858534
+    m_Localized: As fitas da agente Vale continuam no arquivo. Volte e siga o rastro
+      dela.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858535
+    m_Localized: O kit de novato acaba logo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858536
+    m_Localized: "Faltam poucas horas: ectoplasma, um laser e equipamento por um
+      pre\xE7o \xFAnico."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858537
+    m_Localized: "\xDAltima chamada, agente"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858538
+    m_Localized: "A oferta do kit de novato acaba em 3 horas e n\xE3o vai voltar."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

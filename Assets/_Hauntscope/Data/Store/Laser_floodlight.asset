@@ -30,6 +30,8 @@ MonoBehaviour:
     _beamedGhostSpeed: 1
     _locksHiddenGhosts: 0
     _showsEmfDirection: 0
+    _passiveDrain: 1
+    _revealFade: 1
   _powerRating: 2
   _holdRating: 5
   _economyRating: 2

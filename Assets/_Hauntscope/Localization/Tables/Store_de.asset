@@ -85,6 +85,91 @@ MonoBehaviour:
     m_Localized: "\xDCber gesalztem Boden sind Geister 35% langsamer. Eine Jagd."
     m_Metadata:
       m_Items: []
+  - m_Id: 4473458026479616
+    m_Localized: VOLLVERSION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451136
+    m_Localized: Keine Werbung, Video-Belohnungen sofort, +1.500 Ektoplasma und goldener
+      Laser A0 AURUM.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451137
+    m_Localized: REKRUTEN-SET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451138
+    m_Localized: "1.000 Ektoplasma, Laser T3 LEINE, jeden Booster 3\xD7 und 3 Ersatzakkus."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451139
+    m_Localized: EKTOPLASMA-PHIOLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451140
+    m_Localized: "500 Ektoplasma f\xFCr Laser und Ausr\xFCstung."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451141
+    m_Localized: EKTOPLASMA-GLAS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451142
+    m_Localized: 1.800 Ektoplasma inklusive +20% Bonus.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451143
+    m_Localized: EKTOPLASMA-FASS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451144
+    m_Localized: 3.500 Ektoplasma inklusive +40% Bonus.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451145
+    m_Localized: EKTOPLASMA-TRESOR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451146
+    m_Localized: 8.000 Ektoplasma inklusive +60% Bonus. Bestes Angebot.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451147
+    m_Localized: FELD-SET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451148
+    m_Localized: "Jeden Booster 3\xD7 (EMF-Verst\xE4rker, Fokuslinse, Salzlinie)
+      und 3 Ersatzakkus."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451149
+    m_Localized: S5 GESPENST
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451150
+    m_Localized: "Wei\xDFer Strahl, der beim Erfassen cyan wird. F\xE4ngt 30% schneller,
+      bremst den Geist."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451151
+    m_Localized: S5 GESPENST
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451152
+    m_Localized: "Geisterwei\xDFer Strahl, der in Cyan einrastet. F\xE4ngt 30% schneller
+      und bremst den Geist."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451153
+    m_Localized: A0 AURUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451154
+    m_Localized: "Der goldene Strahl der Vollversion: f\xE4ngt 35% schneller, breiterer
+      Ring, langsamerer Abfall."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

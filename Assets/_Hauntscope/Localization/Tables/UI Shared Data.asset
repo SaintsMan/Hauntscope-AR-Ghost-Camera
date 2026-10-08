@@ -1367,6 +1367,182 @@ MonoBehaviour:
     m_Key: story.tape7.text
     m_Metadata:
       m_Items: []
+  - m_Id: 4815341336526848
+    m_Key: shop.tab.supplies
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858496
+    m_Key: shop.full_version_only
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858497
+    m_Key: iap.price_unknown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858498
+    m_Key: iap.offer.ends
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858499
+    m_Key: iap.amount
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858500
+    m_Key: iap.bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858501
+    m_Key: iap.badge.best_value
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858502
+    m_Key: iap.badge.popular
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858503
+    m_Key: iap.badge.starter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858504
+    m_Key: iap.section.ectoplasm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858505
+    m_Key: iap.section.kits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858506
+    m_Key: iap.owned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858507
+    m_Key: iap.later
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858508
+    m_Key: iap.full_version.owned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858509
+    m_Key: iap.full_version.tagline
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858510
+    m_Key: iap.full_version.perks
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858511
+    m_Key: iap.full_version.popup
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858512
+    m_Key: iap.starter.popup
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858513
+    m_Key: iap.full_version.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858514
+    m_Key: settings.notifications
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858515
+    m_Key: notify.prompt.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858516
+    m_Key: notify.prompt.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858517
+    m_Key: notify.prompt.accept
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858518
+    m_Key: notify.prompt.later
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858519
+    m_Key: notify.channel.reminders
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858520
+    m_Key: notify.channel.reminders.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858521
+    m_Key: notify.channel.news
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858522
+    m_Key: notify.channel.news.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858523
+    m_Key: notify.ration.0.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858524
+    m_Key: notify.ration.0.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858525
+    m_Key: notify.ration.1.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858526
+    m_Key: notify.ration.1.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858527
+    m_Key: notify.return_3.0.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858528
+    m_Key: notify.return_3.0.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858529
+    m_Key: notify.return_3.1.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858530
+    m_Key: notify.return_3.1.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858531
+    m_Key: notify.return_7.0.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858532
+    m_Key: notify.return_7.0.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858533
+    m_Key: notify.return_7.1.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858534
+    m_Key: notify.return_7.1.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858535
+    m_Key: notify.offer.0.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858536
+    m_Key: notify.offer.0.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858537
+    m_Key: notify.offer.1.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858538
+    m_Key: notify.offer.1.body
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

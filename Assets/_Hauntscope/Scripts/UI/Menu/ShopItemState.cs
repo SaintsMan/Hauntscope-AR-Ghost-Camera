@@ -6,6 +6,10 @@ namespace Hauntscope.UI.Menu
         CantAfford,
         Equip,
         Equipped,
-        Full
+        Full,
+        // Sold for money: the label is the store price.
+        Paid,
+        // Comes with the full version: the button leads to it.
+        FullVersionOnly
     }
 }

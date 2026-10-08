@@ -6,6 +6,7 @@ using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Ads;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Feedback;
+using Hauntscope.Gameplay.Iap;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Store;
 using VContainer.Unity;
@@ -23,6 +24,7 @@ namespace Hauntscope.UI.Menu
         private const string DropLeftKey = "shop.drop.left";
         private const string DropWatchKey = "shop.drop.watch";
         private const string DropEmptyKey = "shop.drop.empty";
+        private const string FullVersionOnlyKey = "shop.full_version_only";
 
         private readonly ShopView _view;
         private readonly MenuNavigation _navigation;
@@ -38,6 +40,9 @@ namespace Hauntscope.UI.Menu
         private readonly List<Action> _handlers = new List<Action>();
         private readonly List<ShopItemView> _handled = new List<ShopItemView>();
         private readonly FieldDrop _fieldDrop;
+        private readonly PaidStore _paid;
+        private readonly IapConfig _iap;
+        private readonly IapCheckout _checkout;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         public ShopPresenter(
@@ -49,8 +54,14 @@ namespace Hauntscope.UI.Menu
             PlayerProgress progress,
             ILocalizationService localization,
             UiFeedback ui,
-            FieldDrop fieldDrop)
+            FieldDrop fieldDrop,
+            PaidStore paid,
+            IapConfig iap,
+            IapCheckout checkout)
         {
+            _checkout = checkout;
+            _paid = paid;
+            _iap = iap;
             _fieldDrop = fieldDrop;
             _view = view;
             _navigation = navigation;
@@ -90,7 +101,9 @@ namespace Hauntscope.UI.Menu
             _view.BackClicked += OnBackClicked;
             _view.TabClicked += OnTabClicked;
             _view.FieldDropClicked += OnFieldDropClicked;
+            _view.TopUpClicked += OnTopUpClicked;
             _fieldDrop.Changed += RenderFieldDrop;
+            _paid.Changed += Render;
 
             OnScreenChanged(_navigation.Current.Value);
             _view.SetTab(_navigation.CurrentShopTab.Value);
@@ -111,7 +124,9 @@ namespace Hauntscope.UI.Menu
             _view.BackClicked -= OnBackClicked;
             _view.TabClicked -= OnTabClicked;
             _view.FieldDropClicked -= OnFieldDropClicked;
+            _view.TopUpClicked -= OnTopUpClicked;
             _fieldDrop.Changed -= RenderFieldDrop;
+            _paid.Changed -= Render;
             _lifetime.Cancel();
             _lifetime.Dispose();
         }
@@ -194,6 +209,10 @@ namespace Hauntscope.UI.Menu
                 card.SetAction(_localization.Get(LocalizationTable.Ui, EquippedKey), ShopItemState.Equipped);
             else if (_inventory.OwnsLaser(laser.Id))
                 card.SetAction(_localization.Get(LocalizationTable.Ui, EquipKey), ShopItemState.Equip);
+            else if (_paid.FindByLaser(laser) is FullVersionData)
+                card.SetAction(_localization.Get(LocalizationTable.Ui, FullVersionOnlyKey), ShopItemState.FullVersionOnly);
+            else if (_paid.FindByLaser(laser) is IapProductData product)
+                card.SetAction(_checkout.PriceOf(product), ShopItemState.Paid);
             else
                 card.SetAction(_localization.Get(LocalizationTable.Ui, PriceKey, laser.Price),
                     _shop.CanAfford(laser.Price) ? ShopItemState.Buy : ShopItemState.CantAfford);
@@ -227,7 +246,36 @@ namespace Hauntscope.UI.Menu
                 return;
             }
 
+            var product = _paid.FindByLaser(laser);
+            if (product is FullVersionData)
+            {
+                _ui.PlayClick();
+                _navigation.ShowShop(ShopTab.Supplies);
+                return;
+            }
+
+            if (product != null)
+            {
+                BuyForMoneyAsync(product, card, _lifetime.Token).Forget();
+                return;
+            }
+
             Show(_shop.BuyLaser(laser), card);
+        }
+
+        private async UniTaskVoid BuyForMoneyAsync(IapProductData product, ShopItemView card, CancellationToken cancellationToken)
+        {
+            var status = await _checkout.BuyAsync(product, cancellationToken);
+            if (status == IapPurchaseStatus.Purchased)
+                card.PlayPurchased();
+            else if (status == IapPurchaseStatus.Failed || status == IapPurchaseStatus.Unavailable)
+                card.PlayDenied();
+        }
+
+        private void OnTopUpClicked()
+        {
+            _ui.PlayClick();
+            _navigation.ShowShop(ShopTab.Supplies);
         }
 
         private void OnGearClicked(GearData gear, ShopItemView card)
@@ -246,6 +294,15 @@ namespace Hauntscope.UI.Menu
 
             _ui.PlayDenied();
             card.PlayDenied();
+            if (result == PurchaseResult.NotEnoughEctoplasm)
+                TopUpAfterDenialAsync(_lifetime.Token).Forget();
+        }
+
+        // The shake is seen first, then the depot turns to where ectoplasm is sold.
+        private async UniTaskVoid TopUpAfterDenialAsync(CancellationToken cancellationToken)
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(_iap.TopUpDelay), DelayType.UnscaledDeltaTime, cancellationToken: cancellationToken);
+            _navigation.ShowShop(ShopTab.Supplies);
         }
 
         private void OnBackClicked()

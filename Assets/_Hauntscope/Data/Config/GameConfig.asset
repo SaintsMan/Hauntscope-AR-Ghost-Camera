@@ -233,6 +233,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 579d13372ce588e40ae6bd041fbe91a1, type: 2}
     - {fileID: 11400000, guid: b29d8e868f99cc54abed4ae028638679, type: 2}
     - {fileID: 11400000, guid: ff9a0d691a8b9784aaef89ef5616cf9c, type: 2}
+    - {fileID: 11400000, guid: d4043b2fb7d8eef488195896258d6e2e, type: 2}
+    - {fileID: 11400000, guid: 14e1b3dd230410e4d99724b43cec38da, type: 2}
     _spareBattery: {fileID: 11400000, guid: b54c80d22466f8e40b5ef536b5090ffb, type: 2}
     _boosters:
     - {fileID: 11400000, guid: fb66218587672634681629a61314cd93, type: 2}
@@ -612,3 +614,35 @@ MonoBehaviour:
       _showsEmfDirection: 0
       _passiveDrain: 0.6
       _revealFade: 2
+  _iap:
+    _fullVersion: {fileID: 11400000, guid: 18f75904b441db84d931dfda1c5562a3, type: 2}
+    _starterPack: {fileID: 11400000, guid: 8769479f42d21a843bb73850603c650b, type: 2}
+    _ectoplasmPacks:
+    - {fileID: 11400000, guid: c4fd30a597261d444bd783646195a742, type: 2}
+    - {fileID: 11400000, guid: cd922525f51c45e4a9059da6352d0d0b, type: 2}
+    - {fileID: 11400000, guid: 5d3c55aeb1bbb63418b4b470a46c0d0a, type: 2}
+    - {fileID: 11400000, guid: 470aa7041a951c84cac6ef417c26d801, type: 2}
+    _supplies:
+    - {fileID: 11400000, guid: d8fb5e0b46acf8848baf1196768c83e6, type: 2}
+    - {fileID: 11400000, guid: f05caad803111504195c0d9516c58282, type: 2}
+    _starterOfferAfterHunts: 2
+    _starterOfferHours: 48
+    _premiumOfferAfterHunts: 6
+    _premiumOfferEveryDays: 3
+    _topUpDelay: 0.45
+  _notifications:
+    _reminderChannel: hauntscope_reminders
+    _newsChannel: hauntscope_news
+    _accent: {r: 0.31, g: 0.96, b: 0.9, a: 1}
+    _promptAfterCaptures: 1
+    _quietStartHour: 21
+    _quietEndHour: 10
+    _eveningHour: 19
+    _morningHour: 11
+    _returnDays: 0300000007000000
+    _minGapHours: 3
+    _minLeadMinutes: 30
+    _offerWarningHours: 3
+    _textVariants: 2
+    _topicAll: all
+    _topicLanguagePrefix: lang_

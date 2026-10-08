@@ -14,12 +14,17 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private RectTransform _balanceIcon;
         [SerializeField] private Button _lasersTab;
         [SerializeField] private Button _gearTab;
+        [SerializeField] private Button _suppliesTab;
         [SerializeField] private Graphic[] _lasersTabGraphics;
         [SerializeField] private Graphic[] _gearTabGraphics;
+        [SerializeField] private Graphic[] _suppliesTabGraphics;
         [SerializeField] private Graphic _lasersTabFill;
         [SerializeField] private Graphic _gearTabFill;
+        [SerializeField] private Graphic _suppliesTabFill;
         [SerializeField] private RectTransform _lasersList;
         [SerializeField] private RectTransform _gearList;
+        [SerializeField] private RectTransform _suppliesList;
+        [SerializeField] private Button _topUpButton;
         [SerializeField] private ScrollRect _scroll;
         [SerializeField] private ShopItemView _itemPrefab;
         [SerializeField] private Color _tabOnColor = new Color(0.31f, 0.96f, 0.9f, 1f);
@@ -41,6 +46,7 @@ namespace Hauntscope.UI.Menu
         public event Action<ShopTab> TabClicked;
 
         public event Action FieldDropClicked;
+        public event Action TopUpClicked;
 
         public void SetVisible(bool visible)
         {
@@ -69,13 +75,15 @@ namespace Hauntscope.UI.Menu
 
         public void SetTab(ShopTab tab)
         {
-            var lasers = tab == ShopTab.Lasers;
-            _lasersList.gameObject.SetActive(lasers);
-            _gearList.gameObject.SetActive(!lasers);
-            _scroll.content = lasers ? _lasersList : _gearList;
+            var list = tab == ShopTab.Lasers ? _lasersList : tab == ShopTab.Gear ? _gearList : _suppliesList;
+            _lasersList.gameObject.SetActive(tab == ShopTab.Lasers);
+            _gearList.gameObject.SetActive(tab == ShopTab.Gear);
+            _suppliesList.gameObject.SetActive(tab == ShopTab.Supplies);
+            _scroll.content = list;
             _scroll.verticalNormalizedPosition = 1f;
-            Paint(_lasersTabGraphics, _lasersTabFill, lasers);
-            Paint(_gearTabGraphics, _gearTabFill, !lasers);
+            Paint(_lasersTabGraphics, _lasersTabFill, tab == ShopTab.Lasers);
+            Paint(_gearTabGraphics, _gearTabFill, tab == ShopTab.Gear);
+            Paint(_suppliesTabGraphics, _suppliesTabFill, tab == ShopTab.Supplies);
         }
 
         // The balance ticks down after a purchase, so the price is felt leaving the wallet.
@@ -113,6 +121,8 @@ namespace Hauntscope.UI.Menu
             _lasersTab.onClick.AddListener(OnLasersClicked);
             _gearTab.onClick.AddListener(OnGearClicked);
             _dropButton.onClick.AddListener(OnDropClicked);
+            _suppliesTab.onClick.AddListener(OnSuppliesClicked);
+            _topUpButton.onClick.AddListener(OnTopUpClicked);
         }
 
         private void OnDestroy()
@@ -121,6 +131,8 @@ namespace Hauntscope.UI.Menu
             _lasersTab.onClick.RemoveListener(OnLasersClicked);
             _gearTab.onClick.RemoveListener(OnGearClicked);
             _dropButton.onClick.RemoveListener(OnDropClicked);
+            _suppliesTab.onClick.RemoveListener(OnSuppliesClicked);
+            _topUpButton.onClick.RemoveListener(OnTopUpClicked);
         }
 
         private void OnBackClicked()
@@ -143,6 +155,16 @@ namespace Hauntscope.UI.Menu
             FieldDropClicked?.Invoke();
         }
 
+        private void OnSuppliesClicked()
+        {
+            TabClicked?.Invoke(ShopTab.Supplies);
+        }
+
+        private void OnTopUpClicked()
+        {
+            TopUpClicked?.Invoke();
+        }
+
 #if UNITY_EDITOR
         private void Reset()
         {
@@ -151,10 +173,15 @@ namespace Hauntscope.UI.Menu
             _balanceIcon = Find<RectTransform>("Balance/Icon");
             _lasersTab = Find<Button>("Tabs/Lasers");
             _gearTab = Find<Button>("Tabs/Gear");
+            _suppliesTab = Find<Button>("Tabs/Supplies");
             _lasersTabGraphics = new Graphic[] { Find<Graphic>("Tabs/Lasers/Border"), Find<Graphic>("Tabs/Lasers/Label") };
             _gearTabGraphics = new Graphic[] { Find<Graphic>("Tabs/Gear/Border"), Find<Graphic>("Tabs/Gear/Label") };
             _lasersTabFill = Find<Graphic>("Tabs/Lasers/Fill");
             _gearTabFill = Find<Graphic>("Tabs/Gear/Fill");
+            _suppliesTabGraphics = new Graphic[] { Find<Graphic>("Tabs/Supplies/Border"), Find<Graphic>("Tabs/Supplies/Label") };
+            _suppliesTabFill = Find<Graphic>("Tabs/Supplies/Fill");
+            _suppliesList = Find<RectTransform>("Scroll/Viewport/Supplies");
+            _topUpButton = Find<Button>("Balance");
             _scroll = Find<ScrollRect>("Scroll");
             _lasersList = Find<RectTransform>("Scroll/Viewport/Lasers");
             _gearList = Find<RectTransform>("Scroll/Viewport/Gear");

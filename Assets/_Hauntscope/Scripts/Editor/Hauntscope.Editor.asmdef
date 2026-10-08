@@ -1,7 +1,7 @@
 {
     "name": "Hauntscope.Editor",
     "rootNamespace": "Hauntscope.Editor",
-    "references": ["Hauntscope.Core", "Hauntscope.Gameplay", "Hauntscope.AR", "Hauntscope.VirtualRoom", "Hauntscope.UI", "Hauntscope.Infrastructure", "Hauntscope.Bootstrap", "VContainer", "Unity.XR.ARFoundation", "Unity.XR.ARSubsystems", "Unity.XR.CoreUtils", "Unity.Localization", "Unity.Localization.Editor", "UnityEngine.UI", "Unity.TextMeshPro"],
+    "references": ["Hauntscope.Core", "Hauntscope.Gameplay", "Hauntscope.AR", "Hauntscope.VirtualRoom", "Hauntscope.UI", "Hauntscope.Infrastructure", "Hauntscope.Bootstrap", "VContainer", "Unity.XR.ARFoundation", "Unity.XR.ARSubsystems", "Unity.XR.CoreUtils", "Unity.Localization", "Unity.Localization.Editor", "UnityEngine.UI", "Unity.TextMeshPro", "Unity.Notifications"],
     "includePlatforms": ["Editor"],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

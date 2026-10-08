@@ -86,6 +86,92 @@ MonoBehaviour:
     m_Localized: Hantu bergerak 35% lebih lambat di atas lantai bergaram. Satu perburuan.
     m_Metadata:
       m_Items: []
+  - m_Id: 4473458026479616
+    m_Localized: VERSI LENGKAP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451136
+    m_Localized: Tanpa iklan, hadiah video langsung, +1.500 ektoplasma, dan laser
+      emas A0 AURUM.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451137
+    m_Localized: PAKET AGEN BARU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451138
+    m_Localized: 1.000 ektoplasma, laser T3 PENGIKAT, 3 tiap penguat, dan 3 baterai
+      cadangan.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451139
+    m_Localized: TABUNG EKTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451140
+    m_Localized: 500 ektoplasma untuk laser dan perlengkapan.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451141
+    m_Localized: TOPLES EKTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451142
+    m_Localized: 1.800 ektoplasma, sudah termasuk bonus +20%.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451143
+    m_Localized: TONG EKTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451144
+    m_Localized: 3.500 ektoplasma, sudah termasuk bonus +40%.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451145
+    m_Localized: BRANKAS EKTOPLASMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451146
+    m_Localized: 8.000 ektoplasma, sudah termasuk bonus +60%. Paling hemat.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451147
+    m_Localized: PAKET LAPANGAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451148
+    m_Localized: 3 tiap penguat (penguat EMF, lensa fokus, garis garam) dan 3 baterai
+      cadangan.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451149
+    m_Localized: S5 ARWAH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451150
+    m_Localized: Sinar putih yang jadi sian saat mengunci. Menangkap 30% lebih cepat,
+      memperlambat hantu.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451151
+    m_Localized: S5 ARWAH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451152
+    m_Localized: Sinar putih yang terkunci biru toska. Menangkap 30% lebih cepat
+      dan memperlambat hantu.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451153
+    m_Localized: A0 AURUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473458047451154
+    m_Localized: 'Sinar emas versi lengkap: menangkap 35% lebih cepat, cincin lebih
+      lebar, turun lebih lambat.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

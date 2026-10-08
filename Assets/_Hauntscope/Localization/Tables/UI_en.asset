@@ -1445,6 +1445,195 @@ MonoBehaviour:
       thirteen is mine. Open it. Set me free. Or catch me.'
     m_Metadata:
       m_Items: []
+  - m_Id: 4815341336526848
+    m_Localized: PREMIUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858496
+    m_Localized: PREMIUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858497
+    m_Localized: "\u2014"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858498
+    m_Localized: ENDS IN {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858499
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858500
+    m_Localized: +{0}%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858501
+    m_Localized: BEST VALUE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858502
+    m_Localized: POPULAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858503
+    m_Localized: "\u201340%"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858504
+    m_Localized: ECTOPLASM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858505
+    m_Localized: KITS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858506
+    m_Localized: OWNED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858507
+    m_Localized: NOT NOW
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858508
+    m_Localized: ACTIVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858509
+    m_Localized: One purchase. Yours for good.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858510
+    m_Localized: "<color=#FFD166>\u2022</color> No ads between hunts\n<color=#FFD166>\u2022</color>
+      Video rewards instantly, no video\n<color=#FFD166>\u2022</color> +{0} ectoplasm
+      right away\n<color=#FFD166>\u2022</color> Gold laser A0 AURUM"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858511
+    m_Localized: '{0}
+
+
+      One purchase. Yours for good.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858512
+    m_Localized: '{0}
+
+
+      A one-time offer for new agents. When the clock runs
+      out, it''s gone.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858513
+    m_Localized: FULL VERSION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858514
+    m_Localized: Notifications
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858515
+    m_Localized: BUREAU RADIO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858516
+    m_Localized: 'Let the Night Bureau reach you: we''ll tell you when your daily
+      ration is ready and when ghosts stir at your address. Never at night.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858517
+    m_Localized: TURN ON
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858518
+    m_Localized: NOT NOW
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858519
+    m_Localized: Bureau reminders
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858520
+    m_Localized: Daily ration and field reminders from the Night Bureau.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858521
+    m_Localized: Bureau news
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858522
+    m_Localized: Events and news from the Night Bureau.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858523
+    m_Localized: Your ration is ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858524
+    m_Localized: The Night Bureau left you ectoplasm and gear. Collect it before
+      the next hunt.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858525
+    m_Localized: Supply drop at HQ
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858526
+    m_Localized: Today's ration is waiting, and fresh agency orders have come in.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858527
+    m_Localized: EMF is spiking at your address
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858528
+    m_Localized: Something settled into your room while you were away. Grab the camera.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858529
+    m_Localized: The Bureau is calling
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858530
+    m_Localized: Three nights without a report, agent. The ghosts are getting bolder.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858531
+    m_Localized: Case file still open
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858532
+    m_Localized: A week of silence. The Bureau needs its agent back on the night
+      shift.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858533
+    m_Localized: The tapes are waiting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858534
+    m_Localized: Agent Vale's tapes are still in the archive. Come back and follow
+      her trail.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858535
+    m_Localized: Rookie Kit ends soon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858536
+    m_Localized: 'A few hours left: ectoplasm, a laser and gear at a one-time price.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858537
+    m_Localized: Last call, agent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4815341386858538
+    m_Localized: The Rookie Kit offer ends in 3 hours and won't come back.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

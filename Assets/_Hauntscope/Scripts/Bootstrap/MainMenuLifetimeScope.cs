@@ -39,13 +39,23 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<TapePlayerPresenter>().AsSelf();
             builder.RegisterComponentInHierarchy<ArchiveView>();
             builder.RegisterEntryPoint<ArchivePresenter>();
+            builder.Register<IapCheckout>(Lifetime.Singleton);
             builder.RegisterComponentInHierarchy<ShopView>();
             builder.RegisterEntryPoint<ShopPresenter>();
+            builder.RegisterComponentInHierarchy<SuppliesView>();
+            builder.RegisterEntryPoint<SuppliesPresenter>();
+            builder.RegisterComponentInHierarchy<MenuStoreLinkView>();
+            builder.RegisterEntryPoint<MenuStoreLinkPresenter>();
             builder.RegisterComponentInHierarchy<ContractsView>();
             builder.RegisterEntryPoint<ContractsPresenter>();
             builder.RegisterComponentInHierarchy<DailyRewardView>();
             builder.RegisterComponentInHierarchy<CalendarButtonView>();
             builder.RegisterEntryPoint<DailyRewardPresenter>();
+            // After the free things: the notifications question, then at most one paid offer.
+            builder.RegisterComponentInHierarchy<NotificationPromptView>();
+            builder.RegisterEntryPoint<NotificationPromptPresenter>();
+            builder.RegisterComponentInHierarchy<OfferPopupView>();
+            builder.RegisterEntryPoint<OfferPopupPresenter>();
             builder.RegisterComponentInHierarchy<LoadoutView>();
             builder.RegisterEntryPoint<LoadoutPresenter>();
 

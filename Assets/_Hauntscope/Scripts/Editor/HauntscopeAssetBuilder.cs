@@ -28,6 +28,8 @@ namespace Hauntscope.Editor
             PickupAssetBuilder.Build();
             AppIconGenerator.Build();
             StoreAssetBuilder.Build();
+            IapIconGenerator.Build();
+            IapAssetBuilder.Build();
             ShiftAssetBuilder.Build();
             ContractAssetBuilder.Build();
             LoginAssetBuilder.Build();
