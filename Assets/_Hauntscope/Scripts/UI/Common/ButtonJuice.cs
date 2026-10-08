@@ -73,7 +73,8 @@ namespace Hauntscope.UI.Common
                 AdoptFrameColor();
                 ShowFlare(0f);
             }
-            if (_fill != null)
+            // Only a breathing fill is ours to restore; toggles and cards paint their fill by state.
+            if (_breathe && _fill != null)
                 SetFillAlpha(_fillAlpha);
             _flareTween = null;
             _breath = null;
