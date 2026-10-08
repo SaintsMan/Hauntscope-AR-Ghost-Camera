@@ -19,43 +19,37 @@ namespace Hauntscope.UI.Common
         [SerializeField, Range(0f, 1f)] private float _breathDim = 0.45f;
 
         private Color _frameColor;
+        private Color _shownFrameColor;
+        private float _flare;
         private float _fillAlpha;
         private bool _captured;
+        private Tween _flareTween;
         private Tween _breath;
 
-        // A view that recolours the frame by state sets its resting colour here, so the flare and OnDisable return to
-        // that colour instead of the one the frame had when the button was first enabled.
+        // A view that recolours the frame by state may also call this; a colour written straight into the frame works
+        // too, since the flare adopts it (see AdoptFrameColor).
         public void SetFrameColor(Color color)
         {
             Capture();
-            _frameColor = color;
             if (_frame == null)
                 return;
 
-            _frame.DOKill();
-            _frame.color = color;
+            _frameColor = color;
+            ShowFlare(_flare);
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
             transform.DOKill();
             transform.DOScale(_pressedScale, 0.07f).SetEase(Ease.OutQuad).Ui(gameObject);
-            if (_frame != null)
-            {
-                _frame.DOKill();
-                _frame.DOColor(Color.Lerp(_frameColor, Color.white, _flareToWhite), 0.07f).Ui(gameObject);
-            }
+            FlareTo(1f, 0.07f, Ease.Linear);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
             transform.DOKill();
             transform.DOScale(1f, 0.42f).SetEase(Ease.OutBack, 3f).Ui(gameObject);
-            if (_frame != null)
-            {
-                _frame.DOKill();
-                _frame.DOColor(_frameColor, 0.35f).SetEase(Ease.OutQuad).Ui(gameObject);
-            }
+            FlareTo(0f, 0.35f, Ease.OutQuad);
         }
 
         private void OnEnable()
@@ -75,10 +69,41 @@ namespace Hauntscope.UI.Common
         {
             transform.localScale = Vector3.one;
             if (_frame != null)
-                _frame.color = _frameColor;
+            {
+                AdoptFrameColor();
+                ShowFlare(0f);
+            }
             if (_fill != null)
                 SetFillAlpha(_fillAlpha);
+            _flareTween = null;
             _breath = null;
+        }
+
+        private void FlareTo(float target, float duration, Ease ease)
+        {
+            if (_frame == null)
+                return;
+
+            AdoptFrameColor();
+            _flareTween?.Kill();
+            _flareTween = DOTween.To(() => _flare, ShowFlare, target, duration).SetEase(ease).Ui(gameObject);
+        }
+
+        private void ShowFlare(float flare)
+        {
+            AdoptFrameColor();
+            _flare = flare;
+            _shownFrameColor = Color.Lerp(_frameColor, Color.white, flare * _flareToWhite);
+            _frame.color = _shownFrameColor;
+        }
+
+        // Toggles and cards repaint their frame by state, often from the click that fires right after the finger lifts,
+        // while the flare is still fading. Whatever colour a view wrote becomes the resting colour, so the flare can't
+        // fade the frame back to a stale one (the loadout row used to lose its "armed" border that way).
+        private void AdoptFrameColor()
+        {
+            if (_frame.color != _shownFrameColor)
+                _frameColor = _frame.color;
         }
 
         private void Capture()
@@ -88,7 +113,10 @@ namespace Hauntscope.UI.Common
 
             _captured = true;
             if (_frame != null)
+            {
                 _frameColor = _frame.color;
+                _shownFrameColor = _frameColor;
+            }
             if (_fill != null)
                 _fillAlpha = _fill.color.a;
         }
