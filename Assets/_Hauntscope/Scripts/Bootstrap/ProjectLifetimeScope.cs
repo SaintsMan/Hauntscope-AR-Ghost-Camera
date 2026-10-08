@@ -235,6 +235,8 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<PaidStore>().AsSelf();
             builder.Register<StarterOffer>(Lifetime.Singleton);
             builder.Register<PremiumOffer>(Lifetime.Singleton);
+            builder.Register<OfferMoments>(Lifetime.Singleton);
+            builder.Register<OfferFunnel>(Lifetime.Singleton);
         }
 
         private static void RegisterNotifications(IContainerBuilder builder)

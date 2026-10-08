@@ -15,6 +15,9 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private IapProductData[] _supplies = Array.Empty<IapProductData>();
         [SerializeField, Min(0)] private int _starterOfferAfterHunts = 2;
         [SerializeField, Min(1f)] private float _starterOfferHours = 48f;
+        [SerializeField, Min(0)] private int _starterOfferFallbackHunts = 2;
+        [SerializeField] private SupplyBundleData _kitOffer;
+        [SerializeField, Min(1)] private int _kitOfferEveryDays = 2;
         [SerializeField, Min(0)] private int _premiumOfferAfterHunts = 6;
         [SerializeField, Min(1)] private int _premiumOfferEveryDays = 3;
         [SerializeField, Min(0f)] private float _topUpDelay = 0.45f;
@@ -25,8 +28,12 @@ namespace Hauntscope.Gameplay.Config
 
         public IapConfig(FullVersionData fullVersion, SupplyBundleData starterPack, EctoplasmPackData[] ectoplasmPacks,
             IapProductData[] supplies, int starterOfferAfterHunts = 2, float starterOfferHours = 48f,
-            int premiumOfferAfterHunts = 6, int premiumOfferEveryDays = 3)
+            int premiumOfferAfterHunts = 6, int premiumOfferEveryDays = 3, SupplyBundleData kitOffer = null,
+            int starterOfferFallbackHunts = 2, int kitOfferEveryDays = 2)
         {
+            _kitOffer = kitOffer;
+            _starterOfferFallbackHunts = starterOfferFallbackHunts;
+            _kitOfferEveryDays = kitOfferEveryDays;
             _fullVersion = fullVersion;
             _starterPack = starterPack;
             _ectoplasmPacks = ectoplasmPacks;
@@ -45,6 +52,11 @@ namespace Hauntscope.Gameplay.Config
         // The rookie kit opens after this many hunts, once the player knows what gear is for.
         public int StarterOfferAfterHunts => _starterOfferAfterHunts;
         public float StarterOfferHours => _starterOfferHours;
+        // A player who catches every ghost still hears about the kit this many hunts later.
+        public int StarterOfferFallbackHunts => _starterOfferFallbackHunts;
+        // Pitched after a ghost escaped while no spare battery was left.
+        public SupplyBundleData KitOffer => _kitOffer;
+        public int KitOfferEveryDays => _kitOfferEveryDays;
         public int PremiumOfferAfterHunts => _premiumOfferAfterHunts;
         public int PremiumOfferEveryDays => _premiumOfferEveryDays;
         // A purchase refused for lack of ectoplasm turns the shop to the ectoplasm packs after this pause.

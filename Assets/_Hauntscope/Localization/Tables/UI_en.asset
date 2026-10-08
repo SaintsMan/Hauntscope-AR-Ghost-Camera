@@ -1511,13 +1511,6 @@ MonoBehaviour:
       right away\n<color=#FFD166>\u2022</color> Gold laser A0 AURUM"
     m_Metadata:
       m_Items: []
-  - m_Id: 4815341386858511
-    m_Localized: '{0}
-
-
-      One purchase. Yours for good.'
-    m_Metadata:
-      m_Items: []
   - m_Id: 4815341386858512
     m_Localized: '{0}
 
@@ -1632,6 +1625,58 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 4815341386858538
     m_Localized: The Rookie Kit offer ends in 3 hours and won't come back.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198891991040
+    m_Localized: '{0}
+
+
+      Tired of ad breaks between hunts? One purchase turns
+      them off for good.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516992
+    m_Localized: '{0}
+
+
+      The battery gave out before the ghost did. Take a full
+      kit into the next hunt.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516993
+    m_Localized: A new tape in the archive
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516994
+    m_Localized: Agent Vale left a recording you haven't heard. Listen before tonight's
+      hunt.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516995
+    m_Localized: The tape counter is blinking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516996
+    m_Localized: There's an unheard recording in the Bureau archive. What did Vale
+      find?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516997
+    m_Localized: Witching hour tonight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516998
+    m_Localized: From 23:00 the ghosts grow stronger and the one that walks behind
+      you comes out. Ready the camera.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516999
+    m_Localized: At 23:00 the floor creaks
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946517000
+    m_Localized: Some ghosts only come during the witching hour. Tonight is your
+      chance to catch one.
     m_Metadata:
       m_Items: []
   references:

@@ -18,6 +18,7 @@ MonoBehaviour:
   _icon: {fileID: 21300000, guid: 6eb03e1920af80041b3f3a7711f64706, type: 3}
   _accent: {r: 1, g: 0.81960785, b: 0.4, a: 1}
   _badgeKey: 
+  _pitchKey: iap.full_version.after_ads
   _referencePriceUsd: 4.99
   _ectoplasm: 1500
   _laser: {fileID: 11400000, guid: d4043b2fb7d8eef488195896258d6e2e, type: 2}

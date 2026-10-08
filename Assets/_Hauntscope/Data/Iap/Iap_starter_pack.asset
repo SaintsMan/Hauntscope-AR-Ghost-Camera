@@ -18,6 +18,7 @@ MonoBehaviour:
   _icon: {fileID: 21300000, guid: c8e4dfc991fbb5e41bde3c683002b53e, type: 3}
   _accent: {r: 1, g: 0.70980394, b: 0.2784314, a: 1}
   _badgeKey: iap.badge.starter
+  _pitchKey: iap.starter.popup
   _referencePriceUsd: 1.99
   _ectoplasm: 1000
   _gear:

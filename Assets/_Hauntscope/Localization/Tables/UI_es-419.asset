@@ -1490,13 +1490,6 @@ MonoBehaviour:
       AURUM"
     m_Metadata:
       m_Items: []
-  - m_Id: 4815341386858511
-    m_Localized: '{0}
-
-
-      Una sola compra. Tuya para siempre.'
-    m_Metadata:
-      m_Items: []
   - m_Id: 4815341386858512
     m_Localized: "{0}\n\nUna oferta \xFAnica para agentes nuevos. Cuando se acabe
       el tiempo, desaparece."
@@ -1611,6 +1604,52 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 4815341386858538
     m_Localized: "La oferta del kit de novato termina en 3 horas y no volver\xE1."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198891991040
+    m_Localized: "{0}\n\n\xBFCansado de los anuncios entre cacer\xEDas? Una sola
+      compra los quita para siempre."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516992
+    m_Localized: "{0}\n\nLa bater\xEDa se rindi\xF3 antes que el fantasma. Lleva
+      un kit completo a la pr\xF3xima cacer\xEDa."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516993
+    m_Localized: Una cinta nueva en el archivo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516994
+    m_Localized: "La agente Vale dej\xF3 una grabaci\xF3n que no has escuchado. \xD3yela
+      antes de la cacer\xEDa de esta noche."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516995
+    m_Localized: El contador de la cinta parpadea
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516996
+    m_Localized: "Hay una grabaci\xF3n sin escuchar en el archivo de la Oficina.
+      \xBFQu\xE9 encontr\xF3 Vale?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516997
+    m_Localized: Esta noche, la hora bruja
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516998
+    m_Localized: "Desde las 23:00 los fantasmas se hacen m\xE1s fuertes y sale el
+      que camina a tu espalda. Prepara la c\xE1mara."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516999
+    m_Localized: A las 23:00 cruje el piso
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946517000
+    m_Localized: Algunos fantasmas solo aparecen en la hora bruja. Esta noche es
+      tu oportunidad de atrapar uno.
     m_Metadata:
       m_Items: []
   references:

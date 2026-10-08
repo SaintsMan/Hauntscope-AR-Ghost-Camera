@@ -17,6 +17,8 @@ namespace Hauntscope.Tests.EditMode
         public const float StarterHours = 48f;
         public const int PremiumAfterHunts = 6;
         public const int PremiumEveryDays = 3;
+        public const int StarterFallbackHunts = 2;
+        public const int KitEveryDays = 2;
 
         public IapFixture()
         {
@@ -46,13 +48,15 @@ namespace Hauntscope.Tests.EditMode
             Set(SpectrePack, typeof(LaserPackData), "_laser", Spectre);
 
             Config = new IapConfig(FullVersion, StarterPack, new[] { Vial }, new IapProductData[] { FieldKit, SpectrePack },
-                StarterAfterHunts, StarterHours, PremiumAfterHunts, PremiumEveryDays);
+                StarterAfterHunts, StarterHours, PremiumAfterHunts, PremiumEveryDays, FieldKit, StarterFallbackHunts, KitEveryDays);
             HistoryRepository = new PurchaseHistoryRepository(Store.Save);
             History = HistoryRepository.Load();
             var granter = new RewardGranter(Store.Progress, Store.ProgressRepository, Store.Inventory, Store.InventoryRepository, Store.Config);
             Paid = new PaidStore(Iap, Config, History, HistoryRepository, new IapGrant(granter, Store.Inventory, Store.InventoryRepository, History));
             Starter = new StarterOffer(Config, History, HistoryRepository, Store.Progress, Clock);
-            Premium = new PremiumOffer(Config, History, HistoryRepository, Store.Progress, Starter, Clock);
+            Premium = new PremiumOffer(Config, History, HistoryRepository, Store.Progress, Clock);
+            Moments = new OfferMoments();
+            Funnel = new OfferFunnel(Moments, Starter, Premium, Config, History, HistoryRepository, Store.Inventory, Store.Config, Clock);
         }
 
         public StoreFixture Store { get; }
@@ -71,6 +75,8 @@ namespace Hauntscope.Tests.EditMode
         public PaidStore Paid { get; }
         public StarterOffer Starter { get; }
         public PremiumOffer Premium { get; }
+        public OfferMoments Moments { get; }
+        public OfferFunnel Funnel { get; }
 
         public void PlayHunts(int count)
         {

@@ -13,12 +13,12 @@ namespace Hauntscope.Gameplay.Iap
         private readonly List<string> _transactions;
 
         public PurchaseHistory()
-            : this(Array.Empty<string>(), Array.Empty<string>(), false, 0L, false, 0)
+            : this(Array.Empty<string>(), Array.Empty<string>(), false, 0L, false, 0, 0)
         {
         }
 
         public PurchaseHistory(IEnumerable<string> owned, IEnumerable<string> transactions, bool isPremium,
-            long starterOfferStartTicks, bool starterOfferAnnounced, int premiumOfferShownDay)
+            long starterOfferStartTicks, bool starterOfferAnnounced, int premiumOfferShownDay, int kitOfferShownDay)
         {
             _owned = new HashSet<string>(owned);
             _transactions = new List<string>(transactions);
@@ -26,6 +26,7 @@ namespace Hauntscope.Gameplay.Iap
             StarterOfferStartTicks = starterOfferStartTicks;
             StarterOfferAnnounced = starterOfferAnnounced;
             PremiumOfferShownDay = premiumOfferShownDay;
+            KitOfferShownDay = kitOfferShownDay;
         }
 
         public event Action Changed;
@@ -42,6 +43,8 @@ namespace Hauntscope.Gameplay.Iap
         public bool StarterOfferAnnounced { get; private set; }
 
         public int PremiumOfferShownDay { get; private set; }
+
+        public int KitOfferShownDay { get; private set; }
 
         public bool Owns(string productId)
         {
@@ -88,6 +91,12 @@ namespace Hauntscope.Gameplay.Iap
         public void MarkStarterOfferAnnounced()
         {
             StarterOfferAnnounced = true;
+            Changed?.Invoke();
+        }
+
+        public void MarkKitOfferShown(int day)
+        {
+            KitOfferShownDay = day;
             Changed?.Invoke();
         }
 

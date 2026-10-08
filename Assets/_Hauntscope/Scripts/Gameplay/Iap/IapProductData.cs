@@ -12,6 +12,7 @@ namespace Hauntscope.Gameplay.Iap
         [SerializeField] private Sprite _icon;
         [SerializeField] private Color _accent = Color.white;
         [SerializeField] private string _badgeKey;
+        [SerializeField] private string _pitchKey;
         [SerializeField, Min(0f)] private float _referencePriceUsd = 0.99f;
 
         // The Google Play product id: permanent once created in Play Console.
@@ -22,6 +23,8 @@ namespace Hauntscope.Gameplay.Iap
         public Color Accent => _accent;
         // A ribbon over the card ("BEST VALUE"); empty for none.
         public string BadgeKey => _badgeKey;
+        // Why now: the popup text when the menu pitches the product ({0} is its description).
+        public string PitchKey => _pitchKey;
         public decimal ReferencePriceUsd => (decimal)_referencePriceUsd;
 
         public abstract bool IsConsumable { get; }

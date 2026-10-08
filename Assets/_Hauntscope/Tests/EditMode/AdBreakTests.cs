@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Hauntscope.Gameplay.Ads;
 using Hauntscope.Gameplay.Config;
+using Hauntscope.Gameplay.Iap;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Tests.EditMode.Fakes;
 using NUnit.Framework;
@@ -13,6 +14,7 @@ namespace Hauntscope.Tests.EditMode
         private FakeAdsService _inner;
         private AdPacing _pacing;
         private AdBreak _adBreak;
+        private OfferMoments _moments;
 
         [SetUp]
         public void SetUp()
@@ -23,7 +25,8 @@ namespace Hauntscope.Tests.EditMode
             var ads = new PacedAdsService(_inner, _pacing, clock);
             var progress = new PlayerProgress(0, new Dictionary<string, int>(), 10, false);
             var policy = new InterstitialPolicy(_pacing, progress, clock, new AdsConfig(3, 150f, 3, 30, 3));
-            _adBreak = new AdBreak(ads, _pacing, policy);
+            _moments = new OfferMoments();
+            _adBreak = new AdBreak(ads, _pacing, policy, _moments);
         }
 
         [Test]
@@ -32,6 +35,18 @@ namespace Hauntscope.Tests.EditMode
             Leave(2);
 
             Assert.AreEqual(0, _inner.InterstitialsShown);
+        }
+
+        [Test]
+        public void TryShow_InterstitialPlayed_RecordsTheAdBreakForOffers()
+        {
+            Leave(2);
+            var before = _moments.SawAdBreak;
+
+            Leave(1);
+
+            Assert.IsFalse(before);
+            Assert.IsTrue(_moments.SawAdBreak);
         }
 
         [Test]

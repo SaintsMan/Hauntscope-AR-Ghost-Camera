@@ -39,13 +39,15 @@ namespace Hauntscope.Editor
                 AssetDatabase.CreateFolder("Assets/_Hauntscope/Data", "Iap");
 
             var fullVersion = LoadOrCreate<FullVersionData>(FullVersionId);
-            var serialized = Product(fullVersion, FullVersionId, "IapFullVersion", "#FFD166", string.Empty, 4.99f);
+            var serialized = Product(fullVersion, FullVersionId, "IapFullVersion", "#FFD166", string.Empty, 4.99f,
+                "iap.full_version.after_ads");
             serialized.FindProperty("_ectoplasm").intValue = FullVersionEctoplasm;
             serialized.FindProperty("_laser").objectReferenceValue = Laser("aurum");
             Apply(serialized, fullVersion);
 
             var starter = LoadOrCreate<SupplyBundleData>(StarterPackId);
-            serialized = Product(starter, StarterPackId, "IapRookieKit", "#FFB547", "iap.badge.starter", 1.99f);
+            serialized = Product(starter, StarterPackId, "IapRookieKit", "#FFB547", "iap.badge.starter", 1.99f,
+                "iap.starter.popup");
             serialized.FindProperty("_ectoplasm").intValue = StarterEctoplasm;
             serialized.FindProperty("_laser").objectReferenceValue = Laser("tether");
             serialized.FindProperty("_oneTime").boolValue = true;
@@ -64,7 +66,8 @@ namespace Hauntscope.Editor
             }
 
             var fieldKit = LoadOrCreate<SupplyBundleData>(FieldKitId);
-            serialized = Product(fieldKit, FieldKitId, "IapFieldKit", "#4FF5E6", string.Empty, 1.99f);
+            serialized = Product(fieldKit, FieldKitId, "IapFieldKit", "#4FF5E6", string.Empty, 1.99f,
+                "iap.field_kit.popup");
             serialized.FindProperty("_ectoplasm").intValue = 0;
             serialized.FindProperty("_laser").objectReferenceValue = null;
             serialized.FindProperty("_oneTime").boolValue = false;
@@ -76,12 +79,13 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_laser").objectReferenceValue = Laser("spectre");
             Apply(serialized, spectre);
 
-            Register(fullVersion, starter, packs, new IapProductData[] { fieldKit, spectre });
+            Register(fullVersion, starter, packs, new IapProductData[] { fieldKit, spectre }, fieldKit);
             AssetDatabase.SaveAssets();
             Debug.Log($"Hauntscope: built {packs.Length + 4} paid products.");
         }
 
-        private static SerializedObject Product(IapProductData product, string id, string icon, string accent, string badge, float price)
+        private static SerializedObject Product(IapProductData product, string id, string icon, string accent, string badge, float price,
+            string pitch = "")
         {
             var serialized = new SerializedObject(product);
             serialized.FindProperty("_productId").stringValue = id;
@@ -91,6 +95,7 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_accent").colorValue = Hex(accent);
             serialized.FindProperty("_badgeKey").stringValue = badge;
             serialized.FindProperty("_referencePriceUsd").floatValue = price;
+            serialized.FindProperty("_pitchKey").stringValue = pitch;
             return serialized;
         }
 
@@ -112,7 +117,7 @@ namespace Hauntscope.Editor
         }
 
         private static void Register(FullVersionData fullVersion, SupplyBundleData starter, EctoplasmPackData[] packs,
-            IapProductData[] supplies)
+            IapProductData[] supplies, SupplyBundleData kitOffer)
         {
             var config = AssetDatabase.LoadAssetAtPath<GameConfig>(HauntscopeAssetBuilder.GameConfigPath);
             var serialized = new SerializedObject(config);
@@ -120,6 +125,7 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_iap._starterPack").objectReferenceValue = starter;
             SetArray(serialized.FindProperty("_iap._ectoplasmPacks"), packs);
             SetArray(serialized.FindProperty("_iap._supplies"), supplies);
+            serialized.FindProperty("_iap._kitOffer").objectReferenceValue = kitOffer;
             serialized.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(config);
         }

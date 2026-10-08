@@ -1516,13 +1516,6 @@ MonoBehaviour:
       langsung\n<color=#FFD166>\u2022</color> Laser emas A0 AURUM"
     m_Metadata:
       m_Items: []
-  - m_Id: 4815341386858511
-    m_Localized: '{0}
-
-
-      Sekali beli. Milikmu selamanya.'
-    m_Metadata:
-      m_Items: []
   - m_Id: 4815341386858512
     m_Localized: '{0}
 
@@ -1636,6 +1629,58 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 4815341386858538
     m_Localized: Penawaran Paket Agen Baru berakhir dalam 3 jam dan tidak akan kembali.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198891991040
+    m_Localized: '{0}
+
+
+      Bosan dengan iklan di antara perburuan? Sekali beli,
+      iklan hilang selamanya.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516992
+    m_Localized: '{0}
+
+
+      Baterai habis lebih dulu daripada hantunya. Bawa paket
+      lengkap ke perburuan berikutnya.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516993
+    m_Localized: Kaset baru di arsip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516994
+    m_Localized: Agen Vale meninggalkan rekaman yang belum kamu dengar. Dengarkan
+      sebelum perburuan malam ini.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516995
+    m_Localized: Penghitung kaset berkedip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516996
+    m_Localized: Ada rekaman yang belum didengar di arsip Biro. Apa yang ditemukan
+      Vale?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516997
+    m_Localized: Malam ini jam keramat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516998
+    m_Localized: Mulai pukul 23:00 hantu makin kuat, dan yang berjalan di belakangmu
+      keluar. Siapkan kamera.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516999
+    m_Localized: Pukul 23:00 lantai berderit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946517000
+    m_Localized: Beberapa hantu hanya muncul saat jam keramat. Malam ini kesempatanmu
+      menangkap satu.
     m_Metadata:
       m_Items: []
   references:

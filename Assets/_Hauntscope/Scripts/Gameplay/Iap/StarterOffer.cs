@@ -42,8 +42,19 @@ namespace Hauntscope.Gameplay.Iap
 
         public DateTime EndsUtc => new DateTime(_history.StarterOfferStartTicks, DateTimeKind.Utc).AddHours(_config.StarterOfferHours);
 
-        // The card opens by itself once, when the offer starts.
-        public bool ShouldAnnounce => IsActive && !_history.StarterOfferAnnounced;
+        // The kit is pitched once, on the way back from a hunt: right after a ghost got away (the moment gear matters),
+        // or a couple of hunts later if every ghost so far was caught.
+        public bool ShouldAnnounce(bool ghostEscaped)
+        {
+            if (Product == null || _history.StarterOfferAnnounced || IsBought)
+                return false;
+            if (IsOpen && !IsActive)
+                return false;
+
+            var hunts = _progress.TotalSessions;
+            return hunts >= _config.StarterOfferAfterHunts
+                && (ghostEscaped || hunts >= _config.StarterOfferAfterHunts + _config.StarterOfferFallbackHunts);
+        }
 
         private bool IsOpen => Product != null && _history.StarterOfferStartTicks != 0L;
 

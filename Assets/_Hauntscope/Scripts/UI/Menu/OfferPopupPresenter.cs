@@ -9,18 +9,16 @@ using VContainer.Unity;
 
 namespace Hauntscope.UI.Menu
 {
-    // At most one paid offer per visit to the menu, in the popup queue after the free things (briefing, ration): the
-    // rookie kit the moment it opens, otherwise the full version when its turn comes. "Not now" is always one tap away.
+    // The paid offer OfferFunnel picks on the way back from a hunt, in the popup queue after the free things (briefing,
+    // ration). Never on a cold start, at most one per visit, and "not now" is always one tap away.
     public sealed class OfferPopupPresenter : IStartable, IDisposable, IMenuPopup
     {
-        private const string PremiumBodyKey = "iap.full_version.popup";
-        private const string StarterBodyKey = "iap.starter.popup";
         private static readonly TimeSpan ClockTick = TimeSpan.FromSeconds(1);
 
         private readonly OfferPopupView _view;
         private readonly MenuPopupQueue _popups;
         private readonly StarterOffer _starter;
-        private readonly PremiumOffer _premium;
+        private readonly OfferFunnel _funnel;
         private readonly PaidStore _paid;
         private readonly IapCheckout _checkout;
         private readonly ILocalizationService _localization;
@@ -28,13 +26,13 @@ namespace Hauntscope.UI.Menu
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
         private IapProductData _offer;
 
-        public OfferPopupPresenter(OfferPopupView view, MenuPopupQueue popups, StarterOffer starter, PremiumOffer premium, PaidStore paid,
+        public OfferPopupPresenter(OfferPopupView view, MenuPopupQueue popups, StarterOffer starter, OfferFunnel funnel, PaidStore paid,
             IapCheckout checkout, ILocalizationService localization, UiFeedback ui)
         {
             _view = view;
             _popups = popups;
             _starter = starter;
-            _premium = premium;
+            _funnel = funnel;
             _paid = paid;
             _checkout = checkout;
             _localization = localization;
@@ -49,18 +47,7 @@ namespace Hauntscope.UI.Menu
             _paid.Changed += Render;
             _localization.Changed += Render;
 
-            _starter.Refresh();
-            if (_starter.ShouldAnnounce)
-            {
-                _offer = _starter.Product;
-                _starter.MarkAnnounced();
-            }
-            else if (_premium.ShouldShow)
-            {
-                _offer = _premium.Product;
-                _premium.MarkShown();
-            }
-
+            _offer = _funnel.Pick();
             if (_offer != null)
                 _popups.Enqueue(this);
         }
@@ -95,8 +82,10 @@ namespace Hauntscope.UI.Menu
             if (_offer == null)
                 return;
 
-            var body = _localization.Get(LocalizationTable.Ui, IsStarter ? StarterBodyKey : PremiumBodyKey,
-                _localization.Get(LocalizationTable.Store, _offer.DescriptionKey));
+            var description = _localization.Get(LocalizationTable.Store, _offer.DescriptionKey);
+            var body = string.IsNullOrEmpty(_offer.PitchKey)
+                ? description
+                : _localization.Get(LocalizationTable.Ui, _offer.PitchKey, description);
             var ribbon = string.IsNullOrEmpty(_offer.BadgeKey) ? string.Empty : _localization.Get(LocalizationTable.Ui, _offer.BadgeKey);
             _view.SetContent(_offer.Icon, _offer.Accent, _localization.Get(LocalizationTable.Store, _offer.NameKey), body, ribbon);
             _view.SetTimer(IsStarter ? _checkout.TimeLeft(_starter.Remaining) : string.Empty);

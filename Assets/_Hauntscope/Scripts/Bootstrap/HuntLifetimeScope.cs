@@ -6,6 +6,7 @@ using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Iap;
 using Hauntscope.Gameplay.Hunt.Tips;
 using Hauntscope.Gameplay.Hunt.States;
 using Hauntscope.Gameplay.Photo;
@@ -58,6 +59,7 @@ namespace Hauntscope.Bootstrap
             RegisterShift(builder);
             builder.Register<HuntLoadout>(Lifetime.Singleton);
             builder.Register<RookieAssist>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<OfferMomentRecorder>();
             builder.Register<SpareBatteries>(Lifetime.Singleton);
             builder.Register<HuntSession>(Lifetime.Singleton);
             builder.Register<HuntLoot>(Lifetime.Singleton);

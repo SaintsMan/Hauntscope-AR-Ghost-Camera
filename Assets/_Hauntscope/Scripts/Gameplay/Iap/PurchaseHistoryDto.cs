@@ -13,6 +13,8 @@ namespace Hauntscope.Gameplay.Iap
         [SerializeField] private long _starterOfferStart;
         [SerializeField] private bool _starterOfferAnnounced;
         [SerializeField] private int _premiumOfferDay;
+        // Added without a version bump: older saves read 0, never shown.
+        [SerializeField] private int _kitOfferDay;
 
         // Required by JsonUtility, which creates DTOs through the parameterless constructor.
         public PurchaseHistoryDto()
@@ -20,8 +22,9 @@ namespace Hauntscope.Gameplay.Iap
         }
 
         public PurchaseHistoryDto(int version, string[] owned, string[] transactions, bool premium, long starterOfferStart,
-            bool starterOfferAnnounced, int premiumOfferDay)
+            bool starterOfferAnnounced, int premiumOfferDay, int kitOfferDay)
         {
+            _kitOfferDay = kitOfferDay;
             _version = version;
             _owned = owned;
             _transactions = transactions;
@@ -38,5 +41,6 @@ namespace Hauntscope.Gameplay.Iap
         public long StarterOfferStart => _starterOfferStart;
         public bool StarterOfferAnnounced => _starterOfferAnnounced;
         public int PremiumOfferDay => _premiumOfferDay;
+        public int KitOfferDay => _kitOfferDay;
     }
 }

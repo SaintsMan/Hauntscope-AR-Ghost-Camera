@@ -18,6 +18,7 @@ MonoBehaviour:
   _icon: {fileID: 21300000, guid: b1e425d9bea71124781a11ec23d66be5, type: 3}
   _accent: {r: 0.23921569, g: 1, b: 0.43137255, a: 1}
   _badgeKey: 
+  _pitchKey: 
   _referencePriceUsd: 2.99
   _ectoplasm: 1800
   _bonusPercent: 20

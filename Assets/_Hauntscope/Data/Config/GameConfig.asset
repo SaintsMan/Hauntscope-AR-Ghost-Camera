@@ -627,6 +627,9 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f05caad803111504195c0d9516c58282, type: 2}
     _starterOfferAfterHunts: 2
     _starterOfferHours: 48
+    _starterOfferFallbackHunts: 2
+    _kitOffer: {fileID: 11400000, guid: d8fb5e0b46acf8848baf1196768c83e6, type: 2}
+    _kitOfferEveryDays: 2
     _premiumOfferAfterHunts: 6
     _premiumOfferEveryDays: 3
     _topUpDelay: 0.45
@@ -644,5 +647,9 @@ MonoBehaviour:
     _minLeadMinutes: 30
     _offerWarningHours: 3
     _textVariants: 2
+    _tapeHour: 18
+    _witchingCaptures: 5
+    _witchingAfterDays: 2
+    _witchingHour: 20
     _topicAll: all
     _topicLanguagePrefix: lang_

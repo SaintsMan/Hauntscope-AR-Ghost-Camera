@@ -23,13 +23,14 @@ namespace Hauntscope.Gameplay.Iap
                 return new PurchaseHistory();
 
             return new PurchaseHistory(dto.Owned ?? Array.Empty<string>(), dto.Transactions ?? Array.Empty<string>(),
-                dto.Premium, dto.StarterOfferStart, dto.StarterOfferAnnounced, dto.PremiumOfferDay);
+                dto.Premium, dto.StarterOfferStart, dto.StarterOfferAnnounced, dto.PremiumOfferDay, dto.KitOfferDay);
         }
 
         public void Save(PurchaseHistory history)
         {
             _save.Save(Key, new PurchaseHistoryDto(CurrentVersion, ToArray(history.Owned), ToArray(history.Transactions),
-                history.IsPremium, history.StarterOfferStartTicks, history.StarterOfferAnnounced, history.PremiumOfferShownDay));
+                history.IsPremium, history.StarterOfferStartTicks, history.StarterOfferAnnounced, history.PremiumOfferShownDay,
+                history.KitOfferShownDay));
         }
 
         private static string[] ToArray(IReadOnlyCollection<string> values)

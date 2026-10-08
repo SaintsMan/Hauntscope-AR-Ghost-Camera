@@ -70,12 +70,12 @@ namespace Hauntscope.Tests.EditMode
         {
             _fixture.PlayHunts(IapFixture.StarterAfterHunts);
             _fixture.Starter.Refresh();
-            var before = _fixture.Starter.ShouldAnnounce;
+            var before = _fixture.Starter.ShouldAnnounce(true);
 
             _fixture.Starter.MarkAnnounced();
 
             Assert.IsTrue(before);
-            Assert.IsFalse(_fixture.Starter.ShouldAnnounce);
+            Assert.IsFalse(_fixture.Starter.ShouldAnnounce(true));
             Assert.IsTrue(_fixture.HistoryRepository.Load().StarterOfferAnnounced);
         }
 
@@ -103,13 +103,86 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
-        public void PremiumShouldShow_WhileStarterIsAnnounced_WaitsForIt()
+        public void StarterShouldAnnounce_AllCaughtSoFar_WaitsForTheFallbackHunts()
+        {
+            _fixture.PlayHunts(IapFixture.StarterAfterHunts);
+            var early = _fixture.Starter.ShouldAnnounce(false);
+
+            _fixture.PlayHunts(IapFixture.StarterFallbackHunts);
+
+            Assert.IsFalse(early);
+            Assert.IsTrue(_fixture.Starter.ShouldAnnounce(false));
+        }
+
+        [Test]
+        public void Pick_ColdStart_OffersNothing()
         {
             _fixture.PlayHunts(IapFixture.PremiumAfterHunts);
 
-            _fixture.Starter.Refresh();
+            Assert.IsNull(_fixture.Funnel.Pick());
+        }
 
-            Assert.IsFalse(_fixture.Premium.ShouldShow);
+        [Test]
+        public void Pick_GhostEscapedAfterEnoughHunts_PitchesTheRookieKitOnce()
+        {
+            _fixture.PlayHunts(IapFixture.StarterAfterHunts);
+            _fixture.Moments.RecordHunt(true);
+            var first = _fixture.Funnel.Pick();
+
+            _fixture.Moments.RecordHunt(true);
+            var second = _fixture.Funnel.Pick();
+
+            Assert.AreSame(_fixture.StarterPack, first);
+            Assert.AreNotSame(_fixture.StarterPack, second);
+            Assert.IsTrue(_fixture.Starter.IsActive);
+        }
+
+        [Test]
+        public void Pick_AfterAnAdBreak_PitchesTheFullVersion()
+        {
+            _fixture.PlayHunts(IapFixture.PremiumAfterHunts);
+            _fixture.Starter.MarkAnnounced();
+            _fixture.Moments.RecordHunt(false);
+            _fixture.Moments.RecordAdBreak();
+
+            Assert.AreSame(_fixture.FullVersion, _fixture.Funnel.Pick());
+        }
+
+        [Test]
+        public void Pick_CaughtWithoutAnAdBreak_OffersNothing()
+        {
+            _fixture.PlayHunts(IapFixture.PremiumAfterHunts);
+            _fixture.Starter.MarkAnnounced();
+            _fixture.Moments.RecordHunt(false);
+
+            Assert.IsNull(_fixture.Funnel.Pick());
+        }
+
+        [Test]
+        public void Pick_EscapedWithNoSpareBattery_PitchesTheFieldKitEveryFewDays()
+        {
+            _fixture.Starter.MarkAnnounced();
+            _fixture.Moments.RecordHunt(true);
+            var first = _fixture.Funnel.Pick();
+
+            _fixture.Moments.RecordHunt(true);
+            var sameDay = _fixture.Funnel.Pick();
+            _fixture.Clock.Today = _fixture.Clock.Today.AddDays(IapFixture.KitEveryDays);
+            _fixture.Moments.RecordHunt(true);
+
+            Assert.AreSame(_fixture.FieldKit, first);
+            Assert.IsNull(sameDay);
+            Assert.AreSame(_fixture.FieldKit, _fixture.Funnel.Pick());
+        }
+
+        [Test]
+        public void Pick_EscapedWithASpareBattery_KeepsTheKitQuiet()
+        {
+            _fixture.Starter.MarkAnnounced();
+            _fixture.Store.Inventory.AddGear(StoreFixture.BatteryId, 1);
+            _fixture.Moments.RecordHunt(true);
+
+            Assert.IsNull(_fixture.Funnel.Pick());
         }
 
         [Test]

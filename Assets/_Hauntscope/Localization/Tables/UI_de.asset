@@ -1494,10 +1494,6 @@ MonoBehaviour:
       sofort\n<color=#FFD166>\u2022</color> Goldener Laser A0 AURUM"
     m_Metadata:
       m_Items: []
-  - m_Id: 4815341386858511
-    m_Localized: "{0}\n\nEin Kauf. F\xFCr immer deiner."
-    m_Metadata:
-      m_Items: []
   - m_Id: 4815341386858512
     m_Localized: "{0}\n\nEin einmaliges Angebot f\xFCr neue Agenten. L\xE4uft die
       Zeit ab, ist es weg."
@@ -1612,6 +1608,52 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 4815341386858538
     m_Localized: Das Rekruten-Set-Angebot endet in 3 Stunden und kommt nicht wieder.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198891991040
+    m_Localized: "{0}\n\nGenug Werbung zwischen den Jagden? Ein Kauf schaltet sie
+      f\xFCr immer ab."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516992
+    m_Localized: "{0}\n\nDer Akku hat vor dem Geist aufgegeben. Nimm ein volles Set
+      in die n\xE4chste Jagd."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516993
+    m_Localized: Ein neues Band im Archiv
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516994
+    m_Localized: "Agentin Vale hat eine Aufnahme hinterlassen, die du noch nicht
+      geh\xF6rt hast. H\xF6r sie vor der Jagd heute Nacht."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516995
+    m_Localized: "Das Bandz\xE4hlwerk blinkt"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516996
+    m_Localized: "Im Archiv des Nachtb\xFCros liegt eine ungeh\xF6rte Aufnahme. Was
+      hat Vale gefunden?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516997
+    m_Localized: 'Heute Nacht: Geisterstunde'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516998
+    m_Localized: "Ab 23:00 werden die Geister st\xE4rker, und der, der hinter dir
+      geht, kommt hervor. Mach die Kamera bereit."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516999
+    m_Localized: Um 23:00 knarrt der Boden
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946517000
+    m_Localized: Manche Geister kommen nur zur Geisterstunde. Heute Nacht ist deine
+      Chance, einen zu fangen.
     m_Metadata:
       m_Items: []
   references:

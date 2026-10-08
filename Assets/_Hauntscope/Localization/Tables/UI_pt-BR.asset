@@ -1489,10 +1489,6 @@ MonoBehaviour:
       AURUM"
     m_Metadata:
       m_Items: []
-  - m_Id: 4815341386858511
-    m_Localized: "{0}\n\nUma compra s\xF3. Sua para sempre."
-    m_Metadata:
-      m_Items: []
   - m_Id: 4815341386858512
     m_Localized: "{0}\n\nUma oferta \xFAnica para agentes novos. Quando o tempo acabar,
       ela some."
@@ -1609,6 +1605,52 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 4815341386858538
     m_Localized: "A oferta do kit de novato acaba em 3 horas e n\xE3o vai voltar."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198891991040
+    m_Localized: "{0}\n\nCansou dos an\xFAncios entre as ca\xE7adas? Uma compra s\xF3
+      tira todos para sempre."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516992
+    m_Localized: "{0}\n\nA bateria acabou antes do fantasma. Leve um kit completo
+      para a pr\xF3xima ca\xE7ada."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516993
+    m_Localized: Fita nova no arquivo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516994
+    m_Localized: "A agente Vale deixou uma grava\xE7\xE3o que voc\xEA ainda n\xE3o
+      ouviu. Escute antes da ca\xE7ada de hoje \xE0 noite."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516995
+    m_Localized: "O contador da fita est\xE1 piscando"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516996
+    m_Localized: "H\xE1 uma grava\xE7\xE3o n\xE3o ouvida no arquivo do Escrit\xF3rio.
+      O que a Vale encontrou?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516997
+    m_Localized: Hoje tem hora das bruxas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516998
+    m_Localized: "A partir das 23:00 os fantasmas ficam mais fortes e sai aquele
+      que anda atr\xE1s de voc\xEA. Prepare a c\xE2mera."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516999
+    m_Localized: "\xC0s 23:00 o ch\xE3o range"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946517000
+    m_Localized: "Alguns fantasmas s\xF3 aparecem na hora das bruxas. Hoje \xE0 noite
+      \xE9 sua chance de pegar um."
     m_Metadata:
       m_Items: []
   references:

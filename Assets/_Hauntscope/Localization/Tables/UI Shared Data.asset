@@ -1431,10 +1431,6 @@ MonoBehaviour:
     m_Key: iap.full_version.perks
     m_Metadata:
       m_Items: []
-  - m_Id: 4815341386858511
-    m_Key: iap.full_version.popup
-    m_Metadata:
-      m_Items: []
   - m_Id: 4815341386858512
     m_Key: iap.starter.popup
     m_Metadata:
@@ -1541,6 +1537,46 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 4815341386858538
     m_Key: notify.offer.1.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198891991040
+    m_Key: iap.full_version.after_ads
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516992
+    m_Key: iap.field_kit.popup
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516993
+    m_Key: notify.tape.0.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516994
+    m_Key: notify.tape.0.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516995
+    m_Key: notify.tape.1.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516996
+    m_Key: notify.tape.1.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516997
+    m_Key: notify.witching.0.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516998
+    m_Key: notify.witching.0.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946516999
+    m_Key: notify.witching.1.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4833198946517000
+    m_Key: notify.witching.1.body
     m_Metadata:
       m_Items: []
   m_Metadata:
