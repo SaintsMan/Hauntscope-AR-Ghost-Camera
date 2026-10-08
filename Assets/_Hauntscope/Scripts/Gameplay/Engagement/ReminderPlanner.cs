@@ -4,14 +4,16 @@ using Hauntscope.Gameplay.Config;
 
 namespace Hauntscope.Gameplay.Engagement
 {
-    // Decides which reminders to leave behind when the game goes to the background (GDD 5.36): the daily ration, a
-    // nudge after a few days away and the last hours of a paid offer. None at night, none within a few hours of
-    // another; pure, so the whole schedule is testable.
+    // Decides which reminders to leave behind when the game goes to the background (GDD 5.36): the daily ration, an
+    // unheard tape, the witching hour, a nudge after a few days away and the last hours of a paid offer. None at night,
+    // none within a few hours of another; pure, so the whole schedule is testable.
     public sealed class ReminderPlanner
     {
         public const string Ration = "ration";
         public const string Offer = "offer";
         public const string ReturnPrefix = "return_";
+        public const string Tape = "tape";
+        public const string Witching = "witching";
 
         private readonly NotificationConfig _config;
         private readonly List<PlannedReminder> _candidates = new List<PlannedReminder>();
@@ -31,6 +33,15 @@ namespace Hauntscope.Gameplay.Engagement
             var evening = now.Date.AddHours(_config.EveningHour);
             var ration = !facts.RationClaimedToday && evening >= earliest ? evening : now.Date.AddDays(1).AddHours(_config.MorningHour);
             _candidates.Add(new PlannedReminder(Ration, OutOfQuietHours(ration)));
+
+            if (facts.UnheardTapes > 0)
+                _candidates.Add(new PlannedReminder(Tape, OutOfQuietHours(now.Date.AddDays(1).AddHours(_config.TapeHour))));
+
+            if (facts.TotalCaptures >= _config.WitchingCaptures)
+            {
+                var night = now.Date.AddDays(_config.WitchingAfterDays).AddHours(_config.WitchingHour);
+                _candidates.Add(new PlannedReminder(Witching, OutOfQuietHours(night)));
+            }
 
             foreach (var days in _config.ReturnDays)
                 _candidates.Add(new PlannedReminder(ReturnPrefix + days, OutOfQuietHours(now.AddDays(days))));

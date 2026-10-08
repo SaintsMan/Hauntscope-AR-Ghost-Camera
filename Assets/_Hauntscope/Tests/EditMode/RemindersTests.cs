@@ -1,6 +1,8 @@
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Engagement;
 using Hauntscope.Gameplay.Progress;
+using Hauntscope.Gameplay.Research;
+using Hauntscope.Gameplay.Story;
 using Hauntscope.Tests.EditMode.Fakes;
 using NUnit.Framework;
 
@@ -28,8 +30,10 @@ namespace Hauntscope.Tests.EditMode
                 new EngagementRepository(_iap.Store.Save, new ContractConfig(), _iap.Store.Config), new LoginConfig(),
                 new RewardGranter(_iap.Store.Progress, _iap.Store.ProgressRepository, _iap.Store.Inventory, _iap.Store.InventoryRepository,
                     _iap.Store.Config), _iap.Clock, ads);
+            var tapes = new TapeArchive(_iap.Store.Progress, _iap.Store.ProgressRepository,
+                new GhostResearch(_iap.Store.Progress, new ResearchConfig(5, 0f)), new GhostConfig(), new StoryConfig());
             _reminders = new Reminders(_notifications, _lifecycle, new FakeLocalization(), _iap.Clock, _optIn, calendar, _iap.Starter,
-                new ReminderPlanner(config), config);
+                new ReminderPlanner(config), config, tapes, _iap.Store.Progress);
             _reminders.Start();
         }
 

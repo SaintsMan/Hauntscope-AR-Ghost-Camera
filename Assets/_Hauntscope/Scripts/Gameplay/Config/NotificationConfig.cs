@@ -21,6 +21,10 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Min(0f)] private float _minLeadMinutes = 30f;
         [SerializeField, Min(0f)] private float _offerWarningHours = 3f;
         [SerializeField, Min(1)] private int _textVariants = 2;
+        [SerializeField, Range(0, 23)] private int _tapeHour = 18;
+        [SerializeField, Min(0)] private int _witchingCaptures = 5;
+        [SerializeField, Min(1)] private int _witchingAfterDays = 2;
+        [SerializeField, Range(0, 23)] private int _witchingHour = 20;
         [SerializeField] private string _topicAll = "all";
         [SerializeField] private string _topicLanguagePrefix = "lang_";
 
@@ -29,8 +33,13 @@ namespace Hauntscope.Gameplay.Config
         }
 
         public NotificationConfig(int quietStartHour, int quietEndHour, int eveningHour, int morningHour, int[] returnDays,
-            float minGapHours, float minLeadMinutes, float offerWarningHours, int textVariants = 2)
+            float minGapHours, float minLeadMinutes, float offerWarningHours, int textVariants = 2, int tapeHour = 18,
+            int witchingCaptures = 5, int witchingAfterDays = 2, int witchingHour = 20)
         {
+            _tapeHour = tapeHour;
+            _witchingCaptures = witchingCaptures;
+            _witchingAfterDays = witchingAfterDays;
+            _witchingHour = witchingHour;
             _quietStartHour = quietStartHour;
             _quietEndHour = quietEndHour;
             _eveningHour = eveningHour;
@@ -60,6 +69,13 @@ namespace Hauntscope.Gameplay.Config
         public float OfferWarningHours => _offerWarningHours;
         // Each reminder has this many wordings; the day picks one, so two weeks of reminders don't read the same.
         public int TextVariants => _textVariants;
+        // An unheard tape is announced the next evening at this hour.
+        public int TapeHour => _tapeHour;
+        // The witching hour reminder (the night the Lurker walks) goes to agents with this many catches, a few days on,
+        // in the evening before the quiet hours.
+        public int WitchingCaptures => _witchingCaptures;
+        public int WitchingAfterDays => _witchingAfterDays;
+        public int WitchingHour => _witchingHour;
         public string TopicAll => _topicAll;
         public string TopicLanguagePrefix => _topicLanguagePrefix;
     }

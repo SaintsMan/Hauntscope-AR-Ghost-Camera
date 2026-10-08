@@ -90,6 +90,30 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Plan_UnheardTape_AnnouncesItTomorrowEvening()
+        {
+            _planner.Plan(new ReminderFacts(Day.AddHours(10), true, null, 1), _plan);
+
+            Assert.AreEqual(Day.AddDays(1).AddHours(18), Find(ReminderPlanner.Tape).FireTime);
+        }
+
+        [Test]
+        public void Plan_FewCatches_LeavesOutTheWitchingHour()
+        {
+            _planner.Plan(new ReminderFacts(Day.AddHours(10), true, null, 0, 4), _plan);
+
+            Assert.IsFalse(Contains(ReminderPlanner.Witching));
+        }
+
+        [Test]
+        public void Plan_SeasonedAgent_WarnsOfTheWitchingHourBeforeTheQuietHours()
+        {
+            _planner.Plan(new ReminderFacts(Day.AddHours(10), true, null, 0, 5), _plan);
+
+            Assert.AreEqual(Day.AddDays(2).AddHours(20), Find(ReminderPlanner.Witching).FireTime);
+        }
+
+        [Test]
         public void Variant_AnyDay_StaysWithinTheWordings()
         {
             _planner.Plan(new ReminderFacts(Day.AddHours(14), false, null), _plan);

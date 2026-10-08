@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Iap;
+using Hauntscope.Gameplay.Progress;
+using Hauntscope.Gameplay.Story;
 using VContainer.Unity;
 
 namespace Hauntscope.Gameplay.Engagement
@@ -25,12 +27,16 @@ namespace Hauntscope.Gameplay.Engagement
         private readonly StarterOffer _starter;
         private readonly ReminderPlanner _planner;
         private readonly NotificationConfig _config;
+        private readonly TapeArchive _tapes;
+        private readonly PlayerProgress _progress;
         private readonly List<PlannedReminder> _plan = new List<PlannedReminder>();
 
         public Reminders(ILocalNotifications notifications, IApplicationLifecycle lifecycle, ILocalizationService localization,
             IClock clock, NotificationOptIn optIn, LoginCalendar calendar, StarterOffer starter, ReminderPlanner planner,
-            NotificationConfig config)
+            NotificationConfig config, TapeArchive tapes, PlayerProgress progress)
         {
+            _tapes = tapes;
+            _progress = progress;
             _notifications = notifications;
             _lifecycle = lifecycle;
             _localization = localization;
@@ -71,9 +77,10 @@ namespace Hauntscope.Gameplay.Engagement
             if (!_optIn.IsActive)
                 return;
 
-            _starter.Refresh();
+            // Only an offer the player has already seen gets a warning; the clock is never started from here.
             DateTime? offerEnds = _starter.IsActive ? _clock.LocalNow + _starter.Remaining : (DateTime?)null;
-            _planner.Plan(new ReminderFacts(_clock.LocalNow, _calendar.IsClaimedToday, offerEnds), _plan);
+            _planner.Plan(new ReminderFacts(_clock.LocalNow, _calendar.IsClaimedToday, offerEnds, _tapes.UnheardCount,
+                _progress.TotalCaptures), _plan);
             foreach (var reminder in _plan)
             {
                 var stem = $"notify.{reminder.Kind}.{_planner.Variant(reminder)}";
