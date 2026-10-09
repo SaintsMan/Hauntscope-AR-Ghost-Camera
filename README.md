@@ -6,6 +6,13 @@ An Android AR game built with Unity 6 and AR Foundation. No ARCore or no camera 
 
 <!-- GIF: AR hunt → Lens reveal → capture → the same ghost in the Virtual Room (recorded on device). -->
 
+<p align="center">
+  <img src=".github/media/hunt.gif" width="250" alt="A hunt: the EMF meter leads to the ghost, the Ghost Lens reveals it, the Capture Beam holds it until it is caught">
+  <img src=".github/media/camera-modes.gif" width="250" alt="Camera modes: the ghost is invisible to the plain camera, then seen through night vision and as a cold silhouette on the thermal camera">
+  <img src=".github/media/menu.gif" width="250" alt="Main menu, the Bestiary, a ghost's case file and the tape archive">
+</p>
+<p align="center"><sub>Hunt · camera modes · menu. Recorded in the Virtual Room (Unity Editor, portrait 1440×2560, scripted camera).</sub></p>
+
 | | |
 |---|---|
 | Engine | Unity 6.3 LTS (6000.3.15f1), URP 17.3 |
