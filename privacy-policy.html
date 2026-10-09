@@ -52,12 +52,12 @@
 <header>
   <div class="rec">REC</div>
   <h1>Privacy Policy: Hauntscope: AR Ghost Camera</h1>
-  <p class="meta">Effective date: 27 September 2026 · App ID: com.pavko.hauntscope · Developer: Pavko</p>
+  <p class="meta">Effective date: 9 October 2026 · App ID: com.pavko.hauntscope · Developer: Pavko</p>
   <nav><a href="#en">English</a><a href="#uk">Українська</a></nav>
 </header>
 
 <div class="summary">
-  <p><strong>In short:</strong> the game has no accounts and no servers of its own. Your progress and photos stay on your phone. The camera is used only for augmented reality and its images are processed on your device. Ads are served by Google AdMob, which asks for your consent where the law requires it.</p>
+  <p><strong>In short:</strong> the game has no accounts and no servers of its own. Your progress and photos stay on your phone. The camera is used only for augmented reality and its images are processed on your device. Ads are served by Google AdMob, which asks for your consent where the law requires it. Google Analytics for Firebase gives us anonymous usage statistics (for example which country players are from and which screens they open), notifications arrive only if you turn them on, and purchases are handled by Google Play.</p>
 </div>
 
 <h2>1. Who we are</h2>
@@ -83,6 +83,16 @@
 <p>Users in the European Economic Area, the United Kingdom, Switzerland and other regions where it is required are asked for consent through Google's User Messaging Platform when the game starts. You can change your choice at any time with the <strong>Privacy</strong> button in the game's Settings. You can also reset or delete your advertising ID in your phone's settings (Settings → Google → Ads, or Settings → Privacy → Ads).</p>
 <p>Learn more: <a href="https://policies.google.com/technologies/partner-sites">How Google uses information from sites or apps that use its services</a> and the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
 
+<h3>Usage statistics (Google Analytics for Firebase)</h3>
+<p>To understand how the game is played and what to improve, the app sends anonymous usage events to Google Analytics for Firebase: for example that a hunt started or ended (which ghost, how long, caught or escaped), which menu screens were opened, whether the tutorial was finished, the answer to the camera permission request, offers shown and purchase attempts, photos shared, and the notifications setting. Together with them Google receives a random app instance ID, the device model, Android and app version, the game language and the country and city estimated from the IP address. We do not collect the advertising ID for analytics and do not use analytics data for advertising.</p>
+<p>Where the GDPR applies, analytics follows the choice you made in the consent form: if you did not allow storing information on your device, Google Analytics works in a limited mode without that identifier. You can change your choice with the <strong>Privacy</strong> button in Settings. Learn more: <a href="https://firebase.google.com/support/privacy">Privacy and Security in Firebase</a>.</p>
+
+<h3>Notifications (Firebase Cloud Messaging)</h3>
+<p>Reminders (for example that your daily ration is waiting) are scheduled on your phone and need no internet. If you turn notifications on, the app also registers with Firebase Cloud Messaging so we can send occasional news about the game in your language; Google then receives a device token and the topic names (all players and your game language). If you do not turn notifications on, the app does not register at all. You can turn them off at any time in the game's Settings or in your phone's settings.</p>
+
+<h3>Purchases (Google Play Billing)</h3>
+<p>Optional purchases are processed entirely by Google Play. We never see your payment details. The app only receives a confirmation of the order (product and order ID), keeps it on your device so the purchase is delivered once, and Google Play restores permanent purchases if you reinstall the game. See the <a href="https://payments.google.com/payments/apis-secure/get_legal_document?ldo=0&amp;ldt=privacynotice">Google Payments Privacy Notice</a>.</p>
+
 <h3>Google Play and ARCore</h3>
 <p>The game uses Google Play to offer updates inside the app and to let you rate the game. These features are run by Google Play under the Google Privacy Policy. This application runs on Google Play Services for AR (ARCore), which is provided by Google LLC and governed by the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
 
@@ -92,22 +102,22 @@
 <h2>3. What the app does not do</h2>
 <ul>
   <li>It does not use the microphone. The EVP recorder in the game is a sound effect, not a real recording.</li>
-  <li>It does not ask for your location, contacts, or files.</li>
+  <li>It does not ask for your location, contacts, or files. The country and city in usage statistics are only estimated from the IP address by Google.</li>
   <li>It does not have accounts, chat or any way to contact other players.</li>
-  <li>We, the developer, do not receive, store or sell your personal data.</li>
+  <li>We, the developer, do not sell your data. We see only aggregated usage statistics in Firebase and cannot identify you from them.</li>
 </ul>
 
 <h2>4. Children</h2>
 <p>The game is intended for players aged 13 and over and is not directed at children under 13. We do not knowingly collect personal information from children. If you believe a child has provided personal information through the app, contact us and we will help.</p>
 
 <h2>5. Keeping and deleting your data</h2>
-<p>Everything the game stores lives on your device. You can delete it at any time by clearing the app's data or uninstalling the app. Photos you saved to your gallery stay there until you delete them. Data collected by Google for advertising is kept and deleted according to Google's policies; you can manage it in your Google account and your phone's ad settings.</p>
+<p>Everything the game stores lives on your device. You can delete it at any time by clearing the app's data or uninstalling the app; this also resets the app instance ID used for usage statistics. Google Analytics keeps usage events for the retention period set in the project (at most 14 months) and then deletes them. Photos you saved to your gallery stay there until you delete them. Data collected by Google for advertising is kept and deleted according to Google's policies; you can manage it in your Google account and your phone's ad settings.</p>
 
 <h2>6. Security</h2>
-<p>The game's files are kept in the app's private storage, protected by Android so other apps cannot read them. Connections made by Google's services are encrypted.</p>
+<p>The game's files are kept in the app's private storage, protected by Android so other apps cannot read them. All data sent to Google's services (ads, usage statistics, notifications, purchases) is encrypted in transit.</p>
 
 <h2>7. Your rights</h2>
-<p>Depending on where you live (for example under the GDPR or the CCPA), you may have the right to access, correct or delete personal data, or to object to its use. Because we do not hold personal data about you, requests about advertising data are best sent to Google, but you are always welcome to write to us and we will help.</p>
+<p>Depending on where you live (for example under the GDPR or the CCPA), you may have the right to access, correct or delete personal data, or to object to its use. We do not keep personal data that identifies you; usage statistics are linked only to a random app ID that you can reset by clearing the app's data. Requests about advertising data are best sent to Google, but you are always welcome to write to us and we will help.</p>
 
 <h2>8. Changes to this policy</h2>
 <p>If this policy changes, the new version will be published on this page with a new effective date.</p>
@@ -122,12 +132,12 @@
 <header>
   <div class="rec">REC</div>
   <h1>Політика конфіденційності: Hauntscope: AR Ghost Camera</h1>
-  <p class="meta">Дата набрання чинності: 27 вересня 2026 · ID застосунку: com.pavko.hauntscope · Розробник: Pavko</p>
+  <p class="meta">Дата набрання чинності: 9 жовтня 2026 · ID застосунку: com.pavko.hauntscope · Розробник: Pavko</p>
   <nav><a href="#en">English</a><a href="#uk">Українська</a></nav>
 </header>
 
 <div class="summary">
-  <p><strong>Коротко:</strong> у гри немає акаунтів і власних серверів. Твій прогрес і фото лишаються на телефоні. Камера потрібна лише для доповненої реальності, і її зображення обробляються на пристрої. Рекламу показує Google AdMob, який питає згоду там, де цього вимагає закон.</p>
+  <p><strong>Коротко:</strong> у гри немає акаунтів і власних серверів. Твій прогрес і фото лишаються на телефоні. Камера потрібна лише для доповненої реальності, і її зображення обробляються на пристрої. Рекламу показує Google AdMob, який питає згоду там, де цього вимагає закон. Google Analytics for Firebase дає нам анонімну статистику гри (наприклад, з якої країни гравці й які екрани відкривають), сповіщення приходять, лише якщо ти їх увімкнеш, а покупки обробляє Google Play.</p>
 </div>
 
 <h2>1. Хто ми</h2>
@@ -153,6 +163,16 @@
 <p>Користувачів у Європейській економічній зоні, Великій Британії, Швейцарії та інших регіонах, де це обов'язково, під час запуску гри просять про згоду через User Messaging Platform від Google. Змінити вибір можна будь-коли кнопкою <strong>Приватність</strong> у налаштуваннях гри. Також можна скинути або видалити рекламний ідентифікатор у налаштуваннях телефона (Налаштування → Google → Реклама, або Налаштування → Конфіденційність → Реклама).</p>
 <p>Докладніше: <a href="https://policies.google.com/technologies/partner-sites">як Google використовує дані з сайтів і застосунків, що користуються його сервісами</a>, і <a href="https://policies.google.com/privacy">Політика конфіденційності Google</a>.</p>
 
+<h3>Статистика гри (Google Analytics for Firebase)</h3>
+<p>Щоб розуміти, як грають у гру, і що покращити, застосунок надсилає анонімні події в Google Analytics for Firebase: наприклад, що полювання почалося чи закінчилося (який привид, скільки тривало, спіймано чи втік), які екрани меню відкрито, чи пройдено навчання, відповідь на запит доступу до камери, показані пропозиції й спроби покупки, поширені фото та налаштування сповіщень. Разом із ними Google отримує випадковий ідентифікатор встановлення застосунку, модель пристрою, версії Android і гри, мову гри, а також країну й місто, оцінені за IP-адресою. Рекламний ідентифікатор для статистики не збирається, а дані статистики не використовуються для реклами.</p>
+<p>Там, де діє GDPR, статистика йде за вибором у формі згоди: якщо ти не дозволив(ла) зберігати інформацію на пристрої, Google Analytics працює в обмеженому режимі без цього ідентифікатора. Змінити вибір можна кнопкою <strong>Приватність</strong> у налаштуваннях. Докладніше: <a href="https://firebase.google.com/support/privacy">Privacy and Security in Firebase</a>.</p>
+
+<h3>Сповіщення (Firebase Cloud Messaging)</h3>
+<p>Нагадування (наприклад, що чекає щоденний пайок) плануються на самому телефоні й не потребують інтернету. Якщо ти увімкнеш сповіщення, застосунок також зареєструється у Firebase Cloud Messaging, щоб ми могли зрідка надсилати новини гри твоєю мовою; тоді Google отримує токен пристрою й назви тем (усі гравці та мова гри). Якщо сповіщення не ввімкнено, застосунок не реєструється взагалі. Вимкнути їх можна будь-коли в налаштуваннях гри або телефона.</p>
+
+<h3>Покупки (Google Play Billing)</h3>
+<p>Необов'язкові покупки повністю обробляє Google Play. Ми ніколи не бачимо твоїх платіжних даних. Застосунок отримує лише підтвердження замовлення (товар та ID замовлення), зберігає його на пристрої, щоб покупку було видано один раз, а постійні покупки Google Play повертає після перевстановлення гри. Див. <a href="https://payments.google.com/payments/apis-secure/get_legal_document?ldo=0&amp;ldt=privacynotice">Google Payments Privacy Notice</a>.</p>
+
 <h3>Google Play і ARCore</h3>
 <p>Гра використовує Google Play, щоб пропонувати оновлення всередині застосунку й давати змогу оцінити гру. Ці функції працюють на боці Google Play за Політикою конфіденційності Google. Цей застосунок працює на Google Play Services for AR (ARCore), який надає Google LLC і регулює <a href="https://policies.google.com/privacy">Політика конфіденційності Google</a>.</p>
 
@@ -162,22 +182,22 @@
 <h2>3. Чого застосунок не робить</h2>
 <ul>
   <li>Не використовує мікрофон. EVP-рекордер у грі — це звуковий ефект, а не справжній запис.</li>
-  <li>Не запитує геолокацію, контакти чи файли.</li>
+  <li>Не запитує геолокацію, контакти чи файли. Країну й місто в статистиці Google лише оцінює за IP-адресою.</li>
   <li>Не має акаунтів, чату чи способу зв'язатися з іншими гравцями.</li>
-  <li>Ми як розробник не отримуємо, не зберігаємо й не продаємо твої персональні дані.</li>
+  <li>Ми як розробник не продаємо твої дані. Ми бачимо у Firebase лише зведену статистику й не можемо за нею тебе впізнати.</li>
 </ul>
 
 <h2>4. Діти</h2>
 <p>Гра призначена для гравців від 13 років і не орієнтована на дітей до 13 років. Ми свідомо не збираємо персональні дані дітей. Якщо ти вважаєш, що дитина передала персональні дані через застосунок, напиши нам, і ми допоможемо.</p>
 
 <h2>5. Зберігання й видалення даних</h2>
-<p>Усе, що зберігає гра, лежить на твоєму пристрої. Видалити це можна будь-коли: очисти дані застосунку або видали його. Фото, збережені в галерею, лишаються там, доки ти їх не видалиш. Дані, які Google збирає для реклами, зберігаються й видаляються за правилами Google; керувати ними можна в акаунті Google і в налаштуваннях реклами на телефоні.</p>
+<p>Усе, що зберігає гра, лежить на твоєму пристрої. Видалити це можна будь-коли: очисти дані застосунку або видали його; це також скидає ідентифікатор встановлення, з яким пов'язана статистика. Google Analytics зберігає події статистики протягом строку, заданого в проєкті (не більше 14 місяців), і потім видаляє їх. Фото, збережені в галерею, лишаються там, доки ти їх не видалиш. Дані, які Google збирає для реклами, зберігаються й видаляються за правилами Google; керувати ними можна в акаунті Google і в налаштуваннях реклами на телефоні.</p>
 
 <h2>6. Безпека</h2>
-<p>Файли гри зберігаються в приватному сховищі застосунку, яке Android захищає від доступу інших застосунків. З'єднання сервісів Google зашифровані.</p>
+<p>Файли гри зберігаються в приватному сховищі застосунку, яке Android захищає від доступу інших застосунків. Усі дані, що надходять до сервісів Google (реклама, статистика, сповіщення, покупки), шифруються під час передавання.</p>
 
 <h2>7. Твої права</h2>
-<p>Залежно від країни (наприклад за GDPR або CCPA) ти можеш мати право отримати, виправити чи видалити персональні дані або заперечити проти їх використання. Оскільки ми не зберігаємо твоїх персональних даних, запити щодо рекламних даних краще надсилати Google, але ти завжди можеш написати нам, і ми допоможемо.</p>
+<p>Залежно від країни (наприклад за GDPR або CCPA) ти можеш мати право отримати, виправити чи видалити персональні дані або заперечити проти їх використання. Ми не зберігаємо персональних даних, які тебе ідентифікують; статистика прив'язана лише до випадкового ID застосунку, який можна скинути, очистивши дані застосунку. Запити щодо рекламних даних краще надсилати Google, але ти завжди можеш написати нам, і ми допоможемо.</p>
 
 <h2>8. Зміни в політиці</h2>
 <p>Якщо політика зміниться, нова версія з'явиться на цій сторінці з новою датою набрання чинності.</p>
