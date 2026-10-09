@@ -1,0 +1,26 @@
+{
+  "en": {
+    "title": "Bureau radio: signal check",
+    "body": "Agent, this is a test signal from the Night Bureau. If you can see it, the channel works."
+  },
+  "uk": {
+    "title": "Рація Бюро: перевірка зв'язку",
+    "body": "Агенте, це тестовий сигнал Нічного бюро. Бачиш його — канал працює."
+  },
+  "es-419": {
+    "title": "Radio de la Oficina: prueba de señal",
+    "body": "Agente, esta es una señal de prueba de la Oficina Nocturna. Si la ves, el canal funciona."
+  },
+  "pt-BR": {
+    "title": "Rádio do Escritório: teste de sinal",
+    "body": "Agente, este é um sinal de teste do Escritório Noturno. Se você está vendo, o canal funciona."
+  },
+  "de": {
+    "title": "Büro-Funk: Signaltest",
+    "body": "Agent, das ist ein Testsignal des Nachtbüros. Wenn du es siehst, funktioniert der Kanal."
+  },
+  "id": {
+    "title": "Radio Biro: cek sinyal",
+    "body": "Agen, ini sinyal uji dari Biro Malam. Kalau kamu melihatnya, salurannya berfungsi."
+  }
+}
