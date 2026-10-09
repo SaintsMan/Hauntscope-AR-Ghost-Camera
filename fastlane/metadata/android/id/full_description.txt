@@ -2,6 +2,8 @@ Hauntscope adalah game pendeteksi hantu yang mengubah ponselmu menjadi kamera ha
 
 Ikuti sinyalnya, temukan tempat hantu bersembunyi, dan tangkap sebelum baterai habis. Setiap beberapa tangkapan, agensi memberimu alat pemburu hantu yang baru.
 
+Dibuat untuk Halloween dan setiap malam sesudahnya: matikan lampu, buka kamera hantu, dan cari tahu apa yang menghantui rumahmu sendiri.
+
 CARA KERJA PENDETEKSI HANTU
 1. Pindai kamarmu dan biarkan pendeteksi hantu menangkap sinyal.
 2. Ikuti radar EMF dan suara Spirit Box untuk mendekat.

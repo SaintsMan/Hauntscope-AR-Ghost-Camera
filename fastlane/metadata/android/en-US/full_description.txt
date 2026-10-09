@@ -2,6 +2,8 @@ Hauntscope is a ghost detector game that turns your phone into a paranormal ghos
 
 Follow the signals, find where the ghost hides and trap it before your battery dies. Every few catches, the agency issues you a new ghost hunting tool.
 
+Made for Halloween and every night after it: turn off the lights, open the ghost camera and find out what haunts your own home.
+
 HOW THE GHOST DETECTOR WORKS
 1. Scan your room and let the ghost detector pick up a signal.
 2. Follow the EMF radar and the Spirit Box voices to close in.

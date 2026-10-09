@@ -14,13 +14,15 @@ LANGUAGE: English (United States) [en-US]
 App name (29/30):
 Ghost Detector: EMF Camera AR
 
-Short description (77/80):
-Ghost hunter game: spirit box, EMF radar, thermal & night vision ghost camera
+Short description (80/80):
+Halloween ghost hunt: spirit box, EMF radar, thermal & night vision ghost camera
 
-Full description (3449/4000):
+Full description (3578/4000):
 Hauntscope is a ghost detector game that turns your phone into a paranormal ghost camera. Scan your home with the EMF detector, listen to the Spirit Box and catch ghosts right in your room in augmented reality.
 
 Follow the signals, find where the ghost hides and trap it before your battery dies. Every few catches, the agency issues you a new ghost hunting tool.
+
+Made for Halloween and every night after it: turn off the lights, open the ghost camera and find out what haunts your own home.
 
 HOW THE GHOST DETECTOR WORKS
 1. Scan your room and let the ghost detector pick up a signal.
@@ -71,13 +73,15 @@ LANGUAGE: Ukrainian [uk]
 App name (29/30):
 Детектор привидів: EMF камера
 
-Short description (72/80):
-Полювання на привидів: Spirit Box, EMF-радар, тепловізор і нічне бачення
+Short description (80/80):
+Хелловін-полювання на привидів: Spirit Box, EMF-радар, тепловізор, нічне бачення
 
-Full description (3288/4000):
+Full description (3428/4000):
 Hauntscope — гра-детектор привидів, що перетворює телефон на паранормальну камеру привидів. Скануй дім EMF-детектором, слухай Spirit Box і лови привидів просто у своїй кімнаті, у доповненій реальності.
 
 Іди за сигналами, знайди, де ховається привид, і злови його, доки не сіла батарея. Кожні кілька уловів агенція видає новий прилад мисливця на привидів.
+
+Створено для Хелловіну й кожної ночі після нього: вимкни світло, відкрий камеру привидів і дізнайся, хто ховається у твоєму власному домі.
 
 ЯК ПРАЦЮЄ ДЕТЕКТОР ПРИВИДІВ
 1. Скануй кімнату, і детектор привидів упіймає сигнал.
@@ -128,13 +132,15 @@ LANGUAGE: Spanish (Latin America) [es-419]
 App name (30/30):
 Detector de Fantasmas y Cámara
 
-Short description (74/80):
-Caza de fantasmas: spirit box, radar EMF, cámara térmica y visión nocturna
+Short description (77/80):
+Caza fantasmas en Halloween: spirit box, radar EMF, cámara térmica y nocturna
 
-Full description (3817/4000):
+Full description (3970/4000):
 Hauntscope es un juego detector de fantasmas que convierte tu teléfono en una cámara de fantasmas paranormal. Escanea tu casa con el detector EMF, escucha la Spirit Box y atrapa fantasmas en tu propio cuarto con realidad aumentada.
 
 Sigue las señales, encuentra dónde se esconde el fantasma y atrápalo antes de que se agote la batería. Cada pocas capturas, la agencia te da una nueva herramienta de cazador de fantasmas.
+
+Hecho para Halloween, la Noche de Brujas, y para cada noche después: apaga la luz, abre la cámara de fantasmas y descubre qué acecha en tu propia casa.
 
 CÓMO FUNCIONA EL DETECTOR DE FANTASMAS
 1. Escanea tu cuarto y deja que el detector de fantasmas capte una señal.
@@ -185,13 +191,15 @@ LANGUAGE: Portuguese (Brazil) [pt-BR]
 App name (30/30):
 Detector de Fantasmas e Câmera
 
-Short description (73/80):
-Caça aos fantasmas: spirit box, radar EMF, câmera térmica e visão noturna
+Short description (80/80):
+Caça aos fantasmas no Halloween: spirit box, radar EMF, câmera térmica e noturna
 
-Full description (3700/4000):
+Full description (3861/4000):
 Hauntscope é um jogo detector de fantasmas que transforma seu celular em uma câmera de fantasmas paranormal. Escaneie sua casa com o detector EMF, ouça a Spirit Box e capture fantasmas no seu próprio quarto em realidade aumentada.
 
 Siga os sinais, descubra onde o fantasma se esconde e prenda-o antes que a bateria acabe. A cada poucas capturas, a agência te dá uma nova ferramenta de caçador de fantasmas.
+
+Feito para o Halloween, o Dia das Bruxas, e para cada noite depois dele: apague a luz, abra a câmera de fantasmas e descubra o que assombra a sua própria casa.
 
 COMO FUNCIONA O DETECTOR DE FANTASMAS
 1. Escaneie o seu quarto e deixe o detector de fantasmas captar um sinal.
@@ -242,13 +250,15 @@ LANGUAGE: German (Germany) [de-DE]
 App name (28/30):
 Geister-Detektor: EMF-Kamera
 
-Short description (77/80):
-Geisterjagd mit Spirit Box, EMF-Radar, Wärmebild und Nachtsicht-Geisterkamera
+Short description (75/80):
+Halloween-Geisterjagd: Spirit Box, EMF-Radar, Wärmebild & Nachtsicht-Kamera
 
-Full description (3789/4000):
+Full description (3920/4000):
 Hauntscope ist ein Geister-Detektor-Spiel, das dein Handy in eine paranormale Geisterkamera verwandelt. Scanne dein Zuhause mit dem EMF-Detektor, hör der Spirit Box zu und fang Geister direkt in deinem Zimmer – in Augmented Reality.
 
 Folge den Signalen, finde das Versteck des Geistes und fang ihn, bevor der Akku leer ist. Alle paar Fänge gibt dir die Agentur ein neues Werkzeug für die Geisterjagd.
+
+Gemacht für Halloween und jede Nacht danach: Licht aus, Geisterkamera an – und finde heraus, was in deinem eigenen Zuhause spukt.
 
 SO FUNKTIONIERT DER GEISTERDETEKTOR
 1. Scanne dein Zimmer und lass den Geisterdetektor ein Signal auffangen.
@@ -299,13 +309,15 @@ LANGUAGE: Indonesian [id]
 App name (28/30):
 Pendeteksi Hantu: Kamera EMF
 
-Short description (71/80):
-Game pemburu hantu: spirit box, radar EMF, kamera termal & night vision
+Short description (76/80):
+Berburu hantu Halloween: spirit box, radar EMF, kamera termal & night vision
 
-Full description (3536/4000):
+Full description (3674/4000):
 Hauntscope adalah game pendeteksi hantu yang mengubah ponselmu menjadi kamera hantu paranormal. Pindai rumahmu dengan detektor EMF, dengarkan Spirit Box, dan tangkap hantu langsung di kamarmu dalam augmented reality.
 
 Ikuti sinyalnya, temukan tempat hantu bersembunyi, dan tangkap sebelum baterai habis. Setiap beberapa tangkapan, agensi memberimu alat pemburu hantu yang baru.
+
+Dibuat untuk Halloween dan setiap malam sesudahnya: matikan lampu, buka kamera hantu, dan cari tahu apa yang menghantui rumahmu sendiri.
 
 CARA KERJA PENDETEKSI HANTU
 1. Pindai kamarmu dan biarkan pendeteksi hantu menangkap sinyal.
@@ -348,6 +360,3 @@ Jika ponselmu tidak mendukung ARCore atau kamu tak ingin memakai kamera, berburu
 Pendeteksi hantu dan kamera hantu untuk malam Halloween, menginap bareng teman, dan setiap pemburu hantu yang suka dibuat merinding.
 
 Hauntscope adalah game untuk hiburan semata. Game ini tidak mendeteksi aktivitas paranormal sungguhan.
-
-========================================================================
-END

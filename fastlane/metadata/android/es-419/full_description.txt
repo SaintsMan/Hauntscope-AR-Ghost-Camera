@@ -2,6 +2,8 @@ Hauntscope es un juego detector de fantasmas que convierte tu teléfono en una c
 
 Sigue las señales, encuentra dónde se esconde el fantasma y atrápalo antes de que se agote la batería. Cada pocas capturas, la agencia te da una nueva herramienta de cazador de fantasmas.
 
+Hecho para Halloween, la Noche de Brujas, y para cada noche después: apaga la luz, abre la cámara de fantasmas y descubre qué acecha en tu propia casa.
+
 CÓMO FUNCIONA EL DETECTOR DE FANTASMAS
 1. Escanea tu cuarto y deja que el detector de fantasmas capte una señal.
 2. Sigue el radar EMF y las voces de la Spirit Box para acercarte.
