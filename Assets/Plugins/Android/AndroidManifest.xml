@@ -12,6 +12,15 @@
       <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
       <meta-data android:name="android.app.lib_name" android:value="game" />
     </activity>
+    <!-- Pushes register the device only after the player says yes to notifications (FirebasePushMessaging). -->
+    <meta-data android:name="firebase_messaging_auto_init_enabled" android:value="false" />
+    <!-- Analytics stays anonymous product numbers: no advertising ID, no ad signals, and screens are reported by the
+         game itself (one Unity activity says nothing about where the player is). -->
+    <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />
+    <meta-data android:name="google_analytics_default_allow_ad_storage" android:value="false" />
+    <meta-data android:name="google_analytics_default_allow_ad_user_data" android:value="false" />
+    <meta-data android:name="google_analytics_default_allow_ad_personalization_signals" android:value="false" />
+    <meta-data android:name="google_analytics_automatic_screen_reporting_enabled" android:value="false" />
     <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id" android:value="hauntscope_news" />
     <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/hauntscope_small" />
     <meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/hauntscope_notification" />

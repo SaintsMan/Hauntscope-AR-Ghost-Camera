@@ -1,6 +1,7 @@
 using System;
 using Hauntscope.AR;
 using Hauntscope.Gameplay.Ads;
+using Hauntscope.Gameplay.Analytics;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Feedback;
@@ -62,6 +63,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<OfferMomentRecorder>();
             builder.Register<SpareBatteries>(Lifetime.Singleton);
             builder.Register<HuntSession>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<HuntAnalytics>();
             builder.Register<HuntLoot>(Lifetime.Singleton);
             builder.RegisterEntryPoint<HuntReportBuilder>().AsSelf();
             builder.Register<RewardDoubler>(Lifetime.Singleton);

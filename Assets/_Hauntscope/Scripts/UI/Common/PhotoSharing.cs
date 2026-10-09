@@ -1,4 +1,5 @@
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Analytics;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Photo;
 
@@ -15,15 +16,17 @@ namespace Hauntscope.UI.Common
         private readonly ILocalizationService _localization;
         private readonly GhostConfig _ghosts;
         private readonly PhotoConfig _config;
+        private readonly IAnalyticsService _analytics;
 
         public PhotoSharing(IShareService share, IPhotoStorage storage, ILocalizationService localization, GhostConfig ghosts,
-            PhotoConfig config)
+            PhotoConfig config, IAnalyticsService analytics)
         {
             _share = share;
             _storage = storage;
             _localization = localization;
             _ghosts = ghosts;
             _config = config;
+            _analytics = analytics;
         }
 
         public bool CanSaveToGallery => _share.CanSaveToGallery;
@@ -32,11 +35,21 @@ namespace Hauntscope.UI.Common
         {
             var text = _localization.Get(LocalizationTable.Ui, TextKey, GhostName(photo.GhostId), _config.StoreUrl);
             _share.ShareImage(_storage.GetFullPath(photo.FileName), text, _localization.Get(LocalizationTable.Ui, TitleKey));
+            LogShare(AnalyticsNames.ShareSheet, photo);
         }
 
         public bool SaveToGallery(PhotoRecord photo)
         {
-            return _share.SaveToGallery(_storage.GetFullPath(photo.FileName));
+            var saved = _share.SaveToGallery(_storage.GetFullPath(photo.FileName));
+            if (saved)
+                LogShare(AnalyticsNames.Gallery, photo);
+            return saved;
+        }
+
+        private void LogShare(string method, PhotoRecord photo)
+        {
+            _analytics.Log(AnalyticsNames.Share, AnalyticsParameter.Of(AnalyticsNames.Method, method),
+                AnalyticsParameter.Of(AnalyticsNames.ContentType, AnalyticsNames.Photo), AnalyticsParameter.Of(AnalyticsNames.ItemId, photo.GhostId));
         }
 
         public string GhostName(string ghostId)

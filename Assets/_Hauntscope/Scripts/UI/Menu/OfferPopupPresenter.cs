@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Analytics;
 using Hauntscope.Gameplay.Engagement;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Iap;
@@ -23,11 +24,12 @@ namespace Hauntscope.UI.Menu
         private readonly IapCheckout _checkout;
         private readonly ILocalizationService _localization;
         private readonly UiFeedback _ui;
+        private readonly IAnalyticsService _analytics;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
         private IapProductData _offer;
 
         public OfferPopupPresenter(OfferPopupView view, MenuPopupQueue popups, StarterOffer starter, OfferFunnel funnel, PaidStore paid,
-            IapCheckout checkout, ILocalizationService localization, UiFeedback ui)
+            IapCheckout checkout, ILocalizationService localization, UiFeedback ui, IAnalyticsService analytics)
         {
             _view = view;
             _popups = popups;
@@ -37,6 +39,7 @@ namespace Hauntscope.UI.Menu
             _checkout = checkout;
             _localization = localization;
             _ui = ui;
+            _analytics = analytics;
         }
 
         public void Start()
@@ -66,6 +69,7 @@ namespace Hauntscope.UI.Menu
         {
             Render();
             _view.SetVisible(true);
+            _analytics.Log(AnalyticsNames.OfferShown, AnalyticsParameter.Of(AnalyticsNames.Product, _offer.ProductId));
             TickClockAsync(_lifetime.Token).Forget();
         }
 

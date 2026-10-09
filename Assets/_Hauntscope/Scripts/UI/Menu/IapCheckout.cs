@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Analytics;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Iap;
 
@@ -16,13 +17,15 @@ namespace Hauntscope.UI.Menu
         private readonly PaidStore _paid;
         private readonly ILocalizationService _localization;
         private readonly UiFeedback _ui;
+        private readonly IAnalyticsService _analytics;
         private bool _busy;
 
-        public IapCheckout(PaidStore paid, ILocalizationService localization, UiFeedback ui)
+        public IapCheckout(PaidStore paid, ILocalizationService localization, UiFeedback ui, IAnalyticsService analytics)
         {
             _paid = paid;
             _localization = localization;
             _ui = ui;
+            _analytics = analytics;
         }
 
         public bool IsAvailable(IapProductData product)
@@ -58,6 +61,8 @@ namespace Hauntscope.UI.Menu
                     _ui.PlayPurchase();
                 else if (status == IapPurchaseStatus.Failed || status == IapPurchaseStatus.Unavailable)
                     _ui.PlayDenied();
+                _analytics.Log(AnalyticsNames.IapCheckout, AnalyticsParameter.Of(AnalyticsNames.Product, product.ProductId),
+                    AnalyticsParameter.Of(AnalyticsNames.Result, AnalyticsNames.Of(status)));
                 return status;
             }
             finally

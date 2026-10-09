@@ -2,6 +2,7 @@ using System.IO;
 using Hauntscope.AR;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Ads;
+using Hauntscope.Gameplay.Analytics;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Contracts;
 using Hauntscope.Gameplay.Environment;
@@ -16,6 +17,7 @@ using Hauntscope.Gameplay.Research;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Story;
 using Hauntscope.Infrastructure.Ads;
+using Hauntscope.Infrastructure.Analytics;
 using Hauntscope.Infrastructure.Audio;
 using Hauntscope.Infrastructure.Haptics;
 using Hauntscope.Infrastructure.Input;
@@ -34,6 +36,9 @@ using Hauntscope.UI.Common;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+#if UNITY_ANDROID && !UNITY_EDITOR
+using Hauntscope.Infrastructure.Firebase;
+#endif
 
 namespace Hauntscope.Bootstrap
 {
@@ -60,6 +65,7 @@ namespace Hauntscope.Bootstrap
             RegisterSystemNavigation(builder);
             RegisterHaptics(builder);
             RegisterProgress(builder);
+            RegisterAnalytics(builder);
             RegisterLaunch(builder);
             RegisterPlayStore(builder);
             RegisterPurchases(builder);
@@ -173,13 +179,29 @@ namespace Hauntscope.Bootstrap
         private static void RegisterLaunch(IContainerBuilder builder)
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
-            builder.Register<AndroidCameraPermission>(Lifetime.Singleton).As<ICameraPermission>();
+            builder.Register<AndroidCameraPermission>(Lifetime.Singleton);
+            builder.Register<ICameraPermission>(resolver => new AnalyticsCameraPermission(resolver.Resolve<AndroidCameraPermission>(),
+                resolver.Resolve<IAnalyticsService>()), Lifetime.Singleton);
 #else
-            builder.Register<EditorCameraPermission>(Lifetime.Singleton).As<ICameraPermission>();
+            builder.Register<EditorCameraPermission>(Lifetime.Singleton);
+            builder.Register<ICameraPermission>(resolver => new AnalyticsCameraPermission(resolver.Resolve<EditorCameraPermission>(),
+                resolver.Resolve<IAnalyticsService>()), Lifetime.Singleton);
 #endif
             builder.Register<ArAvailability>(Lifetime.Singleton).As<IArAvailability>();
             builder.Register<HuntLaunchOptions>(Lifetime.Singleton);
             builder.RegisterEntryPoint<HuntLauncher>().AsSelf();
+        }
+
+        // Firebase starts once for analytics and pushes alike; in the Editor nothing is reported (GDD 5.39).
+        private static void RegisterAnalytics(IContainerBuilder builder)
+        {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            builder.Register<FirebaseGate>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<FirebaseAnalyticsService>().As<IAnalyticsService>();
+#else
+            builder.Register<NullAnalyticsService>(Lifetime.Singleton).As<IAnalyticsService>();
+#endif
+            builder.RegisterEntryPoint<PlayerAnalytics>();
         }
 
         private static void RegisterSystemNavigation(IContainerBuilder builder)
