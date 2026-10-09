@@ -30,3 +30,6 @@
 *.otf filter=lfs diff=lfs merge=lfs -text
 *.gif filter=lfs diff=lfs merge=lfs -text
 *.mp4 filter=lfs diff=lfs merge=lfs -text
+
+# README media is served to every visitor: plain git, not LFS (LFS bandwidth is metered).
+.github/media/** -filter -diff -merge binary
