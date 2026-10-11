@@ -16,12 +16,14 @@ namespace Hauntscope.Tests.EditMode
 
         private AdPacing _pacing;
         private FakeClock _clock;
+        private FakeRemoteValues _remote;
 
         [SetUp]
         public void SetUp()
         {
             _pacing = new AdPacing();
             _clock = new FakeClock();
+            _remote = new FakeRemoteValues();
         }
 
         [Test]
@@ -85,10 +87,41 @@ namespace Hauntscope.Tests.EditMode
             Assert.IsFalse(policy.ShouldShow());
         }
 
+        [Test]
+        public void ShouldShow_SwitchedOffRemotely_IsFalse()
+        {
+            var policy = CreatePolicy(sessions: 10);
+            Hunts(EveryHunts);
+            _remote.Values[RemoteKeys.InterstitialEnabled] = "false";
+
+            Assert.IsFalse(policy.ShouldShow());
+        }
+
+        [Test]
+        public void ShouldShow_RemoteAsksForMoreHunts_WaitsForThem()
+        {
+            var policy = CreatePolicy(sessions: 10);
+            Hunts(EveryHunts);
+            _remote.Values[RemoteKeys.InterstitialEveryHunts] = "5";
+
+            Assert.IsFalse(policy.ShouldShow());
+        }
+
+        [Test]
+        public void ShouldShow_RemoteValueOutOfRange_KeepsTheDefault()
+        {
+            var policy = CreatePolicy(sessions: 10);
+            Hunts(EveryHunts);
+            _remote.Values[RemoteKeys.InterstitialEveryHunts] = "0";
+
+            Assert.IsTrue(policy.ShouldShow());
+        }
+
         private InterstitialPolicy CreatePolicy(int sessions)
         {
             var progress = new PlayerProgress(0, new Dictionary<string, int>(), sessions, false);
-            return new InterstitialPolicy(_pacing, progress, _clock, new AdsConfig(EveryHunts, MinInterval, MinSessions, 30, 3));
+            return new InterstitialPolicy(_pacing, progress, _clock, new AdsConfig(EveryHunts, MinInterval, MinSessions, 30, 3),
+                new RemoteTuning(_remote));
         }
 
         private void Hunts(int count)

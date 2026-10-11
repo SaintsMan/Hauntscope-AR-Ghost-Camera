@@ -30,6 +30,7 @@ using Hauntscope.Infrastructure.Photos;
 using Hauntscope.Infrastructure.PlayStore;
 using Hauntscope.Infrastructure.Purchases;
 using Hauntscope.Infrastructure.Random;
+using Hauntscope.Infrastructure.Remote;
 using Hauntscope.Infrastructure.Save;
 using Hauntscope.Infrastructure.Scenes;
 using Hauntscope.Infrastructure.Time;
@@ -67,6 +68,7 @@ namespace Hauntscope.Bootstrap
             RegisterHaptics(builder);
             RegisterProgress(builder);
             RegisterAnalytics(builder);
+            RegisterRemoteConfig(builder);
             RegisterLaunch(builder);
             RegisterPlayStore(builder);
             RegisterPurchases(builder);
@@ -124,6 +126,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Rookie);
             builder.RegisterInstance(_gameConfig.Iap);
             builder.RegisterInstance(_gameConfig.Notifications);
+            builder.RegisterInstance(_gameConfig.LiveOps);
         }
 
         // Scene loads are decorated with the CRT transition; the overlay outlives every scene it covers.
@@ -208,6 +211,18 @@ namespace Hauntscope.Bootstrap
 #endif
             builder.RegisterEntryPoint<PlayerAnalytics>();
             builder.RegisterEntryPoint<CrashReportContext>();
+        }
+
+        // Knobs the owner can move from the console; the Editor plays on the configs' defaults (GDD 5.40).
+        private static void RegisterRemoteConfig(IContainerBuilder builder)
+        {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            builder.RegisterEntryPoint<FirebaseRemoteValues>().As<IRemoteValues>();
+#else
+            builder.Register<NullRemoteValues>(Lifetime.Singleton).As<IRemoteValues>();
+#endif
+            builder.Register<RemoteTuning>(Lifetime.Singleton);
+            builder.Register<UpdateRequirement>(Lifetime.Singleton);
         }
 
         private static void RegisterSystemNavigation(IContainerBuilder builder)

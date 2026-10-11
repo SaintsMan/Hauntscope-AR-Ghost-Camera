@@ -13,15 +13,17 @@ namespace Hauntscope.Gameplay.Iap
         private readonly PurchaseHistoryRepository _repository;
         private readonly PlayerProgress _progress;
         private readonly IClock _clock;
+        private readonly RemoteTuning _tuning;
 
         public StarterOffer(IapConfig config, PurchaseHistory history, PurchaseHistoryRepository repository, PlayerProgress progress,
-            IClock clock)
+            IClock clock, RemoteTuning tuning)
         {
             _config = config;
             _history = history;
             _repository = repository;
             _progress = progress;
             _clock = clock;
+            _tuning = tuning;
         }
 
         public SupplyBundleData Product => _config.StarterPack;
@@ -52,11 +54,13 @@ namespace Hauntscope.Gameplay.Iap
                 return false;
 
             var hunts = _progress.TotalSessions;
-            return hunts >= _config.StarterOfferAfterHunts
-                && (ghostEscaped || hunts >= _config.StarterOfferAfterHunts + _config.StarterOfferFallbackHunts);
+            var afterHunts = AfterHunts;
+            return hunts >= afterHunts && (ghostEscaped || hunts >= afterHunts + _config.StarterOfferFallbackHunts);
         }
 
         private bool IsOpen => Product != null && _history.StarterOfferStartTicks != 0L;
+
+        private int AfterHunts => _tuning.Int(RemoteKeys.StarterOfferAfterHunts, _config.StarterOfferAfterHunts, 0, RemoteKeys.MaxHunts);
 
         private bool IsBought => _history.Owns(Product.ProductId);
 
@@ -65,7 +69,7 @@ namespace Hauntscope.Gameplay.Iap
         {
             if (Product == null || IsOpen || _history.Owns(Product.ProductId))
                 return;
-            if (_progress.TotalSessions < _config.StarterOfferAfterHunts)
+            if (_progress.TotalSessions < AfterHunts)
                 return;
 
             _history.StartStarterOffer(_clock.UtcNow);

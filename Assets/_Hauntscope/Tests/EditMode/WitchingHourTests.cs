@@ -9,13 +9,15 @@ namespace Hauntscope.Tests.EditMode
     public sealed class WitchingHourTests
     {
         private FakeClock _clock;
+        private FakeRemoteValues _remote;
         private WitchingHour _witchingHour;
 
         [SetUp]
         public void SetUp()
         {
             _clock = new FakeClock();
-            _witchingHour = new WitchingHour(_clock, new NightConfig(23, 4, 2f, 1.25f));
+            _remote = new FakeRemoteValues();
+            _witchingHour = new WitchingHour(_clock, new NightConfig(23, 4, 2f, 1.25f), new RemoteTuning(_remote));
         }
 
         [TestCase(23, 0)]
@@ -24,6 +26,15 @@ namespace Hauntscope.Tests.EditMode
         public void IsActive_DuringTheNight_IsTrue(int hour, int minute)
         {
             _clock.LocalNow = new DateTime(2026, 10, 31, hour, minute, 0);
+
+            Assert.IsTrue(_witchingHour.IsActive);
+        }
+
+        [Test]
+        public void IsActive_NightExtendedRemotely_LastsUntilTheNewEnd()
+        {
+            _remote.Values[RemoteKeys.WitchingHourEnd] = "6";
+            _clock.LocalNow = new DateTime(2026, 10, 31, 5, 0, 0);
 
             Assert.IsTrue(_witchingHour.IsActive);
         }

@@ -1683,6 +1683,23 @@ MonoBehaviour:
       menangkap satu.
     m_Metadata:
       m_Items: []
+  - m_Id: 5813522107072512
+    m_Localized: PEMBARUAN BIRO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5813522169987072
+    m_Localized: Biro Malam punya firmware baru untuk kameramu. Perbarui game di
+      Google Play agar tetap berburu dengan perlengkapan terbaru.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5813522169987073
+    m_Localized: PERBARUI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5813522169987074
+    m_Localized: NANTI SAJA
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

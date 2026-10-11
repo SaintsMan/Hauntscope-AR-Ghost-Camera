@@ -1652,6 +1652,23 @@ MonoBehaviour:
       tu oportunidad de atrapar uno.
     m_Metadata:
       m_Items: []
+  - m_Id: 5813522107072512
+    m_Localized: ACTUALIZA EL JUEGO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5813522169987072
+    m_Localized: "La Oficina Nocturna tiene firmware nuevo para tu c\xE1mara. Actualiza
+      el juego en Google Play para seguir cazando con el equipo m\xE1s reciente."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5813522169987073
+    m_Localized: ACTUALIZAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5813522169987074
+    m_Localized: AHORA NO
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

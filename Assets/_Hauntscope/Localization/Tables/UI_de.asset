@@ -1656,6 +1656,23 @@ MonoBehaviour:
       Chance, einen zu fangen.
     m_Metadata:
       m_Items: []
+  - m_Id: 5813522107072512
+    m_Localized: NEUES UPDATE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5813522169987072
+    m_Localized: "Das Nachtb\xFCro hat neue Firmware f\xFCr deine Kamera. Aktualisiere
+      das Spiel bei Google Play, um mit der neuesten Ausr\xFCstung weiterzujagen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5813522169987073
+    m_Localized: AKTUALISIEREN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5813522169987074
+    m_Localized: NICHT JETZT
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

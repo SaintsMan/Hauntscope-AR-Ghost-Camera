@@ -44,6 +44,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private RookieConfig _rookie = new RookieConfig();
         [SerializeField] private IapConfig _iap = new IapConfig();
         [SerializeField] private NotificationConfig _notifications = new NotificationConfig();
+        [SerializeField] private LiveOpsConfig _liveOps = new LiveOpsConfig();
 
         public int TargetFrameRate => _targetFrameRate;
 
@@ -122,5 +123,7 @@ namespace Hauntscope.Gameplay.Config
         public IapConfig Iap => _iap;
 
         public NotificationConfig Notifications => _notifications;
+
+        public LiveOpsConfig LiveOps => _liveOps;
     }
 }

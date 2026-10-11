@@ -27,7 +27,7 @@ namespace Hauntscope.Tests.EditMode
             _shade = CreateGhost("shade", GhostRarity.Rare);
             _random = new FakeRandom();
             _clock = new FakeClock { LocalNow = new DateTime(2026, 10, 31, 20, 0, 0) };
-            _witchingHour = new WitchingHour(_clock, new NightConfig(23, 4, 2f, 1.25f));
+            _witchingHour = new WitchingHour(_clock, new NightConfig(23, 4, 2f, 1.25f), new RemoteTuning(new FakeRemoteValues()));
             var config = new GhostConfig(new[] { _poltergeist, _wisp, _shade }, "wisp", 75f, 25f, 0f);
             _selector = new GhostSelector(config, _random, _witchingHour);
         }

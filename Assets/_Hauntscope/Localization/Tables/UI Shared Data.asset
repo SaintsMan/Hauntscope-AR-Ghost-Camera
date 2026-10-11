@@ -1579,6 +1579,22 @@ MonoBehaviour:
     m_Key: notify.witching.1.body
     m_Metadata:
       m_Items: []
+  - m_Id: 5813522107072512
+    m_Key: update.notice.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5813522169987072
+    m_Key: update.notice.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5813522169987073
+    m_Key: update.notice.accept
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5813522169987074
+    m_Key: update.notice.later
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

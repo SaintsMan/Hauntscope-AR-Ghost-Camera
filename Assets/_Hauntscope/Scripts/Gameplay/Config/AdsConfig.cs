@@ -6,6 +6,7 @@ namespace Hauntscope.Gameplay.Config
     [Serializable]
     public sealed class AdsConfig
     {
+        [SerializeField] private bool _interstitialEnabled = true;
         [SerializeField, Min(1)] private int _interstitialEveryHunts = 3;
         [SerializeField, Min(0f)] private float _interstitialMinInterval = 150f;
         [SerializeField, Min(0)] private int _interstitialMinSessions = 3;
@@ -28,6 +29,8 @@ namespace Hauntscope.Gameplay.Config
             _fieldDropReward = fieldDropReward;
             _fieldDropsPerDay = fieldDropsPerDay;
         }
+
+        public bool InterstitialEnabled => _interstitialEnabled;
 
         public int InterstitialEveryHunts => _interstitialEveryHunts;
 

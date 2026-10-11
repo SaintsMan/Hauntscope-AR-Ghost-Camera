@@ -18,10 +18,12 @@ namespace Hauntscope.Gameplay.Iap
         private readonly PlayerInventory _inventory;
         private readonly StoreConfig _store;
         private readonly IClock _clock;
+        private readonly RemoteTuning _tuning;
 
         public OfferFunnel(OfferMoments moments, StarterOffer starter, PremiumOffer premium, IapConfig config, PurchaseHistory history,
-            PurchaseHistoryRepository repository, PlayerInventory inventory, StoreConfig store, IClock clock)
+            PurchaseHistoryRepository repository, PlayerInventory inventory, StoreConfig store, IClock clock, RemoteTuning tuning)
         {
+            _tuning = tuning;
             _moments = moments;
             _starter = starter;
             _premium = premium;
@@ -42,6 +44,8 @@ namespace Hauntscope.Gameplay.Iap
             var escaped = _moments.LastHuntEscaped;
             var adBreak = _moments.SawAdBreak;
             _moments.Clear();
+            if (!_tuning.Bool(RemoteKeys.OffersEnabled, _config.OffersEnabled))
+                return null;
 
             if (_starter.ShouldAnnounce(escaped))
             {
@@ -71,7 +75,8 @@ namespace Hauntscope.Gameplay.Iap
             if (_config.KitOffer == null || _store.SpareBattery == null || _inventory.GetCount(_store.SpareBattery.Id) > 0)
                 return false;
 
-            return _history.KitOfferShownDay == 0 || Today - _history.KitOfferShownDay >= _config.KitOfferEveryDays;
+            var everyDays = _tuning.Int(RemoteKeys.KitOfferEveryDays, _config.KitOfferEveryDays, 1, RemoteKeys.MaxDays);
+            return _history.KitOfferShownDay == 0 || Today - _history.KitOfferShownDay >= everyDays;
         }
 
         private int Today => (int)(_clock.Today.Ticks / System.TimeSpan.TicksPerDay);

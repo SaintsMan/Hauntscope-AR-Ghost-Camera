@@ -280,6 +280,7 @@ MonoBehaviour:
     _declassifiedBonus: 0.25
     _maxPhotoEvidence: 2
   _ads:
+    _interstitialEnabled: 1
     _interstitialEveryHunts: 3
     _interstitialMinInterval: 150
     _interstitialMinSessions: 3
@@ -625,6 +626,7 @@ MonoBehaviour:
     _supplies:
     - {fileID: 11400000, guid: d8fb5e0b46acf8848baf1196768c83e6, type: 2}
     - {fileID: 11400000, guid: f05caad803111504195c0d9516c58282, type: 2}
+    _offersEnabled: 1
     _starterOfferAfterHunts: 2
     _starterOfferHours: 48
     _starterOfferFallbackHunts: 2
@@ -653,3 +655,8 @@ MonoBehaviour:
     _witchingHour: 20
     _topicAll: all
     _topicLanguagePrefix: lang_
+  _liveOps:
+    _remoteFetchIntervalHours: 12
+    _remoteFetchTimeoutSeconds: 10
+    _minVersionCode: 0
+    _seasonEvent: 

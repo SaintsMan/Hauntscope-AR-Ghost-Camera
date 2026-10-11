@@ -24,6 +24,8 @@ namespace Hauntscope.Tests.EditMode
         {
             Store = new StoreFixture();
             Clock = new FakeClock();
+            Remote = new FakeRemoteValues();
+            Tuning = new RemoteTuning(Remote);
             Iap = new FakeIapStore();
             Spectre = StoreFixture.Laser("spectre", 0, new HuntModifierSet());
             Aurum = StoreFixture.Laser("aurum", 0, new HuntModifierSet());
@@ -53,14 +55,16 @@ namespace Hauntscope.Tests.EditMode
             History = HistoryRepository.Load();
             var granter = new RewardGranter(Store.Progress, Store.ProgressRepository, Store.Inventory, Store.InventoryRepository, Store.Config);
             Paid = new PaidStore(Iap, Config, History, HistoryRepository, new IapGrant(granter, Store.Inventory, Store.InventoryRepository, History));
-            Starter = new StarterOffer(Config, History, HistoryRepository, Store.Progress, Clock);
-            Premium = new PremiumOffer(Config, History, HistoryRepository, Store.Progress, Clock);
+            Starter = new StarterOffer(Config, History, HistoryRepository, Store.Progress, Clock, Tuning);
+            Premium = new PremiumOffer(Config, History, HistoryRepository, Store.Progress, Clock, Tuning);
             Moments = new OfferMoments();
-            Funnel = new OfferFunnel(Moments, Starter, Premium, Config, History, HistoryRepository, Store.Inventory, Store.Config, Clock);
+            Funnel = new OfferFunnel(Moments, Starter, Premium, Config, History, HistoryRepository, Store.Inventory, Store.Config, Clock, Tuning);
         }
 
         public StoreFixture Store { get; }
         public FakeClock Clock { get; }
+        public FakeRemoteValues Remote { get; }
+        public RemoteTuning Tuning { get; }
         public FakeIapStore Iap { get; }
         public LaserData Spectre { get; }
         public LaserData Aurum { get; }

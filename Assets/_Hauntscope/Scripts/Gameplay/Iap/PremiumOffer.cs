@@ -14,15 +14,17 @@ namespace Hauntscope.Gameplay.Iap
         private readonly PurchaseHistoryRepository _repository;
         private readonly PlayerProgress _progress;
         private readonly IClock _clock;
+        private readonly RemoteTuning _tuning;
 
         public PremiumOffer(IapConfig config, PurchaseHistory history, PurchaseHistoryRepository repository, PlayerProgress progress,
-            IClock clock)
+            IClock clock, RemoteTuning tuning)
         {
             _config = config;
             _history = history;
             _repository = repository;
             _progress = progress;
             _clock = clock;
+            _tuning = tuning;
         }
 
         public FullVersionData Product => _config.FullVersion;
@@ -33,10 +35,11 @@ namespace Hauntscope.Gameplay.Iap
             {
                 if (Product == null || _history.IsPremium)
                     return false;
-                if (_progress.TotalSessions < _config.PremiumOfferAfterHunts)
+                if (_progress.TotalSessions < _tuning.Int(RemoteKeys.PremiumOfferAfterHunts, _config.PremiumOfferAfterHunts, 0, RemoteKeys.MaxHunts))
                     return false;
 
-                return _history.PremiumOfferShownDay == 0 || Today - _history.PremiumOfferShownDay >= _config.PremiumOfferEveryDays;
+                var everyDays = _tuning.Int(RemoteKeys.PremiumOfferEveryDays, _config.PremiumOfferEveryDays, 1, RemoteKeys.MaxDays);
+                return _history.PremiumOfferShownDay == 0 || Today - _history.PremiumOfferShownDay >= everyDays;
             }
         }
 

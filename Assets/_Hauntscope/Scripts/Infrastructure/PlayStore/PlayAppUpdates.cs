@@ -16,6 +16,12 @@ namespace Hauntscope.Infrastructure.PlayStore
         private const int DeveloperTriggeredUpdateInProgress = 3;
         private const int ImmediateUpdate = 1;
         private const int RequestCode = 5301;
+        private const string StoreUrl = "market://details?id=";
+        private const string WebStoreUrl = "https://play.google.com/store/apps/details?id=";
+
+        private int? _installedVersionCode;
+
+        public int InstalledVersionCode => _installedVersionCode ??= ReadVersionCode();
 
         public async UniTask<bool> TryStartUpdateAsync(CancellationToken cancellationToken)
         {
@@ -46,6 +52,36 @@ namespace Hauntscope.Infrastructure.PlayStore
             {
                 Debug.LogWarning($"Hauntscope: update check unavailable ({exception.Message}).");
                 return false;
+            }
+        }
+
+        public void OpenStorePage()
+        {
+            try
+            {
+                Application.OpenURL(StoreUrl + Application.identifier);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning($"Hauntscope: Play Store app unavailable ({exception.Message}).");
+                Application.OpenURL(WebStoreUrl + Application.identifier);
+            }
+        }
+
+        // Unreadable means "assume current": a wrong guess must never nag a player who is up to date.
+        private static int ReadVersionCode()
+        {
+            try
+            {
+                var activity = AndroidApplication.currentActivity;
+                using var packageManager = activity.Call<AndroidJavaObject>("getPackageManager");
+                using var packageInfo = packageManager.Call<AndroidJavaObject>("getPackageInfo", Application.identifier, 0);
+                return packageInfo.Get<int>("versionCode");
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning($"Hauntscope: installed version unreadable ({exception.Message}).");
+                return int.MaxValue;
             }
         }
     }

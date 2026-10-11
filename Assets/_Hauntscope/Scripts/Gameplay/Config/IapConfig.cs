@@ -13,6 +13,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private SupplyBundleData _starterPack;
         [SerializeField] private EctoplasmPackData[] _ectoplasmPacks = Array.Empty<EctoplasmPackData>();
         [SerializeField] private IapProductData[] _supplies = Array.Empty<IapProductData>();
+        [SerializeField] private bool _offersEnabled = true;
         [SerializeField, Min(0)] private int _starterOfferAfterHunts = 2;
         [SerializeField, Min(1f)] private float _starterOfferHours = 48f;
         [SerializeField, Min(0)] private int _starterOfferFallbackHunts = 2;
@@ -50,6 +51,9 @@ namespace Hauntscope.Gameplay.Config
         // Everything else sold for money: the field kit, the lasers.
         public IReadOnlyList<IapProductData> Supplies => _supplies;
         // The rookie kit opens after this many hunts, once the player knows what gear is for.
+        // Whether the menu pitches paid offers by itself at all; the store always sells.
+        public bool OffersEnabled => _offersEnabled;
+
         public int StarterOfferAfterHunts => _starterOfferAfterHunts;
         public float StarterOfferHours => _starterOfferHours;
         // A player who catches every ghost still hears about the kit this many hunts later.

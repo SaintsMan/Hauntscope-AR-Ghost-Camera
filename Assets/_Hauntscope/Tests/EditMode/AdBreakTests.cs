@@ -24,7 +24,7 @@ namespace Hauntscope.Tests.EditMode
             var clock = new FakeClock();
             var ads = new PacedAdsService(_inner, _pacing, clock);
             var progress = new PlayerProgress(0, new Dictionary<string, int>(), 10, false);
-            var policy = new InterstitialPolicy(_pacing, progress, clock, new AdsConfig(3, 150f, 3, 30, 3));
+            var policy = new InterstitialPolicy(_pacing, progress, clock, new AdsConfig(3, 150f, 3, 30, 3), new RemoteTuning(new FakeRemoteValues()));
             _moments = new OfferMoments();
             _adBreak = new AdBreak(ads, _pacing, policy, _moments);
         }

@@ -20,7 +20,7 @@ namespace Hauntscope.Tests.EditMode
             _player = new FakeMusicPlayer();
             _clock = new FakeClock { LocalNow = new DateTime(2026, 10, 31, 15, 0, 0, DateTimeKind.Local) };
             _config = new MusicConfig();
-            _music = new MenuMusic(_player, _config, new WitchingHour(_clock, new NightConfig(23, 4, 2f, 1.25f)));
+            _music = new MenuMusic(_player, _config, new WitchingHour(_clock, new NightConfig(23, 4, 2f, 1.25f), new RemoteTuning(new FakeRemoteValues())));
         }
 
         [Test]

@@ -1653,6 +1653,23 @@ MonoBehaviour:
       \xE9 sua chance de pegar um."
     m_Metadata:
       m_Items: []
+  - m_Id: 5813522107072512
+    m_Localized: ATUALIZE O JOGO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5813522169987072
+    m_Localized: "O Escrit\xF3rio Noturno tem firmware novo para sua c\xE2mera. Atualize
+      o jogo no Google Play para continuar ca\xE7ando com o equipamento mais recente."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5813522169987073
+    m_Localized: ATUALIZAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5813522169987074
+    m_Localized: "AGORA N\xC3O"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -138,6 +138,26 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Pick_OffersSwitchedOffRemotely_OffersNothing()
+        {
+            _fixture.PlayHunts(IapFixture.StarterAfterHunts);
+            _fixture.Remote.Values[Hauntscope.Gameplay.Config.RemoteKeys.OffersEnabled] = "false";
+            _fixture.Moments.RecordHunt(true);
+
+            Assert.IsNull(_fixture.Funnel.Pick());
+        }
+
+        [Test]
+        public void Pick_StarterOfferMovedLaterRemotely_WaitsForIt()
+        {
+            _fixture.Remote.Values[Hauntscope.Gameplay.Config.RemoteKeys.StarterOfferAfterHunts] = "5";
+            _fixture.PlayHunts(IapFixture.StarterAfterHunts);
+            _fixture.Moments.RecordHunt(true);
+
+            Assert.AreNotSame(_fixture.StarterPack, _fixture.Funnel.Pick());
+        }
+
+        [Test]
         public void Pick_AfterAnAdBreak_PitchesTheFullVersion()
         {
             _fixture.PlayHunts(IapFixture.PremiumAfterHunts);
