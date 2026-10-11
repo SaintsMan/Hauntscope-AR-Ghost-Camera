@@ -10,6 +10,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Min(1)] private int _interstitialEveryHunts = 3;
         [SerializeField, Min(0f)] private float _interstitialMinInterval = 150f;
         [SerializeField, Min(0)] private int _interstitialMinSessions = 3;
+        [SerializeField, Min(0f)] private float _interstitialLeadIn = 0.8f;
         [SerializeField, Min(0)] private int _fieldDropReward = 30;
         [SerializeField, Min(0)] private int _fieldDropsPerDay = 5;
         [SerializeField, Min(1f)] private float _reloadDelay = 30f;
@@ -21,8 +22,9 @@ namespace Hauntscope.Gameplay.Config
         }
 
         public AdsConfig(int interstitialEveryHunts, float interstitialMinInterval, int interstitialMinSessions, int fieldDropReward,
-            int fieldDropsPerDay)
+            int fieldDropsPerDay, float interstitialLeadIn = 0f)
         {
+            _interstitialLeadIn = interstitialLeadIn;
             _interstitialEveryHunts = interstitialEveryHunts;
             _interstitialMinInterval = interstitialMinInterval;
             _interstitialMinSessions = interstitialMinSessions;
@@ -36,6 +38,10 @@ namespace Hauntscope.Gameplay.Config
 
         // Seconds since any ad (rewarded too) before an interstitial may play.
         public float InterstitialMinInterval => _interstitialMinInterval;
+
+        // Seconds the screen stays dark and deaf to taps before an interstitial opens, so a tap meant for the result card
+        // never lands on the ad (Hawkins saw an abnormal ad click rate from exactly that).
+        public float InterstitialLeadIn => _interstitialLeadIn;
 
         // New players are never interrupted: no interstitial until this many hunts were played in total.
         public int InterstitialMinSessions => _interstitialMinSessions;

@@ -15,6 +15,7 @@ namespace Hauntscope.Tests.EditMode
         private AdPacing _pacing;
         private AdBreak _adBreak;
         private OfferMoments _moments;
+        private FakeScreenTransition _transition;
 
         [SetUp]
         public void SetUp()
@@ -24,9 +25,11 @@ namespace Hauntscope.Tests.EditMode
             var clock = new FakeClock();
             var ads = new PacedAdsService(_inner, _pacing, clock);
             var progress = new PlayerProgress(0, new Dictionary<string, int>(), 10, false);
-            var policy = new InterstitialPolicy(_pacing, progress, clock, new AdsConfig(3, 150f, 3, 30, 3), new RemoteTuning(new FakeRemoteValues()));
+            var config = new AdsConfig(3, 150f, 3, 30, 3);
+            var policy = new InterstitialPolicy(_pacing, progress, clock, config, new RemoteTuning(new FakeRemoteValues()));
             _moments = new OfferMoments();
-            _adBreak = new AdBreak(ads, _pacing, policy, _moments);
+            _transition = new FakeScreenTransition();
+            _adBreak = new AdBreak(ads, _pacing, policy, _moments, _transition, config);
         }
 
         [Test]
@@ -67,6 +70,36 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void TryShow_InterstitialDue_SwitchesTheScreenOffFirstAndBackOnAfter()
+        {
+            Leave(3);
+
+            Assert.AreEqual(1, _transition.CoverCount);
+            Assert.AreEqual(1, _transition.RevealCount);
+            Assert.IsFalse(_transition.IsCovered);
+        }
+
+        [Test]
+        public void TryShow_OnTheWayToTheMenu_LeavesTheScreenOffForTheSceneLoad()
+        {
+            Leave(2);
+
+            _adBreak.TryShowAsync(true, CancellationToken.None).GetAwaiter().GetResult();
+
+            Assert.AreEqual(1, _inner.InterstitialsShown);
+            Assert.IsTrue(_transition.IsCovered);
+            Assert.AreEqual(0, _transition.RevealCount);
+        }
+
+        [Test]
+        public void TryShow_NothingDue_NeverTouchesTheScreen()
+        {
+            Leave(2);
+
+            Assert.AreEqual(0, _transition.CoverCount);
+        }
+
+        [Test]
         public void TryShow_NoAdLoaded_ShowsNothingAndKeepsCounting()
         {
             _inner.IsInterstitialReady = false;
@@ -80,7 +113,7 @@ namespace Hauntscope.Tests.EditMode
         private void Leave(int hunts)
         {
             for (var i = 0; i < hunts; i++)
-                _adBreak.TryShowAsync(CancellationToken.None).GetAwaiter().GetResult();
+                _adBreak.TryShowAsync(false, CancellationToken.None).GetAwaiter().GetResult();
         }
     }
 }

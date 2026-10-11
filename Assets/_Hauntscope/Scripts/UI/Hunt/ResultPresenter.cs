@@ -160,7 +160,7 @@ namespace Hauntscope.UI.Hunt
             {
                 // Never an ad between the rounds of a night shift, only once it is over (GDD 5.27).
                 if (toMenu || _shift.Phase.Value != ShiftPhase.BetweenRounds)
-                    await _adBreak.TryShowAsync(cancellationToken);
+                    await _adBreak.TryShowAsync(toMenu, cancellationToken);
                 if (toMenu)
                     await _sceneLoader.LoadAsync(SceneId.MainMenu, cancellationToken);
                 else

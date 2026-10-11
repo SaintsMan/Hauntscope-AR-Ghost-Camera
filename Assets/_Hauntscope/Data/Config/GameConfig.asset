@@ -284,6 +284,7 @@ MonoBehaviour:
     _interstitialEveryHunts: 3
     _interstitialMinInterval: 150
     _interstitialMinSessions: 3
+    _interstitialLeadIn: 0.8
     _fieldDropReward: 30
     _fieldDropsPerDay: 5
     _reloadDelay: 30
