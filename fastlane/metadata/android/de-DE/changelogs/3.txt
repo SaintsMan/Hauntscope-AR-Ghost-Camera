@@ -1,0 +1,5 @@
+Einsatzbericht 1.0.2, Agent:
+• Vor einer Werbung wird die Kamera kurz dunkel, damit ein versehentlicher Tipp sie nicht öffnet.
+• Das Nachtbüro erhält jetzt Absturzberichte und behebt Fehler schneller.
+• Das Büro sagt dir im Menü Bescheid, wenn eine neue Version da ist.
+Fröhliche Halloween-Jagd!

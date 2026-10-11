@@ -1,0 +1,5 @@
+Laporan lapangan 1.0.2, Agen:
+• Kamera kini meredup sesaat sebelum iklan, jadi sentuhan tak sengaja tidak membukanya.
+• Biro Malam kini menerima laporan crash dan memperbaiki bug lebih cepat.
+• Biro akan memberi tahu di menu saat versi baru tersedia.
+Selamat berburu di malam Halloween!

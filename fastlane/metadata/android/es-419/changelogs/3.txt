@@ -1,0 +1,5 @@
+Reporte de campo 1.0.2, agente:
+• La cámara se apaga un instante antes de un anuncio, así un toque accidental no lo abre.
+• La Oficina Nocturna ahora recibe reportes de fallos y corrige errores más rápido.
+• La Oficina te avisará en el menú cuando haya una versión nueva.
+¡Feliz cacería de Halloween!

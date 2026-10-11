@@ -1,0 +1,5 @@
+Field report 1.0.2, Agent:
+• The camcorder now goes dark for a moment before an ad, so a stray tap never opens it.
+• The Night Bureau now receives crash reports and fixes field bugs faster.
+• The Bureau can tell you right in the menu when a new version is out.
+Happy Halloween hunting!

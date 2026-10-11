@@ -1,0 +1,5 @@
+Relatório de campo 1.0.2, agente:
+• A câmera escurece por um instante antes de um anúncio, então um toque sem querer não o abre.
+• O Escritório Noturno agora recebe relatórios de falhas e corrige bugs mais rápido.
+• O Escritório avisa no menu quando sair uma versão nova.
+Boa caçada de Halloween!
