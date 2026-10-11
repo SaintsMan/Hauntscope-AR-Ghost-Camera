@@ -11,7 +11,7 @@ python -I Tools/PlayDataSafety/data_safety.py apply --yes --key D:/Keys/play-ser
 - `hauntscope_data_safety.csv` — що піде в Play (генерується `build`; у Play потрапляє лише після `apply --yes`).
 - Відповіді (`GENERAL`, `DATA_TYPES`) мають збігатися з політикою приватності та GDD 5.39: AdMob + UMP, Firebase Analytics (без рекламного ID), Firebase Crashlytics, Remote Config, Cloud Messaging, ARCore, Google Play Billing. Новий SDK або нові дані — спершу оновити тут і в політиці.
 
-## Зміни для 1.0.2 (2026-10-11, ще не в Play)
+## Зміни для 1.0.2 (залито в Play 2026-10-11)
 
 - **Crash logs** (App info and performance) — нове: збирається, не передається третім сторонам, обов'язкове; мета — App functionality, Analytics (Firebase Crashlytics).
 - **Diagnostics** — до мет збору додано App functionality (Crashlytics); передача, як і раніше, — AdMob (Analytics, Fraud prevention, Advertising).

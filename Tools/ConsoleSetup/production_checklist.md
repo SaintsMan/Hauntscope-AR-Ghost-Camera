@@ -18,8 +18,8 @@
 - ❓ **Target audience**: **13+** (політика: «для гравців від 13 років»; оголошення від 13 до 17 і 18+). **Не** обирати групи до 13 — інакше вимоги Families і заборона більшості реклами.
 - ⬜ **Ads**: «Yes, my app contains ads» (AdMob interstitial + rewarded).
 - ⬜ **Advertising ID**: «Yes» — AdMob (`com.google.android.gms.permission.AD_ID` у маніфесті); мети — Advertising, Analytics, Fraud prevention.
-- ⬜ **Data safety**: перезалити з `Tools/PlayDataSafety` (`python -I Tools/PlayDataSafety/data_safety.py apply --yes --key D:/Keys/play-service-account.json` — **замінює всю форму**, лише після «так»). Нове в 1.0.2: Crash logs, мета App functionality для Diagnostics (див. `Tools/PlayDataSafety/README.md`).
-- ⬜ **Privacy policy**: `https://pavkoapp.web.app/hauntscope/privacy` (оновлено джерело `LiveOps/Privacy/src/hauntscope.full.html` — AdMob/UMP, Crashlytics, Remote Config, дата 11.10.2026; **ще не задеплоєно**: `deploy --only hosting:pavkoapp --project wizzard-potter` з папки `Privacy` після «так»). Посилання в Play змінити через `LiveOps/Privacy/play_console_prompt.md`, якщо там ще старе GitHub Pages.
+- ✅ **Data safety**: залито з `Tools/PlayDataSafety` 2026-10-11 (Play API, форма замінена). Нове в 1.0.2: Crash logs, мета App functionality для Diagnostics.
+- ✅ **Privacy policy**: `https://pavkoapp.web.app/hauntscope/privacy` задеплоєно 2026-10-11 (AdMob/UMP, Crashlytics, Remote Config, дата 11.10.2026). ❓ Посилання в Play App content — перевіряє `chrome_all_prompt.md`.
 - ❓ News app — No; COVID — No; Government — No; Financial features — None; Health — No.
 - ❓ **Camera permission**: Play може спитати про використання — «AR: показ привидів у кімнаті, зображення не залишають пристрій».
 
