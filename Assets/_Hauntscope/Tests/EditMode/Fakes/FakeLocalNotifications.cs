@@ -14,6 +14,7 @@ namespace Hauntscope.Tests.EditMode.Fakes
         public int SettingsOpened { get; private set; }
         public List<LocalNotification> Scheduled { get; } = new List<LocalNotification>();
         public List<string> Channels { get; } = new List<string>();
+        public string OpenedKind { get; set; }
 
         public UniTask<bool> RequestPermissionAsync(CancellationToken cancellationToken)
         {
@@ -42,6 +43,13 @@ namespace Hauntscope.Tests.EditMode.Fakes
         public void CancelAll()
         {
             Scheduled.Clear();
+        }
+
+        public bool TryTakeOpenedKind(out string kind)
+        {
+            kind = OpenedKind;
+            OpenedKind = null;
+            return kind != null;
         }
     }
 }

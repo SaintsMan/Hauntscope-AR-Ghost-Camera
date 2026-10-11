@@ -15,6 +15,11 @@ namespace Hauntscope.Gameplay.Analytics
         public const string IapCheckout = "iap_checkout";
         public const string Share = "share";
         public const string NotificationsSet = "notifications_set";
+        // Shared with every Pavko game: the LiveOps console reads these names (push opens, reminder opens, purchases).
+        public const string PushOpen = "push_open";
+        public const string PushReceived = "push_received";
+        public const string PushSubscribed = "push_subscribed";
+        public const string ReminderOpen = "reminder_open";
 
         public const string Environment = "environment";
         public const string Mode = "mode";
@@ -28,6 +33,9 @@ namespace Hauntscope.Gameplay.Analytics
         public const string ContentType = "content_type";
         public const string ItemId = "item_id";
         public const string Enabled = "enabled";
+        public const string Topic = "topic";
+        public const string Language = "lang";
+        public const string Kind = "kind";
 
         public const string Quit = "quit";
         public const string Photo = "photo";

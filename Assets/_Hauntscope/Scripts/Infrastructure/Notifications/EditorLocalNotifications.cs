@@ -39,5 +39,11 @@ namespace Hauntscope.Infrastructure.Notifications
         {
             _scheduled.Clear();
         }
+
+        public bool TryTakeOpenedKind(out string kind)
+        {
+            kind = null;
+            return false;
+        }
     }
 }

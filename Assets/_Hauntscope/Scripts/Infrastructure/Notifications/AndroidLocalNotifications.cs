@@ -17,6 +17,7 @@ namespace Hauntscope.Infrastructure.Notifications
         private const string LargeIcon = "hauntscope_large";
 
         private readonly NotificationConfig _config;
+        private int _lastOpenedId = int.MinValue;
 
         public AndroidLocalNotifications(NotificationConfig config)
         {
@@ -65,6 +66,27 @@ namespace Hauntscope.Infrastructure.Notifications
                 Style = NotificationStyle.BigTextStyle
             };
             AndroidNotificationCenter.SendNotification(android, notification.ChannelId);
+        }
+
+        // The launch intent stays the same while the game is merely resumed from recents, so each tap counts once.
+        public bool TryTakeOpenedKind(out string kind)
+        {
+            kind = null;
+            try
+            {
+                var opened = AndroidNotificationCenter.GetLastNotificationIntent();
+                if (opened == null || opened.Id == _lastOpenedId)
+                    return false;
+
+                _lastOpenedId = opened.Id;
+                kind = opened.Notification.IntentData;
+                return !string.IsNullOrEmpty(kind);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning($"Hauntscope: launch notification unreadable ({exception.Message}).");
+                return false;
+            }
         }
 
         public void CancelAll()

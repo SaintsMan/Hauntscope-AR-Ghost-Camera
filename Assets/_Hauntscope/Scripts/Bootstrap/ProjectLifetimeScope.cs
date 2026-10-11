@@ -271,7 +271,7 @@ namespace Hauntscope.Bootstrap
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
             builder.Register<AndroidLocalNotifications>(Lifetime.Singleton).As<ILocalNotifications>();
-            builder.Register<FirebasePushMessaging>(Lifetime.Singleton).As<IPushMessaging>();
+            builder.RegisterEntryPoint<FirebasePushMessaging>().As<IPushMessaging>();
 #else
             builder.Register<EditorLocalNotifications>(Lifetime.Singleton).As<ILocalNotifications>();
             builder.Register<NullPushMessaging>(Lifetime.Singleton).As<IPushMessaging>();
@@ -279,7 +279,8 @@ namespace Hauntscope.Bootstrap
             builder.Register<NotificationOptIn>(Lifetime.Singleton);
             builder.Register<ReminderPlanner>(Lifetime.Singleton);
             builder.RegisterEntryPoint<Reminders>();
-            builder.RegisterEntryPoint<PushTopics>();
+            builder.RegisterEntryPoint<PushTopics>().AsSelf();
+            builder.RegisterEntryPoint<NotificationAnalytics>();
         }
 
         private static void RegisterHaptics(IContainerBuilder builder)

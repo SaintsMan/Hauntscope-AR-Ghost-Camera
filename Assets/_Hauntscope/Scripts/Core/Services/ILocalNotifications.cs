@@ -21,5 +21,8 @@ namespace Hauntscope.Core.Services
         void Schedule(LocalNotification notification);
 
         void CancelAll();
+
+        // The kind of the reminder whose tap opened the game or brought it back, once per tap.
+        bool TryTakeOpenedKind(out string kind);
     }
 }

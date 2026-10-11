@@ -34,6 +34,9 @@ namespace Hauntscope.Gameplay.Engagement
             _config = config;
         }
 
+        // The device is on "all" and the language topic, as confirmed by the server; carries the language code.
+        public event Action<string> Subscribed;
+
         public void Start()
         {
             _optIn.Changed += Sync;
@@ -104,6 +107,7 @@ namespace Hauntscope.Gameplay.Engagement
 
             _confirmed = true;
             Remember(wanted);
+            Subscribed?.Invoke(wanted);
         }
 
         private void Remember(string language)

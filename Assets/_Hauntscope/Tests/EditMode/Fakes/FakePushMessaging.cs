@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -10,6 +11,13 @@ namespace Hauntscope.Tests.EditMode.Fakes
         public HashSet<string> Topics { get; } = new HashSet<string>();
         public bool Succeeds { get; set; } = true;
         public int Calls { get; private set; }
+
+        public event Action<PushMessage> Received;
+
+        public void Raise(string topic, bool opened)
+        {
+            Received?.Invoke(new PushMessage(topic, opened));
+        }
 
         public UniTask<bool> SubscribeAsync(string topic, CancellationToken cancellationToken)
         {
