@@ -10,12 +10,17 @@ namespace Hauntscope.Infrastructure.Purchases
     // Editor stand-in: every product costs its catalog price and every purchase goes through at once.
     public sealed class EditorIapStore : IIapStore
     {
+        private const string ProductUnavailable = "ProductUnavailable";
+        private const string NotDelivered = "NotDelivered";
+
         private readonly Dictionary<string, string> _prices = new Dictionary<string, string>();
         private Func<IapOrder, bool> _deliver;
 
         public bool IsReady { get; private set; }
 
         public event Action Changed;
+
+        public event Action<IapFailure> PurchaseFailed;
 
         public void Initialize(IReadOnlyList<IapProduct> products, Func<IapOrder, bool> deliver)
         {
@@ -35,9 +40,14 @@ namespace Hauntscope.Infrastructure.Purchases
         public UniTask<IapPurchaseStatus> PurchaseAsync(string productId, CancellationToken cancellationToken)
         {
             if (!_prices.ContainsKey(productId))
+            {
+                PurchaseFailed?.Invoke(new IapFailure(productId, ProductUnavailable, false));
                 return UniTask.FromResult(IapPurchaseStatus.Unavailable);
+            }
 
             var delivered = _deliver(new IapOrder(productId, "editor." + Guid.NewGuid().ToString("N")));
+            if (!delivered)
+                PurchaseFailed?.Invoke(new IapFailure(productId, NotDelivered, false));
             return UniTask.FromResult(delivered ? IapPurchaseStatus.Purchased : IapPurchaseStatus.Failed);
         }
     }

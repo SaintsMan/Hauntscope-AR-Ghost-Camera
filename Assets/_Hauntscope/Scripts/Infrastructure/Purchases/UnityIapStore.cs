@@ -14,6 +14,11 @@ namespace Hauntscope.Infrastructure.Purchases
     // granted it; an order cut short by a crash comes back on the next launch and is granted then.
     public sealed class UnityIapStore : IIapStore, IDisposable
     {
+        // Our own reasons, named like the store's (PurchaseFailureReason), so one report column holds both.
+        private const string ProductUnavailable = "ProductUnavailable";
+        private const string StoreNotReady = "StoreNotReady";
+        private const string NotDelivered = "NotDelivered";
+
         private readonly Dictionary<string, UniTaskCompletionSource<IapPurchaseStatus>> _waiting =
             new Dictionary<string, UniTaskCompletionSource<IapPurchaseStatus>>();
         private readonly List<ProductDefinition> _definitions = new List<ProductDefinition>();
@@ -29,6 +34,8 @@ namespace Hauntscope.Infrastructure.Purchases
         public bool IsReady { get; private set; }
 
         public event Action Changed;
+
+        public event Action<IapFailure> PurchaseFailed;
 
         public void Initialize(IReadOnlyList<IapProduct> products, Func<IapOrder, bool> deliver)
         {
@@ -47,9 +54,15 @@ namespace Hauntscope.Infrastructure.Purchases
 
         public async UniTask<IapPurchaseStatus> PurchaseAsync(string productId, CancellationToken cancellationToken)
         {
-            var product = IsReady ? _controller.GetProductById(productId) : null;
-            if (product == null || !product.availableToPurchase || _waiting.ContainsKey(productId))
+            if (_waiting.ContainsKey(productId))
                 return IapPurchaseStatus.Unavailable;
+
+            var product = IsReady ? _controller.GetProductById(productId) : null;
+            if (product == null || !product.availableToPurchase)
+            {
+                PurchaseFailed?.Invoke(new IapFailure(productId, IsReady ? ProductUnavailable : StoreNotReady, false));
+                return IapPurchaseStatus.Unavailable;
+            }
 
             var completion = new UniTaskCompletionSource<IapPurchaseStatus>();
             _waiting[productId] = completion;
@@ -123,6 +136,7 @@ namespace Hauntscope.Infrastructure.Purchases
             else
             {
                 _reporter.RecordNonFatal(CrashKeys.IapArea, $"order for '{id}' not delivered");
+                PurchaseFailed?.Invoke(new IapFailure(id, NotDelivered, false));
                 Complete(id, IapPurchaseStatus.Failed);
             }
         }
@@ -138,10 +152,12 @@ namespace Hauntscope.Infrastructure.Purchases
 
         private void OnPurchaseFailed(FailedOrder order)
         {
+            var id = ProductId(order);
             var cancelled = order.FailureReason == PurchaseFailureReason.UserCancelled;
             if (!cancelled)
                 _reporter.RecordNonFatal(CrashKeys.IapArea, $"purchase failed: {order.FailureReason}");
-            Complete(ProductId(order), cancelled ? IapPurchaseStatus.Cancelled : IapPurchaseStatus.Failed);
+            PurchaseFailed?.Invoke(new IapFailure(id, order.FailureReason.ToString(), cancelled));
+            Complete(id, cancelled ? IapPurchaseStatus.Cancelled : IapPurchaseStatus.Failed);
         }
 
         private void OnPurchaseDeferred(DeferredOrder order)

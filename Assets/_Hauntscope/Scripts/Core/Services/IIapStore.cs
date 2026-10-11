@@ -14,6 +14,9 @@ namespace Hauntscope.Core.Services
         // Prices arrived (or the store went away).
         event Action Changed;
 
+        // A purchase the player started did not go through: closed by the player, or refused by the store.
+        event Action<IapFailure> PurchaseFailed;
+
         void Initialize(IReadOnlyList<IapProduct> products, Func<IapOrder, bool> deliver);
 
         // The store's localized price, or empty while it is unknown.

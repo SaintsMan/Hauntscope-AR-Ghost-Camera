@@ -261,6 +261,7 @@ namespace Hauntscope.Bootstrap
             builder.Register(resolver => resolver.Resolve<PurchaseHistoryRepository>().Load(), Lifetime.Singleton);
             builder.Register<IapGrant>(Lifetime.Singleton);
             builder.RegisterEntryPoint<PaidStore>().AsSelf();
+            builder.RegisterEntryPoint<PurchaseAnalytics>();
             builder.Register<StarterOffer>(Lifetime.Singleton);
             builder.Register<PremiumOffer>(Lifetime.Singleton);
             builder.Register<OfferMoments>(Lifetime.Singleton);

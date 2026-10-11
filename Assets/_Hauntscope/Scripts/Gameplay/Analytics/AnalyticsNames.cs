@@ -20,6 +20,8 @@ namespace Hauntscope.Gameplay.Analytics
         public const string PushReceived = "push_received";
         public const string PushSubscribed = "push_subscribed";
         public const string ReminderOpen = "reminder_open";
+        public const string PurchaseCancelled = "purchase_cancelled";
+        public const string PurchaseFailed = "purchase_failed";
 
         public const string Environment = "environment";
         public const string Mode = "mode";
@@ -36,6 +38,8 @@ namespace Hauntscope.Gameplay.Analytics
         public const string Topic = "topic";
         public const string Language = "lang";
         public const string Kind = "kind";
+        public const string ProductId = "product_id";
+        public const string Reason = "reason";
 
         public const string Quit = "quit";
         public const string Photo = "photo";

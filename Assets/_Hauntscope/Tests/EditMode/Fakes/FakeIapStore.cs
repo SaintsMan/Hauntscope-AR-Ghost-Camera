@@ -16,8 +16,11 @@ namespace Hauntscope.Tests.EditMode.Fakes
         public IapPurchaseStatus Outcome { get; set; } = IapPurchaseStatus.Purchased;
         public List<IapProduct> Products { get; } = new List<IapProduct>();
         public string LastTransaction { get; private set; }
+        public string FailureReason { get; set; } = "PaymentDeclined";
 
         public event Action Changed;
+
+        public event Action<IapFailure> PurchaseFailed;
 
         public void Initialize(IReadOnlyList<IapProduct> products, Func<IapOrder, bool> deliver)
         {
@@ -32,6 +35,8 @@ namespace Hauntscope.Tests.EditMode.Fakes
 
         public UniTask<IapPurchaseStatus> PurchaseAsync(string productId, CancellationToken cancellationToken)
         {
+            if (Outcome == IapPurchaseStatus.Cancelled || Outcome == IapPurchaseStatus.Failed)
+                PurchaseFailed?.Invoke(new IapFailure(productId, FailureReason, Outcome == IapPurchaseStatus.Cancelled));
             if (Outcome != IapPurchaseStatus.Purchased)
                 return UniTask.FromResult(Outcome);
 
