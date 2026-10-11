@@ -2,6 +2,7 @@ import argparse
 import base64
 import json
 import os
+import re
 import sys
 import time
 import urllib.error
@@ -63,9 +64,14 @@ class Fcm:
                 pass
             raise PushError('HTTP %d: %s' % (error.code, detail))
 
-    def send(self, topic, title, body, validate_only):
+    def send(self, topic, title, body, validate_only, label=None):
         message = {'topic': topic, 'notification': {'title': title, 'body': body},
                    'android': {'priority': 'HIGH', 'notification': {'channel_id': CHANNEL}}}
+        if label:
+            # groups delivery per push in the FCM Data API (LiveOps/Analytics). google.* data keys
+            # (console campaign analytics) are rejected by the HTTP v1 API, so GA4 opens come from the game's push_open
+            label = re.sub(r'[^A-Za-z0-9_.~%-]', '_', label)[:50]
+            message['fcm_options'] = {'analytics_label': label}
         url = 'https://fcm.googleapis.com/v1/projects/%s/messages:send' % self.project
         data = json.dumps({'validate_only': validate_only, 'message': message}).encode('utf-8')
         request = urllib.request.Request(url, data=data, method='POST')
@@ -100,6 +106,7 @@ def main():
     parser.add_argument('message', help='JSON file: {"en": {"title": ..., "body": ...}, "uk": {...}, ...}')
     parser.add_argument('--langs', help='comma-separated subset, e.g. "uk" for a test on your own phone')
     parser.add_argument('--key', default=os.environ.get('FIREBASE_JSON_KEY'), help='Firebase admin service account JSON (default: env FIREBASE_JSON_KEY)')
+    parser.add_argument('--label', help='FCM analytics label prefix (default: message file name); the language is appended')
     parser.add_argument('--yes', action='store_true', help='send: really deliver (without it Firebase only validates)')
     args = parser.parse_args()
 
@@ -122,7 +129,8 @@ def main():
     fcm = Fcm(args.key)
     try:
         for lang in langs:
-            name = fcm.send(TOPIC_PREFIX + lang, texts[lang]['title'], texts[lang]['body'], validate_only=not args.yes)
+            name = fcm.send(TOPIC_PREFIX + lang, texts[lang]['title'], texts[lang]['body'], validate_only=not args.yes,
+                             label='%s_%s' % ((args.label or Path(args.message).stem)[:44], lang))
             print('%s %s -> %s' % ('sent     ' if args.yes else 'validated', lang, name))
     except PushError as error:
         print('ERROR: %s' % error)
