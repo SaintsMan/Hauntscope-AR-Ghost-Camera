@@ -12,11 +12,13 @@ from play_iap import Play, PlayError
 TEMPLATE = HERE / 'template.csv'
 OUTPUT = HERE / 'hauntscope_data_safety.csv'
 
-# Hauntscope's answers (GDD 5.39, privacy policy of 2026-10-09). Sources of each data type:
+# Hauntscope's answers (GDD 5.39, privacy policy of 2026-10-11). Sources of each data type:
 # AdMob + UMP collect and share IP-derived location, ad interactions, diagnostics and the advertising ID for
 # advertising, analytics and fraud prevention. Firebase Analytics (advertising ID off) collects the app instance ID,
 # IP-derived location, app interactions and Play purchase events for analytics; Firebase Cloud Messaging collects the
-# installation ID after the player turns notifications on. ARCore collects device IDs and diagnostics. Play Billing's
+# installation ID after the player turns notifications on. Firebase Crashlytics (1.0.2) collects crash logs, diagnostics
+# (device model, OS, memory, what the game was doing) and the installation ID to fix crashes; Remote Config the
+# installation ID to deliver settings. ARCore collects device IDs and diagnostics. Play Billing's
 # payment data is never seen by the app. Photos leave the device only through the share sheet the player opens.
 GENERAL = {
     'PSL_DATA_COLLECTION_COLLECTS_PERSONAL_DATA': 'true',
@@ -32,7 +34,8 @@ ADS = ['PSL_ANALYTICS', 'PSL_FRAUD_PREVENTION_SECURITY', 'PSL_ADVERTISING']
 DATA_TYPES = {
     'PSL_APPROX_LOCATION': ('LOCATION', ADS, ADS),
     'PSL_USER_INTERACTION': ('APP_ACTIVITY', ADS, ADS),
-    'PSL_PERFORMANCE_DIAGNOSTICS': ('APP_PERFORMANCE', ADS, ADS),
+    'PSL_CRASH_LOGS': ('APP_PERFORMANCE', ['PSL_APP_FUNCTIONALITY', 'PSL_ANALYTICS'], []),
+    'PSL_PERFORMANCE_DIAGNOSTICS': ('APP_PERFORMANCE', ['PSL_APP_FUNCTIONALITY'] + ADS, ADS),
     'PSL_DEVICE_ID': ('IDENTIFIERS', ['PSL_APP_FUNCTIONALITY', 'PSL_DEVELOPER_COMMUNICATIONS'] + ADS, ADS),
     'PSL_PURCHASE_HISTORY': ('FINANCIAL', ['PSL_ANALYTICS'], []),
 }
