@@ -1,0 +1,69 @@
+{
+  "parameters": {
+    "interstitial_enabled": {
+      "defaultValue": { "value": "true" },
+      "description": "Interstitial between hunts at all (false = only voluntary rewarded ads).",
+      "valueType": "BOOLEAN"
+    },
+    "interstitial_min_sessions": {
+      "defaultValue": { "value": "3" },
+      "description": "First interstitial only after this many hunts in total (0-1000).",
+      "valueType": "NUMBER"
+    },
+    "interstitial_every_hunts": {
+      "defaultValue": { "value": "3" },
+      "description": "Hunts between two interstitials (1-1000).",
+      "valueType": "NUMBER"
+    },
+    "interstitial_min_interval_s": {
+      "defaultValue": { "value": "150" },
+      "description": "Seconds since any ad, rewarded too, before an interstitial (0-86400).",
+      "valueType": "NUMBER"
+    },
+    "offers_enabled": {
+      "defaultValue": { "value": "true" },
+      "description": "The menu pitches paid offers after hunts (false = the store still sells, no popups).",
+      "valueType": "BOOLEAN"
+    },
+    "starter_offer_after_hunts": {
+      "defaultValue": { "value": "2" },
+      "description": "Rookie kit (starter_pack) offered from this many hunts (0-1000).",
+      "valueType": "NUMBER"
+    },
+    "premium_offer_after_hunts": {
+      "defaultValue": { "value": "6" },
+      "description": "Full version offered after an ad break from this many hunts (0-1000).",
+      "valueType": "NUMBER"
+    },
+    "premium_offer_every_days": {
+      "defaultValue": { "value": "3" },
+      "description": "Days between two full-version offers (1-365).",
+      "valueType": "NUMBER"
+    },
+    "kit_offer_every_days": {
+      "defaultValue": { "value": "2" },
+      "description": "Days between two field-kit offers (1-365).",
+      "valueType": "NUMBER"
+    },
+    "witching_hour_start": {
+      "defaultValue": { "value": "23" },
+      "description": "Local hour the witching hour starts (0-23). In-game texts say 23:00.",
+      "valueType": "NUMBER"
+    },
+    "witching_hour_end": {
+      "defaultValue": { "value": "4" },
+      "description": "Local hour the witching hour ends (0-23).",
+      "valueType": "NUMBER"
+    },
+    "min_version_code": {
+      "defaultValue": { "value": "0" },
+      "description": "Builds with a lower versionCode see the 'update' card in the menu (0 = nobody).",
+      "valueType": "NUMBER"
+    },
+    "season_event": {
+      "defaultValue": { "value": "halloween" },
+      "description": "Seasonal event in force (halloween); read by the game, no seasonal content uses it yet.",
+      "valueType": "STRING"
+    }
+  }
+}
