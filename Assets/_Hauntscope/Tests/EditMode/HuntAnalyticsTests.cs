@@ -16,6 +16,7 @@ namespace Hauntscope.Tests.EditMode
         private HuntSession _session;
         private HuntLaunchOptions _options;
         private FakeAnalyticsService _analytics;
+        private FakeCrashReporter _reporter;
         private HuntAnalytics _hunt;
 
         [SetUp]
@@ -29,7 +30,8 @@ namespace Hauntscope.Tests.EditMode
             _session = new HuntSession();
             _options = new HuntLaunchOptions();
             _analytics = new FakeAnalyticsService();
-            _hunt = new HuntAnalytics(_session, _options, _analytics);
+            _reporter = new FakeCrashReporter();
+            _hunt = new HuntAnalytics(_session, _options, _analytics, _reporter);
         }
 
         [TearDown]
@@ -49,6 +51,19 @@ namespace Hauntscope.Tests.EditMode
             Assert.AreEqual(1, _analytics.Count(AnalyticsNames.HuntStart));
             Assert.AreEqual("virtual", _analytics.ParameterOf(AnalyticsNames.HuntStart, AnalyticsNames.Environment));
             Assert.AreEqual("shift", _analytics.ParameterOf(AnalyticsNames.HuntStart, AnalyticsNames.Mode));
+        }
+
+        [Test]
+        public void Start_VirtualShift_PutsTheHuntIntoCrashReports()
+        {
+            _options.Select(HuntEnvironment.Virtual);
+            _options.SelectMode(HuntMode.Shift);
+
+            _hunt.Start();
+
+            Assert.AreEqual(CrashKeys.HuntScreen, _reporter.KeyOf(CrashKeys.Screen));
+            Assert.AreEqual("virtual", _reporter.KeyOf(CrashKeys.Mode));
+            Assert.AreEqual("shift", _reporter.KeyOf(CrashKeys.HuntMode));
         }
 
         [Test]

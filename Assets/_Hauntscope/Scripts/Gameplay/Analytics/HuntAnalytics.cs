@@ -9,25 +9,30 @@ using VContainer.Unity;
 namespace Hauntscope.Gameplay.Analytics
 {
     // One hunt_start per visit to the Hunt scene and one hunt_end per ghost: caught, escaped, or left behind when the
-    // player walked out of the scene mid-hunt.
+    // player walked out of the scene mid-hunt. Crash reports from here on say which camera and which kind of hunt.
     public sealed class HuntAnalytics : IStartable, IDisposable
     {
         private readonly HuntSession _session;
         private readonly HuntLaunchOptions _options;
         private readonly IAnalyticsService _analytics;
+        private readonly ICrashReporter _reporter;
         private GhostData _unfinished;
 
-        public HuntAnalytics(HuntSession session, HuntLaunchOptions options, IAnalyticsService analytics)
+        public HuntAnalytics(HuntSession session, HuntLaunchOptions options, IAnalyticsService analytics, ICrashReporter reporter)
         {
             _session = session;
             _options = options;
             _analytics = analytics;
+            _reporter = reporter;
         }
 
         public void Start()
         {
             _session.Ghost.Changed += OnGhostChanged;
             _session.Result.Changed += OnResultChanged;
+            _reporter.SetKey(CrashKeys.Screen, CrashKeys.HuntScreen);
+            _reporter.SetKey(CrashKeys.Mode, AnalyticsNames.Of(_options.Environment));
+            _reporter.SetKey(CrashKeys.HuntMode, AnalyticsNames.Of(_options.Mode));
             _analytics.Log(AnalyticsNames.HuntStart,
                 AnalyticsParameter.Of(AnalyticsNames.Environment, AnalyticsNames.Of(_options.Environment)),
                 AnalyticsParameter.Of(AnalyticsNames.Mode, AnalyticsNames.Of(_options.Mode)));

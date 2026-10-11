@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Analytics;
 using Hauntscope.Gameplay.Config;
 using UnityEngine;
 using UnityEngine.Android;
@@ -15,10 +16,12 @@ namespace Hauntscope.Infrastructure.Ads
     {
         private const string BridgeClass = "com.pavko.hauntscope.ads.AdsBridge";
         private const string Earned = "earned";
+        private const string ShowFailed = "show_failed";
         private const int MillisecondsPerSecond = 1000;
 
         private readonly AdUnitsConfig _units;
         private readonly AdsConfig _config;
+        private readonly ICrashReporter _reporter;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
         private readonly UniTaskCompletionSource<bool> _initialized = new UniTaskCompletionSource<bool>();
 
@@ -27,10 +30,11 @@ namespace Hauntscope.Infrastructure.Ads
         private UniTaskCompletionSource<bool> _interstitialShow;
         private UniTaskCompletionSource _privacyShow;
 
-        public AdMobAdsService(AdUnitsConfig units, AdsConfig config)
+        public AdMobAdsService(AdUnitsConfig units, AdsConfig config, ICrashReporter reporter)
         {
             _units = units;
             _config = config;
+            _reporter = reporter;
         }
 
         public bool IsRewardedReady { get; private set; }
@@ -104,6 +108,7 @@ namespace Hauntscope.Infrastructure.Ads
             catch (Exception exception)
             {
                 Debug.LogWarning($"Hauntscope: ads unavailable ({exception.Message}).");
+                _reporter.RecordNonFatal(CrashKeys.AdsArea, exception);
                 _initialized.TrySetResult(false);
             }
         }
@@ -130,6 +135,7 @@ namespace Hauntscope.Infrastructure.Ads
                     break;
                 case "consent_error":
                     Debug.LogWarning($"Hauntscope: consent form unavailable ({detail}).");
+                    _reporter.RecordNonFatal(CrashKeys.AdsArea, $"consent: {detail}");
                     break;
                 case "rewarded_loaded":
                     IsRewardedReady = true;
@@ -146,17 +152,26 @@ namespace Hauntscope.Infrastructure.Ads
                     RetryLater("loadInterstitial", detail);
                     break;
                 case "rewarded_closed":
+                    ReportShowFailure(detail);
                     EndShow();
                     _rewardedShow?.TrySetResult(detail == Earned);
                     break;
                 case "interstitial_closed":
+                    ReportShowFailure(detail);
                     EndShow();
-                    _interstitialShow?.TrySetResult(detail != "show_failed");
+                    _interstitialShow?.TrySetResult(detail != ShowFailed);
                     break;
                 case "privacy_closed":
                     _privacyShow?.TrySetResult();
                     break;
             }
+        }
+
+        // A loaded ad that would not show is worth a look; a load without fill is everyday life and only a breadcrumb.
+        private void ReportShowFailure(string detail)
+        {
+            if (detail == ShowFailed)
+                _reporter.RecordNonFatal(CrashKeys.AdsArea, "loaded ad failed to show");
         }
 
         // No fill or no network: try again after a pause instead of hammering the ad server.

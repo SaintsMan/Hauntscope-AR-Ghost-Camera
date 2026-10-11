@@ -5,16 +5,19 @@ using VContainer.Unity;
 
 namespace Hauntscope.UI.Menu
 {
-    // Which menu screens players actually open: one screen_view per change of screen, the shop by its tab.
+    // Which menu screens players actually open: one screen_view per change of screen, the shop by its tab. The same
+    // name tells a crash report where the player was.
     public sealed class MenuAnalytics : IStartable, IDisposable
     {
         private readonly MenuNavigation _navigation;
         private readonly IAnalyticsService _analytics;
+        private readonly ICrashReporter _reporter;
 
-        public MenuAnalytics(MenuNavigation navigation, IAnalyticsService analytics)
+        public MenuAnalytics(MenuNavigation navigation, IAnalyticsService analytics, ICrashReporter reporter)
         {
             _navigation = navigation;
             _analytics = analytics;
+            _reporter = reporter;
         }
 
         public void Start()
@@ -43,6 +46,7 @@ namespace Hauntscope.UI.Menu
                 ? AnalyticsNames.ShopPrefix + AnalyticsNames.Of(_navigation.CurrentShopTab.Value)
                 : AnalyticsNames.Of(screen);
             _analytics.Log(AnalyticsNames.ScreenView, AnalyticsParameter.Of(AnalyticsNames.ScreenName, name));
+            _reporter.SetKey(CrashKeys.Screen, name);
         }
     }
 }

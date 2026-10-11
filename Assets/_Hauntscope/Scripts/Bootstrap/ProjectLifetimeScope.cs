@@ -19,6 +19,7 @@ using Hauntscope.Gameplay.Story;
 using Hauntscope.Infrastructure.Ads;
 using Hauntscope.Infrastructure.Analytics;
 using Hauntscope.Infrastructure.Audio;
+using Hauntscope.Infrastructure.Diagnostics;
 using Hauntscope.Infrastructure.Haptics;
 using Hauntscope.Infrastructure.Input;
 using Hauntscope.Infrastructure.Lifecycle;
@@ -187,21 +188,26 @@ namespace Hauntscope.Bootstrap
             builder.Register<ICameraPermission>(resolver => new AnalyticsCameraPermission(resolver.Resolve<EditorCameraPermission>(),
                 resolver.Resolve<IAnalyticsService>()), Lifetime.Singleton);
 #endif
-            builder.Register<ArAvailability>(Lifetime.Singleton).As<IArAvailability>();
+            builder.Register<ArAvailability>(Lifetime.Singleton);
+            builder.Register<IArAvailability>(resolver => new ReportedArAvailability(resolver.Resolve<ArAvailability>(),
+                resolver.Resolve<ICrashReporter>()), Lifetime.Singleton);
             builder.Register<HuntLaunchOptions>(Lifetime.Singleton);
             builder.RegisterEntryPoint<HuntLauncher>().AsSelf();
         }
 
-        // Firebase starts once for analytics and pushes alike; in the Editor nothing is reported (GDD 5.39).
+        // Firebase starts once for analytics, crash reports and pushes alike; in the Editor nothing is reported (GDD 5.39).
         private static void RegisterAnalytics(IContainerBuilder builder)
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
             builder.Register<FirebaseGate>(Lifetime.Singleton);
             builder.RegisterEntryPoint<FirebaseAnalyticsService>().As<IAnalyticsService>();
+            builder.RegisterEntryPoint<FirebaseCrashReporter>().As<ICrashReporter>();
 #else
             builder.Register<NullAnalyticsService>(Lifetime.Singleton).As<IAnalyticsService>();
+            builder.Register<NullCrashReporter>(Lifetime.Singleton).As<ICrashReporter>();
 #endif
             builder.RegisterEntryPoint<PlayerAnalytics>();
+            builder.RegisterEntryPoint<CrashReportContext>();
         }
 
         private static void RegisterSystemNavigation(IContainerBuilder builder)

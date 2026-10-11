@@ -227,6 +227,9 @@ namespace Hauntscope.Bootstrap
             builder.RegisterComponentInHierarchy<AROcclusionManager>();
             builder.Register<ArOcclusionService>(Lifetime.Singleton).As<IOcclusionService>();
             builder.Register<ArHideSpotProvider>(Lifetime.Singleton).As<IHideSpotProvider>();
+            // Nothing asks for it; it listens to the static AR session from the moment the scope is built.
+            builder.Register<ArSessionDiagnostics>(Lifetime.Singleton);
+            builder.RegisterBuildCallback(container => container.Resolve<ArSessionDiagnostics>());
         }
 
         private void RegisterVirtualEnvironment(IContainerBuilder builder)

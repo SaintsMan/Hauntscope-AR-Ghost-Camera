@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Analytics;
 using UnityEngine;
 
 namespace Hauntscope.Infrastructure.Save
@@ -11,10 +12,12 @@ namespace Hauntscope.Infrastructure.Save
         private const string TempExtension = ".tmp";
 
         private readonly string _rootDirectory;
+        private readonly ICrashReporter _reporter;
 
-        public JsonSaveService(string rootDirectory)
+        public JsonSaveService(string rootDirectory, ICrashReporter reporter)
         {
             _rootDirectory = rootDirectory;
+            _reporter = reporter;
         }
 
         public bool TryLoad<T>(string key, out T data)
@@ -34,6 +37,7 @@ namespace Hauntscope.Infrastructure.Save
             catch (ArgumentException exception)
             {
                 Debug.LogWarning($"Save '{key}' is corrupted and will be ignored: {exception.Message}");
+                _reporter.RecordNonFatal(CrashKeys.SaveArea, $"'{key}' corrupted");
                 data = default;
                 return false;
             }

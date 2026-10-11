@@ -21,6 +21,7 @@ namespace Hauntscope.Tests.EditMode
         private FakePhotoCapture _capture;
         private PhotoAlbum _album;
         private FakeSaveService _save;
+        private FakeCrashReporter _reporter;
         private SpiritCamera _camera;
 
         [SetUp]
@@ -42,8 +43,9 @@ namespace Hauntscope.Tests.EditMode
             _capture = new FakePhotoCapture(_storage);
             _album = new PhotoAlbum(_storage, config);
             _save = new FakeSaveService();
+            _reporter = new FakeCrashReporter();
             _camera = new SpiritCamera(session, new PhotoScorer(_fixture.Camera, config), _capture, _album,
-                new PhotoAlbumRepository(_save, _storage), config, new FakeClock());
+                new PhotoAlbumRepository(_save, _storage), config, new FakeClock(), _reporter);
             _camera.BeginHunt();
         }
 
@@ -98,6 +100,19 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.IsFalse(taken);
             Assert.AreEqual(Film, _camera.Film.Value);
+        }
+
+        [Test]
+        public void ShootAsync_CaptureFails_ReportsAPhotoFailure()
+        {
+            _capture.Fails = true;
+            Arm();
+
+            UnityEngine.TestTools.LogAssert.Expect(LogType.Warning, new System.Text.RegularExpressions.Regex("photo failed"));
+            Shoot();
+
+            Assert.AreEqual(1, _reporter.NonFatals.Count);
+            StringAssert.StartsWith(Hauntscope.Gameplay.Analytics.CrashKeys.PhotoArea, _reporter.NonFatals[0]);
         }
 
         [Test]

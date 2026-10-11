@@ -1,5 +1,6 @@
 using System.IO;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Analytics;
 using UnityEngine;
 using UnityEngine.Android;
 
@@ -10,6 +11,13 @@ namespace Hauntscope.Infrastructure.Photos
     public sealed class AndroidShareService : IShareService
     {
         private const string BridgeClass = "com.pavko.hauntscope.share.ShareBridge";
+
+        private readonly ICrashReporter _reporter;
+
+        public AndroidShareService(ICrashReporter reporter)
+        {
+            _reporter = reporter;
+        }
 
         public bool CanSaveToGallery
         {
@@ -38,6 +46,7 @@ namespace Hauntscope.Infrastructure.Photos
             catch (AndroidJavaException exception)
             {
                 Debug.LogWarning($"Hauntscope: share failed: {exception.Message}");
+                _reporter.RecordNonFatal(CrashKeys.ShareArea, exception);
             }
         }
 
@@ -51,6 +60,7 @@ namespace Hauntscope.Infrastructure.Photos
             catch (AndroidJavaException exception)
             {
                 Debug.LogWarning($"Hauntscope: saving to the gallery failed: {exception.Message}");
+                _reporter.RecordNonFatal(CrashKeys.PhotoArea, exception);
                 return false;
             }
         }

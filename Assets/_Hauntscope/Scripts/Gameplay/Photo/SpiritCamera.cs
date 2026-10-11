@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Observables;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Analytics;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Hunt;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace Hauntscope.Gameplay.Photo
         private readonly PhotoAlbumRepository _repository;
         private readonly PhotoConfig _config;
         private readonly IClock _clock;
+        private readonly ICrashReporter _reporter;
         private readonly ObservableValue<int> _film = new ObservableValue<int>();
         private readonly ObservableValue<bool> _canShoot = new ObservableValue<bool>();
 
@@ -33,7 +35,8 @@ namespace Hauntscope.Gameplay.Photo
             PhotoAlbum album,
             PhotoAlbumRepository repository,
             PhotoConfig config,
-            IClock clock)
+            IClock clock,
+            ICrashReporter reporter)
         {
             _session = session;
             _scorer = scorer;
@@ -42,6 +45,7 @@ namespace Hauntscope.Gameplay.Photo
             _repository = repository;
             _config = config;
             _clock = clock;
+            _reporter = reporter;
         }
 
         public event Action ShutterReleased;
@@ -110,6 +114,7 @@ namespace Hauntscope.Gameplay.Photo
             {
                 // A failed write must not cost the player their film.
                 Debug.LogWarning($"Hauntscope: photo failed: {exception.Message}");
+                _reporter.RecordNonFatal(CrashKeys.PhotoArea, exception);
                 _film.Value++;
                 return false;
             }

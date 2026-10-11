@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Unity.Android.Types;
 using UnityEditor;
+using UnityEditor.Android;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
@@ -41,6 +43,8 @@ namespace Hauntscope.Editor
             var keystoreName = PlayerSettings.Android.keystoreName;
             var keyaliasName = PlayerSettings.Android.keyaliasName;
             var buildAppBundle = EditorUserBuildSettings.buildAppBundle;
+            var symbolLevel = UserBuildSettings.DebugSymbols.level;
+            var symbolFormat = UserBuildSettings.DebugSymbols.format;
             var testAdUnits = SwapInAdUnits(DefaultAdMobPath);
             try
             {
@@ -50,6 +54,10 @@ namespace Hauntscope.Editor
                 PlayerSettings.Android.keyaliasName = signing.Alias;
                 PlayerSettings.Android.keyaliasPass = signing.AliasPassword;
                 EditorUserBuildSettings.buildAppBundle = true;
+                // Symbol tables go to Play (inside the bundle) and to Crashlytics (the zip next to it), so native crashes
+                // arrive with function names; IL2CPP's line mapping (Player Settings) adds C# files and lines.
+                UserBuildSettings.DebugSymbols.level = DebugSymbolLevel.SymbolTable;
+                UserBuildSettings.DebugSymbols.format = DebugSymbolFormat.Zip | DebugSymbolFormat.IncludeInBundle;
 
                 var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
                 {
@@ -74,6 +82,8 @@ namespace Hauntscope.Editor
                 PlayerSettings.Android.keystoreName = keystoreName;
                 PlayerSettings.Android.keyaliasName = keyaliasName;
                 EditorUserBuildSettings.buildAppBundle = buildAppBundle;
+                UserBuildSettings.DebugSymbols.level = symbolLevel;
+                UserBuildSettings.DebugSymbols.format = symbolFormat;
                 RestoreAdUnits(testAdUnits);
                 // The build saves ProjectSettings with the signing applied; saving again writes the restored values.
                 AssetDatabase.SaveAssets();

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Analytics;
 using UnityEngine;
 using UnityEngine.Purchasing;
 
@@ -16,8 +17,14 @@ namespace Hauntscope.Infrastructure.Purchases
         private readonly Dictionary<string, UniTaskCompletionSource<IapPurchaseStatus>> _waiting =
             new Dictionary<string, UniTaskCompletionSource<IapPurchaseStatus>>();
         private readonly List<ProductDefinition> _definitions = new List<ProductDefinition>();
+        private readonly ICrashReporter _reporter;
         private StoreController _controller;
         private Func<IapOrder, bool> _deliver;
+
+        public UnityIapStore(ICrashReporter reporter)
+        {
+            _reporter = reporter;
+        }
 
         public bool IsReady { get; private set; }
 
@@ -87,6 +94,7 @@ namespace Hauntscope.Infrastructure.Purchases
             catch (Exception exception)
             {
                 Debug.LogWarning($"Hauntscope: the store did not connect ({exception.Message}).");
+                _reporter.RecordNonFatal(CrashKeys.IapArea, exception);
             }
         }
 
@@ -101,6 +109,7 @@ namespace Hauntscope.Infrastructure.Purchases
         private void OnProductsFetchFailed(ProductFetchFailed failure)
         {
             Debug.LogWarning($"Hauntscope: store products unavailable ({failure.FailureReason}).");
+            _reporter.RecordNonFatal(CrashKeys.IapArea, $"products unavailable: {failure.FailureReason}");
         }
 
         private void OnPurchasePending(PendingOrder order)
@@ -113,6 +122,7 @@ namespace Hauntscope.Infrastructure.Purchases
             }
             else
             {
+                _reporter.RecordNonFatal(CrashKeys.IapArea, $"order for '{id}' not delivered");
                 Complete(id, IapPurchaseStatus.Failed);
             }
         }
@@ -120,13 +130,18 @@ namespace Hauntscope.Infrastructure.Purchases
         private void OnPurchaseConfirmed(Order order)
         {
             if (order is FailedOrder failed)
+            {
                 Debug.LogWarning($"Hauntscope: purchase not confirmed ({failed.FailureReason}: {failed.Details}).");
+                _reporter.RecordNonFatal(CrashKeys.IapArea, $"not confirmed: {failed.FailureReason}");
+            }
         }
 
         private void OnPurchaseFailed(FailedOrder order)
         {
-            var status = order.FailureReason == PurchaseFailureReason.UserCancelled ? IapPurchaseStatus.Cancelled : IapPurchaseStatus.Failed;
-            Complete(ProductId(order), status);
+            var cancelled = order.FailureReason == PurchaseFailureReason.UserCancelled;
+            if (!cancelled)
+                _reporter.RecordNonFatal(CrashKeys.IapArea, $"purchase failed: {order.FailureReason}");
+            Complete(ProductId(order), cancelled ? IapPurchaseStatus.Cancelled : IapPurchaseStatus.Failed);
         }
 
         private void OnPurchaseDeferred(DeferredOrder order)
