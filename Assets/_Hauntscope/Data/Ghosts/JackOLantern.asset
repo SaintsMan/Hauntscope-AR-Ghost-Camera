@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6498942b478c1142b53ff236e671a09, type: 3}
+  m_Name: JackOLantern
+  m_EditorClassIdentifier: Hauntscope.Gameplay::Hauntscope.Gameplay.Config.GhostData
+  _id: jack_o_lantern
+  _nameKey: ghost.jack_o_lantern.name
+  _descriptionKey: ghost.jack_o_lantern.description
+  _icon: {fileID: 21300000, guid: af03516a253a70740b04a1f295d5a9b3, type: 3}
+  _rarity: 1
+  _prefab: {fileID: 1473949614934878262, guid: 92ac5456cd561ef4db3265719dcbea03, type: 3}
+  _rimColor: {r: 1, g: 0.47843137, b: 0.101960786, a: 1}
+  _voice:
+    _whisper: {fileID: 8300000, guid: a31fac7ab7c5c4e40b572783bf54c692, type: 3}
+    _ability: {fileID: 8300000, guid: eccdf8054cfb98540a3ae7b184ac3bf0, type: 3}
+    _scare: {fileID: 8300000, guid: 30ec12767ad554443ac46b94c25af8a3, type: 3}
+    _capture: {fileID: 8300000, guid: 617cfee19bb083e42b9bd7d768974f04, type: 3}
+    _escape: {fileID: 8300000, guid: 40548738d645a754e86eee014df070e1, type: 3}
+    _stagger: {fileID: 8300000, guid: 30cd54f59e95a3d438449b820f9e4384, type: 3}
+    _evp: {fileID: 8300000, guid: 31e47cb25c7c4d84c98a16c9f90d835c, type: 3}
+  _canHide: 0
+  _canScare: 1
+  _nightOnly: 0
+  _photoOnly: 0
+  _hasOwnHide: 0
+  _seasonEvent: halloween
+  _carvesFace: 1
+  _hide:
+    _chance: 0.3
+    _cooldown: 20
+    _durationMin: 6
+    _durationMax: 10
+    _floorClearanceMin: 0.02
+    _floorClearanceMax: 0.15
+    _revealRange: 1.2
+    _flushStagger: 1
+    _minDistance: 2
+    _wallOffset: 0.35
+    _cornerInset: 0.4
+  _motion:
+    _moveSpeed: 0.5
+    _fleeSpeed: 1.7
+    _hoverHeightMin: 0.5
+    _hoverHeightMax: 0.9
+    _bodyBottom: -0.5783423
+    _bodyTop: 0.5519613
+  _detection:
+    _emfRange: 6
+    _revealRange: 3
+  _capture:
+    _resistance: 1.2
+    _reward: 55
+    _surgeJerk: 0.3
+  _dossier:
+    _rumorKey: ghost.jack_o_lantern.rumor
+    _behaviorKey: ghost.jack_o_lantern.behavior
+    _tacticsKey: ghost.jack_o_lantern.tactics
+    _classifiedKey: ghost.jack_o_lantern.classified
+    _tipKey: ghost.jack_o_lantern.tip
+    _bestToolKey: ghost.jack_o_lantern.best_tool
+    _threat: 3
+  _abilities:
+  - {fileID: 11400000, guid: 9cc6d353e0915ed48913ce13673aefec, type: 2}

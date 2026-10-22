@@ -57,6 +57,10 @@ namespace Hauntscope.Editor
 
         public static ParticleSystem DevelopFlash { get; private set; }
 
+        public static ParticleSystem PumpkinFlare { get; private set; }
+
+        public static ParticleSystem PumpkinPuff { get; private set; }
+
         public static GameObject CaptureBeamRig { get; private set; }
 
         // Ghosts can be rebuilt on their own: their trails then use the particle materials already on disk.
@@ -87,6 +91,7 @@ namespace Hauntscope.Editor
             ShriekWave = BuildShriekWave();
             KnockDust = BuildKnockDust();
             DevelopFlash = BuildDevelopFlash();
+            BuildHalloween();
             BuildBeamNoise();
             CaptureBeamRig = BuildCaptureBeam();
             AssetDatabase.SaveAssets();
@@ -616,6 +621,90 @@ namespace Hauntscope.Editor
                 Sphere(grit, 0.12f, 1f);
                 Drag(grit, 0.1f);
                 AlphaOverLifetime(grit, 1f, 0.3f, 1f, 1f, 0f);
+
+                return SavePrefab(root);
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+
+        // The Halloween event's two bursts (GDD 5.42); they can be rebuilt alone from the particle materials on disk.
+        internal static void BuildHalloween()
+        {
+            LoadMaterials();
+            PumpkinFlare = BuildPumpkinFlare();
+            PumpkinPuff = BuildPumpkinPuff();
+        }
+
+        // The real jack-o'-lantern waking: a hard flash where the eyes flare, a ring snapping out and a shower of embers
+        // thrown up and drifting down.
+        private static ParticleSystem BuildPumpkinFlare()
+        {
+            var root = CreateRoot("PumpkinFlare");
+            try
+            {
+                var core = root.GetComponent<ParticleSystem>();
+                ConfigureOneShot(core, 0.1f, 0.3f, 0f, 0.9f);
+                Burst(core, 0f, 1);
+                SizeOverLifetime(core, Curve(0f, 0.4f, 0.2f, 1f, 1f, 0.7f));
+                AlphaOverLifetime(core, 1f, 0.1f, 1f, 1f, 0f);
+
+                var ring = CreateSystem("Ring", root.transform, _ring, 2);
+                ConfigureOneShot(ring, 0.1f, 0.5f, 0f, 1.5f);
+                Burst(ring, 0f, 1);
+                SizeOverLifetime(ring, Curve(0f, 0.1f, 0.5f, 0.85f, 1f, 1f));
+                AlphaOverLifetime(ring, 1f, 0.2f, 0.9f, 1f, 0f);
+
+                var embers = CreateSystem("Embers", root.transform, _dot, 60);
+                ConfigureOneShot(embers, 0.1f, new ParticleSystem.MinMaxCurve(0.9f, 1.6f), new ParticleSystem.MinMaxCurve(0.6f, 1.6f),
+                    new ParticleSystem.MinMaxCurve(0.012f, 0.03f));
+                var emberMain = embers.main;
+                emberMain.gravityModifier = -0.05f;
+                Burst(embers, 0f, 50);
+                Sphere(embers, 0.18f, 1f);
+                Drag(embers, 0.15f);
+                Noise(embers, 0.15f, 2.5f);
+                AlphaOverLifetime(embers, 1f, 0.3f, 1f, 1f, 0f);
+
+                return SavePrefab(root);
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+
+        // An empty pumpkin giving up: a dull puff of smoke and a few dying sparks.
+        private static ParticleSystem BuildPumpkinPuff()
+        {
+            var root = CreateRoot("PumpkinPuff");
+            try
+            {
+                var smoke = root.GetComponent<ParticleSystem>();
+                smoke.GetComponent<ParticleSystemRenderer>().sharedMaterial = _smoke;
+                ConfigureOneShot(smoke, 0.1f, new ParticleSystem.MinMaxCurve(0.8f, 1.3f), new ParticleSystem.MinMaxCurve(0.1f, 0.3f),
+                    new ParticleSystem.MinMaxCurve(0.12f, 0.22f));
+                var smokeMain = smoke.main;
+                smokeMain.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
+                Burst(smoke, 0f, 7);
+                Sphere(smoke, 0.1f, 1f);
+                Drag(smoke, 0.4f);
+                Drift(smoke, 0.12f);
+                Spin(smoke, 25f);
+                SizeOverLifetime(smoke, Curve(0f, 0.5f, 1f, 1.7f));
+                AlphaOverLifetime(smoke, 0f, 0.15f, 0.35f, 1f, 0f);
+
+                var sparks = CreateSystem("Sparks", root.transform, _dot, 20);
+                ConfigureOneShot(sparks, 0.1f, new ParticleSystem.MinMaxCurve(0.3f, 0.6f), new ParticleSystem.MinMaxCurve(0.3f, 0.9f),
+                    new ParticleSystem.MinMaxCurve(0.008f, 0.018f));
+                var sparkMain = sparks.main;
+                sparkMain.gravityModifier = 0.4f;
+                Burst(sparks, 0f, 12);
+                Sphere(sparks, 0.08f, 1f);
+                Drag(sparks, 0.2f);
+                AlphaOverLifetime(sparks, 1f, 0.3f, 1f, 1f, 0f);
 
                 return SavePrefab(root);
             }

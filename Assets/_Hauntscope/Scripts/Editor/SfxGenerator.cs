@@ -73,6 +73,7 @@ namespace Hauntscope.Editor
             Save(SfxFolder, "EvpTape", EvpTape(), -16f, true);
             Save(SfxFolder, "EvpStop", EvpStop(), -6f, false);
             Save(SfxFolder, "EvpStatic", GhostEvp.Static(331), -6f, false);
+            HalloweenSfx.BuildAll();
             Save(AmbientFolder, "AmbientDrone", AmbientDrone(), -8f, true);
             Save(AmbientFolder, "AmbientStatic", AmbientStatic(), -10f, true);
         }

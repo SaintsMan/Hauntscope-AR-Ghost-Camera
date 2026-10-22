@@ -16,10 +16,14 @@ namespace Hauntscope.Editor
         private const string MaterialFolder = Root + "/Art/Materials/Ghosts";
         private const int BodySubmesh = 0;
 
+        // The jack-o'-lantern's empty pumpkins, built before it so its ability can point at them.
+        private static GhostView _pumpkinDecoy;
+
         [MenuItem("Hauntscope/Build Ghosts")]
         public static void Build()
         {
             VfxGenerator.LoadMaterials();
+            _pumpkinDecoy = BuildView(GhostRecipes.PumpkinDecoy());
             var recipes = GhostRecipes.All();
             var ghosts = new GhostData[recipes.Length];
             for (var i = 0; i < recipes.Length; i++)
@@ -30,6 +34,13 @@ namespace Hauntscope.Editor
             Debug.Log($"Hauntscope: built {ghosts.Length} ghosts.");
         }
 
+        private static GhostView BuildView(GhostRecipe recipe)
+        {
+            var mesh = BuildMesh(recipe);
+            var body = mesh.GetSubMesh(BodySubmesh).bounds;
+            return BuildPrefab(recipe, mesh, body, BuildMaterials(recipe, body));
+        }
+
         private static GhostData BuildGhost(GhostRecipe recipe)
         {
             var mesh = BuildMesh(recipe);
@@ -38,7 +49,10 @@ namespace Hauntscope.Editor
             var prefab = BuildPrefab(recipe, mesh, body, materials);
             var ability = BuildAbility(recipe);
             var voice = recipe.Voice != null ? GhostVoiceGenerator.Build(recipe.AssetName, recipe.Voice) : new GhostVoice();
-            var icon = GhostIconGenerator.Render(prefab.gameObject, recipe.RimColor, $"{Root}/Art/Sprites/Ghosts/{recipe.AssetName}Icon.png");
+            var iconPath = $"{Root}/Art/Sprites/Ghosts/{recipe.AssetName}Icon.png";
+            var icon = recipe.PaintedIcon
+                ? AssetDatabase.LoadAssetAtPath<Sprite>(iconPath)
+                : GhostIconGenerator.Render(prefab.gameObject, recipe.RimColor, iconPath);
             return BuildData(recipe, prefab, body, ability, voice, icon);
         }
 
@@ -158,11 +172,26 @@ namespace Hauntscope.Editor
 
             var ability = AssetDatabase.LoadAssetAtPath<GhostAbilityConfig>(recipe.AbilityPath);
             if (ability != null)
+            {
+                WirePumpkins(ability);
                 return ability;
+            }
 
             ability = (GhostAbilityConfig)ScriptableObject.CreateInstance(recipe.AbilityType);
             AssetDatabase.CreateAsset(ability, recipe.AbilityPath);
+            WirePumpkins(ability);
             return ability;
+        }
+
+        private static void WirePumpkins(GhostAbilityConfig ability)
+        {
+            if (!(ability is PumpkinPatchAbilityConfig))
+                return;
+
+            var serialized = new SerializedObject(ability);
+            serialized.FindProperty("_decoyPrefab").objectReferenceValue = _pumpkinDecoy;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(ability);
         }
 
         private static GhostData BuildData(GhostRecipe recipe, GhostView prefab, Bounds body, GhostAbilityConfig ability, GhostVoice voice,
@@ -195,6 +224,8 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_canScare").boolValue = recipe.CanScare;
             serialized.FindProperty("_nightOnly").boolValue = recipe.NightOnly;
             serialized.FindProperty("_photoOnly").boolValue = recipe.PhotoOnly;
+            serialized.FindProperty("_seasonEvent").stringValue = recipe.SeasonEvent;
+            serialized.FindProperty("_carvesFace").boolValue = recipe.CarvesFace;
             serialized.FindProperty("_hasOwnHide").boolValue = recipe.OwnHide != null;
             serialized.FindProperty("_hide").boxedValue = recipe.OwnHide ?? new HideConfig();
             serialized.FindProperty("_motion._hoverHeightMin").floatValue = recipe.HoverMin;

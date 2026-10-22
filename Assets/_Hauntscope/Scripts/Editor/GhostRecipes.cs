@@ -118,8 +118,49 @@ namespace Hauntscope.Editor
                         .Hem(0.05f, 0.35f, 2.5f).Motion(0.006f, 0.7f, 0.02f, 0.35f))
                     .Leaves(new GhostVfxProfile().WithTrail(TrailLook.Smoke, 16f, 0.08f, 0.2f, 1.8f, 2.8f, -0.02f, 0.04f).WithMotes(4f, 0.05f)
                         .WithAura(6f, 0.35f, 0.7f, 0.5f).WithHalo(1.4f, 0.18f))
-                    .Sounds(GhostVoices.Mara())
+                    .Sounds(GhostVoices.Mara()),
+                // The Halloween event's ghost (GDD 5.42): never in the everyday draw, only while the event runs.
+                new GhostRecipe("jack_o_lantern", "JackOLantern", GhostRarity.Rare, "#FF7A1A", GhostMeshGenerator.BuildJackOLantern)
+                    .Moves(0.5f, 1.7f, 0.5f, 0.9f).Catch(1.2f, 55, 3, surgeJerk: 0.3f).Rules(canHide: false)
+                    .Seasonal("halloween", carvesFace: true).WithPaintedIcon()
+                    .Features(JackFace())
+                    .Ability<PumpkinPatchAbilityConfig>(Abilities + "JackPumpkinPatch.asset")
+                    .Looks(JackLook())
+                    .Leaves(new GhostVfxProfile().WithTrail(TrailLook.Dust, 14f, 0.015f, 0.04f, 0.9f, 1.5f, 0.1f, 0.04f).WithMotes(10f, 0.12f)
+                        .WithAura(10f, 0.3f, 0.55f, 1.6f).WithHalo(1.1f, 0.2f))
+                    .Sounds(GhostVoices.JackOLantern())
             };
+        }
+
+        // The empty pumpkins the jack-o'-lantern hides among: the same body and face, no voice and no ability of their own.
+        public static GhostRecipe PumpkinDecoy()
+        {
+            return new GhostRecipe("pumpkin_decoy", "PumpkinDecoy", GhostRarity.Rare, "#FF7A1A", GhostMeshGenerator.BuildJackOLantern)
+                .Features(JackFace()).Looks(JackLook())
+                .Leaves(new GhostVfxProfile().WithTrail(TrailLook.Dust, 6f, 0.01f, 0.03f, 0.7f, 1.2f, 0.08f).WithMotes(4f, 0.1f)
+                    .WithAura(4f, 0.25f, 0.5f, 1.2f).WithHalo(0.9f, 0.14f));
+        }
+
+        // Triangle eyes, a small triangle nose and a jagged grin, in the pumpkin's lit front.
+        private static GhostFace JackFace()
+        {
+            const float z = 0.295f;
+            const float y = 0.17f;
+            return new GhostFace()
+                .Spike(new Vector3(-0.105f, y + 0.0f, z), new Vector3(-0.095f, y + 0.095f, z), 0.05f)
+                .Spike(new Vector3(0.105f, y + 0.0f, z), new Vector3(0.095f, y + 0.095f, z), 0.05f)
+                .Spike(new Vector3(0f, y - 0.03f, z + 0.02f), new Vector3(0f, y - 0.075f, z + 0.02f), 0.02f)
+                .Teeth(new Vector3(-0.16f, y - 0.1f, 0.265f), new Vector3(0f, y - 0.155f, 0.3f), new Vector3(0.16f, y - 0.1f, 0.265f), 6,
+                    new Vector3(0f, -0.075f, 0f), 0.032f)
+                .Teeth(new Vector3(-0.13f, y - 0.215f, 0.255f), new Vector3(0f, y - 0.255f, 0.285f), new Vector3(0.13f, y - 0.215f, 0.255f), 5,
+                    new Vector3(0f, 0.07f, 0f), 0.028f);
+        }
+
+        // A lit pumpkin: warm translucent shell, amber eyes.
+        private static GhostLook JackLook()
+        {
+            return new GhostLook().Body(0.3f, 2.1f, 1.7f, 0.4f, 3.2f).Hem(0.04f, 0.3f, 3.5f).Motion(0.012f, 1.2f, 0.03f, 0.6f)
+                .Eyes(new Color(1f, 0.74f, 0.25f, 1f));
         }
     }
 }

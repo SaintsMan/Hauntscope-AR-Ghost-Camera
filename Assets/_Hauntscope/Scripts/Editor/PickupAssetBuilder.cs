@@ -30,7 +30,11 @@ namespace Hauntscope.Editor
                 new PickupSpawnRule(PickupTrigger.HuntStart, 0.3f, 1, 1, 0f), minAmount: 15, maxAmount: 25),
             new Recipe("battery_cell", "BatteryCell", "#4FF5E6", PickupMeshGenerator.BuildCellShell, PickupMeshGenerator.BuildCellCore,
                 false, true, "PickupCell", "CellBeacon", "hud.pickup.charge", "hud.pickup.cell_nearby", typeof(ChargePickupData),
-                new PickupSpawnRule(PickupTrigger.LowBattery, 1f, 1, 1, 0.5f), charge: 0.35f)
+                new PickupSpawnRule(PickupTrigger.LowBattery, 1f, 1, 1, 0.5f), charge: 0.35f),
+            // The Halloween event's candy (GDD 5.42): seen only through the lens, so finding it costs battery.
+            new Recipe("candy", "Candy", "#FF7A1A", PickupMeshGenerator.BuildCandyShell, PickupMeshGenerator.BuildCandyCore,
+                true, false, "PickupCandy", null, "hud.pickup.candy", null, typeof(CandyPickupData),
+                new PickupSpawnRule(PickupTrigger.HuntStart, 1f, 3, 5, 0f, "halloween"))
         };
 
         [MenuItem("Hauntscope/Build Pickups")]
@@ -50,7 +54,7 @@ namespace Hauntscope.Editor
                 var prefab = BuildPrefab(recipe, shell, core);
                 var data = BuildData(recipe, prefab);
                 var rule = recipe.Spawn;
-                spawns[i] = new PickupSpawn(data, rule.Trigger, rule.Chance, rule.CountMin, rule.CountMax, rule.BatteryBelow);
+                spawns[i] = new PickupSpawn(data, rule.Trigger, rule.Chance, rule.CountMin, rule.CountMax, rule.BatteryBelow, rule.Season);
             }
 
             Register(spawns);
@@ -156,6 +160,10 @@ namespace Hauntscope.Editor
                 serialized.FindProperty("_minAmount").intValue = recipe.MinAmount;
                 serialized.FindProperty("_maxAmount").intValue = recipe.MaxAmount;
             }
+            else if (recipe.DataType == typeof(CandyPickupData))
+            {
+                serialized.FindProperty("_amount").intValue = 1;
+            }
             else
             {
                 serialized.FindProperty("_charge").floatValue = recipe.Charge;
@@ -181,6 +189,7 @@ namespace Hauntscope.Editor
                 element.FindPropertyRelative("_countMin").intValue = spawns[i].CountMin;
                 element.FindPropertyRelative("_countMax").intValue = spawns[i].CountMax;
                 element.FindPropertyRelative("_batteryBelow").floatValue = spawns[i].BatteryBelow;
+                element.FindPropertyRelative("_season").stringValue = spawns[i].Season;
             }
 
             serialized.ApplyModifiedPropertiesWithoutUndo();
@@ -203,8 +212,9 @@ namespace Hauntscope.Editor
 
         private readonly struct PickupSpawnRule
         {
-            public PickupSpawnRule(PickupTrigger trigger, float chance, int countMin, int countMax, float batteryBelow)
+            public PickupSpawnRule(PickupTrigger trigger, float chance, int countMin, int countMax, float batteryBelow, string season = "")
             {
+                Season = season;
                 Trigger = trigger;
                 Chance = chance;
                 CountMin = countMin;
@@ -221,6 +231,8 @@ namespace Hauntscope.Editor
             public int CountMax { get; }
 
             public float BatteryBelow { get; }
+
+            public string Season { get; }
         }
 
         private sealed class Recipe

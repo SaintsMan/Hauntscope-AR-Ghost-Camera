@@ -68,6 +68,38 @@ namespace Hauntscope.Editor
             Combine(mesh, parts);
         }
 
+        // Halloween candy (GDD 5.42): a wrapped sweet standing on its end, the wrapper twisted into a bow at both ends;
+        // the core is the sweet itself, glowing inside the wrapper.
+        public static void BuildCandyShell(Mesh mesh)
+        {
+            Lathe(mesh, Scale(new[]
+            {
+                new Vector2(0f, 0.01f), new Vector2(0.02f, 0.025f), new Vector2(0.058f, 0.045f), new Vector2(0.046f, 0.062f),
+                new Vector2(0.02f, 0.072f), new Vector2(0.05f, 0.086f), new Vector2(0.064f, 0.11f), new Vector2(0.05f, 0.138f),
+                new Vector2(0.02f, 0.148f), new Vector2(0.046f, 0.158f), new Vector2(0.058f, 0.175f), new Vector2(0.02f, 0.195f),
+                new Vector2(0f, 0.21f)
+            }, CandyScale));
+        }
+
+        public static void BuildCandyCore(Mesh mesh)
+        {
+            Lathe(mesh, Scale(new[]
+            {
+                new Vector2(0f, 0.082f), new Vector2(0.034f, 0.092f), new Vector2(0.046f, 0.11f), new Vector2(0.034f, 0.128f),
+                new Vector2(0f, 0.138f)
+            }, CandyScale));
+        }
+
+        private const float CandyScale = 1.5f;
+
+        private static Vector2[] Scale(Vector2[] profile, float factor)
+        {
+            var scaled = new Vector2[profile.Length];
+            for (var i = 0; i < profile.Length; i++)
+                scaled[i] = profile[i] * factor;
+            return scaled;
+        }
+
         private static CombineInstance Part(System.Action<Mesh> build, Matrix4x4 transform)
         {
             var part = new Mesh();

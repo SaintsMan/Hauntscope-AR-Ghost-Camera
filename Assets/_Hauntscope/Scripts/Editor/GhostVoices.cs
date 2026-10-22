@@ -160,6 +160,20 @@ namespace Hauntscope.Editor
                 .WithEvp(() => Name(323, 380f, 1.3f, 0.8f, S(Onset.Hum, A, 0.32f), S(Onset.None, A, U, 0.5f)));
         }
 
+        // A hollow, wheezing giggle from inside a lantern: a rasping whisper, a wooden rattle as the eyes flare, a cackle
+        // when it is startled, a "wheeoo" as the beam takes it and a snickering retreat. Spooky, never cruel.
+        public static GhostVoiceRecipe JackOLantern()
+        {
+            return new GhostVoiceRecipe(() => SfxGenerator.Whisper(163, 0.9f, 0.2f, 0.5f, 0.15f, 0.5f, 0.15f, 1.8f, 0.3f, 1.1f))
+                .WithAbility(() => Mix(Laugh(5, 300f, 0.1f, 0.05f, 0.3f, E, 261, 1.1f), Clatter(0.5f, 8, 262), 0.7f, 0.1f))
+                .WithCries(
+                    () => Reverb(Voice(0.7f, t => 300f + 180f * t, A, E, 6f, 0.04f, 0.35f, 1.5f, 0.02f, 0.3f, 1.05f, 263), 0.3f, 0.7f, 0.3f),
+                    () => Sucked(Moan(1.3f, 420f, 200f, O, U, 0.05f, 0.35f, 1.1f, 264, 1f)),
+                    () => Laugh(7, 340f, 0.1f, 0.05f, 0.3f, O, 265, 1.05f),
+                    () => Grunt(0.22f, 280f, O, 0.3f, 266, 1.05f))
+                .WithEvp(() => Name(325, 240f, 1.05f, 0.5f, S(Onset.Hum, U, O, 0.22f), S(Onset.Stop, I, 0.2f), S(Onset.Hiss, E, 0.2f)));
+        }
+
         // A cat through and through: it purrs, meows when it sits, trills when startled, hisses on its way out and
         // mews long as the beam takes it. It never screams: the cat does not scare.
         public static GhostVoiceRecipe PhantomCat()

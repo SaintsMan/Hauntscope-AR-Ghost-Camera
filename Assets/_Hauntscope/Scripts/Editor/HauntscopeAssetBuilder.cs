@@ -34,6 +34,7 @@ namespace Hauntscope.Editor
             ContractAssetBuilder.Build();
             LoginAssetBuilder.Build();
             ViewFilterAssetBuilder.Build();
+            HalloweenAssetBuilder.BuildConfig();
             WireConfig(config);
         }
 
@@ -78,6 +79,9 @@ namespace Hauntscope.Editor
             SetClip(serialized, "_audio._catMeow", SfxFolder, "CatMeow");
             SetClip(serialized, "_audio._catPurr", SfxFolder, "CatPurr");
             SetClip(serialized, "_audio._knock", SfxFolder, "Knock");
+            SetClip(serialized, "_audio._pumpkinDud", SfxFolder, "PumpkinDud");
+            SetClip(serialized, "_audio._carve", SfxFolder, "PumpkinCarve");
+            SetClip(serialized, "_audio._candyChime", SfxFolder, "CandyChime");
             SetClip(serialized, "_spiritBox._sweepClip", SfxFolder, "SpiritBoxSweep");
             SetClip(serialized, "_spiritBox._crackleClip", SfxFolder, "SpiritBoxCrackle");
             SetClip(serialized, "_spiritBox._toggleClip", SfxFolder, "SpiritBoxToggle");
@@ -105,6 +109,8 @@ namespace Hauntscope.Editor
             serialized.FindProperty("_vfx._shriekWave").objectReferenceValue = VfxGenerator.ShriekWave;
             serialized.FindProperty("_vfx._knockDust").objectReferenceValue = VfxGenerator.KnockDust;
             serialized.FindProperty("_vfx._developFlash").objectReferenceValue = VfxGenerator.DevelopFlash;
+            serialized.FindProperty("_vfx._pumpkinFlare").objectReferenceValue = VfxGenerator.PumpkinFlare;
+            serialized.FindProperty("_vfx._pumpkinPuff").objectReferenceValue = VfxGenerator.PumpkinPuff;
             serialized.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(config);
             AssetDatabase.SaveAssets();

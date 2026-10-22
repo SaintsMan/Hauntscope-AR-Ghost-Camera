@@ -648,6 +648,49 @@ namespace Hauntscope.Editor
             });
         }
 
+        // The jack-o'-lantern (GDD 5.42): a ribbed pumpkin head floating over a short tattered cloak, a curled stem on top
+        // and two little hands held out of the cloak. The face is carved in by its recipe. The same mesh makes the empty
+        // pumpkins it hides among, so only the lens can tell them apart.
+        public static void BuildJackOLantern(Mesh mesh)
+        {
+            const float height = 0.95f;
+            const float neck = 0.34f;
+            const float headCenter = 0.64f;
+            const float headHalf = 0.31f;
+            const float headRadius = 0.3f;
+            const float ribs = 9f;
+
+            Lathe(mesh, height, (v, angle) =>
+            {
+                var cloak = Mathf.Lerp(0.26f, 0.1f, SmoothStep(0.02f, neck, v));
+                var t = (v - headCenter) / headHalf;
+                var radius = 0f;
+                if (t < 1f)
+                {
+                    var lobes = 1f + 0.075f * Mathf.Cos(ribs * (angle - Forward)) * (1f - t * t);
+                    var pumpkin = Mathf.Abs(t) < 1f ? headRadius * Mathf.Sqrt(1f - t * t) * lobes : 0f;
+                    radius = Mathf.Max(v < neck + 0.02f ? cloak : cloak * (1f - SmoothStep(neck, neck + 0.08f, v)), pumpkin);
+                }
+
+                var y = v * height + Mathf.Pow(1f - v, 8f) * 0.07f * (Mathf.Sin(6f * angle) + 0.5f * Mathf.Sin(11f * angle + 1f));
+                return OnRing(radius, angle, y);
+            }, (vertices, triangles, surface) =>
+            {
+                var top = surface(headCenter + headHalf * 0.96f, Forward);
+                var stemRoot = top - new Vector3(0f, 0.03f, 0f);
+                AddTube(vertices, triangles, stemRoot, stemRoot + new Vector3(0.01f, 0.09f, -0.01f),
+                    stemRoot + new Vector3(0.05f, 0.15f, -0.05f), 0.036f, 0.022f, 10, 12);
+
+                foreach (var side in new[] { -1f, 1f })
+                {
+                    var root = surface(0.22f, Forward - side * 1.45f);
+                    var outward = new Vector3(side, 0f, 0f);
+                    AddTube(vertices, triangles, root - outward * 0.03f, root + outward * 0.05f + Vector3.down * 0.005f,
+                        root + outward * 0.09f + new Vector3(0f, 0.03f, 0.05f), 0.032f, 0.02f, 8, 12);
+                }
+            });
+        }
+
         // The glowing face (eyes, mouth, teeth) as the body's second submesh: in the same object space it moves with
         // the face as the shader breathes and sways the body.
         public static void AddFace(Mesh mesh, Mesh face)

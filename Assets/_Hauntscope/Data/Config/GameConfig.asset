@@ -34,6 +34,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: d85a3aaaf7fa6784dae4986f2e7c8a2d, type: 2}
     - {fileID: 11400000, guid: 914c3025178e5be4d9f965eb5557e386, type: 2}
     - {fileID: 11400000, guid: 28c5f01c9bb9d834983ed6fffcd6d9cc, type: 2}
+    - {fileID: 11400000, guid: 51677d879181d014b970d255ea0295bb, type: 2}
     _firstGhostId: wisp
     _secondGhostId: poltergeist
     _commonWeight: 60
@@ -50,6 +51,7 @@ MonoBehaviour:
     _fleeCalmDownTime: 2
     _fleeDistance: 2.5
     _fleeRetargetInterval: 0.6
+    _beamedFleeScale: 1
     _captureDuration: 1.2
     _captureSpiralTurns: 2
     _captureSpiralRadius: 0.3
@@ -179,6 +181,12 @@ MonoBehaviour:
     _knockVolume: 1
     _rattleVolume: 0.9
     _developVolume: 0.8
+    _pumpkinDud: {fileID: 8300000, guid: bad5a26fd07e82f40815dc3dae1e11b1, type: 3}
+    _pumpkinDudVolume: 0.8
+    _carve: {fileID: 8300000, guid: fb5098d36cfd9e349b503e9bb39b3459, type: 3}
+    _carveVolume: 1
+    _candyChime: {fileID: 8300000, guid: ec6340a1c2fd8df4bb22264bcccb0e32, type: 3}
+    _candyChimeVolume: 0.8
   _vfx:
     _captureSpiral: {fileID: 3482571195191366530, guid: 6cc077c0fffe26544bbff774130ad3fc, type: 3}
     _teleportFlash: {fileID: 9163850681629320366, guid: d281b30d52bb11d4fae5ccc1d73b5dcf, type: 3}
@@ -190,6 +198,8 @@ MonoBehaviour:
     _shriekWave: {fileID: 1191439139199968191, guid: a8d56733fcd08ba4bb5c18228c1ad607, type: 3}
     _knockDust: {fileID: 6947038893527906294, guid: eecfd3695988b8b47a71a73679b6734a, type: 3}
     _developFlash: {fileID: 2077983091399694561, guid: c0e30ead10a5a1046839af3c4c15786b, type: 3}
+    _pumpkinFlare: {fileID: 5004408339485871969, guid: a2ee4e644c39eac479c2faae691fb18f, type: 3}
+    _pumpkinPuff: {fileID: 2131774041880389622, guid: 60530b1fe84e0b2478a5afde946036f0, type: 3}
     _coldSpotColor: {r: 0.9, g: 0.93, b: 0.95, a: 1}
     _beamOriginForward: 0.3
     _beamOriginDrop: 0.2
@@ -224,7 +234,8 @@ MonoBehaviour:
     _stepTimeout: 2.5
     _outroDuration: 0.6
   _review:
-    _minCaptures: 3
+    _minCaptures: 1
+    _minPhotoStars: 3
     _repeatEveryCaptures: 20
     _menuDelay: 1.5
   _store:
@@ -249,18 +260,28 @@ MonoBehaviour:
       _countMin: 2
       _countMax: 4
       _batteryBelow: 0
+      _season: 
     - _pickup: {fileID: 11400000, guid: d7619f6ef6bab2a4bac6aafcd08bf8ce, type: 2}
       _trigger: 0
       _chance: 0.3
       _countMin: 1
       _countMax: 1
       _batteryBelow: 0
+      _season: 
     - _pickup: {fileID: 11400000, guid: b4950207e7917514f8f1723ef102fef9, type: 2}
       _trigger: 1
       _chance: 1
       _countMin: 1
       _countMax: 1
       _batteryBelow: 0.5
+      _season: 
+    - _pickup: {fileID: 11400000, guid: ffa787922309fb046816bc1c86c18bce, type: 2}
+      _trigger: 0
+      _chance: 1
+      _countMin: 3
+      _countMax: 5
+      _batteryBelow: 0
+      _season: halloween
     _collectRadius: 0.6
     _collectVisibility: 0.5
     _collectDuration: 0.4
@@ -288,6 +309,8 @@ MonoBehaviour:
     _fieldDropReward: 30
     _fieldDropsPerDay: 5
     _reloadDelay: 30
+    _consentRetryDelay: 20
+    _consentRetries: 4
     _editorAdsAvailable: 1
     _editorAdDuration: 1
   _adUnits:
@@ -432,9 +455,7 @@ MonoBehaviour:
     _negativeGhostId: negative
     _kaidannykGhostId: kaidannyk
     _maraGhostId: mara
-    _contractsMarkAfter: 1
-    _bestiaryMarkAfterCaptures: 1
-    _shopMarkAfter: 2
+    _jackGhostId: jack_o_lantern
   _spiritBox:
     _unlockCaptures: 1
     _drain: 0.3
@@ -611,11 +632,16 @@ MonoBehaviour:
       _lensDrain: 0.6
       _emfRange: 1
       _ghostSpeed: 0.8
-      _beamedGhostSpeed: 1
+      _beamedGhostSpeed: 0.35
       _locksHiddenGhosts: 0
       _showsEmfDirection: 0
       _passiveDrain: 0.6
       _revealFade: 2
+    _leashDistance: 2.5
+    _leashCaptures: 6
+    _leashGrowth: 0.1
+    _freeChargeHunts: 3
+    _freeCharge: 0.6
   _iap:
     _fullVersion: {fileID: 11400000, guid: 18f75904b441db84d931dfda1c5562a3, type: 2}
     _starterPack: {fileID: 11400000, guid: 8769479f42d21a843bb73850603c650b, type: 2}
@@ -636,11 +662,12 @@ MonoBehaviour:
     _premiumOfferAfterHunts: 6
     _premiumOfferEveryDays: 3
     _topUpDelay: 0.45
+    _storeRetryDelay: 15
+    _storeRetries: 5
   _notifications:
     _reminderChannel: hauntscope_reminders
     _newsChannel: hauntscope_news
     _accent: {r: 0.31, g: 0.96, b: 0.9, a: 1}
-    _promptAfterCaptures: 1
     _quietStartHour: 21
     _quietEndHour: 10
     _eveningHour: 19
@@ -661,3 +688,49 @@ MonoBehaviour:
     _remoteFetchTimeoutSeconds: 10
     _minVersionCode: 0
     _seasonEvent: 
+  _onboarding:
+    _progressiveUi: 1
+    _briefingStartsHunt: 1
+    _firstHuntVirtual: 0
+    _ectoplasmHunts: 1
+    _rationHunts: 1
+    _contractsHunts: 1
+    _shopHunts: 2
+    _notificationsHunts: 1
+    _bestiaryCaptures: 1
+    _archiveCaptures: 1
+    _phaseFunnelHunts: 3
+    _phaseFunnelEmfLevel: 3
+  _halloween:
+    _endYear: 2026
+    _endMonth: 11
+    _endDay: 2
+    _jackPercent: 35
+    _candyPerPickup: 1
+    _welcomeCandy: 10
+    _jackFromHunt: 2
+    _skins:
+    - _id: beam_pumpkin
+      _nameKey: halloween.skin.beam_pumpkin.name
+      _descriptionKey: halloween.skin.beam_pumpkin.description
+      _slot: 0
+      _price: 12
+      _color: {r: 1, g: 0.46, b: 0.1, a: 1}
+      _icon: {fileID: 21300000, guid: d1b4e60bcfbc0ea4aaa05eed67bcefbc, type: 3}
+      _overlay: {fileID: 0}
+    - _id: lens_cobweb
+      _nameKey: halloween.skin.lens_cobweb.name
+      _descriptionKey: halloween.skin.lens_cobweb.description
+      _slot: 1
+      _price: 20
+      _color: {r: 1, g: 0.55, b: 0.15, a: 1}
+      _icon: {fileID: 21300000, guid: bd069f1b14b647d4682fc2445750988e, type: 3}
+      _overlay: {fileID: 21300000, guid: 63a07dabd891b0f45bd175ef3f86a626, type: 3}
+    - _id: radar_jack
+      _nameKey: halloween.skin.radar_jack.name
+      _descriptionKey: halloween.skin.radar_jack.description
+      _slot: 2
+      _price: 30
+      _color: {r: 1, g: 0.71, b: 0.28, a: 1}
+      _icon: {fileID: 21300000, guid: 57ddeb2f815fae34b9bbd076f6656061, type: 3}
+      _overlay: {fileID: 0}

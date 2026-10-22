@@ -32,6 +32,8 @@ MonoBehaviour:
   _nightOnly: 0
   _photoOnly: 1
   _hasOwnHide: 0
+  _seasonEvent: 
+  _carvesFace: 0
   _hide:
     _chance: 0.3
     _cooldown: 20

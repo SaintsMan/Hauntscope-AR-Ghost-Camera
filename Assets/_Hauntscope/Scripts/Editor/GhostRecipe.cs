@@ -54,6 +54,15 @@ namespace Hauntscope.Editor
 
         public bool PhotoOnly { get; private set; }
 
+        // The season whose event brings this ghost ("halloween"); empty for the everyday roster.
+        public string SeasonEvent { get; private set; } = string.Empty;
+
+        // Its capture ends with the ghost carving its face into the screen.
+        public bool CarvesFace { get; private set; }
+
+        // Its Bestiary icon is painted art kept in the repo (Tools/Art/halloween_sprites.py), not a render of its mesh.
+        public bool PaintedIcon { get; private set; }
+
         // Null: the ghost hides by GameConfig's numbers.
         public HideConfig OwnHide { get; private set; }
 
@@ -93,6 +102,19 @@ namespace Hauntscope.Editor
             CanScare = canScare;
             NightOnly = nightOnly;
             PhotoOnly = photoOnly;
+            return this;
+        }
+
+        public GhostRecipe Seasonal(string season, bool carvesFace = false)
+        {
+            SeasonEvent = season;
+            CarvesFace = carvesFace;
+            return this;
+        }
+
+        public GhostRecipe WithPaintedIcon()
+        {
+            PaintedIcon = true;
             return this;
         }
 
