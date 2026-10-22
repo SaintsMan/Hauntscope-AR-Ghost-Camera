@@ -84,3 +84,6 @@ Thumbs.db
 /Assets/Firebase/Plugins/x86_64/FirebaseCppApp-*.so.meta
 
 __pycache__/
+
+# Crashlytics symbol tool cache (dump_syms) downloaded at build time.
+/.crashlytics/

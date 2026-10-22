@@ -1,0 +1,6 @@
+Laporan lapangan 1.0.3, Agen:
+• Kasus pertama dalam satu ketukan: briefing langsung memulai perburuan pertamamu.
+• Menu terbuka bertahap: perlengkapan baru, kaset, kontrak, dan toko muncul satu per satu, masing-masing bertanda BARU.
+• Biro bertanya soal notifikasi setelah perburuan pertamamu, bukan sebelumnya.
+• Ikon kamera baru untuk Biro Malam.
+Selamat berburu di Halloween!

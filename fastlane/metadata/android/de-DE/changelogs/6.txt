@@ -1,0 +1,4 @@
+Feldbericht 1.0.5, Agent:
+• Halloween-Event "Süßes oder Saures": Ein grinsender Kürbisgeist versteckt sich zwischen leeren Kürbissen. Der Radar hört alle, nur die Linse zeigt, welcher echt ist.
+• Neue handgemalte Halloween-Grafik: das geschnitzte Kürbisgesicht, Süßigkeiten, Skins und das Event-Banner.
+• Finde Süßigkeiten mit der Linse und tausche sie gegen Skins: Kürbisstrahl, Spinnweben-Linsenrahmen und Jack-Radar. Das Event läuft bis zum 2. November.

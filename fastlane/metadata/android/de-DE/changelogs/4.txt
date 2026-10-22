@@ -1,0 +1,6 @@
+Feldbericht 1.0.3, Agent:
+• Erster Fall mit einem Tipp: Das Briefing startet gleich deine erste Jagd.
+• Das Menü öffnet sich Schritt für Schritt: neue Ausrüstung, Kassetten, Aufträge und der Shop erscheinen nacheinander, jeweils mit NEU markiert.
+• Das Büro fragt nach Mitteilungen erst nach deiner ersten Jagd.
+• Neues Kamera-Symbol für das Nachtbüro.
+Frohe Halloween-Jagd!

@@ -1,0 +1,4 @@
+Laporan lapangan 1.0.6, agen:
+• Tangkapan pertama jauh lebih mudah: hantu di dalam sinar hampir tidak bergerak dan tetap dalam jangkauan lensa, dan perburuan pertama mendapat isi ulang darurat gratis.
+• Halloween sejak perburuan pertama: 10 permen sambutan, permen tetap tersimpan meski kamu keluar, dan Hantu Labu bisa datang di perburuan kedua.
+• Toko tersambung ulang sendiri dan perbaikan stabilitas.

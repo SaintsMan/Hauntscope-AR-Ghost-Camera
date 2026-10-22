@@ -1,0 +1,4 @@
+Field report 1.0.4, Agent:
+• Halloween event "Trick or Treat": a grinning Jack-o'-Lantern hides among empty pumpkins. The radar hears them all, only the lens shows which one is real.
+• Candy hides in the room: find it through the lens and trade it for skins: a pumpkin beam, a cobweb lens frame and a Jack radar.
+• The event runs until November 2. Happy Halloween hunting!

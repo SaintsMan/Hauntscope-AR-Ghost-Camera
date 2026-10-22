@@ -62,8 +62,173 @@
     },
     "season_event": {
       "defaultValue": { "value": "halloween" },
-      "description": "Seasonal event in force (halloween); read by the game, no seasonal content uses it yet.",
+      "description": "Seasonal event in force (halloween): the jack-o-lantern ghost, the candy in the room and the skin shelf run while it says halloween (and until halloween_end). Empty = no event.",
       "valueType": "STRING"
+    },
+    "progressive_ui": {
+      "defaultValue": { "value": "true" },
+      "description": "The menu opens up as the agent plays (false = the whole menu from the first launch). Old saves always see everything.",
+      "valueType": "BOOLEAN"
+    },
+    "unlock_ectoplasm_hunts": {
+      "defaultValue": { "value": "1" },
+      "description": "Hunts before the ectoplasm balance shows (0-1000).",
+      "valueType": "NUMBER"
+    },
+    "unlock_ration_hunts": {
+      "defaultValue": { "value": "1" },
+      "description": "Hunts before the daily ration icon and its card (0-1000).",
+      "valueType": "NUMBER"
+    },
+    "unlock_contracts_hunts": {
+      "defaultValue": { "value": "1" },
+      "description": "Hunts before CONTRACTS (0-1000).",
+      "valueType": "NUMBER"
+    },
+    "unlock_shop_hunts": {
+      "defaultValue": { "value": "2" },
+      "description": "Hunts before the SHOP and the loadout row (0-1000).",
+      "valueType": "NUMBER"
+    },
+    "unlock_bestiary_captures": {
+      "defaultValue": { "value": "1" },
+      "description": "Catches before the BESTIARY (0-1000).",
+      "valueType": "NUMBER"
+    },
+    "unlock_archive_captures": {
+      "defaultValue": { "value": "1" },
+      "description": "Catches before the tape ARCHIVE (0-1000).",
+      "valueType": "NUMBER"
+    },
+    "notify_prompt_after_hunts": {
+      "defaultValue": { "value": "1" },
+      "description": "Hunts (any result) before the notifications card and the Settings switch (0-1000).",
+      "valueType": "NUMBER"
+    },
+    "briefing_starts_hunt": {
+      "defaultValue": { "value": "true" },
+      "description": "The last page of the first briefing starts the first hunt (false = it just closes).",
+      "valueType": "BOOLEAN"
+    },
+    "first_hunt_virtual": {
+      "defaultValue": { "value": "true" },
+      "description": "The very first hunt goes to the Virtual Room, no camera dialog (true = skip the camera for hunt 1).",
+      "valueType": "BOOLEAN"
+    },
+    "ab_1": {
+      "defaultValue": { "value": "" },
+      "description": "A/B slot 1: \"<test id>:<variant>\", set by the studio console; mirrored to the GA4 user property ab_1.",
+      "valueType": "STRING"
+    },
+    "ab_2": {
+      "defaultValue": { "value": "" },
+      "description": "A/B slot 2: \"<test id>:<variant>\", set by the studio console; mirrored to the GA4 user property ab_2.",
+      "valueType": "STRING"
+    },
+    "ab_3": {
+      "defaultValue": { "value": "" },
+      "description": "A/B slot 3: \"<test id>:<variant>\", set by the studio console; mirrored to the GA4 user property ab_3.",
+      "valueType": "STRING"
+    },
+    "halloween_jack_percent": {
+      "defaultValue": { "value": "35" },
+      "description": "Chance, in percent, that a hunt (after the two taught ones) is against the Jack-o-Lantern while the Halloween event runs (0-100).",
+      "valueType": "NUMBER"
+    },
+    "halloween_candy_per_hunt": {
+      "defaultValue": { "value": "" },
+      "description": "How many candies lie around a hunt (0-10). Empty = the game default (3-5 at random).",
+      "valueType": "STRING"
+    },
+    "halloween_end": {
+      "defaultValue": { "value": "" },
+      "description": "Last day of the Halloween event, yyyy-MM-dd. Empty = the game default (2026-11-02); candy burns the day after.",
+      "valueType": "STRING"
+    },
+    "halloween_price_beam_pumpkin": {
+      "defaultValue": { "value": "12" },
+      "description": "Candy price of the Pumpkin Beam skin (0-1000).",
+      "valueType": "NUMBER"
+    },
+    "halloween_price_lens_cobweb": {
+      "defaultValue": { "value": "20" },
+      "description": "Candy price of the Cobweb Lens Frame skin (0-1000).",
+      "valueType": "NUMBER"
+    },
+    "halloween_price_radar_jack": {
+      "defaultValue": { "value": "30" },
+      "description": "Candy price of the Jack Radar skin (0-1000).",
+      "valueType": "NUMBER"
+    },
+    "rookie_fade_captures": {
+      "defaultValue": { "value": "12" },
+      "description": "Catches over which the rookie help fades to nothing (1-1000). Build 1.0.6+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_capture_rate": {
+      "defaultValue": { "value": "1.5" },
+      "description": "Beam charge multiplier for a rookie with no catches (0.1-5), fading with catches. Build 1.0.6+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_ghost_speed": {
+      "defaultValue": { "value": "0.8" },
+      "description": "Ghost speed multiplier for a rookie with no catches (0.1-5). Build 1.0.6+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_beamed_speed": {
+      "defaultValue": { "value": "0.35" },
+      "description": "Extra speed multiplier of a ghost under the beam for a rookie (0.05-5; 0.35 = it barely moves while held). Build 1.0.6+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_leash_m": {
+      "defaultValue": { "value": "2.5" },
+      "description": "While beamed, a rookie ghost never gets farther than this from the camera, in metres (0 = off, max 10). Build 1.0.6+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_leash_captures": {
+      "defaultValue": { "value": "6" },
+      "description": "Catches the leash lasts for (0 = never). Build 1.0.6+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_free_charge_hunts": {
+      "defaultValue": { "value": "3" },
+      "description": "First hunts whose dead battery gets one free recharge on the emergency card (0 = off). Build 1.0.6+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_free_charge": {
+      "defaultValue": { "value": "0.6" },
+      "description": "Share of the battery the free recharge restores (0-1). Build 1.0.6+.",
+      "valueType": "NUMBER"
+    },
+    "review_min_captures": {
+      "defaultValue": { "value": "1" },
+      "description": "Catches before the Play review dialog is asked for (1-1000). Build 1.0.6+.",
+      "valueType": "NUMBER"
+    },
+    "review_min_photo_stars": {
+      "defaultValue": { "value": "3" },
+      "description": "A kept photo with this many stars asks for the review before any catch (0 = off, 1-3). Build 1.0.6+.",
+      "valueType": "NUMBER"
+    },
+    "halloween_welcome_candy": {
+      "defaultValue": { "value": "10" },
+      "description": "Candy every player gets once while the Halloween event runs (0-100). Build 1.0.6+.",
+      "valueType": "NUMBER"
+    },
+    "halloween_jack_from_hunt": {
+      "defaultValue": { "value": "2" },
+      "description": "First hunt (1-based, from 2) the Jack-o-Lantern may come to. Build 1.0.6+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_leash_growth_m": {
+      "defaultValue": { "value": "0.1" },
+      "description": "Metres the leash grows with every catch (0-10), so the help fades gradually. Build 1.0.6+.",
+      "valueType": "NUMBER"
+    },
+    "beamed_flee_scale": {
+      "defaultValue": { "value": "1" },
+      "description": "Speed multiplier of every ghost under the beam, before lasers and rookie help (0.05-1; 1 = full flee speed). Build 1.0.6+.",
+      "valueType": "NUMBER"
     }
   }
 }

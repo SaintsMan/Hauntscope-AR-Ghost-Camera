@@ -1,0 +1,6 @@
+Field report 1.0.3, Agent:
+• First case in one tap: the briefing now starts your first hunt right away.
+• The menu opens up as you go: new tools, tapes, contracts and the shop appear one by one, each marked NEW.
+• The Bureau asks about notifications after your first hunt, not before.
+• A new camera icon for the Night Bureau.
+Happy Halloween hunting!

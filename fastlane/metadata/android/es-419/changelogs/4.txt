@@ -1,0 +1,6 @@
+Informe de campo 1.0.3, agente:
+• Primer caso en un toque: la sesión informativa inicia tu primera cacería de inmediato.
+• El menú se abre poco a poco: equipo nuevo, cintas, contratos y tienda aparecen uno a uno, con la marca NUEVO.
+• La Oficina pregunta por las notificaciones después de tu primera cacería, no antes.
+• Nuevo ícono de la cámara de la Oficina Nocturna.
+¡Feliz cacería de Halloween!

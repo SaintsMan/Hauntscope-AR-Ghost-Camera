@@ -1,0 +1,4 @@
+Informe de campo 1.0.6, agente:
+• Tu primera captura es mucho más fácil: un fantasma en el rayo apenas se mueve y no sale del alcance de la lente, y las primeras cacerías traen una recarga de emergencia gratis.
+• Halloween desde la primera cacería: 10 dulces de bienvenida, los dulces se quedan aunque salgas, y Jack puede llegar en tu segunda cacería.
+• Español en todos los teléfonos, tienda que se reconecta sola y mejoras de estabilidad.

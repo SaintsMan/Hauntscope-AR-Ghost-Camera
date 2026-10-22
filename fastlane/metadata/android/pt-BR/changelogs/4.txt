@@ -1,0 +1,6 @@
+Relatório de campo 1.0.3, agente:
+• Primeiro caso em um toque: o briefing já inicia sua primeira caçada.
+• O menu se abre aos poucos: equipamento novo, fitas, contratos e loja aparecem um a um, com a marca NOVO.
+• O Bureau pergunta sobre notificações depois da primeira caçada, não antes.
+• Novo ícone da câmera do Bureau Noturno.
+Boa caçada de Halloween!

@@ -1,0 +1,4 @@
+Feldbericht 1.0.6, Agent:
+• Der erste Fang ist viel leichter: Ein Geist im Strahl bewegt sich kaum und bleibt in Reichweite der Linse, und die ersten Jagden bringen eine kostenlose Notladung.
+• Halloween ab der ersten Jagd: 10 Willkommens-Süßigkeiten, gefundene Süßigkeiten bleiben auch beim Verlassen, und der Kürbisgeist kann schon zur zweiten Jagd kommen.
+• Shop verbindet sich selbst neu, Stabilitätsfixes.
