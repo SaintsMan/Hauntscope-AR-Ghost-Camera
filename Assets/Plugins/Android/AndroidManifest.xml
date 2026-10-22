@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" package="com.pavko.hauntscope" android:versionCode="1" android:versionName="1.0">
-  <application android:label="@string/app_name" android:icon="@drawable/app_icon">
+  <!-- GameActivity needs an AppCompat theme from the very first frame. The activity names one, and the application
+       names the same one, so a window the system builds from the application theme (a restored task, an OEM
+       launcher wrapper) never falls back to a platform theme and crashes in onCreateSurfaceView (Crashlytics a3142554). -->
+  <application android:label="@string/app_name" android:icon="@drawable/app_icon" android:theme="@style/BaseUnityGameActivityTheme">
     <!-- The MessagingUnityPlayerActivity is a class that extends
          UnityPlayerActivity to work around a known issue when receiving
          notification data payloads in the background. -->
