@@ -154,7 +154,7 @@ namespace Hauntscope.Gameplay.Contracts
             Changed?.Invoke();
             try
             {
-                if (!await _ads.ShowRewardedAsync(cancellationToken) || !Replace(index))
+                if (!await _ads.ShowRewardedAsync(cancellationToken, AdPlacements.Contract) || !Replace(index))
                     return false;
 
                 _engagement.UseAdReplace();

@@ -3,6 +3,7 @@ using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Season;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using UnityEngine;
@@ -29,6 +30,7 @@ namespace Hauntscope.UI.Hunt
         private readonly HuntLoadout _loadout;
         private readonly ToolsConfig _toolsConfig;
         private readonly CaptureConfig _captureConfig;
+        private readonly HalloweenCollection _skins;
 
         private float _scareFlash;
         private float _shownProgress;
@@ -51,8 +53,10 @@ namespace Hauntscope.UI.Hunt
             HuntModifiers modifiers,
             HuntLoadout loadout,
             ToolsConfig toolsConfig,
-            CaptureConfig captureConfig)
+            CaptureConfig captureConfig,
+            HalloweenCollection skins)
         {
+            _skins = skins;
             _toolsConfig = toolsConfig;
             _captureConfig = captureConfig;
             _modifiers = modifiers;
@@ -94,6 +98,16 @@ namespace Hauntscope.UI.Hunt
             _view.SetBeamActive(_toolbelt.Beam.IsActive.Value);
             _view.SetCaptureProgress(_toolbelt.Beam.Progress.Value);
             RenderEmf(_radar.Level.Value);
+            RenderSkins();
+        }
+
+        // The event's radar and lens-frame skins repaint the HUD (GDD 5.42).
+        private void RenderSkins()
+        {
+            var radar = _skins.WornIn(HalloweenSkinSlot.Radar);
+            _view.SetEmfTint(radar != null ? radar.Color : (Color?)null);
+            var frame = _skins.WornIn(HalloweenSkinSlot.LensFrame);
+            _view.SetLensWebs(frame != null ? frame.Overlay : null, frame != null ? frame.Color : Color.white);
         }
 
         public void Tick()
@@ -204,8 +218,11 @@ namespace Hauntscope.UI.Hunt
             UpdateVisibility();
         }
 
+        // The rookie help widens the ring after the loadout has announced itself, so the ring is redrawn once the
+        // hunt's ghost exists and every modifier is in: the drawn ring is the real catch zone.
         private void OnGhostChanged(Ghost ghost)
         {
+            _view.SetReticleRadius(_toolbelt.Beam.ReticleRadius);
             UpdateVisibility();
         }
 

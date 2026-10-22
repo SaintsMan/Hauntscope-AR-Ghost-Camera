@@ -1595,6 +1595,110 @@ MonoBehaviour:
     m_Key: update.notice.later
     m_Metadata:
       m_Items: []
+  - m_Id: 6247785186713600
+    m_Key: story.start_case
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155029663744
+    m_Key: halloween.banner.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966912
+    m_Key: halloween.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966913
+    m_Key: halloween.banner.days
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966914
+    m_Key: halloween.banner.last_day
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966915
+    m_Key: halloween.count
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966916
+    m_Key: halloween.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966917
+    m_Key: halloween.hint_over
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966918
+    m_Key: halloween.slot.beam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966919
+    m_Key: halloween.slot.lens_frame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966920
+    m_Key: halloween.slot.radar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966921
+    m_Key: halloween.state.buy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966922
+    m_Key: halloween.state.owned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966923
+    m_Key: halloween.state.worn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966924
+    m_Key: halloween.state.over
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966925
+    m_Key: halloween.skin.beam_pumpkin.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966926
+    m_Key: halloween.skin.beam_pumpkin.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966927
+    m_Key: halloween.skin.lens_cobweb.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966928
+    m_Key: halloween.skin.lens_cobweb.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966929
+    m_Key: halloween.skin.radar_jack.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966930
+    m_Key: halloween.skin.radar_jack.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966931
+    m_Key: hud.pickup.candy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966932
+    m_Key: hud.scope.caption
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966933
+    m_Key: halloween.result.candy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8050378045120512
+    m_Key: emergency.free
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8050378250641408
+    m_Key: iap.store_unavailable
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -36,6 +36,30 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void ShowRewardedAsync_FreePlayer_ReportsThePlacementAndResult()
+        {
+            string placement = null, result = null;
+            _ads.Watched += (p, r) => { placement = p; result = r; };
+
+            _ads.ShowRewardedAsync(CancellationToken.None, "emergency").GetAwaiter().GetResult();
+
+            Assert.AreEqual("emergency", placement);
+            Assert.AreEqual(PremiumAdsService.EarnedResult, result);
+        }
+
+        [Test]
+        public void ShowRewardedAsync_FullVersion_ReportsPremium()
+        {
+            string result = null;
+            _ads.Watched += (p, r) => result = r;
+            _history.SetPremium();
+
+            _ads.ShowRewardedAsync(CancellationToken.None, "doubler").GetAwaiter().GetResult();
+
+            Assert.AreEqual(PremiumAdsService.PremiumResult, result);
+        }
+
+        [Test]
         public void ShowRewardedAsync_FullVersion_RewardsWithoutAnAd()
         {
             _history.SetPremium();

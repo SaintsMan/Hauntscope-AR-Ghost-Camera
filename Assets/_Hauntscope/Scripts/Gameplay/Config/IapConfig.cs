@@ -22,6 +22,8 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Min(0)] private int _premiumOfferAfterHunts = 6;
         [SerializeField, Min(1)] private int _premiumOfferEveryDays = 3;
         [SerializeField, Min(0f)] private float _topUpDelay = 0.45f;
+        [SerializeField, Min(1f)] private float _storeRetryDelay = 15f;
+        [SerializeField, Min(0)] private int _storeRetries = 5;
 
         public IapConfig()
         {
@@ -65,6 +67,12 @@ namespace Hauntscope.Gameplay.Config
         public int PremiumOfferEveryDays => _premiumOfferEveryDays;
         // A purchase refused for lack of ectoplasm turns the shop to the ectoplasm packs after this pause.
         public float TopUpDelay => _topUpDelay;
+
+        // Seconds before the store connection or the product list is tried again, doubled with each attempt.
+        public float StoreRetryDelay => _storeRetryDelay;
+
+        // Timed retries per run; coming back to the game always tries once more.
+        public int StoreRetries => _storeRetries;
 
         public void CollectProducts(List<IapProductData> result)
         {

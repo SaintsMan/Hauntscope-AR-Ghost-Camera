@@ -52,7 +52,7 @@ namespace Hauntscope.Gameplay.Ads
             Changed?.Invoke();
             try
             {
-                if (!await _ads.ShowRewardedAsync(cancellationToken))
+                if (!await _ads.ShowRewardedAsync(cancellationToken, AdPlacements.FieldDrop))
                     return false;
 
                 _progress.ClaimFieldDrop(Today, _config.FieldDropReward);

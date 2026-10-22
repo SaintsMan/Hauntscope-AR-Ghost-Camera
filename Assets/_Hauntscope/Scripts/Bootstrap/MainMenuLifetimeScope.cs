@@ -1,6 +1,7 @@
 using Hauntscope.Gameplay.Ads;
 using Hauntscope.Gameplay.Engagement;
 using Hauntscope.Gameplay.Feedback;
+using Hauntscope.Gameplay.Season;
 using Hauntscope.UI.Common;
 using Hauntscope.UI.Menu;
 using VContainer;
@@ -43,6 +44,12 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<TapePlayerPresenter>().AsSelf();
             builder.RegisterComponentInHierarchy<ArchiveView>();
             builder.RegisterEntryPoint<ArchivePresenter>();
+            builder.RegisterEntryPoint<DemoPrep>();
+            builder.RegisterEntryPoint<DemoAutoStart>();
+            builder.RegisterComponentInHierarchy<HalloweenBannerView>();
+            builder.RegisterEntryPoint<HalloweenBannerPresenter>();
+            builder.RegisterComponentInHierarchy<HalloweenView>();
+            builder.RegisterEntryPoint<HalloweenPresenter>();
             builder.Register<IapCheckout>(Lifetime.Singleton);
             builder.RegisterComponentInHierarchy<ShopView>();
             builder.RegisterEntryPoint<ShopPresenter>();

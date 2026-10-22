@@ -39,6 +39,9 @@ namespace Hauntscope.UI.Hunt
         [SerializeField] private Color _focusDangerColor = new Color(1f, 0.23f, 0.23f, 1f);
         [SerializeField] private GameObject _vulnerableLabel;
         [SerializeField] private Color _reticleSurgeColor = new Color(1f, 0.23f, 0.23f, 1f);
+        [SerializeField] private CanvasGroup _lensWebs;
+        [SerializeField] private Image[] _lensWebImages;
+        [SerializeField, Range(0f, 1f)] private float _skinLedDim = 0.55f;
 
         private float _lensVignetteAlpha = -1f;
         private float _lockGlowAlpha = -1f;
@@ -46,6 +49,9 @@ namespace Hauntscope.UI.Hunt
         private bool _beamActive;
         private bool _locked;
         private bool _surging;
+        private bool _hasLensWebs;
+        private bool _lensIsOn;
+        private Color? _emfTint;
         private Tween _spin;
 
         public event Action LensClicked
@@ -86,11 +92,42 @@ namespace Hauntscope.UI.Hunt
             // An unlit LED keeps its own hue, dimmed, like real hardware.
             for (var i = 0; i < _emfSegments.Length; i++)
             {
-                var color = _emfLitColors[i];
+                var color = LitColor(i);
                 if (i >= level)
                     color.a *= _emfUnlitAlpha;
                 _emfSegments[i].color = color;
             }
+        }
+
+        // A radar skin repaints every LED in its colour, brighter towards the high end; null puts the plain LEDs back.
+        public void SetEmfTint(Color? tint)
+        {
+            _emfTint = tint;
+            SetEmfLevel(_shownEmfLevel);
+        }
+
+        // A lens-frame skin hangs its cobwebs over the viewfinder while the lens is on; null takes them down.
+        public void SetLensWebs(Sprite web, Color color)
+        {
+            _hasLensWebs = web != null;
+            foreach (var image in _lensWebImages)
+            {
+                image.sprite = web;
+                image.color = color;
+            }
+
+            _lensWebs.DOKill();
+            _lensWebs.alpha = _hasLensWebs && _lensIsOn ? 1f : 0f;
+        }
+
+        private Color LitColor(int index)
+        {
+            if (!_emfTint.HasValue)
+                return _emfLitColors[index];
+
+            var t = _emfSegments.Length > 1 ? (float)index / (_emfSegments.Length - 1) : 1f;
+            var tint = _emfTint.Value;
+            return new Color(tint.r * Mathf.Lerp(_skinLedDim, 1f, t), tint.g * Mathf.Lerp(_skinLedDim, 1f, t), tint.b * Mathf.Lerp(_skinLedDim, 1f, t), 1f);
         }
 
         // EMF amplifier: the chevron above the meter turns towards the source (bearing in degrees, positive = right).
@@ -110,7 +147,11 @@ namespace Hauntscope.UI.Hunt
         public void SetLensActive(bool active)
         {
             _lensButton.SetOn(active);
+            _lensIsOn = active;
             CaptureAlphas();
+            _lensWebs.DOKill();
+            if (_hasLensWebs)
+                _lensWebs.DOFade(active ? 1f : 0f, _lensFade).Ui(gameObject);
             _lensVignette.DOKill();
             if (!isActiveAndEnabled)
             {
@@ -304,6 +345,10 @@ namespace Hauntscope.UI.Hunt
             _captureFlash = Find<Graphic>("CaptureFlash");
             _scareFlash = Find<Image>("ScareFlash");
             _emfArrow = Find<RectTransform>("EmfArrow");
+            _lensWebs = Find<CanvasGroup>("LensWebs");
+            var webs = transform.Find("LensWebs");
+            if (webs != null)
+                _lensWebImages = webs.GetComponentsInChildren<Image>(true);
             _focusLabel = Find<TMP_Text>("Reticle/Focus");
             var vulnerable = transform.Find("Reticle/Vulnerable");
             if (vulnerable != null)

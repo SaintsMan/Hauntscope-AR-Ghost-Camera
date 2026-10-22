@@ -22,6 +22,8 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private bool _nightOnly;
         [SerializeField] private bool _photoOnly;
         [SerializeField] private bool _hasOwnHide;
+        [SerializeField] private string _seasonEvent = string.Empty;
+        [SerializeField] private bool _carvesFace;
         [SerializeField] private HideConfig _hide = new HideConfig();
         [SerializeField] private GhostMotion _motion = new GhostMotion();
         [SerializeField] private GhostDetection _detection = new GhostDetection();
@@ -55,6 +57,13 @@ namespace Hauntscope.Gameplay.Config
 
         // Only turns up during the witching hour (the lurker).
         public bool NightOnly => _nightOnly;
+
+        // The season this ghost belongs to ("halloween" for the jack-o'-lantern); empty is a ghost of every day. A seasonal
+        // ghost is not in the ordinary draw: SeasonEvent decides how often a hunt is against it, and only while it runs.
+        public string SeasonEvent => _seasonEvent;
+
+        // Its capture ends with the ghost carving its face into the whole screen (GDD 5.42).
+        public bool CarvesFace => _carvesFace;
 
         // Seen only on photos (the negative, GDD 5.32).
         public bool PhotoOnly => _photoOnly;

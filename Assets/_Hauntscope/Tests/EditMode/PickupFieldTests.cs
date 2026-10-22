@@ -2,6 +2,7 @@ using System.Reflection;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Pickups;
+using Hauntscope.Gameplay.Season;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using Hauntscope.Tests.EditMode.Fakes;
@@ -221,12 +222,80 @@ namespace Hauntscope.Tests.EditMode
             Assert.AreEqual(1, field.Active.Count);
         }
 
+        [Test]
+        public void Begin_SeasonalRuleInTheSeason_SpawnsTheCandy()
+        {
+            var halloween = new HalloweenFixture();
+            var field = CreateField(halloween.Season, new PickupSpawn(Candy(1), PickupTrigger.HuntStart, 1f, 3, 3, 0f, SeasonEvent.Halloween));
+
+            field.Begin();
+
+            Assert.AreEqual(3, field.Active.Count);
+        }
+
+        [Test]
+        public void Begin_SeasonalRuleOutsideTheSeason_SpawnsNothing()
+        {
+            var halloween = new HalloweenFixture(running: false);
+            var field = CreateField(halloween.Season, new PickupSpawn(Candy(1), PickupTrigger.HuntStart, 1f, 3, 3, 0f, SeasonEvent.Halloween));
+
+            field.Begin();
+
+            Assert.AreEqual(0, field.Active.Count);
+        }
+
+        [Test]
+        public void Begin_SeasonalRuleWithoutASeasonService_SpawnsNothing()
+        {
+            var field = CreateField(new PickupSpawn(Candy(1), PickupTrigger.HuntStart, 1f, 3, 3, 0f, SeasonEvent.Halloween));
+
+            field.Begin();
+
+            Assert.AreEqual(0, field.Active.Count);
+        }
+
+        [Test]
+        public void Begin_ConsoleNamesTheCandyPerHunt_SpawnsThatMany()
+        {
+            var halloween = new HalloweenFixture();
+            halloween.Remote.Values[RemoteKeys.HalloweenCandyPerHunt] = "2";
+            var field = CreateField(halloween.Season, new PickupSpawn(Candy(1), PickupTrigger.HuntStart, 1f, 5, 5, 0f, SeasonEvent.Halloween));
+
+            field.Begin();
+
+            Assert.AreEqual(2, field.Active.Count);
+        }
+
+        [Test]
+        public void Tick_CandyCollected_FillsTheHuntsCandy()
+        {
+            var halloween = new HalloweenFixture();
+            var field = CreateField(halloween.Season,
+                new PickupSpawn(Candy(2, lensOnly: true), PickupTrigger.HuntStart, 1f, 1, 1, 0f, SeasonEvent.Halloween));
+            field.Begin();
+            var pickup = field.Active[0];
+            _camera.Forward = (pickup.Position - _camera.Position).normalized;
+            _lens.Activate();
+            field.Tick(FadeTime);
+            _camera.Position = pickup.Position + Vector3.up * 1.5f;
+
+            field.Tick(0.02f);
+
+            Assert.AreEqual(2, _loot.Candy.Value);
+            Assert.AreEqual(0, _loot.Ectoplasm.Value);
+        }
+
         private PickupField CreateField(params PickupSpawn[] spawns)
+        {
+            return CreateField(null, spawns);
+        }
+
+        private PickupField CreateField(SeasonEvent season, params PickupSpawn[] spawns)
         {
             var config = new PickupConfig(spawns, collectRadius: CollectRadius, collectDuration: CollectDuration,
                 spawnMinDistance: 1f, spawnMaxDistance: 3f, minSpacing: 0.5f, fadeTime: FadeTime);
             var spots = new PickupSpotSelector(_planes, new FakeRandomWalk(), config);
-            return new PickupField(_factory, spots, config, _random, _camera, _lens, _lights, _battery, _loot);
+            return new PickupField(_factory, spots, config, _random, _camera, _lens, _lights, _battery, _loot, season);
         }
 
         private static EctoplasmPickupData Vial(int min, int max, bool lensOnly = false)
@@ -236,6 +305,15 @@ namespace Hauntscope.Tests.EditMode
             Set(data, typeof(PickupData), "_lensOnly", lensOnly);
             Set(data, typeof(EctoplasmPickupData), "_minAmount", min);
             Set(data, typeof(EctoplasmPickupData), "_maxAmount", max);
+            return data;
+        }
+
+        private static CandyPickupData Candy(int amount, bool lensOnly = false)
+        {
+            var data = ScriptableObject.CreateInstance<CandyPickupData>();
+            Set(data, typeof(PickupData), "_id", "candy");
+            Set(data, typeof(PickupData), "_lensOnly", lensOnly);
+            Set(data, typeof(CandyPickupData), "_amount", amount);
             return data;
         }
 

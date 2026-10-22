@@ -522,6 +522,47 @@ MonoBehaviour:
       ia dengan itu dan nyalakan lensa hanya saat ia sudah di dalam lingkaran.'
     m_Metadata:
       m_Items: []
+  - m_Id: 6527154522152960
+    m_Localized: Hantu Labu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707392
+    m_Localized: Hantu labu yang menyeringai dan hanya muncul saat Halloween. Ia
+      bersembunyi di antara labu kosong dan terkikik saat kamu mencari.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707393
+    m_Localized: Pada malam terakhir Oktober, setiap beranda punya labu yang malam
+      sebelumnya belum ada. Tak seorang pun pernah melihat siapa yang menaruhnya.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707394
+    m_Localized: 'Ia diam di antara 4-5 labu kosong, jadi radar mendengar lima sinyal
+      sekaligus. Hanya lensa yang mengungkapnya: labu kosong padam dan menghabiskan
+      sedikit baterai, yang asli menyalakan matanya dan terbangun.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707395
+    m_Localized: 'Ikuti sinyal terkuat, tapi jangan boros lensa di setiap labu: pakai
+      dalam semburan singkat. Begitu yang asli menyala, ia pusing sesaat, jadi langsung
+      tembak dengan sinar.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707396
+    m_Localized: Lensa hantu. Hanya lensa yang bisa membedakan labu asli dari yang
+      kosong, dan di radar EMF tiap sinyal tampil di garis di atas pengukur.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707397
+    m_Localized: Agensi menghitung setiap labu yang pernah diukir untuk sebuah kasus.
+      Selalu ada satu lebih banyak daripada yang diingat para agen.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707398
+    m_Localized: Banyak sinyal, tapi hanya satu hantu. Periksa tiap labu dengan lensa
+      dalam semburan singkat.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

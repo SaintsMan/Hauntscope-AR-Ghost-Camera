@@ -1,31 +1,30 @@
-using Hauntscope.Gameplay.Config;
+using Hauntscope.Gameplay.Onboarding;
 using Hauntscope.Gameplay.Progress;
 
 namespace Hauntscope.Gameplay.Engagement
 {
-    // One-off NEW marks in the menu (GDD 5.31): on the night shift once it opens, on CONTRACTS after the first hunt, on the
-    // BESTIARY once there is a file in it, on the SHOP once a few hunts have paid for something. A mark goes for good the
-    // first time its button is pressed; "Reset tips" brings it back.
+    // One-off NEW marks in the menu (GDD 5.31, 5.41): a button that has just opened up carries one — the night shift, the
+    // contracts, the bestiary, the shop (the archive shows its unheard tapes as a badge instead). A mark goes for good the
+    // first time its button is pressed; "Reset tips" brings it back. When a button opens is FeatureUnlocks' rule, so the
+    // console moves the marks with it.
     public sealed class MenuCoachMarks
     {
         private static readonly string[] Keys = { "coach.shift", "coach.contracts", "coach.bestiary", "coach.shop" };
 
         private readonly PlayerProgress _progress;
         private readonly PlayerProgressRepository _repository;
-        private readonly ShiftConfig _shift;
-        private readonly TipsConfig _tips;
+        private readonly FeatureUnlocks _features;
 
-        public MenuCoachMarks(PlayerProgress progress, PlayerProgressRepository repository, ShiftConfig shift, TipsConfig tips)
+        public MenuCoachMarks(PlayerProgress progress, PlayerProgressRepository repository, FeatureUnlocks features)
         {
             _progress = progress;
             _repository = repository;
-            _shift = shift;
-            _tips = tips;
+            _features = features;
         }
 
         public bool IsMarked(CoachMark mark)
         {
-            return IsDue(mark) && !_progress.HasSeenTip(Keys[(int)mark]);
+            return _features.IsRuleMet(FeatureOf(mark)) && !_progress.HasSeenTip(Keys[(int)mark]);
         }
 
         public void Dismiss(CoachMark mark)
@@ -37,18 +36,18 @@ namespace Hauntscope.Gameplay.Engagement
             _repository.Save(_progress);
         }
 
-        private bool IsDue(CoachMark mark)
+        private static Feature FeatureOf(CoachMark mark)
         {
             switch (mark)
             {
                 case CoachMark.Shift:
-                    return _progress.TotalSessions >= _shift.UnlockHunts;
+                    return Feature.Shift;
                 case CoachMark.Bestiary:
-                    return _progress.TotalCaptures >= _tips.BestiaryMarkAfterCaptures;
+                    return Feature.Bestiary;
                 case CoachMark.Shop:
-                    return _progress.TotalSessions >= _tips.ShopMarkAfter;
+                    return Feature.Shop;
                 default:
-                    return _progress.TotalSessions >= _tips.ContractsMarkAfter;
+                    return Feature.Contracts;
             }
         }
     }

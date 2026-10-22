@@ -9,6 +9,7 @@ namespace Hauntscope.UI.Menu
         Credits,
         Shop,
         Contracts,
-        Archive
+        Archive,
+        Halloween
     }
 }

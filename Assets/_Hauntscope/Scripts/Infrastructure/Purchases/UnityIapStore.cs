@@ -5,6 +5,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Analytics;
+using Hauntscope.Gameplay.Config;
 using UnityEngine;
 using UnityEngine.Purchasing;
 
@@ -18,17 +19,28 @@ namespace Hauntscope.Infrastructure.Purchases
         private const string ProductUnavailable = "ProductUnavailable";
         private const string StoreNotReady = "StoreNotReady";
         private const string NotDelivered = "NotDelivered";
+        private const int MillisecondsPerSecond = 1000;
 
         private readonly Dictionary<string, UniTaskCompletionSource<IapPurchaseStatus>> _waiting =
             new Dictionary<string, UniTaskCompletionSource<IapPurchaseStatus>>();
         private readonly List<ProductDefinition> _definitions = new List<ProductDefinition>();
         private readonly ICrashReporter _reporter;
+        private readonly IapConfig _config;
+        private readonly IApplicationLifecycle _lifecycle;
+        private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
         private StoreController _controller;
         private Func<IapOrder, bool> _deliver;
+        private bool _isConnected;
+        private bool _isBusy;
+        private bool _isRetryScheduled;
+        private int _failures;
 
-        public UnityIapStore(ICrashReporter reporter)
+        public UnityIapStore(ICrashReporter reporter, IapConfig config, IApplicationLifecycle lifecycle)
         {
             _reporter = reporter;
+            _config = config;
+            _lifecycle = lifecycle;
+            _lifecycle.Resumed += OnResumed;
         }
 
         public bool IsReady { get; private set; }
@@ -43,6 +55,15 @@ namespace Hauntscope.Infrastructure.Purchases
             foreach (var product in products)
                 _definitions.Add(new ProductDefinition(product.Id, product.IsConsumable ? ProductType.Consumable : ProductType.NonConsumable));
 
+            _controller = UnityIAPServices.StoreController();
+            _controller.OnProductsFetched += OnProductsFetched;
+            _controller.OnProductsFetchFailed += OnProductsFetchFailed;
+            _controller.OnPurchasePending += OnPurchasePending;
+            _controller.OnPurchaseConfirmed += OnPurchaseConfirmed;
+            _controller.OnPurchaseFailed += OnPurchaseFailed;
+            _controller.OnPurchaseDeferred += OnPurchaseDeferred;
+            _controller.OnPurchasesFetched += OnPurchasesFetched;
+            _controller.OnStoreDisconnected += OnStoreDisconnected;
             ConnectAsync().Forget();
         }
 
@@ -75,6 +96,9 @@ namespace Hauntscope.Infrastructure.Purchases
 
         public void Dispose()
         {
+            _lifecycle.Resumed -= OnResumed;
+            _lifetime.Cancel();
+            _lifetime.Dispose();
             if (_controller == null)
                 return;
 
@@ -88,31 +112,62 @@ namespace Hauntscope.Infrastructure.Purchases
             _controller.OnStoreDisconnected -= OnStoreDisconnected;
         }
 
+        // A store that fails once (no network, Play Services updating) is retried instead of staying dead until the
+        // next launch: the Halloween offers and every purchase depend on it (26f93341).
         private async UniTaskVoid ConnectAsync()
         {
-            _controller = UnityIAPServices.StoreController();
-            _controller.OnProductsFetched += OnProductsFetched;
-            _controller.OnProductsFetchFailed += OnProductsFetchFailed;
-            _controller.OnPurchasePending += OnPurchasePending;
-            _controller.OnPurchaseConfirmed += OnPurchaseConfirmed;
-            _controller.OnPurchaseFailed += OnPurchaseFailed;
-            _controller.OnPurchaseDeferred += OnPurchaseDeferred;
-            _controller.OnPurchasesFetched += OnPurchasesFetched;
-            _controller.OnStoreDisconnected += OnStoreDisconnected;
+            if (_isBusy)
+                return;
+
+            _isBusy = true;
             try
             {
-                await _controller.Connect();
+                if (!_isConnected)
+                {
+                    await _controller.Connect();
+                    _isConnected = true;
+                }
+
                 _controller.FetchProducts(_definitions);
             }
             catch (Exception exception)
             {
                 Debug.LogWarning($"Hauntscope: the store did not connect ({exception.Message}).");
                 _reporter.RecordNonFatal(CrashKeys.IapArea, exception);
+                _isBusy = false;
+                ScheduleRetry();
             }
+        }
+
+        private void ScheduleRetry()
+        {
+            _failures++;
+            if (_failures <= _config.StoreRetries)
+                RetryAsync(_lifetime.Token).Forget();
+        }
+
+        private async UniTaskVoid RetryAsync(CancellationToken cancellationToken)
+        {
+            if (_isRetryScheduled)
+                return;
+
+            _isRetryScheduled = true;
+            var delay = _config.StoreRetryDelay * (1 << Math.Min(_failures - 1, _config.StoreRetries));
+            await UniTask.Delay((int)(delay * MillisecondsPerSecond), true, cancellationToken: cancellationToken);
+            _isRetryScheduled = false;
+            ConnectAsync().Forget();
+        }
+
+        private void OnResumed()
+        {
+            if (!IsReady && !_isBusy && !_isRetryScheduled && _controller != null)
+                ConnectAsync().Forget();
         }
 
         private void OnProductsFetched(List<Product> products)
         {
+            _isBusy = false;
+            _failures = 0;
             IsReady = true;
             Changed?.Invoke();
             // Owned items (a reinstall) and orders left open by a crash come back through this.
@@ -123,6 +178,8 @@ namespace Hauntscope.Infrastructure.Purchases
         {
             Debug.LogWarning($"Hauntscope: store products unavailable ({failure.FailureReason}).");
             _reporter.RecordNonFatal(CrashKeys.IapArea, $"products unavailable: {failure.FailureReason}");
+            _isBusy = false;
+            ScheduleRetry();
         }
 
         private void OnPurchasePending(PendingOrder order)
@@ -175,7 +232,10 @@ namespace Hauntscope.Infrastructure.Purchases
         private void OnStoreDisconnected(StoreConnectionFailureDescription failure)
         {
             IsReady = false;
+            _isConnected = false;
+            _isBusy = false;
             Changed?.Invoke();
+            ScheduleRetry();
         }
 
         private void Complete(string productId, IapPurchaseStatus status)

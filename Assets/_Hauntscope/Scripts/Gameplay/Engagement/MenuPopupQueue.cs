@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Hauntscope.Gameplay.Season;
 
 namespace Hauntscope.Gameplay.Engagement
 {
@@ -8,7 +9,19 @@ namespace Hauntscope.Gameplay.Engagement
     {
         private readonly Queue<IMenuPopup> _waiting = new Queue<IMenuPopup>();
 
+        private readonly DemoSwitches _demo;
+
         private IMenuPopup _current;
+
+        public MenuPopupQueue()
+            : this(DemoSwitches.Off)
+        {
+        }
+
+        public MenuPopupQueue(DemoSwitches demo)
+        {
+            _demo = demo;
+        }
 
         public bool IsIdle => _current == null && _waiting.Count == 0;
 
@@ -16,6 +29,10 @@ namespace Hauntscope.Gameplay.Engagement
 
         public void Enqueue(IMenuPopup popup)
         {
+            // A promo take wants the menu bare: no card of the game stands in its way.
+            if (_demo.Quiet && _demo.IsOn)
+                return;
+
             if (popup == _current || _waiting.Contains(popup))
                 return;
 

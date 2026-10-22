@@ -27,10 +27,10 @@ namespace Hauntscope.Tests.EditMode
             _lifecycle = new FakeApplicationLifecycle();
             var repository = new SettingsRepository(new FakeSaveService());
             var settings = repository.Load();
-            var progress = new PlayerProgress();
-            progress.AddCapture("wisp", 10);
+            var features = new FeatureFactory();
+            features.PlayHunts(1);
             var config = new NotificationConfig();
-            _optIn = new NotificationOptIn(_notifications, settings, repository, progress, config);
+            _optIn = new NotificationOptIn(_notifications, settings, repository, features.Features);
             _topics = new PushTopics(_push, _optIn, settings, repository, new FakeLocalization(), config);
             _tracker = new NotificationAnalytics(_analytics, _push, _topics, _notifications, _lifecycle);
         }

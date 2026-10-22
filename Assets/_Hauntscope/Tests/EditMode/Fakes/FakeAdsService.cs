@@ -34,7 +34,7 @@ namespace Hauntscope.Tests.EditMode.Fakes
             return UniTask.FromResult(InitializeResult);
         }
 
-        public UniTask<bool> ShowRewardedAsync(CancellationToken cancellationToken)
+        public UniTask<bool> ShowRewardedAsync(CancellationToken cancellationToken, string placement = "")
         {
             if (!IsRewardedReady)
                 return UniTask.FromResult(false);

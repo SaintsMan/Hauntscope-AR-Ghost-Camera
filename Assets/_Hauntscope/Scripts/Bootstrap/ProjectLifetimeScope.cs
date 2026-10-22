@@ -11,7 +11,9 @@ using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Iap;
+using Hauntscope.Gameplay.Onboarding;
 using Hauntscope.Gameplay.Photo;
+using Hauntscope.Gameplay.Season;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Research;
 using Hauntscope.Gameplay.Store;
@@ -127,6 +129,9 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.Iap);
             builder.RegisterInstance(_gameConfig.Notifications);
             builder.RegisterInstance(_gameConfig.LiveOps);
+            builder.RegisterInstance(_gameConfig.Onboarding);
+            builder.RegisterInstance(_gameConfig.Halloween);
+            builder.RegisterInstance(DemoSwitchesFile.Read(Application.persistentDataPath));
         }
 
         // Scene loads are decorated with the CRT transition; the overlay outlives every scene it covers.
@@ -135,7 +140,8 @@ namespace Hauntscope.Bootstrap
             builder.RegisterComponentInNewPrefab(_screenTransition, Lifetime.Singleton).DontDestroyOnLoad();
             builder.Register<CrtScreenTransition>(Lifetime.Singleton).As<IScreenTransition>();
             builder.Register<SceneLoader>(Lifetime.Singleton);
-            builder.Register<ISceneLoader>(resolver => new TransitionSceneLoader(resolver.Resolve<SceneLoader>(), resolver.Resolve<IScreenTransition>()), Lifetime.Singleton);
+            builder.Register(resolver => new TransitionSceneLoader(resolver.Resolve<SceneLoader>(), resolver.Resolve<IScreenTransition>()), Lifetime.Singleton)
+                .As<ISceneLoader>().As<ISceneTransitionEvents>();
         }
 
         private static void RegisterProgress(IContainerBuilder builder)
@@ -155,6 +161,19 @@ namespace Hauntscope.Bootstrap
             builder.Register<ContractBoard>(Lifetime.Singleton);
             builder.Register<LoginCalendar>(Lifetime.Singleton);
             builder.RegisterEntryPoint<TapeArchive>().AsSelf();
+            builder.RegisterEntryPoint<FeatureUnlocks>().AsSelf();
+            builder.Register<FirstHunt>(Lifetime.Singleton);
+            RegisterSeason(builder);
+        }
+
+        // The Halloween event (GDD 5.42): the season switch, the candy purse with its skins, and what it reports.
+        private static void RegisterSeason(IContainerBuilder builder)
+        {
+            builder.Register<SeasonEvent>(Lifetime.Singleton);
+            builder.Register<HalloweenRepository>(Lifetime.Singleton);
+            builder.Register(resolver => resolver.Resolve<HalloweenRepository>().Load(), Lifetime.Singleton);
+            builder.RegisterEntryPoint<HalloweenCollection>().AsSelf();
+            builder.RegisterEntryPoint<HalloweenAnalytics>().AsSelf();
         }
 
         // The album is loaded once for the whole game: the hunt adds to it, the Bestiary shows its evidence. Decoding
@@ -193,7 +212,7 @@ namespace Hauntscope.Bootstrap
 #endif
             builder.Register<ArAvailability>(Lifetime.Singleton);
             builder.Register<IArAvailability>(resolver => new ReportedArAvailability(resolver.Resolve<ArAvailability>(),
-                resolver.Resolve<ICrashReporter>()), Lifetime.Singleton);
+                resolver.Resolve<ICrashReporter>(), resolver.Resolve<IAnalyticsService>()), Lifetime.Singleton);
             builder.Register<HuntLaunchOptions>(Lifetime.Singleton);
             builder.RegisterEntryPoint<HuntLauncher>().AsSelf();
         }
@@ -210,7 +229,10 @@ namespace Hauntscope.Bootstrap
             builder.Register<NullCrashReporter>(Lifetime.Singleton).As<ICrashReporter>();
 #endif
             builder.RegisterEntryPoint<PlayerAnalytics>();
+            builder.Register<OnboardingFunnel>(Lifetime.Singleton);
             builder.RegisterEntryPoint<CrashReportContext>();
+            builder.RegisterEntryPoint<UnfinishedHuntLog>().AsSelf();
+            builder.RegisterEntryPoint<AdsAnalytics>();
         }
 
         // Knobs the owner can move from the console; the Editor plays on the configs' defaults (GDD 5.40).
@@ -222,6 +244,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<NullRemoteValues>(Lifetime.Singleton).As<IRemoteValues>();
 #endif
             builder.Register<RemoteTuning>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<LiveOpsAB>();
             builder.Register<UpdateRequirement>(Lifetime.Singleton);
         }
 
@@ -253,13 +276,15 @@ namespace Hauntscope.Bootstrap
             builder.Register<WitchingHour>(Lifetime.Singleton);
             builder.Register<AdPacing>(Lifetime.Singleton);
 #if UNITY_ANDROID && !UNITY_EDITOR
-            builder.Register<AdMobAdsService>(Lifetime.Singleton).AsSelf().As<IAdPrivacy>();
-            builder.Register<IAdsService>(resolver => new PremiumAdsService(new PacedAdsService(resolver.Resolve<AdMobAdsService>(),
-                resolver.Resolve<AdPacing>(), resolver.Resolve<IClock>()), resolver.Resolve<PurchaseHistory>()), Lifetime.Singleton);
+            builder.Register<AdMobAdsService>(Lifetime.Singleton).AsSelf().As<IAdPrivacy>().As<IAdsInitReport>();
+            builder.Register(resolver => new PremiumAdsService(new PacedAdsService(resolver.Resolve<AdMobAdsService>(),
+                resolver.Resolve<AdPacing>(), resolver.Resolve<IClock>()), resolver.Resolve<PurchaseHistory>()), Lifetime.Singleton)
+                .As<IAdsService>().As<IRewardedReport>();
 #else
-            builder.Register<EditorAdsService>(Lifetime.Singleton).AsSelf().As<IAdPrivacy>();
-            builder.Register<IAdsService>(resolver => new PremiumAdsService(new PacedAdsService(resolver.Resolve<EditorAdsService>(),
-                resolver.Resolve<AdPacing>(), resolver.Resolve<IClock>()), resolver.Resolve<PurchaseHistory>()), Lifetime.Singleton);
+            builder.Register<EditorAdsService>(Lifetime.Singleton).AsSelf().As<IAdPrivacy>().As<IAdsInitReport>();
+            builder.Register(resolver => new PremiumAdsService(new PacedAdsService(resolver.Resolve<EditorAdsService>(),
+                resolver.Resolve<AdPacing>(), resolver.Resolve<IClock>()), resolver.Resolve<PurchaseHistory>()), Lifetime.Singleton)
+                .As<IAdsService>().As<IRewardedReport>();
 #endif
             builder.Register<InterstitialPolicy>(Lifetime.Singleton);
             builder.Register<AdBreak>(Lifetime.Singleton);

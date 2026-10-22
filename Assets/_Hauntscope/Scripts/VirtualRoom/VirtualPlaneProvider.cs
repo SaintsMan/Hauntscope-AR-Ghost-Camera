@@ -17,8 +17,7 @@ namespace Hauntscope.VirtualRoom
             var floorBounds = floor.bounds;
             FloorHeight = floorBounds.max.y;
 
-            // AR planes cover less than the real room, so AR pads outwards; here the floor is exact and the walls
-            // are real geometry, so the padding keeps ghosts inside them instead.
+            // As in AR, the padding keeps ghosts in from the walls rather than letting them drift into them.
             var inset = config.RoomBoundsPadding * 2f;
             var size = new Vector3(
                 Mathf.Max(0f, floorBounds.size.x - inset),

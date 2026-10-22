@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Engagement;
 using Hauntscope.Gameplay.Feedback;
+using Hauntscope.Gameplay.Onboarding;
 using Hauntscope.Gameplay.Progress;
 using VContainer.Unity;
 
@@ -27,6 +28,7 @@ namespace Hauntscope.UI.Menu
         private readonly PlayerProgress _progress;
         private readonly PlayerProgressRepository _progressRepository;
         private readonly NotificationOptIn _notifications;
+        private readonly FeatureUnlocks _features;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         public SettingsPresenter(
@@ -39,8 +41,10 @@ namespace Hauntscope.UI.Menu
             IAdPrivacy privacy,
             PlayerProgress progress,
             PlayerProgressRepository progressRepository,
-            NotificationOptIn notifications)
+            NotificationOptIn notifications,
+            FeatureUnlocks features)
         {
+            _features = features;
             _notifications = notifications;
             _progress = progress;
             _progressRepository = progressRepository;
@@ -100,6 +104,7 @@ namespace Hauntscope.UI.Menu
                 return;
 
             _view.SetPrivacyVisible(_privacy.IsOptionsRequired);
+            RenderNotificationsRow();
             _view.SetResetTips(_localization.Get(LocalizationTable.Ui, ResetTipsKey), _progress.SeenTips.Count > 0);
         }
 
@@ -139,6 +144,7 @@ namespace Hauntscope.UI.Menu
         private void OnNotificationsClicked()
         {
             _ui.PlayClick();
+            _features.NotifyUsed(Feature.Notifications);
             _notifications.SetEnabledAsync(!_notifications.IsActive, _lifetime.Token).Forget();
         }
 
@@ -178,6 +184,13 @@ namespace Hauntscope.UI.Menu
             Render();
         }
 
+        // A new agent meets the switch after the first hunt, when the question about notifications is asked; an answer
+        // already on file (Android below 13 needs no question) keeps it in view, so it can always be turned off.
+        private void RenderNotificationsRow()
+        {
+            _view.SetNotificationsVisible(_features.IsUnlocked(Feature.Notifications) || _notifications.IsPrompted);
+        }
+
         private void Render()
         {
             _view.SetSound(_settings.Sound.Value, State(_settings.Sound.Value));
@@ -185,6 +198,7 @@ namespace Hauntscope.UI.Menu
             _view.SetVibration(_settings.Vibration.Value, State(_settings.Vibration.Value));
             _view.SetJumpScares(_settings.JumpScares.Value, State(_settings.JumpScares.Value));
             _view.SetNotifications(_notifications.IsActive, State(_notifications.IsActive));
+            RenderNotificationsRow();
             _view.SetLanguage(_localization.Get(LocalizationTable.Ui, LanguageNameKeyPrefix + _localization.CurrentLanguage));
         }
 

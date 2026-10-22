@@ -45,6 +45,8 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private IapConfig _iap = new IapConfig();
         [SerializeField] private NotificationConfig _notifications = new NotificationConfig();
         [SerializeField] private LiveOpsConfig _liveOps = new LiveOpsConfig();
+        [SerializeField] private OnboardingConfig _onboarding = new OnboardingConfig();
+        [SerializeField] private HalloweenConfig _halloween = new HalloweenConfig();
 
         public int TargetFrameRate => _targetFrameRate;
 
@@ -125,5 +127,9 @@ namespace Hauntscope.Gameplay.Config
         public NotificationConfig Notifications => _notifications;
 
         public LiveOpsConfig LiveOps => _liveOps;
+
+        public OnboardingConfig Onboarding => _onboarding;
+
+        public HalloweenConfig Halloween => _halloween;
     }
 }

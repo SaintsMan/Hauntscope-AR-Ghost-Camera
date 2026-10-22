@@ -24,6 +24,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Min(0f)] private float _fleeCalmDownTime = 2f;
         [SerializeField, Min(0.1f)] private float _fleeDistance = 2.5f;
         [SerializeField, Min(0.05f)] private float _fleeRetargetInterval = 0.6f;
+        [SerializeField, Range(0.05f, 1f)] private float _beamedFleeScale = 1f;
         [SerializeField, Min(0.1f)] private float _captureDuration = 1.2f;
         [SerializeField, Min(0f)] private float _captureSpiralTurns = 2f;
         [SerializeField, Min(0f)] private float _captureSpiralRadius = 0.3f;
@@ -121,6 +122,10 @@ namespace Hauntscope.Gameplay.Config
         public float FleeDistance => _fleeDistance;
 
         public float FleeRetargetInterval => _fleeRetargetInterval;
+
+        // Every ghost's speed under the beam, before any laser or rookie help: 1 keeps the full flee speed. A knob for
+        // the console (beamed_flee_scale) in case veterans turn out to need it too.
+        public float BeamedFleeScale => _beamedFleeScale;
 
         public float CaptureDuration => _captureDuration;
 

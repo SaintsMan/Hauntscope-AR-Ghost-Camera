@@ -1,6 +1,7 @@
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
+using Hauntscope.Gameplay.Tools;
 
 namespace Hauntscope.Gameplay.Ghosts
 {
@@ -20,7 +21,8 @@ namespace Hauntscope.Gameplay.Ghosts
             HideConfig hide = null,
             IHideSpotProvider hideSpots = null,
             bool canHide = false,
-            bool photoOnly = false)
+            bool photoOnly = false,
+            ILensSight lens = null)
         {
             Motion = motion;
             Detection = detection;
@@ -36,6 +38,7 @@ namespace Hauntscope.Gameplay.Ghosts
             HideSpots = hideSpots;
             CanHide = canHide && hide != null && hideSpots != null;
             PhotoOnly = photoOnly;
+            Lens = lens ?? NullLensSight.Instance;
         }
 
         public GhostMotion Motion { get; }
@@ -65,5 +68,7 @@ namespace Hauntscope.Gameplay.Ghosts
         public bool CanHide { get; }
 
         public bool PhotoOnly { get; }
+
+        public ILensSight Lens { get; }
     }
 }

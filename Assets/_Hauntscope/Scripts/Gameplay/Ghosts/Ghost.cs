@@ -33,10 +33,13 @@ namespace Hauntscope.Gameplay.Ghosts
         private float _pendingBite;
         private bool _isSettled;
         private float _revealBeforeEscape;
+        private readonly List<Vector3> _emfSources = new List<Vector3>(8);
+        private IReadOnlyList<Vector3> _extraEmfSources = Array.Empty<Vector3>();
         private Vector3 _emfDecoy;
         private bool _hasEmfDecoy;
         private float _speedScale = 1f;
         private float _beamedSpeedScale = 1f;
+        private float _beamedLeash;
         private float _staggerRemaining;
         private float _staggerWeight;
         private bool _isSurgeArmed = true;
@@ -57,7 +60,7 @@ namespace Hauntscope.Gameplay.Ghosts
             _abilities = abilities;
             _wanderState = new GhostWanderState(context, NormalSpeed);
             _alertedState = new GhostAlertedState(context);
-            _fleeState = new GhostFleeState(context, () => IsBeamed);
+            _fleeState = new GhostFleeState(context, () => IsBeamed, () => _beamedLeash);
             _capturedState = new GhostCapturedState(context);
             _escapedState = new GhostEscapedState(context);
             _scareState = new GhostScareState(context);
@@ -117,12 +120,30 @@ namespace Hauntscope.Gameplay.Ghosts
 
         public event Action Developed;
 
+        public event Action Awakened;
+
+        public event Action<Vector3> DecoySpent;
+
         public GhostContext Context { get; }
 
         public Vector3 Position => Context.Mover.Position;
 
         // Where the EMF radar thinks the ghost is; a decoy lets it lie while the whisper still comes from the truth.
         public Vector3 EmfSource => _hasEmfDecoy ? _emfDecoy : Position;
+
+        // Everything the radar hears for this ghost: where it is, and the sources an ability set up besides (the pumpkins).
+        public IReadOnlyList<Vector3> EmfSources
+        {
+            get
+            {
+                _emfSources.Clear();
+                _emfSources.Add(EmfSource);
+                for (var i = 0; i < _extraEmfSources.Count; i++)
+                    _emfSources.Add(_extraEmfSources[i]);
+
+                return _emfSources;
+            }
+        }
 
         public float EmfRange => Context.Detection.EmfRange;
 
@@ -249,6 +270,8 @@ namespace Hauntscope.Gameplay.Ghosts
                 return;
 
             var from = Context.Mover.Position;
+            if (IsBeamed)
+                position = GhostLeash.Clamp(position, Context.Camera.Position, _beamedLeash);
             Context.Mover.Teleport(position);
             Teleported?.Invoke(from, Context.Mover.Position);
         }
@@ -277,6 +300,12 @@ namespace Hauntscope.Gameplay.Ghosts
             _beamedSpeedScale = beamedSpeedScale;
         }
 
+        // A rookie's beam keeps the ghost within this distance of the camera while it holds it (0 = no leash).
+        public void SetBeamedLeash(float distance)
+        {
+            _beamedLeash = Mathf.Max(0f, distance);
+        }
+
         public void SetEmfDecoy(Vector3 position)
         {
             if (IsLeaving)
@@ -289,6 +318,12 @@ namespace Hauntscope.Gameplay.Ghosts
         public void ClearEmfDecoy()
         {
             _hasEmfDecoy = false;
+        }
+
+        // Extra places the radar hears this ghost; the list stays the ability's own, so it may change it as it goes.
+        public void SetExtraEmfSources(IReadOnlyList<Vector3> sources)
+        {
+            _extraEmfSources = sources ?? Array.Empty<Vector3>();
         }
 
         public void Scare()
@@ -358,6 +393,20 @@ namespace Hauntscope.Gameplay.Ghosts
                 Rattled?.Invoke();
         }
 
+        // The jack-o'-lantern among its pumpkins: the lens found the real one and its eyes flare.
+        public void Awaken()
+        {
+            if (!IsLeaving)
+                Awakened?.Invoke();
+        }
+
+        // One of its empty pumpkins sputtered out under the lens.
+        public void SpendDecoy(Vector3 position)
+        {
+            if (!IsLeaving)
+                DecoySpent?.Invoke(position);
+        }
+
         public void NotifyPhotographed()
         {
             if (!IsLeaving)
@@ -416,6 +465,7 @@ namespace Hauntscope.Gameplay.Ghosts
 
             _captureRequested = true;
             _hasEmfDecoy = false;
+            _extraEmfSources = Array.Empty<Vector3>();
             IsBeamed = false;
             IsVisible = true;
             Reveal = 1f;
@@ -428,6 +478,7 @@ namespace Hauntscope.Gameplay.Ghosts
 
             _escapeRequested = true;
             _hasEmfDecoy = false;
+            _extraEmfSources = Array.Empty<Vector3>();
             IsBeamed = false;
             _revealBeforeEscape = VisibleReveal;
             IsVisible = true;

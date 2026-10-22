@@ -3,6 +3,7 @@ using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Ghosts.Abilities;
 using Hauntscope.Gameplay.Store;
+using Hauntscope.Gameplay.Tools;
 using UnityEngine;
 
 namespace Hauntscope.Gameplay.Ghosts
@@ -19,6 +20,8 @@ namespace Hauntscope.Gameplay.Ghosts
         private readonly HuntModifiers _modifiers;
         private readonly HideConfig _hide;
         private readonly IHideSpotProvider _hideSpots;
+        private readonly ILensSight _lens;
+        private readonly RemoteTuning _tuning;
 
         public GhostFactory(
             IPlaneProvider planes,
@@ -30,8 +33,12 @@ namespace Hauntscope.Gameplay.Ghosts
             CaptureConfig capture,
             HuntModifiers modifiers,
             HideConfig hide,
-            IHideSpotProvider hideSpots)
+            IHideSpotProvider hideSpots,
+            ILensSight lens,
+            RemoteTuning tuning)
         {
+            _tuning = tuning;
+            _lens = lens;
             _hide = hide;
             _hideSpots = hideSpots;
             _capture = capture;
@@ -57,9 +64,11 @@ namespace Hauntscope.Gameplay.Ghosts
             view.SetRimColor(data.RimColor);
 
             var context = new GhostContext(data.Motion, data.Detection, data.Capture, _config, _scare, _capture, mover, _random, _planes,
-                _camera, data.HasOwnHide ? data.Hide : _hide, _hideSpots, data.CanHide, data.PhotoOnly);
+                _camera, data.HasOwnHide ? data.Hide : _hide, _hideSpots, data.CanHide, data.PhotoOnly, _lens);
             var ghost = new Ghost(context, view, CreateAbilities(data));
-            ghost.SetSpeedModifiers(_modifiers.GhostSpeed, _modifiers.BeamedGhostSpeed);
+            var beamedScale = _tuning.Float(RemoteKeys.BeamedFleeScale, _config.BeamedFleeScale, 0.05f, 1f);
+            ghost.SetSpeedModifiers(_modifiers.GhostSpeed, _modifiers.BeamedGhostSpeed * beamedScale);
+            ghost.SetBeamedLeash(_modifiers.BeamedLeash);
             ghost.Start();
             return ghost;
         }

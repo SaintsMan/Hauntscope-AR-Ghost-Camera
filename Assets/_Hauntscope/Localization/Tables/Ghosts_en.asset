@@ -512,6 +512,48 @@ MonoBehaviour:
       find her with it and switch the lens on only once she is in the ring.'
     m_Metadata:
       m_Items: []
+  - m_Id: 6527154522152960
+    m_Localized: Jack-o'-Lantern
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707392
+    m_Localized: A grinning pumpkin ghost that only shows up for Halloween. It hides
+      among a patch of empty pumpkins and giggles as you search.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707393
+    m_Localized: On the last night of October every porch has a pumpkin that was
+      not there the night before. Nobody ever sees who leaves them.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707394
+    m_Localized: 'It sits still among 4-5 empty pumpkins, so the radar hears five
+      signals at once. Pumpkins are only revealed by the lens: an empty one sputters
+      out and costs a bite of battery, the real one flares its eyes and wakes up.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707395
+    m_Localized: 'Follow the strongest signals, but do not waste the lens on every
+      pumpkin: sweep it in short bursts. Once the real one flares, it is stunned
+      for a moment, so beam it at once.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707396
+    m_Localized: Ghost Lens. It is the only thing that tells the real pumpkin from
+      the empty ones, and on the EMF radar each signal shows on the strip above the
+      meter.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707397
+    m_Localized: The agency counted every pumpkin it ever carved on a case. There
+      is always one more than the agents remember.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707398
+    m_Localized: 'Many signals: only one is a ghost. Check each pumpkin with the
+      lens in short bursts.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

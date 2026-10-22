@@ -2,6 +2,8 @@ using Hauntscope.Gameplay.Analytics;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Progress;
+using Hauntscope.Gameplay.Store;
 using Hauntscope.Tests.EditMode.Fakes;
 using NUnit.Framework;
 using UnityEditor;
@@ -18,6 +20,10 @@ namespace Hauntscope.Tests.EditMode
         private FakeAnalyticsService _analytics;
         private FakeCrashReporter _reporter;
         private HuntAnalytics _hunt;
+        private FakeApplicationLifecycle _lifecycle;
+        private FakeSaveService _save;
+        private UnfinishedHuntLog _log;
+        private PlayerProgress _progress;
 
         [SetUp]
         public void SetUp()
@@ -31,7 +37,12 @@ namespace Hauntscope.Tests.EditMode
             _options = new HuntLaunchOptions();
             _analytics = new FakeAnalyticsService();
             _reporter = new FakeCrashReporter();
-            _hunt = new HuntAnalytics(_session, _options, _analytics, _reporter);
+            _lifecycle = new FakeApplicationLifecycle();
+            _save = new FakeSaveService();
+            _log = new UnfinishedHuntLog(_save, _analytics);
+            _progress = new PlayerProgress();
+            var beam = TestConfigs.Beam(_session, _fixture.Camera, TestConfigs.Tools(), new HuntModifiers());
+            _hunt = new HuntAnalytics(_session, _options, _analytics, _reporter, beam, _progress, _lifecycle, _log);
         }
 
         [TearDown]
@@ -115,6 +126,70 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.AreEqual(1, _analytics.Count(AnalyticsNames.HuntEnd));
             Assert.AreEqual("escaped", _analytics.ParameterOf(AnalyticsNames.HuntEnd, AnalyticsNames.Outcome));
+        }
+
+        [Test]
+        public void Dispose_BeforeAnyGhost_LogsQuitScan()
+        {
+            _hunt.Start();
+
+            _hunt.Dispose();
+
+            Assert.AreEqual("quit_scan", _analytics.ParameterOf(AnalyticsNames.HuntEnd, AnalyticsNames.Outcome));
+        }
+
+        [Test]
+        public void Start_Virtual_SetsPlayModeProperty()
+        {
+            _options.Select(HuntEnvironment.Virtual);
+
+            _hunt.Start();
+
+            Assert.AreEqual("virtual", _analytics.UserProperties[AnalyticsNames.PlayModeProperty]);
+        }
+
+        [Test]
+        public void Paused_MidHunt_TheNextLaunchLogsTheQuit()
+        {
+            _hunt.Start();
+            _session.Begin(_fixture.Ghost, _data);
+            _session.AddTime(12f);
+
+            _lifecycle.Pause();
+            var nextLaunch = new FakeAnalyticsService();
+            new UnfinishedHuntLog(_save, nextLaunch).Start();
+
+            Assert.AreEqual("quit", nextLaunch.ParameterOf(AnalyticsNames.HuntEnd, AnalyticsNames.Outcome));
+            Assert.AreEqual("yes", nextLaunch.ParameterOf(AnalyticsNames.HuntEnd, AnalyticsNames.Background));
+            Assert.AreEqual("12", nextLaunch.ParameterOf(AnalyticsNames.HuntEnd, AnalyticsNames.DurationSeconds));
+        }
+
+        [Test]
+        public void Resumed_AfterPause_TheNextLaunchLogsNothing()
+        {
+            _hunt.Start();
+            _session.Begin(_fixture.Ghost, _data);
+            _lifecycle.Pause();
+
+            _lifecycle.Resume();
+            var nextLaunch = new FakeAnalyticsService();
+            new UnfinishedHuntLog(_save, nextLaunch).Start();
+
+            Assert.AreEqual(0, nextLaunch.Count(AnalyticsNames.HuntEnd));
+        }
+
+        [Test]
+        public void Finish_AfterPauseWithoutResume_ClearsTheUnfinishedHunt()
+        {
+            _hunt.Start();
+            _session.Begin(_fixture.Ghost, _data);
+            _lifecycle.Pause();
+
+            _session.Finish(HuntOutcome.Captured);
+            var nextLaunch = new FakeAnalyticsService();
+            new UnfinishedHuntLog(_save, nextLaunch).Start();
+
+            Assert.AreEqual(0, nextLaunch.Count(AnalyticsNames.HuntEnd));
         }
 
         [Test]

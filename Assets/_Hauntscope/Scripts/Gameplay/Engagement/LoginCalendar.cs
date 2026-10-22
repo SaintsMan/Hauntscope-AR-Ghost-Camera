@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Ads;
 using Hauntscope.Gameplay.Config;
 
 namespace Hauntscope.Gameplay.Engagement
@@ -89,7 +90,7 @@ namespace Hauntscope.Gameplay.Engagement
             Changed?.Invoke();
             try
             {
-                if (!await _ads.ShowRewardedAsync(cancellationToken))
+                if (!await _ads.ShowRewardedAsync(cancellationToken, AdPlacements.Calendar))
                     return null;
             }
             finally

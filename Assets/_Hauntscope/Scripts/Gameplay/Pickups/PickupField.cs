@@ -4,6 +4,7 @@ using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Season;
 using Hauntscope.Gameplay.Tools;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ namespace Hauntscope.Gameplay.Pickups
         private readonly IReadOnlyList<IRevealingLight> _lights;
         private readonly Battery _battery;
         private readonly HuntLoot _loot;
+        private readonly SeasonEvent _season;
         private readonly List<Pickup> _active = new List<Pickup>();
         private readonly List<bool> _fired = new List<bool>();
 
@@ -34,8 +36,10 @@ namespace Hauntscope.Gameplay.Pickups
             GhostLens lens,
             IReadOnlyList<IRevealingLight> lights,
             Battery battery,
-            HuntLoot loot)
+            HuntLoot loot,
+            SeasonEvent season = null)
         {
+            _season = season;
             _factory = factory;
             _spots = spots;
             _config = config;
@@ -107,10 +111,12 @@ namespace Hauntscope.Gameplay.Pickups
 
         private void Fire(PickupSpawn rule)
         {
-            if (rule.Pickup == null || _random.Value > rule.Chance)
+            if (rule.Pickup == null || !IsInSeason(rule.Season) || _random.Value > rule.Chance)
                 return;
 
             var count = _random.Range(rule.CountMin, rule.CountMax + 1);
+            if (!string.IsNullOrEmpty(rule.Season))
+                count = _season.PickupCount(rule.Season, count);
             for (var n = 0; n < count; n++)
             {
                 if (!_spots.TrySelect(_camera.Position, _active, out var position))
@@ -120,6 +126,12 @@ namespace Hauntscope.Gameplay.Pickups
                 _active.Add(pickup);
                 Spawned?.Invoke(pickup);
             }
+        }
+
+        // Without a season service (or with its event off) a seasonal rule simply never fires.
+        private bool IsInSeason(string season)
+        {
+            return string.IsNullOrEmpty(season) || (_season != null && _season.Allows(season));
         }
 
         private void TickOnFloor(Pickup pickup, float deltaTime)

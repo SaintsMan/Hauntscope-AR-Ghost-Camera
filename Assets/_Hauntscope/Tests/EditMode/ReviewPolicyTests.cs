@@ -1,6 +1,7 @@
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Engagement;
 using Hauntscope.Gameplay.Progress;
+using Hauntscope.Tests.EditMode.Fakes;
 using NUnit.Framework;
 
 namespace Hauntscope.Tests.EditMode
@@ -12,12 +13,37 @@ namespace Hauntscope.Tests.EditMode
 
         private ReviewPolicy _policy;
         private PlayerProgress _progress;
+        private FakeRemoteValues _remote;
 
         [SetUp]
         public void SetUp()
         {
-            _policy = new ReviewPolicy(new ReviewConfig(MinCaptures, RepeatEvery, 0f));
+            _remote = new FakeRemoteValues();
+            _policy = new ReviewPolicy(new ReviewConfig(MinCaptures, RepeatEvery, 0f, 3), new RemoteTuning(_remote));
             _progress = new PlayerProgress();
+        }
+
+        [Test]
+        public void ShouldPrompt_ConsoleLowersTheMinimumToOne_AsksAfterTheFirstCatch()
+        {
+            _remote.Values[RemoteKeys.ReviewMinCaptures] = "1";
+            Capture(1);
+
+            Assert.IsTrue(_policy.ShouldPrompt(_progress));
+        }
+
+        [Test]
+        public void Evaluate_ThreeStarPhotoNoCatch_ReturnsPhoto()
+        {
+            Assert.AreEqual(ReviewTrigger.Photo, _policy.Evaluate(_progress, 3));
+        }
+
+        [Test]
+        public void Evaluate_PhotoAfterAPhotoAsk_ReturnsNone()
+        {
+            _progress.MarkReviewPrompted();
+
+            Assert.AreEqual(ReviewTrigger.None, _policy.Evaluate(_progress, 3));
         }
 
         [Test]

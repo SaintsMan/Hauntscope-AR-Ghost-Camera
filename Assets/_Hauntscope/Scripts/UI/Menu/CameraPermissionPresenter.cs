@@ -53,8 +53,12 @@ namespace Hauntscope.UI.Menu
             _lifetime.Dispose();
         }
 
+        // The launcher clears the prompt after the menu scene, and this view with it, may already be gone.
         private void OnPromptChanged(LaunchPrompt prompt)
         {
+            if (_view == null)
+                return;
+
             _view.SetVisible(prompt == LaunchPrompt.CameraPermission || prompt == LaunchPrompt.CameraSettings);
             RefreshTexts();
         }

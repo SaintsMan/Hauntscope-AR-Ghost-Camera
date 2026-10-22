@@ -3,7 +3,9 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Observables;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Analytics;
 using Hauntscope.Gameplay.Environment;
+using Hauntscope.Gameplay.Onboarding;
 using Hauntscope.Gameplay.Progress;
 using VContainer.Unity;
 
@@ -20,6 +22,8 @@ namespace Hauntscope.Gameplay.Hunt
         private readonly SettingsRepository _settingsRepository;
         private readonly HuntLaunchOptions _options;
         private readonly ISceneLoader _sceneLoader;
+        private readonly OnboardingFunnel _funnel;
+        private readonly FirstHunt _firstHunt;
         private readonly ObservableValue<LaunchPrompt> _prompt = new ObservableValue<LaunchPrompt>(LaunchPrompt.None);
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
@@ -34,8 +38,12 @@ namespace Hauntscope.Gameplay.Hunt
             GameSettings settings,
             SettingsRepository settingsRepository,
             HuntLaunchOptions options,
-            ISceneLoader sceneLoader)
+            ISceneLoader sceneLoader,
+            OnboardingFunnel funnel,
+            FirstHunt firstHunt)
         {
+            _funnel = funnel;
+            _firstHunt = firstHunt;
             _settings = settings;
             _settingsRepository = settingsRepository;
             _arAvailability = arAvailability;
@@ -107,6 +115,7 @@ namespace Hauntscope.Gameplay.Hunt
                 return false;
 
             _prompt.Value = LaunchPrompt.None;
+            _funnel.Step(OnboardingFunnel.LaunchChoice, OnboardingFunnel.ChoiceBack);
             return true;
         }
 
@@ -129,6 +138,15 @@ namespace Hauntscope.Gameplay.Hunt
 
         private async UniTask ResolveEnvironmentAsync(CancellationToken cancellationToken)
         {
+            _funnel.Step(OnboardingFunnel.HuntTap);
+
+            // The first hunt may skip the camera dialog altogether; the menu's own mode stays as the player set it.
+            if (_firstHunt.StartsInVirtualRoom && _options.Mode == HuntMode.Single)
+            {
+                await LoadAsync(HuntEnvironment.Virtual, cancellationToken);
+                return;
+            }
+
             // A player who picked the Virtual Room needs no AR check, camera or explanation.
             if (_settings.Environment.Value == HuntEnvironment.Virtual)
             {
@@ -145,6 +163,7 @@ namespace Hauntscope.Gameplay.Hunt
 
             if (availability != ArAvailabilityResult.Supported)
             {
+                _funnel.Step(OnboardingFunnel.ArUnavailable);
                 await ContinueWithoutArAsync(cancellationToken);
                 return;
             }
@@ -158,6 +177,7 @@ namespace Hauntscope.Gameplay.Hunt
             // The system dialog is only raised from the explanation screen's button: a player who knows why the
             // camera is needed rarely denies it, and Android stops showing the dialog after the second denial.
             _prompt.Value = LaunchPrompt.CameraPermission;
+            _funnel.Step(OnboardingFunnel.CameraPrompt);
         }
 
         private async UniTask RequestCameraAsync(CancellationToken cancellationToken)
@@ -203,6 +223,7 @@ namespace Hauntscope.Gameplay.Hunt
         // player just tapped instead of an empty menu.
         private async UniTask LoadAsync(HuntEnvironment environment, CancellationToken cancellationToken)
         {
+            _funnel.Step(OnboardingFunnel.LaunchChoice, environment == HuntEnvironment.Ar ? OnboardingFunnel.ChoiceAr : OnboardingFunnel.ChoiceVirtual);
             _options.Select(environment);
             try
             {

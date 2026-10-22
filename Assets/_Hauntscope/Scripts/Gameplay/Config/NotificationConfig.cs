@@ -11,7 +11,6 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private string _reminderChannel = "hauntscope_reminders";
         [SerializeField] private string _newsChannel = "hauntscope_news";
         [SerializeField] private Color _accent = new Color(0.31f, 0.96f, 0.9f, 1f);
-        [SerializeField, Min(0)] private int _promptAfterCaptures = 1;
         [SerializeField, Range(0, 23)] private int _quietStartHour = 21;
         [SerializeField, Range(0, 23)] private int _quietEndHour = 10;
         [SerializeField, Range(0, 23)] private int _eveningHour = 19;
@@ -55,8 +54,6 @@ namespace Hauntscope.Gameplay.Config
         // FCM shows console messages here (the manifest names it as the default channel).
         public string NewsChannel => _newsChannel;
         public Color Accent => _accent;
-        // The opt-in card waits for the first catch: by then the player knows what a reminder would be about.
-        public int PromptAfterCaptures => _promptAfterCaptures;
         // Nothing fires from QuietStartHour until QuietEndHour; a reminder due then waits for the morning.
         public int QuietStartHour => _quietStartHour;
         public int QuietEndHour => _quietEndHour;

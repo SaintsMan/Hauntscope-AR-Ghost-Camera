@@ -136,7 +136,7 @@ namespace Hauntscope.Gameplay.Hunt.States
             var bite = ghost.TakeBite();
             if (bite > 0f)
                 _battery.DrainFraction(bite);
-            _radar.Tick(deltaTime, ghost.EmfSource, ghost.EmfRange * _modifiers.EmfRange);
+            _radar.Tick(deltaTime, ghost.EmfSources, ghost.EmfRange * _modifiers.EmfRange);
             _session.AddTime(deltaTime);
 
             if (!_session.IsSighted && ghost.VisibleReveal >= ghost.Context.Config.AlertRevealThreshold)

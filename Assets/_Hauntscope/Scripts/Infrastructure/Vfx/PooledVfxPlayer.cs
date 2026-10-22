@@ -32,6 +32,8 @@ namespace Hauntscope.Infrastructure.Vfx
             Register(VfxId.ShriekWave, config.ShriekWave);
             Register(VfxId.KnockDust, config.KnockDust);
             Register(VfxId.DevelopFlash, config.DevelopFlash);
+            Register(VfxId.PumpkinFlare, config.PumpkinFlare);
+            Register(VfxId.PumpkinPuff, config.PumpkinPuff);
         }
 
         public void Play(VfxId id, Vector3 position, Color color)

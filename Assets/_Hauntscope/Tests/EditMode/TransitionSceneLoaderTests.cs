@@ -38,6 +38,21 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void LoadAsync_WhileCovering_RaisesLeavingOnlyOnceCovered()
+        {
+            var leaving = 0;
+            _loader.Leaving += () => leaving++;
+            _transition.HoldCover = true;
+            _loader.LoadAsync(SceneId.MainMenu, CancellationToken.None).Forget();
+            var beforeCover = leaving;
+
+            _transition.CompleteCover();
+
+            Assert.AreEqual(0, beforeCover);
+            Assert.AreEqual(1, leaving);
+        }
+
+        [Test]
         public void LoadAsync_WhileCovering_WaitsBeforeLoading()
         {
             _transition.HoldCover = true;

@@ -11,6 +11,8 @@ namespace Hauntscope.Core.Services
         DashStreak,
         ShriekWave,
         KnockDust,
-        DevelopFlash
+        DevelopFlash,
+        PumpkinFlare,
+        PumpkinPuff
     }
 }

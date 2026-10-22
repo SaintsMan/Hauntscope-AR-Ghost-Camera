@@ -128,7 +128,7 @@ namespace Hauntscope.UI.Hunt
                 return;
 
             var percent = Mathf.RoundToInt(gain.Charge * Percent);
-            _view.ShowToast(_localization.Get(LocalizationTable.Ui, pickup.Data.ToastKey, gain.Ectoplasm, percent), pickup.Data.Color);
+            _view.ShowToast(_localization.Get(LocalizationTable.Ui, pickup.Data.ToastKey, gain.Ectoplasm, percent, gain.Candy), pickup.Data.Color);
         }
 
         private void OnSpawned(Pickup pickup)

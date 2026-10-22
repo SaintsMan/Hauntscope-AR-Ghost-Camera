@@ -14,6 +14,7 @@ namespace Hauntscope.UI.Hunt
     public sealed class EmergencyChargePresenter : IStartable, IDisposable
     {
         private const string SpareKey = "emergency.spare";
+        private const string FreeKey = "emergency.free";
         private const string SecondsKey = "emergency.seconds";
 
         private readonly EmergencyChargeView _view;
@@ -99,7 +100,10 @@ namespace Hauntscope.UI.Hunt
             if (state == EmergencyState.Idle)
                 return;
 
-            _view.SetSpare(_emergency.CanUseSpare, _localization.Get(LocalizationTable.Ui, SpareKey, _spares.Count));
+            var spareLabel = _emergency.IsFreeCharge
+                ? _localization.Get(LocalizationTable.Ui, FreeKey)
+                : _localization.Get(LocalizationTable.Ui, SpareKey, _spares.Count);
+            _view.SetSpare(_emergency.CanUseSpare, spareLabel);
             _view.SetAd(_emergency.IsAdOffered, _emergency.CanWatchAd && state == EmergencyState.Offered);
             RenderCountdown();
         }

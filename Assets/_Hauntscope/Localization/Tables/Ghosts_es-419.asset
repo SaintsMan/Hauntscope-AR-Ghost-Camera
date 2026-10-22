@@ -529,6 +529,48 @@ MonoBehaviour:
       encu\xE9ntrala con ella y enciende la lente solo cuando est\xE9 en el anillo."
     m_Metadata:
       m_Items: []
+  - m_Id: 6527154522152960
+    m_Localized: Jack el de la Linterna
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707392
+    m_Localized: "Un fantasma calabaza sonriente que solo aparece en Halloween. Se
+      esconde entre calabazas vac\xEDas y se r\xEDe mientras lo buscas."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707393
+    m_Localized: "En la \xFAltima noche de octubre cada porche tiene una calabaza
+      que la noche anterior no estaba. Nadie ve jam\xE1s qui\xE9n las deja."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707394
+    m_Localized: "Se queda quieto entre 4 o 5 calabazas vac\xEDas, as\xED que el
+      radar oye cinco se\xF1ales a la vez. Solo la lente las revela: una vac\xEDa
+      chisporrotea y cuesta un poco de bater\xEDa, la real enciende los ojos y despierta."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707395
+    m_Localized: "Sigue las se\xF1ales m\xE1s fuertes, pero no gastes la lente en
+      cada calabaza: \xFAsala en r\xE1fagas cortas. Cuando la real se encienda, queda
+      aturdida un momento: dispara el rayo de inmediato."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707396
+    m_Localized: "Lente de fantasmas. Es lo \xFAnico que distingue la calabaza real
+      de las vac\xEDas, y en el radar EMF cada se\xF1al aparece en la franja sobre
+      el medidor."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707397
+    m_Localized: "La agencia cont\xF3 todas las calabazas que tall\xF3 en sus casos.
+      Siempre hay una m\xE1s de las que recuerdan los agentes."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707398
+    m_Localized: "Muchas se\xF1ales, pero solo una es un fantasma. Revisa cada calabaza
+      con la lente en r\xE1fagas cortas."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

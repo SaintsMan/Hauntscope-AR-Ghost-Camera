@@ -1,6 +1,7 @@
 using System.Threading;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using Hauntscope.Tests.EditMode.Fakes;
@@ -25,9 +26,45 @@ namespace Hauntscope.Tests.EditMode
             _battery = new Battery(TestConfigs.Tools(batteryMax: 100f));
             _ads = new FakeAdsService { IsRewardedReady = false };
             _pause = new HuntPause(new FakeTrackingStatus(), new FakeApplicationLifecycle(), new TrackingConfig(0.5f), _ads);
-            var spares = new SpareBatteries(_store.Inventory, _store.InventoryRepository, _store.Config, _battery);
-            _emergency = new EmergencyCharge(_pause, spares, new EmergencyConfig(Countdown, 0.5f), _ads, _battery);
+            _emergency = CreateEmergency(2);
             _battery.Drain(100f);
+        }
+
+        private EmergencyCharge CreateEmergency(int huntsPlayed)
+        {
+            var spares = new SpareBatteries(_store.Inventory, _store.InventoryRepository, _store.Config, _battery);
+            var progress = new PlayerProgress();
+            for (var i = 0; i < huntsPlayed; i++)
+                progress.RegisterSession();
+            var rookie = new RookieAssist(new RookieConfig(10, new HuntModifierSet(), freeChargeHunts: 1, freeCharge: 0.4f), progress,
+                new HuntModifiers(), new RemoteTuning(new FakeRemoteValues()));
+            return new EmergencyCharge(_pause, spares, new EmergencyConfig(Countdown, 0.5f), _ads, _battery, rookie);
+        }
+
+        [Test]
+        public void TryOffer_RookieFirstHunt_OffersTheFreeCharge()
+        {
+            _emergency = CreateEmergency(1);
+
+            var offered = _emergency.TryOffer();
+
+            Assert.IsTrue(offered);
+            Assert.IsTrue(_emergency.IsFreeCharge);
+        }
+
+        [Test]
+        public void UseSpare_FreeCharge_RechargesWithoutTakingASpare()
+        {
+            _emergency = CreateEmergency(1);
+            _store.Inventory.AddGear(StoreFixture.BatteryId, 1);
+            _emergency.TryOffer();
+
+            _emergency.UseSpare();
+
+            Assert.AreEqual(40f, _battery.Charge.Value, 1e-3f);
+            Assert.AreEqual(1, _store.Inventory.Gear[StoreFixture.BatteryId]);
+            Assert.IsFalse(_pause.IsPaused);
+            Assert.IsFalse(_emergency.IsFreeCharge);
         }
 
         [Test]

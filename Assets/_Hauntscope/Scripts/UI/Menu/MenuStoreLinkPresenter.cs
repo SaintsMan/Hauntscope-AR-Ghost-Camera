@@ -2,6 +2,7 @@ using System;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Iap;
+using Hauntscope.Gameplay.Onboarding;
 using VContainer.Unity;
 
 namespace Hauntscope.UI.Menu
@@ -14,10 +15,12 @@ namespace Hauntscope.UI.Menu
         private readonly PaidStore _paid;
         private readonly ILocalizationService _localization;
         private readonly UiFeedback _ui;
+        private readonly FeatureUnlocks _features;
 
         public MenuStoreLinkPresenter(MenuStoreLinkView view, MenuNavigation navigation, StarterOffer starter, PaidStore paid,
-            ILocalizationService localization, UiFeedback ui)
+            ILocalizationService localization, UiFeedback ui, FeatureUnlocks features)
         {
+            _features = features;
             _view = view;
             _navigation = navigation;
             _starter = starter;
@@ -57,9 +60,17 @@ namespace Hauntscope.UI.Menu
             _view.SetOffer(badge);
         }
 
+        // The balance is shown before the shop opens; until then it is just a number.
         private void OnBalanceClicked()
         {
+            if (!_features.IsUnlocked(Feature.Shop))
+            {
+                _ui.PlayDenied();
+                return;
+            }
+
             _ui.PlayClick();
+            _features.NotifyUsed(Feature.Shop);
             _navigation.ShowShop(ShopTab.Supplies);
         }
     }

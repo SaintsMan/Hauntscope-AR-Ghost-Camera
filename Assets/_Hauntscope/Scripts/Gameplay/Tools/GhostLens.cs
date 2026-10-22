@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Hauntscope.Gameplay.Tools
 {
-    public sealed class GhostLens : ITool
+    public sealed class GhostLens : ITool, ILensSight
     {
         private readonly HuntSession _session;
         private readonly ICameraPose _camera;
@@ -35,6 +35,11 @@ namespace Hauntscope.Gameplay.Tools
         public void Deactivate()
         {
             _isActive.Value = false;
+        }
+
+        public bool Sees(Vector3 position, float range)
+        {
+            return _isActive.Value && IsInView(position, range);
         }
 
         // Ticks while inactive too: a ghost that was revealed must fade out after the lens is switched off.

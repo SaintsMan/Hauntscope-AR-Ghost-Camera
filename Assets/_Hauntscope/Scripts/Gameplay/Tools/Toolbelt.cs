@@ -9,6 +9,8 @@ namespace Hauntscope.Gameplay.Tools
         private readonly EvpRecorder _evp;
         private readonly ITool[] _tools;
 
+        private bool _lensFromBeam;
+
         public Toolbelt(GhostLens lens, CaptureBeam beam, SpiritBox spiritBox, ViewSelector views, EvpRecorder evp)
         {
             _lens = lens;
@@ -46,6 +48,7 @@ namespace Hauntscope.Gameplay.Tools
 
         public void ToggleLens()
         {
+            _lensFromBeam = false;
             if (_lens.IsActive.Value)
                 _lens.Deactivate();
             else
@@ -70,8 +73,12 @@ namespace Hauntscope.Gameplay.Tools
             _views.Cycle();
         }
 
+        // The beam needs the lens; a lens the beam switched on goes off with it, or it would keep eating the battery
+        // unseen. One the player had switched on stays on.
         public void StartBeam()
         {
+            if (!_beam.IsActive.Value)
+                _lensFromBeam = !_lens.IsActive.Value;
             _lens.Activate();
             _beam.Activate();
         }
@@ -79,10 +86,14 @@ namespace Hauntscope.Gameplay.Tools
         public void StopBeam()
         {
             _beam.Deactivate();
+            if (_lensFromBeam)
+                _lens.Deactivate();
+            _lensFromBeam = false;
         }
 
         public void DeactivateAll()
         {
+            _lensFromBeam = false;
             foreach (var tool in _tools)
                 tool.Deactivate();
         }

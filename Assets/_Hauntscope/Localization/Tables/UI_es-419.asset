@@ -1669,6 +1669,112 @@ MonoBehaviour:
     m_Localized: AHORA NO
     m_Metadata:
       m_Items: []
+  - m_Id: 6247785186713600
+    m_Localized: INICIAR PRIMER CASO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155029663744
+    m_Localized: TRUCO O TRATO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966912
+    m_Localized: TRUCO O TRATO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966913
+    m_Localized: "QUEDAN {0} D\xCDAS"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966914
+    m_Localized: "\xA1\xDALTIMO D\xCDA!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966915
+    m_Localized: 'Dulces: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966916
+    m_Localized: "Los dulces se esconden en la sala: encu\xE9ntralos con la lente.
+      G\xE1stalos en aspectos antes de que acabe el evento: los que sobren se queman."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966917
+    m_Localized: "El evento termin\xF3. Los aspectos que compraste son tuyos para
+      siempre."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966918
+    m_Localized: RAYO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966919
+    m_Localized: MARCO DE LENTE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966920
+    m_Localized: RADAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966921
+    m_Localized: '{0} DULCES - COMPRAR'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966922
+    m_Localized: TUYO - TOCA PARA USAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966923
+    m_Localized: PUESTO - TOCA PARA QUITAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966924
+    m_Localized: EVENTO TERMINADO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966925
+    m_Localized: Rayo calabaza
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966926
+    m_Localized: El rayo de captura arde en naranja calabaza.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966927
+    m_Localized: "Marco de telara\xF1a"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966928
+    m_Localized: "Telara\xF1as cubren el visor mientras la lente est\xE1 encendida."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966929
+    m_Localized: Radar de Jack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966930
+    m_Localized: "El radar EMF brilla en \xE1mbar, como un farol."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966931
+    m_Localized: DULCES +{2}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966932
+    m_Localized: "VARIAS SE\xD1ALES - REVISA CADA UNA CON LA LENTE"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966933
+    m_Localized: DULCES +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8050378045120512
+    m_Localized: CARGA GRATIS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8050378250641408
+    m_Localized: "SIN CONEXI\xD3N"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

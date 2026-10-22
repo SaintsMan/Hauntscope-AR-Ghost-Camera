@@ -1700,6 +1700,111 @@ MonoBehaviour:
     m_Localized: NANTI SAJA
     m_Metadata:
       m_Items: []
+  - m_Id: 6247785186713600
+    m_Localized: MULAI KASUS PERTAMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155029663744
+    m_Localized: TRIK ATAU TRAKTIR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966912
+    m_Localized: TRIK ATAU TRAKTIR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966913
+    m_Localized: '{0} HARI LAGI'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966914
+    m_Localized: HARI TERAKHIR!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966915
+    m_Localized: 'Permen: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966916
+    m_Localized: 'Permen bersembunyi di ruangan: temukan dengan lensa. Tukar jadi
+      skin sebelum event berakhir, sisa permen hangus.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966917
+    m_Localized: Event selesai. Skin yang sudah kamu beli tetap milikmu selamanya.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966918
+    m_Localized: SINAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966919
+    m_Localized: BINGKAI LENSA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966920
+    m_Localized: RADAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966921
+    m_Localized: '{0} PERMEN - BELI'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966922
+    m_Localized: MILIKMU - KETUK UNTUK PAKAI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966923
+    m_Localized: DIPAKAI - KETUK UNTUK LEPAS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966924
+    m_Localized: EVENT SELESAI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966925
+    m_Localized: Sinar labu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966926
+    m_Localized: Sinar penangkap menyala oranye labu.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966927
+    m_Localized: Bingkai sarang laba-laba
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966928
+    m_Localized: Sarang laba-laba merayap di jendela bidik saat lensa menyala.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966929
+    m_Localized: Radar Jack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966930
+    m_Localized: Radar EMF menyala kuning ambar seperti lentera.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966931
+    m_Localized: PERMEN +{2}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966932
+    m_Localized: BANYAK SINYAL - PERIKSA TIAP SINYAL DENGAN LENSA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966933
+    m_Localized: PERMEN +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8050378045120512
+    m_Localized: ISI GRATIS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8050378250641408
+    m_Localized: OFFLINE
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

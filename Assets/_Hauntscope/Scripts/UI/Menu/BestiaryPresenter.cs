@@ -6,6 +6,7 @@ using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Photo;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Research;
+using Hauntscope.Gameplay.Season;
 using Hauntscope.UI.Common;
 using UnityEngine;
 using VContainer.Unity;
@@ -55,6 +56,7 @@ namespace Hauntscope.UI.Menu
         private readonly UiFeedback _ui;
         private readonly ISfxPlayer _sfx;
         private readonly EvpRecorderConfig _evp;
+        private readonly SeasonEvent _season;
         private readonly List<BestiaryCardView> _cards = new List<BestiaryCardView>();
         private readonly List<Action> _cardHandlers = new List<Action>();
         private readonly List<DossierSection> _sections = new List<DossierSection>();
@@ -77,8 +79,10 @@ namespace Hauntscope.UI.Menu
             ILocalizationService localization,
             UiFeedback ui,
             ISfxPlayer sfx,
-            EvpRecorderConfig evp)
+            EvpRecorderConfig evp,
+            SeasonEvent season)
         {
+            _season = season;
             _sfx = sfx;
             _evp = evp;
             _view = view;
@@ -137,6 +141,8 @@ namespace Hauntscope.UI.Menu
         private void OnScreenChanged(MenuScreen screen)
         {
             _view.SetVisible(screen == MenuScreen.Bestiary || screen == MenuScreen.BestiaryCard);
+            if (screen == MenuScreen.Bestiary)
+                Render();
             if (screen == MenuScreen.BestiaryCard)
                 return;
 
@@ -152,12 +158,25 @@ namespace Hauntscope.UI.Menu
                 ShowDetails(_openIndex, false);
         }
 
+        // A season's ghost is on the shelf while its event runs, and for good once it has been seen.
+        private bool IsListed(GhostData ghost)
+        {
+            return _season.Allows(ghost.SeasonEvent) || _progress.IsSighted(ghost.Id) || _progress.GetCaptureCount(ghost.Id) > 0;
+        }
+
         private void Render()
         {
             var captured = 0;
+            var listed = 0;
             for (var i = 0; i < _cards.Count; i++)
             {
                 var ghost = _ghosts.Ghosts[i];
+                var visible = IsListed(ghost);
+                _cards[i].gameObject.SetActive(visible);
+                if (!visible)
+                    continue;
+
+                listed++;
                 var level = _research.GetLevel(ghost);
                 var count = _progress.GetCaptureCount(ghost.Id);
                 if (count > 0)
@@ -168,7 +187,7 @@ namespace Hauntscope.UI.Menu
                     _localization.Get(LocalizationTable.Ui, StampKeys[(int)level]), level);
             }
 
-            _view.SetCount(_localization.Get(LocalizationTable.Ui, CountKey, captured, _cards.Count));
+            _view.SetCount(_localization.Get(LocalizationTable.Ui, CountKey, captured, listed));
         }
 
         private void OnCardClicked(int index)

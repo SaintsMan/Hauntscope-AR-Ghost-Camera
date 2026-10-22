@@ -123,6 +123,22 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Pick_StoreNotReady_KeepsTheRookieKitForLater()
+        {
+            _fixture.PlayHunts(IapFixture.StarterAfterHunts);
+            _fixture.Iap.IsReady = false;
+            _fixture.Moments.RecordHunt(true);
+            var offline = _fixture.Funnel.Pick();
+
+            _fixture.Iap.IsReady = true;
+            _fixture.Moments.RecordHunt(true);
+            var online = _fixture.Funnel.Pick();
+
+            Assert.IsNull(offline);
+            Assert.AreSame(_fixture.StarterPack, online);
+        }
+
+        [Test]
         public void Pick_GhostEscapedAfterEnoughHunts_PitchesTheRookieKitOnce()
         {
             _fixture.PlayHunts(IapFixture.StarterAfterHunts);

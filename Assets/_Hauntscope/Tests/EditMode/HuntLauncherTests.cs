@@ -2,8 +2,11 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Analytics;
+using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Onboarding;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Tests.EditMode.Fakes;
 using NUnit.Framework;
@@ -22,6 +25,8 @@ namespace Hauntscope.Tests.EditMode
         private PlayerProgress _progress;
         private GameSettings _settings;
         private SettingsRepository _settingsRepository;
+        private FakeAnalyticsService _analytics;
+        private FakeRemoteValues _remote;
         private HuntLauncher _launcher;
         private bool _isDisposed;
 
@@ -37,6 +42,8 @@ namespace Hauntscope.Tests.EditMode
             _sceneLoader = new FakeSceneLoader();
             _settings = new GameSettings();
             _settingsRepository = new SettingsRepository(_save);
+            _analytics = new FakeAnalyticsService();
+            _remote = new FakeRemoteValues();
             CreateLauncher(new PlayerProgress());
         }
 
@@ -413,11 +420,92 @@ namespace Hauntscope.Tests.EditMode
             Assert.AreEqual(0, _sceneLoader.LoadCount);
         }
 
+        [Test]
+        public void Launch_NewAgentWithCameraGranted_ReportsTheTapAndTheChoice()
+        {
+            _camera.IsGranted = true;
+
+            Launch();
+
+            Assert.AreEqual(2, _analytics.Count(AnalyticsNames.OnboardingStep));
+            Assert.AreEqual("launch_choice", _analytics.ParameterOf(AnalyticsNames.OnboardingStep, AnalyticsNames.Step));
+            Assert.AreEqual("ar", _analytics.ParameterOf(AnalyticsNames.OnboardingStep, AnalyticsNames.Choice));
+        }
+
+        [Test]
+        public void Launch_NewAgentWithoutCamera_ReportsThePromptAsTheLastStep()
+        {
+            Launch();
+
+            Assert.AreEqual("camera_prompt", _analytics.ParameterOf(AnalyticsNames.OnboardingStep, AnalyticsNames.Step));
+        }
+
+        [Test]
+        public void CancelPrompt_NewAgent_ReportsBackAsTheChoice()
+        {
+            Launch();
+
+            _launcher.CancelPrompt();
+
+            Assert.AreEqual("launch_choice", _analytics.ParameterOf(AnalyticsNames.OnboardingStep, AnalyticsNames.Step));
+            Assert.AreEqual("back", _analytics.ParameterOf(AnalyticsNames.OnboardingStep, AnalyticsNames.Choice));
+        }
+
+        [Test]
+        public void Launch_ArUnsupportedForANewAgent_ReportsIt()
+        {
+            _ar.Availability = ArAvailabilityResult.Unsupported;
+
+            Launch();
+
+            Assert.AreEqual("ar_unavailable", _analytics.ParameterOf(AnalyticsNames.OnboardingStep, AnalyticsNames.Step));
+        }
+
+        [Test]
+        public void Launch_TutorialDone_ReportsNothing()
+        {
+            DisposeLauncher();
+            var done = new PlayerProgress();
+            done.MarkTutorialCompleted();
+            CreateLauncher(done);
+            _camera.IsGranted = true;
+
+            Launch();
+
+            Assert.AreEqual(0, _analytics.Count(AnalyticsNames.OnboardingStep));
+        }
+
+        [Test]
+        public void Launch_FirstHuntInTheVirtualRoomByTheConsole_SkipsTheCameraAndKeepsTheMenuMode()
+        {
+            _remote.Values[RemoteKeys.FirstHuntVirtual] = "true";
+
+            Launch();
+
+            AssertLoaded(HuntEnvironment.Virtual);
+            Assert.AreEqual(0, _camera.RequestCount);
+            Assert.AreEqual(LaunchPrompt.None, _launcher.Prompt.Value);
+            Assert.AreEqual(HuntEnvironment.Ar, _settings.Environment.Value);
+        }
+
+        [Test]
+        public void Launch_SecondHuntWithTheVirtualFirstHuntSwitchOn_GoesTheNormalWay()
+        {
+            _remote.Values[RemoteKeys.FirstHuntVirtual] = "true";
+            _progress.RegisterSession();
+
+            Launch();
+
+            Assert.AreEqual(LaunchPrompt.CameraPermission, _launcher.Prompt.Value);
+            Assert.AreEqual(0, _sceneLoader.LoadCount);
+        }
+
         private void CreateLauncher(PlayerProgress progress)
         {
             _progress = progress;
             _launcher = new HuntLauncher(_ar, _camera, _lifecycle, _progress, _repository, _settings, _settingsRepository,
-                _options, _sceneLoader);
+                _options, _sceneLoader, new OnboardingFunnel(_analytics, _progress),
+                new FirstHunt(_progress, new OnboardingConfig(), new RemoteTuning(_remote)));
             _launcher.Initialize();
             _isDisposed = false;
         }

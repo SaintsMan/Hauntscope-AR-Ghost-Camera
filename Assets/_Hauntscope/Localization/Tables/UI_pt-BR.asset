@@ -1670,6 +1670,112 @@ MonoBehaviour:
     m_Localized: "AGORA N\xC3O"
     m_Metadata:
       m_Items: []
+  - m_Id: 6247785186713600
+    m_Localized: INICIAR PRIMEIRO CASO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155029663744
+    m_Localized: DOCE OU TRAVESSURA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966912
+    m_Localized: DOCE OU TRAVESSURA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966913
+    m_Localized: FALTAM {0} DIAS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966914
+    m_Localized: "\xDALTIMO DIA!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966915
+    m_Localized: 'Doces: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966916
+    m_Localized: 'Os doces se escondem na sala: encontre-os com a lente. Gaste-os
+      em visuais antes do fim do evento: o que sobrar queima.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966917
+    m_Localized: "O evento acabou. Os visuais que voc\xEA comprou s\xE3o seus para
+      sempre."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966918
+    m_Localized: RAIO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966919
+    m_Localized: MOLDURA DA LENTE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966920
+    m_Localized: RADAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966921
+    m_Localized: '{0} DOCES - COMPRAR'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966922
+    m_Localized: SEU - TOQUE PARA USAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966923
+    m_Localized: EM USO - TOQUE PARA TIRAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966924
+    m_Localized: EVENTO ENCERRADO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966925
+    m_Localized: "Raio de ab\xF3bora"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966926
+    m_Localized: "O raio de captura queima em laranja ab\xF3bora."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966927
+    m_Localized: Moldura de teia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966928
+    m_Localized: "Teias cobrem o visor enquanto a lente est\xE1 ligada."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966929
+    m_Localized: Radar do Jack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966930
+    m_Localized: "O radar EMF brilha em \xE2mbar, como uma lanterna."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966931
+    m_Localized: DOCES +{2}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966932
+    m_Localized: "V\xC1RIOS SINAIS - CONFIRA CADA UM COM A LENTE"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966933
+    m_Localized: DOCES +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8050378045120512
+    m_Localized: "CARGA GR\xC1TIS"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8050378250641408
+    m_Localized: OFFLINE
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

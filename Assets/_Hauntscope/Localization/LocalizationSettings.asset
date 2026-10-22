@@ -15,6 +15,7 @@ MonoBehaviour:
   m_StartupSelectors:
   - rid: 4168420681156132954
   - rid: 4168420681156132955
+  - rid: 5877069271611998401
   - rid: 4168420681156132956
   m_AvailableLocales:
     rid: 4168420681156132957
@@ -218,3 +219,6 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+    - rid: 5877069271611998401
+      type: {class: LanguageFamilyLocaleSelector, ns: Hauntscope.Infrastructure.Localization, asm: Hauntscope.Infrastructure}
+      data: 

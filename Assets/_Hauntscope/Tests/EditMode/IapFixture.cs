@@ -58,7 +58,8 @@ namespace Hauntscope.Tests.EditMode
             Starter = new StarterOffer(Config, History, HistoryRepository, Store.Progress, Clock, Tuning);
             Premium = new PremiumOffer(Config, History, HistoryRepository, Store.Progress, Clock, Tuning);
             Moments = new OfferMoments();
-            Funnel = new OfferFunnel(Moments, Starter, Premium, Config, History, HistoryRepository, Store.Inventory, Store.Config, Clock, Tuning);
+            Funnel = new OfferFunnel(Moments, Starter, Premium, Config, History, HistoryRepository, Store.Inventory, Store.Config, Clock, Tuning,
+                Iap);
         }
 
         public StoreFixture Store { get; }

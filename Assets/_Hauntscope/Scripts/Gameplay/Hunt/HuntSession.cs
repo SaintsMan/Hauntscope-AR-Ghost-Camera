@@ -30,6 +30,9 @@ namespace Hauntscope.Gameplay.Hunt
 
         public event Action Scared;
 
+        // The lens revealed the ghost for the first time this hunt.
+        public event Action Sighted;
+
         public void Begin(Ghost ghost, GhostData data, bool isPlayersFirstHunt = false, bool isWitchingHour = false)
         {
             IsWitchingHour = isWitchingHour;
@@ -66,7 +69,11 @@ namespace Hauntscope.Gameplay.Hunt
 
         public void MarkSighted()
         {
+            if (IsSighted)
+                return;
+
             IsSighted = true;
+            Sighted?.Invoke();
         }
 
         public void DoubleCaptureReward()

@@ -1,6 +1,8 @@
+using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Ghosts.Abilities;
+using Hauntscope.Gameplay.Tools;
 using Hauntscope.Tests.EditMode.Fakes;
 using UnityEngine;
 
@@ -32,7 +34,7 @@ namespace Hauntscope.Tests.EditMode
         public const float ScareFaceDistance = 0.45f;
 
         public GhostFixture(float wanderInterval = 4f, float floorHeight = 0f, CaptureConfig capture = null, IGhostAbility[] abilities = null,
-            HideConfig hide = null, bool photoOnly = false)
+            HideConfig hide = null, bool photoOnly = false, ILensSight lens = null, IRandom contextRandom = null)
         {
             Planes = new FakePlaneProvider
             {
@@ -54,13 +56,14 @@ namespace Hauntscope.Tests.EditMode
                 Scare,
                 Capture,
                 Mover,
-                Random,
+                contextRandom ?? Random,
                 Planes,
                 Camera,
                 hide,
                 HideSpots,
                 hide != null,
-                photoOnly);
+                photoOnly,
+                lens);
             View = new FakeGhostView();
             Ghost = new Ghost(Context, View, abilities ?? System.Array.Empty<IGhostAbility>());
         }

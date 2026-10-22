@@ -38,10 +38,10 @@ namespace Hauntscope.Gameplay.Ads
         }
 
         // A rewarded ad closed early still played, so it counts for pacing even without a reward.
-        public async UniTask<bool> ShowRewardedAsync(CancellationToken cancellationToken)
+        public async UniTask<bool> ShowRewardedAsync(CancellationToken cancellationToken, string placement = "")
         {
             var ready = _inner.IsRewardedReady;
-            var rewarded = await _inner.ShowRewardedAsync(cancellationToken);
+            var rewarded = await _inner.ShowRewardedAsync(cancellationToken, placement);
             if (ready)
                 _pacing.MarkShown(_clock.UtcNow, false);
             return rewarded;

@@ -1,6 +1,7 @@
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Season;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace Hauntscope.Gameplay.Feedback
     // the capture charges. Hidden while paused, since nothing drains or charges then.
     public sealed class BeamFeedback : IStartable, ITickable
     {
+        private const float SkinLockedWhiten = 0.55f;
+
         private readonly CaptureBeam _beam;
         private readonly HuntSession _session;
         private readonly HuntPause _pause;
@@ -19,6 +22,7 @@ namespace Hauntscope.Gameplay.Feedback
         private readonly IBeamView _view;
         private readonly VfxConfig _config;
         private readonly HuntLoadout _loadout;
+        private readonly HalloweenCollection _skins;
 
         private bool _isVisible;
 
@@ -29,8 +33,10 @@ namespace Hauntscope.Gameplay.Feedback
             ICameraPose camera,
             IBeamView view,
             VfxConfig config,
-            HuntLoadout loadout)
+            HuntLoadout loadout,
+            HalloweenCollection skins)
         {
+            _skins = skins;
             _loadout = loadout;
             _beam = beam;
             _session = session;
@@ -45,6 +51,11 @@ namespace Hauntscope.Gameplay.Feedback
             var laser = _loadout.Laser;
             if (laser != null)
                 _view.SetColors(laser.BeamColor, laser.LockedColor);
+
+            // The event beam skin repaints the beam, whatever laser is loaded (GDD 5.42).
+            var skin = _skins.WornIn(HalloweenSkinSlot.Beam);
+            if (skin != null)
+                _view.SetColors(skin.Color, Color.Lerp(skin.Color, Color.white, SkinLockedWhiten));
         }
 
         void ITickable.Tick()

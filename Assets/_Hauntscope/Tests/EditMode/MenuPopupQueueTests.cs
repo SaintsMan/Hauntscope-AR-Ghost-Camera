@@ -1,4 +1,6 @@
 using Hauntscope.Gameplay.Engagement;
+using Hauntscope.Gameplay.Season;
+using Hauntscope.Tests.EditMode.Fakes;
 using NUnit.Framework;
 
 namespace Hauntscope.Tests.EditMode
@@ -15,6 +17,29 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.AreEqual(1, popup.Opened);
             Assert.IsFalse(queue.IsIdle);
+        }
+
+        [Test]
+        public void Enqueue_QuietPromoTake_OpensNothing()
+        {
+            var queue = new MenuPopupQueue(new DemoSwitchesBuilder().Halloween().Build());
+            var popup = new Popup();
+
+            queue.Enqueue(popup);
+
+            Assert.AreEqual(0, popup.Opened);
+            Assert.IsTrue(queue.IsIdle);
+        }
+
+        [Test]
+        public void Enqueue_NoSwitchesFile_OpensAsUsual()
+        {
+            var queue = new MenuPopupQueue(DemoSwitches.Off);
+            var popup = new Popup();
+
+            queue.Enqueue(popup);
+
+            Assert.AreEqual(1, popup.Opened);
         }
 
         [Test]

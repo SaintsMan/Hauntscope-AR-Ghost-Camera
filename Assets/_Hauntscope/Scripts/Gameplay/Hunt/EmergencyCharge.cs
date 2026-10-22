@@ -1,7 +1,9 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Observables;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Ads;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
@@ -19,19 +21,25 @@ namespace Hauntscope.Gameplay.Hunt
         private readonly EmergencyConfig _config;
         private readonly IAdsService _ads;
         private readonly Battery _battery;
+        private readonly RookieAssist _rookie;
         private readonly ObservableValue<EmergencyState> _state = new ObservableValue<EmergencyState>(EmergencyState.Idle);
         private readonly ObservableValue<float> _timeLeft = new ObservableValue<float>();
 
         private bool _adUsed;
+        private bool _freeUsed;
 
-        public EmergencyCharge(HuntPause pause, SpareBatteries spares, EmergencyConfig config, IAdsService ads, Battery battery)
+        public EmergencyCharge(HuntPause pause, SpareBatteries spares, EmergencyConfig config, IAdsService ads, Battery battery,
+            RookieAssist rookie)
         {
+            _rookie = rookie;
             _ads = ads;
             _battery = battery;
             _pause = pause;
             _spares = spares;
             _config = config;
         }
+
+        public event Action FreeChargeUsed;
 
         public IReadOnlyObservableValue<EmergencyState> State => _state;
 
@@ -42,7 +50,10 @@ namespace Hauntscope.Gameplay.Hunt
         // The player gave up (or let the countdown run out) this hunt; the next dead battery lets the ghost go.
         public bool IsDeclined { get; private set; }
 
-        public bool CanUseSpare => _spares.Count > 0;
+        public bool CanUseSpare => IsFreeCharge || _spares.Count > 0;
+
+        // A rookie's first hunts: the spare slot holds a free recharge, used before any bought spare.
+        public bool IsFreeCharge => !_freeUsed && _rookie.HasFreeCharge;
 
         // Once per hunt, so an ad never becomes the way to play.
         public bool IsAdOffered => !_adUsed;
@@ -64,8 +75,20 @@ namespace Hauntscope.Gameplay.Hunt
 
         public void UseSpare()
         {
-            if (_state.Value == EmergencyState.Offered && _spares.TryUse())
+            if (_state.Value != EmergencyState.Offered)
+                return;
+
+            if (IsFreeCharge)
+            {
+                _freeUsed = true;
+                _battery.Recharge(_rookie.FreeCharge);
+                FreeChargeUsed?.Invoke();
                 Resolve();
+            }
+            else if (_spares.TryUse())
+            {
+                Resolve();
+            }
         }
 
         // The countdown stops while the ad plays; without a reward the card comes back with the time that was left.
@@ -75,7 +98,7 @@ namespace Hauntscope.Gameplay.Hunt
                 return false;
 
             _state.Value = EmergencyState.WatchingAd;
-            var rewarded = await _ads.ShowRewardedAsync(cancellationToken);
+            var rewarded = await _ads.ShowRewardedAsync(cancellationToken, AdPlacements.Emergency);
             if (_state.Value != EmergencyState.WatchingAd)
                 return false;
 
@@ -104,6 +127,7 @@ namespace Hauntscope.Gameplay.Hunt
         {
             IsDeclined = false;
             _adUsed = false;
+            _freeUsed = false;
             if (_state.Value != EmergencyState.Idle)
                 Resolve();
         }

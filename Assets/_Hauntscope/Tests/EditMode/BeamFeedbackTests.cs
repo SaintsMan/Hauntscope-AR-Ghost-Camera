@@ -31,7 +31,7 @@ namespace Hauntscope.Tests.EditMode
             _pause = new HuntPause(new FakeTrackingStatus(), new FakeApplicationLifecycle(), new TrackingConfig(0.5f), new FakeAdsService());
             _view = new FakeBeamView();
             _config = new VfxConfig();
-            _feedback = new BeamFeedback(_beam, _session, _pause, _fixture.Camera, _view, _config, new StoreFixture().CreateLoadout());
+            _feedback = new BeamFeedback(_beam, _session, _pause, _fixture.Camera, _view, _config, new StoreFixture().CreateLoadout(), new HalloweenFixture().Collection);
         }
 
         [Test]
@@ -116,6 +116,31 @@ namespace Hauntscope.Tests.EditMode
             _feedback.Tick();
 
             Assert.IsFalse(_view.IsVisible);
+        }
+
+        [Test]
+        public void Start_BeamSkinWorn_PaintsTheBeamInItsColour()
+        {
+            var halloween = new HalloweenFixture();
+            halloween.Collection.Add(20);
+            halloween.Collection.Buy(halloween.Beam);
+            var feedback = new BeamFeedback(_beam, _session, _pause, _fixture.Camera, _view, _config, new StoreFixture().CreateLoadout(),
+                halloween.Collection);
+
+            feedback.Start();
+
+            Assert.AreEqual(halloween.Beam.Color, _view.IdleColor);
+        }
+
+        [Test]
+        public void Start_NoBeamSkin_LeavesTheLasersColours()
+        {
+            var loadout = new StoreFixture().CreateLoadout();
+            var feedback = new BeamFeedback(_beam, _session, _pause, _fixture.Camera, _view, _config, loadout, new HalloweenFixture().Collection);
+
+            feedback.Start();
+
+            Assert.AreEqual(loadout.Laser.BeamColor, _view.IdleColor);
         }
 
         private void LockOnGhost()

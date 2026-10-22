@@ -15,9 +15,10 @@ namespace Hauntscope.Tests.EditMode
         [SetUp]
         public void SetUp()
         {
-            _progress = new PlayerProgress();
-            _repository = new PlayerProgressRepository(new FakeSaveService());
-            _marks = new MenuCoachMarks(_progress, _repository, new ShiftConfig(), new TipsConfig());
+            var features = new FeatureFactory();
+            _progress = features.Progress;
+            _repository = features.Repository;
+            _marks = new MenuCoachMarks(_progress, _repository, features.Features);
         }
 
         [Test]
@@ -86,7 +87,7 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void IsMarked_OneHuntLessThanNeeded_ShopStaysQuiet()
         {
-            Play(new TipsConfig().ShopMarkAfter - 1);
+            Play(new OnboardingConfig().ShopHunts - 1);
 
             Assert.IsFalse(_marks.IsMarked(CoachMark.Shop));
         }
@@ -104,7 +105,7 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void IsMarked_AFewHuntsPlayed_MarksTheShop()
         {
-            Play(new TipsConfig().ShopMarkAfter);
+            Play(new OnboardingConfig().ShopHunts);
 
             Assert.IsTrue(_marks.IsMarked(CoachMark.Shop));
         }

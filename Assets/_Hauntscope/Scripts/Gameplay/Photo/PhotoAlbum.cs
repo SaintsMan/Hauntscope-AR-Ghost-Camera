@@ -39,6 +39,22 @@ namespace Hauntscope.Gameplay.Photo
             Changed?.Invoke();
         }
 
+        // The most stars any kept photo has, 0 for an empty album.
+        public int BestStars
+        {
+            get
+            {
+                var best = 0;
+                foreach (var photo in _photos)
+                {
+                    if (photo.Stars > best)
+                        best = photo.Stars;
+                }
+
+                return best;
+            }
+        }
+
         public PhotoRecord BestFor(string ghostId)
         {
             PhotoRecord best = null;

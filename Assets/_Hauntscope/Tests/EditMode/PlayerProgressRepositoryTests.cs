@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Tests.EditMode.Fakes;
 using NUnit.Framework;
@@ -65,6 +66,48 @@ namespace Hauntscope.Tests.EditMode
             _repository.Save(progress);
 
             Assert.IsTrue(_repository.Load().HasEvpEvidence("banshee"));
+        }
+
+        [Test]
+        public void Load_AfterSave_RestoresUnlockedAndUsedFeatures()
+        {
+            var progress = new PlayerProgress();
+            progress.UnlockFeature("shop");
+            progress.MarkFeatureUsed("contracts");
+            progress.MarkFeaturesInitialized();
+
+            _repository.Save(progress);
+            var loaded = _repository.Load();
+
+            Assert.IsTrue(loaded.IsFeatureUnlocked("shop"));
+            Assert.IsFalse(loaded.IsFeatureUnlocked("archive"));
+            Assert.IsFalse(loaded.MarkFeatureUsed("contracts"));
+            Assert.IsTrue(loaded.FeaturesInitialized);
+        }
+
+        [Test]
+        public void Load_SaveWithoutFeatureFields_StartsUninitialized()
+        {
+            _save.Save("player_progress", new PlayerProgressDto(PlayerProgressRepository.CurrentVersion, 5, new List<CaptureCountDto>(), 2, false,
+                false, 0, new List<string>(), 0, 0, new List<CaptureCountDto>(), 0, 0, new List<string>(), new List<string>()));
+
+            var loaded = _repository.Load();
+
+            Assert.IsFalse(loaded.FeaturesInitialized);
+            Assert.AreEqual(2, loaded.TotalSessions);
+            Assert.IsFalse(loaded.IsFeatureUnlocked("shop"));
+        }
+
+        [Test]
+        public void ResetTips_AfterFeaturesOpened_KeepsThemOpen()
+        {
+            var progress = new PlayerProgress();
+            progress.UnlockFeature("shop");
+            progress.MarkTipSeen("coach.shop");
+
+            progress.ResetTips();
+
+            Assert.IsTrue(progress.IsFeatureUnlocked("shop"));
         }
 
         [Test]

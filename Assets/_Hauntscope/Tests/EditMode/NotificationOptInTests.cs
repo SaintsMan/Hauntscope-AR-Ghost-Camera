@@ -13,7 +13,7 @@ namespace Hauntscope.Tests.EditMode
         private FakeSaveService _save;
         private SettingsRepository _repository;
         private GameSettings _settings;
-        private PlayerProgress _progress;
+        private FeatureFactory _features;
         private NotificationOptIn _optIn;
 
         [SetUp]
@@ -23,28 +23,49 @@ namespace Hauntscope.Tests.EditMode
             _save = new FakeSaveService();
             _repository = new SettingsRepository(_save);
             _settings = _repository.Load();
-            _progress = new PlayerProgress();
-            _optIn = new NotificationOptIn(_notifications, _settings, _repository, _progress, new NotificationConfig());
+            _features = new FeatureFactory();
+            _optIn = new NotificationOptIn(_notifications, _settings, _repository, _features.Features);
         }
 
         [Test]
-        public void NeedsCard_BeforeTheFirstCatch_IsFalse()
+        public void NeedsCard_BeforeTheFirstHunt_IsFalse()
         {
             Assert.IsFalse(_optIn.NeedsCard);
         }
 
         [Test]
-        public void NeedsCard_AfterTheFirstCatchWithoutPermission_IsTrue()
+        public void NeedsCard_AfterTheFirstHuntWithoutPermission_IsTrue()
         {
-            _progress.AddCapture("wisp", 10);
+            _features.PlayHunts(1);
 
             Assert.IsTrue(_optIn.NeedsCard);
         }
 
         [Test]
-        public void SkipCardIfPointless_PermissionNotNeeded_AnswersYesSilently()
+        public void NeedsCard_FirstHuntEndedWithoutACatch_IsStillTrue()
         {
-            _progress.AddCapture("wisp", 10);
+            _features.PlayHunts(1);
+
+            Assert.AreEqual(0, _features.Progress.TotalCaptures);
+            Assert.IsTrue(_optIn.NeedsCard);
+        }
+
+        [Test]
+        public void NeedsCard_ConsoleMovesTheCardToTheThirdHunt_WaitsForIt()
+        {
+            _features.Remote.Values[RemoteKeys.NotifyPromptAfterHunts] = "3";
+            _features.PlayHunts(2);
+
+            Assert.IsFalse(_optIn.NeedsCard);
+
+            _features.PlayHunts(1);
+
+            Assert.IsTrue(_optIn.NeedsCard);
+        }
+
+        [Test]
+        public void SkipCardIfPointless_PermissionNotNeeded_AnswersYesSilentlyBeforeAnyHunt()
+        {
             _notifications.IsAllowed = true;
 
             _optIn.SkipCardIfPointless();
@@ -57,7 +78,7 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void AcceptAsync_AsksTheSystemAndTurnsOn()
         {
-            _progress.AddCapture("wisp", 10);
+            _features.PlayHunts(1);
 
             _optIn.AcceptAsync(CancellationToken.None).GetAwaiter().GetResult();
 
@@ -69,7 +90,7 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void Decline_NeverShowsTheSystemDialog()
         {
-            _progress.AddCapture("wisp", 10);
+            _features.PlayHunts(1);
 
             _optIn.Decline();
 

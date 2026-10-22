@@ -18,6 +18,7 @@ namespace Hauntscope.Gameplay.Hunt
         NightVision,
         Thermal,
         Uv,
-        Evp
+        Evp,
+        JackOLantern
     }
 }

@@ -529,6 +529,50 @@ MonoBehaviour:
       Finde sie damit und schalte die Linse erst ein, wenn sie im Ring ist.'
     m_Metadata:
       m_Items: []
+  - m_Id: 6527154522152960
+    m_Localized: "K\xFCrbisgeist"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707392
+    m_Localized: "Ein grinsender K\xFCrbisgeist, der nur an Halloween auftaucht.
+      Er versteckt sich zwischen leeren K\xFCrbissen und kichert, w\xE4hrend du suchst."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707393
+    m_Localized: "In der letzten Oktobernacht steht auf jeder Veranda ein K\xFCrbis,
+      der am Abend zuvor noch nicht da war. Niemand sieht je, wer sie hinstellt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707394
+    m_Localized: "Er sitzt still zwischen 4-5 leeren K\xFCrbissen, der Radar h\xF6rt
+      also f\xFCnf Signale gleichzeitig. Nur die Linse enth\xFCllt sie: ein leerer
+      erlischt und kostet etwas Akku, der echte l\xE4sst die Augen aufflammen und
+      erwacht."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707395
+    m_Localized: "Folge den st\xE4rksten Signalen, verschwende die Linse aber nicht
+      an jedem K\xFCrbis: nutze sie in kurzen St\xF6\xDFen. Sobald der echte aufflammt,
+      ist er kurz benommen, also sofort mit dem Strahl."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707396
+    m_Localized: "Geisterlinse. Nur sie unterscheidet den echten K\xFCrbis von den
+      leeren, und im EMF-Radar erscheint jedes Signal auf dem Streifen \xFCber der
+      Anzeige."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707397
+    m_Localized: "Die Agentur hat jeden K\xFCrbis gez\xE4hlt, den sie je f\xFCr einen
+      Fall geschnitzt hat. Es ist immer einer mehr, als die Agenten in Erinnerung
+      haben."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707398
+    m_Localized: "Viele Signale, aber nur eines ist ein Geist. Pr\xFCfe jeden K\xFCrbis
+      mit der Linse in kurzen St\xF6\xDFen."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

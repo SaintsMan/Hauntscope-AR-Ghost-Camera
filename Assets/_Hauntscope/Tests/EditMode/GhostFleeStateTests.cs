@@ -29,6 +29,40 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Enter_BeamedWithLeash_KeepsTheTargetWithinTheLeash()
+        {
+            var state = new GhostFleeState(_fixture.Context, () => _beamed, () => 2f);
+
+            state.Enter();
+
+            Assert.AreEqual(new Vector3(0f, 1f, 0.5f), _fixture.Mover.Target);
+        }
+
+        [Test]
+        public void Enter_LeashButNotBeamed_FleesTheFullDistance()
+        {
+            _beamed = false;
+            var state = new GhostFleeState(_fixture.Context, () => _beamed, () => 2f);
+
+            state.Enter();
+
+            Assert.AreEqual(new Vector3(0f, 1f, GhostFixture.FleeDistance), _fixture.Mover.Target);
+        }
+
+        [Test]
+        public void Tick_BeamCatchesItAgain_PullsTheTargetInAtOnce()
+        {
+            _beamed = false;
+            var state = new GhostFleeState(_fixture.Context, () => _beamed, () => 2f);
+            state.Enter();
+            _beamed = true;
+
+            state.Tick(0.01f);
+
+            Assert.LessOrEqual(Vector3.Distance(Flat(_fixture.Mover.Target), Flat(_fixture.Camera.Position)), 2f + 1e-4f);
+        }
+
+        [Test]
         public void Tick_Always_IncreasesDistanceToCamera()
         {
             _state.Enter();
@@ -37,6 +71,11 @@ namespace Hauntscope.Tests.EditMode
             _state.Tick(0.2f);
 
             Assert.Greater(Vector3.Distance(_fixture.Mover.Position, _fixture.Camera.Position), before);
+        }
+
+        private static Vector3 Flat(Vector3 v)
+        {
+            return new Vector3(v.x, 0f, v.z);
         }
 
         [Test]

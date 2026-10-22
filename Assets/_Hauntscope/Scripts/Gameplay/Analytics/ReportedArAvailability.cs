@@ -6,15 +6,17 @@ using Hauntscope.Gameplay.Environment;
 
 namespace Hauntscope.Gameplay.Analytics
 {
-    // Decorator: every AR availability answer goes into the crash context, and a check or an ARCore install that fails
+    // Decorator: every AR availability answer goes into the crash context and the player's analytics traits, and a check or an ARCore install that fails
     // outright is reported, since AR on unknown phones is where this game is most likely to break.
     public sealed class ReportedArAvailability : IArAvailability
     {
         private readonly IArAvailability _inner;
         private readonly ICrashReporter _reporter;
+        private readonly IAnalyticsService _analytics;
 
-        public ReportedArAvailability(IArAvailability inner, ICrashReporter reporter)
+        public ReportedArAvailability(IArAvailability inner, ICrashReporter reporter, IAnalyticsService analytics)
         {
+            _analytics = analytics;
             _inner = inner;
             _reporter = reporter;
         }
@@ -25,6 +27,7 @@ namespace Hauntscope.Gameplay.Analytics
             {
                 var result = await _inner.CheckAsync(cancellationToken);
                 _reporter.SetKey(CrashKeys.ArSupported, AnalyticsNames.Of(result));
+                _analytics.SetUserProperty(AnalyticsNames.ArSupportedProperty, AnalyticsNames.Of(result));
                 return result;
             }
             catch (Exception exception) when (!(exception is OperationCanceledException))

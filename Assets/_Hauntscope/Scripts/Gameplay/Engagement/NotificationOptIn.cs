@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
-using Hauntscope.Gameplay.Config;
+using Hauntscope.Gameplay.Onboarding;
 using Hauntscope.Gameplay.Progress;
 
 namespace Hauntscope.Gameplay.Engagement
@@ -14,17 +14,15 @@ namespace Hauntscope.Gameplay.Engagement
         private readonly ILocalNotifications _notifications;
         private readonly GameSettings _settings;
         private readonly SettingsRepository _repository;
-        private readonly PlayerProgress _progress;
-        private readonly NotificationConfig _config;
+        private readonly FeatureUnlocks _features;
 
         public NotificationOptIn(ILocalNotifications notifications, GameSettings settings, SettingsRepository repository,
-            PlayerProgress progress, NotificationConfig config)
+            FeatureUnlocks features)
         {
             _notifications = notifications;
             _settings = settings;
             _repository = repository;
-            _progress = progress;
-            _config = config;
+            _features = features;
         }
 
         public event Action Changed;
@@ -33,15 +31,17 @@ namespace Hauntscope.Gameplay.Engagement
 
         public bool IsPrompted => _settings.NotificationsPrompted;
 
-        // The card shows after the first catch, once, and only where the system dialog can still appear.
+        // The card shows once the first hunt is behind the player, whatever its result, and only where the system dialog
+        // can still appear.
         public bool NeedsCard => IsDue && !_notifications.IsAllowed && _notifications.CanAsk;
 
-        private bool IsDue => !_settings.NotificationsPrompted && _progress.TotalCaptures >= _config.PromptAfterCaptures;
+        private bool IsDue => !_settings.NotificationsPrompted && _features.IsRuleMet(Feature.Notifications);
 
-        // Below Android 13 nothing needs asking, and after "don't ask again" asking is pointless: the card is skipped.
+        // Below Android 13 nothing needs asking, and after "don't ask again" asking is pointless: no card, and the
+        // answer is given at once, so a player who leaves before ever seeing a card is still on the push topics.
         public void SkipCardIfPointless()
         {
-            if (IsDue && (_notifications.IsAllowed || !_notifications.CanAsk))
+            if (!_settings.NotificationsPrompted && (_notifications.IsAllowed || !_notifications.CanAsk))
                 Answer(_settings.Notifications.Value);
         }
 

@@ -12,6 +12,7 @@ namespace Hauntscope.UI.Menu
     public sealed class IapCheckout
     {
         private const string PriceUnknownKey = "iap.price_unknown";
+        private const string StoreUnavailableKey = "iap.store_unavailable";
         private const string TimerKey = "iap.offer.ends";
 
         private readonly PaidStore _paid;
@@ -33,11 +34,15 @@ namespace Hauntscope.UI.Menu
             return _paid.PriceOf(product).Length > 0;
         }
 
-        // Before the store answers there is no honest price to show, only a dash.
+        // Before the store answers there is no honest price to show, only a dash; a store that is not there says so,
+        // and the button comes alive by itself once the store reconnects.
         public string PriceOf(IapProductData product)
         {
             var price = _paid.PriceOf(product);
-            return price.Length > 0 ? price : _localization.Get(LocalizationTable.Ui, PriceUnknownKey);
+            if (price.Length > 0)
+                return price;
+
+            return _localization.Get(LocalizationTable.Ui, _paid.IsReady ? PriceUnknownKey : StoreUnavailableKey);
         }
 
         public string TimeLeft(TimeSpan left)

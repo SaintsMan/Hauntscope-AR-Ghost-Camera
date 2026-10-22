@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Tools;
 using Hauntscope.Tests.EditMode.Fakes;
@@ -122,6 +123,54 @@ namespace Hauntscope.Tests.EditMode
             _radar.Tick(DeltaTime, new Vector3(-2f, 3f, 0f), Range);
 
             Assert.AreEqual(-90f, _radar.Bearing, 1e-3f);
+        }
+
+        [Test]
+        public void Tick_SeveralSources_ReadsTheStrongestOne()
+        {
+            var sources = new[] { new Vector3(0f, 0f, 5f), new Vector3(0f, 0f, 1.5f), new Vector3(-3f, 0f, 0f) };
+
+            _radar.Tick(DeltaTime, sources, Range);
+
+            Assert.AreEqual(0.75f, _radar.Value, 1e-5f);
+            Assert.AreEqual(0f, _radar.Bearing, 1e-3f);
+        }
+
+        [Test]
+        public void Tick_SeveralSources_ListsEveryOneInRangeWithItsBearing()
+        {
+            var sources = new[] { new Vector3(0f, 0f, 3f), new Vector3(0f, 0f, 9f), new Vector3(2f, 0f, 2f) };
+
+            _radar.Tick(DeltaTime, sources, Range);
+
+            Assert.AreEqual(2, _radar.Signals.Count);
+            Assert.AreEqual(0f, _radar.Signals[0].Bearing, 1e-3f);
+            Assert.AreEqual(0.5f, _radar.Signals[0].Proximity, 1e-5f);
+            Assert.AreEqual(45f, _radar.Signals[1].Bearing, 1e-3f);
+        }
+
+        [Test]
+        public void Tick_SourceDropsOut_TheNextOneTakesTheMeter()
+        {
+            var sources = new List<Vector3> { new Vector3(0f, 0f, 1f), new Vector3(0f, 0f, 4f) };
+            _radar.Tick(DeltaTime, sources, Range);
+            var near = _radar.Value;
+
+            sources.RemoveAt(0);
+            _radar.Tick(DeltaTime, sources, Range);
+
+            Assert.Less(_radar.Value, near);
+            Assert.AreEqual(1, _radar.Signals.Count);
+        }
+
+        [Test]
+        public void Reset_AfterSignals_ClearsTheList()
+        {
+            _radar.Tick(DeltaTime, new[] { new Vector3(0f, 0f, 1f) }, Range);
+
+            _radar.Reset();
+
+            Assert.AreEqual(0, _radar.Signals.Count);
         }
     }
 }

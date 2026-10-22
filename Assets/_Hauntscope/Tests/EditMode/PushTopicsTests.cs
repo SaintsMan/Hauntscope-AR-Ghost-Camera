@@ -25,10 +25,10 @@ namespace Hauntscope.Tests.EditMode
             _localization = new FakeLocalization();
             _repository = new SettingsRepository(new FakeSaveService());
             _settings = _repository.Load();
-            var progress = new PlayerProgress();
-            progress.AddCapture("wisp", 10);
+            var features = new FeatureFactory();
+            features.PlayHunts(1);
             var config = new NotificationConfig();
-            _optIn = new NotificationOptIn(_notifications, _settings, _repository, progress, config);
+            _optIn = new NotificationOptIn(_notifications, _settings, _repository, features.Features);
             _topics = new PushTopics(_push, _optIn, _settings, _repository, _localization, config);
         }
 
@@ -41,6 +41,28 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void Start_PlayerNotAskedYet_NeverTouchesThePushService()
         {
+            _topics.Start();
+
+            Assert.AreEqual(0, _push.Calls);
+        }
+
+        [Test]
+        public void Start_PermissionNeedsNoQuestion_SubscribesAtOnceBeforeAnyHunt()
+        {
+            _notifications.IsAllowed = true;
+            _notifications.CanAsk = false;
+
+            _topics.Start();
+
+            CollectionAssert.AreEquivalent(new[] { "all", "lang_en" }, _push.Topics);
+        }
+
+        [Test]
+        public void Start_PermissionStillToAsk_WaitsForTheAnswer()
+        {
+            _notifications.IsAllowed = false;
+            _notifications.CanAsk = true;
+
             _topics.Start();
 
             Assert.AreEqual(0, _push.Calls);

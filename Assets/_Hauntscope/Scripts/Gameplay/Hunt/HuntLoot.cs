@@ -8,9 +8,13 @@ namespace Hauntscope.Gameplay.Hunt
     public sealed class HuntLoot
     {
         private readonly ObservableValue<int> _ectoplasm = new ObservableValue<int>();
+        private readonly ObservableValue<int> _candy = new ObservableValue<int>();
         private readonly List<string> _pickups = new List<string>();
 
         public IReadOnlyObservableValue<int> Ectoplasm => _ectoplasm;
+
+        // Halloween candy found this hunt; it goes to the purse with the result card, whatever the outcome.
+        public IReadOnlyObservableValue<int> Candy => _candy;
 
         public IReadOnlyList<string> Pickups => _pickups;
 
@@ -25,9 +29,16 @@ namespace Hauntscope.Gameplay.Hunt
                 _ectoplasm.Value += amount;
         }
 
+        public void AddCandy(int amount)
+        {
+            if (amount > 0)
+                _candy.Value += amount;
+        }
+
         public void Reset()
         {
             _ectoplasm.Value = 0;
+            _candy.Value = 0;
             _pickups.Clear();
         }
     }

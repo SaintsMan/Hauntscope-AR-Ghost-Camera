@@ -23,7 +23,8 @@ namespace Hauntscope.Gameplay.Progress
 
             return new PlayerProgress(dto.Ectoplasm, ToCounts(dto.Captures), dto.TotalSessions, dto.VirtualRoomNoticeShown,
                 dto.TutorialCompleted, dto.ReviewPromptedAtCaptures, dto.Sighted, dto.FieldDropDay, dto.FieldDropsClaimed,
-                ToCounts(dto.PhotoEvidence), dto.ShiftsCompleted, dto.BestShiftRound, dto.SeenTips, dto.EvpEvidence);
+                ToCounts(dto.PhotoEvidence), dto.ShiftsCompleted, dto.BestShiftRound, dto.SeenTips, dto.EvpEvidence,
+                dto.UnlockedFeatures, dto.UsedFeatures, dto.FeaturesInitialized);
         }
 
         public void Save(PlayerProgress progress)
@@ -32,7 +33,8 @@ namespace Hauntscope.Gameplay.Progress
                 progress.TotalSessions, progress.VirtualRoomNoticeShown, progress.TutorialCompleted,
                 progress.ReviewPromptedAtCaptures, new List<string>(progress.Sighted), progress.FieldDropDay, progress.FieldDropsClaimed,
                 ToDtos(progress.PhotoEvidence), progress.ShiftsCompleted, progress.BestShiftRound, new List<string>(progress.SeenTips),
-                new List<string>(progress.EvpEvidence)));
+                new List<string>(progress.EvpEvidence), new List<string>(progress.UnlockedFeatures), new List<string>(progress.UsedFeatures),
+                progress.FeaturesInitialized));
         }
 
         private static Dictionary<string, int> ToCounts(IReadOnlyList<CaptureCountDto> entries)

@@ -27,7 +27,7 @@ namespace Hauntscope.Gameplay.Contracts
             var candidates = new List<GhostData>();
             foreach (var ghost in context.Ghosts)
             {
-                if (ghost != null && ghost.Rarity >= _minRarity && !ghost.NightOnly && context.Progress.IsSighted(ghost.Id))
+                if (ghost != null && ghost.Rarity >= _minRarity && !ghost.NightOnly && string.IsNullOrEmpty(ghost.SeasonEvent) && context.Progress.IsSighted(ghost.Id))
                     candidates.Add(ghost);
             }
 

@@ -19,10 +19,13 @@ namespace Hauntscope.Gameplay.Iap
         private readonly StoreConfig _store;
         private readonly IClock _clock;
         private readonly RemoteTuning _tuning;
+        private readonly IIapStore _iap;
 
         public OfferFunnel(OfferMoments moments, StarterOffer starter, PremiumOffer premium, IapConfig config, PurchaseHistory history,
-            PurchaseHistoryRepository repository, PlayerInventory inventory, StoreConfig store, IClock clock, RemoteTuning tuning)
+            PurchaseHistoryRepository repository, PlayerInventory inventory, StoreConfig store, IClock clock, RemoteTuning tuning,
+            IIapStore iap)
         {
+            _iap = iap;
             _tuning = tuning;
             _moments = moments;
             _starter = starter;
@@ -45,6 +48,9 @@ namespace Hauntscope.Gameplay.Iap
             var adBreak = _moments.SawAdBreak;
             _moments.Clear();
             if (!_tuning.Bool(RemoteKeys.OffersEnabled, _config.OffersEnabled))
+                return null;
+            // Without prices the card is a dead button, and the rookie kit is only ever pitched once: wait for the store.
+            if (!_iap.IsReady)
                 return null;
 
             if (_starter.ShouldAnnounce(escaped))

@@ -32,6 +32,7 @@ namespace Hauntscope.UI.Hunt
         private const string NextKey = "result.next";
         private const string NewShiftKey = "result.new_shift";
         private const string ShiftKey = "result.breakdown.shift";
+        private const string CandyKey = "halloween.result.candy";
         private const int SecondsPerMinute = 60;
 
         private readonly ResultView _view;
@@ -48,6 +49,7 @@ namespace Hauntscope.UI.Hunt
         private readonly PhotoViewer _viewer;
         private readonly PhotoSharing _sharing;
         private readonly NightShift _shift;
+        private readonly HuntLoot _loot;
 
         private Texture2D _photo;
         private PhotoShot _shownPhoto;
@@ -66,8 +68,10 @@ namespace Hauntscope.UI.Hunt
             PhotoTextures textures,
             PhotoViewer viewer,
             PhotoSharing sharing,
-            NightShift shift)
+            NightShift shift,
+            HuntLoot loot)
         {
+            _loot = loot;
             _shift = shift;
             _textures = textures;
             _viewer = viewer;
@@ -274,6 +278,8 @@ namespace Hauntscope.UI.Hunt
                 text += separator + _localization.Get(LocalizationTable.Ui, FoundKey, result.Found);
             if (result.PhotoReward > 0)
                 text += separator + _localization.Get(LocalizationTable.Ui, PhotoKey, result.PhotoReward);
+            if (_loot.Candy.Value > 0)
+                text += separator + _localization.Get(LocalizationTable.Ui, CandyKey, _loot.Candy.Value);
             return text;
         }
 

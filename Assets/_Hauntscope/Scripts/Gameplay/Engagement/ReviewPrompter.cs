@@ -2,7 +2,9 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Analytics;
 using Hauntscope.Gameplay.Config;
+using Hauntscope.Gameplay.Photo;
 using Hauntscope.Gameplay.Progress;
 using VContainer.Unity;
 
@@ -18,6 +20,8 @@ namespace Hauntscope.Gameplay.Engagement
         private readonly PlayerProgressRepository _repository;
         private readonly IInAppReview _review;
         private readonly MenuPopupQueue _popups;
+        private readonly PhotoAlbum _album;
+        private readonly IAnalyticsService _analytics;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         public ReviewPrompter(
@@ -26,8 +30,12 @@ namespace Hauntscope.Gameplay.Engagement
             PlayerProgress progress,
             PlayerProgressRepository repository,
             IInAppReview review,
-            MenuPopupQueue popups)
+            MenuPopupQueue popups,
+            PhotoAlbum album,
+            IAnalyticsService analytics)
         {
+            _album = album;
+            _analytics = analytics;
             _popups = popups;
             _policy = policy;
             _config = config;
@@ -38,9 +46,13 @@ namespace Hauntscope.Gameplay.Engagement
 
         public void Start()
         {
-            if (!_policy.ShouldPrompt(_progress))
+            var trigger = _policy.Evaluate(_progress, _album.BestStars);
+            if (trigger == ReviewTrigger.None)
                 return;
 
+            _analytics.Log(AnalyticsNames.ReviewPrompt,
+                AnalyticsParameter.Of(AnalyticsNames.Reason, AnalyticsNames.Of(trigger)),
+                AnalyticsParameter.Of(AnalyticsNames.Count, _progress.TotalCaptures));
             // Marked before asking: Play never reports whether the dialog was shown, so one attempt counts as the ask.
             _progress.MarkReviewPrompted();
             _repository.Save(_progress);

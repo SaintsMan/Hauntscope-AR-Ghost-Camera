@@ -27,6 +27,9 @@ namespace Hauntscope.Gameplay.Store
 
         public float RevealFade { get; private set; } = 1f;
 
+        // How far from the camera a beamed ghost may flee; 0 = as far as it likes.
+        public float BeamedLeash { get; private set; }
+
         public void Reset()
         {
             CaptureRate = 1f;
@@ -41,6 +44,14 @@ namespace Hauntscope.Gameplay.Store
             ShowsEmfDirection = false;
             PassiveDrain = 1f;
             RevealFade = 1f;
+            BeamedLeash = 0f;
+        }
+
+        // The tightest leash wins when several sources set one.
+        public void LeashBeamedGhost(float distance)
+        {
+            if (distance > 0f)
+                BeamedLeash = BeamedLeash > 0f ? System.Math.Min(BeamedLeash, distance) : distance;
         }
 
         public void Apply(HuntModifierSet set)

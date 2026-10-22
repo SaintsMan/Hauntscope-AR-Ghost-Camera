@@ -16,6 +16,8 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField] private ParticleSystem _shriekWave;
         [SerializeField] private ParticleSystem _knockDust;
         [SerializeField] private ParticleSystem _developFlash;
+        [SerializeField] private ParticleSystem _pumpkinFlare;
+        [SerializeField] private ParticleSystem _pumpkinPuff;
         [SerializeField] private Color _coldSpotColor = new Color(0.9f, 0.93f, 0.95f, 1f);
         [SerializeField, Min(0f)] private float _beamOriginForward = 0.3f;
         [SerializeField, Min(0f)] private float _beamOriginDrop = 0.2f;
@@ -47,6 +49,12 @@ namespace Hauntscope.Gameplay.Config
 
         // The negative flashing onto the film: a burst in reversed light.
         public ParticleSystem DevelopFlash => _developFlash;
+
+        // The real jack-o'-lantern waking: its eyes flare in a burst of embers.
+        public ParticleSystem PumpkinFlare => _pumpkinFlare;
+
+        // An empty pumpkin sputtering out: a puff of smoke and a few dying sparks.
+        public ParticleSystem PumpkinPuff => _pumpkinPuff;
 
         // Frost is not the ghost's own glow: it stays the same icy white whoever is hiding, so it reads as a clue.
         public Color ColdSpotColor => _coldSpotColor;

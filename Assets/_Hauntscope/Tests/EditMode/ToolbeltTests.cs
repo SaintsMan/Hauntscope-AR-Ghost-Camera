@@ -69,14 +69,37 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
-        public void StopBeam_Always_KeepsLensOn()
+        public void StopBeam_LensWasOff_TurnsLensOff()
         {
             _toolbelt.StartBeam();
 
             _toolbelt.StopBeam();
 
             Assert.IsFalse(_beam.IsActive.Value);
+            Assert.IsFalse(_lens.IsActive.Value);
+        }
+
+        [Test]
+        public void StopBeam_LensWasOn_KeepsLensOn()
+        {
+            _toolbelt.ToggleLens();
+            _toolbelt.StartBeam();
+
+            _toolbelt.StopBeam();
+
+            Assert.IsFalse(_beam.IsActive.Value);
             Assert.IsTrue(_lens.IsActive.Value);
+        }
+
+        [Test]
+        public void StartBeam_Repeated_StillTurnsItsLensOffOnStop()
+        {
+            _toolbelt.StartBeam();
+            _toolbelt.StartBeam();
+
+            _toolbelt.StopBeam();
+
+            Assert.IsFalse(_lens.IsActive.Value);
         }
 
         [Test]

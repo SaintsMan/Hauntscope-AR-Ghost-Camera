@@ -1,5 +1,6 @@
 using System;
 using Hauntscope.Core.Services;
+using Hauntscope.Gameplay.Analytics;
 using Hauntscope.Gameplay.Boot;
 using Hauntscope.Gameplay.Config;
 using UnityEngine;
@@ -25,6 +26,7 @@ namespace Hauntscope.UI.Splash
         private readonly HudConfig _hud;
         private readonly IRandom _random;
         private readonly IScreenTransition _transition;
+        private readonly OnboardingFunnel _funnel;
 
         private int _activeLine = -1;
         private int _shownPercent = -1;
@@ -42,8 +44,10 @@ namespace Hauntscope.UI.Splash
             AudioConfig audio,
             HudConfig hud,
             IRandom random,
-            IScreenTransition transition)
+            IScreenTransition transition,
+            OnboardingFunnel funnel)
         {
+            _funnel = funnel;
             _transition = transition;
             _view = view;
             _sequence = sequence;
@@ -61,6 +65,7 @@ namespace Hauntscope.UI.Splash
             _sequence.Progress.Changed += OnProgressChanged;
             _sequence.Phase.Changed += OnPhaseChanged;
 
+            _funnel.Step(OnboardingFunnel.SplashStart);
             _view.HideLines();
             OnProgressChanged(_sequence.Progress.Value);
             RenderTimecode();
@@ -144,6 +149,7 @@ namespace Hauntscope.UI.Splash
                     break;
                 // The outro has already switched the picture off, so the menu only needs the power-on half of the cut.
                 case BootPhase.Done:
+                    _funnel.Step(OnboardingFunnel.SplashDone);
                     _transition.CoverImmediately();
                     break;
             }

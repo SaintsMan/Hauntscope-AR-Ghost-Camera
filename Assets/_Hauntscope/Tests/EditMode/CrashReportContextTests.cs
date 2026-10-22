@@ -64,7 +64,7 @@ namespace Hauntscope.Tests.EditMode
         public void CheckAsync_NeedsInstall_PutsTheAnswerIntoTheContext()
         {
             var inner = new FakeArAvailability { Availability = ArAvailabilityResult.NeedsInstall };
-            var availability = new ReportedArAvailability(inner, _reporter);
+            var availability = new ReportedArAvailability(inner, _reporter, new FakeAnalyticsService());
 
             var result = availability.CheckAsync(CancellationToken.None).GetAwaiter().GetResult();
 
@@ -75,7 +75,7 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void CheckAsync_Throws_ReportsAnArFailureAndRethrows()
         {
-            var availability = new ReportedArAvailability(new ThrowingArAvailability(), _reporter);
+            var availability = new ReportedArAvailability(new ThrowingArAvailability(), _reporter, new FakeAnalyticsService());
 
             Assert.Throws<InvalidOperationException>(() => availability.CheckAsync(CancellationToken.None).GetAwaiter().GetResult());
             Assert.AreEqual(1, _reporter.NonFatals.Count);

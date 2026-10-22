@@ -36,7 +36,24 @@ namespace Hauntscope.Infrastructure.Analytics
 
         public void Start()
         {
+            SetUserProperty(AnalyticsNames.BuildTypeProperty, Debug.isDebugBuild ? "debug" : "release");
+            SetUserProperty(AnalyticsNames.TestLabProperty, AnalyticsNames.Of(IsTestLab()));
             StartAsync(_lifetime.Token).Forget();
+        }
+
+        // Firebase Test Lab, which runs Play's pre-launch report, marks its devices with this system setting.
+        private static bool IsTestLab()
+        {
+            try
+            {
+                var resolver = AndroidApplication.currentActivity.Call<AndroidJavaObject>("getContentResolver");
+                using var settings = new AndroidJavaClass("android.provider.Settings$System");
+                return settings.CallStatic<string>("getString", resolver, "firebase.test.lab") == "true";
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public void Dispose()

@@ -151,6 +151,8 @@ namespace Hauntscope.Gameplay.Feedback
             _ghost.Knocked += OnKnocked;
             _ghost.Rattled += OnRattled;
             _ghost.Developed += OnDeveloped;
+            _ghost.Awakened += OnAwakened;
+            _ghost.DecoySpent += OnDecoySpent;
             var clip = _session.GhostData != null ? _session.GhostData.WhisperClip : null;
             _whisper = _sfx.PlayLoop(clip, _audio.WhisperVolume, true);
             _whisper?.SetPosition(_ghost.Position);
@@ -171,6 +173,8 @@ namespace Hauntscope.Gameplay.Feedback
                 _ghost.Knocked -= OnKnocked;
                 _ghost.Rattled -= OnRattled;
                 _ghost.Developed -= OnDeveloped;
+                _ghost.Awakened -= OnAwakened;
+                _ghost.DecoySpent -= OnDecoySpent;
             }
 
             _whisper?.Stop();
@@ -277,6 +281,22 @@ namespace Hauntscope.Gameplay.Feedback
         {
             _sfx.Play3D(Or(Voice?.Ability, _audio.GhostReveal), _ghost.Position, _audio.DevelopVolume);
             _vfx.Play(VfxId.DevelopFlash, _ghost.Position, RimColor);
+            _haptics.Play(HapticStrength.Light);
+        }
+
+        // The real pumpkin's eyes flare: its own cry, a burst of embers and a jolt in the hand.
+        private void OnAwakened()
+        {
+            _sfx.Play3D(Or(Voice?.Ability, _audio.GhostReveal), _ghost.Position, _audio.DevelopVolume);
+            _vfx.Play(VfxId.PumpkinFlare, _ghost.Position, RimColor);
+            _haptics.Play(HapticStrength.Heavy);
+        }
+
+        // An empty one only fizzles: a dull sound and a puff, so the player knows to look for another.
+        private void OnDecoySpent(Vector3 position)
+        {
+            _sfx.Play3D(_audio.PumpkinDud, position, _audio.PumpkinDudVolume);
+            _vfx.Play(VfxId.PumpkinPuff, position, RimColor);
             _haptics.Play(HapticStrength.Light);
         }
 

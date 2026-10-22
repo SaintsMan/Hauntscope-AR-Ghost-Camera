@@ -1673,6 +1673,112 @@ MonoBehaviour:
     m_Localized: NICHT JETZT
     m_Metadata:
       m_Items: []
+  - m_Id: 6247785186713600
+    m_Localized: ERSTEN FALL STARTEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155029663744
+    m_Localized: "S\xDCSSES ODER SAURES"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966912
+    m_Localized: "S\xDCSSES ODER SAURES"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966913
+    m_Localized: NOCH {0} TAGE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966914
+    m_Localized: LETZTER TAG!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966915
+    m_Localized: "S\xFC\xDFigkeiten: {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966916
+    m_Localized: "S\xFC\xDFigkeiten verstecken sich im Raum: finde sie mit der Linse.
+      Gib sie vor Ende des Events f\xFCr Skins aus, \xDCbriges verbrennt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966917
+    m_Localized: "Das Event ist vorbei. Die gekauften Skins geh\xF6ren dir f\xFCr
+      immer."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966918
+    m_Localized: STRAHL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966919
+    m_Localized: LINSENRAHMEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966920
+    m_Localized: RADAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966921
+    m_Localized: "{0} S\xDCSSES - KAUFEN"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966922
+    m_Localized: BESITZ - TIPPEN ZUM TRAGEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966923
+    m_Localized: AKTIV - TIPPEN ZUM ABLEGEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966924
+    m_Localized: EVENT VORBEI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966925
+    m_Localized: "K\xFCrbisstrahl"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966926
+    m_Localized: "Der Fangstrahl brennt k\xFCrbisorange."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966927
+    m_Localized: Spinnweben-Rahmen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966928
+    m_Localized: "Spinnweben ziehen \xFCber den Sucher, solange die Linse an ist."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966929
+    m_Localized: Jack-Radar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966930
+    m_Localized: Der EMF-Radar glimmt bernsteinfarben wie eine Laterne.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966931
+    m_Localized: "S\xDCSSES +{2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966932
+    m_Localized: "MEHRERE SIGNALE - PR\xDCFE JEDES MIT DER LINSE"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966933
+    m_Localized: "S\xDCSSES +{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8050378045120512
+    m_Localized: GRATIS LADEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8050378250641408
+    m_Localized: OFFLINE
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

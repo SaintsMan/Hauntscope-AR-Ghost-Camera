@@ -24,7 +24,8 @@ namespace Hauntscope.Tests.EditMode
             _lifecycle = new FakeApplicationLifecycle();
             var config = new NotificationConfig();
             var settingsRepository = new SettingsRepository(new FakeSaveService());
-            _optIn = new NotificationOptIn(_notifications, settingsRepository.Load(), settingsRepository, _iap.Store.Progress, config);
+            _optIn = new NotificationOptIn(_notifications, settingsRepository.Load(), settingsRepository,
+                new FeatureFactory(_iap.Store.Progress).Features);
             var ads = new FakeAdsService();
             var calendar = new LoginCalendar(new EngagementProgress(),
                 new EngagementRepository(_iap.Store.Save, new ContractConfig(), _iap.Store.Config), new LoginConfig(),

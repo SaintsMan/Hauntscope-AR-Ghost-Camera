@@ -25,6 +25,16 @@ namespace Hauntscope.Gameplay.Config
             return (int)System.Math.Round(number);
         }
 
+        public float Float(string key, float fallback, float min, float max)
+        {
+            if (!_remote.TryGet(key, out var raw)
+                || !double.TryParse(raw.Trim(), NumberStyles.Float, CultureInfo.InvariantCulture, out var number)
+                || double.IsNaN(number) || number < min || number > max)
+                return fallback;
+
+            return (float)number;
+        }
+
         public bool Bool(string key, bool fallback)
         {
             if (!_remote.TryGet(key, out var raw))

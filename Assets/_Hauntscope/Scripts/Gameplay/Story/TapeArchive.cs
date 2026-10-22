@@ -12,7 +12,7 @@ namespace Hauntscope.Gameplay.Story
     // restored save) are simply there, new, without a fanfare each.
     public sealed class TapeArchive : IInitializable, IDisposable
     {
-        private const string IntroKey = "story.intro";
+        public const string IntroKey = "story.intro";
 
         private readonly PlayerProgress _progress;
         private readonly PlayerProgressRepository _repository;

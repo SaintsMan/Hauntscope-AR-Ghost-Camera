@@ -8,10 +8,12 @@ using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Iap;
+using Hauntscope.Gameplay.Onboarding;
 using Hauntscope.Gameplay.Hunt.Tips;
 using Hauntscope.Gameplay.Hunt.States;
 using Hauntscope.Gameplay.Photo;
 using Hauntscope.Gameplay.Pickups;
+using Hauntscope.Gameplay.Season;
 using Hauntscope.Gameplay.Shift;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
@@ -64,6 +66,7 @@ namespace Hauntscope.Bootstrap
             builder.Register<SpareBatteries>(Lifetime.Singleton);
             builder.Register<HuntSession>(Lifetime.Singleton);
             builder.RegisterEntryPoint<HuntAnalytics>();
+            builder.RegisterEntryPoint<HuntPhaseFunnel>();
             builder.Register<HuntLoot>(Lifetime.Singleton);
             builder.RegisterEntryPoint<HuntReportBuilder>().AsSelf();
             builder.Register<RewardDoubler>(Lifetime.Singleton);
@@ -73,7 +76,8 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<PickupFeedback>();
             builder.RegisterEntryPoint<EmergencyCharge>().AsSelf();
             builder.RegisterEntryPoint<HuntPause>().AsSelf();
-            builder.Register<GhostLens>(Lifetime.Singleton);
+            builder.Register<GhostLens>(Lifetime.Singleton).As<ILensSight>().AsSelf();
+            builder.RegisterEntryPoint<CandyPayout>().AsSelf();
             builder.Register<SpiritBox>(Lifetime.Singleton);
             builder.Register<NightVision>(Lifetime.Singleton).As<IViewMode>().AsSelf();
             builder.Register<ThermalVision>(Lifetime.Singleton).As<IViewMode>().AsSelf();
@@ -107,6 +111,8 @@ namespace Hauntscope.Bootstrap
             builder.Register<ShiftBreakState>(Lifetime.Singleton);
             builder.RegisterEntryPoint<HuntFlow>();
             builder.RegisterEntryPoint<TutorialFlow>().AsSelf();
+            builder.RegisterEntryPoint<OnboardingAnalytics>();
+            builder.RegisterEntryPoint<ToolFeatureReporter>();
             RegisterTips(builder);
 
             builder.RegisterComponentInHierarchy<CameraFrameView>();
@@ -121,6 +127,10 @@ namespace Hauntscope.Bootstrap
             builder.RegisterEntryPoint<EvpPresenter>();
             builder.RegisterComponentInHierarchy<ViewModeView>();
             builder.RegisterEntryPoint<ViewModePresenter>();
+            builder.RegisterComponentInHierarchy<EmfBlipsView>();
+            builder.RegisterEntryPoint<EmfBlipsPresenter>();
+            builder.RegisterComponentInHierarchy<CarveFaceView>();
+            builder.RegisterEntryPoint<CarveFacePresenter>();
             builder.RegisterComponentInHierarchy<SupplyHudView>();
             builder.RegisterEntryPoint<SupplyHudPresenter>();
             builder.RegisterComponentInHierarchy<EmergencyChargeView>();
@@ -155,6 +165,7 @@ namespace Hauntscope.Bootstrap
             RegisterGhostTip(builder, FieldTipId.Cat, tips => tips.CatGhostId);
             RegisterGhostTip(builder, FieldTipId.Negative, tips => tips.NegativeGhostId);
             RegisterGhostTip(builder, FieldTipId.Mara, tips => tips.MaraGhostId);
+            RegisterGhostTip(builder, FieldTipId.JackOLantern, tips => tips.JackGhostId);
             RegisterGhostTip(builder, FieldTipId.Kaidannyk, tips => tips.KaidannykGhostId);
             RegisterGhostTip(builder, FieldTipId.Domovyk, tips => tips.DomovykGhostId);
             builder.Register<WitchingHourTipRule>(Lifetime.Singleton).As<IFieldTipRule>();
@@ -230,6 +241,9 @@ namespace Hauntscope.Bootstrap
             // Nothing asks for it; it listens to the static AR session from the moment the scope is built.
             builder.Register<ArSessionDiagnostics>(Lifetime.Singleton);
             builder.RegisterBuildCallback(container => container.Resolve<ArSessionDiagnostics>());
+            builder.RegisterComponentInHierarchy<ARSession>();
+            builder.Register<ArSessionShutdown>(Lifetime.Singleton);
+            builder.RegisterBuildCallback(container => container.Resolve<ArSessionShutdown>());
         }
 
         private void RegisterVirtualEnvironment(IContainerBuilder builder)

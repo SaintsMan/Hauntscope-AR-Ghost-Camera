@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Engagement;
 using Hauntscope.Gameplay.Feedback;
+using Hauntscope.Gameplay.Onboarding;
 using VContainer.Unity;
 
 namespace Hauntscope.UI.Menu
@@ -29,13 +30,15 @@ namespace Hauntscope.UI.Menu
         private readonly MenuPopupQueue _popups;
         private readonly ILocalizationService _localization;
         private readonly UiFeedback _ui;
+        private readonly FeatureUnlocks _features;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         private bool _isOpen;
 
         public DailyRewardPresenter(DailyRewardView view, CalendarButtonView button, LoginCalendar calendar, MenuPopupQueue popups,
-            ILocalizationService localization, UiFeedback ui)
+            ILocalizationService localization, UiFeedback ui, FeatureUnlocks features)
         {
+            _features = features;
             _view = view;
             _button = button;
             _calendar = calendar;
@@ -54,7 +57,8 @@ namespace Hauntscope.UI.Menu
             _view.DoubleClicked += OnDoubleClicked;
             _view.CloseClicked += OnCloseClicked;
             Render();
-            if (_calendar.ShouldOpenByItself)
+            // A new agent meets the ration after the first hunt, not before it (GDD 5.41).
+            if (_features.IsUnlocked(Feature.Ration) && _calendar.ShouldOpenByItself)
                 _popups.Enqueue(this);
         }
 
@@ -92,6 +96,7 @@ namespace Hauntscope.UI.Menu
         private void OnIconClicked()
         {
             _ui.PlayClick();
+            _features.NotifyUsed(Feature.Ration);
             _popups.Enqueue(this);
         }
 
@@ -129,6 +134,7 @@ namespace Hauntscope.UI.Menu
 
         private void PlayClaimed()
         {
+            _features.NotifyUsed(Feature.Ration);
             _ui.PlayReward();
             _view.Cell(_calendar.TodayIndex).PlayClaimed();
         }

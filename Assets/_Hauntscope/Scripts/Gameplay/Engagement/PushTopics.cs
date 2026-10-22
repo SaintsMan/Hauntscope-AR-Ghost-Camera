@@ -39,6 +39,7 @@ namespace Hauntscope.Gameplay.Engagement
 
         public void Start()
         {
+            _optIn.SkipCardIfPointless();
             _optIn.Changed += Sync;
             _localization.Changed += Sync;
             Sync();

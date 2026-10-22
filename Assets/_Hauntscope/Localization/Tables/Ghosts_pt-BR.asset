@@ -527,6 +527,48 @@ MonoBehaviour:
       a atrai: encontre-a assim e s\xF3 ligue a lente quando ela estiver no anel."
     m_Metadata:
       m_Items: []
+  - m_Id: 6527154522152960
+    m_Localized: Jack da Lanterna
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707392
+    m_Localized: "Um fantasma ab\xF3bora sorridente que s\xF3 aparece no Halloween.
+      Ele se esconde entre ab\xF3boras vazias e ri enquanto voc\xEA procura."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707393
+    m_Localized: "Na \xFAltima noite de outubro cada varanda tem uma ab\xF3bora que
+      n\xE3o estava l\xE1 na noite anterior. Ningu\xE9m nunca v\xEA quem as deixa."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707394
+    m_Localized: "Fica parado entre 4 ou 5 ab\xF3boras vazias, ent\xE3o o radar ouve
+      cinco sinais ao mesmo tempo. S\xF3 a lente as revela: uma vazia apaga e custa
+      um pouco de bateria, a verdadeira acende os olhos e acorda."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707395
+    m_Localized: "Siga os sinais mais fortes, mas n\xE3o gaste a lente em cada ab\xF3bora:
+      use em rajadas curtas. Quando a verdadeira acender, ela fica atordoada por
+      um instante: dispare o raio na hora."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707396
+    m_Localized: "Lente de fantasmas. \xC9 a \xFAnica coisa que distingue a ab\xF3bora
+      verdadeira das vazias, e no radar EMF cada sinal aparece na faixa acima do
+      medidor."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707397
+    m_Localized: "A ag\xEAncia contou todas as ab\xF3boras que j\xE1 esculpiu em
+      casos. Sempre h\xE1 uma a mais do que os agentes lembram."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707398
+    m_Localized: "V\xE1rios sinais, mas s\xF3 um \xE9 fantasma. Confira cada ab\xF3bora
+      com a lente em rajadas curtas."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

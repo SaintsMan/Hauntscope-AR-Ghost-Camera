@@ -24,6 +24,8 @@ namespace Hauntscope.Infrastructure.Remote
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
         private bool _active;
 
+        public event Action Applied;
+
         public FirebaseRemoteValues(FirebaseGate gate, LiveOpsConfig config)
         {
             _gate = gate;
@@ -81,11 +83,18 @@ namespace Hauntscope.Infrastructure.Remote
                 await remoteConfig.ActivateAsync().AsUniTask();
                 await UniTask.SwitchToMainThread(cancellationToken);
                 _active = true;
+                Applied?.Invoke();
 
                 if (firstLaunch)
+                {
                     await remoteConfig.FetchAndActivateAsync().AsUniTask();
+                    await UniTask.SwitchToMainThread(cancellationToken);
+                    Applied?.Invoke();
+                }
                 else
+                {
                     await remoteConfig.FetchAsync().AsUniTask();
+                }
             }
             catch (OperationCanceledException)
             {

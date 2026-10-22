@@ -3,6 +3,7 @@ using Hauntscope.Gameplay.Hunt;
 using Hauntscope.Gameplay.Hunt.States;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Research;
+using Hauntscope.Gameplay.Season;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Tools;
 using Hauntscope.Tests.EditMode.Fakes;
@@ -24,6 +25,8 @@ namespace Hauntscope.Tests.EditMode
         private ShiftFixture _shift;
         private ReportFixture _report;
         private ContractFixture _contracts;
+        private HalloweenFixture _halloween;
+        private HuntLoot _loot;
 
         [SetUp]
         public void SetUp()
@@ -43,8 +46,11 @@ namespace Hauntscope.Tests.EditMode
             _report = new ReportFixture(_session, _fixture, _shift);
             _contracts = new ContractFixture();
             _contracts.OpenFirstBoard();
+            _halloween = new HalloweenFixture();
+            _loot = new HuntLoot();
             _state = new ResultState(_session, _battery, _toolbelt, _progress, new PlayerProgressRepository(_save),
-                new GhostResearch(_progress, new ResearchConfig(5, 0.25f, 2)), _shift.Shift, _report.Builder, _contracts.Board);
+                new GhostResearch(_progress, new ResearchConfig(5, 0.25f, 2)), _shift.Shift, _report.Builder, _contracts.Board,
+                new CandyPayout(_loot, _halloween.Collection));
         }
 
         [TearDown]

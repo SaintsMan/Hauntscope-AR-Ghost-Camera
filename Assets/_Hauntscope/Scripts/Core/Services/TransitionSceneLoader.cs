@@ -5,7 +5,7 @@ using Cysharp.Threading.Tasks;
 namespace Hauntscope.Core.Services
 {
     // Every scene switch goes through the screen transition, so no scene or presenter has to know about it.
-    public sealed class TransitionSceneLoader : ISceneLoader, IDisposable
+    public sealed class TransitionSceneLoader : ISceneLoader, ISceneTransitionEvents, IDisposable
     {
         private readonly ISceneLoader _inner;
         private readonly IScreenTransition _transition;
@@ -18,6 +18,8 @@ namespace Hauntscope.Core.Services
             _inner = inner;
             _transition = transition;
         }
+
+        public event Action Leaving;
 
         public UniTask LoadAsync(SceneId scene, CancellationToken cancellationToken)
         {
@@ -42,6 +44,7 @@ namespace Hauntscope.Core.Services
             try
             {
                 await _transition.CoverAsync(cancellationToken);
+                Leaving?.Invoke();
                 await _inner.LoadAsync(scene, cancellationToken);
                 await _transition.RevealAsync(cancellationToken);
             }

@@ -12,6 +12,8 @@ namespace Hauntscope.Gameplay.Progress
         private readonly Dictionary<string, int> _photoEvidence = new Dictionary<string, int>();
         private readonly HashSet<string> _seenTips = new HashSet<string>();
         private readonly HashSet<string> _evpEvidence = new HashSet<string>();
+        private readonly HashSet<string> _unlockedFeatures = new HashSet<string>();
+        private readonly HashSet<string> _usedFeatures = new HashSet<string>();
 
         public PlayerProgress()
             : this(0, new Dictionary<string, int>(), 0, false)
@@ -32,8 +34,16 @@ namespace Hauntscope.Gameplay.Progress
             int shiftsCompleted = 0,
             int bestShiftRound = 0,
             IEnumerable<string> seenTips = null,
-            IEnumerable<string> evpEvidence = null)
+            IEnumerable<string> evpEvidence = null,
+            IEnumerable<string> unlockedFeatures = null,
+            IEnumerable<string> usedFeatures = null,
+            bool featuresInitialized = false)
         {
+            if (unlockedFeatures != null)
+                _unlockedFeatures.UnionWith(unlockedFeatures);
+            if (usedFeatures != null)
+                _usedFeatures.UnionWith(usedFeatures);
+            FeaturesInitialized = featuresInitialized;
             if (evpEvidence != null)
                 _evpEvidence.UnionWith(evpEvidence);
             if (seenTips != null)
@@ -178,6 +188,38 @@ namespace Hauntscope.Gameplay.Progress
                 Changed?.Invoke();
         }
 
+        // Menu features that have opened up and features the player has used at least once (GDD 5.41). Unlike the seen
+        // tips, "Reset tips" leaves them alone: the menu never closes again. Neither call raises Changed, so a listener of
+        // Changed can open a feature from inside its own handler.
+        public IReadOnlyCollection<string> UnlockedFeatures => _unlockedFeatures;
+
+        public IReadOnlyCollection<string> UsedFeatures => _usedFeatures;
+
+        // The unlocks have been set up for this save: a save from before them is told apart from a brand-new one.
+        public bool FeaturesInitialized { get; private set; }
+
+        public bool IsFeatureUnlocked(string featureId)
+        {
+            return _unlockedFeatures.Contains(featureId);
+        }
+
+        // True when the feature was not open before.
+        public bool UnlockFeature(string featureId)
+        {
+            return _unlockedFeatures.Add(featureId);
+        }
+
+        // True the first time the feature is used.
+        public bool MarkFeatureUsed(string featureId)
+        {
+            return _usedFeatures.Add(featureId);
+        }
+
+        public void MarkFeaturesInitialized()
+        {
+            FeaturesInitialized = true;
+        }
+
         public int GetCaptureCount(string ghostId)
         {
             return _captures.TryGetValue(ghostId, out var count) ? count : 0;
@@ -241,9 +283,10 @@ namespace Hauntscope.Gameplay.Progress
             Changed?.Invoke();
         }
 
+        // 0 means "never asked", so an ask made by a photo before any catch is stored as 1.
         public void MarkReviewPrompted()
         {
-            ReviewPromptedAtCaptures = TotalCaptures;
+            ReviewPromptedAtCaptures = Math.Max(1, TotalCaptures);
             Changed?.Invoke();
         }
 

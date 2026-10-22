@@ -13,13 +13,16 @@ namespace Hauntscope.Gameplay.Pickups
         [SerializeField, Min(0)] private int _countMin = 1;
         [SerializeField, Min(0)] private int _countMax = 1;
         [SerializeField, Range(0f, 1f)] private float _batteryBelow = 0.5f;
+        [SerializeField] private string _season = string.Empty;
 
         public PickupSpawn()
         {
         }
 
-        public PickupSpawn(PickupData pickup, PickupTrigger trigger, float chance, int countMin, int countMax, float batteryBelow = 0f)
+        public PickupSpawn(PickupData pickup, PickupTrigger trigger, float chance, int countMin, int countMax, float batteryBelow = 0f,
+            string season = "")
         {
+            _season = season;
             _pickup = pickup;
             _trigger = trigger;
             _chance = chance;
@@ -40,5 +43,8 @@ namespace Hauntscope.Gameplay.Pickups
 
         // LowBattery only: fires once per hunt, the first time the charge drops below this fraction.
         public float BatteryBelow => _batteryBelow;
+
+        // The season this pickup belongs to (SeasonEvent); empty is always on.
+        public string Season => _season ?? string.Empty;
     }
 }

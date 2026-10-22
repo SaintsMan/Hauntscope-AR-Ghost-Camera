@@ -399,6 +399,38 @@ MonoBehaviour:
     m_Key: ghost.mara.best_tool
     m_Metadata:
       m_Items: []
+  - m_Id: 6527154522152960
+    m_Key: ghost.jack_o_lantern.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707392
+    m_Key: ghost.jack_o_lantern.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707393
+    m_Key: ghost.jack_o_lantern.rumor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707394
+    m_Key: ghost.jack_o_lantern.behavior
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707395
+    m_Key: ghost.jack_o_lantern.tactics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707396
+    m_Key: ghost.jack_o_lantern.best_tool
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707397
+    m_Key: ghost.jack_o_lantern.classified
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527154555707398
+    m_Key: ghost.jack_o_lantern.tip
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

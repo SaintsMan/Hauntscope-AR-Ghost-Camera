@@ -9,6 +9,7 @@ using Hauntscope.Gameplay.Environment;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Ghosts;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Onboarding;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Story;
 using UnityEngine;
@@ -30,6 +31,13 @@ namespace Hauntscope.UI.Menu
         private const string ShiftLockedKey = "menu.shift.locked";
         private const string ShiftRecordKey = "menu.shift.record";
         private const string ShiftLengthKey = "menu.shift.length";
+        private const float RevealDelay = 0.7f;
+        private const float RevealStep = 0.35f;
+
+        private static readonly Feature[] MenuFeatures =
+        {
+            Feature.Ectoplasm, Feature.Ration, Feature.Contracts, Feature.Bestiary, Feature.Archive, Feature.Shop, Feature.Shift, Feature.Prank
+        };
 
         private readonly MainMenuView _view;
         private readonly MenuNavigation _navigation;
@@ -46,6 +54,7 @@ namespace Hauntscope.UI.Menu
         private readonly ContractBoard _contracts;
         private readonly MenuCoachMarks _marks;
         private readonly TapeArchive _archive;
+        private readonly FeatureUnlocks _features;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         private int _shownSecond = -1;
@@ -67,8 +76,10 @@ namespace Hauntscope.UI.Menu
             ShiftConfig shiftConfig,
             ContractBoard contracts,
             MenuCoachMarks marks,
-            TapeArchive archive)
+            TapeArchive archive,
+            FeatureUnlocks features)
         {
+            _features = features;
             _archive = archive;
             _marks = marks;
             _contracts = contracts;
@@ -106,8 +117,10 @@ namespace Hauntscope.UI.Menu
             _view.ArModeClicked += OnArModeClicked;
             _view.VirtualModeClicked += OnVirtualModeClicked;
             _settings.Environment.Changed += OnEnvironmentChanged;
+            _features.Changed += RenderFeatures;
 
             RefreshVisibility();
+            RenderFeatures();
             RenderMode();
             CheckArAsync(_lifetime.Token).Forget();
             OnEctoplasmChanged(_progress.Ectoplasm.Value);
@@ -115,6 +128,20 @@ namespace Hauntscope.UI.Menu
             RenderContracts();
             RenderMarks();
             RenderArchive();
+        }
+
+        // The menu shows what the agent has earned (GDD 5.41); a part that opens for the first time pops once the screen
+        // has settled, the others in turn.
+        private void RenderFeatures()
+        {
+            var revealed = 0;
+            foreach (var feature in MenuFeatures)
+            {
+                var visible = _features.IsUnlocked(feature);
+                _view.SetFeatureVisible(feature, visible);
+                if (visible && _features.TryReveal(feature))
+                    _view.Reveal(feature, RevealDelay + RevealStep * revealed++);
+            }
         }
 
         private void RenderMarks()
@@ -131,6 +158,7 @@ namespace Hauntscope.UI.Menu
         private void OnArchiveClicked()
         {
             _ui.PlayClick();
+            _features.NotifyUsed(Feature.Archive);
             _navigation.Show(MenuScreen.Archive);
         }
 
@@ -143,6 +171,7 @@ namespace Hauntscope.UI.Menu
         {
             _ui.PlayClick();
             _marks.Dismiss(CoachMark.Contracts);
+            _features.NotifyUsed(Feature.Contracts);
             _navigation.Show(MenuScreen.Contracts);
         }
 
@@ -187,6 +216,7 @@ namespace Hauntscope.UI.Menu
             _view.ArModeClicked -= OnArModeClicked;
             _view.VirtualModeClicked -= OnVirtualModeClicked;
             _settings.Environment.Changed -= OnEnvironmentChanged;
+            _features.Changed -= RenderFeatures;
             _lifetime.Cancel();
             _lifetime.Dispose();
         }
@@ -202,8 +232,13 @@ namespace Hauntscope.UI.Menu
         }
 
         // Launch prompts replace the main screen like any other menu screen, instead of stacking over it.
+        // The launcher outlives the menu and clears its prompt once the Hunt scene is up: by then the view may already
+        // be destroyed with the menu scene while this presenter is not yet disposed (NRE 8cb722df, 31 events).
         private void RefreshVisibility()
         {
+            if (_view == null)
+                return;
+
             _view.SetVisible(_navigation.Current.Value == MenuScreen.Main && _launcher.Prompt.Value == LaunchPrompt.None);
         }
 
@@ -249,6 +284,7 @@ namespace Hauntscope.UI.Menu
 
             _ui.PlayClick();
             _marks.Dismiss(CoachMark.Shift);
+            _features.NotifyUsed(Feature.Shift);
             _options.SelectMode(HuntMode.Shift);
             _launcher.LaunchAsync(_lifetime.Token).Forget();
         }
@@ -307,6 +343,7 @@ namespace Hauntscope.UI.Menu
         {
             _ui.PlayClick();
             _marks.Dismiss(CoachMark.Bestiary);
+            _features.NotifyUsed(Feature.Bestiary);
             _navigation.Show(MenuScreen.Bestiary);
         }
 
@@ -314,6 +351,7 @@ namespace Hauntscope.UI.Menu
         {
             _ui.PlayClick();
             _marks.Dismiss(CoachMark.Shop);
+            _features.NotifyUsed(Feature.Shop);
             _navigation.ShowShop(ShopTab.Lasers);
         }
 

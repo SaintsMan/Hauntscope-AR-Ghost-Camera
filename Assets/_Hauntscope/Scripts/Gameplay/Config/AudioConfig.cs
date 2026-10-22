@@ -84,6 +84,12 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Range(0f, 1f)] private float _knockVolume = 1f;
         [SerializeField, Range(0f, 1f)] private float _rattleVolume = 0.9f;
         [SerializeField, Range(0f, 1f)] private float _developVolume = 0.8f;
+        [SerializeField] private AudioClip _pumpkinDud;
+        [SerializeField, Range(0f, 1f)] private float _pumpkinDudVolume = 0.8f;
+        [SerializeField] private AudioClip _carve;
+        [SerializeField, Range(0f, 1f)] private float _carveVolume = 1f;
+        [SerializeField] private AudioClip _candyChime;
+        [SerializeField, Range(0f, 1f)] private float _candyChimeVolume = 0.8f;
 
         public AudioClip AmbientDrone => _ambientDrone;
 
@@ -243,5 +249,20 @@ namespace Hauntscope.Gameplay.Config
 
         // The negative flashing onto the film after a photo.
         public float DevelopVolume => _developVolume;
+
+        // An empty pumpkin giving up under the lens.
+        public AudioClip PumpkinDud => _pumpkinDud;
+
+        public float PumpkinDudVolume => _pumpkinDudVolume;
+
+        // The jack-o'-lantern cutting its face into the screen as it is caught.
+        public AudioClip Carve => _carve;
+
+        public float CarveVolume => _carveVolume;
+
+        // Buying a skin with candy.
+        public AudioClip CandyChime => _candyChime;
+
+        public float CandyChimeVolume => _candyChimeVolume;
     }
 }

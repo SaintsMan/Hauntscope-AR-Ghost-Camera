@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using Hauntscope.Gameplay.Onboarding;
 using Hauntscope.UI.Common;
 using TMPro;
 using UnityEngine;
@@ -9,6 +10,28 @@ namespace Hauntscope.UI.Menu
 {
     public sealed class MainMenuView : MonoBehaviour
     {
+        // A part of the menu that stays out of sight until FeatureUnlocks opens it; one feature may own several objects.
+        [Serializable]
+        private sealed class FeatureSlot
+        {
+            [SerializeField] private Feature _feature;
+            [SerializeField] private GameObject _root;
+
+            public FeatureSlot()
+            {
+            }
+
+            public FeatureSlot(Feature feature, GameObject root)
+            {
+                _feature = feature;
+                _root = root;
+            }
+
+            public Feature Feature => _feature;
+
+            public GameObject Root => _root;
+        }
+
         [SerializeField] private Button _startButton;
         [SerializeField] private Button _bestiaryButton;
         [SerializeField] private Button _settingsButton;
@@ -50,6 +73,10 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private Color _modeOffColor = new Color(0.49f, 0.55f, 0.6f, 1f);
         [SerializeField] private Color _modeDisabledColor = new Color(0.49f, 0.55f, 0.6f, 0.35f);
         [SerializeField, Min(0.05f)] private float _thumbDuration = 0.28f;
+        [SerializeField] private FeatureSlot[] _featureSlots;
+        [SerializeField] private GameObject _modesRow;
+        [SerializeField, Min(0f)] private float _revealPunch = 0.18f;
+        [SerializeField, Min(0.1f)] private float _revealPunchDuration = 0.5f;
 
         private bool _arAvailable = true;
         private bool _isVirtual;
@@ -78,6 +105,32 @@ namespace Hauntscope.UI.Menu
         public void SetVisible(bool visible)
         {
             gameObject.SetActive(visible);
+        }
+
+        // Shows or hides what the agent has not earned yet; the row of mode tiles goes away when both its tiles do.
+        public void SetFeatureVisible(Feature feature, bool visible)
+        {
+            foreach (var slot in _featureSlots)
+            {
+                if (slot.Feature == feature && slot.Root.activeSelf != visible)
+                    slot.Root.SetActive(visible);
+            }
+
+            _modesRow.SetActive(IsVisible(Feature.Shift) || IsVisible(Feature.Prank));
+        }
+
+        // A part that has just opened gives two pops once the screen has settled, so the eye goes to it.
+        public void Reveal(Feature feature, float delay)
+        {
+            foreach (var slot in _featureSlots)
+            {
+                if (slot.Feature != feature)
+                    continue;
+
+                var target = slot.Root.transform;
+                target.DOKill(true);
+                target.DOPunchScale(Vector3.one * _revealPunch, _revealPunchDuration, 5, 0.6f).SetDelay(delay).SetLoops(2).Ui(slot.Root);
+            }
         }
 
         // A NEW tag that pulses until its button is first pressed.
@@ -261,6 +314,17 @@ namespace Hauntscope.UI.Menu
             VirtualModeClicked?.Invoke();
         }
 
+        private bool IsVisible(Feature feature)
+        {
+            foreach (var slot in _featureSlots)
+            {
+                if (slot.Feature == feature)
+                    return slot.Root.activeSelf;
+            }
+
+            return false;
+        }
+
         private void RenderMode()
         {
             var arColor = !_arAvailable ? _modeDisabledColor : _isVirtual ? _modeOffColor : _modeOnColor;
@@ -312,9 +376,29 @@ namespace Hauntscope.UI.Menu
             var ar = transform.Find("Buttons/ModeSwitch/Ar");
             if (ar != null)
                 _arModeGraphics = new Graphic[] { Find<Graphic>("Buttons/ModeSwitch/Ar/Icon"), Find<Graphic>("Buttons/ModeSwitch/Ar/Label") };
+            var modes = transform.Find("Buttons/Modes");
+            _modesRow = modes != null ? modes.gameObject : null;
+            _featureSlots = new[]
+            {
+                Slot(Feature.Ectoplasm, "Ectoplasm"),
+                Slot(Feature.Ration, "CalendarButton"),
+                Slot(Feature.Bestiary, "Dock/BestiaryButton"),
+                Slot(Feature.Contracts, "Dock/ContractsButton"),
+                Slot(Feature.Archive, "Dock/ArchiveButton"),
+                Slot(Feature.Shop, "Dock/ShopButton"),
+                Slot(Feature.Shop, "Buttons/Loadout"),
+                Slot(Feature.Shift, "Buttons/Modes/ShiftButton"),
+                Slot(Feature.Prank, "Buttons/Modes/PrankButton")
+            };
             var room = transform.Find("Buttons/ModeSwitch/Virtual");
             if (room != null)
                 _virtualModeGraphics = new Graphic[] { Find<Graphic>("Buttons/ModeSwitch/Virtual/Icon"), Find<Graphic>("Buttons/ModeSwitch/Virtual/Label") };
+        }
+
+        private FeatureSlot Slot(Feature feature, string path)
+        {
+            var child = transform.Find(path);
+            return new FeatureSlot(feature, child != null ? child.gameObject : null);
         }
 
         private T Find<T>(string path) where T : Component

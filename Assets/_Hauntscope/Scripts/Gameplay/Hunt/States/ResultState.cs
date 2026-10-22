@@ -2,6 +2,7 @@ using Hauntscope.Core.StateMachines;
 using Hauntscope.Gameplay.Contracts;
 using Hauntscope.Gameplay.Progress;
 using Hauntscope.Gameplay.Research;
+using Hauntscope.Gameplay.Season;
 using Hauntscope.Gameplay.Shift;
 using Hauntscope.Gameplay.Tools;
 
@@ -18,6 +19,7 @@ namespace Hauntscope.Gameplay.Hunt.States
         private readonly NightShift _shift;
         private readonly HuntReportBuilder _report;
         private readonly ContractBoard _contracts;
+        private readonly CandyPayout _candy;
 
         public ResultState(
             HuntSession session,
@@ -28,8 +30,10 @@ namespace Hauntscope.Gameplay.Hunt.States
             GhostResearch research,
             NightShift shift,
             HuntReportBuilder report,
-            ContractBoard contracts)
+            ContractBoard contracts,
+            CandyPayout candy)
         {
+            _candy = candy;
             _report = report;
             _contracts = contracts;
             _shift = shift;
@@ -59,6 +63,8 @@ namespace Hauntscope.Gameplay.Hunt.States
             _progressRepository.Save(_progress);
             if (result == null)
                 return;
+
+            _candy.Pay();
 
             _contracts.Record(_report.Build(result));
             _shift.RecordResult(result);

@@ -94,8 +94,10 @@ namespace Hauntscope.AR
                 }
             }
 
-            var padding = _config.RoomBoundsPadding * 2f;
-            bounds.Expand(new Vector3(padding, 0f, padding));
+            // Padding outwards let fleeing ghosts drift through the walls the planes stop at; the floor that was found
+            // is known to be open, so the ghost stays inside it, a little in from its edges.
+            var inset = _config.RoomBoundsPadding * 2f;
+            bounds.size = new Vector3(Mathf.Max(0f, bounds.size.x - inset), bounds.size.y, Mathf.Max(0f, bounds.size.z - inset));
 
             HorizontalArea = area;
             RoomBounds = bounds;

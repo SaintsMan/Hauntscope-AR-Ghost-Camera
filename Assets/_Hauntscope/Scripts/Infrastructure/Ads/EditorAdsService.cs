@@ -9,7 +9,7 @@ namespace Hauntscope.Infrastructure.Ads
 {
     // Editor and non-Android builds: an "ad" is a short wait that always pays out, so every placement can be
     // played through without the SDK. AdsConfig.EditorAdsAvailable switches ads off to try the no-fill path.
-    public sealed class EditorAdsService : IAdsService, IAdPrivacy
+    public sealed class EditorAdsService : IAdsService, IAdPrivacy, IAdsInitReport
     {
         private const int MillisecondsPerSecond = 1000;
 
@@ -30,12 +30,15 @@ namespace Hauntscope.Infrastructure.Ads
 
         public event Action AvailabilityChanged;
 
+        public event Action<string, int> Reported;
+
         public UniTask<bool> InitializeAsync(CancellationToken cancellationToken)
         {
+            Reported?.Invoke(_config.EditorAdsAvailable ? "ok" : "error", 1);
             return UniTask.FromResult(_config.EditorAdsAvailable);
         }
 
-        public async UniTask<bool> ShowRewardedAsync(CancellationToken cancellationToken)
+        public async UniTask<bool> ShowRewardedAsync(CancellationToken cancellationToken, string placement = "")
         {
             return await PlayAsync("rewarded", cancellationToken);
         }

@@ -1,6 +1,7 @@
 using System;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Ghosts;
+using Hauntscope.Gameplay.Season;
 using Hauntscope.Tests.EditMode.Fakes;
 using NUnit.Framework;
 using UnityEditor;
@@ -168,6 +169,112 @@ namespace Hauntscope.Tests.EditMode
             Object.DestroyImmediate(mimic);
         }
 
+        [Test]
+        public void Select_SeasonalGhostWhileTheEventIsOff_NeverComes()
+        {
+            var jack = CreateGhost("jack_o_lantern", GhostRarity.Rare, season: "halloween");
+            var halloween = new HalloweenFixture(running: false);
+            var selector = new GhostSelector(new GhostConfig(new[] { _poltergeist, jack }, "wisp", 75f, 25f, 0f), _random, _witchingHour,
+                halloween.Season, DemoSwitches.Off);
+            _random.DefaultValue = 0f;
+
+            var ghost = selector.Select(huntsPlayed: 5);
+
+            Assert.AreNotSame(jack, ghost);
+            Object.DestroyImmediate(jack);
+        }
+
+        [Test]
+        public void Select_EventRunningAndTheRollIsUnderThePercent_ComesTheSeasonalGhost()
+        {
+            var jack = CreateGhost("jack_o_lantern", GhostRarity.Rare, season: "halloween");
+            var halloween = new HalloweenFixture();
+            var selector = new GhostSelector(new GhostConfig(new[] { _poltergeist, jack }, "wisp", 75f, 25f, 0f), _random, _witchingHour,
+                halloween.Season, DemoSwitches.Off);
+            _random.Enqueue(34f / 100f);
+
+            var ghost = selector.Select(huntsPlayed: 5);
+
+            Assert.AreSame(jack, ghost);
+            Object.DestroyImmediate(jack);
+        }
+
+        [Test]
+        public void Select_EventRunningAndTheRollIsOverThePercent_UsesTheOrdinaryDraw()
+        {
+            var jack = CreateGhost("jack_o_lantern", GhostRarity.Rare, season: "halloween");
+            var halloween = new HalloweenFixture();
+            var selector = new GhostSelector(new GhostConfig(new[] { _poltergeist, jack }, "wisp", 75f, 25f, 0f), _random, _witchingHour,
+                halloween.Season, DemoSwitches.Off);
+            _random.DefaultValue = 0.9f;
+
+            var ghost = selector.Select(huntsPlayed: 5);
+
+            Assert.AreSame(_poltergeist, ghost);
+            Object.DestroyImmediate(jack);
+        }
+
+        [Test]
+        public void Select_SecondHuntAndTheEventGhostComesFromTheSecond_ComesTheSeasonalGhost()
+        {
+            var jack = CreateGhost("jack_o_lantern", GhostRarity.Rare, season: "halloween");
+            var halloween = new HalloweenFixture();
+            halloween.Remote.Values[RemoteKeys.HalloweenJackFromHunt] = "2";
+            var selector = new GhostSelector(new GhostConfig(new[] { _poltergeist, _wisp, jack }, "wisp", 75f, 25f, 0f), _random, _witchingHour,
+                halloween.Season, DemoSwitches.Off);
+            _random.Enqueue(34f / 100f);
+
+            var ghost = selector.Select(huntsPlayed: 1);
+
+            Assert.AreSame(jack, ghost);
+            Object.DestroyImmediate(jack);
+        }
+
+        [Test]
+        public void Select_SecondHuntAndTheEventGhostComesFromTheThird_SkipsTheSeasonalGhost()
+        {
+            var jack = CreateGhost("jack_o_lantern", GhostRarity.Rare, season: "halloween");
+            var halloween = new HalloweenFixture();
+            halloween.Remote.Values[RemoteKeys.HalloweenJackFromHunt] = "3";
+            var selector = new GhostSelector(new GhostConfig(new[] { _poltergeist, jack }, "wisp", 75f, 25f, 0f), _random, _witchingHour,
+                halloween.Season, DemoSwitches.Off);
+            _random.DefaultValue = 0f;
+
+            var ghost = selector.Select(huntsPlayed: 1);
+
+            Assert.AreNotSame(jack, ghost);
+            Object.DestroyImmediate(jack);
+        }
+
+        [Test]
+        public void Select_EventRunningButItIsTheFirstHunt_StaysTheTaughtGhost()
+        {
+            var jack = CreateGhost("jack_o_lantern", GhostRarity.Rare, season: "halloween");
+            var halloween = new HalloweenFixture();
+            var selector = new GhostSelector(new GhostConfig(new[] { _poltergeist, _wisp, jack }, "wisp", 75f, 25f, 0f), _random, _witchingHour,
+                halloween.Season, DemoSwitches.Off);
+            _random.DefaultValue = 0f;
+
+            var ghost = selector.Select(huntsPlayed: 0);
+
+            Assert.AreSame(_wisp, ghost);
+            Object.DestroyImmediate(jack);
+        }
+
+        [Test]
+        public void Select_DemoNamesAGhost_EveryHuntIsAgainstIt()
+        {
+            var jack = CreateGhost("jack_o_lantern", GhostRarity.Rare, season: "halloween");
+            var demo = new DemoSwitchesBuilder().Halloween().Ghost("jack_o_lantern").Build();
+            var halloween = new HalloweenFixture(demo: demo);
+            var selector = new GhostSelector(new GhostConfig(new[] { _poltergeist, _wisp, jack }, "wisp", 75f, 25f, 0f), _random, _witchingHour,
+                halloween.Season, demo);
+
+            Assert.AreSame(jack, selector.Select(huntsPlayed: 0));
+            Assert.AreSame(jack, selector.Select(huntsPlayed: 7));
+            Object.DestroyImmediate(jack);
+        }
+
         private int CountPicks(GhostSelector selector, GhostData target)
         {
             var picks = 0;
@@ -182,13 +289,14 @@ namespace Hauntscope.Tests.EditMode
             return picks;
         }
 
-        private static GhostData CreateGhost(string id, GhostRarity rarity, bool nightOnly = false)
+        private static GhostData CreateGhost(string id, GhostRarity rarity, bool nightOnly = false, string season = "")
         {
             var ghost = ScriptableObject.CreateInstance<GhostData>();
             var serialized = new SerializedObject(ghost);
             serialized.FindProperty("_id").stringValue = id;
             serialized.FindProperty("_rarity").enumValueIndex = (int)rarity;
             serialized.FindProperty("_nightOnly").boolValue = nightOnly;
+            serialized.FindProperty("_seasonEvent").stringValue = season;
             serialized.ApplyModifiedPropertiesWithoutUndo();
             return ghost;
         }

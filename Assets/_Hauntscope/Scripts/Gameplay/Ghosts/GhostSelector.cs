@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
+using Hauntscope.Gameplay.Season;
 
 namespace Hauntscope.Gameplay.Ghosts
 {
@@ -10,12 +11,22 @@ namespace Hauntscope.Gameplay.Ghosts
         private readonly GhostConfig _config;
         private readonly IRandom _random;
         private readonly WitchingHour _witchingHour;
+        private readonly SeasonEvent _season;
+        private readonly DemoSwitches _demo;
 
+        // Tests of the ordinary draw: no season runs and nothing is forced.
         public GhostSelector(GhostConfig config, IRandom random, WitchingHour witchingHour)
+            : this(config, random, witchingHour, null, DemoSwitches.Off)
+        {
+        }
+
+        public GhostSelector(GhostConfig config, IRandom random, WitchingHour witchingHour, SeasonEvent season, DemoSwitches demo)
         {
             _config = config;
             _random = random;
             _witchingHour = witchingHour;
+            _season = season;
+            _demo = demo;
         }
 
         // The first two hunts are set (the tutorial ghost, then the one that teaches vulnerability); after that night
@@ -26,9 +37,22 @@ namespace Hauntscope.Gameplay.Ghosts
             if (ghosts.Count == 0)
                 throw new InvalidOperationException("GhostConfig has no ghosts.");
 
-            var set = huntsPlayed == 0 ? FindById(_config.FirstGhostId) : huntsPlayed == 1 ? FindById(_config.SecondGhostId) : null;
-            if (set != null)
-                return set;
+            var forced = FindById(_demo.Ghost);
+            if (forced != null)
+                return forced;
+
+            var first = huntsPlayed == 0 ? FindById(_config.FirstGhostId) : null;
+            if (first != null)
+                return first;
+
+            // A season's ghost may take the second hunt's place: the event is short and new agents play few hunts.
+            var seasonal = PickSeasonal(ghosts, huntsPlayed + 1);
+            if (seasonal != null)
+                return seasonal;
+
+            var second = huntsPlayed == 1 ? FindById(_config.SecondGhostId) : null;
+            if (second != null)
+                return second;
 
             var night = _witchingHour.IsActive;
             var totalWeight = 0f;
@@ -48,6 +72,29 @@ namespace Hauntscope.Gameplay.Ghosts
             }
 
             return AnyAvailable(ghosts, night, ghosts.Count - 1);
+        }
+
+        // A season's ghost comes by its own chance, on top of the ordinary draw, so the console's percent is what it means.
+        private GhostData PickSeasonal(IReadOnlyList<GhostData> ghosts, int huntNumber)
+        {
+            if (_season == null)
+                return null;
+
+            for (var i = 0; i < ghosts.Count; i++)
+            {
+                var ghost = ghosts[i];
+                if (string.IsNullOrEmpty(ghost.SeasonEvent))
+                    continue;
+
+                if (huntNumber < _season.GhostFromHunt(ghost.SeasonEvent))
+                    continue;
+
+                var percent = _season.GhostPercent(ghost.SeasonEvent);
+                if (percent > 0 && _random.Range(0f, 100f) < percent)
+                    return ghost;
+            }
+
+            return null;
         }
 
         // The first ghost that may come now, starting from the given index; a day with only night ghosts left falls
@@ -85,11 +132,14 @@ namespace Hauntscope.Gameplay.Ghosts
 
         private static bool IsAvailable(GhostData ghost, bool night)
         {
-            return night || !ghost.NightOnly;
+            return string.IsNullOrEmpty(ghost.SeasonEvent) && (night || !ghost.NightOnly);
         }
 
         private GhostData FindById(string id)
         {
+            if (string.IsNullOrEmpty(id))
+                return null;
+
             var ghosts = _config.Ghosts;
             for (var i = 0; i < ghosts.Count; i++)
             {

@@ -48,18 +48,33 @@ public final class AdsBridge {
 
     /** Consent first (a form only where the law requires one), then the SDK. */
     public void initialize() {
+        requestConsent();
+    }
+
+    /**
+     * Asks UMP again after a failed request (no network on a fresh install). Unity calls it with a pause and when the
+     * game comes back to the foreground; once the SDK runs it does nothing.
+     */
+    public void retryConsent() {
+        if (!sdkStarted.get())
+            requestConsent();
+    }
+
+    private void requestConsent() {
         activity.runOnUiThread(() -> {
-            consent = UserMessagingPlatform.getConsentInformation(activity);
+            if (consent == null)
+                consent = UserMessagingPlatform.getConsentInformation(activity);
             ConsentRequestParameters parameters = new ConsentRequestParameters.Builder().build();
             consent.requestConsentInfoUpdate(activity, parameters,
                     () -> UserMessagingPlatform.loadAndShowConsentFormIfRequired(activity, formError -> {
                         if (formError != null)
                             listener.onEvent("consent_error", formError.getMessage());
-                        startSdk();
+                        startSdk(false);
                     }),
                     requestError -> {
                         listener.onEvent("consent_error", requestError.getMessage());
-                        startSdk();
+                        // A consent given on an earlier run still counts; without one there is nothing to start yet.
+                        startSdk(true);
                     });
         });
     }
@@ -174,9 +189,10 @@ public final class AdsBridge {
         });
     }
 
-    private void startSdk() {
+    /** Reports "init" as "ok", "no_consent" (the player's answer) or "error" (the request failed, worth a retry). */
+    private void startSdk(boolean requestFailed) {
         if (!consent.canRequestAds()) {
-            listener.onEvent("init", "no_consent");
+            listener.onEvent("init", requestFailed ? "error" : "no_consent");
             return;
         }
 

@@ -44,7 +44,7 @@ namespace Hauntscope.Gameplay.Ads
             _isShowing = true;
             try
             {
-                if (!await _ads.ShowRewardedAsync(cancellationToken) || !IsOffered)
+                if (!await _ads.ShowRewardedAsync(cancellationToken, AdPlacements.Doubler) || !IsOffered)
                     return false;
 
                 // The capture reward was already paid by ResultState; the ad pays it a second time.

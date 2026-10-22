@@ -5,6 +5,7 @@ using Hauntscope.Core.Services;
 using Hauntscope.Gameplay.Config;
 using Hauntscope.Gameplay.Feedback;
 using Hauntscope.Gameplay.Hunt;
+using Hauntscope.Gameplay.Onboarding;
 using Hauntscope.Gameplay.Progress;
 using VContainer.Unity;
 
@@ -27,6 +28,7 @@ namespace Hauntscope.UI.Menu
         private readonly HuntLauncher _launcher;
         private readonly ILocalizationService _localization;
         private readonly UiFeedback _ui;
+        private readonly FeatureUnlocks _features;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
 
         public PrankLaunchPresenter(
@@ -37,8 +39,10 @@ namespace Hauntscope.UI.Menu
             HuntLaunchOptions options,
             HuntLauncher launcher,
             ILocalizationService localization,
-            UiFeedback ui)
+            UiFeedback ui,
+            FeatureUnlocks features)
         {
+            _features = features;
             _view = view;
             _progress = progress;
             _repository = repository;
@@ -84,6 +88,7 @@ namespace Hauntscope.UI.Menu
             }
 
             _ui.PlayClick();
+            _features.NotifyUsed(Feature.Prank);
             if (!_progress.HasSeenTip(UsedKey))
             {
                 _progress.MarkTipSeen(UsedKey);

@@ -18,8 +18,8 @@ namespace Hauntscope.Core.Services
         // Consent, then the SDK. True when ads may be requested for this player.
         UniTask<bool> InitializeAsync(CancellationToken cancellationToken);
 
-        // True when the player watched long enough to earn the reward.
-        UniTask<bool> ShowRewardedAsync(CancellationToken cancellationToken);
+        // True when the player watched long enough to earn the reward. The placement names the reward for analytics.
+        UniTask<bool> ShowRewardedAsync(CancellationToken cancellationToken, string placement = "");
 
         // True when an ad was actually shown.
         UniTask<bool> ShowInterstitialAsync(CancellationToken cancellationToken);

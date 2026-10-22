@@ -1696,6 +1696,111 @@ MonoBehaviour:
     m_Localized: NOT NOW
     m_Metadata:
       m_Items: []
+  - m_Id: 6247785186713600
+    m_Localized: START FIRST CASE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155029663744
+    m_Localized: TRICK OR TREAT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966912
+    m_Localized: TRICK OR TREAT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966913
+    m_Localized: '{0} DAYS LEFT'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966914
+    m_Localized: LAST DAY!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966915
+    m_Localized: 'Candy: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966916
+    m_Localized: 'Candy hides in the room: find it through the lens. Spend it on
+      skins before the event ends, leftover candy burns.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966917
+    m_Localized: The event is over. The skins you bought are yours for good.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966918
+    m_Localized: BEAM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966919
+    m_Localized: LENS FRAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966920
+    m_Localized: RADAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966921
+    m_Localized: '{0} CANDY - TAP TO BUY'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966922
+    m_Localized: OWNED - TAP TO WEAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966923
+    m_Localized: WORN - TAP TO TAKE OFF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966924
+    m_Localized: EVENT OVER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966925
+    m_Localized: Pumpkin Beam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966926
+    m_Localized: The capture beam burns pumpkin orange.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966927
+    m_Localized: Cobweb Lens Frame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966928
+    m_Localized: Cobwebs creep over the viewfinder while the lens is on.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966929
+    m_Localized: Jack Radar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966930
+    m_Localized: The EMF radar glows amber, like a lantern.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966931
+    m_Localized: CANDY +{2}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966932
+    m_Localized: SEVERAL SIGNALS - CHECK EACH WITH THE LENS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6527155100966933
+    m_Localized: CANDY +{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8050378045120512
+    m_Localized: FREE CHARGE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8050378250641408
+    m_Localized: OFFLINE
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
