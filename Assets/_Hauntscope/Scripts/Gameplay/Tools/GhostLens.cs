@@ -39,7 +39,7 @@ namespace Hauntscope.Gameplay.Tools
 
         public bool Sees(Vector3 position, float range)
         {
-            return _isActive.Value && IsInView(position, range);
+            return _isActive.Value && IsInView(position, range * _modifiers.RevealRange);
         }
 
         // Ticks while inactive too: a ghost that was revealed must fade out after the lens is switched off.
@@ -49,7 +49,7 @@ namespace Hauntscope.Gameplay.Tools
             if (ghost == null)
                 return;
 
-            var revealing = _isActive.Value && IsInView(ghost.Position, ghost.RevealRange);
+            var revealing = _isActive.Value && IsInView(ghost.Position, ghost.RevealRange * _modifiers.RevealRange);
             var rate = revealing ? deltaTime / _config.RevealInTime : -deltaTime / (_config.RevealOutTime * _modifiers.RevealFade);
             ghost.SetReveal(ghost.Reveal + rate);
         }
@@ -61,7 +61,7 @@ namespace Hauntscope.Gameplay.Tools
             if (distance > range)
                 return false;
 
-            return distance <= 0f || Vector3.Angle(_camera.Forward, toGhost) <= _config.RevealAngle;
+            return distance <= 0f || Vector3.Angle(_camera.Forward, toGhost) <= _config.RevealAngle * _modifiers.RevealAngle;
         }
     }
 }

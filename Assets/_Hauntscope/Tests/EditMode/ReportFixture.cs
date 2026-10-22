@@ -25,7 +25,8 @@ namespace Hauntscope.Tests.EditMode
             var photo = TestConfigs.Photo();
             var storage = new FakePhotoStorage();
             Camera = new SpiritCamera(session, new PhotoScorer(ghost.Camera, photo), new FakePhotoCapture(storage),
-                new PhotoAlbum(storage, photo), new PhotoAlbumRepository(new FakeSaveService(), storage), photo, new FakeClock(), new FakeCrashReporter());
+                new PhotoAlbum(storage, photo), new PhotoAlbumRepository(new FakeSaveService(), storage), photo, new FakeClock(), new FakeCrashReporter(),
+                new FilmStock(), new FilmStockRepository(new FakeSaveService()));
             var contracts = new ContractConfig(new[] { ContractTier.Easy }, new[] { 15 }, new[] { 0f }, 1, 1, StaggerHitSeconds,
                 new ContractData[0]);
             Builder = new HuntReportBuilder(session, Beam, Battery, Loadout, Spares, Loot, Camera, shift.Shift, contracts);

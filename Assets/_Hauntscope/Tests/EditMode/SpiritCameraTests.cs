@@ -22,6 +22,7 @@ namespace Hauntscope.Tests.EditMode
         private PhotoAlbum _album;
         private FakeSaveService _save;
         private FakeCrashReporter _reporter;
+        private FilmStock _stock;
         private SpiritCamera _camera;
 
         [SetUp]
@@ -44,8 +45,10 @@ namespace Hauntscope.Tests.EditMode
             _album = new PhotoAlbum(_storage, config);
             _save = new FakeSaveService();
             _reporter = new FakeCrashReporter();
+            _stock = new FilmStock();
             _camera = new SpiritCamera(session, new PhotoScorer(_fixture.Camera, config), _capture, _album,
-                new PhotoAlbumRepository(_save, _storage), config, new FakeClock(), _reporter);
+                new PhotoAlbumRepository(_save, _storage), config, new FakeClock(), _reporter,
+                _stock, new FilmStockRepository(_save));
             _camera.BeginHunt();
         }
 
@@ -214,6 +217,47 @@ namespace Hauntscope.Tests.EditMode
             _camera.BeginHunt(2);
 
             Assert.AreEqual(Film + 2, _camera.Film.Value);
+        }
+
+        [Test]
+        public void BeginHunt_SpareStock_LoadsItBehindTheHuntsFilm()
+        {
+            _stock.Add(2);
+
+            _camera.BeginHunt();
+
+            Assert.AreEqual(Film + 2, _camera.Film.Value);
+        }
+
+        [Test]
+        public void ShootAsync_OwnFilmLeft_KeepsTheStock()
+        {
+            _stock.Add(2);
+            _camera.BeginHunt();
+            Arm();
+
+            Shoot();
+
+            Assert.AreEqual(2, _stock.Frames);
+        }
+
+        [Test]
+        public void ShootAsync_OwnFilmGone_SpendsAndSavesTheStock()
+        {
+            _stock.Add(1);
+            _camera.BeginHunt();
+            for (var i = 0; i < Film; i++)
+            {
+                _camera.Tick(Cooldown);
+                Shoot();
+            }
+
+            _camera.Tick(Cooldown);
+            Shoot();
+
+            Assert.AreEqual(0, _stock.Frames);
+            Assert.AreEqual(0, _camera.Film.Value);
+            Assert.AreEqual(0, new FilmStockRepository(_save).Load().Frames);
         }
 
         [Test]

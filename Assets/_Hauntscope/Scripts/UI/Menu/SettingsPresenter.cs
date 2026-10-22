@@ -63,6 +63,7 @@ namespace Hauntscope.UI.Menu
             _localization.Changed += Render;
             _view.BackClicked += OnBackClicked;
             _view.CreditsClicked += OnCreditsClicked;
+            _view.PromoClicked += OnPromoClicked;
             _view.SoundClicked += OnSoundClicked;
             _view.MusicClicked += OnMusicClicked;
             _view.VibrationClicked += OnVibrationClicked;
@@ -83,6 +84,7 @@ namespace Hauntscope.UI.Menu
             _localization.Changed -= Render;
             _view.BackClicked -= OnBackClicked;
             _view.CreditsClicked -= OnCreditsClicked;
+            _view.PromoClicked -= OnPromoClicked;
             _view.SoundClicked -= OnSoundClicked;
             _view.MusicClicked -= OnMusicClicked;
             _view.VibrationClicked -= OnVibrationClicked;
@@ -98,7 +100,8 @@ namespace Hauntscope.UI.Menu
 
         private void OnScreenChanged(MenuScreen screen)
         {
-            _view.SetVisible(screen == MenuScreen.Settings);
+            // The promo card opens over the settings, so they stay in view behind it.
+            _view.SetVisible(screen == MenuScreen.Settings || screen == MenuScreen.Promo);
             // Consent status arrives after start-up, so it is checked each time the screen opens.
             if (screen != MenuScreen.Settings)
                 return;
@@ -169,6 +172,12 @@ namespace Hauntscope.UI.Menu
         {
             _ui.PlayClick();
             _navigation.Show(MenuScreen.Credits);
+        }
+
+        private void OnPromoClicked()
+        {
+            _ui.PlayClick();
+            _navigation.Show(MenuScreen.Promo);
         }
 
         private void OnBackClicked()

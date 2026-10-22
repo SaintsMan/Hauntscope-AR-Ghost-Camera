@@ -28,6 +28,7 @@ namespace Hauntscope.UI.Menu
             switch (_current.Value)
             {
                 case MenuScreen.Credits:
+                case MenuScreen.Promo:
                     _current.Value = MenuScreen.Settings;
                     break;
                 case MenuScreen.BestiaryCard:

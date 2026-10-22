@@ -1699,6 +1699,94 @@ MonoBehaviour:
     m_Key: iap.store_unavailable
     m_Metadata:
       m_Items: []
+  - m_Id: 9891231583690752
+    m_Key: settings.promo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993920
+    m_Key: promo.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993921
+    m_Key: promo.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993922
+    m_Key: promo.placeholder
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993923
+    m_Key: promo.activate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993924
+    m_Key: promo.close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993925
+    m_Key: promo.checking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993926
+    m_Key: promo.claim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993927
+    m_Key: promo.error.not_found
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993928
+    m_Key: promo.error.game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993929
+    m_Key: promo.error.used
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188224
+    m_Key: promo.error.inactive
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188225
+    m_Key: promo.error.not_started
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188226
+    m_Key: promo.error.limit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188227
+    m_Key: promo.error.rate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188228
+    m_Key: promo.error.offline
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188229
+    m_Key: promo.error.failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188230
+    m_Key: promo.reward.ectoplasm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188231
+    m_Key: promo.reward.film
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188232
+    m_Key: promo.reward.gear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188233
+    m_Key: promo.reward.premium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188234
+    m_Key: promo.reward.none
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

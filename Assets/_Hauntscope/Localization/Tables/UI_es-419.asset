@@ -1775,6 +1775,94 @@ MonoBehaviour:
     m_Localized: "SIN CONEXI\xD3N"
     m_Metadata:
       m_Items: []
+  - m_Id: 9891231583690752
+    m_Localized: "C\xD3DIGO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993920
+    m_Localized: CODIGO PROMO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993921
+    m_Localized: "Ingresa un c\xF3digo de nuestro TikTok, Instagram o YouTube."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993922
+    m_Localized: "C\xD3DIGO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993923
+    m_Localized: ACTIVAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993924
+    m_Localized: CERRAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993925
+    m_Localized: "Verificando el c\xF3digo\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993926
+    m_Localized: RECLAMAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993927
+    m_Localized: "Ese c\xF3digo no existe."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993928
+    m_Localized: "Este c\xF3digo es para otro juego."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993929
+    m_Localized: "Ya usaste este c\xF3digo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188224
+    m_Localized: "Este c\xF3digo ya no funciona."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188225
+    m_Localized: "Este c\xF3digo a\xFAn no est\xE1 activo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188226
+    m_Localized: "Este c\xF3digo ya alcanz\xF3 su l\xEDmite de usos."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188227
+    m_Localized: "Demasiados intentos. Int\xE9ntalo en una hora."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188228
+    m_Localized: "Necesitas conexi\xF3n a internet."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188229
+    m_Localized: "Algo sali\xF3 mal. Int\xE9ntalo m\xE1s tarde."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188230
+    m_Localized: +{0} de ectoplasma
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188231
+    m_Localized: "+{0} fotogramas de pel\xEDcula"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188232
+    m_Localized: "+{0} \xD7 {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188233
+    m_Localized: "Versi\xF3n completa para siempre"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188234
+    m_Localized: "Este regalo ya est\xE1 en tu equipo."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

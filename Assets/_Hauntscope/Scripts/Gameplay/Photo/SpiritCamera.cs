@@ -22,11 +22,14 @@ namespace Hauntscope.Gameplay.Photo
         private readonly PhotoConfig _config;
         private readonly IClock _clock;
         private readonly ICrashReporter _reporter;
+        private readonly FilmStock _stock;
+        private readonly FilmStockRepository _stockRepository;
         private readonly ObservableValue<int> _film = new ObservableValue<int>();
         private readonly ObservableValue<bool> _canShoot = new ObservableValue<bool>();
 
         private float _cooldown;
         private bool _isShooting;
+        private int _ownFilm;
 
         public SpiritCamera(
             HuntSession session,
@@ -36,8 +39,12 @@ namespace Hauntscope.Gameplay.Photo
             PhotoAlbumRepository repository,
             PhotoConfig config,
             IClock clock,
-            ICrashReporter reporter)
+            ICrashReporter reporter,
+            FilmStock stock,
+            FilmStockRepository stockRepository)
         {
+            _stock = stock;
+            _stockRepository = stockRepository;
             _session = session;
             _scorer = scorer;
             _capture = capture;
@@ -63,10 +70,11 @@ namespace Hauntscope.Gameplay.Photo
 
         public int Reward => BestShot != null ? _config.RewardFor(BestShot.Score.Stars) : 0;
 
-        // A night shift perk can load extra frames for the round.
+        // A night shift perk can load extra frames for the round; the spare stock is loaded behind the hunt's own film.
         public void BeginHunt(int extraFilm = 0)
         {
-            _film.Value = _config.FilmPerHunt + extraFilm;
+            _ownFilm = _config.FilmPerHunt + extraFilm;
+            _film.Value = _ownFilm + _stock.Frames;
             _cooldown = 0f;
             BestShot = null;
             EvidenceShots = 0;
@@ -91,6 +99,8 @@ namespace Hauntscope.Gameplay.Photo
             _isShooting = true;
             _canShoot.Value = false;
             _film.Value--;
+            var fromStock = _ownFilm <= 0;
+            SpendFrame(fromStock);
             ShutterReleased?.Invoke();
             var taken = _clock.UtcNow;
             ghost.SetPhotoFlash(true);
@@ -116,6 +126,7 @@ namespace Hauntscope.Gameplay.Photo
                 Debug.LogWarning($"Hauntscope: photo failed: {exception.Message}");
                 _reporter.RecordNonFatal(CrashKeys.PhotoArea, exception);
                 _film.Value++;
+                ReturnFrame(fromStock);
                 return false;
             }
             finally
@@ -124,6 +135,30 @@ namespace Hauntscope.Gameplay.Photo
                 _isShooting = false;
                 _cooldown = _config.ShutterCooldown;
             }
+        }
+
+        private void SpendFrame(bool fromStock)
+        {
+            if (!fromStock)
+            {
+                _ownFilm--;
+                return;
+            }
+
+            _stock.TakeOne();
+            _stockRepository.Save(_stock);
+        }
+
+        private void ReturnFrame(bool fromStock)
+        {
+            if (!fromStock)
+            {
+                _ownFilm++;
+                return;
+            }
+
+            _stock.Add(1);
+            _stockRepository.Save(_stock);
         }
 
         private void Keep(PhotoShot shot)

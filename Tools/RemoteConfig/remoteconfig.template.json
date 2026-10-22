@@ -40,6 +40,11 @@
       "description": "Days between two full-version offers (1-365).",
       "valueType": "NUMBER"
     },
+    "premium_offer_at_captures": {
+      "defaultValue": { "value": "3" },
+      "description": "The catch that brings the full-version offer right after the hunt (0 = only after ad breaks, max 1000). Build 1.0.7+.",
+      "valueType": "NUMBER"
+    },
     "kit_offer_every_days": {
       "defaultValue": { "value": "2" },
       "description": "Days between two field-kit offers (1-365).",
@@ -101,8 +106,13 @@
       "valueType": "NUMBER"
     },
     "notify_prompt_after_hunts": {
+      "defaultValue": { "value": "3" },
+      "description": "Hunts before the notifications card and the Settings switch for an agent with no catch yet (0-1000). 1.0.7+: 3 (was 1).",
+      "valueType": "NUMBER"
+    },
+    "notify_prompt_after_captures": {
       "defaultValue": { "value": "1" },
-      "description": "Hunts (any result) before the notifications card and the Settings switch (0-1000).",
+      "description": "Catches that open the notifications card and the Settings switch (0 = hunts only, max 1000). Build 1.0.7+.",
       "valueType": "NUMBER"
     },
     "briefing_starts_hunt": {
@@ -199,6 +209,61 @@
       "defaultValue": { "value": "0.6" },
       "description": "Share of the battery the free recharge restores (0-1). Build 1.0.6+.",
       "valueType": "NUMBER"
+    },
+    "rookie_easy_captures": {
+      "defaultValue": { "value": "4" },
+      "description": "First catches with the extra first-hunt help: full on hunt 1, less each catch, gone after this many (0 = off). Build 1.0.7+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_easy_capture_rate": {
+      "defaultValue": { "value": "1.6" },
+      "description": "Beam charge multiplier of the first-catch help at full strength (0.1-5). Build 1.0.7+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_easy_reticle": {
+      "defaultValue": { "value": "1.5" },
+      "description": "Beam ring size multiplier of the first-catch help (0.5-5). Build 1.0.7+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_easy_ghost_speed": {
+      "defaultValue": { "value": "0.6" },
+      "description": "Ghost speed multiplier of the first-catch help (0.1-5). Build 1.0.7+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_easy_beamed_speed": {
+      "defaultValue": { "value": "0.3" },
+      "description": "Extra speed multiplier of a beamed ghost in the first-catch help (0.05-5). Build 1.0.7+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_easy_drain": {
+      "defaultValue": { "value": "0" },
+      "description": "Battery drain multiplier (passive, lens, beam) of the first-catch help; 0 = the battery holds on hunt 1 (0-1). Build 1.0.7+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_easy_emf_range": {
+      "defaultValue": { "value": "1.5" },
+      "description": "EMF radar range multiplier of the first-catch help (0.5-5). Build 1.0.7+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_easy_lens_angle": {
+      "defaultValue": { "value": "1.6" },
+      "description": "Lens reveal angle multiplier of the first-catch help (30 degrees x 1.6 = 48; 1-5). Build 1.0.7+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_easy_lens_range": {
+      "defaultValue": { "value": "1.5" },
+      "description": "Lens reveal distance multiplier of the first-catch help (wisp 3 m x 1.5; 1-5). Build 1.0.7+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_easy_leash_m": {
+      "defaultValue": { "value": "1.5" },
+      "description": "While beamed, the first ghost stays within this many metres of the camera, easing to rookie_leash_m (0 = off, max 10). Build 1.0.7+.",
+      "valueType": "NUMBER"
+    },
+    "rookie_easy_arrow": {
+      "defaultValue": { "value": "true" },
+      "description": "Arrow to the EMF source on the HUD while the first-catch help is at least half strength. Build 1.0.7+.",
+      "valueType": "BOOLEAN"
     },
     "review_min_captures": {
       "defaultValue": { "value": "1" },

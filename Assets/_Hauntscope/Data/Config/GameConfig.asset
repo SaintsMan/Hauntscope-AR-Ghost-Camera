@@ -642,6 +642,24 @@ MonoBehaviour:
     _leashGrowth: 0.1
     _freeChargeHunts: 3
     _freeCharge: 0.6
+    _firstCatches:
+      _captures: 4
+      _assist:
+        _captureRate: 1.6
+        _reticleRadius: 1.5
+        _decayRate: 0.4
+        _beamDrain: 0
+        _lensDrain: 0
+        _emfRange: 1.5
+        _ghostSpeed: 0.6
+        _beamedGhostSpeed: 0.3
+        _locksHiddenGhosts: 1
+        _showsEmfDirection: 1
+        _passiveDrain: 0
+        _revealFade: 2
+      _lensAngle: 1.6
+      _lensRange: 1.5
+      _leashDistance: 1.5
   _iap:
     _fullVersion: {fileID: 11400000, guid: 18f75904b441db84d931dfda1c5562a3, type: 2}
     _starterPack: {fileID: 11400000, guid: 8769479f42d21a843bb73850603c650b, type: 2}
@@ -661,6 +679,7 @@ MonoBehaviour:
     _kitOfferEveryDays: 2
     _premiumOfferAfterHunts: 6
     _premiumOfferEveryDays: 3
+    _premiumOfferAtCaptures: 3
     _topUpDelay: 0.45
     _storeRetryDelay: 15
     _storeRetries: 5
@@ -691,12 +710,13 @@ MonoBehaviour:
   _onboarding:
     _progressiveUi: 1
     _briefingStartsHunt: 1
-    _firstHuntVirtual: 0
+    _firstHuntVirtual: 1
     _ectoplasmHunts: 1
     _rationHunts: 1
     _contractsHunts: 1
     _shopHunts: 2
-    _notificationsHunts: 1
+    _notificationsHunts: 3
+    _notificationsCaptures: 1
     _bestiaryCaptures: 1
     _archiveCaptures: 1
     _phaseFunnelHunts: 3
@@ -734,3 +754,8 @@ MonoBehaviour:
       _color: {r: 1, g: 0.71, b: 0.28, a: 1}
       _icon: {fileID: 21300000, guid: 57ddeb2f815fae34b9bbd076f6656061, type: 3}
       _overlay: {fileID: 0}
+  _promo:
+    _endpoint: https://europe-west1-geoarena-pavko.cloudfunctions.net/promoRedeem
+    _gameId: hauntscope
+    _timeoutSeconds: 10
+    _maxCodeLength: 24

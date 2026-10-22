@@ -1779,6 +1779,94 @@ MonoBehaviour:
     m_Localized: OFFLINE
     m_Metadata:
       m_Items: []
+  - m_Id: 9891231583690752
+    m_Localized: CODE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993920
+    m_Localized: PROMOCODE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993921
+    m_Localized: Gib einen Code aus unserem TikTok, Instagram oder YouTube ein.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993922
+    m_Localized: CODE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993923
+    m_Localized: "EINL\xD6SEN"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993924
+    m_Localized: SCHLIESSEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993925
+    m_Localized: "Code wird gepr\xFCft\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993926
+    m_Localized: ABHOLEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993927
+    m_Localized: Diesen Code gibt es nicht.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993928
+    m_Localized: "Dieser Code gilt f\xFCr ein anderes Spiel."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993929
+    m_Localized: "Du hast diesen Code schon eingel\xF6st."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188224
+    m_Localized: "Dieser Code ist nicht mehr g\xFCltig."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188225
+    m_Localized: Dieser Code ist noch nicht aktiv.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188226
+    m_Localized: Dieser Code ist aufgebraucht.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188227
+    m_Localized: Zu viele Versuche. Versuch es in einer Stunde.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188228
+    m_Localized: "Daf\xFCr brauchst du Internet."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188229
+    m_Localized: "Das hat nicht geklappt. Versuch es sp\xE4ter."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188230
+    m_Localized: +{0} Ektoplasma
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188231
+    m_Localized: +{0} Bilder Film
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188232
+    m_Localized: "+{0} \xD7 {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188233
+    m_Localized: "Vollversion f\xFCr immer"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188234
+    m_Localized: Dieses Geschenk hast du schon.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

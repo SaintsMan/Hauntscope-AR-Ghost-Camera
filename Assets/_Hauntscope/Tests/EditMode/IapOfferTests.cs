@@ -185,6 +185,27 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
+        public void Pick_ThirdCatch_PitchesTheFullVersionBeforeTheRookieKit()
+        {
+            _fixture.PlayHunts(IapFixture.StarterAfterHunts + 1);
+            Catch(3);
+            _fixture.Moments.RecordHunt(false, true);
+
+            Assert.AreSame(_fixture.FullVersion, _fixture.Funnel.Pick());
+        }
+
+        [Test]
+        public void Pick_SecondCatch_NoFullVersion()
+        {
+            _fixture.PlayHunts(3);
+            _fixture.Starter.MarkAnnounced();
+            Catch(2);
+            _fixture.Moments.RecordHunt(false, true);
+
+            Assert.AreNotSame(_fixture.FullVersion, _fixture.Funnel.Pick());
+        }
+
+        [Test]
         public void Pick_CaughtWithoutAnAdBreak_OffersNothing()
         {
             _fixture.PlayHunts(IapFixture.PremiumAfterHunts);
@@ -229,6 +250,12 @@ namespace Hauntscope.Tests.EditMode
             _fixture.Paid.BuyAsync(_fixture.FullVersion, CancellationToken.None).GetAwaiter().GetResult();
 
             Assert.IsFalse(_fixture.Premium.ShouldShow);
+        }
+
+        private void Catch(int count)
+        {
+            for (var i = 0; i < count; i++)
+                _fixture.Store.Progress.AddCapture("wisp", 0);
         }
     }
 }

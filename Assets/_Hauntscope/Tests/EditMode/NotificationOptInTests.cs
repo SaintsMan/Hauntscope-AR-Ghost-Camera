@@ -34,20 +34,37 @@ namespace Hauntscope.Tests.EditMode
         }
 
         [Test]
-        public void NeedsCard_AfterTheFirstHuntWithoutPermission_IsTrue()
+        public void NeedsCard_AfterTheFirstCatchWithoutPermission_IsTrue()
         {
-            _features.PlayHunts(1);
+            CatchFirstGhost();
 
             Assert.IsTrue(_optIn.NeedsCard);
         }
 
         [Test]
-        public void NeedsCard_FirstHuntEndedWithoutACatch_IsStillTrue()
+        public void NeedsCard_FirstHuntEndedWithoutACatch_IsFalse()
         {
             _features.PlayHunts(1);
 
+            Assert.IsFalse(_optIn.NeedsCard);
+        }
+
+        [Test]
+        public void NeedsCard_ThreeHuntsWithoutACatch_IsTrue()
+        {
+            _features.PlayHunts(3);
+
             Assert.AreEqual(0, _features.Progress.TotalCaptures);
             Assert.IsTrue(_optIn.NeedsCard);
+        }
+
+        [Test]
+        public void NeedsCard_ConsoleTurnsTheCatchRuleOff_WaitsForTheHunts()
+        {
+            _features.Remote.Values[RemoteKeys.NotifyPromptAfterCaptures] = "0";
+            CatchFirstGhost();
+
+            Assert.IsFalse(_optIn.NeedsCard);
         }
 
         [Test]
@@ -78,7 +95,7 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void AcceptAsync_AsksTheSystemAndTurnsOn()
         {
-            _features.PlayHunts(1);
+            CatchFirstGhost();
 
             _optIn.AcceptAsync(CancellationToken.None).GetAwaiter().GetResult();
 
@@ -90,7 +107,7 @@ namespace Hauntscope.Tests.EditMode
         [Test]
         public void Decline_NeverShowsTheSystemDialog()
         {
-            _features.PlayHunts(1);
+            CatchFirstGhost();
 
             _optIn.Decline();
 
@@ -119,6 +136,12 @@ namespace Hauntscope.Tests.EditMode
 
             Assert.IsFalse(_optIn.IsActive);
             Assert.IsFalse(_repository.Load().Notifications.Value);
+        }
+
+        private void CatchFirstGhost()
+        {
+            _features.PlayHunts(1);
+            _features.Progress.AddCapture("wisp", 0);
         }
     }
 }

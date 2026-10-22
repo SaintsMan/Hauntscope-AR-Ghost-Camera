@@ -25,14 +25,16 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Min(0f)] private float _leashGrowth = 0.1f;
         [SerializeField, Min(0)] private int _freeChargeHunts = 3;
         [SerializeField, Range(0f, 1f)] private float _freeCharge = 0.6f;
+        [SerializeField] private FirstCatchesConfig _firstCatches = new FirstCatchesConfig();
 
         public RookieConfig()
         {
         }
 
         public RookieConfig(int fadeCaptures, HuntModifierSet assist, float leashDistance = 0f, int leashCaptures = 0,
-            int freeChargeHunts = 0, float freeCharge = 0f, float leashGrowth = 0f)
+            int freeChargeHunts = 0, float freeCharge = 0f, float leashGrowth = 0f, FirstCatchesConfig firstCatches = null)
         {
+            _firstCatches = firstCatches ?? new FirstCatchesConfig(0, new HuntModifierSet());
             _leashGrowth = leashGrowth;
             _fadeCaptures = fadeCaptures;
             _assist = assist;
@@ -62,5 +64,8 @@ namespace Hauntscope.Gameplay.Config
 
         // Fraction of the battery the free charge restores.
         public float FreeCharge => _freeCharge;
+
+        // The stronger help of the very first catches, on top of everything above.
+        public FirstCatchesConfig FirstCatches => _firstCatches;
     }
 }

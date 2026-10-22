@@ -81,7 +81,7 @@ namespace Hauntscope.Gameplay.Onboarding
                 case Feature.Shop:
                     return Hunts >= _tuning.Int(RemoteKeys.UnlockShopHunts, _config.ShopHunts, 0, RemoteKeys.MaxHunts);
                 case Feature.Notifications:
-                    return Hunts >= _tuning.Int(RemoteKeys.NotifyPromptAfterHunts, _config.NotificationsHunts, 0, RemoteKeys.MaxHunts);
+                    return IsNotificationsRuleMet();
                 case Feature.Bestiary:
                     return _progress.TotalCaptures >= _tuning.Int(RemoteKeys.UnlockBestiaryCaptures, _config.BestiaryCaptures, 0, RemoteKeys.MaxHunts);
                 case Feature.Archive:
@@ -94,6 +94,13 @@ namespace Hauntscope.Gameplay.Onboarding
                 default:
                     return false;
             }
+        }
+
+        private bool IsNotificationsRuleMet()
+        {
+            var captures = _tuning.Int(RemoteKeys.NotifyPromptAfterCaptures, _config.NotificationsCaptures, 0, RemoteKeys.MaxHunts);
+            return (captures > 0 && _progress.TotalCaptures >= captures)
+                || Hunts >= _tuning.Int(RemoteKeys.NotifyPromptAfterHunts, _config.NotificationsHunts, 0, RemoteKeys.MaxHunts);
         }
 
         // For features that open by rules of their own (the tools): reported once, and kept.

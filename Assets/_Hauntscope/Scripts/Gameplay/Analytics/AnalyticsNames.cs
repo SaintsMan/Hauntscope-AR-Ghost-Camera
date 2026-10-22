@@ -27,6 +27,9 @@ namespace Hauntscope.Gameplay.Analytics
         public const string TutorialStep = "tutorial_step";
         public const string FeatureUnlock = "feature_unlock";
         public const string FeatureFirstUse = "feature_first_use";
+        // Promo codes from the studio's socials (LiveOps/Promo): every attempt, with the server's error when it fails.
+        public const string PromoRedeem = "promo_redeem";
+        public const string FirstCapture = "first_capture";
 
         // The Halloween event (GDD 5.42).
         public const string CandyCollected = "candy_collected";
@@ -39,6 +42,9 @@ namespace Hauntscope.Gameplay.Analytics
         public const string Ghost = "ghost";
         public const string DurationSeconds = "duration_s";
         public const string Result = "result";
+        public const string Code = "code";
+        public const string Ok = "ok";
+        public const string Error = "error";
         public const string ScreenName = "screen_name";
         public const string Product = "product";
         public const string Method = "method";
@@ -68,6 +74,7 @@ namespace Hauntscope.Gameplay.Analytics
         public const string Placement = "placement";
         public const string Attempt = "attempt";
         public const string Seconds = "t_s";
+        public const string SinceInstallSeconds = "since_install_s";
         public const string Photo = "photo";
         public const string ShareSheet = "share_sheet";
         public const string Gallery = "gallery";

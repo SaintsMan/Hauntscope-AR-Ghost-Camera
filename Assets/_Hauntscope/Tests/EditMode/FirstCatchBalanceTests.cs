@@ -23,6 +23,7 @@ namespace Hauntscope.Tests.EditMode
         private const float HuntLimit = 120f;
         private const float WalkSpeed = 0.8f;
         private const float StopDistance = 2f;
+        private const float FarStopDistance = 4f;
         private const float AimDegreesPerSecond = 90f;
         private const float FollowSpeed = 0.8f;
         private const float RoomSize = 6f;
@@ -96,8 +97,29 @@ namespace Hauntscope.Tests.EditMode
             }
         }
 
+        // 1.0.6 lost most new agents between the radar and the lens: one who stops 4 m away and only turns the phone
+        // must still find and catch the first ghost, which the wider lens of the first catches makes possible.
+        [Test]
+        public void FirstHunt_AgentWhoStopsFar_StillCatchesTheWisp()
+        {
+            var caught = 0;
+            var withoutFirstCatches = 0;
+            for (var seed = 1; seed <= Runs; seed++)
+            {
+                if (Simulate(seed, _config.Rookie, 0, stopDistance: FarStopDistance) > 0f)
+                    caught++;
+                if (Simulate(seed, WithoutFirstCatches(_config.Rookie), 0, stopDistance: FarStopDistance) > 0f)
+                    withoutFirstCatches++;
+            }
+
+            TestContext.WriteLine($"far agent: caught {caught}/{Runs}, without the first-catch help {withoutFirstCatches}/{Runs}");
+            Assert.GreaterOrEqual(caught, Runs * 9 / 10, $"caught {caught}/{Runs}");
+            Assert.GreaterOrEqual(caught, withoutFirstCatches);
+        }
+
         // Seconds to the catch, or -1 when the battery ran out first.
-        private float Simulate(int seed, RookieConfig rookie, int captures, float followSpeed = 0f, bool baseFix = true)
+        private float Simulate(int seed, RookieConfig rookie, int captures, float followSpeed = 0f, bool baseFix = true,
+            float stopDistance = StopDistance)
         {
             var random = new SeededRandom(seed);
             var planes = new FakePlaneProvider { RoomBounds = new Bounds(Vector3.zero, new Vector3(RoomSize, 0f, RoomSize)) };
@@ -134,9 +156,9 @@ namespace Hauntscope.Tests.EditMode
                 var toGhost = ghost.Position - camera.Position;
                 toGhost.y = 0f;
                 // Holding the beam takes the thumb: a new agent stops walking once the ghost shows up.
-                if (!beam.IsActive.Value && toGhost.magnitude > StopDistance)
+                if (!beam.IsActive.Value && toGhost.magnitude > stopDistance)
                     camera.Position += toGhost.normalized * (WalkSpeed * Step);
-                else if (beam.IsActive.Value && toGhost.magnitude > StopDistance)
+                else if (beam.IsActive.Value && toGhost.magnitude > stopDistance)
                     camera.Position += toGhost.normalized * (followSpeed * Step);
 
                 if (ghost.Reveal >= tools.BeamRevealThreshold && !beam.IsActive.Value)
@@ -173,6 +195,12 @@ namespace Hauntscope.Tests.EditMode
             var assist = new HuntModifierSet(a.CaptureRate, a.ReticleRadius, a.DecayRate, a.BeamDrain, a.LensDrain, a.EmfRange, a.GhostSpeed,
                 1f, a.LocksHiddenGhosts, a.ShowsEmfDirection, a.PassiveDrain, a.RevealFade);
             return new RookieConfig(shipped.FadeCaptures, assist);
+        }
+
+        private static RookieConfig WithoutFirstCatches(RookieConfig shipped)
+        {
+            return new RookieConfig(shipped.FadeCaptures, shipped.Assist, shipped.LeashDistance, shipped.LeashCaptures, shipped.FreeChargeHunts,
+                shipped.FreeCharge, shipped.LeashGrowth);
         }
 
         private sealed class SeededRandom : IRandom

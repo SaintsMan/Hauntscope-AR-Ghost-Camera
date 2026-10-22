@@ -23,6 +23,7 @@ namespace Hauntscope.UI.Menu
         [SerializeField] private Button _languageButton;
         [SerializeField] private TMP_Text _languageLabel;
         [SerializeField] private Button _creditsButton;
+        [SerializeField] private Button _promoButton;
         [SerializeField] private Button _privacyButton;
         [SerializeField] private Button _resetTipsButton;
         [SerializeField] private CanvasGroup _resetTipsGroup;
@@ -34,6 +35,8 @@ namespace Hauntscope.UI.Menu
         public event Action LanguageClicked;
 
         public event Action CreditsClicked;
+
+        public event Action PromoClicked;
 
         public event Action PrivacyClicked;
 
@@ -134,6 +137,7 @@ namespace Hauntscope.UI.Menu
             _backButton.onClick.AddListener(OnBackClicked);
             _languageButton.onClick.AddListener(OnLanguageClicked);
             _creditsButton.onClick.AddListener(OnCreditsClicked);
+            _promoButton.onClick.AddListener(OnPromoClicked);
             _privacyButton.onClick.AddListener(OnPrivacyClicked);
             _resetTipsButton.onClick.AddListener(OnResetTipsClicked);
         }
@@ -143,6 +147,7 @@ namespace Hauntscope.UI.Menu
             _backButton.onClick.RemoveListener(OnBackClicked);
             _languageButton.onClick.RemoveListener(OnLanguageClicked);
             _creditsButton.onClick.RemoveListener(OnCreditsClicked);
+            _promoButton.onClick.RemoveListener(OnPromoClicked);
             _privacyButton.onClick.RemoveListener(OnPrivacyClicked);
             _resetTipsButton.onClick.RemoveListener(OnResetTipsClicked);
         }
@@ -160,6 +165,11 @@ namespace Hauntscope.UI.Menu
         private void OnCreditsClicked()
         {
             CreditsClicked?.Invoke();
+        }
+
+        private void OnPromoClicked()
+        {
+            PromoClicked?.Invoke();
         }
 
         private void OnPrivacyClicked()

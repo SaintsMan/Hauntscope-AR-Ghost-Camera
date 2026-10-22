@@ -29,7 +29,7 @@ namespace Hauntscope.Gameplay.Iap
         private void OnResult(HuntResult result)
         {
             if (result != null)
-                _moments.RecordHunt(result.Outcome == HuntOutcome.Escaped);
+                _moments.RecordHunt(result.Outcome == HuntOutcome.Escaped, result.Outcome == HuntOutcome.Captured);
         }
     }
 }

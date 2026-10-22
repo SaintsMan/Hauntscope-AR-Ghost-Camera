@@ -30,6 +30,11 @@ namespace Hauntscope.Gameplay.Store
         // How far from the camera a beamed ghost may flee; 0 = as far as it likes.
         public float BeamedLeash { get; private set; }
 
+        // How much wider and farther the lens reveals a ghost; only the rookie's first catches change these.
+        public float RevealAngle { get; private set; } = 1f;
+
+        public float RevealRange { get; private set; } = 1f;
+
         public void Reset()
         {
             CaptureRate = 1f;
@@ -45,6 +50,14 @@ namespace Hauntscope.Gameplay.Store
             PassiveDrain = 1f;
             RevealFade = 1f;
             BeamedLeash = 0f;
+            RevealAngle = 1f;
+            RevealRange = 1f;
+        }
+
+        public void WidenLens(float angle, float range)
+        {
+            RevealAngle *= angle;
+            RevealRange *= range;
         }
 
         // The tightest leash wins when several sources set one.

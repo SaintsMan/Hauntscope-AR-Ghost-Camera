@@ -1805,6 +1805,94 @@ MonoBehaviour:
     m_Localized: OFFLINE
     m_Metadata:
       m_Items: []
+  - m_Id: 9891231583690752
+    m_Localized: KODE PROMO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993920
+    m_Localized: KODE PROMO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993921
+    m_Localized: Masukkan kode dari TikTok, Instagram, atau YouTube kami.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993922
+    m_Localized: KODE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993923
+    m_Localized: AKTIFKAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993924
+    m_Localized: TUTUP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993925
+    m_Localized: "Memeriksa kode\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993926
+    m_Localized: AMBIL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993927
+    m_Localized: Kode tidak ditemukan.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993928
+    m_Localized: Kode ini untuk game lain.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993929
+    m_Localized: Kamu sudah memakai kode ini.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188224
+    m_Localized: Kode ini sudah tidak berlaku.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188225
+    m_Localized: Kode ini belum berlaku.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188226
+    m_Localized: Kode ini sudah mencapai batas pemakaian.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188227
+    m_Localized: Terlalu banyak percobaan. Coba lagi dalam satu jam.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188228
+    m_Localized: Butuh koneksi internet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188229
+    m_Localized: Gagal. Coba lagi nanti.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188230
+    m_Localized: +{0} ektoplasma
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188231
+    m_Localized: +{0} bingkai film
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188232
+    m_Localized: "+{0} \xD7 {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188233
+    m_Localized: Versi lengkap selamanya
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188234
+    m_Localized: Hadiah ini sudah ada di perlengkapanmu.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

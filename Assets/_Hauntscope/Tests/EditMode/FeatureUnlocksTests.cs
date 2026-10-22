@@ -45,7 +45,7 @@ namespace Hauntscope.Tests.EditMode
             Assert.IsTrue(_features.IsUnlocked(Feature.Ectoplasm));
             Assert.IsTrue(_features.IsUnlocked(Feature.Ration));
             Assert.IsTrue(_features.IsUnlocked(Feature.Contracts));
-            Assert.IsTrue(_features.IsUnlocked(Feature.Notifications));
+            Assert.IsFalse(_features.IsUnlocked(Feature.Notifications));
             Assert.IsFalse(_features.IsUnlocked(Feature.Bestiary));
             Assert.IsFalse(_features.IsUnlocked(Feature.Archive));
             Assert.IsFalse(_features.IsUnlocked(Feature.Shop));
@@ -62,6 +62,7 @@ namespace Hauntscope.Tests.EditMode
             Assert.IsTrue(_features.IsUnlocked(Feature.Bestiary));
             Assert.IsTrue(_features.IsUnlocked(Feature.Archive));
             Assert.IsTrue(_features.IsUnlocked(Feature.Prank));
+            Assert.IsTrue(_features.IsUnlocked(Feature.Notifications));
         }
 
         [Test]

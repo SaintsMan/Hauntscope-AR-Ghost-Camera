@@ -8,12 +8,15 @@ namespace Hauntscope.Gameplay.Iap
 
         public bool LastHuntEscaped { get; private set; }
 
+        public bool LastHuntCaptured { get; private set; }
+
         public bool SawAdBreak { get; private set; }
 
-        public void RecordHunt(bool escaped)
+        public void RecordHunt(bool escaped, bool captured = false)
         {
             HuntEnded = true;
             LastHuntEscaped = escaped;
+            LastHuntCaptured = captured;
         }
 
         public void RecordAdBreak()
@@ -26,6 +29,7 @@ namespace Hauntscope.Gameplay.Iap
         {
             HuntEnded = false;
             LastHuntEscaped = false;
+            LastHuntCaptured = false;
             SawAdBreak = false;
         }
     }

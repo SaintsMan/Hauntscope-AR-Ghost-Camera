@@ -45,7 +45,8 @@ namespace Hauntscope.Tests.EditMode
             var photo = TestConfigs.Photo();
             var storage = new FakePhotoStorage();
             _camera = new SpiritCamera(_session, new PhotoScorer(_ghost.Camera, photo), new FakePhotoCapture(storage), new PhotoAlbum(storage, photo),
-                new PhotoAlbumRepository(new FakeSaveService(), storage), photo, new FakeClock(), new FakeCrashReporter());
+                new PhotoAlbumRepository(new FakeSaveService(), storage), photo, new FakeClock(), new FakeCrashReporter(),
+                new FilmStock(), new FilmStockRepository(new FakeSaveService()));
             CreateTips();
         }
 

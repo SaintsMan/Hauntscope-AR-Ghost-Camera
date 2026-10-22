@@ -15,7 +15,8 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Min(0)] private int _rationHunts = 1;
         [SerializeField, Min(0)] private int _contractsHunts = 1;
         [SerializeField, Min(0)] private int _shopHunts = 2;
-        [SerializeField, Min(0)] private int _notificationsHunts = 1;
+        [SerializeField, Min(0)] private int _notificationsHunts = 3;
+        [SerializeField, Min(0)] private int _notificationsCaptures = 1;
         [SerializeField, Min(0)] private int _bestiaryCaptures = 1;
         [SerializeField, Min(0)] private int _archiveCaptures = 1;
         [SerializeField, Min(0)] private int _phaseFunnelHunts = 3;
@@ -41,7 +42,10 @@ namespace Hauntscope.Gameplay.Config
         // Hunts played before the shop and the loadout row have something to sell.
         public int ShopHunts => _shopHunts;
 
-        // The notifications card and the Settings switch open after this many hunts, whatever their result.
+        // The notifications card and the Settings switch open with the first catch, when the agent wants more of the
+        // game (0 = no catch rule); an agent who has caught nothing yet is asked after this many hunts anyway.
+        public int NotificationsCaptures => _notificationsCaptures;
+
         public int NotificationsHunts => _notificationsHunts;
 
         // The first file is the reason to open the Bestiary.

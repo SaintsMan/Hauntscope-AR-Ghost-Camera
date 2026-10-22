@@ -1776,6 +1776,94 @@ MonoBehaviour:
     m_Localized: OFFLINE
     m_Metadata:
       m_Items: []
+  - m_Id: 9891231583690752
+    m_Localized: "C\xD3DIGO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993920
+    m_Localized: CODIGO PROMO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993921
+    m_Localized: "Digite um c\xF3digo do nosso TikTok, Instagram ou YouTube."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993922
+    m_Localized: "C\xD3DIGO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993923
+    m_Localized: ATIVAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993924
+    m_Localized: FECHAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993925
+    m_Localized: "Verificando o c\xF3digo\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993926
+    m_Localized: PEGAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993927
+    m_Localized: "Esse c\xF3digo n\xE3o existe."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993928
+    m_Localized: "Este c\xF3digo \xE9 de outro jogo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231654993929
+    m_Localized: "Voc\xEA j\xE1 usou este c\xF3digo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188224
+    m_Localized: "Este c\xF3digo n\xE3o funciona mais."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188225
+    m_Localized: "Este c\xF3digo ainda n\xE3o est\xE1 ativo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188226
+    m_Localized: "Este c\xF3digo atingiu o limite de usos."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188227
+    m_Localized: Muitas tentativas. Tente de novo em uma hora.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188228
+    m_Localized: "Voc\xEA precisa de internet."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188229
+    m_Localized: Algo deu errado. Tente mais tarde.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188230
+    m_Localized: +{0} de ectoplasma
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188231
+    m_Localized: +{0} quadros de filme
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188232
+    m_Localized: "+{0} \xD7 {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188233
+    m_Localized: "Vers\xE3o completa para sempre"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9891231659188234
+    m_Localized: "Este presente j\xE1 est\xE1 no seu kit."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

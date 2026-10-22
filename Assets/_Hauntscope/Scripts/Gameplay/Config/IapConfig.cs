@@ -21,6 +21,7 @@ namespace Hauntscope.Gameplay.Config
         [SerializeField, Min(1)] private int _kitOfferEveryDays = 2;
         [SerializeField, Min(0)] private int _premiumOfferAfterHunts = 6;
         [SerializeField, Min(1)] private int _premiumOfferEveryDays = 3;
+        [SerializeField, Min(0)] private int _premiumOfferAtCaptures = 3;
         [SerializeField, Min(0f)] private float _topUpDelay = 0.45f;
         [SerializeField, Min(1f)] private float _storeRetryDelay = 15f;
         [SerializeField, Min(0)] private int _storeRetries = 5;
@@ -32,8 +33,9 @@ namespace Hauntscope.Gameplay.Config
         public IapConfig(FullVersionData fullVersion, SupplyBundleData starterPack, EctoplasmPackData[] ectoplasmPacks,
             IapProductData[] supplies, int starterOfferAfterHunts = 2, float starterOfferHours = 48f,
             int premiumOfferAfterHunts = 6, int premiumOfferEveryDays = 3, SupplyBundleData kitOffer = null,
-            int starterOfferFallbackHunts = 2, int kitOfferEveryDays = 2)
+            int starterOfferFallbackHunts = 2, int kitOfferEveryDays = 2, int premiumOfferAtCaptures = 3)
         {
+            _premiumOfferAtCaptures = premiumOfferAtCaptures;
             _kitOffer = kitOffer;
             _starterOfferFallbackHunts = starterOfferFallbackHunts;
             _kitOfferEveryDays = kitOfferEveryDays;
@@ -65,6 +67,9 @@ namespace Hauntscope.Gameplay.Config
         public int KitOfferEveryDays => _kitOfferEveryDays;
         public int PremiumOfferAfterHunts => _premiumOfferAfterHunts;
         public int PremiumOfferEveryDays => _premiumOfferEveryDays;
+
+        // The catch that brings the full version's pitch (0 = only after ad breaks).
+        public int PremiumOfferAtCaptures => _premiumOfferAtCaptures;
         // A purchase refused for lack of ectoplasm turns the shop to the ectoplasm packs after this pause.
         public float TopUpDelay => _topUpDelay;
 

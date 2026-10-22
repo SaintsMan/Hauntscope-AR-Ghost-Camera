@@ -10,6 +10,7 @@ namespace Hauntscope.UI.Menu
         Shop,
         Contracts,
         Archive,
-        Halloween
+        Halloween,
+        Promo
     }
 }

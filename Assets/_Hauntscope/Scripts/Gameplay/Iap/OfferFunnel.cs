@@ -5,8 +5,8 @@ using Hauntscope.Gameplay.Store;
 namespace Hauntscope.Gameplay.Iap
 {
     // Which paid offer, if any, the menu shows on the way back from a hunt (GDD 5.37). Each one answers a moment the
-    // player has just lived through: the rookie kit after a ghost got away (or a few hunts in), the full version right
-    // after an ad break, the field kit after the battery died with no spare left. Never on a cold start, at most one.
+    // player has just lived through: the rookie kit after a ghost got away (or a few hunts in), the full version on
+    // the third catch and right after an ad break, the field kit after the battery died with no spare left. Never on a cold start, at most one.
     public sealed class OfferFunnel
     {
         private readonly OfferMoments _moments;
@@ -46,12 +46,20 @@ namespace Hauntscope.Gameplay.Iap
 
             var escaped = _moments.LastHuntEscaped;
             var adBreak = _moments.SawAdBreak;
+            var captured = _moments.LastHuntCaptured;
             _moments.Clear();
             if (!_tuning.Bool(RemoteKeys.OffersEnabled, _config.OffersEnabled))
                 return null;
             // Without prices the card is a dead button, and the rookie kit is only ever pitched once: wait for the store.
             if (!_iap.IsReady)
                 return null;
+
+            // The catch that proves the game is worth it outranks the rookie kit: it happens once.
+            if (captured && _premium.IsCatchMoment)
+            {
+                _premium.MarkShown();
+                return _premium.Product;
+            }
 
             if (_starter.ShouldAnnounce(escaped))
             {

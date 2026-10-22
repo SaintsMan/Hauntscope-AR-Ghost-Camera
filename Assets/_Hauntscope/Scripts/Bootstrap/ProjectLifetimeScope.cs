@@ -15,6 +15,7 @@ using Hauntscope.Gameplay.Onboarding;
 using Hauntscope.Gameplay.Photo;
 using Hauntscope.Gameplay.Season;
 using Hauntscope.Gameplay.Progress;
+using Hauntscope.Gameplay.Promo;
 using Hauntscope.Gameplay.Research;
 using Hauntscope.Gameplay.Store;
 using Hauntscope.Gameplay.Story;
@@ -30,6 +31,7 @@ using Hauntscope.Infrastructure.Notifications;
 using Hauntscope.Infrastructure.Permissions;
 using Hauntscope.Infrastructure.Photos;
 using Hauntscope.Infrastructure.PlayStore;
+using Hauntscope.Infrastructure.Promo;
 using Hauntscope.Infrastructure.Purchases;
 using Hauntscope.Infrastructure.Random;
 using Hauntscope.Infrastructure.Remote;
@@ -74,6 +76,7 @@ namespace Hauntscope.Bootstrap
             RegisterLaunch(builder);
             RegisterPlayStore(builder);
             RegisterPurchases(builder);
+            RegisterPromo(builder);
             RegisterAds(builder);
             RegisterNotifications(builder);
             RegisterPhotos(builder);
@@ -131,6 +134,7 @@ namespace Hauntscope.Bootstrap
             builder.RegisterInstance(_gameConfig.LiveOps);
             builder.RegisterInstance(_gameConfig.Onboarding);
             builder.RegisterInstance(_gameConfig.Halloween);
+            builder.RegisterInstance(_gameConfig.Promo);
             builder.RegisterInstance(DemoSwitchesFile.Read(Application.persistentDataPath));
         }
 
@@ -194,6 +198,8 @@ namespace Hauntscope.Bootstrap
                 album.Restore(resolver.Resolve<PhotoAlbumRepository>().Load());
                 return album;
             }, Lifetime.Singleton);
+            builder.Register<FilmStockRepository>(Lifetime.Singleton);
+            builder.Register(resolver => resolver.Resolve<FilmStockRepository>().Load(), Lifetime.Singleton);
             builder.Register<PhotoTextures>(Lifetime.Singleton);
             builder.Register<ContractDescriber>(Lifetime.Singleton);
             builder.Register<PhotoSharing>(Lifetime.Singleton);
@@ -222,13 +228,18 @@ namespace Hauntscope.Bootstrap
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
             builder.Register<FirebaseGate>(Lifetime.Singleton);
+            builder.Register<AndroidInstallInfo>(Lifetime.Singleton).As<IInstallInfo>();
             builder.RegisterEntryPoint<FirebaseAnalyticsService>().As<IAnalyticsService>();
-            builder.RegisterEntryPoint<FirebaseCrashReporter>().As<ICrashReporter>();
+            builder.RegisterEntryPoint<FirebaseCrashReporter>().AsSelf();
+            builder.Register<ICrashReporter>(resolver => new OncePerSessionCrashReporter(resolver.Resolve<FirebaseCrashReporter>()),
+                Lifetime.Singleton);
 #else
             builder.Register<NullAnalyticsService>(Lifetime.Singleton).As<IAnalyticsService>();
+            builder.Register<NullInstallInfo>(Lifetime.Singleton).As<IInstallInfo>();
             builder.Register<NullCrashReporter>(Lifetime.Singleton).As<ICrashReporter>();
 #endif
             builder.RegisterEntryPoint<PlayerAnalytics>();
+            builder.RegisterEntryPoint<FirstCaptureAnalytics>();
             builder.Register<OnboardingFunnel>(Lifetime.Singleton);
             builder.RegisterEntryPoint<CrashReportContext>();
             builder.RegisterEntryPoint<UnfinishedHuntLog>().AsSelf();
@@ -274,7 +285,9 @@ namespace Hauntscope.Bootstrap
         {
             builder.Register<SystemClock>(Lifetime.Singleton).As<IClock>();
             builder.Register<WitchingHour>(Lifetime.Singleton);
-            builder.Register<AdPacing>(Lifetime.Singleton);
+            builder.Register<AdPacingRepository>(Lifetime.Singleton);
+            builder.Register(resolver => resolver.Resolve<AdPacingRepository>().Load(), Lifetime.Singleton);
+            builder.RegisterEntryPoint<AdPacingSaver>();
 #if UNITY_ANDROID && !UNITY_EDITOR
             builder.Register<AdMobAdsService>(Lifetime.Singleton).AsSelf().As<IAdPrivacy>().As<IAdsInitReport>();
             builder.Register(resolver => new PremiumAdsService(new PacedAdsService(resolver.Resolve<AdMobAdsService>(),
@@ -306,6 +319,19 @@ namespace Hauntscope.Bootstrap
             builder.Register<PremiumOffer>(Lifetime.Singleton);
             builder.Register<OfferMoments>(Lifetime.Singleton);
             builder.Register<OfferFunnel>(Lifetime.Singleton);
+        }
+
+        // Promo codes from the studio's socials (LiveOps/Promo): the server, the codes already paid, one handler per reward type.
+        private static void RegisterPromo(IContainerBuilder builder)
+        {
+            builder.Register<HttpPromoServer>(Lifetime.Singleton).As<IPromoServer>();
+            builder.Register<PromoLedgerRepository>(Lifetime.Singleton);
+            builder.Register(resolver => resolver.Resolve<PromoLedgerRepository>().Load(), Lifetime.Singleton);
+            builder.Register<EctoplasmPromoReward>(Lifetime.Singleton).As<IPromoRewardHandler>();
+            builder.Register<FilmPromoReward>(Lifetime.Singleton).As<IPromoRewardHandler>();
+            builder.Register<GearPromoReward>(Lifetime.Singleton).As<IPromoRewardHandler>();
+            builder.Register<PremiumPromoReward>(Lifetime.Singleton).As<IPromoRewardHandler>();
+            builder.Register<PromoRedeemer>(Lifetime.Singleton);
         }
 
         private static void RegisterNotifications(IContainerBuilder builder)
